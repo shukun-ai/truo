@@ -5,7 +5,7 @@ import { SourceService } from '../source.service';
 
 @Injectable()
 export class VariableService {
-  @Inject() private readonly sourceService: SourceService<SystemVariableModel>;
+  @Inject() private readonly sourceService!: SourceService<SystemVariableModel>;
 
   async findAll(orgName: string): Promise<SystemVariableModel[]> {
     // @todo should add cache

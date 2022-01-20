@@ -33,7 +33,7 @@ export type ExecuteLogParams = {
 @Injectable()
 export class WebhookLogService {
   @Inject()
-  private readonly workflowExecutionService: SourceService<SystemWorkflowExecutionModel>;
+  private readonly workflowExecutionService!: SourceService<SystemWorkflowExecutionModel>;
 
   createExecuteLog(params: Omit<ExecuteLogParams, 'logs'>): CreateLog {
     const logs: WorkflowLogItem[] = [];

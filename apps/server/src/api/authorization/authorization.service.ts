@@ -24,10 +24,10 @@ import { ResourceNodes } from './authorization.interface';
 @Injectable()
 export class AuthorizationService {
   @Inject()
-  private readonly jwtService: JwtService;
+  private readonly jwtService!: JwtService;
 
   @Inject()
-  private readonly securityService: SecurityService;
+  private readonly securityService!: SecurityService;
 
   async validateResource(
     resourceNodes: ResourceNodes,

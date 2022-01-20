@@ -18,7 +18,7 @@ import { ResourceType } from '../api.type';
 @UseInterceptors(QueryResponseInterceptor)
 export class GrantRoleController {
   @Inject()
-  private readonly securityService: SecurityService;
+  private readonly securityService!: SecurityService;
 
   @Get()
   async index(

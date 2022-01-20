@@ -5,7 +5,7 @@ import { OrgService } from './org.service';
 
 @Injectable()
 export class RoleService {
-  @Inject() private readonly orgService: OrgService;
+  @Inject() private readonly orgService!: OrgService;
 
   async findAll(orgName: string): Promise<RoleSchema[]> {
     const application = await this.orgService.findCodebaseByOrgName(orgName);

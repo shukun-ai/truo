@@ -25,13 +25,13 @@ import { SeedCreateDto } from './seed.dto';
 @UseInterceptors(QueryResponseInterceptor)
 export class SeedController {
   @Inject()
-  private readonly orgService: OrgService;
+  private readonly orgService!: OrgService;
 
   @Inject()
-  private readonly systemUserService: SourceService<SystemUserModel>;
+  private readonly systemUserService!: SourceService<SystemUserModel>;
 
   @Inject()
-  private readonly systemPositionService: SourceService<SystemPositionModel>;
+  private readonly systemPositionService!: SourceService<SystemPositionModel>;
 
   @Post()
   async createNewOrg(

@@ -24,19 +24,19 @@ import {
 @Injectable()
 export class SecurityService {
   @Inject()
-  private readonly systemUserService: SourceService<SystemUserModel>;
+  private readonly systemUserService!: SourceService<SystemUserModel>;
 
   @Inject()
-  private readonly systemGroupService: SourceService<SystemGroupModel>;
+  private readonly systemGroupService!: SourceService<SystemGroupModel>;
 
   @Inject()
-  private readonly systemPositionService: SourceService<SystemPositionModel>;
+  private readonly systemPositionService!: SourceService<SystemPositionModel>;
 
   @Inject()
-  private readonly roleService: RoleService;
+  private readonly roleService!: RoleService;
 
   @Inject()
-  private readonly jwtService: JwtService;
+  private readonly jwtService!: JwtService;
 
   async getUser(orgName: string, userId: string) {
     const user = await this.systemUserService.findOne(

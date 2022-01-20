@@ -18,10 +18,10 @@ import { ResourceType } from '../api.type';
 @UseInterceptors(QueryResponseInterceptor)
 export class ViewController {
   @Inject()
-  private readonly viewService: ViewService;
+  private readonly viewService!: ViewService;
 
   @Inject()
-  private readonly variableService: VariableService;
+  private readonly variableService!: VariableService;
 
   @Get('views')
   async index(

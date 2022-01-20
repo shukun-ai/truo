@@ -19,10 +19,10 @@ import { getFieldInstance } from './electron/fields-map';
 @Injectable()
 export class SourceSchemaUtilService {
   @InjectConnection()
-  private readonly connection: Connection;
+  private readonly connection!: Connection;
 
   @Inject()
-  private readonly orgService: OrgService;
+  private readonly orgService!: OrgService;
 
   async getAtomModel<Model>(
     orgName: string,

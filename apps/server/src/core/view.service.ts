@@ -5,7 +5,7 @@ import { OrgService } from './org.service';
 
 @Injectable()
 export class ViewService {
-  @Inject() private readonly orgService: OrgService;
+  @Inject() private readonly orgService!: OrgService;
 
   async findAll(orgName: string): Promise<ViewSchema[]> {
     const application = await this.orgService.findCodebaseByOrgName(orgName);

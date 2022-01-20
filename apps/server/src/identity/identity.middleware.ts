@@ -15,7 +15,7 @@ import { parseToken } from './utils/security.utils';
 @Injectable()
 export class IdentityMiddleware implements NestMiddleware {
   @Inject()
-  private readonly jwtService: JwtService;
+  private readonly jwtService!: JwtService;
 
   use(req: Request, res: Response, next: NextFunction) {
     const token = parseToken(req.headers.authorization);

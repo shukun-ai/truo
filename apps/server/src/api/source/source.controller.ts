@@ -28,13 +28,13 @@ import { SourceAccessControlService } from './source-access-control.service';
 @UseInterceptors(QueryResponseInterceptor)
 export class SourceController {
   @Inject()
-  private readonly sourceService: SourceService<any>;
+  private readonly sourceService!: SourceService<any>;
 
   @Inject()
-  private readonly sourceAccessControlService: SourceAccessControlService;
+  private readonly sourceAccessControlService!: SourceAccessControlService;
 
   @Inject()
-  private readonly securityService: SecurityService;
+  private readonly securityService!: SecurityService;
 
   @Get('metadata')
   async metadata(

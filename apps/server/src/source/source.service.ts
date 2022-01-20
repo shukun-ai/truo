@@ -18,10 +18,10 @@ import { SourceSchemaUtilService } from './source-schema-util.service';
 @Injectable()
 export class SourceService<Model> {
   @Inject()
-  private readonly metadataService: MetadataService;
+  private readonly metadataService!: MetadataService;
 
   @Inject()
-  private readonly sourceSchemaUtilService: SourceSchemaUtilService;
+  private readonly sourceSchemaUtilService!: SourceSchemaUtilService;
 
   async createOne(
     orgName: string,

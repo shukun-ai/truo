@@ -23,7 +23,7 @@ interface Parameters {
 
 export class WorkflowResolverService implements Resolver {
   @Inject()
-  private readonly workflowService: WorkflowService;
+  private readonly workflowService!: WorkflowService;
 
   validateParameters() {
     return true;
