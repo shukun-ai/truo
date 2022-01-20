@@ -13,7 +13,7 @@ import { CreateDto } from './org/org.types';
 @Injectable()
 export class OrgService {
   @InjectModel(OrgDocumentName)
-  private readonly orgModel: Model<OrgDocument>;
+  private readonly orgModel!: Model<OrgDocument>;
 
   async findOrgId(orgName: string): Promise<IDString> {
     const org = await this.orgModel

@@ -8,7 +8,7 @@ import { InputOrOutput } from '../../util/workflow/types';
 import { Resolver } from './resolver.interface';
 
 export class SourceResolverService implements Resolver {
-  @Inject() private readonly sourceService: SourceService<any>;
+  @Inject() private readonly sourceService!: SourceService<any>;
 
   validateParameters() {
     return true;

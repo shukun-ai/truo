@@ -12,15 +12,15 @@ import { WorkflowResolverService } from './resolvers/workflow-resolver.service';
 import { Resource, ResourceOptions } from './resource.interface';
 
 export class ResourceService implements Resource {
-  @Inject() private readonly sourceResolverService: SourceResolverService;
+  @Inject() private readonly sourceResolverService!: SourceResolverService;
 
-  @Inject() private readonly httpResolverService: HttpResolverService;
+  @Inject() private readonly httpResolverService!: HttpResolverService;
 
-  @Inject() private readonly workflowResolverService: WorkflowResolverService;
+  @Inject() private readonly workflowResolverService!: WorkflowResolverService;
 
-  @Inject() private readonly passportResolverService: PassportResolverService;
+  @Inject() private readonly passportResolverService!: PassportResolverService;
 
-  @Inject() private readonly codeResolverService: CodeResolverService;
+  @Inject() private readonly codeResolverService!: CodeResolverService;
 
   createExecution(orgName: string, options?: ResourceOptions) {
     const { operatorId } = options || {};

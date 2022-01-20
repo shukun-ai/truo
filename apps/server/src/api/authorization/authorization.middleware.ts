@@ -1,5 +1,4 @@
 import { NestMiddleware, Injectable, Inject } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { Request, Response, NextFunction } from 'express';
 import { parseToken } from '../../identity/utils/security.utils';
 
@@ -9,10 +8,7 @@ import { getResourceNodes } from './authorization.utils';
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
   @Inject()
-  private readonly jwtService: JwtService;
-
-  @Inject()
-  private readonly authorizationService: AuthorizationService;
+  private readonly authorizationService!: AuthorizationService;
 
   async use(req: Request, res: Response, next: NextFunction) {
     const method = req.method;

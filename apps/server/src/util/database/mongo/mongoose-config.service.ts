@@ -8,7 +8,7 @@ import {
 @Injectable()
 export class MongooseConfigService implements MongooseOptionsFactory {
   @Inject()
-  private readonly configService: ConfigService;
+  private readonly configService!: ConfigService;
 
   createMongooseOptions(): MongooseModuleOptions {
     return {

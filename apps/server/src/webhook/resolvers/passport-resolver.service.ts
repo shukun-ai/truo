@@ -17,13 +17,13 @@ interface Parameters {
 
 export class PassportResolverService implements Resolver {
   @Inject()
-  private readonly systemUserService: SourceService<SystemUserModel>;
+  private readonly systemUserService!: SourceService<SystemUserModel>;
 
   @Inject()
-  private readonly orgService: OrgService;
+  private readonly orgService!: OrgService;
 
   @Inject()
-  private readonly securityService: SecurityService;
+  private readonly securityService!: SecurityService;
 
   validateParameters() {
     return true;

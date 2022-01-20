@@ -5,7 +5,7 @@ import { OrgService } from './org.service';
 
 @Injectable()
 export class MetadataService {
-  @Inject() private readonly orgService: OrgService;
+  @Inject() private readonly orgService!: OrgService;
 
   async getMetadataByName(
     orgName: string,

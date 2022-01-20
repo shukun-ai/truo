@@ -20,7 +20,7 @@ import { getResourceNodes } from './authorization.utils';
 @ApiBearerAuth()
 export class AuthorizationController {
   @Inject()
-  private readonly authorizationService: AuthorizationService;
+  private readonly authorizationService!: AuthorizationService;
 
   @Get('/validate')
   @ApiHeaders([

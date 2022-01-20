@@ -24,13 +24,13 @@ import { SignInDto } from './dto/sign-in.dto';
 @UseInterceptors(QueryResponseInterceptor)
 export class AuthenticationController {
   @Inject()
-  private readonly securityService: SecurityService;
+  private readonly securityService!: SecurityService;
 
   @Inject()
-  private readonly systemUserService: SourceService<SystemUserModel>;
+  private readonly systemUserService!: SourceService<SystemUserModel>;
 
   @Inject()
-  private readonly orgService: OrgService;
+  private readonly orgService!: OrgService;
 
   @Post('jwt')
   async signIn(

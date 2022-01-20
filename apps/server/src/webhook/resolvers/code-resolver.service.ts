@@ -11,7 +11,7 @@ import { Scope } from './code-resolver.interface';
 import { Resolver } from './resolver.interface';
 
 export class CodeResolverService implements Resolver {
-  @Inject() private readonly sourceService: SourceService<any>;
+  @Inject() private readonly sourceService!: SourceService<any>;
 
   validateParameters() {
     return true;

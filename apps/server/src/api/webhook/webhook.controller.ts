@@ -25,13 +25,13 @@ import { ResourceType } from '../api.type';
 @UseInterceptors(QueryResponseInterceptor)
 export class WebhookController {
   @Inject()
-  private readonly resourceService: ResourceService;
+  private readonly resourceService!: ResourceService;
 
   @Inject()
-  private readonly workflowService: WorkflowService;
+  private readonly workflowService!: WorkflowService;
 
   @Inject()
-  private readonly webhookLogService: WebhookLogService;
+  private readonly webhookLogService!: WebhookLogService;
 
   // @deprecated for security.
   // @Post('/:workflowName/test')

@@ -16,7 +16,7 @@ import { ResourceType } from '../api.type';
 @UseInterceptors(QueryResponseInterceptor)
 export class OrgController {
   @Inject()
-  private readonly orgService: OrgService;
+  private readonly orgService!: OrgService;
 
   @Get()
   async index(

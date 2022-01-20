@@ -15,7 +15,7 @@ import { ResourceType } from '../api.type';
 @UseInterceptors(QueryResponseInterceptor)
 export class RoleController {
   @Inject()
-  private readonly roleService: RoleService;
+  private readonly roleService!: RoleService;
 
   @Get()
   async index(

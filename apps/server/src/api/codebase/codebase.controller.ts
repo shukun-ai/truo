@@ -29,7 +29,7 @@ import { OrgNamePipe } from '../org/org-name.pipe';
 @ApiBearerAuth()
 export class CodebaseController {
   @Inject()
-  private readonly orgService: OrgService;
+  private readonly orgService!: OrgService;
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
