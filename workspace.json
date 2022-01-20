@@ -1,4 +1,6 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "web-engine": "apps/web-engine"
+  }
 }
