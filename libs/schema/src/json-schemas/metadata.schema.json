@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "MetadataSchema",
+  "description": "Metadata management",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "label", "electrons"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "label": {
+      "type": "string"
+    },
+    "electrons": {
+      "type": "array",
+      "items": {
+        "title": "MetadataElectron",
+        "type": "object",
+        "required": ["name", "label", "fieldType", "isRequired"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "fieldType": {
+            "type": "string",
+            "title": "MetadataFieldType",
+            "enum": [
+              "Text",
+              "NameText",
+              "LargeText",
+              "SingleSelect",
+              "MultiSelect",
+              "Boolean",
+              "DateTime",
+              "Integer",
+              "Float",
+              "Currency",
+              "Password",
+              "ManyToMany",
+              "ManyToOne",
+              "Owner",
+              "Attachment",
+              "Mixed",
+              "Role"
+            ],
+            "tsEnumNames": [
+              "Text",
+              "NameText",
+              "LargeText",
+              "SingleSelect",
+              "MultiSelect",
+              "Boolean",
+              "DateTime",
+              "Integer",
+              "Float",
+              "Currency",
+              "Password",
+              "ManyToMany",
+              "ManyToOne",
+              "Owner",
+              "Attachment",
+              "Mixed",
+              "Role"
+            ]
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "referenceTo": {
+            "type": "string"
+          },
+          "foreignName": {
+            "type": "string"
+          },
+          "isUnique": {
+            "type": "boolean"
+          },
+          "isIndexed": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "precision": {
+            "type": "number"
+          },
+          "scale": {
+            "type": "number"
+          },
+          "defaultValue": {},
+          "isNegative": {
+            "type": "boolean"
+          },
+          "minLength": {
+            "type": "number"
+          },
+          "maxLength": {
+            "type": "number"
+          },
+          "options": {
+            "title": "MetadataOptions",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["key", "label"],
+              "additionalProperties": false,
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "passwordOptions": {
+            "title": "MetadataPasswordOptions",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "requireNumber": {
+                "type": "number"
+              },
+              "requireCharacter": {
+                "type": "boolean"
+              },
+              "requireUppercase": {
+                "type": "boolean"
+              },
+              "requireLowercase": {
+                "type": "boolean"
+              }
+            }
+          },
+          "currencyOptions": {
+            "title": "MetadataCurrencyOptions",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "scale": {
+                "type": "number"
+              }
+            }
+          },
+          "attachmentOptions": {
+            "title": "MetadataAttachmentOptions",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "allowedMime": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "limitSize": {
+                "type": "number"
+              },
+              "limitUpload": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

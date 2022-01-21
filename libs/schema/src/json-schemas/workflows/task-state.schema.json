@@ -1,0 +1,671 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WorkflowTaskState",
+  "type": "object",
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "$ref": "#/definitions/base"
+    },
+    {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/TaskStateSourceCreateOne"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceUpdateOne"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceFindOne"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceFindAll"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceCount"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceDeleteOne"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceAddToMany"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceRemoveFromMany"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceIncrease"
+        },
+        {
+          "$ref": "#/definitions/TaskStateSourceDecrease"
+        },
+        {
+          "$ref": "#/definitions/TaskStateHttp"
+        },
+        {
+          "$ref": "#/definitions/TaskStateWorkflow"
+        },
+        {
+          "$ref": "#/definitions/TaskStateWorkflowMap"
+        },
+        {
+          "$ref": "#/definitions/TaskStatePassport"
+        },
+        {
+          "$ref": "#/definitions/TaskStateCode"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "base": {
+      "type": "object",
+      "required": [
+        "type",
+        "resource"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Task"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "end": {
+          "type": "boolean"
+        },
+        "next": {
+          "type": "string"
+        },
+        "inputPath": {
+          "type": "string"
+        },
+        "resultSelector": {
+          "type": "object"
+        },
+        "resultPath": {
+          "type": "string"
+        },
+        "outputPath": {
+          "type": "string"
+        },
+        "retry": {
+          "$ref": "retries.schema.json"
+        },
+        "catch": {
+          "$ref": "catches.schema.json"
+        },
+        "timeoutSeconds": {
+          "type": "integer"
+        },
+        "timeoutSecondsPath": {
+          "type": "string"
+        },
+        "heartbeatSeconds": {
+          "type": "integer"
+        },
+        "heartbeatSecondsPath": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      }
+    },
+    "TaskStateSourceCreateOne": {
+      "title": "TaskStateSourceCreateOne",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:createOne"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "atomName": {
+              "type": "string"
+            },
+            "atomName.$": {
+              "type": "string"
+            },
+            "data": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceUpdateOne": {
+      "title": "TaskStateSourceUpdateOne",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:updateOne"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "atomName": {
+              "type": "string"
+            },
+            "data": {
+              "type": "object"
+            },
+            "id.$": {
+              "type": "string"
+            },
+            "atomName.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceFindOne": {
+      "title": "TaskStateSourceFindOne",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:findOne"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "atomName": {
+              "type": "string"
+            },
+            "query": {
+              "type": "object"
+            },
+            "atomName.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceFindAll": {
+      "title": "TaskStateSourceFindAll",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:findAll"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "atomName": {
+              "type": "string"
+            },
+            "query": {
+              "type": "object"
+            },
+            "atomName.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceCount": {
+      "title": "TaskStateSourceCount",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:count"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "atomName": {
+              "type": "string"
+            },
+            "query": {
+              "type": "object"
+            },
+            "atomName.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceDeleteOne": {
+      "title": "TaskStateSourceDeleteOne",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:deleteOne"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "atomName": {
+              "type": "string"
+            },
+            "query": {
+              "type": "object"
+            },
+            "atomName.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceAddToMany": {
+      "title": "TaskStateSourceAddToMany",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:addToMany"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "atomName": {
+              "type": "string"
+            },
+            "electronName": {
+              "type": "string"
+            },
+            "foreignId": {
+              "type": "string"
+            },
+            "id.$": {
+              "type": "string"
+            },
+            "atomName.$": {
+              "type": "string"
+            },
+            "electronName.$": {
+              "type": "string"
+            },
+            "foreignId.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceRemoveFromMany": {
+      "title": "TaskStateSourceRemoveFromMany",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:removeFromMany"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "atomName": {
+              "type": "string"
+            },
+            "electronName": {
+              "type": "string"
+            },
+            "foreignId": {
+              "type": "string"
+            },
+            "id.$": {
+              "type": "string"
+            },
+            "atomName.$": {
+              "type": "string"
+            },
+            "electronName.$": {
+              "type": "string"
+            },
+            "foreignId.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceIncrease": {
+      "title": "TaskStateSourceIncrease",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:increase"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "atomName": {
+              "type": "string"
+            },
+            "electronName": {
+              "type": "string"
+            },
+            "increment": {
+              "type": "number"
+            },
+            "id.$": {
+              "type": "string"
+            },
+            "atomName.$": {
+              "type": "string"
+            },
+            "electronName.$": {
+              "type": "string"
+            },
+            "increment.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateSourceDecrease": {
+      "title": "TaskStateSourceDecrease",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "source:decrease"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "atomName": {
+              "type": "string"
+            },
+            "electronName": {
+              "type": "string"
+            },
+            "increment": {
+              "type": "number"
+            },
+            "id.$": {
+              "type": "string"
+            },
+            "atomName.$": {
+              "type": "string"
+            },
+            "electronName.$": {
+              "type": "string"
+            },
+            "increment.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateHttp": {
+      "title": "TaskStateHttp",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "http"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string",
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "PATCH"
+              ]
+            },
+            "headers": {
+              "type": "object"
+            },
+            "query": {
+              "type": "object"
+            },
+            "data": {
+              "type": "object"
+            },
+            "url.$": {
+              "type": "string"
+            },
+            "method.$": {
+              "type": "string"
+            },
+            "headers.$": {
+              "type": "string"
+            },
+            "query.$": {
+              "type": "string"
+            },
+            "data.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateWorkflow": {
+      "title": "TaskStateWorkflow",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "workflow"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "workflowName": {
+              "type": "string"
+            },
+            "body": {
+              "type": "object"
+            },
+            "headers": {
+              "type": "object"
+            },
+            "workflowName.$": {
+              "type": "string"
+            },
+            "body.$": {
+              "type": "string"
+            },
+            "headers.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateWorkflowMap": {
+      "title": "TaskStateWorkflowMap",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "workflow:map"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "workflowName": {
+              "type": "string"
+            },
+            "items": {
+              "type": "array"
+            },
+            "body": {
+              "type": "object"
+            },
+            "headers": {
+              "type": "object"
+            },
+            "workflowName.$": {
+              "type": "string"
+            },
+            "items.$": {
+              "type": "string"
+            },
+            "body.$": {
+              "type": "string"
+            },
+            "headers.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStatePassport": {
+      "title": "TaskStatePassport",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "passport:jwt"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "userId": {
+              "type": "string"
+            },
+            "expiresIn": {
+              "type": "number"
+            },
+            "userId.$": {
+              "type": "string"
+            },
+            "expiresIn.$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TaskStateCode": {
+      "title": "TaskStateCode",
+      "type": "object",
+      "required": [
+        "resource",
+        "parameters"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "const": "code:js"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["code"],
+          "properties": {
+            "code": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

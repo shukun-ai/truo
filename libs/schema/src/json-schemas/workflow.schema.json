@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WorkflowSchema",
+  "description": "Describe Workflow Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "description": {
+      "type": "string"
+    },
+    "isEnabledWebhook": {
+      "type": "boolean"
+    },
+    "validations": {},
+    "configurations": {
+      "$ref": "workflows/configurations.schema.json"
+    }
+  }
+}

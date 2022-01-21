@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WorkflowPassState",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "const": "Pass"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "end": {
+      "type": "boolean"
+    },
+    "next": {
+      "type": "string"
+    },
+    "inputPath": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "resultSelector": {
+      "type": "object"
+    },
+    "resultPath": {
+      "type": "string"
+    },
+    "outputPath": {
+      "type": "string"
+    },
+    "result": {
+      "type": "object"
+    },
+    "x": {
+      "type": "number"
+    },
+    "y": {
+      "type": "number"
+    }
+  }
+}

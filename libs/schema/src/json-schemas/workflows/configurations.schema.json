@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "WorkflowConfigurations",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["startAt", "states"],
+    "properties": {
+      "startAt": {
+        "type": "string"
+      },
+      "comments": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "timeoutSeconds": {
+        "type": "integer"
+      },
+      "startX": {
+        "type": "number"
+      },
+      "startY": {
+        "type": "number"
+      },
+      "endX": {
+        "type": "number"
+      },
+      "endY": {
+        "type": "number"
+      },
+      "states": {
+        "title": "WorkflowState",
+        "type": "object",
+        "additionalProperties": false,
+        "minProperties": 1,
+        "patternProperties": {
+          "^(\\w)+$": {
+            "type": "object",
+            "additionalProperties": true,
+            "oneOf": [
+              {
+                "$ref": "pass-state.schema.json"
+              },
+              {
+                "$ref": "task-state.schema.json"
+              },
+              {
+                "$ref": "choice-state.schema.json"
+              },
+              {
+                "$ref": "fail-state.schema.json"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }

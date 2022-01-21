@@ -1,0 +1,113 @@
+{
+  "startAt": "findVerifyCode",
+  "states": {
+    "findVerifyCode": {
+      "type": "Task",
+      "resource": "source:findOne",
+      "parameters": {
+        "atomName": "verify_codes",
+        "query": {
+          "filter": {
+            "email.$": "$.body.email",
+            "code.$": "$.body.verifyCode",
+            "usedAt": null,
+            "expiredAt": {
+              "_$gt.$": "States.now()"
+            }
+          }
+        }
+      },
+      "catch": [
+        {
+          "errorEquals": [
+            "NotFoundException"
+          ],
+          "next": "showVerifyError"
+        }
+      ],
+      "resultPath": "$.verifyCode",
+      "next": "findPosition",
+      "x": 0,
+      "y": 20
+    },
+    "findPosition": {
+      "type": "Task",
+      "resource": "source:findOne",
+      "parameters": {
+        "atomName": "system__positions",
+        "query": {
+          "filter": {
+            "name": "registered"
+          }
+        }
+      },
+      "resultPath": "$.position",
+      "next": "saveUser",
+      "x": -200,
+      "y": 140
+    },
+    "saveUser": {
+      "type": "Task",
+      "resource": "source:createOne",
+      "parameters": {
+        "atomName": "system__users",
+        "data": {
+          "username.$": "$.body.email",
+          "password.$": "$.body.password",
+          "companyName.$": "$.body.companyName",
+          "employeeNumber.$": "$.body.employeeNumber",
+          "displayName.$": "$.body.userName"
+        }
+      },
+      "next": "saveUserPosition",
+      "resultPath": "$.user",
+      "x": -200,
+      "y": 220
+    },
+    "saveUserPosition": {
+      "type": "Task",
+      "resource": "source:addToMany",
+      "parameters": {
+        "atomName": "system__positions",
+        "id.$": "$.position._id",
+        "electronName": "users",
+        "foreignId.$": "$.user._id"
+      },
+      "next": "useVerifyCode",
+      "x": -200,
+      "y": 300
+    },
+    "useVerifyCode": {
+      "type": "Task",
+      "resource": "source:updateOne",
+      "parameters": {
+        "atomName": "verify_codes",
+        "id.$": "$.verifyCode._id",
+        "data": {
+          "usedAt.$": "States.now()"
+        }
+      },
+      "next": "filterOutput",
+      "x": -200,
+      "y": 380
+    },
+    "filterOutput": {
+      "type": "Pass",
+      "end": true,
+      "outputPath": "$.user",
+      "x": -200,
+      "y": 460
+    },
+    "showVerifyError": {
+      "type": "Fail",
+      "error": "BadRequest",
+      "cause": "您输入的验证码无效，请重新尝试。",
+      "x": 220,
+      "y": 320
+    }
+  },
+  "startX": 100,
+  "startY": -60,
+  "endX": 100,
+  "endY": 580
+}

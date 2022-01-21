@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ApplicationSchema",
+  "description": "Describe a Shukun Application",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "array",
+      "items": {
+        "$ref": "metadata.schema.json"
+      }
+    },
+    "views": {
+      "type": "array",
+      "items": {
+        "$ref": "view.schema.json"
+      }
+    },
+    "workflows": {
+      "type": "array",
+      "items": {
+        "$ref": "workflow.schema.json"
+      }
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "$ref": "role.schema.json"
+      }
+    }
+  }
+}
