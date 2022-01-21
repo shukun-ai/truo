@@ -5,12 +5,12 @@ export class SignInDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
-  readonly username: string;
+  readonly username!: string;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
   @MaxLength(30)
   @ApiProperty()
-  readonly password: string;
+  readonly password!: string;
 }

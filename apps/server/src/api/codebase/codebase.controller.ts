@@ -47,6 +47,8 @@ export class CodebaseController {
   })
   async import(
     @Param('orgName', OrgNamePipe) orgId: IDString,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     @UploadedFile() file: Express.Multer.File,
   ): Promise<QueryResponse<null>> {
     const fileString = file.buffer.toString();

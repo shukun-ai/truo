@@ -8,10 +8,10 @@ export type OrgDocument = Org & Document;
 @Schema({ collection: OrgDocumentName, timestamps: true })
 export class Org {
   @Prop({ required: true, unique: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true })
-  label: string;
+  label!: string;
 
   @Prop()
   lightLogo?: string;

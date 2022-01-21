@@ -13,10 +13,10 @@ export interface WorkflowLogItem {
 }
 
 export class SystemWorkflowExecutionModel {
-  workflowName: string;
-  executedConfigurations: WorkflowConfigurations;
+  workflowName!: string;
+  executedConfigurations!: WorkflowConfigurations;
   logs?: WorkflowLogItem[];
-  mode: 'express' | 'test';
+  mode!: 'express' | 'test';
 }
 
 export interface CreateLog {
@@ -82,6 +82,7 @@ export class WebhookLogService {
         },
         operatorId || null,
       );
+    // eslint-disable-next-line no-empty
     } catch (error) {}
   }
 }

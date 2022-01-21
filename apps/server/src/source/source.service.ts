@@ -46,6 +46,8 @@ export class SourceService<Model> {
       ...owner,
     });
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const entity = new AtomModel(params);
     await entity.save({ checkKeys: false }); // forbid error when example: 'email.$'
 
