@@ -1,7 +1,8 @@
 import Ajv from "ajv";
-import { AttachmentsSchema } from "src/types/attachments";
+import { AttachmentsSchema } from "../../types/attachments";
 
-import * as attachmentsSchema from "../../json-schemas/attachments.schema.json";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const attachmentsSchema = require("../../json-schemas/attachments.schema.json");
 
 export const validateAttachmentsSchema = new Ajv().compile<AttachmentsSchema>(
   attachmentsSchema
