@@ -1,12 +1,12 @@
-import { initialApplication } from "../../json-exports";
+import { initialApplication } from '../../json-exports';
 import {
   ApplicationSchema,
   MetadataSchema,
   MetadataElectron,
-} from "../../types/application";
+} from '../../types/application';
 
 export function mergeDependencies(
-  current: ApplicationSchema
+  current: ApplicationSchema,
 ): ApplicationSchema {
   return {
     ...current,
@@ -24,7 +24,7 @@ export function mergeDependencies(
 
 export function mergeMetadata(
   current: MetadataSchema[],
-  dependency: MetadataSchema[]
+  dependency: MetadataSchema[],
 ) {
   const used: MetadataSchema[] = current.map((currentAtom) => {
     const electrons = currentAtom.electrons;
@@ -32,7 +32,7 @@ export function mergeMetadata(
     const unusedElectrons = getUnusedElectrons(
       electrons,
       currentAtom.name,
-      dependency
+      dependency,
     );
 
     return {
@@ -44,7 +44,7 @@ export function mergeMetadata(
   const usedAtomNames = used.map((atom) => atom.name);
 
   const unused = dependency.filter(
-    (dependencyAtom) => !usedAtomNames.includes(dependencyAtom.name)
+    (dependencyAtom) => !usedAtomNames.includes(dependencyAtom.name),
   );
 
   return [...used, ...unused];
@@ -53,14 +53,15 @@ export function mergeMetadata(
 function getUnusedElectrons(
   usedElectrons: MetadataElectron[],
   atomName: string,
-  dependency: MetadataSchema[]
+  dependency: MetadataSchema[],
 ): MetadataElectron[] {
   const dependencyAtom = dependency.find((atom) => atom.name === atomName);
 
   const usedElectronNames = usedElectrons.map((electron) => electron.name);
 
   const result = dependencyAtom?.electrons.filter(
-    (dependencyElectron) => !usedElectronNames.includes(dependencyElectron.name)
+    (dependencyElectron) =>
+      !usedElectronNames.includes(dependencyElectron.name),
   );
 
   return result || [];
@@ -68,12 +69,12 @@ function getUnusedElectrons(
 
 export function mergeNameArray<Schema extends { name: string }>(
   current: Schema[],
-  dependency: Schema[]
+  dependency: Schema[],
 ): Schema[] {
   const usedNames = current.map((item) => item.name);
 
   const unused = dependency.filter(
-    (dependencyItem) => !usedNames.includes(dependencyItem.name)
+    (dependencyItem) => !usedNames.includes(dependencyItem.name),
   );
 
   return [...current, ...unused];

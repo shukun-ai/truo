@@ -1,7 +1,10 @@
 {
   "name": "@shukun/schema",
   "version": "1.0.1",
-  "files": ["package.json", "src/**/*"],
+  "files": [
+    "package.json",
+    "src/**/*"
+  ],
   "author": "SHUKUN TECHNOLOGY",
   "license": "MIT"
 }

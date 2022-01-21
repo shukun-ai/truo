@@ -3,14 +3,8 @@ import { QueryParserOptions } from '../../util/query/interfaces';
 
 export interface Scope {
   source: {
-    findAll: <T>(
-      atomName: string,
-      query: QueryParserOptions,
-    ) => Promise<T[]>;
-    findOne: <T>(
-      atomName: string,
-      query: QueryParserOptions,
-    ) => Promise<T>;
+    findAll: <T>(atomName: string, query: QueryParserOptions) => Promise<T[]>;
+    findOne: <T>(atomName: string, query: QueryParserOptions) => Promise<T>;
     createOne: (
       atomName: string,
       data: SourceServiceCreateDto,

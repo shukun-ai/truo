@@ -82,7 +82,7 @@ export class WebhookLogService {
         },
         operatorId || null,
       );
-    // eslint-disable-next-line no-empty
+      // eslint-disable-next-line no-empty
     } catch (error) {}
   }
 }

@@ -12,7 +12,7 @@ export type MetadataOptions = {
   color?: string;
 }[];
 export type WorkflowTaskState = {
-  type: "Task";
+  type: 'Task';
   comment?: string;
   end?: boolean;
   next?: string;
@@ -281,10 +281,14 @@ export interface WorkflowState {
    * This interface was referenced by `WorkflowState`'s JSON-Schema definition
    * via the `patternProperty` "^(\w)+$".
    */
-  [k: string]: WorkflowPassState | WorkflowTaskState | WorkflowChoiceState | WorkflowFailState;
+  [k: string]:
+    | WorkflowPassState
+    | WorkflowTaskState
+    | WorkflowChoiceState
+    | WorkflowFailState;
 }
 export interface WorkflowPassState {
-  type: "Pass";
+  type: 'Pass';
   comment?: string;
   end?: boolean;
   next?: string;
@@ -305,10 +309,10 @@ export interface WorkflowPassState {
   [k: string]: unknown;
 }
 export interface TaskStateSourceCreateOne {
-  resource: "source:createOne";
+  resource: 'source:createOne';
   parameters: {
     atomName?: string;
-    "atomName.$"?: string;
+    'atomName.$'?: string;
     data?: {
       [k: string]: unknown;
     };
@@ -316,123 +320,123 @@ export interface TaskStateSourceCreateOne {
   [k: string]: unknown;
 }
 export interface TaskStateSourceUpdateOne {
-  resource: "source:updateOne";
+  resource: 'source:updateOne';
   parameters: {
     id?: string;
     atomName?: string;
     data?: {
       [k: string]: unknown;
     };
-    "id.$"?: string;
-    "atomName.$"?: string;
+    'id.$'?: string;
+    'atomName.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceFindOne {
-  resource: "source:findOne";
+  resource: 'source:findOne';
   parameters: {
     atomName?: string;
     query?: {
       [k: string]: unknown;
     };
-    "atomName.$"?: string;
+    'atomName.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceFindAll {
-  resource: "source:findAll";
+  resource: 'source:findAll';
   parameters: {
     atomName?: string;
     query?: {
       [k: string]: unknown;
     };
-    "atomName.$"?: string;
+    'atomName.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceCount {
-  resource: "source:count";
+  resource: 'source:count';
   parameters: {
     atomName?: string;
     query?: {
       [k: string]: unknown;
     };
-    "atomName.$"?: string;
+    'atomName.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceDeleteOne {
-  resource: "source:deleteOne";
+  resource: 'source:deleteOne';
   parameters: {
     atomName?: string;
     query?: {
       [k: string]: unknown;
     };
-    "atomName.$"?: string;
+    'atomName.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceAddToMany {
-  resource: "source:addToMany";
+  resource: 'source:addToMany';
   parameters: {
     id?: string;
     atomName?: string;
     electronName?: string;
     foreignId?: string;
-    "id.$"?: string;
-    "atomName.$"?: string;
-    "electronName.$"?: string;
-    "foreignId.$"?: string;
+    'id.$'?: string;
+    'atomName.$'?: string;
+    'electronName.$'?: string;
+    'foreignId.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceRemoveFromMany {
-  resource: "source:removeFromMany";
+  resource: 'source:removeFromMany';
   parameters: {
     id?: string;
     atomName?: string;
     electronName?: string;
     foreignId?: string;
-    "id.$"?: string;
-    "atomName.$"?: string;
-    "electronName.$"?: string;
-    "foreignId.$"?: string;
+    'id.$'?: string;
+    'atomName.$'?: string;
+    'electronName.$'?: string;
+    'foreignId.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceIncrease {
-  resource: "source:increase";
+  resource: 'source:increase';
   parameters: {
     id?: string;
     atomName?: string;
     electronName?: string;
     increment?: number;
-    "id.$"?: string;
-    "atomName.$"?: string;
-    "electronName.$"?: string;
-    "increment.$"?: string;
+    'id.$'?: string;
+    'atomName.$'?: string;
+    'electronName.$'?: string;
+    'increment.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateSourceDecrease {
-  resource: "source:decrease";
+  resource: 'source:decrease';
   parameters: {
     id?: string;
     atomName?: string;
     electronName?: string;
     increment?: number;
-    "id.$"?: string;
-    "atomName.$"?: string;
-    "electronName.$"?: string;
-    "increment.$"?: string;
+    'id.$'?: string;
+    'atomName.$'?: string;
+    'electronName.$'?: string;
+    'increment.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateHttp {
-  resource: "http";
+  resource: 'http';
   parameters: {
     url?: string;
-    method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
     headers?: {
       [k: string]: unknown;
     };
@@ -442,16 +446,16 @@ export interface TaskStateHttp {
     data?: {
       [k: string]: unknown;
     };
-    "url.$"?: string;
-    "method.$"?: string;
-    "headers.$"?: string;
-    "query.$"?: string;
-    "data.$"?: string;
+    'url.$'?: string;
+    'method.$'?: string;
+    'headers.$'?: string;
+    'query.$'?: string;
+    'data.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateWorkflow {
-  resource: "workflow";
+  resource: 'workflow';
   parameters: {
     workflowName?: string;
     body?: {
@@ -460,14 +464,14 @@ export interface TaskStateWorkflow {
     headers?: {
       [k: string]: unknown;
     };
-    "workflowName.$"?: string;
-    "body.$"?: string;
-    "headers.$"?: string;
+    'workflowName.$'?: string;
+    'body.$'?: string;
+    'headers.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateWorkflowMap {
-  resource: "workflow:map";
+  resource: 'workflow:map';
   parameters: {
     workflowName?: string;
     items?: unknown[];
@@ -477,26 +481,26 @@ export interface TaskStateWorkflowMap {
     headers?: {
       [k: string]: unknown;
     };
-    "workflowName.$"?: string;
-    "items.$"?: string;
-    "body.$"?: string;
-    "headers.$"?: string;
+    'workflowName.$'?: string;
+    'items.$'?: string;
+    'body.$'?: string;
+    'headers.$'?: string;
     [k: string]: unknown;
   };
   [k: string]: unknown;
 }
 export interface TaskStatePassport {
-  resource: "passport:jwt";
+  resource: 'passport:jwt';
   parameters: {
     userId?: string;
     expiresIn?: number;
-    "userId.$"?: string;
-    "expiresIn.$"?: string;
+    'userId.$'?: string;
+    'expiresIn.$'?: string;
   };
   [k: string]: unknown;
 }
 export interface TaskStateCode {
-  resource: "code:js";
+  resource: 'code:js';
   parameters: {
     code: string;
     [k: string]: unknown;
@@ -504,7 +508,7 @@ export interface TaskStateCode {
   [k: string]: unknown;
 }
 export interface WorkflowChoiceState {
-  type: "Choice";
+  type: 'Choice';
   comment?: string;
   inputPath?: string;
   outputPath?: string;
@@ -561,7 +565,7 @@ export interface WorkflowComparison {
   [k: string]: unknown;
 }
 export interface WorkflowFailState {
-  type: "Fail";
+  type: 'Fail';
   error: string;
   cause: string;
   x?: number;
@@ -586,114 +590,114 @@ export interface RolePermission {
 }
 
 export enum MetadataFieldType {
-  Text = "Text",
-  NameText = "NameText",
-  LargeText = "LargeText",
-  SingleSelect = "SingleSelect",
-  MultiSelect = "MultiSelect",
-  Boolean = "Boolean",
-  DateTime = "DateTime",
-  Integer = "Integer",
-  Float = "Float",
-  Currency = "Currency",
-  Password = "Password",
-  ManyToMany = "ManyToMany",
-  ManyToOne = "ManyToOne",
-  Owner = "Owner",
-  Attachment = "Attachment",
-  Mixed = "Mixed",
-  Role = "Role"
+  Text = 'Text',
+  NameText = 'NameText',
+  LargeText = 'LargeText',
+  SingleSelect = 'SingleSelect',
+  MultiSelect = 'MultiSelect',
+  Boolean = 'Boolean',
+  DateTime = 'DateTime',
+  Integer = 'Integer',
+  Float = 'Float',
+  Currency = 'Currency',
+  Password = 'Password',
+  ManyToMany = 'ManyToMany',
+  ManyToOne = 'ManyToOne',
+  Owner = 'Owner',
+  Attachment = 'Attachment',
+  Mixed = 'Mixed',
+  Role = 'Role',
 }
 export enum ViewType {
-  Simple = "Simple",
-  Tree = "Tree",
-  Calendar = "Calendar",
-  Gallery = "Gallery",
-  Custom = "Custom",
-  External = "External",
-  Link = "Link",
-  Menu = "Menu"
+  Simple = 'Simple',
+  Tree = 'Tree',
+  Calendar = 'Calendar',
+  Gallery = 'Gallery',
+  Custom = 'Custom',
+  External = 'External',
+  Link = 'Link',
+  Menu = 'Menu',
 }
 export enum ViewV2FieldType {
-  Text = "Text",
-  NameText = "NameText",
-  LargeText = "LargeText",
-  SingleSelect = "SingleSelect",
-  MultiSelect = "MultiSelect",
-  Boolean = "Boolean",
-  DateTime = "DateTime",
-  Integer = "Integer",
-  Float = "Float",
-  Currency = "Currency",
-  Password = "Password",
-  ManyToMany = "ManyToMany",
-  ManyToOne = "ManyToOne",
-  Owner = "Owner",
-  Attachment = "Attachment",
-  Mixed = "Mixed",
-  Role = "Role",
-  OneToMany = "OneToMany",
-  LinkText = "LinkText"
+  Text = 'Text',
+  NameText = 'NameText',
+  LargeText = 'LargeText',
+  SingleSelect = 'SingleSelect',
+  MultiSelect = 'MultiSelect',
+  Boolean = 'Boolean',
+  DateTime = 'DateTime',
+  Integer = 'Integer',
+  Float = 'Float',
+  Currency = 'Currency',
+  Password = 'Password',
+  ManyToMany = 'ManyToMany',
+  ManyToOne = 'ManyToOne',
+  Owner = 'Owner',
+  Attachment = 'Attachment',
+  Mixed = 'Mixed',
+  Role = 'Role',
+  OneToMany = 'OneToMany',
+  LinkText = 'LinkText',
 }
 export enum ViewV2LinkType {
-  None = "None",
-  View = "View",
-  Webhook = "Webhook",
-  CreateOne = "CreateOne",
-  ReadOne = "ReadOne",
-  UpdateOne = "UpdateOne",
-  DeleteOne = "DeleteOne",
-  Print = "Print",
-  Excel = "Excel",
-  Csv = "Csv"
+  None = 'None',
+  View = 'View',
+  Webhook = 'Webhook',
+  CreateOne = 'CreateOne',
+  ReadOne = 'ReadOne',
+  UpdateOne = 'UpdateOne',
+  DeleteOne = 'DeleteOne',
+  Print = 'Print',
+  Excel = 'Excel',
+  Csv = 'Csv',
 }
 export enum RuleEngineGlobalCondition {
-  always = "always",
-  none = "none",
-  every = "every",
-  some = "some"
+  always = 'always',
+  none = 'none',
+  every = 'every',
+  some = 'some',
 }
 export enum RuleEngineSourceMethod {
-  getField = "getField",
-  getFixed = "getFixed",
-  getFieldOptions = "getFieldOptions"
+  getField = 'getField',
+  getFixed = 'getFixed',
+  getFieldOptions = 'getFieldOptions',
 }
 export enum RuleEngineOperator {
-  equal = "equal",
-  notEqual = "notEqual",
-  in = "in",
-  notIn = "notIn",
-  lessThan = "lessThan",
-  lessThanInclusive = "lessThanInclusive",
-  greaterThan = "greaterThan",
-  greaterThanInclusive = "greaterThanInclusive",
-  isTrue = "isTrue"
+  equal = 'equal',
+  notEqual = 'notEqual',
+  in = 'in',
+  notIn = 'notIn',
+  lessThan = 'lessThan',
+  lessThanInclusive = 'lessThanInclusive',
+  greaterThan = 'greaterThan',
+  greaterThanInclusive = 'greaterThanInclusive',
+  isTrue = 'isTrue',
 }
 export enum RuleEngineTargetMethod {
-  getField = "getField",
-  getFixed = "getFixed",
-  getFieldOptions = "getFieldOptions"
+  getField = 'getField',
+  getFixed = 'getFixed',
+  getFieldOptions = 'getFieldOptions',
 }
 export enum ViewDetailCustomActionType {
-  None = "None",
-  View = "View",
-  Webhook = "Webhook"
+  None = 'None',
+  View = 'View',
+  Webhook = 'Webhook',
 }
 export enum RoleResourceType {
-  Public = "public",
-  Internal = "internal",
-  Source = "source",
-  View = "view",
-  Webhook = "webhook",
-  Developer = "developer",
-  Tenant = "tenant"
+  Public = 'public',
+  Internal = 'internal',
+  Source = 'source',
+  View = 'view',
+  Webhook = 'webhook',
+  Developer = 'developer',
+  Tenant = 'tenant',
 }
 export enum RoleAction {
-  ReadAny = "read:any",
-  CreateAny = "create:any",
-  UpdateAny = "update:any",
-  DeleteAny = "delete:any",
-  ReadOwn = "read:own",
-  UpdateOwn = "update:own",
-  DeleteOwn = "delete:own"
+  ReadAny = 'read:any',
+  CreateAny = 'create:any',
+  UpdateAny = 'update:any',
+  DeleteAny = 'delete:any',
+  ReadOwn = 'read:own',
+  UpdateOwn = 'update:own',
+  DeleteOwn = 'delete:own',
 }

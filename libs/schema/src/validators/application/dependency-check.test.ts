@@ -2,70 +2,70 @@ import {
   MetadataFieldType,
   ViewType,
   ApplicationSchema,
-} from "../../types/application";
+} from '../../types/application';
 
-import { SystemDataValidator } from "./dependency-check";
+import { SystemDataValidator } from './dependency-check';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const initialApplicationData = require("../../internals/seed/initial-application.json");
+const initialApplicationData = require('../../internals/seed/initial-application.json');
 
-describe("dependency-check", () => {
-  it("return true, current electrons is more than dependency electrons.", () => {
+describe('dependency-check', () => {
+  it('return true, current electrons is more than dependency electrons.', () => {
     const systemDataValidator = new SystemDataValidator();
     const output = systemDataValidator.checkElectrons(
-      "mockAtomName",
+      'mockAtomName',
       [
         {
-          name: "test",
-          label: "Test Other Name",
+          name: 'test',
+          label: 'Test Other Name',
           fieldType: MetadataFieldType.Boolean,
           isRequired: false,
         },
         {
-          name: "test2",
-          label: "Test Other Name",
+          name: 'test2',
+          label: 'Test Other Name',
           fieldType: MetadataFieldType.Boolean,
           isRequired: false,
         },
       ],
       [
         {
-          name: "test",
-          label: "Test Other Name",
+          name: 'test',
+          label: 'Test Other Name',
           fieldType: MetadataFieldType.Boolean,
           isRequired: false,
         },
-      ]
+      ],
     );
     expect(output).toEqual(true);
   });
 
-  it("return false, current electrons is more than dependency electrons.", () => {
+  it('return false, current electrons is more than dependency electrons.', () => {
     const systemDataValidator = new SystemDataValidator();
     const output = systemDataValidator.checkElectrons(
-      "mockAtomName",
+      'mockAtomName',
       [
         {
-          name: "test",
-          label: "Test Other Name",
+          name: 'test',
+          label: 'Test Other Name',
           fieldType: MetadataFieldType.Boolean,
           isRequired: false,
         },
       ],
       [
         {
-          name: "test",
-          label: "Test Other Name",
+          name: 'test',
+          label: 'Test Other Name',
           fieldType: MetadataFieldType.Boolean,
           isRequired: false,
         },
         {
-          name: "test2",
-          label: "Test Other Name",
+          name: 'test2',
+          label: 'Test Other Name',
           fieldType: MetadataFieldType.Boolean,
           isRequired: false,
         },
-      ]
+      ],
     );
     expect(output).toEqual(false);
   });
@@ -75,8 +75,8 @@ describe("dependency-check", () => {
     const output = systemDataValidator.checkViews(
       [
         {
-          name: "view",
-          label: "View",
+          name: 'view',
+          label: 'View',
           type: ViewType.Simple,
           isVisible: true,
           priority: 1000,
@@ -84,13 +84,13 @@ describe("dependency-check", () => {
       ],
       [
         {
-          name: "view",
-          label: "View",
+          name: 'view',
+          label: 'View',
           type: ViewType.Simple,
           isVisible: false,
           priority: 1200,
         },
-      ]
+      ],
     );
     expect(output).toEqual(true);
   });
@@ -100,26 +100,26 @@ describe("dependency-check", () => {
     const output = systemDataValidator.checkRoles(
       [
         {
-          name: "owner",
-          label: "Owner",
+          name: 'owner',
+          label: 'Owner',
           permissions: [],
         },
       ],
       [
         {
-          name: "owner",
-          label: "Owner",
+          name: 'owner',
+          label: 'Owner',
           permissions: [],
         },
-      ]
+      ],
     );
     expect(output).toEqual(true);
   });
 
-  it("checkInitialApplicationData", () => {
+  it('checkInitialApplicationData', () => {
     const systemDataValidator = new SystemDataValidator();
     const output = systemDataValidator.check(
-      initialApplicationData as ApplicationSchema
+      initialApplicationData as ApplicationSchema,
     );
     expect(output).toEqual(true);
   });
