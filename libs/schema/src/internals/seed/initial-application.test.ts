@@ -1,10 +1,12 @@
 import { ApplicationSchema } from "../../types/application";
-import * as ApplicationData from "../../validators/application/application.test.json";
 import { SystemDataValidator } from "../../validators/application/dependency-check";
 import { mergeDependencies } from "../../validators/application/dependency-merge";
 import { validateApplicationSchema } from "../../validators/application/validate";
 
-import * as initialApplicationData from "./initial-application.json";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const ApplicationData = require("../../validators/application/application.test.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const initialApplicationData = require("./initial-application.json");
 
 describe("application", () => {
   it("merge initial application", () => {

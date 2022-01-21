@@ -1,4 +1,3 @@
-import * as initialApplicationData from "../../internals/seed/initial-application.json";
 import {
   MetadataFieldType,
   ViewType,
@@ -6,6 +5,9 @@ import {
 } from "../../types/application";
 
 import { SystemDataValidator } from "./dependency-check";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const initialApplicationData = require("../../internals/seed/initial-application.json");
 
 describe("dependency-check", () => {
   it("return true, current electrons is more than dependency electrons.", () => {
