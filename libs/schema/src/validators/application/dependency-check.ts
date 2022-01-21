@@ -1,5 +1,3 @@
-import * as initialApplicationData from "../../internals/seed/initial-application.json";
-
 import {
   ApplicationSchema,
   MetadataElectron,
@@ -7,6 +5,9 @@ import {
   ViewSchema,
   RoleSchema,
 } from "../../types/application";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const initialApplicationData = require("../../internals/seed/initial-application.json");
 
 export class SystemDataValidator {
   errorMessage: string[] = [];

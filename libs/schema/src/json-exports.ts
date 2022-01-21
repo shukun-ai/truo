@@ -1,34 +1,50 @@
-import * as initialApplicationData from "./internals/seed/initial-application.json";
-import * as applicationSchemaRaw from "./json-schemas/application.schema.json";
-import * as metadataSchemaRaw from "./json-schemas/metadata.schema.json";
-import * as roleSchemaRaw from "./json-schemas/role.schema.json";
-import * as ruleEngineSchemaRaw from "./json-schemas/utils/rule-engine.schema.json";
-import * as viewSchemaRaw from "./json-schemas/view.schema.json";
-import * as workflowSchemaRaw from "./json-schemas/workflow.schema.json";
-import * as workflowCatchesSchemaRaw from "./json-schemas/workflows/catches.schema.json";
-import * as workflowChoiceStateSchemaRaw from "./json-schemas/workflows/choice-state.schema.json";
-import * as workflowChoicesSchemaRaw from "./json-schemas/workflows/choices.schema.json";
-import * as workflowComparisonSchemaRaw from "./json-schemas/workflows/comparison.schema.json";
-import * as workflowConfigurationsSchemaRaw from "./json-schemas/workflows/configurations.schema.json";
-import * as workflowFailStateSchemaRaw from "./json-schemas/workflows/fail-state.schema.json";
-import * as workflowPassStateSchemaRaw from "./json-schemas/workflows/pass-state.schema.json";
-import * as workflowRetriesSchemaRaw from "./json-schemas/workflows/retries.schema.json";
-import * as workflowTaskStateSchemaRaw from "./json-schemas/workflows/task-state.schema.json";
 import { ApplicationSchema } from "./types/application";
 
-export const initialApplication = initialApplicationData as ApplicationSchema;
-export const applicationSchema = applicationSchemaRaw;
-export const metadataSchema = metadataSchemaRaw;
-export const roleSchema = roleSchemaRaw;
-export const ruleEngineSchema = ruleEngineSchemaRaw;
-export const viewSchema = viewSchemaRaw;
-export const workflowSchema = workflowSchemaRaw;
-export const workflowCatchesSchema = workflowCatchesSchemaRaw;
-export const workflowChoiceStateSchema = workflowChoiceStateSchemaRaw;
-export const workflowChoicesSchema = workflowChoicesSchemaRaw;
-export const workflowComparisonSchema = workflowComparisonSchemaRaw;
-export const workflowConfigurationsSchema = workflowConfigurationsSchemaRaw;
-export const workflowFailStateSchema = workflowFailStateSchemaRaw;
-export const workflowPassStateSchema = workflowPassStateSchemaRaw;
-export const workflowRetriesSchema = workflowRetriesSchemaRaw;
-export const workflowTaskStateSchema = workflowTaskStateSchemaRaw;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const initialApplication: ApplicationSchema = require("./internals/seed/initial-application.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const applicationSchema = require("./json-schemas/application.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const metadataSchema = require("./json-schemas/metadata.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const roleSchema = require("./json-schemas/role.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const ruleEngineSchema = require("./json-schemas/utils/rule-engine.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const viewSchema = require("./json-schemas/view.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowSchema = require("./json-schemas/workflow.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowCatchesSchema = require("./json-schemas/workflows/catches.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowChoiceStateSchema = require("./json-schemas/workflows/choice-state.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowChoicesSchema = require("./json-schemas/workflows/choices.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowComparisonSchema = require("./json-schemas/workflows/comparison.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowConfigurationsSchema = require("./json-schemas/workflows/configurations.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowFailStateSchema = require("./json-schemas/workflows/fail-state.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowPassStateSchema = require("./json-schemas/workflows/pass-state.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowRetriesSchema = require("./json-schemas/workflows/retries.schema.json");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowTaskStateSchema = require("./json-schemas/workflows/task-state.schema.json");
+
