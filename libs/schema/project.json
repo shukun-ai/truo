@@ -17,6 +17,16 @@
         "jestConfig": "libs/schema/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "generate": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx nx workspace-generator schema-generator schema"
+          }
+        ]
+      }
     }
   },
   "tags": []
