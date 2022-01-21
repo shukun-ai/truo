@@ -3,6 +3,23 @@
   "sourceRoot": "libs/schema/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/schema",
+        "tsConfig": "libs/schema/tsconfig.lib.json",
+        "packageJson": "libs/schema/package.json",
+        "main": "libs/schema/src/index.ts",
+        "assets": [
+          {
+            "input": "libs/schema/src/json-schemas",
+            "glob": "**/*.json",
+            "output": "src/json-schemas"
+          }
+        ]
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
