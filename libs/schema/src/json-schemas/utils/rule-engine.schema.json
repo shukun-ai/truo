@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "RuleEngineSet",
+  "description": "Describe Rule Engine",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "globalCondition": {
+      "type": "string",
+      "title": "RuleEngineGlobalCondition",
+      "enum": ["always", "none", "every", "some"],
+      "tsEnumNames": ["always", "none", "every", "some"]
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sourceMethod", "sourceParam", "operator"],
+        "properties": {
+          "sourceMethod": {
+            "type": "string",
+            "title": "RuleEngineSourceMethod",
+            "enum": ["getField", "getFixed", "getFieldOptions"],
+            "tsEnumNames": ["getField", "getFixed", "getFieldOptions"]
+
+          },
+          "sourceParam": {},
+          "operator": {
+            "type": "string",
+            "title": "RuleEngineOperator",
+            "enum": [
+              "equal",
+              "notEqual",
+              "in",
+              "notIn",
+              "lessThan",
+              "lessThanInclusive",
+              "greaterThan",
+              "greaterThanInclusive",
+              "isTrue"
+            ],
+            "tsEnumNames": [
+              "equal",
+              "notEqual",
+              "in",
+              "notIn",
+              "lessThan",
+              "lessThanInclusive",
+              "greaterThan",
+              "greaterThanInclusive",
+              "isTrue"
+            ]
+          },
+          "targetMethod": {
+            "type": "string",
+            "title": "RuleEngineTargetMethod",
+            "enum": ["getField", "getFixed", "getFieldOptions"],
+            "tsEnumNames": ["getField", "getFixed", "getFieldOptions"]
+          },
+          "targetParam": {}
+        }
+      }
+    }
+  }
+}

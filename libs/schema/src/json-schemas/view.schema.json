@@ -1,0 +1,483 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ViewSchema",
+  "description": "Describe View Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "label",
+    "type",
+    "isVisible",
+    "priority"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "label": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "title": "ViewType",
+      "enum": [
+        "Simple",
+        "Tree",
+        "Calendar",
+        "Gallery",
+        "Custom",
+        "External",
+        "Link",
+        "Menu"
+      ],
+      "tsEnumNames": [
+        "Simple",
+        "Tree",
+        "Calendar",
+        "Gallery",
+        "Custom",
+        "External",
+        "Link",
+        "Menu"
+      ]
+    },
+    "isSystem": {
+      "type": "boolean"
+    },
+    "atomName": {
+      "type": "string"
+    },
+    "configurations": {
+      "title": "ViewConfigurations",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "v2Columns": {
+          "type": "array",
+          "items": {
+            "title": "ViewV2Column",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "label",
+              "type",
+              "electronName"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "$ref": "#/definitions/ViewV2FieldType"
+              },
+              "electronName": {
+                "type": "string"
+              },
+              "referenceViewName": {
+                "type": "string"
+              },
+              "computedCode": {
+                "type": "string"
+              },
+              "link": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["type"],
+                "properties": {
+                  "type": { "$ref": "#/definitions/ViewV2LinkType" },
+                  "value": {"type": "string"},
+                  "query": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "v2ColumnRibbons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewV2Ribbon"
+          }
+        },
+        "v2Fields": {
+          "type": "array",
+          "items": {
+            "title": "ViewV2Field",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "label",
+              "type",
+              "electronName"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "$ref": "#/definitions/ViewV2FieldType"
+              },
+              "electronName": {
+                "type": "string"
+              },
+              "referenceViewName": {
+                "type": "string"
+              },
+              "tip": {
+                "type": "string"
+              },
+              "requiredCode": {
+                "type": "string"
+              },
+              "disabledCode": {
+                "type": "string"
+              },
+              "oneToMany": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "atomName": {
+                    "type": "string"
+                  },
+                  "foreignName": {
+                    "type": "string"
+                  }
+                }
+              },
+              "belongToGroup": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "v2FieldGroups": {
+          "type": "array",
+          "items": {
+            "title": "ViewV2FieldGroup",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "label"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "v2FieldRibbons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewV2Ribbon"
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "title": "ViewColumn",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "electronName"
+            ],
+            "properties": {
+              "electronName": {
+                "type": "string"
+              },
+              "allowSort": {
+                "type": "boolean"
+              },
+              "allowSearch": {
+                "type": "boolean"
+              },
+              "showColumn": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "form": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "title": "ViewFormItem",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "hidden": {
+                  "$ref": "utils/rule-engine.schema.json"
+                },
+                "required": {
+                  "$ref": "utils/rule-engine.schema.json"
+                },
+                "disabled": {
+                  "$ref": "utils/rule-engine.schema.json"
+                },
+                "priority": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "tree": {
+          "title": "ViewTree",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "parentElectronName": {
+              "type": "string"
+            },
+            "labelElectronName": {
+              "type": "string"
+            }
+          }
+        },
+        "detailCustomActions": {
+          "type": "array",
+          "items": {
+            "title": "ViewDetailCustomAction",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "key",
+              "label",
+              "type"
+            ],
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "title": "ViewDetailCustomActionType",
+                "enum": [
+                  "None",
+                  "View",
+                  "Webhook"
+                ],
+                "tsEnumNames": [
+                  "None",
+                  "View",
+                  "Webhook"
+                ]
+              },
+              "value": {
+                "type": "string"
+              },
+              "query": {
+                "type": "string"
+              },
+              "disabled": {
+                "$ref": "utils/rule-engine.schema.json"
+              },
+              "disabledTip": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "confirmedTip": {
+                "type": "string"
+              },
+              "hidden": {
+                "$ref": "utils/rule-engine.schema.json"
+              }
+            }
+          }
+        },
+        "detailEditAction": {
+          "title": "ViewDetailEditAction",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "$ref": "utils/rule-engine.schema.json"
+            },
+            "disabledTip": {
+              "type": "string"
+            },
+            "confirmed": {
+              "type": "boolean"
+            },
+            "confirmedTip": {
+              "type": "string"
+            },
+            "hidden": {
+              "$ref": "utils/rule-engine.schema.json"
+            }
+          }
+        },
+        "detailRemoveAction": {
+          "title": "ViewDetailRemoveAction",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "$ref": "utils/rule-engine.schema.json"
+            },
+            "disabledTip": {
+              "type": "string"
+            },
+            "confirmed": {
+              "type": "boolean"
+            },
+            "confirmedTip": {
+              "type": "string"
+            },
+            "hidden": {
+              "$ref": "utils/rule-engine.schema.json"
+            }
+          }
+        }
+      }
+    },
+    "value": {
+      "type": "string"
+    },
+    "parentName": {
+      "type": "string"
+    },
+    "isVisible": {
+      "type": "boolean"
+    },
+    "priority": {
+      "type": "integer"
+    }
+  },
+  "definitions": {
+    "ViewV2FieldType": {
+      "title": "ViewV2FieldType",
+      "type": "string",
+      "enum": [
+        "Text",
+        "NameText",
+        "LargeText",
+        "SingleSelect",
+        "MultiSelect",
+        "Boolean",
+        "DateTime",
+        "Integer",
+        "Float",
+        "Currency",
+        "Password",
+        "ManyToMany",
+        "ManyToOne",
+        "Owner",
+        "Attachment",
+        "Mixed",
+        "Role",
+        "OneToMany",
+        "LinkText"
+      ],
+      "tsEnumNames": [
+        "Text",
+        "NameText",
+        "LargeText",
+        "SingleSelect",
+        "MultiSelect",
+        "Boolean",
+        "DateTime",
+        "Integer",
+        "Float",
+        "Currency",
+        "Password",
+        "ManyToMany",
+        "ManyToOne",
+        "Owner",
+        "Attachment",
+        "Mixed",
+        "Role",
+        "OneToMany",
+        "LinkText"
+      ]
+    },
+    "ViewV2Ribbon": {
+      "title": "ViewV2Ribbon",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "label",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ViewV2LinkType"
+        },
+        "value": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "disabledCode": {
+          "type": "string"
+        },
+        "disabledTip": {
+          "type": "string"
+        },
+        "confirmedTip": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    },
+    "ViewV2LinkType": {
+      "type": "string",
+      "title": "ViewV2LinkType",
+      "enum": [
+        "None",
+        "View",
+        "Webhook",
+        "CreateOne",
+        "ReadOne",
+        "UpdateOne",
+        "DeleteOne",
+        "Print",
+        "Excel",
+        "Csv"
+      ],
+      "tsEnumNames": [
+        "None",
+        "View",
+        "Webhook",
+        "CreateOne",
+        "ReadOne",
+        "UpdateOne",
+        "DeleteOne",
+        "Print",
+        "Excel",
+        "Csv"
+      ]
+    }
+  }
+}

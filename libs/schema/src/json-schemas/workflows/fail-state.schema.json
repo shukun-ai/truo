@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WorkflowFailState",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["type", "error", "cause"],
+  "properties": {
+    "type": {
+      "const": "Fail"
+    },
+    "error": {
+      "type": "string"
+    },
+    "cause": {
+      "type": "string"
+    },
+    "x": {
+      "type": "number"
+    },
+    "y": {
+      "type": "number"
+    }
+  }
+}

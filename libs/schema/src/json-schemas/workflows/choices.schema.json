@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WorkflowChoices",
+  "type": "array",
+  "items": {
+    "allOf": [
+      {
+        "$ref": "comparison.schema.json"
+      },
+      {
+        "type": "object",
+        "required": ["next"],
+        "additionalProperties": true,
+        "properties": {
+          "next": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  }
+}

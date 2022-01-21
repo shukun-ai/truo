@@ -1,0 +1,14 @@
+[
+  {
+    "mime": "images/png",
+    "path": "test",
+    "size": 1024,
+    "name": "test.png"
+  },
+  {
+    "mime": "images/png",
+    "path": "test2",
+    "size": 2048,
+    "name": "test2.png"
+  }
+]

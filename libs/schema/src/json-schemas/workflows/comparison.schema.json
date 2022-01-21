@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WorkflowComparison",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "and": {
+      "type": "array",
+      "items": {
+        "$ref": "comparison.schema.json"
+      }
+    },
+    "or": {
+      "type": "array",
+      "items": {
+        "$ref": "comparison.schema.json"
+      }
+    },
+    "not": {
+      "$ref": "comparison.schema.json"
+    },
+    "variable": {
+      "type": "string"
+    },
+    "booleanEquals": {
+      "type": "boolean"
+    },
+    "booleanEqualsPath": {
+      "type": "string"
+    },
+    "isBoolean": {
+      "type": "boolean"
+    },
+    "isNull": {
+      "type": "boolean"
+    },
+    "isNumeric": {
+      "type": "boolean"
+    },
+    "isPresent": {
+      "type": "boolean"
+    },
+    "isString": {
+      "type": "boolean"
+    },
+    "isTimestamp": {
+      "type": "boolean"
+    },
+    "numericEquals": {
+      "type": "number"
+    },
+    "numericEqualsPath": {
+      "type": "string"
+    },
+    "numericGreaterThan": {
+      "type": "number"
+    },
+    "numericGreaterThanPath": {
+      "type": "string"
+    },
+    "numericGreaterThanEquals": {
+      "type": "number"
+    },
+    "numericGreaterThanEqualsPath": {
+      "type": "string"
+    },
+    "numericLessThan": {
+      "type": "number"
+    },
+    "numericLessThanPath": {
+      "type": "string"
+    },
+    "numericLessThanEquals": {
+      "type": "number"
+    },
+    "numericLessThanEqualsPath": {
+      "type": "string"
+    },
+    "stringEquals": {
+      "type": "string"
+    },
+    "stringEqualsPath": {
+      "type": "string"
+    },
+    "stringGreaterThan": {
+      "type": "string"
+    },
+    "stringGreaterThanPath": {
+      "type": "string"
+    },
+    "stringGreaterThanEquals": {
+      "type": "string"
+    },
+    "stringGreaterThanEqualsPath": {
+      "type": "string"
+    },
+    "stringLessThan": {
+      "type": "string"
+    },
+    "stringLessThanPath": {
+      "type": "string"
+    },
+    "stringLessThanEquals": {
+      "type": "string"
+    },
+    "stringLessThanEqualsPath": {
+      "type": "string"
+    },
+    "stringMatches": {
+      "type": "string"
+    },
+    "timestampEquals": {
+      "type": "string"
+    },
+    "timestampEqualsPath": {
+      "type": "string"
+    },
+    "timestampGreaterThan": {
+      "type": "string"
+    },
+    "timestampGreaterThanPath": {
+      "type": "string"
+    },
+    "timestampGreaterThanEquals": {
+      "type": "string"
+    },
+    "timestampGreaterThanEqualsPath": {
+      "type": "string"
+    },
+    "timestampLessThan": {
+      "type": "string"
+    },
+    "timestampLessThanPath": {
+      "type": "string"
+    },
+    "timestampLessThanEquals": {
+      "type": "string"
+    },
+    "timestampLessThanEqualsPath": {
+      "type": "string"
+    }
+  }
+}
