@@ -1,5 +1,7 @@
-import * as attachmentsData from "./attachments.test.json";
 import { validateAttachmentsSchema } from "./validate";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const attachmentsData = require("./attachments.test.json");
 
 describe("attachment", () => {
   it("validateAttachmentsSchema", () => {

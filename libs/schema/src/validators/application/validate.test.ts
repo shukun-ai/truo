@@ -1,5 +1,7 @@
-import * as applicationData from "./application.test.json";
 import { validateApplicationSchema } from "./validate";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const applicationData = require("./application.test.json");
 
 describe("application", () => {
   it("validateApplicationSchema", () => {

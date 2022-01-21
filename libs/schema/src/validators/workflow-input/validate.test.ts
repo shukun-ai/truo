@@ -1,5 +1,7 @@
 import { validateWorkflowInput } from "./validate";
-import * as inputData from "./workflow-input.test.json";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const inputData = require("./workflow-input.test.json");
 
 describe("workflow-configurations", () => {
   it("validateWorkflowInput", () => {
