@@ -13,7 +13,7 @@ import {
   ApplicationSchema,
   mergeDependencies,
   SystemDataValidator,
-  validateApplicationSchema
+  validateApplicationSchema,
 } from '@shukun/schema';
 import { Express } from 'express';
 import { QueryResponse } from '../../util/query/interfaces';

@@ -2,6 +2,10 @@
 
 ### Import TypeScript Definition
 
-``` typescript
-import { ApplicationSchema, applicationSchema, validateApplicationSchema } from '@shukun/schema'
+```typescript
+import {
+  ApplicationSchema,
+  applicationSchema,
+  validateApplicationSchema,
+} from '@shukun/schema';
 ```

@@ -23,7 +23,6 @@
             "title": "RuleEngineSourceMethod",
             "enum": ["getField", "getFixed", "getFieldOptions"],
             "tsEnumNames": ["getField", "getFixed", "getFieldOptions"]
-
           },
           "sourceParam": {},
           "operator": {

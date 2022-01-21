@@ -60,10 +60,7 @@
   "definitions": {
     "base": {
       "type": "object",
-      "required": [
-        "type",
-        "resource"
-      ],
+      "required": ["type", "resource"],
       "properties": {
         "type": {
           "type": "string",
@@ -119,10 +116,7 @@
     "TaskStateSourceCreateOne": {
       "title": "TaskStateSourceCreateOne",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -148,10 +142,7 @@
     "TaskStateSourceUpdateOne": {
       "title": "TaskStateSourceUpdateOne",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -183,10 +174,7 @@
     "TaskStateSourceFindOne": {
       "title": "TaskStateSourceFindOne",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -212,10 +200,7 @@
     "TaskStateSourceFindAll": {
       "title": "TaskStateSourceFindAll",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -241,10 +226,7 @@
     "TaskStateSourceCount": {
       "title": "TaskStateSourceCount",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -270,10 +252,7 @@
     "TaskStateSourceDeleteOne": {
       "title": "TaskStateSourceDeleteOne",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -299,10 +278,7 @@
     "TaskStateSourceAddToMany": {
       "title": "TaskStateSourceAddToMany",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -343,10 +319,7 @@
     "TaskStateSourceRemoveFromMany": {
       "title": "TaskStateSourceRemoveFromMany",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -387,10 +360,7 @@
     "TaskStateSourceIncrease": {
       "title": "TaskStateSourceIncrease",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -431,10 +401,7 @@
     "TaskStateSourceDecrease": {
       "title": "TaskStateSourceDecrease",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -475,10 +442,7 @@
     "TaskStateHttp": {
       "title": "TaskStateHttp",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -493,13 +457,7 @@
             },
             "method": {
               "type": "string",
-              "enum": [
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
-                "PATCH"
-              ]
+              "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"]
             },
             "headers": {
               "type": "object"
@@ -532,10 +490,7 @@
     "TaskStateWorkflow": {
       "title": "TaskStateWorkflow",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -570,10 +525,7 @@
     "TaskStateWorkflowMap": {
       "title": "TaskStateWorkflowMap",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -614,10 +566,7 @@
     "TaskStatePassport": {
       "title": "TaskStatePassport",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",
@@ -646,10 +595,7 @@
     "TaskStateCode": {
       "title": "TaskStateCode",
       "type": "object",
-      "required": [
-        "resource",
-        "parameters"
-      ],
+      "required": ["resource", "parameters"],
       "properties": {
         "resource": {
           "type": "string",

@@ -1,5 +1,5 @@
-import { IDString } from "../../shared.type";
-import { AttachmentsSchema } from "../../types/attachments";
+import { IDString } from '../../shared.type';
+import { AttachmentsSchema } from '../../types/attachments';
 
 export interface SystemPositionModel {
   owner: IDString;

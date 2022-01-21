@@ -4,13 +4,7 @@
   "description": "Describe View Schema",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "name",
-    "label",
-    "type",
-    "isVisible",
-    "priority"
-  ],
+  "required": ["name", "label", "type", "isVisible", "priority"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -63,12 +57,7 @@
             "title": "ViewV2Column",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "name",
-              "label",
-              "type",
-              "electronName"
-            ],
+            "required": ["name", "label", "type", "electronName"],
             "properties": {
               "name": {
                 "type": "string"
@@ -94,8 +83,8 @@
                 "required": ["type"],
                 "properties": {
                   "type": { "$ref": "#/definitions/ViewV2LinkType" },
-                  "value": {"type": "string"},
-                  "query": {"type": "string"}
+                  "value": { "type": "string" },
+                  "query": { "type": "string" }
                 }
               }
             }
@@ -113,12 +102,7 @@
             "title": "ViewV2Field",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "name",
-              "label",
-              "type",
-              "electronName"
-            ],
+            "required": ["name", "label", "type", "electronName"],
             "properties": {
               "name": {
                 "type": "string"
@@ -168,10 +152,7 @@
             "title": "ViewV2FieldGroup",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "name",
-              "label"
-            ],
+            "required": ["name", "label"],
             "properties": {
               "name": {
                 "type": "string"
@@ -194,9 +175,7 @@
             "title": "ViewColumn",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "electronName"
-            ],
+            "required": ["electronName"],
             "properties": {
               "electronName": {
                 "type": "string"
@@ -256,11 +235,7 @@
             "title": "ViewDetailCustomAction",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "key",
-              "label",
-              "type"
-            ],
+            "required": ["key", "label", "type"],
             "properties": {
               "key": {
                 "type": "string"
@@ -271,16 +246,8 @@
               "type": {
                 "type": "string",
                 "title": "ViewDetailCustomActionType",
-                "enum": [
-                  "None",
-                  "View",
-                  "Webhook"
-                ],
-                "tsEnumNames": [
-                  "None",
-                  "View",
-                  "Webhook"
-                ]
+                "enum": ["None", "View", "Webhook"],
+                "tsEnumNames": ["None", "View", "Webhook"]
               },
               "value": {
                 "type": "string"
@@ -416,11 +383,7 @@
       "title": "ViewV2Ribbon",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "name",
-        "label",
-        "type"
-      ],
+      "required": ["name", "label", "type"],
       "properties": {
         "name": {
           "type": "string"

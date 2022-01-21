@@ -1,10 +1,10 @@
-import { validateWorkflowConfigurations } from "./validate";
+import { validateWorkflowConfigurations } from './validate';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const configurationsData = require("./workflow-configurations.test.json");
+const configurationsData = require('./workflow-configurations.test.json');
 
-describe("workflow-configurations", () => {
-  it("validateWorkflowConfigurations", () => {
+describe('workflow-configurations', () => {
+  it('validateWorkflowConfigurations', () => {
     const result = validateWorkflowConfigurations(configurationsData);
     if (!result) {
       // Just convince for debug if validate gets errors

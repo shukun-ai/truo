@@ -1,495 +1,495 @@
 {
-    "$schema": "../../json-schemas/application.schema.json",
-    "title": "Initial Application Seed",
-    "metadata": [
+  "$schema": "../../json-schemas/application.schema.json",
+  "title": "Initial Application Seed",
+  "metadata": [
+    {
+      "name": "system__positions",
+      "label": "角色组",
+      "electrons": [
         {
-            "name": "system__positions",
-            "label": "角色组",
-            "electrons": [
-                {
-                    "name": "owner",
-                    "label": "创建人",
-                    "fieldType": "Owner",
-                    "isRequired": false,
-                    "referenceTo": "system__users",
-                    "foreignName": "username"
-                },
-                {
-                    "name": "name",
-                    "label": "角色组名",
-                    "fieldType": "NameText",
-                    "isRequired": true,
-                    "isUnique": true
-                },
-                {
-                    "name": "label",
-                    "label": "显示名",
-                    "fieldType": "Text",
-                    "isRequired": true,
-                    "isUnique": true
-                },
-                {
-                    "name": "users",
-                    "label": "关联用户",
-                    "fieldType": "ManyToMany",
-                    "isRequired": true,
-                    "referenceTo": "system__users",
-                    "foreignName": "displayName"
-                },
-                {
-                    "name": "roles",
-                    "label": "关联角色",
-                    "fieldType": "Role",
-                    "isRequired": true
-                }
-            ]
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
         },
         {
-            "name": "system__groups",
-            "label": "部门",
-            "electrons": [
-                {
-                    "name": "owner",
-                    "label": "创建人",
-                    "fieldType": "Owner",
-                    "isRequired": false,
-                    "referenceTo": "system__users",
-                    "foreignName": "username"
-                },
-                {
-                    "name": "users",
-                    "label": "关联用户",
-                    "fieldType": "ManyToMany",
-                    "isRequired": false,
-                    "referenceTo": "system__users",
-                    "foreignName": "displayName"
-                },
-                {
-                    "name": "label",
-                    "label": "显示名称",
-                    "fieldType": "Text",
-                    "isRequired": true,
-                    "isUnique": true
-                },
-                {
-                    "name": "roles",
-                    "label": "关联角色",
-                    "fieldType": "Role",
-                    "isRequired": true
-                },
-                {
-                    "name": "parent",
-                    "label": "所属父级",
-                    "fieldType": "ManyToOne",
-                    "isRequired": false,
-                    "referenceTo": "system__groups",
-                    "foreignName": "label"
-                }
-            ]
+          "name": "name",
+          "label": "角色组名",
+          "fieldType": "NameText",
+          "isRequired": true,
+          "isUnique": true
         },
         {
-            "name": "system__users",
-            "label": "用户表",
-            "electrons": [
-                {
-                    "name": "owner",
-                    "label": "创建人",
-                    "fieldType": "Owner",
-                    "isRequired": false,
-                    "referenceTo": "system__users",
-                    "foreignName": "username"
-                },
-                {
-                    "name": "username",
-                    "label": "用户名",
-                    "fieldType": "Text",
-                    "isRequired": true,
-                    "isUnique": true,
-                    "isIndexed": true
-                },
-                {
-                    "name": "displayName",
-                    "label": "显示名",
-                    "fieldType": "Text",
-                    "isRequired": true
-                },
-                {
-                    "name": "password",
-                    "label": "密码",
-                    "fieldType": "Password",
-                    "isRequired": true
-                },
-                {
-                    "name": "avatar",
-                    "label": "用户头像",
-                    "fieldType": "Attachment",
-                    "isRequired": false
-                }
-            ]
+          "name": "label",
+          "label": "显示名",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
         },
         {
-            "name": "system__variables",
-            "label": "环境变量",
-            "electrons": [
-                {
-                    "name": "name",
-                    "label": "名称",
-                    "fieldType": "Text",
-                    "isRequired": true
-                },
-                {
-                    "name": "value",
-                    "label": "值",
-                    "fieldType": "Text",
-                    "isRequired": true
-                }
-            ]
+          "name": "users",
+          "label": "关联用户",
+          "fieldType": "ManyToMany",
+          "isRequired": true,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "roles",
+          "label": "关联角色",
+          "fieldType": "Role",
+          "isRequired": true
         }
-    ],
-    "views": [
+      ]
+    },
+    {
+      "name": "system__groups",
+      "label": "部门",
+      "electrons": [
         {
-            "name": "system__menu",
-            "label": "系统菜单",
-            "type": "Menu",
-            "isVisible": true,
-            "isSystem": false,
-            "priority": 10000
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
         },
         {
-            "name": "system__users",
-            "label": "用户管理",
-            "type": "Simple",
-            "isVisible": true,
-            "isSystem": false,
-            "configurations": {
-                "v2Columns": [
-                    {
-                        "name": "username",
-                        "label": "用户名",
-                        "type": "LinkText",
-                        "electronName": "username",
-                        "link": {
-                            "type": "ReadOne"
-                        }
-                    },
-                    {
-                        "name": "displayName",
-                        "label": "显示名",
-                        "type": "Text",
-                        "electronName": "displayName"
-                    },
-                    {
-                        "name": "avatar",
-                        "label": "用户头像",
-                        "type": "Attachment",
-                        "electronName": "avatar"
-                    }
-                ],
-                "v2Fields": [
-                    {
-                        "name": "username",
-                        "label": "账户名",
-                        "type": "Text",
-                        "electronName": "username",
-                        "disabledCode": "return scope?.mode !== 'Create';"
-                    },
-                    {
-                        "name": "password",
-                        "label": "密码",
-                        "type": "Password",
-                        "electronName": "password",
-                        "disabledCode": "return scope?.mode !== 'Create';"
-                    },
-                    {
-                        "name": "displayName",
-                        "label": "显示名",
-                        "type": "Text",
-                        "electronName": "displayName"
-                    },
-                    {
-                        "name": "avatar",
-                        "label": "用户头像",
-                        "type": "Attachment",
-                        "electronName": "avatar"
-                    }
-                ],
-                "v2FieldRibbons": [
-                    {
-                        "name": "edit",
-                        "label": "编辑",
-                        "type": "UpdateOne"
-                    },
-                    {
-                        "name": "delete",
-                        "label": "删除",
-                        "type": "DeleteOne"
-                    }
-                ],
-                "v2ColumnRibbons": [
-                    {
-                        "name": "create",
-                        "label": "新建",
-                        "type": "CreateOne"
-                    }
-                ]
-            },
-            "parentName": "system__menu",
-            "priority": 1,
-            "atomName": "system__users"
+          "name": "users",
+          "label": "关联用户",
+          "fieldType": "ManyToMany",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
         },
         {
-            "name": "system__positions",
-            "label": "角色组",
-            "type": "Simple",
-            "isVisible": true,
-            "isSystem": false,
-            "configurations": {
-                "v2Columns": [
-                    {
-                        "name": "name",
-                        "label": "角色组名",
-                        "type": "LinkText",
-                        "electronName": "name",
-                        "link": {
-                            "type": "ReadOne"
-                        }
-                    },
-                    {
-                        "name": "label",
-                        "label": "显示名",
-                        "type": "Text",
-                        "electronName": "label"
-                    },
-                    {
-                        "name": "users",
-                        "label": "关联用户",
-                        "type": "ManyToMany",
-                        "electronName": "users"
-                    },
-                    {
-                        "name": "roles",
-                        "label": "关联角色",
-                        "type": "Role",
-                        "electronName": "roles"
-                    }
-                ],
-                "v2Fields": [
-                    {
-                        "name": "name",
-                        "label": "角色组名",
-                        "type": "Text",
-                        "electronName": "name",
-                        "requiredCode": "return true;"
-                    },
-                    {
-                        "name": "label",
-                        "label": "显示名",
-                        "type": "Text",
-                        "electronName": "label",
-                        "requiredCode": "return true;"
-                    },
-                    {
-                        "name": "users",
-                        "label": "关联用户",
-                        "type": "ManyToMany",
-                        "electronName": "users",
-                        "requiredCode": "return true;",
-                        "referenceViewName": "system__users"
-                    },
-                    {
-                        "name": "roles",
-                        "label": "关联角色",
-                        "type": "Role",
-                        "electronName": "roles",
-                        "requiredCode": "return true;"
-                    }
-                ],
-                "v2FieldRibbons": [
-                    {
-                        "name": "edit",
-                        "label": "编辑",
-                        "type": "UpdateOne"
-                    },
-                    {
-                        "name": "delete",
-                        "label": "删除",
-                        "type": "DeleteOne"
-                    }
-                ],
-                "v2ColumnRibbons": [
-                    {
-                        "name": "create",
-                        "label": "新建",
-                        "type": "CreateOne"
-                    }
-                ]
-            },
-            "parentName": "system__menu",
-            "priority": 2,
-            "atomName": "system__positions"
+          "name": "label",
+          "label": "显示名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
         },
         {
-            "name": "system__groups",
-            "label": "部门",
-            "type": "Simple",
-            "isVisible": true,
-            "isSystem": false,
-            "configurations": {
-                "v2Columns": [
-                    {
-                        "name": "label",
-                        "label": "显示名称",
-                        "type": "LinkText",
-                        "electronName": "label",
-                        "link": {
-                            "type": "ReadOne"
-                        }
-                    },
-                    {
-                        "name": "users",
-                        "label": "关联用户",
-                        "type": "ManyToMany",
-                        "electronName": "users"
-                    },
-                    {
-                        "name": "roles",
-                        "label": "关联角色",
-                        "type": "Role",
-                        "electronName": "roles"
-                    },
-                    {
-                        "name": "parent",
-                        "label": "所属父级",
-                        "type": "ManyToOne",
-                        "electronName": "parent"
-                    }
-                ],
-                "v2Fields": [
-                    {
-                        "name": "label",
-                        "label": "显示名称",
-                        "type": "Text",
-                        "electronName": "label",
-                        "requiredCode": "return true;"
-                    },
-                    {
-                        "name": "users",
-                        "label": "关联用户",
-                        "type": "ManyToMany",
-                        "electronName": "users",
-                        "requiredCode": "return true;"
-                    },
-                    {
-                        "name": "roles",
-                        "label": "关联角色",
-                        "type": "Role",
-                        "electronName": "roles",
-                        "requiredCode": "return true;"
-                    },
-                    {
-                        "name": "parent",
-                        "label": "所属父级",
-                        "type": "ManyToOne",
-                        "electronName": "parent",
-                        "requiredCode": "return true;"
-                    }
-                ],
-                "v2FieldRibbons": [
-                    {
-                        "name": "edit",
-                        "label": "编辑",
-                        "type": "UpdateOne"
-                    },
-                    {
-                        "name": "delete",
-                        "label": "删除",
-                        "type": "DeleteOne"
-                    }
-                ],
-                "v2ColumnRibbons": [
-                    {
-                        "name": "create",
-                        "label": "新建",
-                        "type": "CreateOne"
-                    }
-                ]
-            },
-            "parentName": "system__menu",
-            "priority": 3,
-            "atomName": "system__groups"
+          "name": "roles",
+          "label": "关联角色",
+          "fieldType": "Role",
+          "isRequired": true
         },
         {
-            "name": "system__variables",
-            "label": "环境变量",
-            "type": "Simple",
-            "isVisible": true,
-            "isSystem": true,
-            "configurations": {
-                "v2Columns": [
-                    {
-                        "name": "name",
-                        "label": "名称",
-                        "type": "LinkText",
-                        "electronName": "name",
-                        "link": {
-                            "type": "ReadOne"
-                        }
-                    }
-                ],
-                "v2Fields": [
-                    {
-                        "name": "name",
-                        "label": "名称",
-                        "type": "Text",
-                        "electronName": "name",
-                        "requiredCode": "return true;"
-                    },
-                    {
-                        "name": "value",
-                        "label": "值",
-                        "type": "LargeText",
-                        "electronName": "value",
-                        "requiredCode": "return true;"
-                    }
-                ],
-                "v2FieldRibbons": [
-                    {
-                        "name": "edit",
-                        "label": "编辑",
-                        "type": "UpdateOne"
-                    },
-                    {
-                        "name": "delete",
-                        "label": "删除",
-                        "type": "DeleteOne"
-                    }
-                ],
-                "v2ColumnRibbons": [
-                    {
-                        "name": "create",
-                        "label": "新建",
-                        "type": "CreateOne"
-                    }
-                ]
-            },
-            "parentName": "system__menu",
-            "priority": 4,
-            "atomName": "system__variables"
+          "name": "parent",
+          "label": "所属父级",
+          "fieldType": "ManyToOne",
+          "isRequired": false,
+          "referenceTo": "system__groups",
+          "foreignName": "label"
         }
-    ],
-    "workflows": [],
-    "roles": [
+      ]
+    },
+    {
+      "name": "system__users",
+      "label": "用户表",
+      "electrons": [
         {
-            "name": "owner",
-            "label": "所有者角色",
-            "isSystem": false,
-            "permissions": []
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
         },
         {
-            "name": "anonymous",
-            "label": "匿名角色",
-            "isSystem": false,
-            "permissions": []
+          "name": "username",
+          "label": "用户名",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true,
+          "isIndexed": true
+        },
+        {
+          "name": "displayName",
+          "label": "显示名",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "password",
+          "label": "密码",
+          "fieldType": "Password",
+          "isRequired": true
+        },
+        {
+          "name": "avatar",
+          "label": "用户头像",
+          "fieldType": "Attachment",
+          "isRequired": false
         }
-    ]
+      ]
+    },
+    {
+      "name": "system__variables",
+      "label": "环境变量",
+      "electrons": [
+        {
+          "name": "name",
+          "label": "名称",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "value",
+          "label": "值",
+          "fieldType": "Text",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "name": "system__menu",
+      "label": "系统菜单",
+      "type": "Menu",
+      "isVisible": true,
+      "isSystem": false,
+      "priority": 10000
+    },
+    {
+      "name": "system__users",
+      "label": "用户管理",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "configurations": {
+        "v2Columns": [
+          {
+            "name": "username",
+            "label": "用户名",
+            "type": "LinkText",
+            "electronName": "username",
+            "link": {
+              "type": "ReadOne"
+            }
+          },
+          {
+            "name": "displayName",
+            "label": "显示名",
+            "type": "Text",
+            "electronName": "displayName"
+          },
+          {
+            "name": "avatar",
+            "label": "用户头像",
+            "type": "Attachment",
+            "electronName": "avatar"
+          }
+        ],
+        "v2Fields": [
+          {
+            "name": "username",
+            "label": "账户名",
+            "type": "Text",
+            "electronName": "username",
+            "disabledCode": "return scope?.mode !== 'Create';"
+          },
+          {
+            "name": "password",
+            "label": "密码",
+            "type": "Password",
+            "electronName": "password",
+            "disabledCode": "return scope?.mode !== 'Create';"
+          },
+          {
+            "name": "displayName",
+            "label": "显示名",
+            "type": "Text",
+            "electronName": "displayName"
+          },
+          {
+            "name": "avatar",
+            "label": "用户头像",
+            "type": "Attachment",
+            "electronName": "avatar"
+          }
+        ],
+        "v2FieldRibbons": [
+          {
+            "name": "edit",
+            "label": "编辑",
+            "type": "UpdateOne"
+          },
+          {
+            "name": "delete",
+            "label": "删除",
+            "type": "DeleteOne"
+          }
+        ],
+        "v2ColumnRibbons": [
+          {
+            "name": "create",
+            "label": "新建",
+            "type": "CreateOne"
+          }
+        ]
+      },
+      "parentName": "system__menu",
+      "priority": 1,
+      "atomName": "system__users"
+    },
+    {
+      "name": "system__positions",
+      "label": "角色组",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "configurations": {
+        "v2Columns": [
+          {
+            "name": "name",
+            "label": "角色组名",
+            "type": "LinkText",
+            "electronName": "name",
+            "link": {
+              "type": "ReadOne"
+            }
+          },
+          {
+            "name": "label",
+            "label": "显示名",
+            "type": "Text",
+            "electronName": "label"
+          },
+          {
+            "name": "users",
+            "label": "关联用户",
+            "type": "ManyToMany",
+            "electronName": "users"
+          },
+          {
+            "name": "roles",
+            "label": "关联角色",
+            "type": "Role",
+            "electronName": "roles"
+          }
+        ],
+        "v2Fields": [
+          {
+            "name": "name",
+            "label": "角色组名",
+            "type": "Text",
+            "electronName": "name",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "label",
+            "label": "显示名",
+            "type": "Text",
+            "electronName": "label",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "users",
+            "label": "关联用户",
+            "type": "ManyToMany",
+            "electronName": "users",
+            "requiredCode": "return true;",
+            "referenceViewName": "system__users"
+          },
+          {
+            "name": "roles",
+            "label": "关联角色",
+            "type": "Role",
+            "electronName": "roles",
+            "requiredCode": "return true;"
+          }
+        ],
+        "v2FieldRibbons": [
+          {
+            "name": "edit",
+            "label": "编辑",
+            "type": "UpdateOne"
+          },
+          {
+            "name": "delete",
+            "label": "删除",
+            "type": "DeleteOne"
+          }
+        ],
+        "v2ColumnRibbons": [
+          {
+            "name": "create",
+            "label": "新建",
+            "type": "CreateOne"
+          }
+        ]
+      },
+      "parentName": "system__menu",
+      "priority": 2,
+      "atomName": "system__positions"
+    },
+    {
+      "name": "system__groups",
+      "label": "部门",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "configurations": {
+        "v2Columns": [
+          {
+            "name": "label",
+            "label": "显示名称",
+            "type": "LinkText",
+            "electronName": "label",
+            "link": {
+              "type": "ReadOne"
+            }
+          },
+          {
+            "name": "users",
+            "label": "关联用户",
+            "type": "ManyToMany",
+            "electronName": "users"
+          },
+          {
+            "name": "roles",
+            "label": "关联角色",
+            "type": "Role",
+            "electronName": "roles"
+          },
+          {
+            "name": "parent",
+            "label": "所属父级",
+            "type": "ManyToOne",
+            "electronName": "parent"
+          }
+        ],
+        "v2Fields": [
+          {
+            "name": "label",
+            "label": "显示名称",
+            "type": "Text",
+            "electronName": "label",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "users",
+            "label": "关联用户",
+            "type": "ManyToMany",
+            "electronName": "users",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "roles",
+            "label": "关联角色",
+            "type": "Role",
+            "electronName": "roles",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "parent",
+            "label": "所属父级",
+            "type": "ManyToOne",
+            "electronName": "parent",
+            "requiredCode": "return true;"
+          }
+        ],
+        "v2FieldRibbons": [
+          {
+            "name": "edit",
+            "label": "编辑",
+            "type": "UpdateOne"
+          },
+          {
+            "name": "delete",
+            "label": "删除",
+            "type": "DeleteOne"
+          }
+        ],
+        "v2ColumnRibbons": [
+          {
+            "name": "create",
+            "label": "新建",
+            "type": "CreateOne"
+          }
+        ]
+      },
+      "parentName": "system__menu",
+      "priority": 3,
+      "atomName": "system__groups"
+    },
+    {
+      "name": "system__variables",
+      "label": "环境变量",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": true,
+      "configurations": {
+        "v2Columns": [
+          {
+            "name": "name",
+            "label": "名称",
+            "type": "LinkText",
+            "electronName": "name",
+            "link": {
+              "type": "ReadOne"
+            }
+          }
+        ],
+        "v2Fields": [
+          {
+            "name": "name",
+            "label": "名称",
+            "type": "Text",
+            "electronName": "name",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "value",
+            "label": "值",
+            "type": "LargeText",
+            "electronName": "value",
+            "requiredCode": "return true;"
+          }
+        ],
+        "v2FieldRibbons": [
+          {
+            "name": "edit",
+            "label": "编辑",
+            "type": "UpdateOne"
+          },
+          {
+            "name": "delete",
+            "label": "删除",
+            "type": "DeleteOne"
+          }
+        ],
+        "v2ColumnRibbons": [
+          {
+            "name": "create",
+            "label": "新建",
+            "type": "CreateOne"
+          }
+        ]
+      },
+      "parentName": "system__menu",
+      "priority": 4,
+      "atomName": "system__variables"
+    }
+  ],
+  "workflows": [],
+  "roles": [
+    {
+      "name": "owner",
+      "label": "所有者角色",
+      "isSystem": false,
+      "permissions": []
+    },
+    {
+      "name": "anonymous",
+      "label": "匿名角色",
+      "isSystem": false,
+      "permissions": []
+    }
+  ]
 }

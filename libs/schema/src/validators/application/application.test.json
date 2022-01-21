@@ -1414,9 +1414,7 @@
             },
             "catch": [
               {
-                "errorEquals": [
-                  "NotFoundException"
-                ],
+                "errorEquals": ["NotFoundException"],
                 "next": "showVerifyError"
               }
             ],
@@ -1564,9 +1562,7 @@
             },
             "catch": [
               {
-                "errorEquals": [
-                  "NotFoundException"
-                ],
+                "errorEquals": ["NotFoundException"],
                 "next": "showVerifyError"
               }
             ],
@@ -1588,9 +1584,7 @@
             },
             "catch": [
               {
-                "errorEquals": [
-                  "NotFoundException"
-                ],
+                "errorEquals": ["NotFoundException"],
                 "next": "showVerifyError"
               }
             ],
@@ -1650,11 +1644,7 @@
       },
       "validations": {
         "type": "object",
-        "required": [
-          "email",
-          "password",
-          "verifyCode"
-        ],
+        "required": ["email", "password", "verifyCode"],
         "properties": {
           "email": {
             "type": "string",
@@ -1963,9 +1953,7 @@
             },
             "catch": [
               {
-                "errorEquals": [
-                  "NotFoundException"
-                ],
+                "errorEquals": ["NotFoundException"],
                 "next": "createVerifyCode"
               }
             ],

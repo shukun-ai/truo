@@ -19,9 +19,7 @@
       },
       "catch": [
         {
-          "errorEquals": [
-            "NotFoundException"
-          ],
+          "errorEquals": ["NotFoundException"],
           "next": "showVerifyError"
         }
       ],
