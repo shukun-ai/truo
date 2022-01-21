@@ -14,22 +14,22 @@ export class SeedCreateDto {
   @IsNotDoubleUnderscore()
   @MinLength(2)
   @MaxLength(30)
-  readonly name: string;
+  readonly name!: string;
 
   @IsNotEmpty()
   @IsString()
-  readonly label: string;
+  readonly label!: string;
 
   @IsNotEmpty()
   @IsString()
   @IsEngineName()
   @MinLength(2)
   @MaxLength(30)
-  readonly username: string;
+  readonly username!: string;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
   @MaxLength(24)
-  readonly password: string;
+  readonly password!: string;
 }

@@ -1,3 +1,3 @@
 export class SystemUserModel {
-  username: string;
+  username!: string;
 }

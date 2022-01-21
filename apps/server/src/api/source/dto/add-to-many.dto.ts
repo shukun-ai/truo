@@ -4,9 +4,9 @@ import { IDString } from '../../../app.type';
 export class AddToManyDto {
   @IsNotEmpty()
   @IsString()
-  electronName: string;
+  electronName!: string;
 
   @IsNotEmpty()
   @IsString()
-  foreignId: IDString;
+  foreignId!: IDString;
 }
