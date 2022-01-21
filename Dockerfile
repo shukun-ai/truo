@@ -1,3 +1,5 @@
+# This Dockerfile is only for app server
+# TODO: should move it to specific folder for multiple Dockers later
 # Prerequisites
 # npm run build
 # npm run package
