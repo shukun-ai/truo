@@ -4,8 +4,10 @@
     "module": "commonjs",
     "outDir": "../../dist/out-tsc",
     "declaration": true,
+    "removeComments": true,
     "types": ["node"],
-    "target": "es6"
+    "target": "es2017",
+    "sourceMap": false
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts"]
