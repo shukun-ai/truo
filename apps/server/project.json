@@ -45,6 +45,16 @@
         "jestConfig": "apps/server/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "package": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "ncc build dist/apps/server/main.js -o dist/installation/server/ -m"
+          }
+        ]
+      }
     }
   },
   "tags": []
