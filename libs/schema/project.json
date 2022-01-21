@@ -16,7 +16,8 @@
             "input": "libs/schema/src",
             "glob": "**/*.json",
             "output": "src"
-          }
+          },
+          "libs/schema/README.md"
         ]
       }
     },
