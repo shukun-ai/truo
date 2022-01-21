@@ -13,9 +13,9 @@
         "main": "libs/schema/src/index.ts",
         "assets": [
           {
-            "input": "libs/schema/src/json-schemas",
+            "input": "libs/schema/src",
             "glob": "**/*.json",
-            "output": "src/json-schemas"
+            "output": "src"
           }
         ]
       }
