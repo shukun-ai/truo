@@ -2,12 +2,12 @@
 
 This project uses Nx.dev to manage multiple applications in a repo.
 
-JSON Schema and Validation Tools: -
-Runtime Server: apps/server
-Dashboard Management: -
-Editor: -
-Gateway Compose: -
-Runtime Compose: -
+* JSON Schema and Validation Tools: -
+* Runtime Server: apps/server
+* Dashboard Management: -
+* Editor: -
+* Gateway Compose: -
+* Runtime Compose: -
 
 ## Runtime Server
 
