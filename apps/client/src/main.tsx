@@ -7,8 +7,6 @@ import './utils/store-provider';
 import { App } from './App';
 import { registerExceptionListeners } from './utils/exceptions/registerExceptionListeners';
 
-import './index.less';
-
 ReactDOM.render(
   <React.StrictMode>
     <App />

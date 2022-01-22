@@ -20,7 +20,7 @@ export const CurrencyField: FunctionComponent<ColumnFieldProps> = ({
     } else {
       log.error('Currency 字符串数据源错误', value);
     }
-    return
+    return;
   }, [currencyOptions, electronName, row]);
 
   return <>{value}</>;
