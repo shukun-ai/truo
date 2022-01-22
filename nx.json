@@ -29,5 +29,21 @@
       }
     ]
   },
-  "defaultProject": "web-engine"
+  "defaultProject": "web-engine",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "less",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "less"
+      },
+      "library": {
+        "style": "less",
+        "linter": "eslint"
+      }
+    }
+  }
 }
