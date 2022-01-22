@@ -4,4 +4,3 @@
 npx nx lint server
 npx nx lint client
 npx nx lint schema
-npx nx run-many --target=test --all
