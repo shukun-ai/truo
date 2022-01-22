@@ -34,7 +34,7 @@ export const getAttachmentUrl = (
   attachment: AttachmentValue,
   imageSharpOptions?: ImageSharpOptions,
 ) => {
-  const url = `${process.env.REACT_APP_ASSETS_URL ?? ''}/oss`;
+  const url = `${process.env?.['REACT_APP_ASSETS_URL'] ?? ''}/oss`;
   const prefix = attachment.mime.startsWith('image/') ? 'images' : 'assets';
   const path = attachment.path;
 

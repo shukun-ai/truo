@@ -10,7 +10,7 @@ export function createAxios(): AxiosInstance {
   }
 
   const axiosInstance = axios.create({
-    baseURL: `${process.env.REACT_APP_BASE_URL ?? ''}/apis/v1`,
+    baseURL: `${process.env?.['REACT_APP_BASE_URL'] ?? ''}/apis/v1`,
     timeout: 1000 * 30,
   });
 

@@ -37,6 +37,8 @@ export const ManyToOneField: FunctionComponent<ColumnFieldProps> = ({
         };
       }
     }
+
+    return;
   }, [electronName, electronForeignName, row, sources]);
 
   if (!tag) {
