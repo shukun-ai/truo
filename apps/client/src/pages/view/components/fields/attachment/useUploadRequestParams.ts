@@ -16,7 +16,7 @@ export function useUploadRequestParams() {
     const auth = sessionService.getSessionValidAuth();
     if (auth) {
       setParams({
-        action: `${process.env?.['REACT_APP_BASE_URL'] ?? ''}/oss/upload`,
+        action: `${process.env?.['NX_CLIENT_STORAGE_URL'] ?? ''}/oss/upload`,
         orgId: auth.orgId,
         orgName: auth.orgName,
         token: auth.accessToken,
