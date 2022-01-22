@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { LoggerService } from '@nestjs/common';
 import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
 import { QueryParserOptions } from '../../util/query/interfaces';
@@ -11,7 +11,10 @@ import { Scope } from './code-resolver.interface';
 import { Resolver } from './resolver.interface';
 
 export class CodeResolverService implements Resolver {
-  @Inject() private readonly sourceService!: SourceService<any>;
+  constructor(
+    private readonly loggerService: LoggerService,
+    private readonly sourceService: SourceService<any>,
+  ) {}
 
   validateParameters() {
     return true;
@@ -43,6 +46,7 @@ export class CodeResolverService implements Resolver {
         parameters,
       );
     } catch (error) {
+      this.loggerService.error(error);
       throw error;
     }
 

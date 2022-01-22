@@ -1,3 +1,4 @@
+import { LoggerService } from '@nestjs/common';
 import axios from 'axios';
 
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
@@ -6,6 +7,8 @@ import { InputOrOutput } from '../../util/workflow/types';
 import { Resolver } from './resolver.interface';
 
 export class HttpResolverService implements Resolver {
+  constructor(private readonly loggerService: LoggerService) {}
+
   validateParameters() {
     return true;
   }
@@ -46,6 +49,7 @@ export class HttpResolverService implements Resolver {
         config: response?.config,
       };
     } catch (error) {
+      this.loggerService.error(error);
       throw error;
     }
   }

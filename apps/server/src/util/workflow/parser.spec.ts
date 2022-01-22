@@ -287,6 +287,7 @@ describe('parser', () => {
     const input = {
       title: 'Hi',
     };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     const parameters = () => {};
     expect(() => parseByParameters(input, parameters as any)).toThrow(
       ParameterPathFailure,
