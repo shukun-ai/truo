@@ -146,7 +146,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
           onChange={(currentPage, pageSize) => {
             filterService.updatePagination({ currentPage, pageSize });
           }}
-          showTotal={() => `共 ${totalCount} 条`}
+          showTotal={() => `共 ${totalCount}\u00A0条`}
           showQuickJumper
         />
       </div>
