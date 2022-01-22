@@ -1,0 +1,17 @@
+import { MetadataSchema } from '@shukun/schema';
+
+import {
+  ApiResponseData,
+  createAxios,
+  QueryParams,
+  ResourceType,
+} from '../../utils/axios';
+
+// @todo should use core api not source api for getting metadata.
+export async function findOneMetadata(source: string, params?: QueryParams) {
+  const response = await createAxios().get<ApiResponseData<MetadataSchema>>(
+    `${ResourceType.Source}/:orgName/${source}/metadata`,
+    { params: { ...params, select: '_all' } },
+  );
+  return response;
+}
