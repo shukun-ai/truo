@@ -43,5 +43,9 @@ module.exports = (config, context) => {
       ],
     },
     plugins: [...config.plugins, new AntdDayjsWebpackPlugin()],
+    devServer: {
+      ...config.devServer,
+      port: 9000,
+    },
   };
 };
