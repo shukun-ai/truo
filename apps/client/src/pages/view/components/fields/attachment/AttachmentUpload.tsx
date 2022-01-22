@@ -90,6 +90,9 @@ export const AttachmentUpload: FunctionComponent<AttachmentUploadProps> = ({
       name="files"
       listType="text"
       multiple={limitUpload > 1}
+      // TODO: remove ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       fileList={fileList}
       headers={{
         Authorization: `Bearer ${requestParams.token}`,

@@ -11,6 +11,7 @@ export const TextField: FunctionComponent<ColumnFieldProps> = ({
     if (typeof value === 'string' || typeof value === 'number') {
       return value;
     }
+    return;
   }, [electronName, row]);
 
   return <span style={{ overflowWrap: 'anywhere' }}>{value}</span>;

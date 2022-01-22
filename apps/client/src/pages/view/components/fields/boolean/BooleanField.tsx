@@ -12,6 +12,7 @@ export const BooleanField: FunctionComponent<ColumnFieldProps> = ({
     if (typeof value === 'boolean') {
       return value;
     }
+    return;
   }, [electronName, row]);
 
   return <>{value ? <CheckOutlined /> : '-'}</>;

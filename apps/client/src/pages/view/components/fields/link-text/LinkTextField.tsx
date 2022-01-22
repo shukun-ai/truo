@@ -21,6 +21,7 @@ export const LinkTextField: FunctionComponent<ColumnFieldProps> = ({
     if (typeof value === 'string' || typeof value === 'number') {
       return value;
     }
+    return;
   }, [electronName, row]);
 
   const handleClick = useCallback(() => {

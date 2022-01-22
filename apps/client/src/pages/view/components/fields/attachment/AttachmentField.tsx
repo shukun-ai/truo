@@ -15,6 +15,7 @@ export const AttachmentField: FunctionComponent<ColumnFieldProps> = ({
     if (Array.isArray(value)) {
       return value;
     }
+    return;
   }, [electronName, row]);
 
   if (!value || value.length < 1) {

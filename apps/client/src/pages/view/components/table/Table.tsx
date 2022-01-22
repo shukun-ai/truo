@@ -46,6 +46,9 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
   );
   const currentPage = useObservableState(
     currentPage$,
+    // TODO: remove ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     initialState.currentPage,
   );
   const pageSize = useObservableState(pageSize$, defaultFilterValue.pageSize);

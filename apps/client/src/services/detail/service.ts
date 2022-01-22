@@ -54,6 +54,8 @@ class DetailService {
       detailStore.update(() => ({ mode: DetailMode.Show }));
       return { ...source, ...response.data.value };
     }
+
+    return;
   }
 
   async removeOne(sourceId: IDString, metadata: MetadataSchema) {

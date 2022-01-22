@@ -29,6 +29,9 @@ export const ReferenceTable: FunctionComponent<ReferenceTableProps> = ({
   const columns = useColumns(view, metadata);
   const tableEntities = useObservableState(
     referenceEntities$,
+    // TODO: remove ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     initialState.referenceEntities,
   );
   const tableLoading = useObservableState(loading$, initialState.loading);
