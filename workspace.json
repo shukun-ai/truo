@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "client": "apps/client",
+    "daily-build": "apps/daily-build",
     "schema": "libs/schema",
     "server": "apps/server",
     "web-engine": "apps/web-engine"
