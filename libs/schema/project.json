@@ -19,6 +19,15 @@
           },
           "libs/schema/README.md"
         ]
+      },
+      "dependsOn": [
+        {
+          "target": "generate",
+          "projects": "self"
+        }
+      ],
+      "configurations": {
+        "production": {}
       }
     },
     "lint": {
