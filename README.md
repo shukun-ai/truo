@@ -33,7 +33,7 @@ npx nx run server:serve
 
 ```bash
 # Build locally
-npx nx run server:build
+npx nx run server:build:production
 ```
 
 > Deploy
@@ -51,7 +51,7 @@ npx nx run client:serve
 
 ```bash
 # Build locally
-npx nx run client:build
+npx nx run client:build:production
 ```
 
 > Deploy
