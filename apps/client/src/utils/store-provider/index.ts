@@ -7,5 +7,6 @@ akitaDevtools();
 akitaConfig({ resettable: true });
 
 persistState({
+  // TODO: should add a specific STORAGE_NAME
   include: [StoreNames.Session],
 });
