@@ -32,7 +32,7 @@
           "outputHashing": "all",
           "sourceMap": false,
           "namedChunks": false,
-          "extractLicenses": true,
+          "extractLicenses": false,
           "vendorChunk": false
         }
       }
@@ -41,7 +41,8 @@
       "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "client:build",
-        "hmr": true
+        "hmr": true,
+        "port": 9000
       },
       "configurations": {
         "production": {

@@ -13,8 +13,9 @@
       },
       "configurations": {
         "production": {
+          "sourceMap": false,
           "optimization": true,
-          "extractLicenses": true,
+          "extractLicenses": false,
           "inspect": false,
           "fileReplacements": [
             {
@@ -28,7 +29,8 @@
     "serve": {
       "executor": "@nrwl/node:execute",
       "options": {
-        "buildTarget": "server:build"
+        "buildTarget": "server:build",
+        "port": 9229
       }
     },
     "lint": {
