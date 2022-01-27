@@ -1,0 +1,44 @@
+{
+  "root": "libs/code-resolver",
+  "sourceRoot": "libs/code-resolver/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/code-resolver",
+        "tsConfig": "libs/code-resolver/tsconfig.lib.json",
+        "packageJson": "libs/code-resolver/package.json",
+        "main": "libs/code-resolver/src/index.ts",
+        "assets": [
+          {
+            "input": "libs/code-resolver/src",
+            "glob": "**/*.json",
+            "output": "src"
+          },
+          "libs/code-resolver/README.md"
+        ]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/code-resolver/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/code-resolver"],
+      "options": {
+        "jestConfig": "libs/code-resolver/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
