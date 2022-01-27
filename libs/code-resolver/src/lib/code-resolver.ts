@@ -1,7 +1,25 @@
-import { IDString, SourceServiceCreateDto } from '../../app.type';
-import { QueryParserOptions } from '../../util/query/interfaces';
+// TODO: should be removed, because should extract server types into separated library.
+export type IDString = string;
 
-export interface Scope {
+// TODO: should be removed, because should extract server types into separated library.
+export interface SourceServiceCreateDto {
+  [keyName: string]: unknown;
+}
+
+// TODO: should be removed, because should extract server types into separated library.
+export interface QueryOptions {
+  filter: any;
+  sort?: string | any;
+  limit?: number;
+  skip?: number;
+  select?: string | any;
+  populate?: string | any;
+}
+
+// TODO: should be removed, because should extract server types into separated library.
+export type QueryParserOptions = QueryOptions & { count?: boolean };
+
+export interface CodeResolver {
   source: {
     findAll: <T>(atomName: string, query: QueryParserOptions) => Promise<T[]>;
     findOne: <T>(atomName: string, query: QueryParserOptions) => Promise<T>;

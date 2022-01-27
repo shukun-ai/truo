@@ -16,6 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@shukun/code-resolver": ["libs/code-resolver/src/index.ts"],
       "@shukun/schema": ["libs/schema/src/index.ts"]
     }
   },
