@@ -7,7 +7,7 @@ import { NodeVM } from 'vm2';
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
 import { InputOrOutput } from '../../util/workflow/types';
 
-import { Scope } from './code-resolver.interface';
+import { CodeResolver } from '@shukun/code-resolver';
 import { Resolver } from './resolver.interface';
 
 export class CodeResolverService implements Resolver {
@@ -56,7 +56,7 @@ export class CodeResolverService implements Resolver {
   }
 
   createScope(orgName: string, operatorId?: IDString) {
-    const scope: Scope = {
+    const scope: CodeResolver = {
       source: {
         findAll: async (atomName: string, query: QueryParserOptions) => {
           return await this.sourceService.findAll(orgName, atomName, query);
