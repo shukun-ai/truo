@@ -267,4 +267,6 @@ export function handleCatch(error: Error, catchDefinitions: WorkflowCatches) {
       };
     }
   }
+
+  return;
 }

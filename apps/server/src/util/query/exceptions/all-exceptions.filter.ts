@@ -16,7 +16,7 @@ import {
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
-  catch(exception: any, host: ArgumentsHost) {
+  override catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
@@ -56,7 +56,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     return this.sendResponse(response, exception, message, statusCode);
   }
 
-  handleUnknownError(response: Response, exception: unknown) {
+  override handleUnknownError(response: Response, exception: unknown) {
     const statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     // @todo should use logger instead of returning message error directly for security and human-readable.
     const message = get(exception, 'message', 'Unknown Internal Error.');
