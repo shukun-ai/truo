@@ -1,6 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx nx lint server
-npx nx lint client
-npx nx lint schema
+npx nx run-many --target=lint --all
+npx nx run-many --target=test --all
