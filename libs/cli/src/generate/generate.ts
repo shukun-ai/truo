@@ -96,7 +96,7 @@ async function writeFile(text: string, outputPath: string): Promise<void> {
 }
 
 async function replaceCode(text: string, inputPath: string): Promise<string> {
-  const replacedCode = text.match(/{{code:[\w./]*}}/g);
+  const replacedCode = text.match(/{{code:[\w./-_]*}}/g);
 
   if (!replacedCode) {
     return text;
