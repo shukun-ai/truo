@@ -3,7 +3,7 @@ import { minify } from 'uglify-js';
 
 export async function compileTs(code: string): Promise<string> {
   const transpiled = transpile(code, {
-    module: ModuleKind.ES2020,
+    module: ModuleKind.CommonJS,
     target: ScriptTarget.ES2020,
     sourceMap: false,
     strict: true,
