@@ -15,6 +15,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
     "paths": {
       "@shukun/cli": ["libs/cli/src/index.ts"],
       "@shukun/code-resolver": ["libs/code-resolver/src/index.ts"],
