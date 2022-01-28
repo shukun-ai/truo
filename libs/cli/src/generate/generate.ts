@@ -96,14 +96,13 @@ async function writeFile(text: string, outputPath: string): Promise<void> {
 }
 
 async function replaceCode(text: string, inputPath: string): Promise<string> {
-  const replacedCode = text.match(/{{code:[\w./]*}}/g);
+  const replacedCode = text.match(/{{code:[\w./-_]*}}/g);
 
   if (!replacedCode) {
     return text;
   }
 
   let replacedText = text;
-  console.log(text, replacedCode);
 
   for (const placeholder of replacedCode) {
     const name = placeholder.substring(7, placeholder.length - 2);
