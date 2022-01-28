@@ -103,7 +103,6 @@ async function replaceCode(text: string, inputPath: string): Promise<string> {
   }
 
   let replacedText = text;
-  console.log(text, replacedCode);
 
   for (const placeholder of replacedCode) {
     const name = placeholder.substring(7, placeholder.length - 2);
