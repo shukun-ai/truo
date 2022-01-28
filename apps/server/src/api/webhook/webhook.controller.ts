@@ -122,6 +122,8 @@ export class WebhookController {
 
       return executeLog;
     }
+
+    return;
   }
 
   private validateBody(workflow: WorkflowSchema, body: unknown) {
