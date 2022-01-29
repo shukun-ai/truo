@@ -14,7 +14,9 @@ export function getResourceNodes(method: string, uri: string): ResourceNodes {
     throw new BadRequestException('请求类型不正确。');
   }
 
-  if (!Object.values(RoleResourceType).includes(resourceType as RoleResourceType)) {
+  if (
+    !Object.values(RoleResourceType).includes(resourceType as RoleResourceType)
+  ) {
     throw new BadRequestException('接口类型不正确。');
   }
 
