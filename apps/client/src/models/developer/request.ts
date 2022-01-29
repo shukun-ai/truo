@@ -1,8 +1,9 @@
-import { ApiResponseData, createAxios, ResourceType } from '../../utils/axios';
+import { RoleResourceType } from '@shukun/schema';
+import { ApiResponseData, createAxios } from '../../utils/axios';
 
 export async function uploadCodebase(file: FormData) {
   const response = await createAxios().post<ApiResponseData<null>>(
-    `${ResourceType.Developer}/:orgName/codebase`,
+    `${RoleResourceType.Developer}/:orgName/codebase`,
     file,
     {
       headers: {

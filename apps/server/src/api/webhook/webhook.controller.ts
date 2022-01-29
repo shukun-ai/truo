@@ -8,7 +8,7 @@ import {
   UseInterceptors,
   BadRequestException,
 } from '@nestjs/common';
-import { WorkflowSchema } from '@shukun/schema';
+import { RoleResourceType, WorkflowSchema } from '@shukun/schema';
 import { validateWorkflowInput } from '@shukun/schema/dist/validators/workflow-input/validate';
 import { omit } from 'lodash';
 import { EXCEPTION_WEBHOOK_TEST_NAME } from '../../app.constant';
@@ -19,9 +19,8 @@ import { ResourceService } from '../../webhook/resource.service';
 
 import { executeWorkflow } from '../../util/workflow/execution';
 import { WebhookLogService } from '../../webhook/webhook-log.service';
-import { ResourceType } from '../api.type';
 
-@Controller(`${ResourceType.Webhook}/:orgName`)
+@Controller(`${RoleResourceType.Webhook}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class WebhookController {
   @Inject()

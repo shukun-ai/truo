@@ -1,7 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
+import { RoleResourceType } from '@shukun/schema';
 import * as URLParse from 'url-parse';
-
-import { ResourceType } from '../api.type';
 
 import { ResourceNodes } from './authorization.interface';
 
@@ -15,13 +14,13 @@ export function getResourceNodes(method: string, uri: string): ResourceNodes {
     throw new BadRequestException('请求类型不正确。');
   }
 
-  if (!Object.values(ResourceType).includes(resourceType as ResourceType)) {
+  if (!Object.values(RoleResourceType).includes(resourceType as RoleResourceType)) {
     throw new BadRequestException('接口类型不正确。');
   }
 
   return {
     method: method as 'GET' | 'POST' | 'PUT' | 'DELETE',
-    resourceType: resourceType as ResourceType,
+    resourceType: resourceType as RoleResourceType,
     orgName,
     resourceName,
     resourceId,

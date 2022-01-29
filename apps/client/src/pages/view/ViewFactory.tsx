@@ -1,4 +1,4 @@
-import { ViewType } from '@shukun/schema';
+import { RoleResourceType, ViewType } from '@shukun/schema';
 import { useUpdateEffect } from 'ahooks';
 import { Skeleton } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -11,7 +11,6 @@ import { metadataService } from '../../services/metadata';
 import { grantList$, grantRoles$, isGranted } from '../../services/security';
 import { sourceService } from '../../services/source';
 import { views$ } from '../../services/view';
-import { ResourceType } from '../../utils/axios';
 import { FluidLayout } from '../layout/FluidLayout';
 
 import { CustomView } from './components/custom/CustomView';
@@ -56,7 +55,7 @@ export const ViewFactory: FunctionComponent<ViewFactoryProps> = () => {
     return isGranted({
       grantList,
       grantRoles,
-      resource: `${ResourceType.View}/${view.name}`,
+      resource: `${RoleResourceType.View}/${view.name}`,
       action: 'read:any',
     });
   }, [grantList, grantRoles, view]);

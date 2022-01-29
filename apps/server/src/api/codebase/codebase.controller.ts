@@ -12,6 +12,7 @@ import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import {
   ApplicationSchema,
   mergeDependencies,
+  RoleResourceType,
   SystemDataValidator,
   validateApplicationSchema,
 } from '@shukun/schema';
@@ -21,10 +22,9 @@ import { QueryResponse } from '../../util/query/interfaces';
 import { IDString } from '../../app.type';
 import { OrgService } from '../../core/org.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
-import { ResourceType } from '../api.type';
 import { OrgNamePipe } from '../org/org-name.pipe';
 
-@Controller(`/${ResourceType.Developer}/:orgName/codebase`)
+@Controller(`/${RoleResourceType.Developer}/:orgName/codebase`)
 @UseInterceptors(QueryResponseInterceptor)
 @ApiBearerAuth()
 export class CodebaseController {

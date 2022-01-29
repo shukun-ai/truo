@@ -6,14 +6,14 @@ import {
   Param,
   BadRequestException,
 } from '@nestjs/common';
+import { RoleResourceType } from '@shukun/schema';
 
 import { GrantList } from '../../identity/interfaces';
 import { SecurityService } from '../../identity/security.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
-import { ResourceType } from '../api.type';
 
-@Controller(`${ResourceType.Public}/:orgName/grant-list`)
+@Controller(`${RoleResourceType.Public}/:orgName/grant-list`)
 @UseInterceptors(QueryResponseInterceptor)
 export class GrantListController {
   @Inject()

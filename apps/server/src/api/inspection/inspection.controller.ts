@@ -6,13 +6,13 @@ import {
   Param,
 } from '@nestjs/common';
 import { InspectionResponse } from '@shukun/api';
+import { RoleResourceType } from '@shukun/schema';
 import { OrgService } from '../../core/org.service';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
-import { ResourceType } from '../api.type';
 
-@Controller(`${ResourceType.Developer}/:orgName/inspection`)
+@Controller(`${RoleResourceType.Developer}/:orgName/inspection`)
 @UseInterceptors(QueryResponseInterceptor)
 export class InspectionController {
   @Inject() private readonly orgService!: OrgService;

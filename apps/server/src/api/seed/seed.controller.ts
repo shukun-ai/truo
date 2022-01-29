@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import {
   initialApplication,
+  RoleResourceType,
   SystemPositionModel,
   SystemUserModel,
 } from '@shukun/schema';
@@ -17,11 +18,10 @@ import { QueryResponse } from '../../util/query/interfaces';
 
 import { OrgService } from '../../core/org.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
-import { ResourceType } from '../api.type';
 
 import { SeedCreateDto } from './seed.dto';
 
-@Controller(`/${ResourceType.Tenant}/any/seeds`)
+@Controller(`/${RoleResourceType.Tenant}/any/seeds`)
 @UseInterceptors(QueryResponseInterceptor)
 export class SeedController {
   @Inject()
