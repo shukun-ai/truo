@@ -9,7 +9,6 @@ import { CoreModule } from '../core/core.module';
 
 import { AuthenticationController } from './authentication/authentication.controller';
 import { AuthorizationController } from './authorization/authorization.controller';
-// import { AuthorizationMiddleware } from './authorization/authorization.middleware';
 import { AuthorizationService } from './authorization/authorization.service';
 import { CodebaseController } from './codebase/codebase.controller';
 import { GrantListController } from './grant-list/grant-list.controller';
@@ -21,6 +20,7 @@ import { SourceAccessControlService } from './source/source-access-control.servi
 import { SourceController } from './source/source.controller';
 import { ViewController } from './view/view.controller';
 import { WebhookController } from './webhook/webhook.controller';
+import { InspectionController } from './inspection/inspection.controller';
 
 @Module({
   imports: [
@@ -42,12 +42,12 @@ import { WebhookController } from './webhook/webhook.controller';
     SourceController,
     SeedController,
     RoleController,
+    InspectionController,
   ],
   providers: [SourceAccessControlService, AuthorizationService],
 })
 export class ApiModule {
   public configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(AuthorizationMiddleware).forRoutes('*');
     consumer.apply(IdentityMiddleware).forRoutes('*');
   }
 }
