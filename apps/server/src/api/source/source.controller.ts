@@ -10,6 +10,7 @@ import {
   Delete,
   Req,
 } from '@nestjs/common';
+import { RoleResourceType } from '@shukun/schema';
 
 import { IDString } from '../../app.type';
 import { SecurityService } from '../../identity/security.service';
@@ -18,13 +19,12 @@ import { SourceService } from '../../source/source.service';
 import { ParsedQuery } from '../../util/query/decorators/parsed-query.decorator';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryParserOptions, QueryResponse } from '../../util/query/interfaces';
-import { ResourceType } from '../api.type';
 
 import { AddToManyDto } from './dto/add-to-many.dto';
 import { IncreaseDto } from './dto/increase.dto';
 import { SourceAccessControlService } from './source-access-control.service';
 
-@Controller(`/${ResourceType.Source}/:orgName/:atomName`)
+@Controller(`/${RoleResourceType.Source}/:orgName/:atomName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class SourceController {
   @Inject()

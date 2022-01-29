@@ -1,13 +1,14 @@
+import { RoleResourceType } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 import merge from 'lodash/merge';
 
 import { IDString } from '../model-helpers';
 
 import { createAxios } from './AxiosInstance';
-import { ApiResponseData, QueryParams, ResourceType } from './types';
+import { ApiResponseData, QueryParams } from './types';
 
 export interface RequestProps<Model> {
-  resourceType: ResourceType;
+  resourceType: RoleResourceType;
   urlPath: string;
   globalSelect: Array<keyof Model>;
   orgName?: string;

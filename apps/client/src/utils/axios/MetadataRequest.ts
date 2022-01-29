@@ -1,10 +1,10 @@
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 
 import { UnknownMetadataModel } from '../../models/metadata';
 
 import { Request } from './Request';
-import { ApiResponseData, QueryParams, ResourceType } from './types';
+import { ApiResponseData, QueryParams } from './types';
 
 export class MetadataRequest<Model = UnknownMetadataModel> {
   metadata: MetadataSchema;
@@ -18,7 +18,7 @@ export class MetadataRequest<Model = UnknownMetadataModel> {
 
     this.metadata = metadata;
     this.request = new Request<Model>({
-      resourceType: ResourceType.Source,
+      resourceType: RoleResourceType.Source,
       urlPath,
       globalSelect: globalSelect as any,
     });

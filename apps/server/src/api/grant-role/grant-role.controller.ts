@@ -12,9 +12,9 @@ import { SecurityRequest } from '../../identity/utils/security-request';
 import { SecurityService } from '../../identity/security.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
-import { ResourceType } from '../api.type';
+import { RoleResourceType } from '@shukun/schema';
 
-@Controller(`${ResourceType.Public}/:orgName/grant-roles`)
+@Controller(`${RoleResourceType.Public}/:orgName/grant-roles`)
 @UseInterceptors(QueryResponseInterceptor)
 export class GrantRoleController {
   @Inject()

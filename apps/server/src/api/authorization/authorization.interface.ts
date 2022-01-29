@@ -1,9 +1,9 @@
-import { ResourceType } from '../api.type';
+import { RoleResourceType } from '@shukun/schema';
 
 export interface ResourceNodes {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   orgName: string;
-  resourceType: ResourceType;
+  resourceType: RoleResourceType;
   resourceName: string;
   resourceId?: string;
 }

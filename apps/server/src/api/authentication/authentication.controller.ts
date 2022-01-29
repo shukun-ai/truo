@@ -16,11 +16,11 @@ import { SourceService } from '../../source/source.service';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
-import { ResourceType } from '../api.type';
 
 import { SignInDto } from './dto/sign-in.dto';
+import { RoleResourceType } from '@shukun/schema';
 
-@Controller(`${ResourceType.Public}/:orgName/authentication`)
+@Controller(`${RoleResourceType.Public}/:orgName/authentication`)
 @UseInterceptors(QueryResponseInterceptor)
 export class AuthenticationController {
   @Inject()
