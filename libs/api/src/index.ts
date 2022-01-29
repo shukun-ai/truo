@@ -1,1 +1,1 @@
-export * from './interface/inspection.interface';
+export * from './controller/inspection-response.interface';

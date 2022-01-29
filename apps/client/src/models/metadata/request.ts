@@ -1,10 +1,6 @@
 import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 
-import {
-  ApiResponseData,
-  createAxios,
-  QueryParams,
-} from '../../utils/axios';
+import { ApiResponseData, createAxios, QueryParams } from '../../utils/axios';
 
 // @todo should use core api not source api for getting metadata.
 export async function findOneMetadata(source: string, params?: QueryParams) {
