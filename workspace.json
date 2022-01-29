@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "api": "libs/api",
     "cli": "libs/cli",
     "client": "apps/client",
     "code-resolver": "libs/code-resolver",
