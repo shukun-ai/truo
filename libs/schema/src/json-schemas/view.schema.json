@@ -16,6 +16,9 @@
     "label": {
       "type": "string"
     },
+    "description": {
+      "type": "string"
+    },
     "type": {
       "type": "string",
       "title": "ViewType",
