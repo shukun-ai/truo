@@ -83,6 +83,7 @@ export interface MetadataSchema {
   $schema?: string;
   name: string;
   label: string;
+  description?: string;
   electrons: MetadataElectron[];
 }
 export interface MetadataElectron {
@@ -128,6 +129,7 @@ export interface ViewSchema {
   $schema?: string;
   name: string;
   label: string;
+  description?: string;
   type: ViewType;
   isSystem?: boolean;
   atomName?: string;
@@ -579,6 +581,7 @@ export interface RoleSchema {
   $schema?: string;
   name: string;
   label: string;
+  description?: string;
   isSystem?: boolean;
   permissions: RolePermission[];
 }
