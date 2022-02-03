@@ -138,6 +138,7 @@ export interface ViewSchema {
   parentName?: string;
   isVisible: boolean;
   priority: number;
+  query?: ViewQuery;
 }
 export interface ViewConfigurations {
   v2Columns?: ViewV2Column[];
@@ -255,6 +256,12 @@ export interface ViewDetailRemoveAction {
   confirmed?: boolean;
   confirmedTip?: string;
   hidden?: RuleEngineSet;
+}
+/**
+ * Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.
+ */
+export interface ViewQuery {
+  [k: string]: unknown;
 }
 /**
  * Describe Workflow Schema

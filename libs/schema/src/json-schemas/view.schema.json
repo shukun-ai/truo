@@ -333,9 +333,17 @@
     },
     "priority": {
       "type": "integer"
+    },
+    "query": {
+      "$ref": "#/definitions/ViewQuery"
     }
   },
   "definitions": {
+    "ViewQuery": {
+      "title": "ViewQuery",
+      "description": "Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.",
+      "type": "object"
+    },
     "ViewV2FieldType": {
       "title": "ViewV2FieldType",
       "type": "string",

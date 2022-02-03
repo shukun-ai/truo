@@ -62,7 +62,7 @@ export const ViewFactory: FunctionComponent<ViewFactoryProps> = () => {
 
   useUpdateEffect(() => {
     if (view) {
-      filterService.setActive(view.name);
+      filterService.setActive(view.name, view.query ?? null);
     }
   }, [view]);
 
