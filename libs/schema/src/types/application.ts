@@ -649,6 +649,9 @@ export enum ViewV2FieldType {
   OneToMany = 'OneToMany',
   LinkText = 'LinkText',
 }
+/**
+ * Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.
+ */
 export enum ViewV2LinkType {
   None = 'None',
   View = 'View',
@@ -660,6 +663,7 @@ export enum ViewV2LinkType {
   Print = 'Print',
   Excel = 'Excel',
   Csv = 'Csv',
+  CustomModal = 'CustomModal',
 }
 export enum RuleEngineGlobalCondition {
   always = 'always',

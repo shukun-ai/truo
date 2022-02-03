@@ -32,3 +32,15 @@ export const authStatus$ = sessionQuery.select<{
     expired: false,
   };
 });
+
+export const validAuth$ = sessionQuery.select((state) => {
+  if (!state.auth) {
+    return null;
+  }
+
+  if (dayjs().valueOf() > state.auth.expiresTimestamp) {
+    return null;
+  }
+
+  return state.auth;
+});

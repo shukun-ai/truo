@@ -19,6 +19,7 @@ import {
   totalCount$,
 } from '../../../../services/filter';
 import {
+  tableActiveIds$,
   tableEntities$,
   tableLoading$,
   tableService,
@@ -81,6 +82,12 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
     [view.query],
   );
 
+  const selectedIds = useObservableState(tableActiveIds$);
+
+  const handleSelectedIdsChanged = useCallback((selectedRowKeys) => {
+    tableService.setSelectedIds(selectedRowKeys);
+  }, []);
+
   useDebounceEffect(
     () => {
       tableService.findMany(view, metadata);
@@ -131,6 +138,8 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
           onChange={handleSortChange}
           rowSelection={{
             columnWidth: 64,
+            selectedRowKeys: selectedIds,
+            onChange: handleSelectedIdsChanged,
           }}
         />
       </div>
