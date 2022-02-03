@@ -1,4 +1,4 @@
-import { MetadataSchema, ViewSchema } from '../../../../../libs/schema/src';
+import { MetadataSchema, ViewSchema } from '@shukun/schema';
 import { UnknownSourceModel } from '../../models/source';
 import { CustomModalStore } from './store';
 
