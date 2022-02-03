@@ -7,6 +7,7 @@ import {
   customModalService,
 } from '../../../../services/custom-modal';
 import { CustomViewExperiment } from './CustomViewExperiment';
+import { tableService } from '../../../../services/table';
 
 export interface CustomModalProps {}
 
@@ -19,9 +20,19 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
 
   const sources = useObservableState(customModalQuery.sources$, []);
 
+  const view = useObservableState(customModalQuery.view$, null);
+
+  const metadata = useObservableState(customModalQuery.metadata$, null);
+
   const handleCancel = useCallback(() => {
     customModalService.closeModal();
   }, []);
+
+  const handleTableRefresh = useCallback(() => {
+    if (view && metadata) {
+      tableService.findMany(view, metadata);
+    }
+  }, [view, metadata]);
 
   return (
     <Modal
@@ -39,6 +50,8 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
           url={url}
           sources={sources}
           onFinish={handleCancel}
+          onRefresh={handleTableRefresh}
+          onFilter={null}
         />
       )}
     </Modal>

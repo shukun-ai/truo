@@ -1,7 +1,7 @@
 import { useObservableState } from 'observable-hooks';
 import Postmate from 'postmate';
 import queryString from 'query-string';
-import React, { FunctionComponent, useEffect, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UnknownSourceModel } from '../../../../models/source';
 import { useUnmount } from 'ahooks';
@@ -12,19 +12,32 @@ import {
   POSTMATE_NAME_VIEW_CUSTOM,
 } from '../../../../utils/postmate-helpers';
 
+const ON_AUTH = 'onAuth';
+const ON_QUERY = 'onQuery';
+const ON_SOURCES = 'onSources';
+const EMIT_FINISH = 'emitFinish';
+const EMIT_REFRESH = 'emitRefresh';
+const EMIT_FILTER = 'emitFilter';
+const EMIT_WIDTH = 'emitWidth';
+const EMIT_HEIGHT = 'emitHeight';
+
 export interface CustomViewExperimentProps {
   url: string | null;
-  sources?: UnknownSourceModel[];
-  onFinish?: () => void;
+  sources: UnknownSourceModel[];
+  onFinish: (() => void) | null;
+  onRefresh: (() => void) | null;
+  onFilter: (() => void) | null;
 }
 
 export const CustomViewExperiment: FunctionComponent<
   CustomViewExperimentProps
-> = ({ url, sources, onFinish }) => {
+> = ({ url, sources, onFinish, onRefresh, onFilter }) => {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const handshakeRef = useRef<Postmate>();
   const urlRef = useRef<string | null>(null);
   const location = useLocation();
+  const [width, setWidth] = useState<string>('100%');
+  const [height, setHeight] = useState<string>('100%');
 
   useEffect(() => {
     if (!url || !frameRef) {
@@ -56,35 +69,54 @@ export const CustomViewExperiment: FunctionComponent<
   const auth = useObservableState(validAuth$, null);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => child.call('onAuth', auth));
+    handshakeRef?.current?.then((child) => child.call(ON_AUTH, auth));
   }, [auth]);
 
   useEffect(() => {
     const query = queryString.parse(location.search);
-    handshakeRef?.current?.then((child) => child.call('onSources', query));
+    handshakeRef?.current?.then((child) => child.call(ON_QUERY, query));
   }, [location]);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => child.call('onSources', sources));
+    handshakeRef?.current?.then((child) => child.call(ON_SOURCES, sources));
   }, [sources]);
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {
       if (onFinish) {
-        child.on('emitFinish', onFinish);
+        child.on(EMIT_FINISH, onFinish);
       }
     });
   }, [onFinish]);
 
-  return (
-    <div
-      ref={frameRef}
-      style={{
-        width: '100%',
-        height: '100%',
-      }}
-    />
-  );
+  useEffect(() => {
+    handshakeRef?.current?.then((child) => {
+      if (onRefresh) {
+        child.on(EMIT_REFRESH, onRefresh);
+      }
+    });
+  }, [onRefresh]);
+
+  useEffect(() => {
+    handshakeRef?.current?.then((child) => {
+      if (onFilter) {
+        child.on(EMIT_FILTER, onFilter);
+      }
+    });
+  }, [onFilter]);
+
+  useEffect(() => {
+    handshakeRef?.current?.then((child) => {
+      child.on(EMIT_WIDTH, (width: string) => {
+        setWidth(width);
+      });
+      child.on(EMIT_HEIGHT, (height: string) => {
+        setHeight(height);
+      });
+    });
+  }, [onFinish]);
+
+  return <div ref={frameRef} style={{ width, height }} />;
 };
 
 const isHttpLink = (value: string) =>
