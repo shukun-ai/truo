@@ -71,11 +71,14 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         return;
       }
 
-      filterService.updateSort({
-        [sorter.field]: sorter.order as SortQueryStringType,
-      });
+      filterService.updateSort(
+        {
+          [sorter.field]: sorter.order as SortQueryStringType,
+        },
+        view.query ?? null,
+      );
     },
-    [],
+    [view.query],
   );
 
   useDebounceEffect(
@@ -104,6 +107,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         <Filter
           metadata={metadata}
           viewColumns={view.configurations?.v2Columns || []}
+          viewQuery={view.query}
         />
       </div>
       <div

@@ -4,24 +4,21 @@ import { FilterModel } from './model';
 import { filterStore } from './store';
 
 import { defaultFilterValue } from '.';
+import { ViewQuery } from '@shukun/schema';
+import { merge } from 'lodash';
 
 export class FilterService {
-  upsert(filter: FilterModel) {
-    filterStore.upsert(filter.viewName, filter);
-  }
+  setActive(viewName: string, viewQuery: ViewQuery | null) {
+    const filterValue = merge({}, defaultFilterValue, viewQuery);
 
-  clear(viewName: string) {
-    filterStore.remove(viewName);
-  }
-
-  setActive(viewName: string) {
     filterStore.add({
       viewName,
-      ...defaultFilterValue,
+      ...filterValue,
     });
     filterStore.setActive(viewName);
   }
 
+  // TODO: use Akitajs Query instead
   getByViewName(viewName: string) {
     const { entities } = filterStore.getValue();
 
@@ -40,6 +37,7 @@ export class FilterService {
     return entity;
   }
 
+  // TODO: use Akitajs Query instead
   getFilterByViewName(viewName: string) {
     const entity = this.getByViewName(viewName);
 
@@ -58,27 +56,30 @@ export class FilterService {
     return entity;
   }
 
-  async updateFilter(filter: FilterQueryStringValues) {
+  async updateFilter(
+    filter: FilterQueryStringValues,
+    viewQuery: ViewQuery | null,
+  ) {
     filterStore.updateActive(() => ({
-      filter,
+      filter: merge({}, viewQuery?.['filter'], filter),
     }));
   }
 
-  async clearFilter() {
+  async clearFilter(viewQuery: ViewQuery | null) {
     filterStore.updateActive(() => ({
-      filter: null,
+      filter: merge({}, viewQuery?.['filter']),
     }));
   }
 
-  async updateSort(sort: SortQueryStringValues) {
+  async updateSort(sort: SortQueryStringValues, viewQuery: ViewQuery | null) {
     filterStore.updateActive(() => ({
-      sort,
+      sort: merge({}, viewQuery?.['sort'], sort),
     }));
   }
 
-  async clearSort() {
+  async clearSort(viewQuery: ViewQuery | null) {
     filterStore.updateActive(() => ({
-      sort: null,
+      sort: merge({}, viewQuery?.['sort']),
     }));
   }
 
