@@ -4,10 +4,13 @@ import {
   ViewV2LinkType,
   ViewV2Ribbon,
 } from '@shukun/schema';
+import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, ReactNode, useCallback } from 'react';
 
 import { Ribbon } from '../../../../components/ribbon';
+import { tableActiveEntities$ } from '../../../../services/table';
 import { RibbonCustomButton } from '../ribbon/RibbonCustomButton';
+import { RibbonCustomModalButton } from '../ribbon/RibbonCustomModalButton';
 
 import { TableCreateButton } from './ribbons/TableCreateButton';
 import { TableCsvButton } from './ribbons/TableCsvButton';
@@ -25,6 +28,8 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
   viewRibbons,
   view,
 }) => {
+  const tableActiveEntities = useObservableState(tableActiveEntities$, []);
+
   const customRibbons = useCallback<(viewRibbon: ViewV2Ribbon) => ReactNode>(
     (viewRibbon) => {
       switch (viewRibbon.type) {
@@ -34,18 +39,27 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
           return <TableExcelButton key="TableExcelButton" view={view} />;
         case ViewV2LinkType.Csv:
           return <TableCsvButton key="TableCsvButton" view={view} />;
+        case ViewV2LinkType.CustomModal:
+          return (
+            <RibbonCustomModalButton
+              key={viewRibbon.name}
+              view={view}
+              viewRibbon={viewRibbon}
+              sources={tableActiveEntities}
+            />
+          );
         default:
           return (
             <RibbonCustomButton
-              key="RibbonCustomButton"
+              key={viewRibbon.name}
               viewRibbon={viewRibbon}
               source={null}
-              sources={[]}
+              sources={tableActiveEntities}
             />
           );
       }
     },
-    [view],
+    [view, tableActiveEntities],
   );
 
   return (

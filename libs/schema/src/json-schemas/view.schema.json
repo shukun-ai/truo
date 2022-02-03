@@ -428,6 +428,7 @@
     "ViewV2LinkType": {
       "type": "string",
       "title": "ViewV2LinkType",
+      "description": "Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.",
       "enum": [
         "None",
         "View",
@@ -438,7 +439,8 @@
         "DeleteOne",
         "Print",
         "Excel",
-        "Csv"
+        "Csv",
+        "CustomModal"
       ],
       "tsEnumNames": [
         "None",
@@ -450,7 +452,8 @@
         "DeleteOne",
         "Print",
         "Excel",
-        "Csv"
+        "Csv",
+        "CustomModal"
       ]
     }
   }

@@ -48,8 +48,8 @@ class TableService {
     tableStore.setLoading(false);
   }
 
-  reset() {
-    tableStore.reset();
+  setSelectedIds(ids: string[]) {
+    tableStore.setActive(ids);
   }
 }
 
