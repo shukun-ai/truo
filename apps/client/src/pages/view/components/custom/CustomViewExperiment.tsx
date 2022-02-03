@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UnknownSourceModel } from '../../../../models/source';
-
+import { useUnmount } from 'ahooks';
 import { validAuth$ } from '../../../../services/session';
 
 import {
@@ -23,22 +23,35 @@ export const CustomViewExperiment: FunctionComponent<
 > = ({ url, sources, onFinish }) => {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const handshakeRef = useRef<Postmate>();
+  const urlRef = useRef<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
-    if (!url || handshakeRef.current) {
+    if (!url || !frameRef) {
       return;
     }
 
-    const builtUrl = buildUrl(url ?? '');
+    if (urlRef.current !== url) {
+      urlRef.current = url;
 
-    handshakeRef.current = new Postmate({
-      container: frameRef.current,
-      url: builtUrl,
-      name: POSTMATE_NAME_VIEW_CUSTOM,
-      classListArray: [POSMATE_IFRAME_CLASS],
-    });
+      handshakeRef?.current?.then((child) => child.destroy);
+      handshakeRef.current = undefined;
+
+      const builtUrl = buildUrl(url);
+
+      handshakeRef.current = new Postmate({
+        container: frameRef.current,
+        url: builtUrl,
+        name: POSTMATE_NAME_VIEW_CUSTOM,
+        classListArray: [POSMATE_IFRAME_CLASS],
+      });
+    }
   }, [frameRef, url]);
+
+  useUnmount(() => {
+    handshakeRef?.current?.then((child) => child.destroy);
+    handshakeRef.current = undefined;
+  });
 
   const auth = useObservableState(validAuth$, null);
 
