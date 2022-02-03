@@ -1,6 +1,6 @@
 import { StoreConfig, Store } from '@datorama/akita';
 import { produce } from 'immer';
-import { MetadataSchema, ViewSchema } from '../../../../../libs/schema/src';
+import { MetadataSchema, ViewSchema } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
