@@ -9,7 +9,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { RoleResourceType, WorkflowSchema } from '@shukun/schema';
-import { validateWorkflowInput } from '@shukun/schema/dist/validators/workflow-input/validate';
+import { validateWorkflowInput } from '@shukun/schema';
 import { omit } from 'lodash';
 import { EXCEPTION_WEBHOOK_TEST_NAME } from '../../app.constant';
 import { WorkflowService } from '../../core/workflow.service';
