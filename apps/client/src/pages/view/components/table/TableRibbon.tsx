@@ -29,14 +29,15 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
     (viewRibbon) => {
       switch (viewRibbon.type) {
         case ViewV2LinkType.CreateOne:
-          return <TableCreateButton view={view} />;
+          return <TableCreateButton key="TableCreateButton" view={view} />;
         case ViewV2LinkType.Excel:
-          return <TableExcelButton view={view} />;
+          return <TableExcelButton key="TableExcelButton" view={view} />;
         case ViewV2LinkType.Csv:
-          return <TableCsvButton view={view} />;
+          return <TableCsvButton key="TableCsvButton" view={view} />;
         default:
           return (
             <RibbonCustomButton
+              key="RibbonCustomButton"
               viewRibbon={viewRibbon}
               source={null}
               sources={[]}
