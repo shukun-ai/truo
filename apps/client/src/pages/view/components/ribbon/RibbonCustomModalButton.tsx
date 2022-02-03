@@ -1,4 +1,4 @@
-import { ViewV2Ribbon, ViewSchema } from '@shukun/schema';
+import { ViewV2Ribbon, ViewSchema, MetadataSchema } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 import { runStringCode } from './runStringCode';
@@ -11,13 +11,14 @@ import { message } from 'antd';
 
 export interface RibbonCustomModalButtonProps {
   view: ViewSchema;
+  metadata: MetadataSchema;
   viewRibbon: ViewV2Ribbon;
   sources: UnknownSourceModel[];
 }
 
 export const RibbonCustomModalButton: FunctionComponent<
   RibbonCustomModalButtonProps
-> = ({ view, viewRibbon, sources }) => {
+> = ({ view, viewRibbon, sources, metadata }) => {
   const mode = useObservableState(mode$);
 
   const handleClick = useCallback(() => {
@@ -25,8 +26,14 @@ export const RibbonCustomModalButton: FunctionComponent<
       message.error('未在 value 里配置 url 值。');
       return;
     }
-    customModalService.openModal(viewRibbon.label, viewRibbon.value, sources);
-  }, [viewRibbon.label, viewRibbon.value, sources]);
+    customModalService.openModal(
+      viewRibbon.label,
+      viewRibbon.value,
+      sources,
+      view,
+      metadata,
+    );
+  }, [viewRibbon.label, viewRibbon.value, sources, view, metadata]);
 
   return (
     <RibbonButton

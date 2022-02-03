@@ -44,6 +44,7 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
             <RibbonCustomModalButton
               key={viewRibbon.name}
               view={view}
+              metadata={metadata}
               viewRibbon={viewRibbon}
               sources={tableActiveEntities}
             />
@@ -59,7 +60,7 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
           );
       }
     },
-    [view, tableActiveEntities],
+    [view, metadata, tableActiveEntities],
   );
 
   return (

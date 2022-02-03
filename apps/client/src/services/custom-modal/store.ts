@@ -1,5 +1,6 @@
 import { StoreConfig, Store } from '@datorama/akita';
 import { produce } from 'immer';
+import { MetadataSchema, ViewSchema } from '../../../../../libs/schema/src';
 
 import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
@@ -10,6 +11,8 @@ export interface CustomModalState {
   loading: boolean;
   url: string | null;
   sources: UnknownSourceModel[];
+  view: ViewSchema | null;
+  metadata: MetadataSchema | null;
 }
 
 export const initialState: CustomModalState = {
@@ -18,6 +21,8 @@ export const initialState: CustomModalState = {
   loading: false,
   url: null,
   sources: [],
+  view: null,
+  metadata: null,
 };
 
 @StoreConfig({

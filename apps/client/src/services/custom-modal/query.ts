@@ -11,6 +11,10 @@ export class CustomModalQuery extends Query<CustomModalState> {
 
   sources$ = this.select((state) => state.sources);
 
+  view$ = this.select((state) => state.view);
+
+  metadata$ = this.select((state) => state.metadata);
+
   constructor(protected readonly customModalStore: CustomModalStore) {
     super(customModalStore);
   }
