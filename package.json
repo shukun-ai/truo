@@ -4,10 +4,12 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --all",
-    "build": "npx nx run-many --target=build --all --configuration=production",
-    "test": "npx nx run-many --target=test --all",
-    "lint": "npx nx run-many --target=lint --all",
-    "prepare": "husky install"
+    "build": "nx run-many --target=build --all --configuration=production",
+    "test": "nx run-many --target=test --all",
+    "lint": "nx run-many --target=lint --all",
+    "prepare": "husky install",
+    "git-pre-commit": "nx format:write --uncommitted",
+    "git-pre-push": "nx run-many --target=lint --all && nx run-many --target=test --all"
   },
   "private": true,
   "devDependencies": {
