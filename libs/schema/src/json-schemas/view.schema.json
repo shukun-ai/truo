@@ -155,12 +155,18 @@
             "title": "ViewV2FieldGroup",
             "type": "object",
             "additionalProperties": false,
-            "required": ["name", "label"],
+            "required": ["name", "label", "type"],
             "properties": {
               "name": {
                 "type": "string"
               },
               "label": {
+                "type": "string"
+              },
+              "type": {
+                "$ref": "#/definitions/ViewV2FieldGroupType"
+              },
+              "value": {
                 "type": "string"
               }
             }
@@ -462,6 +468,12 @@
         "Csv",
         "CustomModal"
       ]
+    },
+    "ViewV2FieldGroupType": {
+      "type": "string",
+      "title": "ViewV2FieldGroupType",
+      "enum": ["None", "CustomTab"],
+      "tsEnumNames": ["None", "CustomTab"]
     }
   }
 }

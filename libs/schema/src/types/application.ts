@@ -197,6 +197,8 @@ export interface ViewV2Field {
 export interface ViewV2FieldGroup {
   name: string;
   label: string;
+  type: ViewV2FieldGroupType;
+  value?: string;
 }
 export interface ViewColumn {
   electronName: string;
@@ -673,6 +675,10 @@ export enum ViewV2LinkType {
   Excel = 'Excel',
   Csv = 'Csv',
   CustomModal = 'CustomModal',
+}
+export enum ViewV2FieldGroupType {
+  None = 'None',
+  CustomTab = 'CustomTab',
 }
 export enum RuleEngineGlobalCondition {
   always = 'always',
