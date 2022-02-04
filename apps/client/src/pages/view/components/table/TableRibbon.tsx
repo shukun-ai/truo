@@ -4,10 +4,14 @@ import {
   ViewV2LinkType,
   ViewV2Ribbon,
 } from '@shukun/schema';
+import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, ReactNode, useCallback } from 'react';
+import { CustomMode } from '@shukun/api';
 
 import { Ribbon } from '../../../../components/ribbon';
+import { tableActiveEntities$ } from '../../../../services/table';
 import { RibbonCustomButton } from '../ribbon/RibbonCustomButton';
+import { RibbonCustomModalButton } from '../ribbon/RibbonCustomModalButton';
 
 import { TableCreateButton } from './ribbons/TableCreateButton';
 import { TableCsvButton } from './ribbons/TableCsvButton';
@@ -25,26 +29,40 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
   viewRibbons,
   view,
 }) => {
+  const tableActiveEntities = useObservableState(tableActiveEntities$, []);
+
   const customRibbons = useCallback<(viewRibbon: ViewV2Ribbon) => ReactNode>(
     (viewRibbon) => {
       switch (viewRibbon.type) {
         case ViewV2LinkType.CreateOne:
-          return <TableCreateButton view={view} />;
+          return <TableCreateButton key="TableCreateButton" view={view} />;
         case ViewV2LinkType.Excel:
-          return <TableExcelButton view={view} />;
+          return <TableExcelButton key="TableExcelButton" view={view} />;
         case ViewV2LinkType.Csv:
-          return <TableCsvButton view={view} />;
+          return <TableCsvButton key="TableCsvButton" view={view} />;
+        case ViewV2LinkType.CustomModal:
+          return (
+            <RibbonCustomModalButton
+              key={viewRibbon.name}
+              customMode={CustomMode.TableModal}
+              view={view}
+              metadata={metadata}
+              viewRibbon={viewRibbon}
+              sources={tableActiveEntities}
+            />
+          );
         default:
           return (
             <RibbonCustomButton
+              key={viewRibbon.name}
               viewRibbon={viewRibbon}
               source={null}
-              sources={[]}
+              sources={tableActiveEntities}
             />
           );
       }
     },
-    [view],
+    [view, metadata, tableActiveEntities],
   );
 
   return (

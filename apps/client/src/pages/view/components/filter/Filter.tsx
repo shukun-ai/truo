@@ -1,14 +1,14 @@
-import { MetadataSchema, ViewV2Column } from '@shukun/schema';
+import { MetadataSchema, ViewSearch, ViewV2Column } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, Space } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
 import {
-  defaultFilterValue,
-  filter$,
-  filterService,
-} from '../../../../services/filter';
+  defaultSearchValue,
+  searchService,
+  searchQuery,
+} from '../../../../services/search';
 import { FilterRawValues } from '../../../../services/table/model';
 
 import { convertQueryStringToRaw, convertRawToQueryString } from './converter';
@@ -18,13 +18,18 @@ import { FilterFormItem } from './FilterFormItem';
 export interface FilterProps {
   metadata: MetadataSchema;
   viewColumns: ViewV2Column[];
+  viewSearch: ViewSearch | undefined;
 }
 
 export const Filter: FunctionComponent<FilterProps> = ({
   metadata,
   viewColumns,
+  viewSearch,
 }) => {
-  const filters = useObservableState(filter$, defaultFilterValue.filter);
+  const filters = useObservableState(
+    searchQuery.filter$,
+    defaultSearchValue.filter,
+  );
 
   const [form] = Form.useForm<FilterRawValues>();
 
@@ -51,14 +56,14 @@ export const Filter: FunctionComponent<FilterProps> = ({
   const handleFinish = useCallback(
     (values: FilterRawValues) => {
       const filters = convertRawToQueryString(values, metadata, viewColumns);
-      filterService.updateFilter(filters);
+      searchService.updateSearchFilter(filters, viewSearch ?? null);
     },
-    [metadata, viewColumns],
+    [metadata, viewColumns, viewSearch],
   );
 
   const handleReset = useCallback(() => {
-    filterService.clearFilter();
-  }, []);
+    searchService.clearSearchFilter(viewSearch ?? null);
+  }, [viewSearch]);
 
   return (
     <FilterContext.Provider value={{ form }}>

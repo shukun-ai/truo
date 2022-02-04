@@ -3,11 +3,12 @@ export enum StoreNames {
   Table = 'Table',
   Detail = 'Detail',
   Reference = 'Reference',
-  Filter = 'Filter',
+  Search = 'Search',
   Session = 'Session',
   Metadata = 'Metadata',
   View = 'View',
   Source = 'Source',
   Role = 'Role',
   Security = 'Security',
+  CustomModal = 'CustomModal',
 }

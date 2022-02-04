@@ -83,6 +83,7 @@ export interface MetadataSchema {
   $schema?: string;
   name: string;
   label: string;
+  description?: string;
   electrons: MetadataElectron[];
 }
 export interface MetadataElectron {
@@ -128,6 +129,7 @@ export interface ViewSchema {
   $schema?: string;
   name: string;
   label: string;
+  description?: string;
   type: ViewType;
   isSystem?: boolean;
   atomName?: string;
@@ -136,10 +138,12 @@ export interface ViewSchema {
   parentName?: string;
   isVisible: boolean;
   priority: number;
+  search?: ViewSearch;
 }
 export interface ViewConfigurations {
   v2Columns?: ViewV2Column[];
   v2ColumnRibbons?: ViewV2Ribbon[];
+  v2CustomActions?: ViewV2CustomAction[];
   v2Fields?: ViewV2Field[];
   v2FieldGroups?: ViewV2FieldGroup[];
   v2FieldRibbons?: ViewV2Ribbon[];
@@ -176,6 +180,12 @@ export interface ViewV2Ribbon {
   confirmedTip?: string;
   color?: string;
 }
+export interface ViewV2CustomAction {
+  name: string;
+  label: string;
+  type: ViewV2CustomActionType;
+  value?: string;
+}
 export interface ViewV2Field {
   name: string;
   label: string;
@@ -194,6 +204,8 @@ export interface ViewV2Field {
 export interface ViewV2FieldGroup {
   name: string;
   label: string;
+  type: ViewV2FieldGroupType;
+  value?: string;
 }
 export interface ViewColumn {
   electronName: string;
@@ -253,6 +265,21 @@ export interface ViewDetailRemoveAction {
   confirmed?: boolean;
   confirmedTip?: string;
   hidden?: RuleEngineSet;
+}
+/**
+ * Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.
+ */
+export interface ViewSearch {
+  totalCount?: number;
+  currentPage?: number;
+  pageSize?: number;
+  filter?: {
+    [k: string]: unknown;
+  } | null;
+  sort?: {
+    [k: string]: unknown;
+  } | null;
+  [k: string]: unknown;
 }
 /**
  * Describe Workflow Schema
@@ -579,6 +606,7 @@ export interface RoleSchema {
   $schema?: string;
   name: string;
   label: string;
+  description?: string;
   isSystem?: boolean;
   permissions: RolePermission[];
 }
@@ -639,6 +667,9 @@ export enum ViewV2FieldType {
   OneToMany = 'OneToMany',
   LinkText = 'LinkText',
 }
+/**
+ * Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.
+ */
 export enum ViewV2LinkType {
   None = 'None',
   View = 'View',
@@ -650,6 +681,14 @@ export enum ViewV2LinkType {
   Print = 'Print',
   Excel = 'Excel',
   Csv = 'Csv',
+  CustomModal = 'CustomModal',
+}
+export enum ViewV2CustomActionType {
+  Column = 'Column',
+}
+export enum ViewV2FieldGroupType {
+  None = 'None',
+  CustomTab = 'CustomTab',
 }
 export enum RuleEngineGlobalCondition {
   always = 'always',

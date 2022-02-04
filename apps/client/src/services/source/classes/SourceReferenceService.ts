@@ -1,7 +1,7 @@
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../../models/source';
-import { Request, ResourceType } from '../../../utils/axios';
+import { Request } from '../../../utils/axios';
 
 import { ReferenceUtil } from './ReferenceUtil';
 import { SourceService } from './SourceService';
@@ -29,7 +29,7 @@ export class SourceReferenceService {
       }
 
       const request = new Request<UnknownSourceModel>({
-        resourceType: ResourceType.Source,
+        resourceType: RoleResourceType.Source,
         urlPath: referenceTo,
         globalSelect: [foreignName],
       });

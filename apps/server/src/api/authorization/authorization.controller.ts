@@ -6,17 +6,16 @@ import {
   Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiHeaders } from '@nestjs/swagger';
+import { RoleResourceType } from '@shukun/schema';
 import { Request } from 'express';
 import { get } from 'lodash';
 import { parseToken } from '../../identity/utils/security.utils';
 import { QueryResponse } from '../../util/query/interfaces';
 
-import { ResourceType } from '../api.type';
-
 import { AuthorizationService } from './authorization.service';
 import { getResourceNodes } from './authorization.utils';
 
-@Controller(`${ResourceType.Public}/any/authorization`)
+@Controller(`${RoleResourceType.Public}/any/authorization`)
 @ApiBearerAuth()
 export class AuthorizationController {
   @Inject()

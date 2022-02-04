@@ -1,13 +1,15 @@
 {
   "name": "shukun",
-  "version": "0.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx run-many --target=serve",
-    "build": "npx nx run-many --target=build --configuration=production",
-    "test": "npx nx run-many --target=test --all",
-    "lint": "npx nx run-many --target=lint --all",
-    "prepare": "husky install"
+    "start": "nx run-many --target=serve --all",
+    "build": "nx run-many --target=build --all --configuration=production",
+    "test": "nx run-many --target=test --all",
+    "lint": "nx run-many --target=lint --all",
+    "prepare": "husky install",
+    "git-pre-commit": "nx format:write --uncommitted",
+    "git-pre-push": "nx run-many --target=lint --all && nx run-many --target=test --all"
   },
   "private": true,
   "devDependencies": {
@@ -40,7 +42,6 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "6.5.1",
     "eslint-plugin-react": "7.27.0",
-    "eslint-plugin-react-hooks": "4.2.0",
     "husky": "^7.0.4",
     "jest": "27.2.3",
     "json-schema-to-typescript": "^10.1.5",
@@ -63,7 +64,6 @@
     "@nestjs/mongoose": "^8.0.1",
     "@nestjs/platform-express": "^8.2.5",
     "@nestjs/swagger": "^5.1.5",
-    "@shukun/schema": "^0.36.0",
     "@types/axios": "^0.14.0",
     "@types/color": "^3.0.2",
     "@types/express": "^4.17.13",

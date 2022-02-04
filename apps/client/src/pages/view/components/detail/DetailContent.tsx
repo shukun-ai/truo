@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
-import { MetadataSchema, ViewSchema } from '@shukun/schema';
+import {
+  MetadataSchema,
+  ViewSchema,
+  ViewV2FieldGroupType,
+} from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, FormInstance, message, Tabs } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -47,6 +51,7 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
         {
           name: DEFAULT_GROUP_NAME,
           label: view.label,
+          type: ViewV2FieldGroupType.None,
         },
       ];
     }

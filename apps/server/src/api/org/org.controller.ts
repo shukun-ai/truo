@@ -5,14 +5,14 @@ import {
   Inject,
   Param,
 } from '@nestjs/common';
+import { RoleResourceType } from '@shukun/schema';
 import { OrgService } from '../../core/org.service';
 import { OrgDocument } from '../../core/org/org.schema';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
-import { ResourceType } from '../api.type';
 
-@Controller(`${ResourceType.Public}/:orgName/org`)
+@Controller(`${RoleResourceType.Public}/:orgName/org`)
 @UseInterceptors(QueryResponseInterceptor)
 export class OrgController {
   @Inject()

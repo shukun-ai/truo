@@ -1,11 +1,18 @@
-import { MetadataSchema, ViewSchema, ViewV2FieldGroup } from '@shukun/schema';
+import {
+  MetadataSchema,
+  ViewSchema,
+  ViewV2FieldGroup,
+  ViewV2FieldGroupType,
+} from '@shukun/schema';
 import { Card, Col, Row } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
+import { CustomMode } from '@shukun/api';
 
 import { DetailMode, mode$ } from '../../../../services/detail';
 
 import { DetailField } from './DetailField';
+import { CustomTab } from './DetailCustomTab';
 
 export const DEFAULT_GROUP_NAME = '$$$_DEFAULT';
 
@@ -43,6 +50,14 @@ export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
           </Col>
         ))}
       </Row>
+
+      {viewFieldGroup.type === ViewV2FieldGroupType.CustomTab && (
+        <CustomTab
+          metadata={metadata}
+          view={view}
+          viewFieldGroup={viewFieldGroup}
+        />
+      )}
     </Card>
   );
 };
