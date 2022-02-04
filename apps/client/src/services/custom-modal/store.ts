@@ -4,12 +4,14 @@ import { MetadataSchema, ViewSchema } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
+import { FilterModel } from '../filter';
 
 export interface CustomModalState {
   label: string | null;
   visible: boolean;
   loading: boolean;
   url: string | null;
+  search: FilterModel | null;
   sources: UnknownSourceModel[];
   view: ViewSchema | null;
   metadata: MetadataSchema | null;
@@ -20,6 +22,7 @@ export const initialState: CustomModalState = {
   visible: false,
   loading: false,
   url: null,
+  search: null,
   sources: [],
   view: null,
   metadata: null,
