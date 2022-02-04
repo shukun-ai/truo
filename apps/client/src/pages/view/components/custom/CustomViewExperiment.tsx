@@ -31,9 +31,9 @@ export interface CustomViewExperimentProps {
   url: string | null;
   search: SearchModel | null;
   sources: UnknownSourceModel[] | null;
-  onFinish: (() => void) | null;
-  onRefresh: (() => void) | null;
-  onSearch: ((search: SearchModel) => void) | null;
+  onFinish: () => void;
+  onRefresh: () => void;
+  onSearch: (search: SearchModel) => void;
 }
 
 export const CustomViewExperiment: FunctionComponent<
@@ -99,25 +99,19 @@ export const CustomViewExperiment: FunctionComponent<
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {
-      if (onFinish) {
-        child.on(EMIT_FINISH, onFinish);
-      }
+      child.on(EMIT_FINISH, onFinish);
     });
   }, [onFinish]);
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {
-      if (onRefresh) {
-        child.on(EMIT_REFRESH, onRefresh);
-      }
+      child.on(EMIT_REFRESH, onRefresh);
     });
   }, [onRefresh]);
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {
-      if (onSearch) {
-        child.on(EMIT_SEARCH, onSearch);
-      }
+      child.on(EMIT_SEARCH, onSearch);
     });
   }, [onSearch]);
 

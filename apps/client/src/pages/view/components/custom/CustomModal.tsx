@@ -9,6 +9,8 @@ import {
 import { CustomViewExperiment } from './CustomViewExperiment';
 import { tableService } from '../../../../services/table';
 import { SearchModel, searchService } from '../../../../services/search';
+import { CustomMode, EMIT_FINISH, EMIT_SEARCH } from '@shukun/api';
+import { detailService } from '../../../../services/detail';
 
 export interface CustomModalProps {}
 
@@ -33,17 +35,29 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
     customModalService.closeModal();
   }, []);
 
-  const handleTableRefresh = useCallback(() => {
-    if (view && metadata) {
-      tableService.findMany(view, metadata);
+  const handleRefresh = useCallback(() => {
+    if (customMode === CustomMode.TableModal) {
+      if (view && metadata) {
+        tableService.findMany(view, metadata);
+        return;
+      }
+    } else if (customMode === CustomMode.DetailModal) {
+      if (sources.length === 1 && metadata) {
+        detailService.findOne(sources[0]._id, metadata);
+        return;
+      }
     }
-  }, [view, metadata]);
+    console.info(`${customMode} 类型下不提供 ${EMIT_FINISH} 事件。`);
+  }, [view, metadata, customMode, sources]);
 
-  const handleTableSearch = useCallback(
+  const handleSearch = useCallback(
     (filter: SearchModel) => {
-      searchService.updateSearch(filter, view?.search ?? null);
+      if (customMode === CustomMode.TableModal) {
+        searchService.updateSearch(filter, view?.search ?? null);
+      }
+      console.info(`${customMode} 类型下不提供 ${EMIT_SEARCH} 事件。`);
     },
-    [view?.search],
+    [view?.search, customMode],
   );
 
   return (
@@ -64,8 +78,8 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
           search={search}
           sources={sources}
           onFinish={handleCancel}
-          onRefresh={handleTableRefresh}
-          onSearch={handleTableSearch}
+          onRefresh={handleRefresh}
+          onSearch={handleSearch}
         />
       )}
     </Modal>
