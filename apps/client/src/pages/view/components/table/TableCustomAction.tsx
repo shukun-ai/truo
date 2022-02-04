@@ -50,6 +50,7 @@ export const TableCustomAction: FunctionComponent<TableCustomActionProps> = ({
       onFinish={handleFinish}
       onRefresh={handleRefresh}
       onSearch={handleSearch}
+      defaultHeight="60px"
     />
   );
 };
