@@ -1,7 +1,7 @@
 {
   "name": "shukun",
-  "version": "1.1.0",
-  "license": "MIT",
+  "version": "1.1.1",
+  "private": true,
   "scripts": {
     "start": "nx run-many --target=serve --all",
     "build": "nx run-many --target=build --all --configuration=production",
@@ -11,7 +11,6 @@
     "git-pre-commit": "nx format:write --uncommitted",
     "git-pre-push": "nx run-many --target=lint --all && nx run-many --target=test --all"
   },
-  "private": true,
   "devDependencies": {
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
