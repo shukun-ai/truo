@@ -17,12 +17,12 @@ import {
   ON_QUERY,
   ON_SOURCES,
   ON_SEARCH,
+  ON_CUSTOM_MODE,
   EMIT_FINISH,
   EMIT_REFRESH,
   EMIT_SEARCH,
   EMIT_WIDTH,
   EMIT_HEIGHT,
-  ON_CUSTOM_MODE,
 } from '@shukun/api';
 import { SearchModel } from '../../../../services/search';
 
