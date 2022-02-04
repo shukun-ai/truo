@@ -23,6 +23,7 @@ import {
 import { SortQueryStringType } from '../../../../services/table/model';
 import { initialState } from '../../../../services/table/store';
 import { Filter } from '../filter/Filter';
+import { TableCustomActions } from './TableCustomActions';
 
 import { TableRibbon } from './TableRibbon';
 import { useColumns } from './useColumns';
@@ -105,6 +106,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         viewRibbons={view.configurations?.v2ColumnRibbons || []}
         view={view}
       />
+      <TableCustomActions view={view} metadata={metadata} />
       <div
         style={{
           background: '#fff',

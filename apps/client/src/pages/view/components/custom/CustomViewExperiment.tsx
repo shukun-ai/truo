@@ -8,7 +8,7 @@ import { useUnmount } from 'ahooks';
 import { validAuth$ } from '../../../../services/session';
 import { CustomMode } from '@shukun/api';
 import {
-  POSMATE_IFRAME_CLASS,
+  POSTMATE_IFRAME_CLASS,
   POSTMATE_NAME_VIEW_CUSTOM,
 } from '../../../../utils/postmate-helpers';
 
@@ -43,8 +43,8 @@ export const CustomViewExperiment: FunctionComponent<
   const handshakeRef = useRef<Postmate>();
   const urlRef = useRef<string | null>(null);
   const location = useLocation();
-  const [width, setWidth] = useState<string>('100%');
-  const [height, setHeight] = useState<string>('100%');
+  const [width, setWidth] = useState<string | null>(null);
+  const [height, setHeight] = useState<string | null>(null);
   const auth = useObservableState(validAuth$, null);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export const CustomViewExperiment: FunctionComponent<
         container: frameRef.current,
         url: builtUrl,
         name: POSTMATE_NAME_VIEW_CUSTOM,
-        classListArray: [POSMATE_IFRAME_CLASS],
+        classListArray: [POSTMATE_IFRAME_CLASS],
       });
     }
   }, [frameRef, url]);
@@ -117,16 +117,21 @@ export const CustomViewExperiment: FunctionComponent<
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {
-      child.on(EMIT_WIDTH, (width: string) => {
+      child.on(EMIT_WIDTH, (width: string | null) => {
         setWidth(width);
       });
-      child.on(EMIT_HEIGHT, (height: string) => {
+      child.on(EMIT_HEIGHT, (height: string | null) => {
         setHeight(height);
       });
     });
   }, [onFinish]);
 
-  return <div ref={frameRef} style={{ width, height }} />;
+  return (
+    <div
+      ref={frameRef}
+      style={{ width: width ?? '100%', height: height ?? '100%' }}
+    />
+  );
 };
 
 const isHttpLink = (value: string) =>

@@ -143,6 +143,7 @@ export interface ViewSchema {
 export interface ViewConfigurations {
   v2Columns?: ViewV2Column[];
   v2ColumnRibbons?: ViewV2Ribbon[];
+  v2CustomActions?: ViewV2CustomAction[];
   v2Fields?: ViewV2Field[];
   v2FieldGroups?: ViewV2FieldGroup[];
   v2FieldRibbons?: ViewV2Ribbon[];
@@ -178,6 +179,12 @@ export interface ViewV2Ribbon {
   disabledTip?: string;
   confirmedTip?: string;
   color?: string;
+}
+export interface ViewV2CustomAction {
+  name: string;
+  label: string;
+  type: ViewV2CustomActionType;
+  value?: string;
 }
 export interface ViewV2Field {
   name: string;
@@ -675,6 +682,9 @@ export enum ViewV2LinkType {
   Excel = 'Excel',
   Csv = 'Csv',
   CustomModal = 'CustomModal',
+}
+export enum ViewV2CustomActionType {
+  Column = 'Column',
 }
 export enum ViewV2FieldGroupType {
   None = 'None',

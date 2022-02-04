@@ -50,9 +50,9 @@ export class PostMessageService {
     });
   }
 
-  public async emitFinish(message: string) {
+  public async emitFinish() {
     const parent = await this.handshake;
-    parent.emit(EMIT_FINISH, message);
+    parent.emit(EMIT_FINISH);
   }
 
   public async emitRefresh() {
@@ -65,12 +65,12 @@ export class PostMessageService {
     parent.emit(EMIT_SEARCH, search);
   }
 
-  public async emitWidth(width: string) {
+  public async emitWidth(width: string | null) {
     const parent = await this.handshake;
     parent.emit(EMIT_WIDTH, width);
   }
 
-  public async emitHeight(height: string) {
+  public async emitHeight(height: string | null) {
     const parent = await this.handshake;
     parent.emit(EMIT_HEIGHT, height);
   }
