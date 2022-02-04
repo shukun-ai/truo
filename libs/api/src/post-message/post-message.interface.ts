@@ -52,4 +52,4 @@ export type Query = string | null;
 
 export type Sources = UnknownSourceModel[] | null;
 
-export type Search = SearchModel | null;
+export type Search = Partial<SearchModel> | null;
