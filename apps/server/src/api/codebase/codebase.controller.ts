@@ -70,8 +70,9 @@ export class CodebaseController {
     const result = validateApplicationSchema(plugin);
 
     if (!result) {
+      const errorMessage = JSON.stringify(validateApplicationSchema.errors);
       throw new BadRequestException(
-        'The file is not validated by application JSON Schema.',
+        `The file is not validated by application JSON Schema: ${errorMessage}`,
       );
     }
 
