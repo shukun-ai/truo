@@ -1,4 +1,9 @@
-import { EntityState, createEntityStore, ActiveState } from '@datorama/akita';
+import {
+  EntityState,
+  ActiveState,
+  StoreConfig,
+  EntityStore,
+} from '@datorama/akita';
 import { produce } from 'immer';
 
 import { StoreNames } from '../../utils/store-names';
@@ -13,8 +18,13 @@ export const initialState: SearchState = {
   active: null,
 };
 
-export const searchStore = createEntityStore<SearchState>(initialState, {
+@StoreConfig({
   name: StoreNames.Search,
   idKey: 'viewName',
   producerFn: produce,
-});
+})
+export class SearchStore extends EntityStore<SearchState> {
+  constructor() {
+    super(initialState);
+  }
+}

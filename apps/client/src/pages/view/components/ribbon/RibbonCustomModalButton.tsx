@@ -8,7 +8,7 @@ import { UnknownSourceModel } from '../../../../models/source';
 import { mode$ } from '../../../../services/detail';
 import { customModalService } from '../../../../services/custom-modal';
 import { message } from 'antd';
-import { activeSearch$ } from '../../../../services/search';
+import { searchQuery } from '../../../../services/search';
 
 export interface RibbonCustomModalButtonProps {
   view: ViewSchema;
@@ -22,7 +22,7 @@ export const RibbonCustomModalButton: FunctionComponent<
 > = ({ view, viewRibbon, sources, metadata }) => {
   const mode = useObservableState(mode$);
 
-  const search = useObservableState(activeSearch$);
+  const search = useObservableState(searchQuery.activeSearch$);
 
   const handleClick = useCallback(() => {
     if (!viewRibbon.value) {

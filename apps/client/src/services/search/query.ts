@@ -1,17 +1,21 @@
-import { createEntityQuery } from '@datorama/akita';
+import { QueryEntity } from '@datorama/akita';
 
-import { SearchState, searchStore } from './store';
+import { SearchState, SearchStore } from './store';
 
-export const searchQuery = createEntityQuery<SearchState>(searchStore);
+export class SearchQuery extends QueryEntity<SearchState> {
+  totalCount$ = this.selectActive((state) => state.totalCount);
 
-export const totalCount$ = searchQuery.selectActive(
-  (state) => state.totalCount,
-);
-export const currentPage$ = searchQuery.selectActive(
-  (state) => state.currentPage,
-);
-export const pageSize$ = searchQuery.selectActive((state) => state.pageSize);
-export const filter$ = searchQuery.selectActive((state) => state.filter);
-export const sort$ = searchQuery.selectActive((state) => state.sort);
+  currentPage$ = this.selectActive((state) => state.currentPage);
 
-export const activeSearch$ = searchQuery.selectActive((state) => state);
+  pageSize$ = this.selectActive((state) => state.pageSize);
+
+  filter$ = this.selectActive((state) => state.filter);
+
+  sort$ = this.selectActive((state) => state.sort);
+
+  activeSearch$ = this.selectActive((state) => state);
+
+  constructor(protected readonly searchStore: SearchStore) {
+    super(searchStore);
+  }
+}
