@@ -34,11 +34,23 @@ export interface CustomViewExperimentProps {
   onFinish: () => void;
   onRefresh: () => void;
   onSearch: (search: SearchModel) => void;
+  defaultWidth?: string;
+  defaultHeight?: string;
 }
 
 export const CustomViewExperiment: FunctionComponent<
   CustomViewExperimentProps
-> = ({ customMode, url, search, sources, onFinish, onRefresh, onSearch }) => {
+> = ({
+  customMode,
+  url,
+  search,
+  sources,
+  onFinish,
+  onRefresh,
+  onSearch,
+  defaultWidth = '100%',
+  defaultHeight = '100%',
+}) => {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const handshakeRef = useRef<Postmate>();
   const urlRef = useRef<string | null>(null);
@@ -129,7 +141,7 @@ export const CustomViewExperiment: FunctionComponent<
   return (
     <div
       ref={frameRef}
-      style={{ width: width ?? '100%', height: height ?? '100%' }}
+      style={{ width: width ?? defaultWidth, height: height ?? defaultHeight }}
     />
   );
 };
