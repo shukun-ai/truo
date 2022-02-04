@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { UnknownSourceModel } from '../../../../models/source';
 import { useUnmount } from 'ahooks';
 import { validAuth$ } from '../../../../services/session';
-
+import { CustomMode } from '@shukun/api';
 import {
   POSMATE_IFRAME_CLASS,
   POSTMATE_NAME_VIEW_CUSTOM,
@@ -22,10 +22,12 @@ import {
   EMIT_SEARCH,
   EMIT_WIDTH,
   EMIT_HEIGHT,
+  ON_CUSTOM_MODE,
 } from '@shukun/api';
 import { SearchModel } from '../../../../services/search';
 
 export interface CustomViewExperimentProps {
+  customMode: CustomMode | null;
   url: string | null;
   search: SearchModel | null;
   sources: UnknownSourceModel[] | null;
@@ -36,7 +38,7 @@ export interface CustomViewExperimentProps {
 
 export const CustomViewExperiment: FunctionComponent<
   CustomViewExperimentProps
-> = ({ url, search, sources, onFinish, onRefresh, onSearch }) => {
+> = ({ customMode, url, search, sources, onFinish, onRefresh, onSearch }) => {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const handshakeRef = useRef<Postmate>();
   const urlRef = useRef<string | null>(null);
@@ -88,6 +90,12 @@ export const CustomViewExperiment: FunctionComponent<
   useEffect(() => {
     handshakeRef?.current?.then((child) => child.call(ON_SOURCES, sources));
   }, [sources]);
+
+  useEffect(() => {
+    handshakeRef?.current?.then((child) =>
+      child.call(ON_CUSTOM_MODE, customMode),
+    );
+  }, [customMode]);
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {

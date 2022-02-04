@@ -3,6 +3,8 @@ import { Query } from '@datorama/akita';
 import { CustomModalState, CustomModalStore } from './store';
 
 export class CustomModalQuery extends Query<CustomModalState> {
+  customMode$ = this.select((state) => state.customMode);
+
   label$ = this.select((state) => state.label);
 
   visible$ = this.select((state) => state.visible);

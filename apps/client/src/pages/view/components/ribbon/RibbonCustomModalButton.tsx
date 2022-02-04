@@ -9,8 +9,10 @@ import { mode$ } from '../../../../services/detail';
 import { customModalService } from '../../../../services/custom-modal';
 import { message } from 'antd';
 import { searchQuery } from '../../../../services/search';
+import { CustomMode } from '@shukun/api';
 
 export interface RibbonCustomModalButtonProps {
+  customMode: CustomMode;
   view: ViewSchema;
   metadata: MetadataSchema;
   viewRibbon: ViewV2Ribbon;
@@ -19,7 +21,7 @@ export interface RibbonCustomModalButtonProps {
 
 export const RibbonCustomModalButton: FunctionComponent<
   RibbonCustomModalButtonProps
-> = ({ view, viewRibbon, sources, metadata }) => {
+> = ({ customMode, view, viewRibbon, sources, metadata }) => {
   const mode = useObservableState(mode$);
 
   const search = useObservableState(searchQuery.activeSearch$);
@@ -30,6 +32,7 @@ export const RibbonCustomModalButton: FunctionComponent<
       return;
     }
     customModalService.openModal(
+      customMode,
       viewRibbon.label,
       viewRibbon.value,
       search,
@@ -37,7 +40,15 @@ export const RibbonCustomModalButton: FunctionComponent<
       view,
       metadata,
     );
-  }, [viewRibbon.label, viewRibbon.value, sources, view, metadata, search]);
+  }, [
+    customMode,
+    viewRibbon.label,
+    viewRibbon.value,
+    sources,
+    view,
+    metadata,
+    search,
+  ]);
 
   return (
     <RibbonButton

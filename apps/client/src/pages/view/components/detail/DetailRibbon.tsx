@@ -1,4 +1,10 @@
-import { MetadataSchema, ViewV2Ribbon, ViewV2LinkType } from '@shukun/schema';
+import { CustomMode } from '@shukun/api';
+import {
+  MetadataSchema,
+  ViewV2Ribbon,
+  ViewV2LinkType,
+  ViewSchema,
+} from '@shukun/schema';
 import React, {
   FunctionComponent,
   ReactNode,
@@ -9,6 +15,7 @@ import React, {
 import { Ribbon } from '../../../../components/ribbon';
 import { FormContext } from '../form/FormContext';
 import { RibbonCustomButton } from '../ribbon/RibbonCustomButton';
+import { RibbonCustomModalButton } from '../ribbon/RibbonCustomModalButton';
 
 import { DetailBackButton } from './ribbons/DetailBackButton';
 import { DetailEditButton } from './ribbons/DetailEditButton';
@@ -18,11 +25,13 @@ import { DetailRemoveButton } from './ribbons/DetailRemoveButton';
 
 export interface DetailRibbonProps {
   viewRibbons: ViewV2Ribbon[];
+  view: ViewSchema;
   metadata: MetadataSchema;
 }
 
 export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
   viewRibbons,
+  view,
   metadata,
 }) => {
   const { row } = useContext(FormContext);
@@ -58,6 +67,17 @@ export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
               sources={row ? [row] : []}
             />
           );
+        case ViewV2LinkType.CustomModal:
+          return (
+            <RibbonCustomModalButton
+              key={viewRibbon.name}
+              customMode={CustomMode.DetailModal}
+              view={view}
+              metadata={metadata}
+              viewRibbon={viewRibbon}
+              sources={row ? [row] : []}
+            />
+          );
         default:
           return (
             <RibbonCustomButton
@@ -69,7 +89,7 @@ export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
           );
       }
     },
-    [row, metadata],
+    [row, view, metadata],
   );
 
   return (
