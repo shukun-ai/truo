@@ -8,6 +8,7 @@ import { UnknownSourceModel } from '../../../../models/source';
 import { mode$ } from '../../../../services/detail';
 import { customModalService } from '../../../../services/custom-modal';
 import { message } from 'antd';
+import { activeSearch$ } from '../../../../services/filter';
 
 export interface RibbonCustomModalButtonProps {
   view: ViewSchema;
@@ -21,6 +22,8 @@ export const RibbonCustomModalButton: FunctionComponent<
 > = ({ view, viewRibbon, sources, metadata }) => {
   const mode = useObservableState(mode$);
 
+  const search = useObservableState(activeSearch$);
+
   const handleClick = useCallback(() => {
     if (!viewRibbon.value) {
       message.error('未在 value 里配置 url 值。');
@@ -29,11 +32,12 @@ export const RibbonCustomModalButton: FunctionComponent<
     customModalService.openModal(
       viewRibbon.label,
       viewRibbon.value,
+      search,
       sources,
       view,
       metadata,
     );
-  }, [viewRibbon.label, viewRibbon.value, sources, view, metadata]);
+  }, [viewRibbon.label, viewRibbon.value, sources, view, metadata, search]);
 
   return (
     <RibbonButton

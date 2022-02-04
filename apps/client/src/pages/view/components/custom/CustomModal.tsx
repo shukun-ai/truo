@@ -8,6 +8,7 @@ import {
 } from '../../../../services/custom-modal';
 import { CustomViewExperiment } from './CustomViewExperiment';
 import { tableService } from '../../../../services/table';
+import { FilterModel, filterService } from '../../../../services/filter';
 
 export interface CustomModalProps {}
 
@@ -17,6 +18,8 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
   const visible = useObservableState(customModalQuery.visible$, false);
 
   const url = useObservableState(customModalQuery.url$, null);
+
+  const search = useObservableState(customModalQuery.search$, null);
 
   const sources = useObservableState(customModalQuery.sources$, []);
 
@@ -34,6 +37,13 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
     }
   }, [view, metadata]);
 
+  const handleTableSearch = useCallback(
+    (filter: FilterModel) => {
+      filterService.updateSearch(filter, view?.query ?? null);
+    },
+    [view?.query],
+  );
+
   return (
     <Modal
       forceRender
@@ -48,10 +58,11 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
       {visible && (
         <CustomViewExperiment
           url={url}
+          search={search}
           sources={sources}
           onFinish={handleCancel}
           onRefresh={handleTableRefresh}
-          onFilter={null}
+          onSearch={handleTableSearch}
         />
       )}
     </Modal>

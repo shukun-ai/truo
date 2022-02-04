@@ -12,32 +12,38 @@ import {
   POSTMATE_NAME_VIEW_CUSTOM,
 } from '../../../../utils/postmate-helpers';
 
-const ON_AUTH = 'onAuth';
-const ON_QUERY = 'onQuery';
-const ON_SOURCES = 'onSources';
-const EMIT_FINISH = 'emitFinish';
-const EMIT_REFRESH = 'emitRefresh';
-const EMIT_FILTER = 'emitFilter';
-const EMIT_WIDTH = 'emitWidth';
-const EMIT_HEIGHT = 'emitHeight';
+import {
+  ON_AUTH,
+  ON_QUERY,
+  ON_SOURCES,
+  ON_SEARCH,
+  EMIT_FINISH,
+  EMIT_REFRESH,
+  EMIT_SEARCH,
+  EMIT_WIDTH,
+  EMIT_HEIGHT,
+} from '@shukun/api';
+import { FilterModel } from '../../../../services/filter';
 
 export interface CustomViewExperimentProps {
   url: string | null;
-  sources: UnknownSourceModel[];
+  search: FilterModel | null;
+  sources: UnknownSourceModel[] | null;
   onFinish: (() => void) | null;
   onRefresh: (() => void) | null;
-  onFilter: (() => void) | null;
+  onSearch: ((search: FilterModel) => void) | null;
 }
 
 export const CustomViewExperiment: FunctionComponent<
   CustomViewExperimentProps
-> = ({ url, sources, onFinish, onRefresh, onFilter }) => {
+> = ({ url, search, sources, onFinish, onRefresh, onSearch }) => {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const handshakeRef = useRef<Postmate>();
   const urlRef = useRef<string | null>(null);
   const location = useLocation();
   const [width, setWidth] = useState<string>('100%');
   const [height, setHeight] = useState<string>('100%');
+  const auth = useObservableState(validAuth$, null);
 
   useEffect(() => {
     if (!url || !frameRef) {
@@ -66,8 +72,6 @@ export const CustomViewExperiment: FunctionComponent<
     handshakeRef.current = undefined;
   });
 
-  const auth = useObservableState(validAuth$, null);
-
   useEffect(() => {
     handshakeRef?.current?.then((child) => child.call(ON_AUTH, auth));
   }, [auth]);
@@ -76,6 +80,10 @@ export const CustomViewExperiment: FunctionComponent<
     const query = queryString.parse(location.search);
     handshakeRef?.current?.then((child) => child.call(ON_QUERY, query));
   }, [location]);
+
+  useEffect(() => {
+    handshakeRef?.current?.then((child) => child.call(ON_SEARCH, search));
+  }, [search]);
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => child.call(ON_SOURCES, sources));
@@ -99,11 +107,11 @@ export const CustomViewExperiment: FunctionComponent<
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {
-      if (onFilter) {
-        child.on(EMIT_FILTER, onFilter);
+      if (onSearch) {
+        child.on(EMIT_SEARCH, onSearch);
       }
     });
-  }, [onFilter]);
+  }, [onSearch]);
 
   useEffect(() => {
     handshakeRef?.current?.then((child) => {

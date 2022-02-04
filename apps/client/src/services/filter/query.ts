@@ -13,3 +13,5 @@ export const currentPage$ = filterQuery.selectActive(
 export const pageSize$ = filterQuery.selectActive((state) => state.pageSize);
 export const filter$ = filterQuery.selectActive((state) => state.filter);
 export const sort$ = filterQuery.selectActive((state) => state.sort);
+
+export const activeSearch$ = filterQuery.selectActive((state) => state);

@@ -56,6 +56,19 @@ export class FilterService {
     return entity;
   }
 
+  // TODO: The FilterStore should be rename to SearchStore
+  // TODO: The viewQuery should be rename to ViewSearch
+  async updateSearch(search: FilterModel, viewSearch: ViewQuery | null) {
+    filterStore.updateActive(() =>
+      merge<Partial<FilterModel>, ViewQuery | null, FilterModel>(
+        {},
+        viewSearch,
+        search,
+      ),
+    );
+  }
+
+  // TODO: rename to updateSearchFilter
   async updateFilter(
     filter: FilterQueryStringValues,
     viewQuery: ViewQuery | null,
@@ -65,24 +78,28 @@ export class FilterService {
     }));
   }
 
+  // TODO: rename to clearSearchFilter
   async clearFilter(viewQuery: ViewQuery | null) {
     filterStore.updateActive(() => ({
       filter: merge({}, viewQuery?.['filter']),
     }));
   }
 
+  // TODO: rename to updateSearchSort
   async updateSort(sort: SortQueryStringValues, viewQuery: ViewQuery | null) {
     filterStore.updateActive(() => ({
       sort: merge({}, viewQuery?.['sort'], sort),
     }));
   }
 
+  // TODO: rename to clearSearchSort
   async clearSort(viewQuery: ViewQuery | null) {
     filterStore.updateActive(() => ({
       sort: merge({}, viewQuery?.['sort']),
     }));
   }
 
+  // TODO: rename to updateSearchPagination
   async updatePagination(pagination: {
     currentPage?: number;
     pageSize?: number;
@@ -92,6 +109,7 @@ export class FilterService {
     }));
   }
 
+  // TODO: rename to updateSearchTotalCount
   async updateTotalCount(totalCount: number) {
     filterStore.updateActive(() => ({
       totalCount,
