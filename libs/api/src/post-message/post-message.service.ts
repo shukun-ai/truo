@@ -1,5 +1,6 @@
 import { Model } from 'postmate';
 import { BehaviorSubject } from 'rxjs';
+import { CustomMode, ON_CUSTOM_MODE } from '..';
 import {
   EMIT_SEARCH,
   EMIT_FINISH,
@@ -27,6 +28,8 @@ export class PostMessageService {
 
   public search$ = new BehaviorSubject<Search>(null);
 
+  public customMode$ = new BehaviorSubject<CustomMode | null>(null);
+
   constructor() {
     this.handshake = new Model({
       [ON_AUTH]: (value: Auth) => {
@@ -40,6 +43,9 @@ export class PostMessageService {
       },
       [ON_SEARCH]: (value: Search) => {
         this.search$.next(value);
+      },
+      [ON_CUSTOM_MODE]: (value: CustomMode | null) => {
+        this.customMode$.next(value);
       },
     });
   }

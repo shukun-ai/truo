@@ -5,8 +5,10 @@ import { MetadataSchema, ViewSchema } from '@shukun/schema';
 import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
 import { SearchModel } from '../search';
+import { CustomMode } from '@shukun/api';
 
 export interface CustomModalState {
+  customMode: CustomMode | null;
   label: string | null;
   visible: boolean;
   loading: boolean;
@@ -18,6 +20,7 @@ export interface CustomModalState {
 }
 
 export const initialState: CustomModalState = {
+  customMode: null,
   label: null,
   visible: false,
   loading: false,

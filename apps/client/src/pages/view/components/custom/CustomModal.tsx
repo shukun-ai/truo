@@ -13,6 +13,8 @@ import { SearchModel, searchService } from '../../../../services/search';
 export interface CustomModalProps {}
 
 export const CustomModal: FunctionComponent<CustomModalProps> = () => {
+  const customMode = useObservableState(customModalQuery.customMode$, null);
+
   const label = useObservableState(customModalQuery.label$, null);
 
   const visible = useObservableState(customModalQuery.visible$, false);
@@ -57,6 +59,7 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
     >
       {visible && (
         <CustomViewExperiment
+          customMode={customMode}
           url={url}
           search={search}
           sources={sources}
