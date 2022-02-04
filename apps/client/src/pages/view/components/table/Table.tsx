@@ -10,15 +10,12 @@ import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 
 import {
-  currentPage$,
-  defaultFilterValue,
-  filter$,
-  filterService,
-  pageSize$,
-  sort$,
-  totalCount$,
-} from '../../../../services/filter';
+  defaultSearchValue,
+  searchService,
+  searchQuery,
+} from '../../../../services/search';
 import {
+  tableActiveIds$,
   tableEntities$,
   tableLoading$,
   tableService,
@@ -26,6 +23,7 @@ import {
 import { SortQueryStringType } from '../../../../services/table/model';
 import { initialState } from '../../../../services/table/store';
 import { Filter } from '../filter/Filter';
+import { TableCustomActions } from './TableCustomActions';
 
 import { TableRibbon } from './TableRibbon';
 import { useColumns } from './useColumns';
@@ -41,19 +39,25 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
   const tableLoading = useObservableState(tableLoading$);
 
   const totalCount = useObservableState(
-    totalCount$,
-    defaultFilterValue.totalCount,
+    searchQuery.totalCount$,
+    defaultSearchValue.totalCount,
   );
   const currentPage = useObservableState(
-    currentPage$,
+    searchQuery.currentPage$,
     // TODO: remove ts-ignore
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     initialState.currentPage,
   );
-  const pageSize = useObservableState(pageSize$, defaultFilterValue.pageSize);
-  const filter = useObservableState(filter$, defaultFilterValue.filter);
-  const sort = useObservableState(sort$, defaultFilterValue.sort);
+  const pageSize = useObservableState(
+    searchQuery.pageSize$,
+    defaultSearchValue.pageSize,
+  );
+  const filter = useObservableState(
+    searchQuery.filter$,
+    defaultSearchValue.filter,
+  );
+  const sort = useObservableState(searchQuery.sort$, defaultSearchValue.sort);
 
   // @todo it's not best practice, should listen Change in custom header cell component
   const handleSortChange = useCallback(
@@ -71,12 +75,21 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         return;
       }
 
-      filterService.updateSort({
-        [sorter.field]: sorter.order as SortQueryStringType,
-      });
+      searchService.updateSearchSort(
+        {
+          [sorter.field]: sorter.order as SortQueryStringType,
+        },
+        view.search ?? null,
+      );
     },
-    [],
+    [view.search],
   );
+
+  const selectedIds = useObservableState(tableActiveIds$);
+
+  const handleSelectedIdsChanged = useCallback((selectedRowKeys) => {
+    tableService.setSelectedIds(selectedRowKeys);
+  }, []);
 
   useDebounceEffect(
     () => {
@@ -93,6 +106,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         viewRibbons={view.configurations?.v2ColumnRibbons || []}
         view={view}
       />
+      <TableCustomActions view={view} metadata={metadata} />
       <div
         style={{
           background: '#fff',
@@ -104,6 +118,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         <Filter
           metadata={metadata}
           viewColumns={view.configurations?.v2Columns || []}
+          viewSearch={view.search}
         />
       </div>
       <div
@@ -127,6 +142,8 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
           onChange={handleSortChange}
           rowSelection={{
             columnWidth: 64,
+            selectedRowKeys: selectedIds,
+            onChange: handleSelectedIdsChanged,
           }}
         />
       </div>
@@ -144,7 +161,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
           current={currentPage}
           pageSize={pageSize}
           onChange={(currentPage, pageSize) => {
-            filterService.updatePagination({ currentPage, pageSize });
+            searchService.updateSearchPagination({ currentPage, pageSize });
           }}
           showTotal={() => `共 ${totalCount}\u00A0条`}
           showQuickJumper

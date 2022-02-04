@@ -16,6 +16,9 @@
     "label": {
       "type": "string"
     },
+    "description": {
+      "type": "string"
+    },
     "electrons": {
       "type": "array",
       "items": {

@@ -6,6 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { RoleResourceType } from '@shukun/schema';
 import { AccessControl } from 'accesscontrol';
 import {
   AccessActionRange,
@@ -17,7 +18,6 @@ import { SecurityService } from '../../identity/security.service';
 import { getAccessActionType } from '../../identity/utils/security.utils';
 
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
-import { ResourceType } from '../api.type';
 
 import { ResourceNodes } from './authorization.interface';
 
@@ -35,14 +35,14 @@ export class AuthorizationService {
   ): Promise<void> {
     // if target path is equal public, then always pass.
     if (
-      resourceNodes.resourceType === ResourceType.Public ||
-      resourceNodes.resourceType === ResourceType.View
+      resourceNodes.resourceType === RoleResourceType.Public ||
+      resourceNodes.resourceType === RoleResourceType.View
     ) {
       return;
     }
 
     // if target path is equal itself, then always do not validate.
-    if (resourceNodes.resourceType === ResourceType.Internal) {
+    if (resourceNodes.resourceType === RoleResourceType.Internal) {
       throw new ForbiddenException('没有权限操作内部接口。');
     }
 

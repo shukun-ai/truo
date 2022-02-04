@@ -16,6 +16,9 @@
     "label": {
       "type": "string"
     },
+    "description": {
+      "type": "string"
+    },
     "type": {
       "type": "string",
       "title": "ViewType",
@@ -96,6 +99,12 @@
             "$ref": "#/definitions/ViewV2Ribbon"
           }
         },
+        "v2CustomActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewV2CustomAction"
+          }
+        },
         "v2Fields": {
           "type": "array",
           "items": {
@@ -152,12 +161,18 @@
             "title": "ViewV2FieldGroup",
             "type": "object",
             "additionalProperties": false,
-            "required": ["name", "label"],
+            "required": ["name", "label", "type"],
             "properties": {
               "name": {
                 "type": "string"
               },
               "label": {
+                "type": "string"
+              },
+              "type": {
+                "$ref": "#/definitions/ViewV2FieldGroupType"
+              },
+              "value": {
                 "type": "string"
               }
             }
@@ -330,9 +345,24 @@
     },
     "priority": {
       "type": "integer"
+    },
+    "search": {
+      "$ref": "#/definitions/ViewSearch"
     }
   },
   "definitions": {
+    "ViewSearch": {
+      "title": "ViewSearch",
+      "description": "Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.",
+      "type": "object",
+      "properties": {
+        "totalCount": { "type": "number" },
+        "currentPage": { "type": "number" },
+        "pageSize": { "type": "number" },
+        "filter": { "type": ["object", "null"] },
+        "sort": { "type": ["object", "null"] }
+      }
+    },
     "ViewV2FieldType": {
       "title": "ViewV2FieldType",
       "type": "string",
@@ -417,6 +447,7 @@
     "ViewV2LinkType": {
       "type": "string",
       "title": "ViewV2LinkType",
+      "description": "Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.",
       "enum": [
         "None",
         "View",
@@ -427,7 +458,8 @@
         "DeleteOne",
         "Print",
         "Excel",
-        "Csv"
+        "Csv",
+        "CustomModal"
       ],
       "tsEnumNames": [
         "None",
@@ -439,8 +471,33 @@
         "DeleteOne",
         "Print",
         "Excel",
-        "Csv"
+        "Csv",
+        "CustomModal"
       ]
+    },
+    "ViewV2FieldGroupType": {
+      "type": "string",
+      "title": "ViewV2FieldGroupType",
+      "enum": ["None", "CustomTab"],
+      "tsEnumNames": ["None", "CustomTab"]
+    },
+    "ViewV2CustomAction": {
+      "type": "object",
+      "title": "ViewV2CustomAction",
+      "additionalProperties": false,
+      "required": ["name", "label", "type"],
+      "properties": {
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "type": { "$ref": "#/definitions/ViewV2CustomActionType" },
+        "value": { "type": "string" }
+      }
+    },
+    "ViewV2CustomActionType": {
+      "type": "string",
+      "title": "ViewV2CustomActionType",
+      "enum": ["Column"],
+      "tsEnumNames": ["Column"]
     }
   }
 }

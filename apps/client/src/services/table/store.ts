@@ -1,4 +1,8 @@
-import { EntityState, createEntityStore, ActiveState } from '@datorama/akita';
+import {
+  EntityState,
+  createEntityStore,
+  MultiActiveState,
+} from '@datorama/akita';
 import { produce } from 'immer';
 
 import { UnknownSourceModel } from '../../models/source';
@@ -6,12 +10,12 @@ import { StoreNames } from '../../utils/store-names';
 
 export interface TableState
   extends EntityState<UnknownSourceModel, string>,
-    ActiveState {
+    MultiActiveState {
   loading: boolean;
 }
 
 export const initialState: TableState = {
-  active: null,
+  active: [],
   loading: false,
 };
 

@@ -1,3 +1,5 @@
+// Must put polyfills first.
+import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Must put these two provider files before App.

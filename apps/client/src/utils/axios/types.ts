@@ -11,13 +11,3 @@ export interface ApiResponseData<Value> {
   count?: number;
   value: Value;
 }
-
-export enum ResourceType {
-  Public = 'public',
-  Internal = 'internal',
-  Core = 'core',
-  Source = 'source',
-  View = 'view',
-  Webhook = 'webhook',
-  Developer = 'developer',
-}

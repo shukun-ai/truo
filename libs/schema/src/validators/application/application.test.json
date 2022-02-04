@@ -1122,6 +1122,13 @@
       "type": "Simple",
       "isVisible": true,
       "isSystem": false,
+      "search": {
+        "filter": {
+          "number": {
+            "$regex": "he"
+          }
+        }
+      },
       "configurations": {
         "columns": [
           {

@@ -29,6 +29,7 @@ class SessionService {
     resetStores();
   }
 
+  // TODO: remove it, use query instead.
   getSessionValidAuth() {
     const session = sessionStore.getValue();
 
