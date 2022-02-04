@@ -334,15 +334,22 @@
     "priority": {
       "type": "integer"
     },
-    "query": {
-      "$ref": "#/definitions/ViewQuery"
+    "search": {
+      "$ref": "#/definitions/ViewSearch"
     }
   },
   "definitions": {
-    "ViewQuery": {
-      "title": "ViewQuery",
+    "ViewSearch": {
+      "title": "ViewSearch",
       "description": "Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.",
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "totalCount": { "type": "number" },
+        "currentPage": { "type": "number" },
+        "pageSize": { "type": "number" },
+        "filter": { "type": ["object", "null"] },
+        "sort": { "type": ["object", "null"] }
+      }
     },
     "ViewV2FieldType": {
       "title": "ViewV2FieldType",

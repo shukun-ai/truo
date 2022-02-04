@@ -138,7 +138,7 @@ export interface ViewSchema {
   parentName?: string;
   isVisible: boolean;
   priority: number;
-  query?: ViewQuery;
+  search?: ViewSearch;
 }
 export interface ViewConfigurations {
   v2Columns?: ViewV2Column[];
@@ -260,7 +260,16 @@ export interface ViewDetailRemoveAction {
 /**
  * Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.
  */
-export interface ViewQuery {
+export interface ViewSearch {
+  totalCount?: number;
+  currentPage?: number;
+  pageSize?: number;
+  filter?: {
+    [k: string]: unknown;
+  } | null;
+  sort?: {
+    [k: string]: unknown;
+  } | null;
   [k: string]: unknown;
 }
 /**

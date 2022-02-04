@@ -76,10 +76,10 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         {
           [sorter.field]: sorter.order as SortQueryStringType,
         },
-        view.query ?? null,
+        view.search ?? null,
       );
     },
-    [view.query],
+    [view.search],
   );
 
   const selectedIds = useObservableState(tableActiveIds$);
@@ -114,7 +114,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         <Filter
           metadata={metadata}
           viewColumns={view.configurations?.v2Columns || []}
-          viewQuery={view.query}
+          viewSearch={view.search}
         />
       </div>
       <div

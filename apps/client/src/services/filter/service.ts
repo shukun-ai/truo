@@ -4,12 +4,12 @@ import { FilterModel } from './model';
 import { filterStore } from './store';
 
 import { defaultFilterValue } from '.';
-import { ViewQuery } from '@shukun/schema';
+import { ViewSearch } from '@shukun/schema';
 import { merge } from 'lodash';
 
 export class FilterService {
-  setActive(viewName: string, viewQuery: ViewQuery | null) {
-    const filterValue = merge({}, defaultFilterValue, viewQuery);
+  setActive(viewName: string, viewSearch: ViewSearch | null) {
+    const filterValue = merge({}, defaultFilterValue, viewSearch);
 
     filterStore.add({
       viewName,
@@ -57,10 +57,9 @@ export class FilterService {
   }
 
   // TODO: The FilterStore should be rename to SearchStore
-  // TODO: The viewQuery should be rename to ViewSearch
-  async updateSearch(search: FilterModel, viewSearch: ViewQuery | null) {
+  async updateSearch(search: FilterModel, viewSearch: ViewSearch | null) {
     filterStore.updateActive(() =>
-      merge<Partial<FilterModel>, ViewQuery | null, FilterModel>(
+      merge<Partial<FilterModel>, ViewSearch | null, FilterModel>(
         {},
         viewSearch,
         search,
@@ -71,31 +70,31 @@ export class FilterService {
   // TODO: rename to updateSearchFilter
   async updateFilter(
     filter: FilterQueryStringValues,
-    viewQuery: ViewQuery | null,
+    viewSearch: ViewSearch | null,
   ) {
     filterStore.updateActive(() => ({
-      filter: merge({}, viewQuery?.['filter'], filter),
+      filter: merge({}, viewSearch?.filter, filter),
     }));
   }
 
   // TODO: rename to clearSearchFilter
-  async clearFilter(viewQuery: ViewQuery | null) {
+  async clearFilter(viewSearch: ViewSearch | null) {
     filterStore.updateActive(() => ({
-      filter: merge({}, viewQuery?.['filter']),
+      filter: viewSearch?.filter as FilterQueryStringValues,
     }));
   }
 
   // TODO: rename to updateSearchSort
-  async updateSort(sort: SortQueryStringValues, viewQuery: ViewQuery | null) {
+  async updateSort(sort: SortQueryStringValues, viewSearch: ViewSearch | null) {
     filterStore.updateActive(() => ({
-      sort: merge({}, viewQuery?.['sort'], sort),
+      sort: merge({}, viewSearch?.sort, sort),
     }));
   }
 
   // TODO: rename to clearSearchSort
-  async clearSort(viewQuery: ViewQuery | null) {
+  async clearSort(viewSearch: ViewSearch | null) {
     filterStore.updateActive(() => ({
-      sort: merge({}, viewQuery?.['sort']),
+      sort: viewSearch?.sort as SortQueryStringValues,
     }));
   }
 
