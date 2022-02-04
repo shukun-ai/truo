@@ -51,9 +51,9 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
   }, [view, metadata, customMode, sources]);
 
   const handleSearch = useCallback(
-    (filter: SearchModel) => {
+    (search: SearchModel) => {
       if (customMode === CustomMode.TableModal) {
-        searchService.updateSearch(filter, view?.search ?? null);
+        searchService.updateSearch(search, view?.search ?? null);
       }
       console.info(`${customMode} 类型下不提供 ${EMIT_SEARCH} 事件。`);
     },

@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { sessionService } from '../../../../services/session';
 // import { enableCrossOriginAuth } from "../../../../utils/env-helpers";
 import {
-  POSMATE_IFRAME_CLASS,
+  POSTMATE_IFRAME_CLASS,
   POSTMATE_NAME_VIEW_CUSTOM,
 } from '../../../../utils/postmate-helpers';
 // import { isSameDomain } from "../../../../utils/url-helpers";
@@ -51,7 +51,7 @@ export const CustomView: FunctionComponent<CustomViewProps> = ({ view }) => {
         container: frameRef.current,
         url: url,
         name: POSTMATE_NAME_VIEW_CUSTOM,
-        classListArray: [POSMATE_IFRAME_CLASS],
+        classListArray: [POSTMATE_IFRAME_CLASS],
       });
 
       handshake.then((child: ParentAPI) => {
@@ -64,15 +64,13 @@ export const CustomView: FunctionComponent<CustomViewProps> = ({ view }) => {
   }, [frameRef, view, location]);
 
   return (
-    <>
-      <div
-        ref={frameRef}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-      />
-    </>
+    <div
+      ref={frameRef}
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
+    />
   );
 };
 

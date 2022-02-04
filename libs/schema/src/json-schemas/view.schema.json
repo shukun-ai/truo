@@ -99,6 +99,12 @@
             "$ref": "#/definitions/ViewV2Ribbon"
           }
         },
+        "v2CustomActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewV2CustomAction"
+          }
+        },
         "v2Fields": {
           "type": "array",
           "items": {
@@ -474,6 +480,24 @@
       "title": "ViewV2FieldGroupType",
       "enum": ["None", "CustomTab"],
       "tsEnumNames": ["None", "CustomTab"]
+    },
+    "ViewV2CustomAction": {
+      "type": "object",
+      "title": "ViewV2CustomAction",
+      "additionalProperties": false,
+      "required": ["name", "label", "type"],
+      "properties": {
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "type": { "$ref": "#/definitions/ViewV2CustomActionType" },
+        "value": { "type": "string" }
+      }
+    },
+    "ViewV2CustomActionType": {
+      "type": "string",
+      "title": "ViewV2CustomActionType",
+      "enum": ["Column"],
+      "tsEnumNames": ["Column"]
     }
   }
 }
