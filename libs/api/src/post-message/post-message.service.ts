@@ -1,4 +1,5 @@
-import * as Postmate from 'postmate';
+// TODO Postmate's types is not consistent with export and must set allowSyntheticDefaultImports as true
+import Postmate from 'postmate';
 import { BehaviorSubject } from 'rxjs';
 import {
   CustomMode,
@@ -32,10 +33,7 @@ export class PostMessageService {
   public customMode$ = new BehaviorSubject<CustomMode | null>(null);
 
   constructor() {
-    // TODO: should rewrite a new types for postmate.
-    // (Postmate as any)['default']['Model'] is hacked, because @types/postmate is wrong
-    // with import * as Postmate from 'postmate'.
-    this.handshake = new (Postmate as any)['default']['Model']({
+    this.handshake = new Postmate.Model({
       [ON_AUTH]: (value: Auth) => {
         this.auth$.next(value);
       },
