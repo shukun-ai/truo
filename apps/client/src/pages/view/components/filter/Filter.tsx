@@ -5,10 +5,10 @@ import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
 import {
-  defaultFilterValue,
+  defaultSearchValue,
   filter$,
-  filterService,
-} from '../../../../services/filter';
+  searchService,
+} from '../../../../services/search';
 import { FilterRawValues } from '../../../../services/table/model';
 
 import { convertQueryStringToRaw, convertRawToQueryString } from './converter';
@@ -26,7 +26,7 @@ export const Filter: FunctionComponent<FilterProps> = ({
   viewColumns,
   viewSearch,
 }) => {
-  const filters = useObservableState(filter$, defaultFilterValue.filter);
+  const filters = useObservableState(filter$, defaultSearchValue.filter);
 
   const [form] = Form.useForm<FilterRawValues>();
 
@@ -53,13 +53,13 @@ export const Filter: FunctionComponent<FilterProps> = ({
   const handleFinish = useCallback(
     (values: FilterRawValues) => {
       const filters = convertRawToQueryString(values, metadata, viewColumns);
-      filterService.updateFilter(filters, viewSearch ?? null);
+      searchService.updateSearchFilter(filters, viewSearch ?? null);
     },
     [metadata, viewColumns, viewSearch],
   );
 
   const handleReset = useCallback(() => {
-    filterService.clearFilter(viewSearch ?? null);
+    searchService.clearSearchFilter(viewSearch ?? null);
   }, [viewSearch]);
 
   return (

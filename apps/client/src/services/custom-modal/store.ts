@@ -4,14 +4,14 @@ import { MetadataSchema, ViewSchema } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
-import { FilterModel } from '../filter';
+import { SearchModel } from '../search';
 
 export interface CustomModalState {
   label: string | null;
   visible: boolean;
   loading: boolean;
   url: string | null;
-  search: FilterModel | null;
+  search: SearchModel | null;
   sources: UnknownSourceModel[];
   view: ViewSchema | null;
   metadata: MetadataSchema | null;

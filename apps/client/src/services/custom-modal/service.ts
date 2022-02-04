@@ -1,6 +1,6 @@
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
 import { UnknownSourceModel } from '../../models/source';
-import { FilterModel } from '../filter';
+import { SearchModel } from '../search';
 import { CustomModalStore } from './store';
 
 export class CustomModalService {
@@ -9,7 +9,7 @@ export class CustomModalService {
   openModal(
     label: string,
     url: string,
-    search?: FilterModel,
+    search?: SearchModel,
     sources?: UnknownSourceModel[],
     view?: ViewSchema,
     metadata?: MetadataSchema,

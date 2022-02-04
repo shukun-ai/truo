@@ -1,7 +1,7 @@
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
 
 import { MetadataRequest } from '../../utils/axios';
-import { FilterService, filterService } from '../filter';
+import { SearchService, searchService } from '../search';
 import { sourceReferenceService } from '../source';
 import { SourceReferenceService } from '../source/classes/SourceReferenceService';
 
@@ -10,14 +10,14 @@ import { tableStore } from './store';
 
 class TableService {
   constructor(
-    private readonly filterService: FilterService,
+    private readonly searchService: SearchService,
     private readonly sourceReferenceService: SourceReferenceService,
   ) {}
 
   async findMany(view: ViewSchema, metadata: MetadataSchema) {
     tableStore.setLoading(true);
 
-    const filterValues = this.filterService.getFilterByViewName(view.name);
+    const filterValues = this.searchService.getSearchByViewName(view.name);
     const { currentPage, pageSize, filter, sort } = filterValues;
     const skip = (currentPage - 1) * pageSize;
 
@@ -35,7 +35,7 @@ class TableService {
     const { count } = response.data;
 
     if (typeof count === 'number') {
-      this.filterService.updateTotalCount(count);
+      this.searchService.updateSearchTotalCount(count);
     } else {
       throw new Error('Lack of count from http request.');
     }
@@ -54,6 +54,6 @@ class TableService {
 }
 
 export const tableService = new TableService(
-  filterService,
+  searchService,
   sourceReferenceService,
 );

@@ -23,15 +23,15 @@ import {
   EMIT_WIDTH,
   EMIT_HEIGHT,
 } from '@shukun/api';
-import { FilterModel } from '../../../../services/filter';
+import { SearchModel } from '../../../../services/search';
 
 export interface CustomViewExperimentProps {
   url: string | null;
-  search: FilterModel | null;
+  search: SearchModel | null;
   sources: UnknownSourceModel[] | null;
   onFinish: (() => void) | null;
   onRefresh: (() => void) | null;
-  onSearch: ((search: FilterModel) => void) | null;
+  onSearch: ((search: SearchModel) => void) | null;
 }
 
 export const CustomViewExperiment: FunctionComponent<

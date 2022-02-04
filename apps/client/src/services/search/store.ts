@@ -3,18 +3,18 @@ import { produce } from 'immer';
 
 import { StoreNames } from '../../utils/store-names';
 
-import { FilterModel } from './model';
+import { SearchModel } from './model';
 
-export interface FilterState
-  extends EntityState<FilterModel, string>,
+export interface SearchState
+  extends EntityState<SearchModel, string>,
     ActiveState {}
 
-export const initialState: FilterState = {
+export const initialState: SearchState = {
   active: null,
 };
 
-export const filterStore = createEntityStore<FilterState>(initialState, {
-  name: StoreNames.Filter,
+export const searchStore = createEntityStore<SearchState>(initialState, {
+  name: StoreNames.Search,
   idKey: 'viewName',
   producerFn: produce,
 });

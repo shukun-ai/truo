@@ -1,6 +1,6 @@
 import { FilterQueryStringValues, SortQueryStringValues } from '../table/model';
 
-export interface FilterModel {
+export interface SearchModel {
   viewName: string;
   totalCount: number;
   currentPage: number;

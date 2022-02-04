@@ -8,7 +8,7 @@ import {
 } from '../../../../services/custom-modal';
 import { CustomViewExperiment } from './CustomViewExperiment';
 import { tableService } from '../../../../services/table';
-import { FilterModel, filterService } from '../../../../services/filter';
+import { SearchModel, searchService } from '../../../../services/search';
 
 export interface CustomModalProps {}
 
@@ -38,8 +38,8 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
   }, [view, metadata]);
 
   const handleTableSearch = useCallback(
-    (filter: FilterModel) => {
-      filterService.updateSearch(filter, view?.search ?? null);
+    (filter: SearchModel) => {
+      searchService.updateSearch(filter, view?.search ?? null);
     },
     [view?.search],
   );
