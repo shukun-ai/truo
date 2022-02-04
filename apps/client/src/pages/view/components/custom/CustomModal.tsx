@@ -39,9 +39,9 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
 
   const handleTableSearch = useCallback(
     (filter: FilterModel) => {
-      filterService.updateSearch(filter, view?.query ?? null);
+      filterService.updateSearch(filter, view?.search ?? null);
     },
-    [view?.query],
+    [view?.search],
   );
 
   return (

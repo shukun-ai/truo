@@ -1,4 +1,4 @@
-import { MetadataSchema, ViewQuery, ViewV2Column } from '@shukun/schema';
+import { MetadataSchema, ViewSearch, ViewV2Column } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, Space } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -18,13 +18,13 @@ import { FilterFormItem } from './FilterFormItem';
 export interface FilterProps {
   metadata: MetadataSchema;
   viewColumns: ViewV2Column[];
-  viewQuery: ViewQuery | undefined;
+  viewSearch: ViewSearch | undefined;
 }
 
 export const Filter: FunctionComponent<FilterProps> = ({
   metadata,
   viewColumns,
-  viewQuery,
+  viewSearch,
 }) => {
   const filters = useObservableState(filter$, defaultFilterValue.filter);
 
@@ -53,14 +53,14 @@ export const Filter: FunctionComponent<FilterProps> = ({
   const handleFinish = useCallback(
     (values: FilterRawValues) => {
       const filters = convertRawToQueryString(values, metadata, viewColumns);
-      filterService.updateFilter(filters, viewQuery ?? null);
+      filterService.updateFilter(filters, viewSearch ?? null);
     },
-    [metadata, viewColumns, viewQuery],
+    [metadata, viewColumns, viewSearch],
   );
 
   const handleReset = useCallback(() => {
-    filterService.clearFilter(viewQuery ?? null);
-  }, [viewQuery]);
+    filterService.clearFilter(viewSearch ?? null);
+  }, [viewSearch]);
 
   return (
     <FilterContext.Provider value={{ form }}>
