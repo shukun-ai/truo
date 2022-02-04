@@ -6,7 +6,7 @@ import React, { FunctionComponent, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { NoAccessTip } from '../../components/layout';
-import { filterService } from '../../services/filter';
+import { searchService } from '../../services/search';
 import { metadataService } from '../../services/metadata';
 import { grantList$, grantRoles$, isGranted } from '../../services/security';
 import { sourceService } from '../../services/source';
@@ -62,7 +62,7 @@ export const ViewFactory: FunctionComponent<ViewFactoryProps> = () => {
 
   useUpdateEffect(() => {
     if (view) {
-      filterService.setActive(view.name, view.search ?? null);
+      searchService.setActive(view.name, view.search ?? null);
     }
   }, [view]);
 

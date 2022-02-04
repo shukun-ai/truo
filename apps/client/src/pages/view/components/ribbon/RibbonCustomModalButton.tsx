@@ -8,7 +8,7 @@ import { UnknownSourceModel } from '../../../../models/source';
 import { mode$ } from '../../../../services/detail';
 import { customModalService } from '../../../../services/custom-modal';
 import { message } from 'antd';
-import { activeSearch$ } from '../../../../services/filter';
+import { activeSearch$ } from '../../../../services/search';
 
 export interface RibbonCustomModalButtonProps {
   view: ViewSchema;

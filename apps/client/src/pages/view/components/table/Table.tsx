@@ -11,13 +11,13 @@ import React, { FunctionComponent, useCallback } from 'react';
 
 import {
   currentPage$,
-  defaultFilterValue,
+  defaultSearchValue,
   filter$,
-  filterService,
+  searchService,
   pageSize$,
   sort$,
   totalCount$,
-} from '../../../../services/filter';
+} from '../../../../services/search';
 import {
   tableActiveIds$,
   tableEntities$,
@@ -43,7 +43,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
 
   const totalCount = useObservableState(
     totalCount$,
-    defaultFilterValue.totalCount,
+    defaultSearchValue.totalCount,
   );
   const currentPage = useObservableState(
     currentPage$,
@@ -52,9 +52,9 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
     // @ts-ignore
     initialState.currentPage,
   );
-  const pageSize = useObservableState(pageSize$, defaultFilterValue.pageSize);
-  const filter = useObservableState(filter$, defaultFilterValue.filter);
-  const sort = useObservableState(sort$, defaultFilterValue.sort);
+  const pageSize = useObservableState(pageSize$, defaultSearchValue.pageSize);
+  const filter = useObservableState(filter$, defaultSearchValue.filter);
+  const sort = useObservableState(sort$, defaultSearchValue.sort);
 
   // @todo it's not best practice, should listen Change in custom header cell component
   const handleSortChange = useCallback(
@@ -72,7 +72,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         return;
       }
 
-      filterService.updateSort(
+      searchService.updateSearchSort(
         {
           [sorter.field]: sorter.order as SortQueryStringType,
         },
@@ -157,7 +157,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
           current={currentPage}
           pageSize={pageSize}
           onChange={(currentPage, pageSize) => {
-            filterService.updatePagination({ currentPage, pageSize });
+            searchService.updateSearchPagination({ currentPage, pageSize });
           }}
           showTotal={() => `共 ${totalCount}\u00A0条`}
           showQuickJumper
