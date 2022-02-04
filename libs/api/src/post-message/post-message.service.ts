@@ -1,7 +1,7 @@
-import { Model } from 'postmate';
+import * as Postmate from 'postmate';
 import { BehaviorSubject } from 'rxjs';
-import { CustomMode, ON_CUSTOM_MODE } from '..';
 import {
+  CustomMode,
   EMIT_SEARCH,
   EMIT_FINISH,
   EMIT_HEIGHT,
@@ -11,11 +11,12 @@ import {
   ON_SEARCH,
   ON_QUERY,
   ON_SOURCES,
+  ON_CUSTOM_MODE,
 } from './post-message.constant';
 import { Auth, Search, Query, Sources } from './post-message.interface';
 
 export class PostMessageService {
-  protected handshake: Model;
+  protected handshake: Promise<Postmate.ChildAPI>;
 
   public auth$ = new BehaviorSubject<Auth>(null);
 
@@ -31,7 +32,10 @@ export class PostMessageService {
   public customMode$ = new BehaviorSubject<CustomMode | null>(null);
 
   constructor() {
-    this.handshake = new Model({
+    // TODO: should rewrite a new types for postmate.
+    // (Postmate as any)['default']['Model'] is hacked, because @types/postmate is wrong
+    // with import * as Postmate from 'postmate'.
+    this.handshake = new (Postmate as any)['default']['Model']({
       [ON_AUTH]: (value: Auth) => {
         this.auth$.next(value);
       },
