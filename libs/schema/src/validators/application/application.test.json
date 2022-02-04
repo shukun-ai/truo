@@ -1122,7 +1122,7 @@
       "type": "Simple",
       "isVisible": true,
       "isSystem": false,
-      "query": {
+      "search": {
         "filter": {
           "number": {
             "$regex": "he"
