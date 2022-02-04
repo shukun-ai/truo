@@ -8,7 +8,7 @@ import { TableColumnsType, TableColumnType } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { useMemo } from 'react';
 
-import { defaultSearchValue, sort$ } from '../../../../services/search';
+import { defaultSearchValue, searchQuery } from '../../../../services/search';
 import { SortQueryStringValues } from '../../../../services/table/model';
 import { ColumnFieldFactory } from '../fields/ColumnFieldFactory';
 
@@ -16,7 +16,7 @@ export function useColumns(
   view: ViewSchema,
   metadata: MetadataSchema,
 ): TableColumnsType<any> {
-  const sort = useObservableState(sort$, defaultSearchValue.sort);
+  const sort = useObservableState(searchQuery.sort$, defaultSearchValue.sort);
 
   const columns = useMemo<TableColumnsType<any>>(() => {
     const antColumns: TableColumnsType<any> = [];

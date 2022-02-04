@@ -10,13 +10,9 @@ import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 
 import {
-  currentPage$,
   defaultSearchValue,
-  filter$,
   searchService,
-  pageSize$,
-  sort$,
-  totalCount$,
+  searchQuery,
 } from '../../../../services/search';
 import {
   tableActiveIds$,
@@ -42,19 +38,25 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
   const tableLoading = useObservableState(tableLoading$);
 
   const totalCount = useObservableState(
-    totalCount$,
+    searchQuery.totalCount$,
     defaultSearchValue.totalCount,
   );
   const currentPage = useObservableState(
-    currentPage$,
+    searchQuery.currentPage$,
     // TODO: remove ts-ignore
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     initialState.currentPage,
   );
-  const pageSize = useObservableState(pageSize$, defaultSearchValue.pageSize);
-  const filter = useObservableState(filter$, defaultSearchValue.filter);
-  const sort = useObservableState(sort$, defaultSearchValue.sort);
+  const pageSize = useObservableState(
+    searchQuery.pageSize$,
+    defaultSearchValue.pageSize,
+  );
+  const filter = useObservableState(
+    searchQuery.filter$,
+    defaultSearchValue.filter,
+  );
+  const sort = useObservableState(searchQuery.sort$, defaultSearchValue.sort);
 
   // @todo it's not best practice, should listen Change in custom header cell component
   const handleSortChange = useCallback(

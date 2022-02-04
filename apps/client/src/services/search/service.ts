@@ -1,26 +1,28 @@
 import { FilterQueryStringValues, SortQueryStringValues } from '../table/model';
 
 import { SearchModel } from './model';
-import { searchStore } from './store';
 
 import { defaultSearchValue } from './constant';
 import { ViewSearch } from '@shukun/schema';
 import { merge } from 'lodash';
+import { SearchStore } from './store';
 
 export class SearchService {
+  constructor(private readonly searchStore: SearchStore) {}
+
   setActive(viewName: string, viewSearch: ViewSearch | null) {
     const filterValue = merge({}, defaultSearchValue, viewSearch);
 
-    searchStore.add({
+    this.searchStore.add({
       viewName,
       ...filterValue,
     });
-    searchStore.setActive(viewName);
+    this.searchStore.setActive(viewName);
   }
 
   // TODO: use Akitajs Query instead
   getAllByViewName(viewName: string) {
-    const { entities } = searchStore.getValue();
+    const { entities } = this.searchStore.getValue();
 
     if (!entities) {
       return null;
@@ -57,7 +59,7 @@ export class SearchService {
   }
 
   async updateSearch(search: SearchModel, viewSearch: ViewSearch | null) {
-    searchStore.updateActive(() =>
+    this.searchStore.updateActive(() =>
       merge<Partial<SearchModel>, ViewSearch | null, SearchModel>(
         {},
         viewSearch,
@@ -70,13 +72,13 @@ export class SearchService {
     filter: FilterQueryStringValues,
     viewSearch: ViewSearch | null,
   ) {
-    searchStore.updateActive(() => ({
+    this.searchStore.updateActive(() => ({
       filter: merge({}, viewSearch?.filter, filter),
     }));
   }
 
   async clearSearchFilter(viewSearch: ViewSearch | null) {
-    searchStore.updateActive(() => ({
+    this.searchStore.updateActive(() => ({
       filter: viewSearch?.filter as FilterQueryStringValues,
     }));
   }
@@ -85,13 +87,13 @@ export class SearchService {
     sort: SortQueryStringValues,
     viewSearch: ViewSearch | null,
   ) {
-    searchStore.updateActive(() => ({
+    this.searchStore.updateActive(() => ({
       sort: merge({}, viewSearch?.sort, sort),
     }));
   }
 
   async clearSearchSort(viewSearch: ViewSearch | null) {
-    searchStore.updateActive(() => ({
+    this.searchStore.updateActive(() => ({
       sort: viewSearch?.sort as SortQueryStringValues,
     }));
   }
@@ -100,16 +102,14 @@ export class SearchService {
     currentPage?: number;
     pageSize?: number;
   }) {
-    searchStore.updateActive(() => ({
+    this.searchStore.updateActive(() => ({
       ...pagination,
     }));
   }
 
   async updateSearchTotalCount(totalCount: number) {
-    searchStore.updateActive(() => ({
+    this.searchStore.updateActive(() => ({
       totalCount,
     }));
   }
 }
-
-export const searchService = new SearchService();

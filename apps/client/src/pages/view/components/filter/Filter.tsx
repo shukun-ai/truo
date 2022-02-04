@@ -6,8 +6,8 @@ import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
 import {
   defaultSearchValue,
-  filter$,
   searchService,
+  searchQuery,
 } from '../../../../services/search';
 import { FilterRawValues } from '../../../../services/table/model';
 
@@ -26,7 +26,10 @@ export const Filter: FunctionComponent<FilterProps> = ({
   viewColumns,
   viewSearch,
 }) => {
-  const filters = useObservableState(filter$, defaultSearchValue.filter);
+  const filters = useObservableState(
+    searchQuery.filter$,
+    defaultSearchValue.filter,
+  );
 
   const [form] = Form.useForm<FilterRawValues>();
 
