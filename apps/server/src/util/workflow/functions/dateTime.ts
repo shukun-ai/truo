@@ -1,5 +1,5 @@
 import { isISO8601 } from 'class-validator';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 import { IntrinsicFailure } from '../errors/IntrinsicFailure';
 import { FunctionAst } from '../types';

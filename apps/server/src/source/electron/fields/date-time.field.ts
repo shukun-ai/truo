@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { Schema } from 'mongoose';
 
 import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';

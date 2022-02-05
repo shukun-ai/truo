@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 import { IntrinsicFailure } from '../errors/IntrinsicFailure';
 import { FunctionAstArg } from '../types';

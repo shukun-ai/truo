@@ -4,9 +4,55 @@ import { NoChoiceMatched } from '../errors/NoChoiceMatched';
 import { parseByPath } from '../parser';
 import { InputOrOutput } from '../types';
 
-import * as formulaHelpers from './formulas';
+import {
+  booleanEquals,
+  isBoolean,
+  isNull,
+  isNumeric,
+  isPresent,
+  isString,
+  numericEquals,
+  numericGreaterThan,
+  numericGreaterThanEquals,
+  numericLessThan,
+  numericLessThanEquals,
+  stringEquals,
+  stringGreaterThan,
+  stringGreaterThanEquals,
+  stringLessThan,
+  stringLessThanEquals,
+  timestampEquals,
+  timestampGreaterThan,
+  timestampGreaterThanEquals,
+  timestampLessThan,
+  timestampLessThanEquals,
+} from './formulas';
 
 const PATH_SUFFIX_NAME = 'Path';
+
+const formulaHelpers = {
+  booleanEquals,
+  isBoolean,
+  isNull,
+  isNumeric,
+  isPresent,
+  isString,
+  numericEquals,
+  numericGreaterThan,
+  numericGreaterThanEquals,
+  numericLessThan,
+  numericLessThanEquals,
+  stringEquals,
+  stringGreaterThan,
+  stringGreaterThanEquals,
+  stringLessThan,
+  stringLessThanEquals,
+  timestampEquals,
+  timestampGreaterThan,
+  timestampGreaterThanEquals,
+  timestampLessThan,
+  timestampLessThanEquals,
+};
 
 export function compareVariables(
   comparison: WorkflowComparison,

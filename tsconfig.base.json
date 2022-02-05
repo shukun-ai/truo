@@ -19,6 +19,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@shukun/api": ["libs/api/src/index.ts"],
       "@shukun/cli": ["libs/cli/src/index.ts"],
