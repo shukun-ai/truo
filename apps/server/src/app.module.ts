@@ -6,7 +6,7 @@ import {
   utilities as nestWinstonModuleUtilities,
   WinstonModule,
 } from 'nest-winston';
-import * as winston from 'winston';
+import winston from 'winston';
 
 import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';

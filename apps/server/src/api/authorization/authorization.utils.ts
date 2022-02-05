@@ -1,6 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { RoleResourceType } from '@shukun/schema';
-import * as URLParse from 'url-parse';
+import URLParse from 'url-parse';
 
 import { ResourceNodes } from './authorization.interface';
 
