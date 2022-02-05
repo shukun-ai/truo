@@ -1,4 +1,4 @@
-import * as randomstring from 'randomstring';
+import randomstring from 'randomstring';
 
 import { IntrinsicFailure } from '../errors/IntrinsicFailure';
 import { FunctionAstArg } from '../types';
