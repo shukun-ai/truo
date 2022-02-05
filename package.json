@@ -1,6 +1,6 @@
 {
   "name": "shukun",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "start": "nx run-many --target=serve --all",
@@ -102,6 +102,7 @@
     "http-proxy-middleware": "^2.0.1",
     "i18next": "^20.6.1",
     "immer": "^9.0.12",
+    "js-convert-case": "^4.2.0",
     "jsonpath-plus": "^6.0.1",
     "lodash": "^4.17.21",
     "mockdate": "^3.0.5",

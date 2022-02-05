@@ -1,5 +1,3 @@
-import { ReactText } from 'react';
-
 // TODO: should be extract a shared lib
 type IDString = string;
 
@@ -21,11 +19,7 @@ interface UnknownSourceModel {
 
 // TODO: should be extract a shared lib
 interface FilterQueryStringValues {
-  [electronName: string]:
-    | ReactText
-    | boolean
-    | { $in: ReactText[] }
-    | { $regex: string };
+  [electronName: string]: any;
 }
 
 // TODO: should be extract a shared lib

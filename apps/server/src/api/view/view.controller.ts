@@ -31,8 +31,7 @@ export class ViewController {
     const jsonTemplate = await this.createJsonTemplate(orgName);
 
     const value = views.map((view) => ({
-      ...view,
-      value: jsonTemplate.compile(view.value),
+      ...jsonTemplate.compile(view),
     }));
 
     return {
