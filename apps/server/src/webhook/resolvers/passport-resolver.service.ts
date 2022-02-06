@@ -1,4 +1,4 @@
-import { BadRequestException, Inject } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { OrgService } from '../../core/org.service';
 import { SecurityService } from '../../identity/security.service';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
@@ -15,6 +15,7 @@ interface Parameters {
   expiresIn?: number;
 }
 
+@Injectable()
 export class PassportResolverService implements Resolver {
   @Inject()
   private readonly systemUserService!: SourceService<SystemUserModel>;

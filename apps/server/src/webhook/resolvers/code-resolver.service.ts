@@ -1,4 +1,4 @@
-import { LoggerService } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
 import { QueryParserOptions } from '../../util/query/interfaces';
@@ -10,11 +10,14 @@ import { InputOrOutput } from '../../util/workflow/types';
 import { CodeResolver } from '@shukun/code-resolver';
 import { Resolver } from './resolver.interface';
 
+@Injectable()
 export class CodeResolverService implements Resolver {
-  constructor(
-    private readonly loggerService: LoggerService,
-    private readonly sourceService: SourceService<any>,
-  ) {}
+  // TODO: mount LoggerService Module
+  // @Inject()
+  // private readonly loggerService!: LoggerService
+
+  @Inject()
+  private readonly sourceService!: SourceService<any>;
 
   validateParameters() {
     return true;
@@ -39,6 +42,7 @@ export class CodeResolverService implements Resolver {
     const vm = new NodeVM();
     let output;
 
+    // eslint-disable-next-line no-useless-catch
     try {
       const exports = vm.run(code);
       output = await exports.default(
@@ -46,7 +50,7 @@ export class CodeResolverService implements Resolver {
         parameters,
       );
     } catch (error) {
-      this.loggerService.error(error);
+      // this.loggerService.error(error);
       throw error;
     }
 
