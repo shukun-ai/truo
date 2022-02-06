@@ -1,3 +1,12 @@
+// TODO: should be extract a shared lib
+export type IDString = string;
+
+// TODO: should be extract a shared lib
+export interface UnknownSourceModel {
+  _id: IDString;
+  [name: string]: unknown;
+}
+
 export interface QueryParams {
   limit?: number;
   skip?: number;
@@ -7,6 +16,7 @@ export interface QueryParams {
   sort?: string;
 }
 
+// TODO: should be extract a shared lib
 export interface ApiResponseData<Value> {
   count?: number;
   value: Value;

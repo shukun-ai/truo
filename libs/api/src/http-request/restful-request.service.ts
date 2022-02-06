@@ -1,13 +1,11 @@
 import { RoleResourceType } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 import merge from 'lodash/merge';
+import { HttpRequestService } from './http-request.service';
 
-import { IDString } from '../model-helpers';
+import { IDString, ApiResponseData, QueryParams } from './shared-types';
 
-import { createAxios } from './AxiosInstance';
-import { ApiResponseData, QueryParams } from './types';
-
-export interface RequestProps<Model> {
+export interface RestfulRequestServiceOptions<Model> {
   resourceType: RoleResourceType;
   urlPath: string;
   globalSelect: Array<keyof Model>;
@@ -19,16 +17,19 @@ export interface RequestProps<Model> {
  * const atoms = new Request<AtomModel>("editor__atoms", ["_id", "name"]);
  * atoms.findMany();
  */
-export class Request<Model> {
+export class RestfulRequestService<Model> {
   urlPath: string;
   globalSelect: Array<keyof Model>;
 
-  constructor({
-    resourceType,
-    urlPath,
-    globalSelect,
-    orgName = ':orgName',
-  }: RequestProps<Model>) {
+  constructor(
+    private readonly httpRequestService: HttpRequestService,
+    {
+      resourceType,
+      urlPath,
+      globalSelect,
+      orgName = ':orgName',
+    }: RestfulRequestServiceOptions<Model>,
+  ) {
     this.urlPath = `${resourceType}/${orgName}/${urlPath}`;
     this.globalSelect = globalSelect;
   }
@@ -42,15 +43,14 @@ export class Request<Model> {
     params?: QueryParams,
     select?: Array<keyof Model>,
   ): Promise<AxiosResponse<ApiResponseData<Model[]>>> {
-    const response = await createAxios().get<ApiResponseData<Model[]>>(
-      this.urlPath,
-      {
+    const response = await this.httpRequestService
+      .createAxios()
+      .get<ApiResponseData<Model[]>>(this.urlPath, {
         params: merge({}, params, {
           select: this.combineSelect(select),
           count: true,
         }),
-      },
-    );
+      });
     return response;
   }
 
@@ -59,9 +59,9 @@ export class Request<Model> {
     select?: Array<keyof Model>,
   ): Promise<AxiosResponse<ApiResponseData<Model>>> {
     // TODO use getOne api instead of getMany
-    const response = await createAxios().get<ApiResponseData<Model[]>>(
-      this.urlPath,
-      {
+    const response = await this.httpRequestService
+      .createAxios()
+      .get<ApiResponseData<Model[]>>(this.urlPath, {
         params: merge(
           {},
           params,
@@ -70,8 +70,7 @@ export class Request<Model> {
           },
           { select: this.combineSelect(select) },
         ),
-      },
-    );
+      });
     if (response.data.value.length > 0) {
       const newResponse: AxiosResponse<ApiResponseData<Model>> = {
         ...response,
@@ -90,9 +89,11 @@ export class Request<Model> {
     data: Record<string, any> & Partial<Model>,
     select?: Array<keyof Model>,
   ) {
-    const response = await createAxios().post<
-      ApiResponseData<{ _id: IDString }>
-    >(this.urlPath, data, { params: { select: this.combineSelect(select) } });
+    const response = await this.httpRequestService
+      .createAxios()
+      .post<ApiResponseData<{ _id: IDString }>>(this.urlPath, data, {
+        params: { select: this.combineSelect(select) },
+      });
     return response;
   }
 
@@ -112,18 +113,18 @@ export class Request<Model> {
     data: Record<string, any> & Partial<Model>,
     select?: Array<keyof Model>,
   ) {
-    const response = await createAxios().put<ApiResponseData<null>>(
-      `${this.urlPath}/${id}`,
-      data,
-      { params: { select: this.combineSelect(select) } },
-    );
+    const response = await this.httpRequestService
+      .createAxios()
+      .put<ApiResponseData<null>>(`${this.urlPath}/${id}`, data, {
+        params: { select: this.combineSelect(select) },
+      });
     return response;
   }
 
   public async removeOne(id: string) {
-    const response = await createAxios().delete<ApiResponseData<null>>(
-      `${this.urlPath}/${id}`,
-    );
+    const response = await this.httpRequestService
+      .createAxios()
+      .delete<ApiResponseData<null>>(`${this.urlPath}/${id}`);
     return response;
   }
 }

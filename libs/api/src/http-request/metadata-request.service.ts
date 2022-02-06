@@ -1,23 +1,32 @@
 import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 
-import { UnknownMetadataModel } from '../../models/metadata';
+import {
+  UnknownSourceModel,
+  ApiResponseData,
+  QueryParams,
+} from './shared-types';
+import { HttpRequestService } from './http-request.service';
 
-import { Request } from './Request';
-import { ApiResponseData, QueryParams } from './types';
+import { RestfulRequestService } from './restful-request.service';
 
-export class MetadataRequest<Model = UnknownMetadataModel> {
+export class MetadataRequestService<Model = UnknownSourceModel> {
   metadata: MetadataSchema;
-  request: Request<Model>;
+  request: RestfulRequestService<Model>;
 
-  constructor(metadata: MetadataSchema, options?: { globalSelect?: string[] }) {
+  constructor(
+    private readonly httpRequestService: HttpRequestService,
+    metadata: MetadataSchema,
+    options?: { globalSelect?: string[] },
+  ) {
     const urlPath = metadata.name;
     const globalSelect =
       options?.globalSelect ??
       metadata.electrons.map((item) => item.name).concat('_id');
 
     this.metadata = metadata;
-    this.request = new Request<Model>({
+
+    this.request = new RestfulRequestService<Model>(this.httpRequestService, {
       resourceType: RoleResourceType.Source,
       urlPath,
       globalSelect: globalSelect as any,
