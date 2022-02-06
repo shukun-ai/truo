@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { WorkflowTaskState } from '@shukun/schema';
 import { TaskFailed } from '../util/workflow/errors/TaskFailed';
 
@@ -11,6 +11,7 @@ import { SourceResolverService } from './resolvers/source-resolver.service';
 import { WorkflowResolverService } from './resolvers/workflow-resolver.service';
 import { Resource, ResourceOptions } from './resource.interface';
 
+@Injectable()
 export class ResourceService implements Resource {
   @Inject() private readonly sourceResolverService!: SourceResolverService;
 
