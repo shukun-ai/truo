@@ -1,7 +1,8 @@
+import { RestfulRequestService } from '@shukun/api';
 import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../../models/source';
-import { Request } from '../../../utils/axios';
+import { httpRequestService } from '../../../utils/http-helper';
 
 import { ReferenceUtil } from './ReferenceUtil';
 import { SourceService } from './SourceService';
@@ -28,11 +29,14 @@ export class SourceReferenceService {
         return;
       }
 
-      const request = new Request<UnknownSourceModel>({
-        resourceType: RoleResourceType.Source,
-        urlPath: referenceTo,
-        globalSelect: [foreignName],
-      });
+      const request = new RestfulRequestService<UnknownSourceModel>(
+        httpRequestService,
+        {
+          resourceType: RoleResourceType.Source,
+          urlPath: referenceTo,
+          globalSelect: [foreignName],
+        },
+      );
 
       request
         .findMany({ filter: { _id: { $in: ids } } })

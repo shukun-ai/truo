@@ -1,11 +1,12 @@
 import { MetadataSchema, ViewSchema, ViewType } from '@shukun/schema';
 
-import { MetadataRequest } from '../../utils/axios';
+import { MetadataRequestService } from '@shukun/api';
 import { sourceReferenceService } from '../source';
 import { viewsStore } from '../view/store';
 
 import { ReferenceModalError } from './classes/ReferenceModalError';
 import { initialState, ReferenceState, referenceStore } from './store';
+import { httpRequestService } from '../../utils/http-helper';
 
 class ReferenceService {
   set(options: Partial<ReferenceState>) {
@@ -79,7 +80,7 @@ class ReferenceService {
     referenceStore.setLoading(true);
     const { excludedIds } = referenceStore.getValue();
 
-    const request = new MetadataRequest(metadata);
+    const request = new MetadataRequestService(httpRequestService, metadata);
     const response = await request.findMany({
       ...options,
       filter: { _id: { $nin: excludedIds } },
