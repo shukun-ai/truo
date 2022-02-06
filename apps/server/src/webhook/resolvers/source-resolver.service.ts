@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IDString } from '../../app.type';
 
 import { SourceService } from '../../source/source.service';
@@ -7,6 +7,7 @@ import { InputOrOutput } from '../../util/workflow/types';
 
 import { Resolver } from './resolver.interface';
 
+@Injectable()
 export class SourceResolverService implements Resolver {
   @Inject() private readonly sourceService!: SourceService<any>;
 

@@ -1,4 +1,4 @@
-import { LoggerService } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
@@ -6,8 +6,11 @@ import { InputOrOutput } from '../../util/workflow/types';
 
 import { Resolver } from './resolver.interface';
 
+@Injectable()
 export class HttpResolverService implements Resolver {
-  constructor(private readonly loggerService: LoggerService) {}
+  // TODO: mount LoggerService Module
+  // @Inject()
+  // private readonly loggerService!: LoggerService
 
   validateParameters() {
     return true;
@@ -32,6 +35,7 @@ export class HttpResolverService implements Resolver {
       throw new TaskFailed('Should specify method in parameters.');
     }
 
+    // eslint-disable-next-line no-useless-catch
     try {
       const response = await axios({
         method,
@@ -49,7 +53,7 @@ export class HttpResolverService implements Resolver {
         config: response?.config,
       };
     } catch (error) {
-      this.loggerService.error(error);
+      // this.loggerService.error(error);
       throw error;
     }
   }
