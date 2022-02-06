@@ -1,12 +1,13 @@
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
 
-import { MetadataRequest } from '../../utils/axios';
+import { MetadataRequestService } from '@shukun/api';
 import { SearchService, searchService } from '../search';
 import { sourceReferenceService } from '../source';
 import { SourceReferenceService } from '../source/classes/SourceReferenceService';
 
 import { formatSortToQueryString } from './helper';
 import { tableStore } from './store';
+import { httpRequestService } from '../../utils/http-helper';
 
 class TableService {
   constructor(
@@ -21,7 +22,7 @@ class TableService {
     const { currentPage, pageSize, filter, sort } = filterValues;
     const skip = (currentPage - 1) * pageSize;
 
-    const request = new MetadataRequest(metadata);
+    const request = new MetadataRequestService(httpRequestService, metadata);
 
     const response = await request.findMany({
       filter,
