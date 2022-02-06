@@ -1,10 +1,13 @@
 import { RoleResourceType, ViewSchema } from '@shukun/schema';
 
-import { ApiResponseData, createAxios } from '../../utils/axios';
+import { ApiResponseData } from '@shukun/api';
+import { httpRequestService } from '../../utils/http-helper';
 
 export async function findAllViews() {
-  const response = await createAxios().get<ApiResponseData<ViewSchema[]>>(
-    `${RoleResourceType.View}/:orgName/views`,
-  );
+  const response = await httpRequestService
+    .createAxios()
+    .get<ApiResponseData<ViewSchema[]>>(
+      `${RoleResourceType.View}/:orgName/views`,
+    );
   return response;
 }

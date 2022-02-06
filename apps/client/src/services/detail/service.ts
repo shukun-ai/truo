@@ -1,11 +1,12 @@
 import { MetadataSchema } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../models/source';
-import { MetadataRequest } from '../../utils/axios';
+import { MetadataRequestService } from '@shukun/api';
 import { IDString } from '../../utils/model-helpers';
 
 import { DetailMode } from './model';
 import { DetailState, detailStore } from './store';
+import { httpRequestService } from '../../utils/http-helper';
 
 class DetailService {
   set(options: Partial<DetailState>) {
@@ -22,7 +23,7 @@ class DetailService {
 
   async findOne(sourceId: IDString, metadata: MetadataSchema) {
     detailStore.setLoading(true);
-    const request = new MetadataRequest(metadata);
+    const request = new MetadataRequestService(httpRequestService, metadata);
     const response = await request.findOne({ filter: { _id: sourceId } });
     detailStore.update({ source: response.data.value });
     detailStore.setLoading(false);
@@ -36,7 +37,7 @@ class DetailService {
     const { mode } = detailStore.getValue();
 
     if (mode === DetailMode.Edit && source) {
-      const request = new MetadataRequest(metadata);
+      const request = new MetadataRequestService(httpRequestService, metadata);
       await request.updateOne(source._id, newSource);
       detailStore.update(({ source }) => ({
         source: { ...source, ...newSource },
@@ -46,7 +47,7 @@ class DetailService {
     }
 
     if (mode === DetailMode.Create) {
-      const request = new MetadataRequest(metadata);
+      const request = new MetadataRequestService(httpRequestService, metadata);
       const response = await request.createAndFindOne(newSource);
       detailStore.update(({ source }) => ({
         source: { ...source, ...response.data.value },
@@ -60,7 +61,7 @@ class DetailService {
 
   async removeOne(sourceId: IDString, metadata: MetadataSchema) {
     detailStore.setLoading(true);
-    const request = new MetadataRequest(metadata);
+    const request = new MetadataRequestService(httpRequestService, metadata);
     await request.removeOne(sourceId);
     detailStore.setLoading(false);
     return true;
