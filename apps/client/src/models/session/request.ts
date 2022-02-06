@@ -1,5 +1,6 @@
 import { RoleResourceType } from '@shukun/schema';
-import { ApiResponseData, createAxios } from '../../utils/axios';
+import { ApiResponseData } from '@shukun/api';
+import { httpRequestService } from '../../utils/http-helper';
 
 import { AuthApiModel } from './model';
 
@@ -10,9 +11,11 @@ export interface SignInData {
 }
 
 export async function signIn(data: SignInData) {
-  const response = await createAxios().post<ApiResponseData<AuthApiModel>>(
-    `${RoleResourceType.Public}/${data.orgName}/authentication/jwt`,
-    data,
-  );
+  const response = await httpRequestService
+    .createAxios()
+    .post<ApiResponseData<AuthApiModel>>(
+      `${RoleResourceType.Public}/${data.orgName}/authentication/jwt`,
+      data,
+    );
   return response;
 }
