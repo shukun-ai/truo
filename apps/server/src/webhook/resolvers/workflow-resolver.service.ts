@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Inject,
+  Injectable,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
@@ -21,6 +22,7 @@ interface Parameters {
   headers?: InputOrOutput;
 }
 
+@Injectable()
 export class WorkflowResolverService implements Resolver {
   @Inject()
   private readonly workflowService!: WorkflowService;

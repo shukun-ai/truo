@@ -1,8 +1,9 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import { SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
 
+@Injectable()
 export class SourceAccessControlService {
   @Inject()
   private readonly sourceService!: SourceService<any>;
