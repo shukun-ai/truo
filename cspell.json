@@ -1,0 +1,29 @@
+{
+  "version": "0.2",
+  "ignorePaths": [],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [
+    "shukun",
+    "signin",
+    "prepayid",
+    "wechat",
+    "backoff",
+    "nrwl",
+    "nestjs",
+    "jsonpath",
+    "randomstring",
+    "jsonpath",
+    "tokenizr",
+    "accesscontrol",
+    "cssmodule",
+    "antd",
+    "immer",
+    "upsert",
+    "mockdate",
+    "postmate",
+    "untitle"
+  ],
+  "ignoreWords": [],
+  "import": []
+}
