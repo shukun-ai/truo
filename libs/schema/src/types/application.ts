@@ -176,7 +176,7 @@ export interface ViewV2Column {
     value?: string;
     query?: string;
   };
-  filterVisible?: boolean;
+  filterHidden?: boolean;
   filterOptions?: ViewV2ColumnFilterOptions;
   filterType?: ViewV2ColumnFilterType;
 }
