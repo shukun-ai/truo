@@ -3,6 +3,8 @@ import {
   MetadataCurrencyOptions,
   MetadataOptions,
   ViewV2Column,
+  ViewV2ColumnFilterOptions,
+  ViewV2ColumnFilterType,
   ViewV2FieldType,
 } from '@shukun/schema';
 
@@ -58,4 +60,6 @@ export interface FilterFieldProps {
   currencyOptions: MetadataCurrencyOptions | undefined;
   attachmentOptions: MetadataAttachmentOptions | undefined;
   tip: string | undefined;
+  filterOptions: ViewV2ColumnFilterOptions | undefined;
+  filterType: ViewV2ColumnFilterType | undefined;
 }
