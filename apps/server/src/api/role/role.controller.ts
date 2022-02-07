@@ -6,6 +6,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { RoleResourceType } from '@shukun/schema';
+
 import { RoleService } from '../../core/role.service';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';

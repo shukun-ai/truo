@@ -12,12 +12,12 @@ import {
   SystemPositionModel,
   SystemUserModel,
 } from '@shukun/schema';
-import { OrgDocument } from '../../core/org/org.schema';
-import { SourceService } from '../../source/source.service';
-import { QueryResponse } from '../../util/query/interfaces';
 
 import { OrgService } from '../../core/org.service';
+import { OrgDocument } from '../../core/org/org.schema';
+import { SourceService } from '../../source/source.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
+import { QueryResponse } from '../../util/query/interfaces';
 
 import { SeedCreateDto } from './seed.dto';
 

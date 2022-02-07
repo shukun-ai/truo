@@ -1,7 +1,9 @@
 import { MetadataElectron } from '@shukun/schema';
 import { Schema } from 'mongoose';
-import { cryptoPassword } from '../../../identity/utils/password.utils';
+
 import validator from 'validator';
+
+import { cryptoPassword } from '../../../identity/utils/password.utils';
 
 import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
 

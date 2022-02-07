@@ -1,7 +1,9 @@
 // TODO Postmate's types is not consistent with export and must set allowSyntheticDefaultImports as true
 import Postmate from 'postmate';
 import { BehaviorSubject } from 'rxjs';
+
 import { PostMessageEvent } from '..';
+
 import {
   PostMessageAuth,
   PostMessageCustomMode,

@@ -4,6 +4,7 @@ import {
   MetadataSchema,
 } from '@shukun/schema';
 import { toPascalCase } from 'js-convert-case';
+
 import {
   AttachmentSchema,
   DateTimeIsoString,

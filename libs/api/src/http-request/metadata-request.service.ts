@@ -1,14 +1,14 @@
 import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 
+import { HttpRequestService } from './http-request.service';
+
+import { RestfulRequestService } from './restful-request.service';
 import {
   UnknownSourceModel,
   ApiResponseData,
   QueryParams,
 } from './shared-types';
-import { HttpRequestService } from './http-request.service';
-
-import { RestfulRequestService } from './restful-request.service';
 
 export class MetadataRequestService<Model = UnknownSourceModel> {
   metadata: MetadataSchema;

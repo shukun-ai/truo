@@ -1,4 +1,5 @@
 import { MetadataFieldType, MetadataSchema } from '@shukun/schema';
+
 import { extractElectronOptions } from './extract-electron-options';
 
 it('', () => {

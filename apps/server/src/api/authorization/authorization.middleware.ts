@@ -1,5 +1,6 @@
 import { NestMiddleware, Injectable, Inject } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
+
 import { parseToken } from '../../identity/utils/security.utils';
 
 import { AuthorizationService } from './authorization.service';

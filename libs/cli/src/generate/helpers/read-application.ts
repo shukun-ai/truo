@@ -1,6 +1,7 @@
-import { ApplicationSchema } from '@shukun/schema';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
+
+import { ApplicationSchema } from '@shukun/schema';
 
 export async function readApplication(
   inputPath: string,
