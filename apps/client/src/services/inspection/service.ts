@@ -1,6 +1,7 @@
 import { InspectionResponse } from '@shukun/api';
-import { RoleResourceType } from '@shukun/schema';
 import { ApiResponseData } from '@shukun/api';
+import { RoleResourceType } from '@shukun/schema';
+
 import { httpRequestService } from '../../utils/http-helper';
 
 export class InspectionService {

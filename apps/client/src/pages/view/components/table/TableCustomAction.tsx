@@ -1,6 +1,7 @@
-import { CustomMode, EMIT_FINISH } from '@shukun/api';
+import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
 import { MetadataSchema, ViewSchema, ViewV2CustomAction } from '@shukun/schema';
 import React, { FunctionComponent, useCallback } from 'react';
+
 import { UnknownSourceModel } from '../../../../models/source';
 import { SearchModel, searchService } from '../../../../services/search';
 import { tableService } from '../../../../services/table';
@@ -30,7 +31,7 @@ export const TableCustomAction: FunctionComponent<TableCustomActionProps> = ({
 
   const handleFinish = useCallback(() => {
     console.info(
-      `${CustomMode.TableAction} 类型下不提供 ${EMIT_FINISH} 事件。`,
+      `${PostMessageCustomModeType.TableAction} 类型下不提供 ${PostMessageEvent.EMIT_FINISH} 事件。`,
     );
   }, []);
 
@@ -43,7 +44,7 @@ export const TableCustomAction: FunctionComponent<TableCustomActionProps> = ({
 
   return (
     <CustomViewExperiment
-      customMode={CustomMode.TableAction}
+      customMode={PostMessageCustomModeType.TableAction}
       url={customAction.value ?? ''}
       search={search}
       sources={sources}

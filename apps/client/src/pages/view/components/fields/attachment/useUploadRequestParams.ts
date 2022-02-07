@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { environment } from '../../../../../environments';
+
 import { sessionService } from '../../../../../services/session';
 
 export interface UploadRequestParams {
@@ -16,7 +18,7 @@ export function useUploadRequestParams() {
     const auth = sessionService.getSessionValidAuth();
     if (auth) {
       setParams({
-        action: `${process.env?.['NX_CLIENT_STORAGE_URL'] ?? ''}/oss/upload`,
+        action: `${environment.storageDomain}/oss/upload`,
         orgId: auth.orgId,
         orgName: auth.orgName,
         token: auth.accessToken,

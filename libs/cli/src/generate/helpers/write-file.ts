@@ -1,4 +1,5 @@
 import { join } from 'path';
+
 import { sync } from 'write';
 
 export async function writeFile(

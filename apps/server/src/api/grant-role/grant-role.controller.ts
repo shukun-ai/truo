@@ -6,13 +6,15 @@ import {
   Param,
   Req,
 } from '@nestjs/common';
+
+import { RoleResourceType } from '@shukun/schema';
+
 import { AccessInternalRoles } from '../../identity/interfaces';
+import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 
-import { SecurityService } from '../../identity/security.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
-import { RoleResourceType } from '@shukun/schema';
 
 @Controller(`${RoleResourceType.Public}/:orgName/grant-roles`)
 @UseInterceptors(QueryResponseInterceptor)

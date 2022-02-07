@@ -1,3 +1,5 @@
+import { environment } from '../../environments';
+
 // @todo should be extracted into @shukun/schema and sync with runtime codebase
 export interface AttachmentValue {
   mime: string;
@@ -34,7 +36,7 @@ export const getAttachmentUrl = (
   attachment: AttachmentValue,
   imageSharpOptions?: ImageSharpOptions,
 ) => {
-  const url = `${process.env?.['NX_CLIENT_ASSETS_URL'] ?? ''}/oss`;
+  const url = `${environment.assetDomain}/oss`;
   const prefix = attachment.mime.startsWith('image/') ? 'images' : 'assets';
   const path = attachment.path;
 

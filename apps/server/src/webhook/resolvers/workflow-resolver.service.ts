@@ -6,9 +6,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { WorkflowSchema } from '@shukun/schema';
-import { WorkflowService } from '../../core/workflow.service';
 
 import { IDString } from '../../app.type';
+import { WorkflowService } from '../../core/workflow.service';
+
 import { executeWorkflow } from '../../util/workflow/execution';
 import { InputOrOutput } from '../../util/workflow/types';
 import { ResourceService } from '../resource.service';

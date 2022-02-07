@@ -5,6 +5,7 @@ import { validateApplicationSchema } from '../../validators/application/validate
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ApplicationData = require('../../validators/application/application.test.json');
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const initialApplicationData = require('./initial-application.json');
 

@@ -1,18 +1,19 @@
+import { PostMessageCustomModeType } from '@shukun/api';
 import { ViewV2Ribbon, ViewSchema, MetadataSchema } from '@shukun/schema';
+import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
-import { runStringCode } from './runStringCode';
 
 import { RibbonButton } from '../../../../components/ribbon/RibbonButton';
 import { UnknownSourceModel } from '../../../../models/source';
-import { mode$ } from '../../../../services/detail';
 import { customModalService } from '../../../../services/custom-modal';
-import { message } from 'antd';
+import { mode$ } from '../../../../services/detail';
 import { searchQuery } from '../../../../services/search';
-import { CustomMode } from '@shukun/api';
+
+import { runStringCode } from './runStringCode';
 
 export interface RibbonCustomModalButtonProps {
-  customMode: CustomMode;
+  customMode: PostMessageCustomModeType;
   view: ViewSchema;
   metadata: MetadataSchema;
   viewRibbon: ViewV2Ribbon;

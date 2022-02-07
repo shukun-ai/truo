@@ -23,6 +23,7 @@ import {
 import { SortQueryStringType } from '../../../../services/table/model';
 import { initialState } from '../../../../services/table/store';
 import { Filter } from '../filter/Filter';
+
 import { TableCustomActions } from './TableCustomActions';
 
 import { TableRibbon } from './TableRibbon';

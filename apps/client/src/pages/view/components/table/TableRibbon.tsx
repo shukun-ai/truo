@@ -1,3 +1,4 @@
+import { PostMessageCustomModeType } from '@shukun/api';
 import {
   MetadataSchema,
   ViewSchema,
@@ -6,7 +7,6 @@ import {
 } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, ReactNode, useCallback } from 'react';
-import { CustomMode } from '@shukun/api';
 
 import { Ribbon } from '../../../../components/ribbon';
 import { tableActiveEntities$ } from '../../../../services/table';
@@ -44,7 +44,7 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
           return (
             <RibbonCustomModalButton
               key={viewRibbon.name}
-              customMode={CustomMode.TableModal}
+              customMode={PostMessageCustomModeType.TableModal}
               view={view}
               metadata={metadata}
               viewRibbon={viewRibbon}
