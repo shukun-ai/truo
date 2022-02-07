@@ -48,41 +48,42 @@ export const DetailField: FunctionComponent<DetailFieldProps> = ({
     return <>缺少 electron</>;
   }
 
-  return (
-    <>
-      {detailMode === DetailMode.Show ? (
-        <ShowFieldFactory
-          type={viewField.type}
-          name={viewField.name}
-          label={viewField.label}
-          viewLink={undefined}
-          electronName={viewField.electronName}
-          electronOptions={electron.options}
-          electronForeignName={electron.foreignName}
-          electronReferenceTo={electron.referenceTo}
-          referenceViewName={viewField.referenceViewName}
-          currencyOptions={electron.currencyOptions}
-          attachmentOptions={electron.attachmentOptions}
-          tip={viewField.tip}
-          row={source ?? undefined}
-        />
-      ) : (
-        <InputFieldFactory
-          type={viewField.type}
-          name={viewField.name}
-          label={viewField.label}
-          electronName={viewField.electronName}
-          electronOptions={electron.options}
-          electronForeignName={electron.foreignName}
-          electronReferenceTo={electron.referenceTo}
-          referenceViewName={viewField.referenceViewName}
-          currencyOptions={electron.currencyOptions}
-          attachmentOptions={electron.attachmentOptions}
-          tip={viewField.tip}
-          required={required}
-          disabled={disabled}
-        />
-      )}
-    </>
-  );
+  if (detailMode === DetailMode.Show) {
+    return (
+      <ShowFieldFactory
+        type={viewField.type}
+        name={viewField.name}
+        label={viewField.label}
+        viewLink={undefined}
+        electronName={viewField.electronName}
+        electronOptions={electron.options}
+        electronForeignName={electron.foreignName}
+        electronReferenceTo={electron.referenceTo}
+        referenceViewName={viewField.referenceViewName}
+        currencyOptions={electron.currencyOptions}
+        attachmentOptions={electron.attachmentOptions}
+        tip={viewField.tip}
+        row={source ?? undefined}
+      />
+    );
+  } else {
+    return (
+      <InputFieldFactory
+        type={viewField.type}
+        name={viewField.name}
+        label={viewField.label}
+        electronName={viewField.electronName}
+        electronOptions={electron.options}
+        electronForeignName={electron.foreignName}
+        electronReferenceTo={electron.referenceTo}
+        referenceViewName={viewField.referenceViewName}
+        currencyOptions={electron.currencyOptions}
+        attachmentOptions={electron.attachmentOptions}
+        tip={viewField.tip}
+        required={required}
+        disabled={disabled}
+        filterOptions={viewField.filterOptions}
+      />
+    );
+  }
 };

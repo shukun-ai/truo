@@ -17,6 +17,7 @@ import { TableCreateButton } from './ribbons/TableCreateButton';
 import { TableCsvButton } from './ribbons/TableCsvButton';
 import { TableExcelButton } from './ribbons/TableExcelButton';
 import { TableRefreshButton } from './ribbons/TableRefreshButton';
+import { TableRemoveButton } from './ribbons/TableRemoveButton';
 
 export interface TableRibbonProps {
   metadata: MetadataSchema;
@@ -36,6 +37,16 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
       switch (viewRibbon.type) {
         case ViewV2LinkType.CreateOne:
           return <TableCreateButton key="TableCreateButton" view={view} />;
+        case ViewV2LinkType.DeleteOne:
+          return (
+            <TableRemoveButton
+              key="TableRemoveButton"
+              view={view}
+              metadata={metadata}
+              viewRibbon={viewRibbon}
+              sources={tableActiveEntities}
+            />
+          );
         case ViewV2LinkType.Excel:
           return <TableExcelButton key="TableExcelButton" view={view} />;
         case ViewV2LinkType.Csv:

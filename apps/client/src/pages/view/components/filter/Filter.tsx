@@ -41,6 +41,10 @@ export const Filter: FunctionComponent<FilterProps> = ({
     return formValues;
   }, [filters, metadata, viewColumns]);
 
+  const visibleViewColumns = useMemo(() => {
+    return viewColumns.filter((item) => !item.filterHidden);
+  }, [viewColumns]);
+
   useDebounceEffect(
     () => {
       if (formValues) {
@@ -65,6 +69,11 @@ export const Filter: FunctionComponent<FilterProps> = ({
     searchService.clearSearchFilter(viewSearch ?? null);
   }, [viewSearch]);
 
+  if (visibleViewColumns.length === 0) {
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    return <></>;
+  }
+
   return (
     <FilterContext.Provider value={{ form }}>
       <Form<FilterRawValues>
@@ -72,7 +81,7 @@ export const Filter: FunctionComponent<FilterProps> = ({
         layout="inline"
         onFinish={handleFinish}
       >
-        {viewColumns.map((viewColumn) => (
+        {visibleViewColumns.map((viewColumn) => (
           <div key={viewColumn.name} style={{ marginBottom: 8 }}>
             <FilterFormItem metadata={metadata} viewColumn={viewColumn} />
           </div>
