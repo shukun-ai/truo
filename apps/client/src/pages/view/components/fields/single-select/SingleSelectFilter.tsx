@@ -1,5 +1,5 @@
 import { Form, Select } from 'antd';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 
 import { FilterFieldProps } from '../interfaces';
 
@@ -8,11 +8,25 @@ export const SingleSelectFilter: FunctionComponent<FilterFieldProps> = ({
   electronName,
   electronOptions,
   tip,
+  filterOptions,
 }) => {
+  const options = useMemo(() => {
+    if (!electronOptions) {
+      return [];
+    }
+
+    return electronOptions?.filter((option) => {
+      if (!filterOptions) {
+        return true;
+      }
+      return filterOptions.includes(option.key);
+    });
+  }, [electronOptions, filterOptions]);
+
   return (
     <Form.Item label={label} name={electronName} tooltip={tip}>
       <Select allowClear mode="multiple" style={{ minWidth: 80 }}>
-        {electronOptions?.map((option) => (
+        {options?.map((option) => (
           <Select.Option key={option.key} value={option.key}>
             {option.label}
           </Select.Option>
