@@ -1,11 +1,11 @@
 import { StoreConfig, Store } from '@datorama/akita';
-import { produce } from 'immer';
+import { PostMessageCustomModeType } from '@shukun/api';
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
+import { produce } from 'immer';
 
 import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
 import { SearchModel } from '../search';
-import { PostMessageCustomModeType } from '@shukun/api';
 
 export interface CustomModalState {
   customMode: PostMessageCustomModeType | null;

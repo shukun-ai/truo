@@ -1,3 +1,4 @@
+import { PostMessageCustomModeType } from '@shukun/api';
 import {
   MetadataSchema,
   ViewSchema,
@@ -6,7 +7,6 @@ import {
 } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, ReactNode, useCallback } from 'react';
-import { PostMessageCustomModeType } from '@shukun/api';
 
 import { Ribbon } from '../../../../components/ribbon';
 import { tableActiveEntities$ } from '../../../../services/table';

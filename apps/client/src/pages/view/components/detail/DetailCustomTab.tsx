@@ -1,6 +1,7 @@
 import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
 import { MetadataSchema, ViewSchema, ViewV2FieldGroup } from '@shukun/schema';
 import React, { FunctionComponent, useCallback, useContext } from 'react';
+
 import { detailService } from '../../../../services/detail';
 import { CustomViewExperiment } from '../custom/CustomViewExperiment';
 import { FormContext } from '../form/FormContext';

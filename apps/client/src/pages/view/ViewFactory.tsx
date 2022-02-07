@@ -6,8 +6,8 @@ import React, { FunctionComponent, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { NoAccessTip } from '../../components/layout';
-import { searchService } from '../../services/search';
 import { metadataService } from '../../services/metadata';
+import { searchService } from '../../services/search';
 import { grantList$, grantRoles$, isGranted } from '../../services/security';
 import { sourceService } from '../../services/source';
 import { views$ } from '../../services/view';

@@ -10,8 +10,8 @@ import React, { FunctionComponent, useMemo } from 'react';
 
 import { DetailMode, mode$ } from '../../../../services/detail';
 
-import { DetailField } from './DetailField';
 import { CustomTab } from './DetailCustomTab';
+import { DetailField } from './DetailField';
 
 export const DEFAULT_GROUP_NAME = '$$$_DEFAULT';
 
