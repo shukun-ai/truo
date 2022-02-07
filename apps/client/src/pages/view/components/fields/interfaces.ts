@@ -5,6 +5,7 @@ import {
   ViewV2Column,
   ViewV2ColumnFilterOptions,
   ViewV2ColumnFilterType,
+  ViewV2FieldFilterOptions,
   ViewV2FieldType,
 } from '@shukun/schema';
 
@@ -46,6 +47,7 @@ export interface InputFieldProps {
   required: boolean;
   disabled: boolean;
   tip: string | undefined;
+  filterOptions: ViewV2FieldFilterOptions | undefined;
 }
 
 export interface FilterFieldProps {

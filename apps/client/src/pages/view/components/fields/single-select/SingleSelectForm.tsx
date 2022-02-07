@@ -12,15 +12,18 @@ export const SingleSelectForm: FunctionComponent<InputFieldProps> = ({
   required,
   disabled,
   tip,
+  filterOptions,
 }) => {
   const { t } = useTranslation();
 
   const options = useMemo(() => {
-    return electronOptions?.map((item) => ({
-      value: item.key,
-      label: item.label,
-    }));
-  }, [electronOptions]);
+    return electronOptions
+      ?.filter((item) => filterOptions?.includes(item.key) ?? true)
+      .map((item) => ({
+        value: item.key,
+        label: item.label,
+      }));
+  }, [electronOptions, filterOptions]);
 
   return (
     <Form.Item

@@ -15,6 +15,10 @@ export type MetadataOptions = {
  * It only work on SingleSelect and MultipleSelect now.
  */
 export type ViewV2ColumnFilterOptions = string[];
+/**
+ * It only work on SingleSelect and MultipleSelect now.
+ */
+export type ViewV2FieldFilterOptions = string[];
 export type WorkflowTaskState = {
   type: 'Task';
   comment?: string;
@@ -207,6 +211,7 @@ export interface ViewV2Field {
     foreignName?: string;
   };
   belongToGroup?: string;
+  filterOptions?: ViewV2FieldFilterOptions;
 }
 export interface ViewV2FieldGroup {
   name: string;

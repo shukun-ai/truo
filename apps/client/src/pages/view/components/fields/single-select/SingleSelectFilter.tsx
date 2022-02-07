@@ -11,16 +11,9 @@ export const SingleSelectFilter: FunctionComponent<FilterFieldProps> = ({
   filterOptions,
 }) => {
   const options = useMemo(() => {
-    if (!electronOptions) {
-      return [];
-    }
-
-    return electronOptions?.filter((option) => {
-      if (!filterOptions) {
-        return true;
-      }
-      return filterOptions.includes(option.key);
-    });
+    return electronOptions?.filter(
+      (item) => filterOptions?.includes(item.key) ?? true,
+    );
   }, [electronOptions, filterOptions]);
 
   return (
