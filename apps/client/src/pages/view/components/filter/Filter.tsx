@@ -42,7 +42,7 @@ export const Filter: FunctionComponent<FilterProps> = ({
   }, [filters, metadata, viewColumns]);
 
   const visibleViewColumns = useMemo(() => {
-    return viewColumns.filter((item) => item.filterVisible);
+    return viewColumns.filter((item) => !item.filterHidden);
   }, [viewColumns]);
 
   useDebounceEffect(

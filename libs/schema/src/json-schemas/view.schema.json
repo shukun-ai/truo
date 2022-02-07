@@ -90,7 +90,7 @@
                   "query": { "type": "string" }
                 }
               },
-              "filterVisible": {
+              "filterHidden": {
                 "type": "boolean"
               },
               "filterOptions": {
