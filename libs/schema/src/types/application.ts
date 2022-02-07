@@ -11,6 +11,14 @@ export type MetadataOptions = {
   label: string;
   color?: string;
 }[];
+/**
+ * It only work on SingleSelect and MultipleSelect now.
+ */
+export type ViewV2ColumnFilterOptions = string[];
+/**
+ * It only work on SingleSelect and MultipleSelect now.
+ */
+export type ViewV2FieldFilterOptions = string[];
 export type WorkflowTaskState = {
   type: 'Task';
   comment?: string;
@@ -168,6 +176,9 @@ export interface ViewV2Column {
     value?: string;
     query?: string;
   };
+  filterHidden?: boolean;
+  filterOptions?: ViewV2ColumnFilterOptions;
+  filterType?: ViewV2ColumnFilterType;
 }
 export interface ViewV2Ribbon {
   name: string;
@@ -200,6 +211,7 @@ export interface ViewV2Field {
     foreignName?: string;
   };
   belongToGroup?: string;
+  filterOptions?: ViewV2FieldFilterOptions;
 }
 export interface ViewV2FieldGroup {
   name: string;
@@ -682,6 +694,9 @@ export enum ViewV2LinkType {
   Excel = 'Excel',
   Csv = 'Csv',
   CustomModal = 'CustomModal',
+}
+export enum ViewV2ColumnFilterType {
+  SelectRadio = 'SelectRadio',
 }
 export enum ViewV2CustomActionType {
   Column = 'Column',

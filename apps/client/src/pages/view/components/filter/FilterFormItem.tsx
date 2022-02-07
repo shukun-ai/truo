@@ -37,6 +37,8 @@ export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
       referenceViewName={viewColumn.referenceViewName}
       currencyOptions={electron.currencyOptions}
       attachmentOptions={electron.attachmentOptions}
+      filterOptions={viewColumn.filterOptions}
+      filterType={viewColumn.filterType}
     />
   );
 };

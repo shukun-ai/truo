@@ -89,6 +89,20 @@
                   "value": { "type": "string" },
                   "query": { "type": "string" }
                 }
+              },
+              "filterHidden": {
+                "type": "boolean"
+              },
+              "filterOptions": {
+                "title": "ViewV2ColumnFilterOptions",
+                "type": "array",
+                "description": "It only work on SingleSelect and MultipleSelect now.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "filterType": {
+                "$ref": "#/definitions/ViewV2ColumnFilterType"
               }
             }
           }
@@ -151,6 +165,14 @@
               },
               "belongToGroup": {
                 "type": "string"
+              },
+              "filterOptions": {
+                "title": "ViewV2FieldFilterOptions",
+                "type": "array",
+                "description": "It only work on SingleSelect and MultipleSelect now.",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -498,6 +520,12 @@
       "title": "ViewV2CustomActionType",
       "enum": ["Column"],
       "tsEnumNames": ["Column"]
+    },
+    "ViewV2ColumnFilterType": {
+      "type": "string",
+      "title": "ViewV2ColumnFilterType",
+      "enum": ["SelectRadio"],
+      "tsEnumNames": ["SelectRadio"]
     }
   }
 }
