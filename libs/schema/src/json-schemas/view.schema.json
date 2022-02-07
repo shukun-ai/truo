@@ -165,6 +165,14 @@
               },
               "belongToGroup": {
                 "type": "string"
+              },
+              "filterOptions": {
+                "title": "ViewV2FieldFilterOptions",
+                "type": "array",
+                "description": "It only work on SingleSelect and MultipleSelect now.",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
