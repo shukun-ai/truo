@@ -3,6 +3,7 @@ import {
   MetadataFieldType,
   MetadataSchema,
 } from '@shukun/schema';
+
 import { extractAtom, listElectronOptionKey } from './extract-atom';
 
 describe('', () => {

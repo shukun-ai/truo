@@ -1,4 +1,5 @@
 import { ApplicationSchema } from '@shukun/schema';
+
 import { extractAtom } from './extract-atom';
 import { extractElectronOptions } from './extract-electron-options';
 

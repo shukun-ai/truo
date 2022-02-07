@@ -9,6 +9,7 @@ import { ApiBearerAuth, ApiHeaders } from '@nestjs/swagger';
 import { RoleResourceType } from '@shukun/schema';
 import { Request } from 'express';
 import { get } from 'lodash';
+
 import { parseToken } from '../../identity/utils/security.utils';
 import { QueryResponse } from '../../util/query/interfaces';
 

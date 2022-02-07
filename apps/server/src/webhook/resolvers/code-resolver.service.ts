@@ -1,13 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
+
+import { CodeResolver } from '@shukun/code-resolver';
+import { NodeVM } from 'vm2';
+
 import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
 import { QueryParserOptions } from '../../util/query/interfaces';
-import { NodeVM } from 'vm2';
 
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
 import { InputOrOutput } from '../../util/workflow/types';
 
-import { CodeResolver } from '@shukun/code-resolver';
 import { Resolver } from './resolver.interface';
 
 @Injectable()

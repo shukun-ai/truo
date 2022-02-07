@@ -7,12 +7,11 @@ import {
 import { Card, Col, Row } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
-import { CustomMode } from '@shukun/api';
 
 import { DetailMode, mode$ } from '../../../../services/detail';
 
-import { DetailField } from './DetailField';
 import { CustomTab } from './DetailCustomTab';
+import { DetailField } from './DetailField';
 
 export const DEFAULT_GROUP_NAME = '$$$_DEFAULT';
 

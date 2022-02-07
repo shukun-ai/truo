@@ -1,13 +1,13 @@
+import { MetadataRequestService } from '@shukun/api';
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
 
-import { MetadataRequestService } from '@shukun/api';
+import { httpRequestService } from '../../utils/http-helper';
 import { SearchService, searchService } from '../search';
 import { sourceReferenceService } from '../source';
 import { SourceReferenceService } from '../source/classes/SourceReferenceService';
 
 import { formatSortToQueryString } from './helper';
 import { tableStore } from './store';
-import { httpRequestService } from '../../utils/http-helper';
 
 class TableService {
   constructor(

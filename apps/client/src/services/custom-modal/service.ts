@@ -1,14 +1,16 @@
-import { CustomMode } from '@shukun/api';
+import { PostMessageCustomModeType } from '@shukun/api';
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
+
 import { UnknownSourceModel } from '../../models/source';
 import { SearchModel } from '../search';
+
 import { CustomModalStore } from './store';
 
 export class CustomModalService {
   constructor(private customModalStore: CustomModalStore) {}
 
   openModal(
-    customMode: CustomMode,
+    customMode: PostMessageCustomModeType,
     label: string,
     url: string,
     search?: SearchModel,

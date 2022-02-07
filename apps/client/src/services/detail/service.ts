@@ -1,12 +1,12 @@
+import { MetadataRequestService } from '@shukun/api';
 import { MetadataSchema } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../models/source';
-import { MetadataRequestService } from '@shukun/api';
+import { httpRequestService } from '../../utils/http-helper';
 import { IDString } from '../../utils/model-helpers';
 
 import { DetailMode } from './model';
 import { DetailState, detailStore } from './store';
-import { httpRequestService } from '../../utils/http-helper';
 
 class DetailService {
   set(options: Partial<DetailState>) {

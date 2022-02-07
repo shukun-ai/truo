@@ -7,8 +7,10 @@ import {
   Body,
   BadRequestException,
 } from '@nestjs/common';
+
+import { RoleResourceType } from '@shukun/schema';
+
 import { OrgService } from '../../core/org.service';
-import { SystemUserModel } from '../../util/schema/models/system-users';
 
 import { SecurityService } from '../../identity/security.service';
 import { cryptoPassword } from '../../identity/utils/password.utils';
@@ -16,9 +18,9 @@ import { SourceService } from '../../source/source.service';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
+import { SystemUserModel } from '../../util/schema/models/system-users';
 
 import { SignInDto } from './dto/sign-in.dto';
-import { RoleResourceType } from '@shukun/schema';
 
 @Controller(`${RoleResourceType.Public}/:orgName/authentication`)
 @UseInterceptors(QueryResponseInterceptor)

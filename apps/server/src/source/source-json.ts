@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+
 import { JsonModel } from '../app.type';
 
 export function sourceToJSON<Model>(

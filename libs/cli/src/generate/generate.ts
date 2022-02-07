@@ -5,13 +5,13 @@ import {
   WorkflowSchema,
 } from '@shukun/schema';
 
+import { compileTs } from './helpers/compile-ts';
 import { readApplication } from './helpers/read-application';
 import { readSection } from './helpers/read-section';
-import { validate } from './helpers/validate';
 import { replaceCode } from './helpers/replace-code';
-import { compileTs } from './helpers/compile-ts';
-import { writeFile } from './helpers/write-file';
 import { stringify } from './helpers/stringify';
+import { validate } from './helpers/validate';
+import { writeFile } from './helpers/write-file';
 
 export interface GenerateOptions {
   inputPath: string;
