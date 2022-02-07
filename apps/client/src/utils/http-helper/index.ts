@@ -1,6 +1,7 @@
 import { HttpRequestService } from '@shukun/api';
-import { sessionService } from '../../services/session';
+
 import { environment } from '../../environments';
+import { sessionService } from '../../services/session';
 
 export const httpRequestService = new HttpRequestService({
   baseUrl: `${environment.serverDomain}/apis/v1`,

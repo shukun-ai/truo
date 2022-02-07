@@ -1,6 +1,6 @@
+import { ApiResponseData, QueryParams } from '@shukun/api';
 import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 
-import { ApiResponseData, QueryParams } from '@shukun/api';
 import { httpRequestService } from '../../utils/http-helper';
 
 // @todo should use core api not source api for getting metadata.

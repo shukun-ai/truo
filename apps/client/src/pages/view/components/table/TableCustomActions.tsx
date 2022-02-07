@@ -6,8 +6,10 @@ import {
 } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
+
 import { searchQuery } from '../../../../services/search';
 import { tableActiveEntities$ } from '../../../../services/table';
+
 import { TableCustomAction } from './TableCustomAction';
 
 export interface TableCustomActionsProps {

@@ -1,10 +1,11 @@
+import { ViewSearch } from '@shukun/schema';
+
+import { merge } from 'lodash';
+
 import { FilterQueryStringValues, SortQueryStringValues } from '../table/model';
 
-import { SearchModel } from './model';
-
 import { defaultSearchValue } from './constant';
-import { ViewSearch } from '@shukun/schema';
-import { merge } from 'lodash';
+import { SearchModel } from './model';
 import { SearchStore } from './store';
 
 export class SearchService {

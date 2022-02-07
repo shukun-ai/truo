@@ -1,16 +1,18 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
 import { Modal } from 'antd';
-import { designSystem } from '../../../../utils/design-system';
 import { useObservableState } from 'observable-hooks';
+import React, { FunctionComponent, useCallback } from 'react';
+
 import {
   customModalQuery,
   customModalService,
 } from '../../../../services/custom-modal';
-import { CustomViewExperiment } from './CustomViewExperiment';
-import { tableService } from '../../../../services/table';
-import { SearchModel, searchService } from '../../../../services/search';
-import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
 import { detailService } from '../../../../services/detail';
+import { SearchModel, searchService } from '../../../../services/search';
+import { tableService } from '../../../../services/table';
+import { designSystem } from '../../../../utils/design-system';
+
+import { CustomViewExperiment } from './CustomViewExperiment';
 
 export interface CustomModalProps {}
 

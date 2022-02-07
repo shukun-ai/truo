@@ -1,12 +1,12 @@
+import { MetadataRequestService } from '@shukun/api';
 import { MetadataSchema, ViewSchema, ViewType } from '@shukun/schema';
 
-import { MetadataRequestService } from '@shukun/api';
+import { httpRequestService } from '../../utils/http-helper';
 import { sourceReferenceService } from '../source';
 import { viewsStore } from '../view/store';
 
 import { ReferenceModalError } from './classes/ReferenceModalError';
 import { initialState, ReferenceState, referenceStore } from './store';
-import { httpRequestService } from '../../utils/http-helper';
 
 class ReferenceService {
   set(options: Partial<ReferenceState>) {
