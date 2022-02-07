@@ -7,7 +7,6 @@ import {
 import { Card, Col, Row } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
-import { CustomMode } from '@shukun/api';
 
 import { DetailMode, mode$ } from '../../../../services/detail';
 
