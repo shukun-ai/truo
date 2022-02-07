@@ -1,4 +1,5 @@
 import Postmate from 'postmate';
+
 import { PostMessageEvent } from './post-message.interface';
 
 export function callChild<T>(

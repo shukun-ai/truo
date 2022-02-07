@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { WorkflowTaskState } from '@shukun/schema';
+
 import { TaskFailed } from '../util/workflow/errors/TaskFailed';
 
 import { InputOrOutput } from '../util/workflow/types';

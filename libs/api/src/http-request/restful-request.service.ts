@@ -1,6 +1,7 @@
 import { RoleResourceType } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 import merge from 'lodash/merge';
+
 import { HttpRequestService } from './http-request.service';
 
 import { IDString, ApiResponseData, QueryParams } from './shared-types';

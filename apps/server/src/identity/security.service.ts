@@ -2,15 +2,15 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AccessControl } from 'accesscontrol';
 import { merge } from 'lodash';
-import { SystemGroupModel } from '../util/schema/models/system-groups';
-import { SystemPositionModel } from '../util/schema/models/system-positions';
-import { SystemUserModel } from '../util/schema/models/system-users';
 
 import { IDString } from '../app.type';
 import { RoleService } from '../core/role.service';
 import { SourceService } from '../source/source.service';
 import { jwtConstants } from '../util/passport/jwt/jwt.constants';
 import { AuthJwt } from '../util/passport/jwt/jwt.interface';
+import { SystemGroupModel } from '../util/schema/models/system-groups';
+import { SystemPositionModel } from '../util/schema/models/system-positions';
+import { SystemUserModel } from '../util/schema/models/system-users';
 
 import {
   AccessActionRange,

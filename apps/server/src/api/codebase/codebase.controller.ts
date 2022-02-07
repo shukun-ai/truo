@@ -17,11 +17,11 @@ import {
   validateApplicationSchema,
 } from '@shukun/schema';
 import { Express } from 'express';
-import { QueryResponse } from '../../util/query/interfaces';
 
 import { IDString } from '../../app.type';
 import { OrgService } from '../../core/org.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
+import { QueryResponse } from '../../util/query/interfaces';
 import { OrgNamePipe } from '../org/org-name.pipe';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName/codebase`)
