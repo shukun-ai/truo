@@ -1,4 +1,4 @@
-import { CustomMode, EMIT_FINISH, EMIT_SEARCH } from '@shukun/api';
+import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
 import { MetadataSchema, ViewSchema, ViewV2FieldGroup } from '@shukun/schema';
 import React, { FunctionComponent, useCallback, useContext } from 'react';
 import { detailService } from '../../../../services/detail';
@@ -24,16 +24,20 @@ export const CustomTab: FunctionComponent<CustomTabProps> = ({
   }, [row, metadata]);
 
   const handleFinish = useCallback(() => {
-    console.info(`${CustomMode.DetailTab} 类型下不提供 ${EMIT_FINISH} 事件。`);
+    console.info(
+      `${PostMessageCustomModeType.DetailTab} 类型下不提供 ${PostMessageEvent.EMIT_FINISH} 事件。`,
+    );
   }, []);
 
   const handleSearch = useCallback(() => {
-    console.info(`${CustomMode.DetailTab} 类型下不提供 ${EMIT_SEARCH} 事件。`);
+    console.info(
+      `${PostMessageCustomModeType.DetailTab} 类型下不提供 ${PostMessageEvent.EMIT_SEARCH} 事件。`,
+    );
   }, []);
 
   return (
     <CustomViewExperiment
-      customMode={CustomMode.DetailTab}
+      customMode={PostMessageCustomModeType.DetailTab}
       url={viewFieldGroup.value ?? ''}
       search={null}
       sources={row ? [row] : row}

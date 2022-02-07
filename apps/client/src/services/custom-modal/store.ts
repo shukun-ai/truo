@@ -5,10 +5,10 @@ import { MetadataSchema, ViewSchema } from '@shukun/schema';
 import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
 import { SearchModel } from '../search';
-import { CustomMode } from '@shukun/api';
+import { PostMessageCustomModeType } from '@shukun/api';
 
 export interface CustomModalState {
-  customMode: CustomMode | null;
+  customMode: PostMessageCustomModeType | null;
   label: string | null;
   visible: boolean;
   loading: boolean;

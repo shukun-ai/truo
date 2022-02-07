@@ -1,33 +1,31 @@
 import { useObservableState } from 'observable-hooks';
 import Postmate from 'postmate';
-import queryString from 'query-string';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UnknownSourceModel } from '../../../../models/source';
 import { useUnmount } from 'ahooks';
 import { validAuth$ } from '../../../../services/session';
-import { CustomMode } from '@shukun/api';
+import {
+  PostMessageCustomModeType,
+  callChild,
+  PostMessageEvent,
+  PostMessageAuth,
+  PostMessageSearch,
+  PostMessageSources,
+  PostMessageCustomMode,
+  PostMessageEnvironment,
+  listenChild,
+} from '@shukun/api';
 import {
   POSTMATE_IFRAME_CLASS,
   POSTMATE_NAME_VIEW_CUSTOM,
 } from '../../../../utils/postmate-helpers';
 
-import {
-  ON_AUTH,
-  ON_QUERY,
-  ON_SOURCES,
-  ON_SEARCH,
-  ON_CUSTOM_MODE,
-  EMIT_FINISH,
-  EMIT_REFRESH,
-  EMIT_SEARCH,
-  EMIT_WIDTH,
-  EMIT_HEIGHT,
-} from '@shukun/api';
 import { SearchModel } from '../../../../services/search';
+import { environment } from '../../../../environments';
 
 export interface CustomViewExperimentProps {
-  customMode: CustomMode | null;
+  customMode: PostMessageCustomModeType | null;
   url: string | null;
   search: SearchModel | null;
   sources: UnknownSourceModel[] | null;
@@ -87,56 +85,81 @@ export const CustomViewExperiment: FunctionComponent<
   });
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => child.call(ON_AUTH, auth));
+    callChild<PostMessageAuth>(
+      handshakeRef?.current,
+      PostMessageEvent.ON_AUTH,
+      auth,
+    );
   }, [auth]);
 
   useEffect(() => {
-    const query = queryString.parse(location.search);
-    handshakeRef?.current?.then((child) => child.call(ON_QUERY, query));
-  }, [location]);
-
-  useEffect(() => {
-    handshakeRef?.current?.then((child) => child.call(ON_SEARCH, search));
+    callChild<PostMessageSearch>(
+      handshakeRef?.current,
+      PostMessageEvent.ON_SEARCH,
+      search,
+    );
   }, [search]);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => child.call(ON_SOURCES, sources));
+    callChild<PostMessageSources>(
+      handshakeRef?.current,
+      PostMessageEvent.ON_SOURCES,
+      sources,
+    );
   }, [sources]);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) =>
-      child.call(ON_CUSTOM_MODE, customMode),
+    callChild<PostMessageCustomMode>(
+      handshakeRef?.current,
+      PostMessageEvent.ON_CUSTOM_MODE,
+      customMode,
     );
   }, [customMode]);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => {
-      child.on(EMIT_FINISH, onFinish);
-    });
+    callChild<PostMessageEnvironment>(
+      handshakeRef?.current,
+      PostMessageEvent.ON_ENVIRONMENT,
+      {
+        serverDomain: environment.serverDomain,
+        storageDomain: environment.storageDomain,
+        assetDomain: environment.assetDomain,
+      },
+    );
+  }, [customMode]);
+
+  useEffect(() => {
+    listenChild(handshakeRef?.current, PostMessageEvent.EMIT_FINISH, onFinish);
   }, [onFinish]);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => {
-      child.on(EMIT_REFRESH, onRefresh);
-    });
+    listenChild(
+      handshakeRef?.current,
+      PostMessageEvent.EMIT_REFRESH,
+      onRefresh,
+    );
   }, [onRefresh]);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => {
-      child.on(EMIT_SEARCH, onSearch);
-    });
+    listenChild(handshakeRef?.current, PostMessageEvent.EMIT_SEARCH, onSearch);
   }, [onSearch]);
 
   useEffect(() => {
-    handshakeRef?.current?.then((child) => {
-      child.on(EMIT_WIDTH, (width: string | null) => {
+    listenChild(
+      handshakeRef?.current,
+      PostMessageEvent.EMIT_WIDTH,
+      (width: string | null) => {
         setWidth(width);
-      });
-      child.on(EMIT_HEIGHT, (height: string | null) => {
+      },
+    );
+    listenChild(
+      handshakeRef?.current,
+      PostMessageEvent.EMIT_HEIGHT,
+      (height: string | null) => {
         setHeight(height);
-      });
-    });
-  }, [onFinish]);
+      },
+    );
+  }, []);
 
   return (
     <div

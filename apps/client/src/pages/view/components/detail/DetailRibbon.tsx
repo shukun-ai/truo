@@ -1,4 +1,4 @@
-import { CustomMode } from '@shukun/api';
+import { PostMessageCustomModeType } from '@shukun/api';
 import {
   MetadataSchema,
   ViewV2Ribbon,
@@ -71,7 +71,7 @@ export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
           return (
             <RibbonCustomModalButton
               key={viewRibbon.name}
-              customMode={CustomMode.DetailModal}
+              customMode={PostMessageCustomModeType.DetailModal}
               view={view}
               metadata={metadata}
               viewRibbon={viewRibbon}
