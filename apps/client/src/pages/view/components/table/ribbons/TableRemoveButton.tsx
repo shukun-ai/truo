@@ -48,6 +48,7 @@ export const TableRemoveButton: FunctionComponent<TableRemoveButtonProps> = ({
         )
       }
       disabledTip={viewRibbon.disabledTip}
+      confirmedTip={viewRibbon.confirmedTip}
       color={viewRibbon.color}
       onClick={handleClick}
     />

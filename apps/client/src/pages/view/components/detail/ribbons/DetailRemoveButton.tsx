@@ -63,6 +63,7 @@ export const DetailRemoveButton: FunctionComponent<DetailRemoveButtonProps> = ({
       disabledTip={viewRibbon.disabledTip}
       color={viewRibbon.color}
       onClick={handleClick}
+      confirmedTip={viewRibbon.confirmedTip}
     />
   );
 };
