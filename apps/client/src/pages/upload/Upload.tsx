@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
-import { Card } from 'antd';
-import React, { FunctionComponent, useCallback } from 'react';
+import { Card, Spin } from 'antd';
+import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillFileCodeFill } from 'react-icons/bs';
 
@@ -12,11 +12,18 @@ export interface UploadProps {}
 export const Upload: FunctionComponent<UploadProps> = () => {
   const classes = useStyles();
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const [loading, setLoading] = useState(false);
+
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
+      setLoading(true);
       const formData = new FormData();
       formData.append('file', acceptedFiles[0]);
-      uploadCodebase(formData);
+      try {
+        await uploadCodebase(formData);
+      } finally {
+        setLoading(false);
+      }
     }
   }, []);
 
@@ -25,13 +32,15 @@ export const Upload: FunctionComponent<UploadProps> = () => {
   return (
     <FluidLayout>
       <Card title="Upload your application JSON Schema" bordered={false}>
-        <div className={classes.box} {...getRootProps()}>
-          <input {...getInputProps()} />
-          <BsFillFileCodeFill size="3em" style={{ marginRight: 16 }} />
-          {isDragActive
-            ? 'Drop the files here ...'
-            : 'Drag drop some files here, or click to select files'}
-        </div>
+        <Spin spinning={loading}>
+          <div className={classes.box} {...getRootProps()}>
+            <input {...getInputProps()} />
+            <BsFillFileCodeFill size="3em" style={{ marginRight: 16 }} />
+            {isDragActive
+              ? 'Drop the files here ...'
+              : 'Drag drop some files here, or click to select files'}
+          </div>
+        </Spin>
       </Card>
     </FluidLayout>
   );
