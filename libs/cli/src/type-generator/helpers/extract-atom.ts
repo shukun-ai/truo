@@ -16,6 +16,8 @@ export function extractAtom(atom: MetadataSchema): string {
 
   text += `export interface ${toPascalCase(atom.name)}Model {`;
 
+  text += `_id: IDString; createdAt?: DateTimeIsoString; updatedAt?: DateTimeIsoString; `;
+
   atom.electrons.forEach((electron) => {
     text += extractElectron(electron);
   });
