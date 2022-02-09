@@ -63,7 +63,7 @@ describe('', () => {
 
     const output = extractAtom(atom);
     expect(output).toEqual(
-      'export interface AreasModel {title: string; storage: IDString; test?: "test1"|"test2"; test2: ("test1"|"test2")[]; };',
+      'export interface AreasModel {_id: IDString; createdAt?: DateTimeIsoString; updatedAt?: DateTimeIsoString; title: string; storage: IDString; test?: "test1"|"test2"; test2: ("test1"|"test2")[]; };',
     );
   });
 
