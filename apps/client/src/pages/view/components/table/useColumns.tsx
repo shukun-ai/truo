@@ -1,3 +1,4 @@
+import { UnknownSourceModel } from '@shukun/api';
 import {
   MetadataElectron,
   MetadataSchema,
@@ -12,14 +13,16 @@ import { defaultSearchValue, searchQuery } from '../../../../services/search';
 import { SortQueryStringValues } from '../../../../services/table/model';
 import { ColumnFieldFactory } from '../fields/ColumnFieldFactory';
 
+const INTERNAL_ELECTRON_NAMES = ['_id', 'updatedAt', 'createdAt'];
+
 export function useColumns(
   view: ViewSchema,
   metadata: MetadataSchema,
-): TableColumnsType<any> {
+): TableColumnsType<UnknownSourceModel> {
   const sort = useObservableState(searchQuery.sort$, defaultSearchValue.sort);
 
-  const columns = useMemo<TableColumnsType<any>>(() => {
-    const antColumns: TableColumnsType<any> = [];
+  const columns = useMemo<TableColumnsType<UnknownSourceModel>>(() => {
+    const antColumns: TableColumnsType<UnknownSourceModel> = [];
 
     const viewColumns = view.configurations?.v2Columns || [];
 
@@ -29,10 +32,18 @@ export function useColumns(
       );
 
       if (electron) {
-        const antColumn = createColumn(
+        const antColumn = createElectronColumn(
           metadata,
           viewColumn,
           electron,
+          sort ?? null,
+        );
+        antColumns.push(antColumn);
+      } else if (INTERNAL_ELECTRON_NAMES.includes(viewColumn.electronName)) {
+        const antColumn = createInternalColumn(
+          metadata,
+          viewColumn,
+          viewColumn.electronName,
           sort ?? null,
         );
         antColumns.push(antColumn);
@@ -45,15 +56,15 @@ export function useColumns(
   return columns;
 }
 
-function createColumn(
+function createElectronColumn(
   metadata: MetadataSchema,
   viewColumn: ViewV2Column,
   electron: MetadataElectron,
-  sort: SortQueryStringValues | null, // @todo passing sort here is not a good practice, we should inject sort in custom header cell
-): TableColumnType<any> {
+  sort: SortQueryStringValues | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
+): TableColumnType<UnknownSourceModel> {
   const sortValue = sort ? sort[electron.name] : null;
 
-  const config: TableColumnType<any> = {
+  const config: TableColumnType<UnknownSourceModel> = {
     title: viewColumn.label,
     dataIndex: viewColumn.electronName,
     key: viewColumn.name,
@@ -74,6 +85,43 @@ function createColumn(
         referenceViewName={viewColumn.referenceViewName}
         currencyOptions={electron.currencyOptions}
         attachmentOptions={electron.attachmentOptions}
+        row={row}
+      />,
+    ],
+  };
+
+  return config;
+}
+
+function createInternalColumn(
+  metadata: MetadataSchema,
+  viewColumn: ViewV2Column,
+  electronName: string,
+  sort: SortQueryStringValues | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
+): TableColumnType<UnknownSourceModel> {
+  const sortValue = sort ? sort[electronName] : null;
+
+  const config: TableColumnType<UnknownSourceModel> = {
+    title: viewColumn.label,
+    dataIndex: viewColumn.electronName,
+    key: viewColumn.name,
+    sorter: true,
+    sortOrder: sortValue ? sortValue : undefined,
+    render: (value, row) => [
+      <ColumnFieldFactory
+        key={viewColumn.name}
+        type={viewColumn.type}
+        name={viewColumn.name}
+        label={viewColumn.label}
+        viewLink={viewColumn.link}
+        tip={undefined}
+        electronName={electronName}
+        electronForeignName={undefined}
+        electronReferenceTo={undefined}
+        electronOptions={undefined}
+        referenceViewName={viewColumn.referenceViewName}
+        currencyOptions={undefined}
+        attachmentOptions={undefined}
         row={row}
       />,
     ],

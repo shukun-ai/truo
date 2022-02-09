@@ -22,7 +22,9 @@ export class MetadataRequestService<Model = UnknownSourceModel> {
     const urlPath = metadata.name;
     const globalSelect =
       options?.globalSelect ??
-      metadata.electrons.map((item) => item.name).concat('_id');
+      metadata.electrons
+        .map((item) => item.name)
+        .concat('_id', 'updatedAt', 'createdAt');
 
     this.metadata = metadata;
 
