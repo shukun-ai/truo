@@ -8,7 +8,11 @@ export async function compileTs(code: string): Promise<string> {
     sourceMap: false,
     strict: true,
   });
-  const { code: minified } = minify(transpiled);
+
+  const { code: minified } = minify(transpiled, {
+    compress: false,
+    mangle: false,
+  });
   const json = JSON.stringify(minified);
   const text = json.substring(1, json.length - 1);
 
