@@ -45,7 +45,7 @@ export const DetailField: FunctionComponent<DetailFieldProps> = ({
   }, [source, viewField.requiredCode, detailMode]);
 
   if (!electron) {
-    return <>缺少 electron</>;
+    return <>不存在该字段</>;
   }
 
   if (detailMode === DetailMode.Show) {
