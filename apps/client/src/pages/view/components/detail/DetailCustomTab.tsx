@@ -36,6 +36,12 @@ export const CustomTab: FunctionComponent<CustomTabProps> = ({
     );
   }, []);
 
+  const handleLoading = useCallback(() => {
+    console.info(
+      `${PostMessageCustomModeType.DetailTab} 类型下不提供 ${PostMessageEvent.EMIT_LOADING} 事件。`,
+    );
+  }, []);
+
   return (
     <CustomViewExperiment
       customMode={PostMessageCustomModeType.DetailTab}
@@ -45,6 +51,7 @@ export const CustomTab: FunctionComponent<CustomTabProps> = ({
       onFinish={handleFinish}
       onRefresh={handleRefresh}
       onSearch={handleSearch}
+      onLoading={handleLoading}
     />
   );
 };
