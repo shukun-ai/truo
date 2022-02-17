@@ -1,7 +1,7 @@
 import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
-import { Modal } from 'antd';
+import { message, Modal } from 'antd';
 import { useObservableState } from 'observable-hooks';
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useState } from 'react';
 
 import {
   customModalQuery,
@@ -33,9 +33,15 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
 
   const metadata = useObservableState(customModalQuery.metadata$, null);
 
+  const [loading, setLoading] = useState(false);
+
   const handleCancel = useCallback(() => {
-    customModalService.closeModal();
-  }, []);
+    if (loading) {
+      message.warning('请勿关闭对话框，请等待加载完成。');
+    } else {
+      customModalService.closeModal();
+    }
+  }, [loading]);
 
   const handleRefresh = useCallback(() => {
     if (customMode === PostMessageCustomModeType.TableModal) {
@@ -66,6 +72,10 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
     [view?.search, customMode],
   );
 
+  const handleLoading = useCallback((loading: boolean) => {
+    setLoading(loading);
+  }, []);
+
   return (
     <Modal
       forceRender
@@ -73,6 +83,7 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
       title={label}
       visible={visible}
       onCancel={handleCancel}
+      maskClosable={!loading}
       footer={null}
       zIndex={designSystem.modalZIndex}
       width={940}
@@ -86,6 +97,7 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
           onFinish={handleCancel}
           onRefresh={handleRefresh}
           onSearch={handleSearch}
+          onLoading={handleLoading}
         />
       )}
     </Modal>
