@@ -28,6 +28,9 @@ export const RibbonButton: FunctionComponent<RibbonButtonProps> = ({
   const classes = useStyles();
 
   const handleClick = useCallback(() => {
+    if (disabled) {
+      return;
+    }
     if (confirmedTip && onClick) {
       const confirmed = window.confirm(confirmedTip);
 
@@ -37,7 +40,7 @@ export const RibbonButton: FunctionComponent<RibbonButtonProps> = ({
     } else if (onClick) {
       onClick();
     }
-  }, [confirmedTip, onClick]);
+  }, [confirmedTip, onClick, disabled]);
 
   return (
     <div className={classes.ribbonButton} onClick={handleClick}>
