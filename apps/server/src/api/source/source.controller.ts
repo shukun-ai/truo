@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { RoleResourceType } from '@shukun/schema';
 
-import { IDString } from '../../app.type';
+import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { SourceService } from '../../source/source.service';
@@ -28,7 +28,7 @@ import { SourceAccessControlService } from './source-access-control.service';
 @UseInterceptors(QueryResponseInterceptor)
 export class SourceController {
   @Inject()
-  private readonly sourceService!: SourceService<any>;
+  private readonly sourceService!: SourceService<unknown>;
 
   @Inject()
   private readonly sourceAccessControlService!: SourceAccessControlService;
@@ -53,7 +53,7 @@ export class SourceController {
     @Param('atomName') atomName: string,
     @ParsedQuery() query: QueryParserOptions,
     @Req() request: SecurityRequest,
-  ): Promise<QueryResponse<any>> {
+  ): Promise<QueryResponse<unknown>> {
     if (request.userId) {
       const isOwnRead = await this.securityService.isOwnRead(
         orgName,
@@ -83,7 +83,7 @@ export class SourceController {
   async create(
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
-    @Body() createDto: any,
+    @Body() createDto: SourceServiceCreateDto,
     @Req() request: SecurityRequest,
   ): Promise<QueryResponse<{ _id: IDString }>> {
     const dto = await this.sourceAccessControlService.filterDto(
@@ -111,7 +111,7 @@ export class SourceController {
     @Param('id') id: string,
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
-    @Body() createDto: any,
+    @Body() createDto: SourceServiceCreateDto,
   ): Promise<QueryResponse<null>> {
     const dto = await this.sourceAccessControlService.filterDto(
       orgName,
