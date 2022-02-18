@@ -3,13 +3,24 @@ import { Module } from '@nestjs/common';
 import { CoreModule } from '../core/core.module';
 import { PassportModule } from '../util/passport/passport.module';
 
-import { SourceSchemaUtilService } from './source-schema-util.service';
+import { MongoAdaptorService } from './adaptor/mongo-adaptor.service';
+import { MongooseConnectionService } from './adaptor/mongoose-connection.service';
+import { SourceDataAccessService } from './source-data-access.service';
+
+import { SourceParamUtilService } from './source-param-util.service';
 import { SourceService } from './source.service';
 import { VariableService } from './variable/variable.service';
 
 @Module({
   imports: [CoreModule, PassportModule],
-  providers: [SourceService, SourceSchemaUtilService, VariableService],
+  providers: [
+    SourceService,
+    SourceParamUtilService,
+    VariableService,
+    MongoAdaptorService,
+    MongooseConnectionService,
+    SourceDataAccessService,
+  ],
   exports: [SourceService, VariableService],
 })
 export class SourceModule {}
