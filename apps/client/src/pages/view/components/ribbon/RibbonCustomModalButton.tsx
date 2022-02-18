@@ -2,7 +2,7 @@ import { PostMessageCustomModeType } from '@shukun/api';
 import { ViewV2Ribbon, ViewSchema, MetadataSchema } from '@shukun/schema';
 import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
 import { RibbonButton } from '../../../../components/ribbon/RibbonButton';
 import { UnknownSourceModel } from '../../../../models/source';
@@ -26,6 +26,10 @@ export const RibbonCustomModalButton: FunctionComponent<
   const mode = useObservableState(mode$);
 
   const search = useObservableState(searchQuery.activeSearch$);
+
+  const disabled = useMemo(() => {
+    return runStringCode(viewRibbon.disabledCode, undefined, sources, mode);
+  }, [mode, sources, viewRibbon.disabledCode]);
 
   const handleClick = useCallback(() => {
     if (!viewRibbon.value) {
@@ -55,12 +59,7 @@ export const RibbonCustomModalButton: FunctionComponent<
     <RibbonButton
       name={viewRibbon.name}
       label={viewRibbon.label}
-      disabled={runStringCode(
-        viewRibbon.disabledCode,
-        undefined,
-        sources,
-        mode,
-      )}
+      disabled={disabled}
       disabledTip={viewRibbon.disabledTip}
       color={viewRibbon.color}
       onClick={handleClick}

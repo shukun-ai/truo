@@ -2,7 +2,7 @@
 import Postmate from 'postmate';
 import { BehaviorSubject } from 'rxjs';
 
-import { PostMessageEvent } from '..';
+import { PostMessageEvent, PostMessageNotificationProps } from '..';
 
 import {
   PostMessageAuth,
@@ -69,5 +69,15 @@ export class PostMessageService {
   public async emitHeight(height: string | null) {
     const parent = await this.handshake;
     parent.emit(PostMessageEvent.EMIT_HEIGHT, height);
+  }
+
+  public async emitNotification(props: PostMessageNotificationProps) {
+    const parent = await this.handshake;
+    parent.emit(PostMessageEvent.EMIT_NOTIFICATION, props);
+  }
+
+  public async emitLoading(loading: boolean) {
+    const parent = await this.handshake;
+    parent.emit(PostMessageEvent.EMIT_LOADING, loading);
   }
 }

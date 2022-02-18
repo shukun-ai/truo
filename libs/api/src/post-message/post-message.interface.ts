@@ -59,6 +59,8 @@ export enum PostMessageEvent {
   EMIT_SEARCH = 'EMIT_SEARCH',
   EMIT_WIDTH = 'EMIT_WIDTH',
   EMIT_HEIGHT = 'EMIT_HEIGHT',
+  EMIT_NOTIFICATION = 'EMIT_NOTIFICATION',
+  EMIT_LOADING = 'EMIT_LOADING',
 }
 
 export type PostMessageAuth = AuthModel | null;
@@ -74,3 +76,9 @@ export type PostMessageEnvironment = {
   storageDomain: string;
   assetDomain: string;
 } | null;
+
+export type PostMessageNotificationProps = {
+  message: string;
+  type?: 'success' | 'error' | 'info' | 'warning';
+  duration?: number;
+};

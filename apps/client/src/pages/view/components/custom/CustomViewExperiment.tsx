@@ -8,8 +8,10 @@ import {
   PostMessageCustomMode,
   PostMessageEnvironment,
   listenChild,
+  PostMessageNotificationProps,
 } from '@shukun/api';
 import { useUnmount } from 'ahooks';
+import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import Postmate from 'postmate';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
@@ -32,6 +34,7 @@ export interface CustomViewExperimentProps {
   onFinish: () => void;
   onRefresh: () => void;
   onSearch: (search: SearchModel) => void;
+  onLoading: (loading: boolean) => void;
   defaultWidth?: string;
   defaultHeight?: string;
 }
@@ -46,6 +49,7 @@ export const CustomViewExperiment: FunctionComponent<
   onFinish,
   onRefresh,
   onSearch,
+  onLoading,
   defaultWidth = '100%',
   defaultHeight = '100%',
 }) => {
@@ -160,6 +164,28 @@ export const CustomViewExperiment: FunctionComponent<
       },
     );
   }, []);
+
+  useEffect(() => {
+    listenChild(
+      handshakeRef?.current,
+      PostMessageEvent.EMIT_NOTIFICATION,
+      (props: PostMessageNotificationProps) => {
+        message.open({
+          content: props.message,
+          type: props.type || 'info',
+          duration: props.duration,
+        });
+      },
+    );
+  }, []);
+
+  useEffect(() => {
+    listenChild(
+      handshakeRef?.current,
+      PostMessageEvent.EMIT_LOADING,
+      onLoading,
+    );
+  }, [onLoading]);
 
   return (
     <div

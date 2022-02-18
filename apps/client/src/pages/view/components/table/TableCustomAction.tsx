@@ -42,6 +42,12 @@ export const TableCustomAction: FunctionComponent<TableCustomActionProps> = ({
     [view.search],
   );
 
+  const handleLoading = useCallback(() => {
+    console.info(
+      `${PostMessageCustomModeType.DetailTab} 类型下不提供 ${PostMessageEvent.EMIT_LOADING} 事件。`,
+    );
+  }, []);
+
   return (
     <CustomViewExperiment
       customMode={PostMessageCustomModeType.TableAction}
@@ -51,6 +57,7 @@ export const TableCustomAction: FunctionComponent<TableCustomActionProps> = ({
       onFinish={handleFinish}
       onRefresh={handleRefresh}
       onSearch={handleSearch}
+      onLoading={handleLoading}
       defaultHeight="60px"
     />
   );
