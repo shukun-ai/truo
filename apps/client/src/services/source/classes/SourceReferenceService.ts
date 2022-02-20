@@ -22,7 +22,7 @@ export class SourceReferenceService {
   ) {
     const referenceMaps = this.referenceUtil.getReferenceMap(metadata, sources);
 
-    referenceMaps.forEach((referenceMap) => {
+    referenceMaps.forEach(async (referenceMap) => {
       const { referenceTo, foreignName, ids } = referenceMap;
 
       if (ids.length === 0) {
@@ -32,17 +32,21 @@ export class SourceReferenceService {
       const request = new RestfulRequestService<UnknownSourceModel>(
         httpRequestService,
         {
-          resourceType: RoleResourceType.Source,
-          urlPath: referenceTo,
-          globalSelect: [foreignName],
+          atomName: referenceTo,
         },
       );
 
-      request
-        .findMany({ filter: { _id: { $in: ids } } })
-        .then((response) =>
-          this.sourceService.add(referenceTo, response.data.value),
-        );
+      const response = await request.findMany(
+        { filter: { _id: { $in: ids } } },
+        { [foreignName]: true },
+      );
+
+      console.log('response', response.data.value);
+
+      this.sourceService.add(
+        referenceTo,
+        response.data.value as unknown as any,
+      );
     });
   }
 }
