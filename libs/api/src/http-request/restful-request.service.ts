@@ -35,7 +35,7 @@ export class RestfulRequestService<Model> {
     this.globalSelect = globalSelect;
   }
 
-  protected combineSelect(select?: Array<keyof Model>) {
+  protected combineSelect(select?: Array<keyof Model>): string {
     select = select && select.length > 0 ? select : this.globalSelect;
     return select.join(',');
   }
@@ -87,9 +87,15 @@ export class RestfulRequestService<Model> {
   }
 
   public async createOne(
-    data: Record<string, any> & Partial<Model>,
+    data: Record<string, unknown> & Partial<Model>,
     select?: Array<keyof Model>,
-  ) {
+  ): Promise<
+    AxiosResponse<
+      ApiResponseData<{
+        _id: IDString;
+      }>
+    >
+  > {
     const response = await this.httpRequestService
       .createAxios()
       .post<ApiResponseData<{ _id: IDString }>>(this.urlPath, data, {
@@ -99,9 +105,9 @@ export class RestfulRequestService<Model> {
   }
 
   public async createAndFindOne(
-    data: Record<string, any> & Partial<Model>,
+    data: Record<string, unknown> & Partial<Model>,
     select?: Array<keyof Model>,
-  ) {
+  ): Promise<AxiosResponse<ApiResponseData<Model>>> {
     const createdResponse = await this.createOne(data, select);
     const foundResponse = await this.findOne({
       filter: { _id: createdResponse.data.value._id },
@@ -111,9 +117,9 @@ export class RestfulRequestService<Model> {
 
   public async updateOne(
     id: string,
-    data: Record<string, any> & Partial<Model>,
+    data: Record<string, unknown> & Partial<Model>,
     select?: Array<keyof Model>,
-  ) {
+  ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
       .put<ApiResponseData<null>>(`${this.urlPath}/${id}`, data, {
@@ -122,7 +128,9 @@ export class RestfulRequestService<Model> {
     return response;
   }
 
-  public async removeOne(id: string) {
+  public async removeOne(
+    id: string,
+  ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
       .delete<ApiResponseData<null>>(`${this.urlPath}/${id}`);
