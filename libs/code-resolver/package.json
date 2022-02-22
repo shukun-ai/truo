@@ -1,6 +1,6 @@
 {
   "name": "@shukun/code-resolver",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "files": [
     "package.json",
     "src/**/*"

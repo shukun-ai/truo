@@ -1,19 +1,14 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { MetadataSchema } from '@shukun/schema';
 import { isInteger } from 'lodash';
 
-import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../app.constant';
 import { IDString, JsonModel, SourceServiceCreateDto } from '../app.type';
 import { MetadataService } from '../core/metadata.service';
 import { QueryParserOptions } from '../util/query/interfaces';
 
-import { sourceToJSON } from './source-json';
-import { SourceSchemaUtilService } from './source-schema-util.service';
+import { SourceDataAccessService } from './source-data-access.service';
+
+import { SourceParamUtilService } from './source-param-util.service';
 
 @Injectable()
 export class SourceService<Model> {
@@ -21,38 +16,35 @@ export class SourceService<Model> {
   private readonly metadataService!: MetadataService;
 
   @Inject()
-  private readonly sourceSchemaUtilService!: SourceSchemaUtilService;
+  private readonly sourceParamUtilService!: SourceParamUtilService;
+
+  @Inject()
+  private readonly sourceDataAccessService!: SourceDataAccessService<Model>;
 
   async createOne(
     orgName: string,
     atomName: string,
     dto: SourceServiceCreateDto,
     ownerId: string | null,
-  ): Promise<JsonModel<Model>> {
+  ): Promise<{ _id: IDString }> {
     const metadata = await this.metadataService.getMetadataByName(
       orgName,
       atomName,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel<Model>(
-      orgName,
-      metadata,
-    );
-
     const owner = ownerId ? { owner: ownerId } : null;
 
-    const params = this.sourceSchemaUtilService.buildParams(metadata, {
+    const params = this.sourceParamUtilService.buildParams(metadata, {
       ...dto,
       ...owner,
     });
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const entity = new AtomModel(params);
-    await entity.save({ checkKeys: false }); // forbid error when example: 'email.$'
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
+      orgName,
+      metadata,
+    );
 
-    const result = sourceToJSON(entity);
-    return result;
+    return await adaptor.createOne(params);
   }
 
   async updateOne(
@@ -66,14 +58,14 @@ export class SourceService<Model> {
       atomName,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel(
+    const params = this.sourceParamUtilService.buildParams(metadata, dto);
+
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    const params = this.sourceSchemaUtilService.buildParams(metadata, dto);
-
-    await AtomModel.findByIdAndUpdate(id, params as any);
+    return await adaptor.updateOne(id, params);
   }
 
   async findOne(
@@ -86,25 +78,12 @@ export class SourceService<Model> {
       atomName,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel<Model>(
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    const value = await AtomModel.findOne(query.filter)
-      .select(query.select)
-      .skip(query.skip || DB_DEFAULT_SKIP)
-      .sort(query.sort)
-      .exec();
-
-    if (!value) {
-      throw new NotFoundException(
-        `We did not find specific source in findOne, and source name is ${atomName}.`,
-      );
-    }
-
-    const result = sourceToJSON(value);
-    return result;
+    return await adaptor.findOne(query);
   }
 
   async findAll(
@@ -117,20 +96,12 @@ export class SourceService<Model> {
       atomName,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel<Model>(
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    const value = await AtomModel.find(query.filter)
-      .select(query.select)
-      .skip(query.skip || DB_DEFAULT_SKIP)
-      .limit(query.limit || DB_DEFAULT_LIMIT)
-      .sort(query.sort)
-      .exec();
-
-    const result = value.map((value) => sourceToJSON(value));
-    return result;
+    return await adaptor.findAll(query);
   }
 
   async count(
@@ -143,13 +114,12 @@ export class SourceService<Model> {
       atomName,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel<Model>(
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    const value = await AtomModel.find(query.filter).countDocuments();
-    return value;
+    return await adaptor.count(query);
   }
 
   async deleteOne(
@@ -162,20 +132,12 @@ export class SourceService<Model> {
       atomName,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel<Model>(
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    const model = await AtomModel.findById(id).exec();
-
-    if (!model) {
-      throw new NotFoundException(
-        `We did not find specific source in deleteOne, and source name is ${atomName}.`,
-      );
-    }
-
-    await model.deleteOne();
+    return await adaptor.deleteOne(id);
   }
 
   async addToMany(
@@ -192,14 +154,12 @@ export class SourceService<Model> {
       foreignId,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel(
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    await AtomModel.findByIdAndUpdate(id, {
-      $addToSet: { [electronName]: foreignId },
-    });
+    return await adaptor.addToMany(id, electronName, foreignId);
   }
 
   async removeFromMany(
@@ -216,14 +176,12 @@ export class SourceService<Model> {
       foreignId,
     );
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel(
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    await AtomModel.findByIdAndUpdate(id, {
-      $pull: { [electronName]: foreignId },
-    });
+    return await adaptor.removeFromMany(id, electronName, foreignId);
   }
 
   async increase(
@@ -257,14 +215,12 @@ export class SourceService<Model> {
       );
     }
 
-    const AtomModel = await this.sourceSchemaUtilService.getAtomModel(
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
       orgName,
       metadata,
     );
 
-    await AtomModel.findByIdAndUpdate(id, {
-      $inc: { [electronName]: increment },
-    });
+    return await adaptor.increase(id, electronName, increment);
   }
 
   async getMetadata(

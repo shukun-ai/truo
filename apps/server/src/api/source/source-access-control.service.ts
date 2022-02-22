@@ -6,7 +6,7 @@ import { SourceService } from '../../source/source.service';
 @Injectable()
 export class SourceAccessControlService {
   @Inject()
-  private readonly sourceService!: SourceService<any>;
+  private readonly sourceService!: SourceService<unknown>;
 
   async filterDto(
     orgName: string,
