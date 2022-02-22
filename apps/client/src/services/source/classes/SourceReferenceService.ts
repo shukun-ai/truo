@@ -1,5 +1,5 @@
 import { RestfulRequestService } from '@shukun/api';
-import { MetadataSchema, RoleResourceType } from '@shukun/schema';
+import { MetadataSchema } from '@shukun/schema';
 
 import { UnknownSourceModel } from '../../../models/source';
 import { httpRequestService } from '../../../utils/http-helper';
@@ -40,8 +40,6 @@ export class SourceReferenceService {
         { filter: { _id: { $in: ids } } },
         { [foreignName]: true },
       );
-
-      console.log('response', response.data.value);
 
       this.sourceService.add(
         referenceTo,

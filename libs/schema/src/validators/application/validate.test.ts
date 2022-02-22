@@ -8,7 +8,7 @@ describe('application', () => {
     const result = validateApplicationSchema(applicationData);
     if (!result) {
       // Just convince for debug if validate gets errors
-      console.log(validateApplicationSchema.errors);
+      console.error(validateApplicationSchema.errors);
     }
     expect(result).toEqual(true);
   });
