@@ -8,7 +8,7 @@ describe('attachment', () => {
     const result = validateAttachmentsSchema(attachmentsData);
     if (!result) {
       // Just convince for debug if validate gets errors
-      console.log(validateAttachmentsSchema.errors);
+      console.error(validateAttachmentsSchema.errors);
     }
     expect(result).toEqual(true);
   });

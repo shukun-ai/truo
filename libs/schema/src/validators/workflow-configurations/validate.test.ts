@@ -8,7 +8,7 @@ describe('workflow-configurations', () => {
     const result = validateWorkflowConfigurations(configurationsData);
     if (!result) {
       // Just convince for debug if validate gets errors
-      console.log(validateWorkflowConfigurations.errors);
+      console.error(validateWorkflowConfigurations.errors);
     }
     expect(result).toEqual(true);
   });
