@@ -14,7 +14,7 @@ describe('application', () => {
     const result = validateApplicationSchema(initialApplicationData);
     if (!result) {
       // Just convince for debug if validate gets errors
-      console.log(validateApplicationSchema.errors);
+      console.error(validateApplicationSchema.errors);
     }
 
     expect(result).toEqual(true);
@@ -36,7 +36,7 @@ describe('application', () => {
     const checked = systemDataValidator.check(merged);
 
     if (!checked) {
-      console.log(systemDataValidator.getErrors());
+      console.error(systemDataValidator.getErrors());
     }
 
     expect(checked).toEqual(true);

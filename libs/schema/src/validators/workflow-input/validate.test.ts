@@ -8,7 +8,7 @@ describe('workflow-configurations', () => {
     const result = validateWorkflowInput(inputData);
     if (!result) {
       // Just convince for debug if validate gets errors
-      console.log(validateWorkflowInput.errors);
+      console.error(validateWorkflowInput.errors);
     }
     expect(result).toEqual(true);
   });
