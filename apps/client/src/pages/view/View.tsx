@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 
-import { CustomModal } from './components/custom/CustomModal';
+import { AttachmentPreviewModal } from './components/attachment/AttachmentPreviewModal';
 
+import { CustomModal } from './components/custom/CustomModal';
 import { ReferenceModal } from './components/reference/ReferenceModal';
 import { ViewFactory } from './ViewFactory';
 
@@ -13,6 +14,7 @@ export const View: FunctionComponent<ViewProps> = () => {
       <ViewFactory />
       <ReferenceModal />
       <CustomModal />
+      <AttachmentPreviewModal />
     </>
   );
 };
