@@ -1,7 +1,8 @@
 import { Avatar } from 'antd';
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent, useMemo, useCallback } from 'react';
 
 import { AttachmentValue } from '../../../../../utils/attachment-helpers';
+import { openPreviewAttachments } from '../../attachment/attachmentPreviewState';
 import { ColumnFieldProps } from '../interfaces';
 
 import { AttachmentFieldItem } from './AttachmentFieldItem';
@@ -18,15 +19,23 @@ export const AttachmentField: FunctionComponent<ColumnFieldProps> = ({
     return;
   }, [electronName, row]);
 
+  const handleClick = useCallback(() => {
+    if (value) {
+      openPreviewAttachments(value);
+    }
+  }, [value]);
+
   if (!value || value.length < 1) {
     return <></>;
   }
 
   return (
-    <Avatar.Group>
-      {value.map((attachment) => (
-        <AttachmentFieldItem key={attachment.path} attachment={attachment} />
-      ))}
-    </Avatar.Group>
+    <div onClick={handleClick}>
+      <Avatar.Group>
+        {value.map((attachment) => (
+          <AttachmentFieldItem key={attachment.path} attachment={attachment} />
+        ))}
+      </Avatar.Group>
+    </div>
   );
 };
