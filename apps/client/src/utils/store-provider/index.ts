@@ -7,6 +7,6 @@ akitaDevtools();
 akitaConfig({ resettable: true });
 
 persistState({
-  // TODO: should add a specific STORAGE_NAME
+  key: 'SHUKUN_CLIENT',
   include: [StoreNames.Session],
 });
