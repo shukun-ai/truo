@@ -94,6 +94,7 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
           url={url}
           search={search}
           sources={sources}
+          defaultHeight="500px"
           onFinish={handleCancel}
           onRefresh={handleRefresh}
           onSearch={handleSearch}
