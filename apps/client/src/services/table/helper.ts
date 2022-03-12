@@ -13,5 +13,6 @@ export function formatSortToQueryString(sort: SortQueryStringValues | null) {
       }
       return `${value === 'descend' ? '-' : ''}${key}`;
     })
+    .filter((key) => key)
     .join(',');
 }
