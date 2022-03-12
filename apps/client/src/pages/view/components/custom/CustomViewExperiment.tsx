@@ -15,7 +15,6 @@ import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import Postmate from 'postmate';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { environment } from '../../../../environments';
 import { UnknownSourceModel } from '../../../../models/source';
@@ -54,9 +53,8 @@ export const CustomViewExperiment: FunctionComponent<
   defaultHeight = '100%',
 }) => {
   const frameRef = useRef<HTMLDivElement | null>(null);
-  const handshakeRef = useRef<Postmate>();
-  const urlRef = useRef<string | null>(null);
-  const location = useLocation();
+  const [frameUrl, setFrameUrl] = useState<string | null>(null);
+  const [handshake, setHandshake] = useState<Postmate | null>(null);
   const [width, setWidth] = useState<string | null>(null);
   const [height, setHeight] = useState<string | null>(null);
   const auth = useObservableState(validAuth$, null);
@@ -66,63 +64,53 @@ export const CustomViewExperiment: FunctionComponent<
       return;
     }
 
-    if (urlRef.current !== url) {
-      urlRef.current = url;
+    if (frameUrl !== url) {
+      setFrameUrl(url);
 
-      handshakeRef?.current?.then((child) => child.destroy);
-      handshakeRef.current = undefined;
+      handshake?.then((child) => child.destroy());
 
       const builtUrl = buildUrl(url);
-
-      handshakeRef.current = new Postmate({
+      const newHandshake = new Postmate({
         container: frameRef.current,
         url: builtUrl,
         name: POSTMATE_NAME_VIEW_CUSTOM,
         classListArray: [POSTMATE_IFRAME_CLASS],
       });
+      setHandshake(newHandshake);
     }
-  }, [frameRef, url]);
+  }, [frameRef, frameUrl, handshake, url]);
 
   useUnmount(() => {
-    handshakeRef?.current?.then((child) => child.destroy);
-    handshakeRef.current = undefined;
+    handshake?.then((child) => child.destroy);
   });
 
   useEffect(() => {
-    callChild<PostMessageAuth>(
-      handshakeRef?.current,
-      PostMessageEvent.ON_AUTH,
-      auth,
-    );
-  }, [auth]);
+    callChild<PostMessageAuth>(handshake, PostMessageEvent.ON_AUTH, auth);
+  }, [auth, handshake]);
 
   useEffect(() => {
-    callChild<PostMessageSearch>(
-      handshakeRef?.current,
-      PostMessageEvent.ON_SEARCH,
-      search,
-    );
-  }, [search]);
+    callChild<PostMessageSearch>(handshake, PostMessageEvent.ON_SEARCH, search);
+  }, [handshake, search]);
 
   useEffect(() => {
     callChild<PostMessageSources>(
-      handshakeRef?.current,
+      handshake,
       PostMessageEvent.ON_SOURCES,
       sources,
     );
-  }, [sources]);
+  }, [handshake, sources]);
 
   useEffect(() => {
     callChild<PostMessageCustomMode>(
-      handshakeRef?.current,
+      handshake,
       PostMessageEvent.ON_CUSTOM_MODE,
       customMode,
     );
-  }, [customMode]);
+  }, [customMode, handshake]);
 
   useEffect(() => {
     callChild<PostMessageEnvironment>(
-      handshakeRef?.current,
+      handshake,
       PostMessageEvent.ON_ENVIRONMENT,
       {
         serverDomain: environment.serverDomain,
@@ -130,44 +118,40 @@ export const CustomViewExperiment: FunctionComponent<
         assetDomain: environment.assetDomain,
       },
     );
-  }, [customMode]);
+  }, [customMode, handshake]);
 
   useEffect(() => {
-    listenChild(handshakeRef?.current, PostMessageEvent.EMIT_FINISH, onFinish);
-  }, [onFinish]);
+    listenChild(handshake, PostMessageEvent.EMIT_FINISH, onFinish);
+  }, [handshake, onFinish]);
 
   useEffect(() => {
-    listenChild(
-      handshakeRef?.current,
-      PostMessageEvent.EMIT_REFRESH,
-      onRefresh,
-    );
-  }, [onRefresh]);
+    listenChild(handshake, PostMessageEvent.EMIT_REFRESH, onRefresh);
+  }, [handshake, onRefresh]);
 
   useEffect(() => {
-    listenChild(handshakeRef?.current, PostMessageEvent.EMIT_SEARCH, onSearch);
-  }, [onSearch]);
+    listenChild(handshake, PostMessageEvent.EMIT_SEARCH, onSearch);
+  }, [handshake, onSearch]);
 
   useEffect(() => {
     listenChild(
-      handshakeRef?.current,
+      handshake,
       PostMessageEvent.EMIT_WIDTH,
       (width: string | null) => {
         setWidth(width);
       },
     );
     listenChild(
-      handshakeRef?.current,
+      handshake,
       PostMessageEvent.EMIT_HEIGHT,
       (height: string | null) => {
         setHeight(height);
       },
     );
-  }, []);
+  }, [handshake]);
 
   useEffect(() => {
     listenChild(
-      handshakeRef?.current,
+      handshake,
       PostMessageEvent.EMIT_NOTIFICATION,
       (props: PostMessageNotificationProps) => {
         message.open({
@@ -177,15 +161,11 @@ export const CustomViewExperiment: FunctionComponent<
         });
       },
     );
-  }, []);
+  }, [handshake]);
 
   useEffect(() => {
-    listenChild(
-      handshakeRef?.current,
-      PostMessageEvent.EMIT_LOADING,
-      onLoading,
-    );
-  }, [onLoading]);
+    listenChild(handshake, PostMessageEvent.EMIT_LOADING, onLoading);
+  }, [handshake, onLoading]);
 
   return (
     <div
