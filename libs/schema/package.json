@@ -1,6 +1,6 @@
 {
   "name": "@shukun/schema",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "files": [
     "package.json",
     "src/**/*"

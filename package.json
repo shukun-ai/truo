@@ -1,6 +1,6 @@
 {
   "name": "shukun",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "private": true,
   "scripts": {
     "start": "nx run-many --target=serve --all",
@@ -92,6 +92,7 @@
     "antd": "^4.18.4",
     "antd-dayjs-webpack-plugin": "^1.0.6",
     "axios": "^0.25.0",
+    "axios-retry": "^3.2.4",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.2",
     "clsx": "^1.1.1",
