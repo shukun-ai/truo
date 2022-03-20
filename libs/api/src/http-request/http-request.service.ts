@@ -1,8 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
+import axiosRetry from 'axios-retry';
 
 export interface HttpRequestServiceOptions {
   baseUrl?: string;
   timeout?: number;
+  retries?: number;
   getOrgNameFunction: () => string | null;
   getAccessTokenFunction: () => string | null;
 }
@@ -13,6 +15,7 @@ export class HttpRequestService {
   constructor({
     baseUrl = '/apis/v1',
     timeout = 1000 * 30,
+    retries = 3,
     getOrgNameFunction,
     getAccessTokenFunction,
   }: HttpRequestServiceOptions) {
@@ -20,6 +23,8 @@ export class HttpRequestService {
       baseURL: baseUrl,
       timeout,
     });
+
+    axiosRetry(httpRequestInstance, { retries });
 
     httpRequestInstance.interceptors.request.use(
       (config) => {
