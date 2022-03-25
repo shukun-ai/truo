@@ -43,6 +43,7 @@ export class AuthenticationController {
 
     const password = cryptoPassword(signInDto.password);
 
+    // TODO: if findOne throw error, the code can't go to next throw tip.
     const value = await this.systemUserService.findOne(orgName, atomName, {
       filter: { username: signInDto.username, password },
     });
