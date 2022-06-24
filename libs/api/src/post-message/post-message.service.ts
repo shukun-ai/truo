@@ -61,11 +61,17 @@ export class PostMessageService {
     parent.emit(PostMessageEvent.EMIT_SEARCH, search);
   }
 
+  /**
+   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
+   */
   public async emitWidth(width: string | null) {
     const parent = await this.handshake;
     parent.emit(PostMessageEvent.EMIT_WIDTH, width);
   }
 
+  /**
+   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
+   */
   public async emitHeight(height: string | null) {
     const parent = await this.handshake;
     parent.emit(PostMessageEvent.EMIT_HEIGHT, height);
