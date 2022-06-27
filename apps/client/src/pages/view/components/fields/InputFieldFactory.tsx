@@ -25,7 +25,11 @@ export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
   props,
 ) => {
   if (props.type === ViewV2FieldType.Text) {
-    return <TextForm {...props} />;
+    return (
+      <FormContext.Consumer>
+        {({ form, row }) => form && <TextForm {...props} form={form} />}
+      </FormContext.Consumer>
+    );
   }
 
   if (props.type === ViewV2FieldType.NameText) {
