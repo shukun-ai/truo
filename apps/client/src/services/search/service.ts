@@ -75,6 +75,7 @@ export class SearchService {
   ) {
     this.searchStore.updateActive(() => ({
       filter: merge({}, viewSearch?.filter, filter),
+      currentPage: 1,
     }));
   }
 
