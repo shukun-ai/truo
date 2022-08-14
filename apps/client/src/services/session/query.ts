@@ -44,3 +44,19 @@ export const validAuth$ = sessionQuery.select((state) => {
 
   return state.auth;
 });
+
+export const expiresDateTime$ = sessionQuery.select((state) => {
+  const expiresTimestamp = state.auth?.expiresTimestamp;
+
+  if (!expiresTimestamp) {
+    return null;
+  }
+
+  const dateTime = dayjs(expiresTimestamp);
+
+  if (!dateTime.isValid()) {
+    return null;
+  }
+
+  return dateTime.toDate();
+});
