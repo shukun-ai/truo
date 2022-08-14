@@ -3,6 +3,8 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { Header } from '../app/Header';
 import { SideMenu } from '../menu';
 
+import { AuthExpiredContainer } from './components/AuthExpiredContainer';
+
 import { Body } from './components/Body';
 import { Stage } from './components/Stage';
 import { ViewBody } from './components/view/ViewBody';
@@ -22,6 +24,7 @@ export const ViewLayout: FunctionComponent<ViewLayoutProps> = ({
     <Body>
       <Header />
       <Stage>
+        <AuthExpiredContainer />
         <ViewStage>
           <ViewBody>
             <SideMenu />
