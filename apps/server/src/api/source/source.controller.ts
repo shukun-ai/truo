@@ -13,40 +13,55 @@ import {
 import { RoleResourceType } from '@shukun/schema';
 
 import { IDString, SourceServiceCreateDto } from '../../app.type';
-import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
-import { SourceService } from '../../source/source.service';
+import { ParsedBodyQuery } from '../../util/query/decorators/parsed-body-query.decorator';
 import { ParsedQuery } from '../../util/query/decorators/parsed-query.decorator';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryParserOptions, QueryResponse } from '../../util/query/interfaces';
 
 import { AddToManyDto } from './dto/add-to-many.dto';
 import { IncreaseDto } from './dto/increase.dto';
-import { SourceAccessControlService } from './source-access-control.service';
+import { SourceOperationService } from './source-operation.service';
 
 @Controller(`/${RoleResourceType.Source}/:orgName/:atomName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class SourceController {
   @Inject()
-  private readonly sourceService!: SourceService<unknown>;
+  private readonly sourceOperationService!: SourceOperationService;
 
-  @Inject()
-  private readonly sourceAccessControlService!: SourceAccessControlService;
+  @Post('any/metadata')
+  async getMetadata(
+    @Param('orgName') orgName: string,
+    @Param('atomName') atomName: string,
+  ) {
+    return await this.sourceOperationService.getMetadata(orgName, atomName);
+  }
 
-  @Inject()
-  private readonly securityService!: SecurityService;
-
+  // @deprecated
   @Get('metadata')
   async metadata(
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
   ) {
-    const value = await this.sourceService.getMetadata(orgName, atomName);
-    return {
-      value,
-    };
+    return await this.sourceOperationService.getMetadata(orgName, atomName);
   }
 
+  @Post('any/query')
+  async query(
+    @Param('orgName') orgName: string,
+    @Param('atomName') atomName: string,
+    @ParsedBodyQuery() query: QueryParserOptions,
+    @Req() request: SecurityRequest,
+  ): Promise<QueryResponse<unknown>> {
+    return await this.sourceOperationService.query(
+      orgName,
+      atomName,
+      query,
+      request,
+    );
+  }
+
+  // @deprecated
   @Get()
   async index(
     @Param('orgName') orgName: string,
@@ -54,31 +69,30 @@ export class SourceController {
     @ParsedQuery() query: QueryParserOptions,
     @Req() request: SecurityRequest,
   ): Promise<QueryResponse<unknown>> {
-    if (request.userId) {
-      const isOwnRead = await this.securityService.isOwnRead(
-        orgName,
-        atomName,
-        request.userId,
-      );
-      if (isOwnRead) {
-        query = {
-          ...query,
-          filter: { $and: [{ owner: request.userId }, query.filter] },
-        };
-      }
-    }
-
-    const value = await this.sourceService.findAll(orgName, atomName, query);
-    const count = query.count
-      ? await this.sourceService.count(orgName, atomName, query)
-      : undefined;
-
-    return {
-      value,
-      count,
-    };
+    return await this.sourceOperationService.query(
+      orgName,
+      atomName,
+      query,
+      request,
+    );
   }
 
+  @Post('any/create')
+  async createOne(
+    @Param('orgName') orgName: string,
+    @Param('atomName') atomName: string,
+    @Body() createDto: SourceServiceCreateDto,
+    @Req() request: SecurityRequest,
+  ): Promise<QueryResponse<{ _id: IDString }>> {
+    return await this.sourceOperationService.create(
+      orgName,
+      atomName,
+      createDto,
+      request,
+    );
+  }
+
+  // @deprecated
   @Post()
   async create(
     @Param('orgName') orgName: string,
@@ -86,26 +100,30 @@ export class SourceController {
     @Body() createDto: SourceServiceCreateDto,
     @Req() request: SecurityRequest,
   ): Promise<QueryResponse<{ _id: IDString }>> {
-    const dto = await this.sourceAccessControlService.filterDto(
+    return await this.sourceOperationService.create(
+      orgName,
+      atomName,
+      createDto,
+      request,
+    );
+  }
+
+  @Post(':id/update')
+  async updateOne(
+    @Param('id') id: string,
+    @Param('orgName') orgName: string,
+    @Param('atomName') atomName: string,
+    @Body() createDto: SourceServiceCreateDto,
+  ): Promise<QueryResponse<null>> {
+    return await this.sourceOperationService.update(
+      id,
       orgName,
       atomName,
       createDto,
     );
-
-    const value = await this.sourceService.createOne(
-      orgName,
-      atomName,
-      dto,
-      request.userId || null,
-    );
-
-    return {
-      value: {
-        _id: value._id,
-      },
-    };
   }
 
+  // @deprecated
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -113,89 +131,75 @@ export class SourceController {
     @Param('atomName') atomName: string,
     @Body() createDto: SourceServiceCreateDto,
   ): Promise<QueryResponse<null>> {
-    const dto = await this.sourceAccessControlService.filterDto(
+    return await this.sourceOperationService.update(
+      id,
       orgName,
       atomName,
       createDto,
     );
-
-    await this.sourceService.updateOne(id, orgName, atomName, dto);
-
-    return {
-      value: null,
-    };
   }
 
-  @Put(':id/add-to-many')
+  @Post(':id/add-to-many')
   async addToMany(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
     @Body() dto: AddToManyDto,
   ): Promise<QueryResponse<null>> {
-    await this.sourceService.addToMany(
+    return await this.sourceOperationService.addToMany(
       id,
       orgName,
       atomName,
-      dto.electronName,
-      dto.foreignId,
+      dto,
     );
-
-    return {
-      value: null,
-    };
   }
 
-  @Put(':id/remove-from-many')
+  @Post(':id/remove-from-many')
   async removeFromMany(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
     @Body() dto: AddToManyDto,
   ): Promise<QueryResponse<null>> {
-    await this.sourceService.removeFromMany(
+    return await this.sourceOperationService.removeFromMany(
       id,
       orgName,
       atomName,
-      dto.electronName,
-      dto.foreignId,
+      dto,
     );
-
-    return {
-      value: null,
-    };
   }
 
-  @Put(':id/increase')
+  @Post(':id/increase')
   async increase(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
     @Body() dto: IncreaseDto,
   ): Promise<QueryResponse<null>> {
-    await this.sourceService.increase(
+    return await this.sourceOperationService.increase(
       id,
       orgName,
       atomName,
-      dto.electronName,
-      dto.increment,
+      dto,
     );
-
-    return {
-      value: null,
-    };
   }
 
+  @Post(':id/delete')
+  async deleteOne(
+    @Param('id') id: string,
+    @Param('orgName') orgName: string,
+    @Param('atomName') atomName: string,
+  ): Promise<QueryResponse<null>> {
+    return await this.sourceOperationService.delete(id, orgName, atomName);
+  }
+
+  // @deprecated
   @Delete(':id')
   async delete(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
   ): Promise<QueryResponse<null>> {
-    await this.sourceService.deleteOne(id, orgName, atomName);
-
-    return {
-      value: null,
-    };
+    return await this.sourceOperationService.delete(id, orgName, atomName);
   }
 }

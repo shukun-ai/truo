@@ -175,7 +175,7 @@ export class AuthorizationService {
   ) {
     const access = new AccessControl(grantList);
 
-    const actionType = getAccessActionType(resourceNodes.method);
+    const actionType = getAccessActionType(resourceNodes);
 
     const anyPermission = this.createPermission(
       access,
