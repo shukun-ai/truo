@@ -7,8 +7,16 @@ import { ResourceNodes } from './authorization.interface';
 export function getResourceNodes(method: string, uri: string): ResourceNodes {
   const url = new URLParse(uri);
 
-  const [, , , resourceType, orgName, resourceName, resourceId] =
-    url.pathname.split('/');
+  const [
+    ,
+    ,
+    ,
+    resourceType,
+    orgName,
+    resourceName,
+    resourceId,
+    resourceFunction,
+  ] = url.pathname.split('/');
 
   if (!['GET', 'POST', 'PUT', 'DELETE'].includes(method)) {
     throw new BadRequestException('请求类型不正确。');
@@ -20,11 +28,14 @@ export function getResourceNodes(method: string, uri: string): ResourceNodes {
     throw new BadRequestException('接口类型不正确。');
   }
 
-  return {
+  const resourceNodes = {
     method: method as 'GET' | 'POST' | 'PUT' | 'DELETE',
     resourceType: resourceType as RoleResourceType,
     orgName,
     resourceName,
     resourceId,
+    resourceFunction,
   };
+
+  return resourceNodes;
 }

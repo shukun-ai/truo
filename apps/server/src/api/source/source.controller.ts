@@ -108,7 +108,7 @@ export class SourceController {
     );
   }
 
-  @Put(':id/update')
+  @Post(':id/update')
   async updateOne(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
@@ -139,7 +139,7 @@ export class SourceController {
     );
   }
 
-  @Put(':id/add-to-many')
+  @Post(':id/add-to-many')
   async addToMany(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
@@ -154,7 +154,7 @@ export class SourceController {
     );
   }
 
-  @Put(':id/remove-from-many')
+  @Post(':id/remove-from-many')
   async removeFromMany(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
@@ -169,7 +169,7 @@ export class SourceController {
     );
   }
 
-  @Put(':id/increase')
+  @Post(':id/increase')
   async increase(
     @Param('id') id: string,
     @Param('orgName') orgName: string,
@@ -184,7 +184,7 @@ export class SourceController {
     );
   }
 
-  @Put(':id/delete')
+  @Post(':id/delete')
   async deleteOne(
     @Param('id') id: string,
     @Param('orgName') orgName: string,

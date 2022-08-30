@@ -147,7 +147,7 @@ export class RestfulRequestService<Model> {
   ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
-      .put<ApiResponseData<null>>(`${this.urlPath}/${id}/update`, data);
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/update`, data);
     return response;
   }
 
@@ -156,7 +156,7 @@ export class RestfulRequestService<Model> {
   ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
-      .put<ApiResponseData<null>>(`${this.urlPath}/${id}/delete`);
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/delete`);
     return response;
   }
 
@@ -166,7 +166,7 @@ export class RestfulRequestService<Model> {
   ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
-      .put<ApiResponseData<null>>(`${this.urlPath}/${id}/add-to-many`, data);
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/add-to-many`, data);
     return response;
   }
 
@@ -176,7 +176,7 @@ export class RestfulRequestService<Model> {
   ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
-      .put<ApiResponseData<null>>(
+      .post<ApiResponseData<null>>(
         `${this.urlPath}/${id}/remove-from-many`,
         data,
       );
@@ -189,7 +189,7 @@ export class RestfulRequestService<Model> {
   ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
-      .put<ApiResponseData<null>>(`${this.urlPath}/${id}/increase`, data);
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/increase`, data);
     return response;
   }
 }
