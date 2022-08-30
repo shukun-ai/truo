@@ -3,12 +3,23 @@ import { AxiosResponse } from 'axios';
 import merge from 'lodash/merge';
 
 import { HttpRequestService } from './http-request.service';
+import { RestfulRequestNotFoundError } from './restful-request.exception';
 
 import { IDString, ApiResponseData, QueryParams } from './shared-types';
 
 export interface RestfulRequestServiceOptions {
   atomName: string;
   orgName?: string;
+}
+
+export interface AddToManyDto {
+  electronName: string;
+  foreignId: string;
+}
+
+export interface IncreaseDto {
+  electronName: string;
+  increment: number;
 }
 
 /**
@@ -37,14 +48,16 @@ export class RestfulRequestService<Model> {
     params: QueryParams,
     select: Record<SelectedFields, true>,
   ): Promise<AxiosResponse<ApiResponseData<Pick<Model, SelectedFields>[]>>> {
+    const data = merge({}, params, {
+      select: this.combineSelect(select),
+      count: true,
+    });
     const response = await this.httpRequestService
       .createAxios()
-      .get<ApiResponseData<Pick<Model, SelectedFields>[]>>(this.urlPath, {
-        params: merge({}, params, {
-          select: this.combineSelect(select),
-          count: true,
-        }),
-      });
+      .post<ApiResponseData<Pick<Model, SelectedFields>[]>>(
+        `${this.urlPath}/any/query`,
+        data,
+      );
     return response;
   }
 
@@ -52,19 +65,20 @@ export class RestfulRequestService<Model> {
     params: QueryParams,
     select: Record<SelectedFields, true>,
   ): Promise<AxiosResponse<ApiResponseData<Pick<Model, SelectedFields>>>> {
-    // TODO use getOne api instead of getMany
+    const data = merge(
+      {},
+      params,
+      {
+        limit: 1,
+      },
+      { select: this.combineSelect(select) },
+    );
     const response = await this.httpRequestService
       .createAxios()
-      .get<ApiResponseData<Pick<Model, SelectedFields>[]>>(this.urlPath, {
-        params: merge(
-          {},
-          params,
-          {
-            limit: 1,
-          },
-          { select: this.combineSelect(select) },
-        ),
-      });
+      .post<ApiResponseData<Pick<Model, SelectedFields>[]>>(
+        `${this.urlPath}/any/query`,
+        data,
+      );
     if (response.data.value.length > 0) {
       const newResponse: AxiosResponse<
         ApiResponseData<Pick<Model, SelectedFields>>
@@ -77,7 +91,23 @@ export class RestfulRequestService<Model> {
       };
       return newResponse;
     } else {
-      throw new Error('We can not find this id');
+      throw new RestfulRequestNotFoundError('We can not find this id');
+    }
+  }
+
+  public async findOneOrNull<SelectedFields extends keyof Model>(
+    params: QueryParams,
+    select: Record<SelectedFields, true>,
+  ): Promise<AxiosResponse<
+    ApiResponseData<Pick<Model, SelectedFields>>
+  > | null> {
+    try {
+      return await this.findOne(params, select);
+    } catch (error) {
+      if (error instanceof RestfulRequestNotFoundError) {
+        return null;
+      }
+      throw error;
     }
   }
 
@@ -90,7 +120,10 @@ export class RestfulRequestService<Model> {
   > {
     const response = await this.httpRequestService
       .createAxios()
-      .post<ApiResponseData<{ _id: IDString }>>(this.urlPath, data);
+      .post<ApiResponseData<{ _id: IDString }>>(
+        `${this.urlPath}/any/create`,
+        data,
+      );
     return response;
   }
 
@@ -114,7 +147,7 @@ export class RestfulRequestService<Model> {
   ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
-      .put<ApiResponseData<null>>(`${this.urlPath}/${id}`, data);
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/update`, data);
     return response;
   }
 
@@ -123,7 +156,40 @@ export class RestfulRequestService<Model> {
   ): Promise<AxiosResponse<ApiResponseData<null>>> {
     const response = await this.httpRequestService
       .createAxios()
-      .delete<ApiResponseData<null>>(`${this.urlPath}/${id}`);
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/delete`);
+    return response;
+  }
+
+  public async addToMany(
+    id: string,
+    data: AddToManyDto,
+  ): Promise<AxiosResponse<ApiResponseData<null>>> {
+    const response = await this.httpRequestService
+      .createAxios()
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/add-to-many`, data);
+    return response;
+  }
+
+  public async removeFromMany(
+    id: string,
+    data: AddToManyDto,
+  ): Promise<AxiosResponse<ApiResponseData<null>>> {
+    const response = await this.httpRequestService
+      .createAxios()
+      .post<ApiResponseData<null>>(
+        `${this.urlPath}/${id}/remove-from-many`,
+        data,
+      );
+    return response;
+  }
+
+  public async increase(
+    id: string,
+    data: IncreaseDto,
+  ): Promise<AxiosResponse<ApiResponseData<null>>> {
+    const response = await this.httpRequestService
+      .createAxios()
+      .post<ApiResponseData<null>>(`${this.urlPath}/${id}/increase`, data);
     return response;
   }
 }

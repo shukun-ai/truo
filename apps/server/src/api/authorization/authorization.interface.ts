@@ -6,4 +6,5 @@ export interface ResourceNodes {
   resourceType: RoleResourceType;
   resourceName: string;
   resourceId?: string;
+  resourceFunction?: string;
 }

@@ -69,7 +69,7 @@ export const CustomViewExperiment: FunctionComponent<
 
       handshake?.then((child) => child.destroy());
 
-      const builtUrl = buildUrl(url);
+      const builtUrl = addTimeStampForRefresh(buildUrl(url));
       const newHandshake = new Postmate({
         container: frameRef.current,
         url: builtUrl,
@@ -187,4 +187,8 @@ const buildUrl = (value: string) => {
   const url = `${window.location.host}${slash}${value}`;
 
   return url;
+};
+
+const addTimeStampForRefresh = (value: string) => {
+  return `${value}?iframe-refresh=${new Date().getTime()}`;
 };
