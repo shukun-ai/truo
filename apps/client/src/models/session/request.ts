@@ -1,5 +1,7 @@
-import { ApiResponseData } from '@shukun/api';
+import { ApiResponseData, RsaHelper } from '@shukun/api';
 import { RoleResourceType } from '@shukun/schema';
+
+import { environment } from '../../environments';
 
 import { httpRequestService } from '../../utils/http-helper';
 
@@ -21,7 +23,7 @@ export async function signIn(data: SignInData) {
   const signInDataWithEncrypt: SignInDataWithEncrypt = {
     orgName: data.orgName,
     username: data.username,
-    encryptPassword: encryptPassword(data.password),
+    encryptPassword: await encryptPassword(data.password),
   };
 
   const response = await httpRequestService
@@ -33,6 +35,15 @@ export async function signIn(data: SignInData) {
   return response;
 }
 
-function encryptPassword(password: string) {
-  return password;
+async function encryptPassword(password: string) {
+  const publicKeyPem = environment.rsaPublicKey;
+
+  if (!publicKeyPem) {
+    throw new Error('公钥配置错误，请联系管理员');
+  }
+
+  const rsaHelper = new RsaHelper();
+  await rsaHelper.importPublicKey(publicKeyPem);
+  const encryptedPassword = await rsaHelper.encrypt(password);
+  return encryptedPassword;
 }
