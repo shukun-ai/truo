@@ -1,5 +1,7 @@
-import { ApiResponseData } from '@shukun/api';
+import { ApiResponseData, RsaHelper } from '@shukun/api';
 import { RoleResourceType } from '@shukun/schema';
+
+import { environment } from '../../environments';
 
 import { httpRequestService } from '../../utils/http-helper';
 
@@ -11,12 +13,37 @@ export interface SignInData {
   password: string;
 }
 
+export interface SignInDataWithEncrypt {
+  orgName: string;
+  username: string;
+  encryptPassword: string;
+}
+
 export async function signIn(data: SignInData) {
+  const signInDataWithEncrypt: SignInDataWithEncrypt = {
+    orgName: data.orgName,
+    username: data.username,
+    encryptPassword: await encryptPassword(data.password),
+  };
+
   const response = await httpRequestService
     .createAxios()
     .post<ApiResponseData<AuthApiModel>>(
-      `${RoleResourceType.Public}/${data.orgName}/authentication/jwt`,
-      data,
+      `${RoleResourceType.Public}/${data.orgName}/authentication/jwt_encrypt`,
+      signInDataWithEncrypt,
     );
   return response;
+}
+
+async function encryptPassword(password: string) {
+  const publicKeyPem = environment.rsaPublicKey;
+
+  if (!publicKeyPem) {
+    throw new Error('公钥配置错误，请联系管理员');
+  }
+
+  const rsaHelper = new RsaHelper();
+  await rsaHelper.importPublicKey(publicKeyPem);
+  const encryptedPassword = await rsaHelper.encrypt(password);
+  return encryptedPassword;
 }

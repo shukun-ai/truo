@@ -13,6 +13,7 @@ import { InputFieldProps } from './interfaces';
 import { LargeTextForm } from './large-text/LargeTextForm';
 import { ManyToManyForm } from './many-to-many/ManyToManyForm';
 import { ManyToOneForm } from './many-to-one/ManyToOneForm';
+import { MixedForm } from './mixed/MixedForm';
 import { MultiSelectForm } from './multi-select/MultiSelectForm';
 import { NameTextForm } from './name-text/NameTextForm';
 import { OwnerForm } from './owner/OwnerForm';
@@ -38,6 +39,14 @@ export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
 
   if (props.type === ViewV2FieldType.LargeText) {
     return <LargeTextForm {...props} />;
+  }
+
+  if (props.type === ViewV2FieldType.Mixed) {
+    return (
+      <FormContext.Consumer>
+        {({ form }) => form && <MixedForm form={form} {...props} />}
+      </FormContext.Consumer>
+    );
   }
 
   if (props.type === ViewV2FieldType.Boolean) {

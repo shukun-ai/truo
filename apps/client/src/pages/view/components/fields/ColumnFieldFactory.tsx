@@ -12,6 +12,7 @@ import { LargeTextField } from './large-text/LargeTextField';
 import { LinkTextField } from './link-text/LinkTextField';
 import { ManyToManyField } from './many-to-many/ManyToManyField';
 import { ManyToOneField } from './many-to-one/ManyToOneField';
+import { MixedField } from './mixed/MixedField';
 import { MultiSelectField } from './multi-select/MultiSelectField';
 import { NameTextField } from './name-text/NameTextField';
 import { OwnerField } from './owner/OwnerField';
@@ -33,6 +34,10 @@ export const ColumnFieldFactory: FunctionComponent<ColumnFieldProps> = (
 
   if (props.type === ViewV2FieldType.LargeText) {
     return <LargeTextField {...props} />;
+  }
+
+  if (props.type === ViewV2FieldType.Mixed) {
+    return <MixedField {...props} />;
   }
 
   if (props.type === ViewV2FieldType.Boolean) {

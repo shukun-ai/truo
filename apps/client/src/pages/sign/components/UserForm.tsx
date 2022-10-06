@@ -39,16 +39,18 @@ export const UserForm: FunctionComponent<UserFormProps> = () => {
         await sessionService.signIn({ ...values, orgName });
         message.success('登录成功');
         history.push(replaceOrgPath(RoutePath.Dashboard, orgName));
-      } catch (error) {
-        const message = (error as any)?.response?.data?.message;
+      } catch (error: any) {
+        const message = error?.response?.data?.message;
         if (typeof message === 'string') {
-          setErrorMessage('用户名或密码不正确');
+          setErrorMessage(message);
         } else if (Array.isArray(message)) {
           setErrorMessage(message.join(', '));
+        } else if (error?.message) {
+          setErrorMessage(error.message);
         } else {
           setErrorMessage('发生异常错误');
-          throw error;
         }
+        throw error;
       }
     },
     [history, orgName],
