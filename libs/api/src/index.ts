@@ -10,3 +10,5 @@ export * from './http-request/metadata-request.service';
 export * from './http-request/shared-types';
 
 export * from './exception/internal-server-code.interface';
+
+export * from './crypto/rsa-helpers';
