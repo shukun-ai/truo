@@ -1,18 +1,33 @@
-import { SortQueryStringValues } from './model';
+import { HttpQuerySchema } from '@shukun/schema';
 
-export function formatSortToQueryString(sort: SortQueryStringValues | null) {
+import { FilterQueryStringValues, SortQueryStringValues } from './model';
+
+export function formatSort(
+  sort: SortQueryStringValues | null,
+): HttpQuerySchema['sort'] {
   if (!sort) {
-    return '';
+    return undefined;
   }
 
-  return Object.keys(sort)
-    .map((key) => {
-      const value = sort[key];
-      if (!value) {
-        return '';
-      }
-      return `${value === 'descend' ? '-' : ''}${key}`;
-    })
-    .filter((key) => key)
-    .join(',');
+  const newSort: NonNullable<HttpQuerySchema['sort']> = {};
+
+  for (const [key, value] of Object.entries(sort)) {
+    if (value === 'ascend') {
+      newSort[key] = 'asc';
+    } else if (value === 'descend') {
+      newSort[key] = 'desc';
+    }
+  }
+
+  return newSort;
+}
+
+export function formatFilter(
+  filter: FilterQueryStringValues | null,
+): HttpQuerySchema['filter'] {
+  if (!filter) {
+    return undefined;
+  }
+
+  return filter;
 }

@@ -9,7 +9,7 @@ export interface FilterQueryStringValues {
     | ReactText
     | boolean
     | { $in: ReactText[] }
-    | { $regex: string };
+    | { $like: string };
 }
 
 export type SortQueryStringType = 'descend' | 'ascend' | null | undefined;

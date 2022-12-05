@@ -30,6 +30,7 @@ export type QueryFilterExpression =
       $lt?: QueryFilterBasicValue;
       $lte?: QueryFilterBasicValue;
       $in?: QueryFilterBasicValue[];
+      $nin?: QueryFilterBasicValue[];
       $and?: QueryFilter[];
       $or?: QueryFilter[];
       /**

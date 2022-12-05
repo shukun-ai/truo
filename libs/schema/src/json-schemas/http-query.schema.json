@@ -122,6 +122,12 @@
                 "$ref": "#/definitions/QueryFilterBasicValue"
               }
             },
+            "$nin": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryFilterBasicValue"
+              }
+            },
             "$and": {
               "type": "array",
               "items": {

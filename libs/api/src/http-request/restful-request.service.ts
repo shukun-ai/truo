@@ -41,7 +41,7 @@ export class RestfulRequestService<Model> {
   protected combineSelect<SelectedFields extends keyof Model>(
     select: Record<SelectedFields, true>,
   ) {
-    return Object.keys(select).join(',');
+    return select;
   }
 
   public async findMany<SelectedFields extends keyof Model>(

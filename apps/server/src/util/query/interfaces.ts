@@ -1,13 +1,22 @@
 import { QueryOptions } from 'mongoose-query-parser';
 
+/**
+ * @deprecated
+ */
 export interface QueryResponse<ValueType> {
   value: ValueType;
   count?: number;
   [k: string]: unknown;
 }
 
+/**
+ * @deprecated
+ */
 export type QueryParserOptions = QueryOptions & { count?: boolean };
 
+/**
+ * @deprecated
+ */
 export type QueryFilter = Record<
   string,
   | string
