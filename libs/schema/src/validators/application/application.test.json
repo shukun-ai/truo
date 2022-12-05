@@ -1125,7 +1125,7 @@
       "search": {
         "filter": {
           "number": {
-            "$regex": "he"
+            "$like": "he"
           }
         }
       },

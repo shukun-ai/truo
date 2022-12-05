@@ -1,7 +1,7 @@
 import { ReactText } from 'react';
 
 export interface FilterMaps {
-  [key: string]: '$regex';
+  [key: string]: '$like';
 }
 
 export function convertAntDesignParams(
@@ -43,8 +43,8 @@ function convertFilterMaps(
     const value = params[key];
 
     switch (type) {
-      case '$regex':
-        parsed[key] = { $regex: value };
+      case '$like':
+        parsed[key] = { $like: value };
         break;
       default:
         parsed[key] = value;

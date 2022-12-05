@@ -33,8 +33,8 @@ export class SourceNextStandardService<Model> {
   parseMongoQuery(query: HttpQuerySchema): QueryParserOptions {
     const mongoQuery: QueryParserOptions = {
       filter: this.parseMongoFilter(query.filter),
-      select: query.select ? this.parseMongoSelect(query.select) : undefined,
-      sort: query.sort ? this.parseMongoSort(query.sort) : undefined,
+      select: this.parseMongoSelect(query.select),
+      sort: this.parseMongoSort(query.sort),
       limit: query.limit,
       skip: query.skip,
       count: query.count,
@@ -47,6 +47,14 @@ export class SourceNextStandardService<Model> {
     filter: HttpQuerySchema['filter'],
   ): QueryParserOptions['filter'] {
     if (!filter) {
+      return filter;
+    }
+
+    if (
+      typeof filter === 'string' ||
+      typeof filter === 'number' ||
+      typeof filter === 'boolean'
+    ) {
       return filter;
     }
 
@@ -68,8 +76,14 @@ export class SourceNextStandardService<Model> {
     return newFilter;
   }
 
-  parseMongoSelect(select: { [k: string]: boolean }): { [k: string]: 0 | 1 } {
+  parseMongoSelect(select: { [k: string]: boolean } | undefined): {
+    [k: string]: 0 | 1;
+  } {
     const newSelect: { [k: string]: 0 | 1 } = {};
+
+    if (!select) {
+      return newSelect;
+    }
 
     for (const [key, value] of Object.entries(select)) {
       newSelect[key] = value ? 1 : 0;
@@ -78,10 +92,14 @@ export class SourceNextStandardService<Model> {
     return newSelect;
   }
 
-  parseMongoSort(sort: { [k: string]: 'asc' | 'desc' }): {
+  parseMongoSort(sort: { [k: string]: 'asc' | 'desc' } | undefined): {
     [k: string]: 0 | 1;
   } {
     const newSort: { [k: string]: 0 | 1 } = {};
+
+    if (!sort) {
+      return newSort;
+    }
 
     for (const [key, value] of Object.entries(sort)) {
       newSort[key] = value === 'asc' ? 0 : 1;
