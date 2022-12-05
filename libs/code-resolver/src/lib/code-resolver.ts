@@ -1,39 +1,18 @@
-// TODO: should be removed, because should extract server types into separated library.
-export type IDString = string;
-
-// TODO: should be removed, because should extract server types into separated library.
-export interface SourceServiceCreateDto {
-  [keyName: string]: unknown;
-}
-
-// TODO: should be removed, because should extract server types into separated library.
-export interface QueryOptions {
-  filter: any;
-  sort?: string | any;
-  limit?: number;
-  skip?: number;
-  select?: string | any;
-  populate?: string | any;
-}
-
-// TODO: should be removed, because should extract server types into separated library.
-export type QueryParserOptions = QueryOptions & { count?: boolean };
+import { IDString } from '@shukun/api';
+import { HttpQuerySchema } from '@shukun/schema';
 
 export interface CodeResolver {
   source: {
-    findAll: <T>(atomName: string, query: QueryParserOptions) => Promise<T[]>;
-    findOne: <T>(atomName: string, query: QueryParserOptions) => Promise<T>;
-    createOne: (
-      atomName: string,
-      data: SourceServiceCreateDto,
-    ) => Promise<{ _id: IDString }>;
-    updateOne: (
+    findAll: <T>(atomName: string, query: HttpQuerySchema) => Promise<T[]>;
+    findOne: <T>(atomName: string, query: HttpQuerySchema) => Promise<T>;
+    createOne: <T>(atomName: string, data: T) => Promise<{ _id: IDString }>;
+    updateOne: <T>(
       id: IDString,
       atomName: string,
-      data: SourceServiceCreateDto,
+      data: Partial<T>,
     ) => Promise<void>;
     deleteOne: (id: IDString, atomName: string) => Promise<void>;
-    count: (atomName: string, query: QueryParserOptions) => Promise<number>;
+    count: (atomName: string, query: HttpQuerySchema) => Promise<number>;
     addToMany: (
       id: IDString,
       atomName: string,
