@@ -20,6 +20,30 @@ export interface SignInDataWithEncrypt {
 }
 
 export async function signIn(data: SignInData) {
+  if (environment.cryptoPassword) {
+    return signInWithEncrypt(data);
+  } else {
+    return signInWithoutEncrypt(data);
+  }
+}
+
+export async function signInWithoutEncrypt(data: SignInData) {
+  const signInData: SignInData = {
+    orgName: data.orgName,
+    username: data.username,
+    password: data.password,
+  };
+
+  const response = await httpRequestService
+    .createAxios()
+    .post<ApiResponseData<AuthApiModel>>(
+      `${RoleResourceType.Public}/${data.orgName}/authentication/jwt`,
+      signInData,
+    );
+  return response;
+}
+
+export async function signInWithEncrypt(data: SignInData) {
   const signInDataWithEncrypt: SignInDataWithEncrypt = {
     orgName: data.orgName,
     username: data.username,

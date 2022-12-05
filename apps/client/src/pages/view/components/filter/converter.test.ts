@@ -15,7 +15,7 @@ describe('converter.test.ts', () => {
     );
 
     expect(output).toEqual({
-      name: { $regex: 'api' },
+      name: { $like: 'api' },
     });
   });
 

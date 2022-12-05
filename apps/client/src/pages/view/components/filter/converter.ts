@@ -87,7 +87,7 @@ export function convertViewColumn(
     ].includes(electronType)
   ) {
     return {
-      [electronName]: { $regex: value },
+      [electronName]: { $like: value },
     };
   }
 

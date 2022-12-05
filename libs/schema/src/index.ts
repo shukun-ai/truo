@@ -1,5 +1,6 @@
 export * from './types/application';
 export * from './types/attachments';
+export * from './types/http-query';
 export * from './internals/seed/system-models';
 export * from './validators/application/validate';
 export * from './validators/application/dependency-check';
@@ -7,4 +8,5 @@ export * from './validators/application/dependency-merge';
 export * from './validators/attachment/validate';
 export * from './validators/workflow-configurations/validate';
 export * from './validators/workflow-input/validate';
+export * from './validators/http-query/validate';
 export * from './json-exports';
