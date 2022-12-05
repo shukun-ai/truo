@@ -1,10 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { HttpQuerySchema } from '@shukun/schema';
 
 import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
+import { SourceNextStandardService } from '../../source/source-next-standard.service';
 import { SourceService } from '../../source/source.service';
-import { QueryParserOptions, QueryResponse } from '../../util/query/interfaces';
+import { QueryResponse } from '../../util/query/interfaces';
 
 import { AddToManyDto } from './dto/add-to-many.dto';
 import { IncreaseDto } from './dto/increase.dto';
@@ -14,6 +16,9 @@ import { SourceAccessControlService } from './source-access-control.service';
 export class SourceOperationService {
   @Inject()
   private readonly sourceService!: SourceService<unknown>;
+
+  @Inject()
+  private readonly sourceNextStandardService!: SourceNextStandardService<unknown>;
 
   @Inject()
   private readonly sourceAccessControlService!: SourceAccessControlService;
@@ -31,7 +36,7 @@ export class SourceOperationService {
   async query(
     orgName: string,
     atomName: string,
-    query: QueryParserOptions,
+    query: HttpQuerySchema,
     request: SecurityRequest,
   ): Promise<QueryResponse<unknown>> {
     if (request.userId) {
@@ -43,14 +48,18 @@ export class SourceOperationService {
       if (isOwnRead) {
         query = {
           ...query,
-          filter: { $and: [{ owner: request.userId }, query.filter] },
+          filter: { $and: [{ owner: request.userId }, query.filter ?? {}] },
         };
       }
     }
 
-    const value = await this.sourceService.findAll(orgName, atomName, query);
+    const value = await this.sourceNextStandardService.findAll(
+      orgName,
+      atomName,
+      query,
+    );
     const count = query.count
-      ? await this.sourceService.count(orgName, atomName, query)
+      ? await this.sourceNextStandardService.count(orgName, atomName, query)
       : undefined;
 
     return {

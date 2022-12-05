@@ -6,6 +6,7 @@ import { PassportModule } from '../util/passport/passport.module';
 import { MongoAdaptorService } from './adaptor/mongo-adaptor.service';
 import { MongooseConnectionService } from './adaptor/mongoose-connection.service';
 import { SourceDataAccessService } from './source-data-access.service';
+import { SourceNextStandardService } from './source-next-standard.service';
 
 import { SourceParamUtilService } from './source-param-util.service';
 import { SourceService } from './source.service';
@@ -20,7 +21,8 @@ import { VariableService } from './variable/variable.service';
     MongoAdaptorService,
     MongooseConnectionService,
     SourceDataAccessService,
+    SourceNextStandardService,
   ],
-  exports: [SourceService, VariableService],
+  exports: [SourceService, SourceNextStandardService, VariableService],
 })
 export class SourceModule {}
