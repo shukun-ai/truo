@@ -11,6 +11,9 @@ import { SecurityRequest } from '../../../identity/utils/security-request';
 
 export type QueryParserOptions = QueryOptions & { count?: boolean };
 
+/**
+ * @deprecated will be removed in 1.17.0
+ */
 export const ParsedQuery = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest<SecurityRequest>();

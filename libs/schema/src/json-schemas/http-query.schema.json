@@ -34,7 +34,7 @@
       "type": "integer"
     },
     "count": {
-      "type": "integer"
+      "type": "boolean"
     }
   },
   "definitions": {
@@ -52,12 +52,42 @@
       ]
     },
     "QueryFilter": {
-      "type": "object",
-      "patternProperties": {
-        "^(\\w)+$": {
-          "$ref": "#/definitions/QueryFilterExpression"
+      "oneOf": [
+        {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "$ref": "#/definitions/QueryFilterExpression"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["$and"],
+          "properties": {
+            "$and": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryFilter"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["$or"],
+          "properties": {
+            "$or": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryFilter"
+              }
+            }
+          }
         }
-      }
+      ]
     },
     "QueryFilterExpression": {
       "oneOf": [

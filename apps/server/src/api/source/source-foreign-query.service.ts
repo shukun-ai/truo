@@ -1,14 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { set } from 'lodash';
+import { HttpQuerySchema, QueryFilter } from '@shukun/schema';
 
-import { SourceService } from '../../source/source.service';
-
-import { QueryFilter, QueryParserOptions } from '../../util/query/interfaces';
+import { SourceNextStandardService } from '../../source/source-next-standard.service';
 
 @Injectable()
 export class SourceForeignQueryService {
   @Inject()
-  private readonly sourceService!: SourceService<unknown>;
+  private readonly sourceNextStandardService!: SourceNextStandardService<unknown>;
 
   async prepareForeignQuery(
     orgName: string,
@@ -37,9 +35,14 @@ export class SourceForeignQueryService {
     orgName: string,
     atomName: string,
     electronName: string,
-    query: QueryFilter,
+    filter: QueryFilter,
   ) {
-    set(query, 'select._id', 1);
+    const query: HttpQuerySchema = {
+      filter,
+      select: {
+        _id: true,
+      },
+    };
 
     const foreignAtomName = await this.getForeignAtomName(
       orgName,
@@ -47,11 +50,7 @@ export class SourceForeignQueryService {
       electronName,
     );
 
-    const entities = await this.queryForeign(
-      orgName,
-      foreignAtomName,
-      query as unknown as QueryParserOptions,
-    );
+    const entities = await this.queryForeign(orgName, foreignAtomName, query);
 
     const ids = entities.map((item) => item._id);
 
@@ -63,15 +62,19 @@ export class SourceForeignQueryService {
   async queryForeign(
     orgName: string,
     atomName: string,
-    query: QueryParserOptions,
+    query: HttpQuerySchema,
   ) {
     query.filter = await this.prepareForeignQuery(
       orgName,
       atomName,
-      query.filter,
+      query.filter ?? {},
     );
 
-    const entities = await this.sourceService.findAll(orgName, atomName, query);
+    const entities = await this.sourceNextStandardService.findAll(
+      orgName,
+      atomName,
+      query,
+    );
 
     return entities;
   }
@@ -81,7 +84,10 @@ export class SourceForeignQueryService {
     atomName: string,
     electronName: string,
   ): Promise<string> {
-    const metadata = await this.sourceService.getMetadata(orgName, atomName);
+    const metadata = await this.sourceNextStandardService.getMetadata(
+      orgName,
+      atomName,
+    );
 
     const electron = metadata.electrons.find(
       (electron) => electron.name === electronName,

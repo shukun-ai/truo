@@ -10,6 +10,9 @@ import { SecurityRequest } from '../../../identity/utils/security-request';
 
 export type ParsedBodyQueryOptions = QueryOptions & { count?: boolean };
 
+/**
+ * @deprecated will be removed in 1.17.0
+ */
 export const ParsedBodyQuery = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const parser = new MongooseQueryParser();
