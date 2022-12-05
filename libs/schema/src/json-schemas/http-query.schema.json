@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "HttpQuerySchema",
+  "description": "Describe HTTP Request Incoming Payload",
+  "required": [],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "filter": {
+      "$ref": "#/definitions/QueryFilter"
+    },
+    "select": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "boolean",
+          "description": "The style is like MongoDB."
+        }
+      }
+    },
+    "sort": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "enum": ["asc", "desc"],
+          "description": "The style is like MongoDB."
+        }
+      }
+    },
+    "limit": {
+      "type": "integer"
+    },
+    "skip": {
+      "type": "integer"
+    },
+    "count": {
+      "type": "integer"
+    }
+  },
+  "definitions": {
+    "QueryFilterBasicValue": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "QueryFilter": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "$ref": "#/definitions/QueryFilterExpression"
+        }
+      }
+    },
+    "QueryFilterExpression": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/QueryFilterBasicValue"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "$eq": {
+              "$ref": "#/definitions/QueryFilterBasicValue"
+            },
+            "$ne": {
+              "$ref": "#/definitions/QueryFilterBasicValue"
+            },
+            "$gt": {
+              "$ref": "#/definitions/QueryFilterBasicValue"
+            },
+            "$gte": {
+              "$ref": "#/definitions/QueryFilterBasicValue"
+            },
+            "$lt": {
+              "$ref": "#/definitions/QueryFilterBasicValue"
+            },
+            "$lte": {
+              "$ref": "#/definitions/QueryFilterBasicValue"
+            },
+            "$in": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryFilterBasicValue"
+              }
+            },
+            "$and": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryFilter"
+              }
+            },
+            "$or": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QueryFilter"
+              }
+            },
+            "$foreign": {
+              "$ref": "#/definitions/QueryFilter",
+              "description": "The results are in foreign ids."
+            },
+            "$like": {
+              "type": "string",
+              "description": "The results are like this value with no case sensitive."
+            }
+          }
+        }
+      ]
+    }
+  }
+}
