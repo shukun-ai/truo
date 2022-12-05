@@ -6,8 +6,18 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type QueryFilter =
+  | {
+      [k: string]: QueryFilterExpression;
+    }
+  | {
+      $and: QueryFilter[];
+    }
+  | {
+      $or: QueryFilter[];
+    };
 /**
- * This interface was referenced by `QueryFilter`'s JSON-Schema definition
+ * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
 export type QueryFilterExpression =
@@ -25,9 +35,16 @@ export type QueryFilterExpression =
       /**
        * The results are in foreign ids.
        */
-      $foreign?: {
-        [k: string]: QueryFilterExpression;
-      };
+      $foreign?:
+        | {
+            [k: string]: QueryFilterExpression;
+          }
+        | {
+            $and: QueryFilter[];
+          }
+        | {
+            $or: QueryFilter[];
+          };
       /**
        * The results are like this value with no case sensitive.
        */
@@ -60,8 +77,5 @@ export interface HttpQuerySchema {
   };
   limit?: number;
   skip?: number;
-  count?: number;
-}
-export interface QueryFilter {
-  [k: string]: QueryFilterExpression;
+  count?: boolean;
 }

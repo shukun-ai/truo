@@ -10,11 +10,11 @@ import {
   Delete,
   Req,
 } from '@nestjs/common';
-import { RoleResourceType } from '@shukun/schema';
+import { HttpQuerySchema, RoleResourceType } from '@shukun/schema';
 
 import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SecurityRequest } from '../../identity/utils/security-request';
-import { ParsedBodyQuery } from '../../util/query/decorators/parsed-body-query.decorator';
+import { ParsedHttpQuery } from '../../util/query/decorators/parsed-http-query.decorator';
 import { ParsedQuery } from '../../util/query/decorators/parsed-query.decorator';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryParserOptions, QueryResponse } from '../../util/query/interfaces';
@@ -54,13 +54,13 @@ export class SourceController {
   async query(
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
-    @ParsedBodyQuery() query: QueryParserOptions,
+    @ParsedHttpQuery() query: HttpQuerySchema,
     @Req() request: SecurityRequest,
   ): Promise<QueryResponse<unknown>> {
     query.filter = await this.sourceForeignQueryService.prepareForeignQuery(
       orgName,
       atomName,
-      query.filter,
+      query.filter ?? {},
     );
 
     return await this.sourceOperationService.query(
