@@ -76,7 +76,7 @@ export class CodeResolverService implements Resolver {
           const entity = await this.sourceService.createOne(
             orgName,
             atomName,
-            data as SourceServiceCreateDto,
+            data as unknown as SourceServiceCreateDto,
             operatorId || null,
           );
           return {
@@ -93,7 +93,7 @@ export class CodeResolverService implements Resolver {
             id,
             orgName,
             atomName,
-            data as Partial<SourceServiceCreateDto>,
+            data as unknown as Partial<SourceServiceCreateDto>,
           );
         },
 
