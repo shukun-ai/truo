@@ -4,7 +4,6 @@ import { HttpQuerySchema } from '@shukun/schema';
 import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
-import { SourceNextStandardService } from '../../source/source-next-standard.service';
 import { SourceService } from '../../source/source.service';
 import { QueryResponse } from '../../util/query/interfaces';
 
@@ -16,9 +15,6 @@ import { SourceAccessControlService } from './source-access-control.service';
 export class SourceOperationService {
   @Inject()
   private readonly sourceService!: SourceService<unknown>;
-
-  @Inject()
-  private readonly sourceNextStandardService!: SourceNextStandardService<unknown>;
 
   @Inject()
   private readonly sourceAccessControlService!: SourceAccessControlService;
@@ -53,13 +49,9 @@ export class SourceOperationService {
       }
     }
 
-    const value = await this.sourceNextStandardService.findAll(
-      orgName,
-      atomName,
-      query,
-    );
+    const value = await this.sourceService.findAll(orgName, atomName, query);
     const count = query.count
-      ? await this.sourceNextStandardService.count(orgName, atomName, query)
+      ? await this.sourceService.count(orgName, atomName, query)
       : undefined;
 
     return {
