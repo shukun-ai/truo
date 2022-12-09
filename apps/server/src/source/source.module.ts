@@ -7,7 +7,6 @@ import { MongoAdaptorService } from './adaptor/mongo-adaptor.service';
 import { MongoQueryConvertorService } from './adaptor/mongo-query-convertor.service';
 import { MongooseConnectionService } from './adaptor/mongoose-connection.service';
 import { SourceDataAccessService } from './source-data-access.service';
-import { SourceNextStandardService } from './source-next-standard.service';
 
 import { SourceParamUtilService } from './source-param-util.service';
 import { SourceService } from './source.service';
@@ -23,8 +22,7 @@ import { VariableService } from './variable/variable.service';
     MongoQueryConvertorService,
     MongooseConnectionService,
     SourceDataAccessService,
-    SourceNextStandardService,
   ],
-  exports: [SourceService, SourceNextStandardService, VariableService],
+  exports: [SourceService, VariableService],
 })
 export class SourceModule {}
