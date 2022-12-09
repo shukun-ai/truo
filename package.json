@@ -89,7 +89,7 @@
     "accesscontrol": "^2.2.1",
     "ahooks": "^2.10.14",
     "ajv": "^8.9.0",
-    "antd": "^4.18.4",
+    "antd": "^4.24.5",
     "antd-dayjs-webpack-plugin": "^1.0.6",
     "axios": "^0.25.0",
     "axios-retry": "^3.2.4",

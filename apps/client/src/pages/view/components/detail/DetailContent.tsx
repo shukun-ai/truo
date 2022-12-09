@@ -5,9 +5,8 @@ import {
   ViewV2FieldGroupType,
 } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
-import { Button, Form, FormInstance, message, Tabs } from 'antd';
+import { Button, Form, FormInstance, FormProps, message, Tabs } from 'antd';
 import { useObservableState } from 'observable-hooks';
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
@@ -76,15 +75,14 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
     [metadata, source, form, mode, history, view.name, viewDetailOrgPath],
   );
 
-  const handleFinishFailed = useCallback<(args: ValidateErrorEntity) => void>(
-    ({ values, errorFields }) => {
-      const errorMessage = errorFields
-        .map((item) => item.errors.join(','))
-        .join(', ');
-      message.error(errorMessage);
-    },
-    [],
-  );
+  const handleFinishFailed = useCallback<
+    NonNullable<FormProps['onFinishFailed']>
+  >(({ values, errorFields }) => {
+    const errorMessage = errorFields
+      .map((item) => item.errors.join(','))
+      .join(', ');
+    message.error(errorMessage);
+  }, []);
 
   useDebounceEffect(
     () => {
