@@ -1,6 +1,8 @@
 import { HttpQuerySchema } from '@shukun/schema';
 
-import { FilterQueryStringValues, SortQueryStringValues } from './model';
+import { SearchFilter } from '../search';
+
+import { SortQueryStringValues } from './model';
 
 export function formatSort(
   sort: SortQueryStringValues | null,
@@ -23,7 +25,7 @@ export function formatSort(
 }
 
 export function formatFilter(
-  filter: FilterQueryStringValues | null,
+  filter: SearchFilter | null,
 ): HttpQuerySchema['filter'] {
   if (!filter) {
     return undefined;

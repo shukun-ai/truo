@@ -286,8 +286,23 @@ export interface ViewSearch {
   currentPage?: number;
   pageSize?: number;
   filter?: {
-    [k: string]: unknown;
-  } | null;
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(\w)+$".
+     */
+    [k: string]: {
+      $eq?: string | number | boolean;
+      $ne?: string | number | boolean;
+      $gt?: string | number | boolean;
+      $gte?: string | number | boolean;
+      $lt?: string | number | boolean;
+      $lte?: string | number | boolean;
+      $in?: (string | number | boolean)[];
+      $nin?: (string | number | boolean)[];
+      $like?: string;
+      [k: string]: unknown;
+    };
+  };
   sort?: {
     [k: string]: unknown;
   } | null;
