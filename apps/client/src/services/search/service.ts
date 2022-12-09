@@ -2,7 +2,7 @@ import { ViewSearch } from '@shukun/schema';
 
 import { merge } from 'lodash';
 
-import { FilterQueryStringValues, SortQueryStringValues } from '../table/model';
+import { SortQueryStringValues } from '../table/model';
 
 import { defaultSearchValue } from './constant';
 import { SearchModel } from './model';
@@ -70,7 +70,7 @@ export class SearchService {
   }
 
   async updateSearchFilter(
-    filter: FilterQueryStringValues,
+    filter: NonNullable<SearchModel['filter']>,
     viewSearch: ViewSearch | null,
   ) {
     this.searchStore.updateActive(() => ({
@@ -81,7 +81,7 @@ export class SearchService {
 
   async clearSearchFilter(viewSearch: ViewSearch | null) {
     this.searchStore.updateActive(() => ({
-      filter: viewSearch?.filter as FilterQueryStringValues,
+      filter: viewSearch ? (viewSearch.filter as SearchModel['filter']) : null,
     }));
   }
 
