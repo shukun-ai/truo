@@ -32,26 +32,20 @@ export const Filter: FunctionComponent<FilterProps> = ({
 
   const [form] = Form.useForm<SearchFilter>();
 
-  const formValues = useMemo(() => {
-    if (!filters) {
-      return undefined;
-    }
-    return filters;
-  }, [filters]);
-
   const visibleViewColumns = useMemo(() => {
     return viewColumns.filter((item) => !item.filterHidden);
   }, [viewColumns]);
 
   useDebounceEffect(
     () => {
-      if (formValues) {
-        form.setFieldsValue(formValues);
+      if (filters) {
+        form.resetFields();
+        form.setFieldsValue(filters);
       } else {
         form.resetFields();
       }
     },
-    [form, formValues],
+    [form, filters],
     { wait: 100 },
   );
 
