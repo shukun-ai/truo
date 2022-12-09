@@ -1,10 +1,9 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { MetadataSchema } from '@shukun/schema';
+import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
 import { isInteger } from 'lodash';
 
 import { IDString, JsonModel, SourceServiceCreateDto } from '../app.type';
 import { MetadataService } from '../core/metadata.service';
-import { QueryParserOptions } from '../util/query/interfaces';
 
 import { SourceDataAccessService } from './source-data-access.service';
 
@@ -71,7 +70,7 @@ export class SourceService<Model> {
   async findOne(
     orgName: string,
     atomName: string,
-    query: QueryParserOptions,
+    query: HttpQuerySchema,
   ): Promise<JsonModel<Model>> {
     const metadata = await this.metadataService.getMetadataByName(
       orgName,
@@ -89,7 +88,7 @@ export class SourceService<Model> {
   async findAll(
     orgName: string,
     atomName: string,
-    query: QueryParserOptions,
+    query: HttpQuerySchema,
   ): Promise<JsonModel<Model>[]> {
     const metadata = await this.metadataService.getMetadataByName(
       orgName,
@@ -107,7 +106,7 @@ export class SourceService<Model> {
   async count(
     orgName: string,
     atomName: string,
-    query: QueryParserOptions,
+    query: HttpQuerySchema,
   ): Promise<number> {
     const metadata = await this.metadataService.getMetadataByName(
       orgName,
