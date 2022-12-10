@@ -68,16 +68,16 @@ export class MongoQueryConvertorService {
   }
 
   protected parseMongoSort(sort: { [k: string]: 'asc' | 'desc' } | undefined): {
-    [k: string]: 0 | 1;
+    [k: string]: -1 | 1;
   } {
-    const newSort: { [k: string]: 0 | 1 } = {};
+    const newSort: { [k: string]: -1 | 1 } = {};
 
     if (!sort) {
       return newSort;
     }
 
     for (const [key, value] of Object.entries(sort)) {
-      newSort[key] = value === 'asc' ? 0 : 1;
+      newSort[key] = value === 'asc' ? 1 : -1;
     }
 
     return newSort;
