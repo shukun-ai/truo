@@ -5,6 +5,7 @@ import { BooleanFilter } from './boolean/BooleanFilter';
 import { DateTimeFilter } from './date-time/DateTimeFilter';
 import { IntegerFilter } from './integer/IntegerFilter';
 import { FilterFieldProps } from './interfaces';
+import { ManyToOneFilter } from './many-to-one/ManyToOneFilter';
 import { SingleSelectFilter } from './single-select/SingleSelectFilter';
 import { TextFilter } from './text/TextFilter';
 
@@ -51,9 +52,9 @@ export const FilterFieldFactory: FunctionComponent<FilterFieldProps> = (
   //   return <OwnerField {...props} />;
   // }
 
-  // if (props.type === ViewV2FieldType.ManyToOne) {
-  //   return <ManyToOneField {...props} />;
-  // }
+  if (props.type === ViewV2FieldType.ManyToOne) {
+    return <ManyToOneFilter {...props} />;
+  }
 
   // if (props.type === ViewV2FieldType.ManyToMany) {
   //   return <ManyToManyField {...props} />;
