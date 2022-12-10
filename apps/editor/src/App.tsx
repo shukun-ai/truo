@@ -1,6 +1,8 @@
 import { ConfigProvider } from 'antd';
 import React, { FunctionComponent } from 'react';
 
+import { ChooseDirectory } from './pages/app/ChooseDirectory';
+
 export interface AppProps {}
 
 export const App: FunctionComponent<AppProps> = () => {
@@ -8,6 +10,7 @@ export const App: FunctionComponent<AppProps> = () => {
     <ConfigProvider autoInsertSpaceInButton={false}>
       {/* <Routes /> */}
       hi
+      <ChooseDirectory />
     </ConfigProvider>
   );
 };
