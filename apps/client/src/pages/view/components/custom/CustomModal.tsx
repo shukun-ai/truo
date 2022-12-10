@@ -81,7 +81,7 @@ export const CustomModal: FunctionComponent<CustomModalProps> = () => {
       forceRender
       destroyOnClose
       title={label}
-      visible={visible}
+      open={visible}
       onCancel={handleCancel}
       maskClosable={!loading}
       footer={null}

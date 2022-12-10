@@ -69,7 +69,7 @@ export const ReferenceModal: FunctionComponent<ReferenceModalProps> = () => {
       forceRender
       destroyOnClose
       title={modalLabel}
-      visible={modalVisible}
+      open={modalVisible}
       onOk={handleFinish}
       okButtonProps={{
         disabled: selectedRow.length === 0,
