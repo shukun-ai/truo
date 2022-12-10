@@ -1,7 +1,14 @@
-import { Form, InputNumber } from 'antd';
-import React, { FunctionComponent } from 'react';
+import { Form, InputNumber, InputNumberProps, SelectProps } from 'antd';
+import React, { FunctionComponent, useCallback, useMemo } from 'react';
+
+import {
+  ExtractFormItem,
+  ExtractFormItemProps,
+} from '../../../../../components/form';
 
 import { FilterFieldProps } from '../interfaces';
+
+export type IntegerFilterInputValue = { $eq?: number };
 
 export const IntegerFilter: FunctionComponent<FilterFieldProps> = ({
   label,
@@ -10,7 +17,39 @@ export const IntegerFilter: FunctionComponent<FilterFieldProps> = ({
 }) => {
   return (
     <Form.Item label={label} name={electronName} tooltip={tip}>
-      <InputNumber />
+      <ExtractFormItem<IntegerFilterInputValue>>
+        {({ value, onChange, id }) => (
+          <IntegerFilterInput id={id} value={value} onChange={onChange} />
+        )}
+      </ExtractFormItem>
     </Form.Item>
   );
+};
+
+export const IntegerFilterInput: FunctionComponent<
+  ExtractFormItemProps<IntegerFilterInputValue>
+> = ({ id, value, onChange }) => {
+  const parsedValue = useMemo(() => {
+    if (typeof value === 'object' && typeof value.$eq === 'number') {
+      return value.$eq;
+    }
+    return undefined;
+  }, [value]);
+
+  const handleChange = useCallback<
+    NonNullable<InputNumberProps<number>['onChange']>
+  >(
+    (value) => {
+      onChange(
+        typeof value === 'number'
+          ? {
+              $eq: value,
+            }
+          : null,
+      );
+    },
+    [onChange],
+  );
+
+  return <InputNumber id={id} value={parsedValue} onChange={handleChange} />;
 };
