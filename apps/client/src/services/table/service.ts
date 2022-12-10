@@ -6,7 +6,6 @@ import { SearchService, searchService } from '../search';
 import { sourceReferenceService } from '../source';
 import { SourceReferenceService } from '../source/classes/SourceReferenceService';
 
-import { formatFilter, formatSort } from './helper';
 import { tableStore } from './store';
 
 class TableService {
@@ -25,10 +24,10 @@ class TableService {
     const request = new MetadataRequestService(httpRequestService, metadata);
 
     const response = await request.findMany({
-      filter: formatFilter(filter),
+      filter: filter ?? undefined,
       limit: pageSize,
       skip,
-      sort: formatSort(sort),
+      sort: sort ?? undefined,
     });
 
     tableStore.set(response.data.value);

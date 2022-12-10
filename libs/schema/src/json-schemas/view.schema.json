@@ -423,7 +423,14 @@
             }
           }
         },
-        "sort": { "type": ["object", "null"] }
+        "sort": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "enum": ["asc", "desc"]
+            }
+          }
+        }
       }
     },
     "ViewV2FieldType": {

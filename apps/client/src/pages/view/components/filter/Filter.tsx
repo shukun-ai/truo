@@ -57,7 +57,7 @@ export const Filter: FunctionComponent<FilterProps> = ({
   );
 
   const handleReset = useCallback(() => {
-    searchService.clearSearchFilter(viewSearch ?? null);
+    searchService.resetSearchFilter(viewSearch ?? null);
   }, [viewSearch]);
 
   if (visibleViewColumns.length === 0) {
