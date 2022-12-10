@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { IDString } from '@shukun/api';
-import { MetadataSchema } from '@shukun/schema';
+import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
 import {
   Document,
   Model as MongooseModel,
@@ -15,15 +15,18 @@ import {
 import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../../app.constant';
 
 import { SourceServiceCreateDto } from '../../app.type';
-import { QueryParserOptions } from '../../util/query/interfaces';
 
 import { DatabaseAdaptor } from './database-adaptor.interface';
+import { MongoQueryConvertorService } from './mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongoose-connection.service';
 
 @Injectable()
 export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   @Inject()
   private readonly mongooseConnectionService!: MongooseConnectionService;
+
+  @Inject()
+  private readonly mongoQueryConvertorService!: MongoQueryConvertorService;
 
   private atom: MongooseModel<Model & Document> | null = null;
 
@@ -64,14 +67,15 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     );
   }
 
-  async findOne(query: QueryParserOptions): Promise<{ _id: IDString } & Model> {
+  async findOne(query: HttpQuerySchema): Promise<{ _id: IDString } & Model> {
     const atom = this.getAtom();
+    const mongoQuery = this.mongoQueryConvertorService.parseMongoQuery(query);
 
     const value = await atom
-      .findOne(query.filter)
-      .select(query.select)
-      .skip(query.skip || DB_DEFAULT_SKIP)
-      .sort(query.sort)
+      .findOne(mongoQuery.filter)
+      .select(mongoQuery.select)
+      .skip(mongoQuery.skip || DB_DEFAULT_SKIP)
+      .sort(mongoQuery.sort)
       .exec();
 
     if (!value) {
@@ -86,14 +90,16 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async findAll(
-    query: QueryParserOptions,
+    query: HttpQuerySchema,
   ): Promise<Array<{ _id: IDString } & Model>> {
+    const mongoQuery = this.mongoQueryConvertorService.parseMongoQuery(query);
+
     const value = await this.getAtom()
-      .find(query.filter)
-      .select(query.select)
-      .skip(query.skip || DB_DEFAULT_SKIP)
-      .limit(query.limit || DB_DEFAULT_LIMIT)
-      .sort(query.sort)
+      .find(mongoQuery.filter)
+      .select(mongoQuery.select)
+      .skip(mongoQuery.skip || DB_DEFAULT_SKIP)
+      .limit(mongoQuery.limit || DB_DEFAULT_LIMIT)
+      .sort(mongoQuery.sort)
       .exec();
 
     const result = value.map((value) => this.sourceToJSON(value));
@@ -101,8 +107,10 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return result;
   }
 
-  async count(query: QueryParserOptions): Promise<number> {
-    const value = await this.getAtom().find(query.filter).countDocuments();
+  async count(query: HttpQuerySchema): Promise<number> {
+    const mongoQuery = this.mongoQueryConvertorService.parseMongoQuery(query);
+
+    const value = await this.getAtom().find(mongoQuery.filter).countDocuments();
     return value;
   }
 

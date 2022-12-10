@@ -1,3 +1,5 @@
+import { HttpQuerySchema } from '@shukun/schema';
+
 // TODO: should be extract a shared lib
 type IDString = string;
 
@@ -18,26 +20,13 @@ interface UnknownSourceModel {
 }
 
 // TODO: should be extract a shared lib
-interface FilterQueryStringValues {
-  [electronName: string]: any;
-}
-
-// TODO: should be extract a shared lib
-type SortQueryStringType = 'descend' | 'ascend' | null | undefined;
-
-// TODO: should be extract a shared lib
-interface SortQueryStringValues {
-  [electronName: string]: SortQueryStringType;
-}
-
-// TODO: should be extract a shared lib
 interface SearchModel {
   viewName: string;
   totalCount: number;
   currentPage: number;
   pageSize: number;
-  filter: FilterQueryStringValues | null;
-  sort: SortQueryStringValues | null;
+  filter: NonNullable<HttpQuerySchema['filter']> | null;
+  sort: NonNullable<HttpQuerySchema['sort']> | null;
 }
 
 export enum PostMessageCustomModeType {

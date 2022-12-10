@@ -2,6 +2,7 @@ import { ViewV2FieldType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 
 import { BooleanFilter } from './boolean/BooleanFilter';
+import { DateTimeFilter } from './date-time/DateTimeFilter';
 import { IntegerFilter } from './integer/IntegerFilter';
 import { FilterFieldProps } from './interfaces';
 import { SingleSelectFilter } from './single-select/SingleSelectFilter';
@@ -38,9 +39,9 @@ export const FilterFieldFactory: FunctionComponent<FilterFieldProps> = (
     return <SingleSelectFilter {...props} />;
   }
 
-  // if (props.type === ViewV2FieldType.DateTime) {
-  //   return <DateTimeField {...props} />;
-  // }
+  if (props.type === ViewV2FieldType.DateTime) {
+    return <DateTimeFilter {...props} />;
+  }
 
   // if (props.type === ViewV2FieldType.Attachment) {
   //   return <AttachmentField {...props} />;

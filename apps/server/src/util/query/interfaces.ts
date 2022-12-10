@@ -1,8 +1,5 @@
 import { QueryOptions } from 'mongoose-query-parser';
 
-/**
- * @deprecated
- */
 export interface QueryResponse<ValueType> {
   value: ValueType;
   count?: number;

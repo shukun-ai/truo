@@ -1,10 +1,10 @@
 import { FormInstance } from 'antd';
 import { createContext } from 'react';
 
-import { FilterRawValues } from '../../../../services/table/model';
+import { SearchFilter } from '../../../../services/search';
 
 export interface FilterContextProps {
-  form: FormInstance<FilterRawValues> | null;
+  form: FormInstance<SearchFilter> | null;
 }
 
 export const FilterContext = createContext<FilterContextProps>({

@@ -373,6 +373,19 @@
     }
   },
   "definitions": {
+    "ViewBasicValue": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
     "ViewSearch": {
       "title": "ViewSearch",
       "description": "Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.",
@@ -381,8 +394,43 @@
         "totalCount": { "type": "number" },
         "currentPage": { "type": "number" },
         "pageSize": { "type": "number" },
-        "filter": { "type": ["object", "null"] },
-        "sort": { "type": ["object", "null"] }
+        "filter": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "type": "object",
+              "properties": {
+                "$eq": { "$ref": "#/definitions/ViewBasicValue" },
+                "$ne": { "$ref": "#/definitions/ViewBasicValue" },
+                "$gt": { "$ref": "#/definitions/ViewBasicValue" },
+                "$gte": { "$ref": "#/definitions/ViewBasicValue" },
+                "$lt": { "$ref": "#/definitions/ViewBasicValue" },
+                "$lte": { "$ref": "#/definitions/ViewBasicValue" },
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ViewBasicValue"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ViewBasicValue"
+                  }
+                },
+                "$like": { "type": "string" }
+              }
+            }
+          }
+        },
+        "sort": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "enum": ["asc", "desc"]
+            }
+          }
+        }
       }
     },
     "ViewV2FieldType": {

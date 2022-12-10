@@ -2,10 +2,8 @@ import { ViewSearch } from '@shukun/schema';
 
 import { merge } from 'lodash';
 
-import { FilterQueryStringValues, SortQueryStringValues } from '../table/model';
-
 import { defaultSearchValue } from './constant';
-import { SearchModel } from './model';
+import { SearchModel, SearchSort } from './model';
 import { SearchStore } from './store';
 
 export class SearchService {
@@ -70,33 +68,36 @@ export class SearchService {
   }
 
   async updateSearchFilter(
-    filter: FilterQueryStringValues,
+    filter: NonNullable<SearchModel['filter']>,
     viewSearch: ViewSearch | null,
   ) {
     this.searchStore.updateActive(() => ({
-      filter: merge({}, viewSearch?.filter, filter),
+      filter: {
+        ...viewSearch?.filter,
+        ...filter,
+      },
       currentPage: 1,
     }));
   }
 
-  async clearSearchFilter(viewSearch: ViewSearch | null) {
+  async resetSearchFilter(viewSearch: ViewSearch | null) {
     this.searchStore.updateActive(() => ({
-      filter: viewSearch?.filter as FilterQueryStringValues,
+      filter: viewSearch ? viewSearch.filter : null,
     }));
   }
 
-  async updateSearchSort(
-    sort: SortQueryStringValues,
-    viewSearch: ViewSearch | null,
-  ) {
+  async updateSearchSort(sort: SearchSort, viewSearch: ViewSearch | null) {
     this.searchStore.updateActive(() => ({
-      sort: merge({}, viewSearch?.sort, sort),
+      sort: {
+        ...viewSearch?.sort,
+        ...sort,
+      },
     }));
   }
 
-  async clearSearchSort(viewSearch: ViewSearch | null) {
+  async resetSearchSort(viewSearch: ViewSearch | null) {
     this.searchStore.updateActive(() => ({
-      sort: viewSearch?.sort as SortQueryStringValues,
+      sort: viewSearch ? viewSearch.sort : null,
     }));
   }
 
