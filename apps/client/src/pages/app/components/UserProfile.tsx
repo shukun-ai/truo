@@ -1,4 +1,4 @@
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, MenuProps } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { FunctionComponent, useMemo } from 'react';
 import { useHistory } from 'react-router';
@@ -13,24 +13,24 @@ export const UserProfile: FunctionComponent<UserProfileProps> = () => {
 
   const signInOrgPath = useOrgPath(RoutePath.SignIn);
 
-  const menu = useMemo(() => {
-    return (
-      <Menu>
-        <Menu.Item
-          danger
-          onClick={() => {
+  const menu = useMemo<MenuProps>(() => {
+    return {
+      items: [
+        {
+          label: '注销',
+          key: 'SignOut',
+          danger: true,
+          onClick: () => {
             history.push(signInOrgPath);
             sessionService.signOut();
-          }}
-        >
-          注销
-        </Menu.Item>
-      </Menu>
-    );
+          },
+        },
+      ],
+    };
   }, [history, signInOrgPath]);
 
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown menu={menu}>
       <Avatar
         size="small"
         style={{ backgroundColor: '#f56a00', cursor: 'pointer' }}
