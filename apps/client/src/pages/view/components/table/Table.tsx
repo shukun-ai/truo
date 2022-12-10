@@ -20,8 +20,8 @@ import {
   tableLoading$,
   tableService,
 } from '../../../../services/table';
-import { SortQueryStringType } from '../../../../services/table/model';
 import { initialState } from '../../../../services/table/store';
+import { convertAntdSortToSearchOrder } from '../../../../utils/ant-design/sortConverter';
 import { Filter } from '../filter/Filter';
 
 import { TableCustomActions } from './TableCustomActions';
@@ -76,14 +76,21 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
         return;
       }
 
+      if (!sorter.order) {
+        searchService.resetSearchSort(null);
+        return;
+      }
+
+      const order = convertAntdSortToSearchOrder(sorter.order);
+
       searchService.updateSearchSort(
         {
-          [sorter.field]: sorter.order as SortQueryStringType,
+          [sorter.field]: order,
         },
-        view.search ?? null,
+        null,
       );
     },
-    [view.search],
+    [],
   );
 
   const selectedIds = useObservableState(tableActiveIds$);

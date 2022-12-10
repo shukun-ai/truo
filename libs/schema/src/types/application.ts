@@ -304,8 +304,12 @@ export interface ViewSearch {
     };
   };
   sort?: {
-    [k: string]: unknown;
-  } | null;
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(\w)+$".
+     */
+    [k: string]: 'asc' | 'desc';
+  };
   [k: string]: unknown;
 }
 /**

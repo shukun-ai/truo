@@ -9,8 +9,12 @@ import { TableColumnsType, TableColumnType } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { useMemo } from 'react';
 
-import { defaultSearchValue, searchQuery } from '../../../../services/search';
-import { SortQueryStringValues } from '../../../../services/table/model';
+import {
+  defaultSearchValue,
+  searchQuery,
+  SearchSort,
+} from '../../../../services/search';
+import { convertSearchOrderToAntdSort } from '../../../../utils/ant-design/sortConverter';
 import { ColumnFieldFactory } from '../fields/ColumnFieldFactory';
 
 const INTERNAL_ELECTRON_NAMES = ['_id', 'updatedAt', 'createdAt'];
@@ -60,7 +64,7 @@ function createElectronColumn(
   metadata: MetadataSchema,
   viewColumn: ViewV2Column,
   electron: MetadataElectron,
-  sort: SortQueryStringValues | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
+  sort: SearchSort | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
 ): TableColumnType<UnknownSourceModel> {
   const sortValue = sort ? sort[electron.name] : null;
 
@@ -69,7 +73,7 @@ function createElectronColumn(
     dataIndex: viewColumn.electronName,
     key: viewColumn.name,
     sorter: true,
-    sortOrder: sortValue ? sortValue : undefined,
+    sortOrder: sortValue ? convertSearchOrderToAntdSort(sortValue) : undefined,
     render: (value, row) => [
       <ColumnFieldFactory
         key={viewColumn.name}
@@ -97,7 +101,7 @@ function createInternalColumn(
   metadata: MetadataSchema,
   viewColumn: ViewV2Column,
   electronName: string,
-  sort: SortQueryStringValues | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
+  sort: SearchSort | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
 ): TableColumnType<UnknownSourceModel> {
   const sortValue = sort ? sort[electronName] : null;
 
@@ -106,7 +110,7 @@ function createInternalColumn(
     dataIndex: viewColumn.electronName,
     key: viewColumn.name,
     sorter: true,
-    sortOrder: sortValue ? sortValue : undefined,
+    sortOrder: sortValue ? convertSearchOrderToAntdSort(sortValue) : undefined,
     render: (value, row) => [
       <ColumnFieldFactory
         key={viewColumn.name}
