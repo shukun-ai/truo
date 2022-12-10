@@ -57,7 +57,7 @@ export const DateTimeFilterInput: FunctionComponent<
         };
         onChange(value);
       } else {
-        onChange(null);
+        onChange(undefined);
       }
     },
     [onChange],
