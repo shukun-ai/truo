@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { CodeResolver } from '@shukun/code-resolver';
+import { HttpQuerySchema } from '@shukun/schema';
 import { NodeVM } from 'vm2';
 
 import { IDString, SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
-import { QueryParserOptions } from '../../util/query/interfaces';
 
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
 import { InputOrOutput } from '../../util/workflow/types';
@@ -64,19 +64,19 @@ export class CodeResolverService implements Resolver {
   createScope(orgName: string, operatorId?: IDString) {
     const scope: CodeResolver = {
       source: {
-        findAll: async (atomName: string, query: QueryParserOptions) => {
+        findAll: async (atomName: string, query: HttpQuerySchema) => {
           return await this.sourceService.findAll(orgName, atomName, query);
         },
 
-        findOne: async (atomName: string, query: QueryParserOptions) => {
+        findOne: async (atomName: string, query: HttpQuerySchema) => {
           return await this.sourceService.findOne(orgName, atomName, query);
         },
 
-        createOne: async (atomName: string, data: SourceServiceCreateDto) => {
+        createOne: async <T>(atomName: string, data: T) => {
           const entity = await this.sourceService.createOne(
             orgName,
             atomName,
-            data,
+            data as unknown as SourceServiceCreateDto,
             operatorId || null,
           );
           return {
@@ -84,16 +84,16 @@ export class CodeResolverService implements Resolver {
           };
         },
 
-        updateOne: async (
+        updateOne: async <T>(
           id: IDString,
           atomName: string,
-          data: SourceServiceCreateDto,
+          data: Partial<T>,
         ) => {
           return await this.sourceService.updateOne(
             id,
             orgName,
             atomName,
-            data,
+            data as unknown as Partial<SourceServiceCreateDto>,
           );
         },
 
@@ -101,7 +101,7 @@ export class CodeResolverService implements Resolver {
           return await this.sourceService.deleteOne(id, orgName, atomName);
         },
 
-        count: async (atomName: string, query: QueryParserOptions) => {
+        count: async (atomName: string, query: HttpQuerySchema) => {
           return await this.sourceService.count(orgName, atomName, query);
         },
 

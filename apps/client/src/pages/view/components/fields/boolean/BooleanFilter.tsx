@@ -1,5 +1,10 @@
-import { Form, Select } from 'antd';
-import React, { FunctionComponent } from 'react';
+import { Form, Select, SelectProps } from 'antd';
+import React, { FunctionComponent, useCallback, useMemo } from 'react';
+
+import {
+  ExtractFormItem,
+  ExtractFormItemProps,
+} from '../../../../../components/form/ExtractFormItem';
 
 import { FilterFieldProps } from '../interfaces';
 
@@ -8,6 +13,8 @@ export enum BooleanChoose {
   No = 'No',
 }
 
+export type BooleanFilterInputValue = { $eq?: boolean; $ne?: boolean };
+
 export const BooleanFilter: FunctionComponent<FilterFieldProps> = ({
   label,
   electronName,
@@ -15,10 +22,54 @@ export const BooleanFilter: FunctionComponent<FilterFieldProps> = ({
 }) => {
   return (
     <Form.Item label={label} name={electronName} tooltip={tip}>
-      <Select style={{ minWidth: 80 }}>
-        <Select.Option value={BooleanChoose.Yes}>是</Select.Option>
-        <Select.Option value={BooleanChoose.No}>否</Select.Option>
-      </Select>
+      <ExtractFormItem<BooleanFilterInputValue>>
+        {({ value, onChange, id }) => (
+          <BooleanFilterInput id={id} value={value} onChange={onChange} />
+        )}
+      </ExtractFormItem>
     </Form.Item>
+  );
+};
+
+export const BooleanFilterInput: FunctionComponent<
+  ExtractFormItemProps<BooleanFilterInputValue>
+> = ({ id, value, onChange }) => {
+  const parsedValue = useMemo(() => {
+    if (!value) {
+      return undefined;
+    } else if (value.$eq === true) {
+      return BooleanChoose.Yes;
+    } else if (value.$ne === true) {
+      return BooleanChoose.No;
+    } else {
+      return undefined;
+    }
+  }, [value]);
+
+  const handleChange = useCallback<NonNullable<SelectProps['onChange']>>(
+    (value) => {
+      onChange(
+        value === BooleanChoose.Yes
+          ? {
+              $eq: true,
+            }
+          : {
+              $ne: true,
+            },
+      );
+    },
+    [onChange],
+  );
+
+  return (
+    <Select
+      id={id}
+      value={parsedValue as string}
+      onChange={handleChange}
+      style={{ minWidth: 80 }}
+    >
+      <Select.Option value={BooleanChoose.Yes}>是</Select.Option>
+      <Select.Option value={BooleanChoose.No}>否</Select.Option>
+    </Select>
   );
 };

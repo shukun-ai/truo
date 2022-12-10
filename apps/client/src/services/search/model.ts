@@ -1,10 +1,26 @@
-import { FilterQueryStringValues, SortQueryStringValues } from '../table/model';
+import { QueryFilterBasicValue, ViewSearch } from '@shukun/schema';
 
 export interface SearchModel {
   viewName: string;
   totalCount: number;
   currentPage: number;
   pageSize: number;
-  filter: FilterQueryStringValues | null;
-  sort: SortQueryStringValues | null;
+  filter: SearchFilter | null;
+  sort: SearchSort | null;
 }
+
+export interface SearchFilter {
+  [electronName: string]: {
+    $eq?: QueryFilterBasicValue;
+    $ne?: QueryFilterBasicValue;
+    $gt?: QueryFilterBasicValue;
+    $gte?: QueryFilterBasicValue;
+    $lt?: QueryFilterBasicValue;
+    $lte?: QueryFilterBasicValue;
+    $in?: QueryFilterBasicValue[];
+    $nin?: QueryFilterBasicValue[];
+    $like?: string;
+  };
+}
+
+export type SearchSort = NonNullable<ViewSearch['sort']>;

@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { HttpQuerySchema, QueryFilter } from '@shukun/schema';
 
-import { SourceNextStandardService } from '../../source/source-next-standard.service';
+import { SourceService } from '../../source/source.service';
 
 @Injectable()
 export class SourceForeignQueryService {
   @Inject()
-  private readonly sourceNextStandardService!: SourceNextStandardService<unknown>;
+  private readonly sourceService!: SourceService<unknown>;
 
   async prepareForeignQuery(
     orgName: string,
@@ -70,11 +70,7 @@ export class SourceForeignQueryService {
       query.filter ?? {},
     );
 
-    const entities = await this.sourceNextStandardService.findAll(
-      orgName,
-      atomName,
-      query,
-    );
+    const entities = await this.sourceService.findAll(orgName, atomName, query);
 
     return entities;
   }
@@ -84,10 +80,7 @@ export class SourceForeignQueryService {
     atomName: string,
     electronName: string,
   ): Promise<string> {
-    const metadata = await this.sourceNextStandardService.getMetadata(
-      orgName,
-      atomName,
-    );
+    const metadata = await this.sourceService.getMetadata(orgName, atomName);
 
     const electron = metadata.electrons.find(
       (electron) => electron.name === electronName,

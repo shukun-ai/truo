@@ -8,10 +8,9 @@ import {
   defaultSearchValue,
   searchService,
   searchQuery,
+  SearchFilter,
 } from '../../../../services/search';
-import { FilterRawValues } from '../../../../services/table/model';
 
-import { convertQueryStringToRaw, convertRawToQueryString } from './converter';
 import { FilterContext } from './FilterContext';
 import { FilterFormItem } from './FilterFormItem';
 
@@ -31,15 +30,7 @@ export const Filter: FunctionComponent<FilterProps> = ({
     defaultSearchValue.filter,
   );
 
-  const [form] = Form.useForm<FilterRawValues>();
-
-  const formValues = useMemo(() => {
-    if (!filters) {
-      return undefined;
-    }
-    const formValues = convertQueryStringToRaw(filters, metadata, viewColumns);
-    return formValues;
-  }, [filters, metadata, viewColumns]);
+  const [form] = Form.useForm<SearchFilter>();
 
   const visibleViewColumns = useMemo(() => {
     return viewColumns.filter((item) => !item.filterHidden);
@@ -47,26 +38,26 @@ export const Filter: FunctionComponent<FilterProps> = ({
 
   useDebounceEffect(
     () => {
-      if (formValues) {
-        form.setFieldsValue(formValues);
+      if (filters) {
+        form.resetFields();
+        form.setFieldsValue(filters);
       } else {
         form.resetFields();
       }
     },
-    [form, formValues],
+    [form, filters],
     { wait: 100 },
   );
 
   const handleFinish = useCallback(
-    (values: FilterRawValues) => {
-      const filters = convertRawToQueryString(values, metadata, viewColumns);
-      searchService.updateSearchFilter(filters, viewSearch ?? null);
+    (values: SearchFilter) => {
+      searchService.updateSearchFilter(values, viewSearch ?? null);
     },
-    [metadata, viewColumns, viewSearch],
+    [viewSearch],
   );
 
   const handleReset = useCallback(() => {
-    searchService.clearSearchFilter(viewSearch ?? null);
+    searchService.resetSearchFilter(viewSearch ?? null);
   }, [viewSearch]);
 
   if (visibleViewColumns.length === 0) {
@@ -76,11 +67,7 @@ export const Filter: FunctionComponent<FilterProps> = ({
 
   return (
     <FilterContext.Provider value={{ form }}>
-      <Form<FilterRawValues>
-        form={form}
-        layout="inline"
-        onFinish={handleFinish}
-      >
+      <Form<SearchFilter> form={form} layout="inline" onFinish={handleFinish}>
         {visibleViewColumns.map((viewColumn) => (
           <div key={viewColumn.name} style={{ marginBottom: 8 }}>
             <FilterFormItem metadata={metadata} viewColumn={viewColumn} />

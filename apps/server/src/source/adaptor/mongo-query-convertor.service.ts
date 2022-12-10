@@ -1,35 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HttpQuerySchema } from '@shukun/schema';
 
-import { QueryParserOptions } from '../util/query/interfaces';
-
-import { SourceService } from './source.service';
+import { QueryParserOptions } from '../../util/query/interfaces';
 
 @Injectable()
-export class SourceNextStandardService<Model> {
-  @Inject()
-  private readonly sourceService!: SourceService<Model>;
-
-  async getMetadata(orgName: string, atomName: string) {
-    return this.sourceService.getMetadata(orgName, atomName);
-  }
-
-  async findAll(orgName: string, atomName: string, query: HttpQuerySchema) {
-    return this.sourceService.findAll(
-      orgName,
-      atomName,
-      this.parseMongoQuery(query),
-    );
-  }
-
-  async count(orgName: string, atomName: string, query: HttpQuerySchema) {
-    return this.sourceService.count(
-      orgName,
-      atomName,
-      this.parseMongoQuery(query),
-    );
-  }
-
+export class MongoQueryConvertorService {
   parseMongoQuery(query: HttpQuerySchema): QueryParserOptions {
     const mongoQuery: QueryParserOptions = {
       filter: this.parseMongoFilter(query.filter),
@@ -43,7 +18,7 @@ export class SourceNextStandardService<Model> {
     return mongoQuery;
   }
 
-  parseMongoFilter(
+  protected parseMongoFilter(
     filter: HttpQuerySchema['filter'],
   ): QueryParserOptions['filter'] {
     if (!filter) {
@@ -76,7 +51,7 @@ export class SourceNextStandardService<Model> {
     return newFilter;
   }
 
-  parseMongoSelect(select: { [k: string]: boolean } | undefined): {
+  protected parseMongoSelect(select: { [k: string]: boolean } | undefined): {
     [k: string]: 0 | 1;
   } {
     const newSelect: { [k: string]: 0 | 1 } = {};
@@ -92,17 +67,17 @@ export class SourceNextStandardService<Model> {
     return newSelect;
   }
 
-  parseMongoSort(sort: { [k: string]: 'asc' | 'desc' } | undefined): {
-    [k: string]: 0 | 1;
+  protected parseMongoSort(sort: { [k: string]: 'asc' | 'desc' } | undefined): {
+    [k: string]: -1 | 1;
   } {
-    const newSort: { [k: string]: 0 | 1 } = {};
+    const newSort: { [k: string]: -1 | 1 } = {};
 
     if (!sort) {
       return newSort;
     }
 
     for (const [key, value] of Object.entries(sort)) {
-      newSort[key] = value === 'asc' ? 0 : 1;
+      newSort[key] = value === 'asc' ? 1 : -1;
     }
 
     return newSort;
