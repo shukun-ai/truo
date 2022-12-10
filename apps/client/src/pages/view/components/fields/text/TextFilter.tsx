@@ -51,7 +51,7 @@ export const TextFilterInput: FunctionComponent<
           ? {
               $like: value,
             }
-          : null,
+          : undefined,
       );
     },
     [onChange],

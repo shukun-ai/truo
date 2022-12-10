@@ -1,6 +1,6 @@
 export type ExtractFormItemProps<FieldValue> = {
   value: FieldValue | undefined;
-  onChange: (value: FieldValue | null) => void;
+  onChange: (value: FieldValue | undefined) => void;
   id: string;
 };
 
