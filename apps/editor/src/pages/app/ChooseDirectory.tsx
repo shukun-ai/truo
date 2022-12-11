@@ -27,8 +27,6 @@ export const ChooseDirectory: FunctionComponent<ChooseDirectoryProps> = () => {
     );
 
     metadataCommand.set(metadata);
-
-    console.log('metadata', metadata);
   }, []);
 
   const handleSave = useCallback(async () => {
