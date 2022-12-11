@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventSourceCreate",
+  "type": "object",
+  "required": ["type", "atomName", "data"],
+  "properties": {
+    "type": { "const": "SourceCreate" },
+    "atomName": { "type": "string" },
+    "data": { "type": "object" }
+  }
+}

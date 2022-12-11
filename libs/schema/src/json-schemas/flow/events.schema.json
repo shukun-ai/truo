@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEvents",
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 1,
+  "patternProperties": {
+    "^(\\w)+$": {
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "event/success.schema.json"
+        },
+        {
+          "$ref": "event/fail.schema.json"
+        },
+        {
+          "$ref": "event/source-query.schema.json"
+        },
+        {
+          "$ref": "event/source-create.schema.json"
+        },
+        {
+          "$ref": "event/source-update.schema.json"
+        },
+        {
+          "$ref": "event/source-delete.schema.json"
+        },
+        {
+          "$ref": "event/source-add-to-many.schema.json"
+        },
+        {
+          "$ref": "event/source-remove-from-many.schema.json"
+        },
+        {
+          "$ref": "event/source-increase.schema.json"
+        },
+        {
+          "$ref": "event/choice.schema.json"
+        },
+        {
+          "$ref": "event/repeat.schema.json"
+        }
+      ]
+    }
+  }
+}
