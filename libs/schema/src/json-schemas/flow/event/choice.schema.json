@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventChoice",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["next", "condition", "description"],
+    "properties": {
+      "next": { "type": "string" },
+      "condition": { "type": "string" },
+      "description": { "type": "string" }
+    }
+  }
+}

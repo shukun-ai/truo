@@ -22,6 +22,9 @@ export const viewSchema = require('./json-schemas/view.schema.json');
 export const workflowSchema = require('./json-schemas/workflow.schema.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+export const flowSchema = require('./json-schemas/flow.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 export const workflowCatchesSchema = require('./json-schemas/workflows/catches.schema.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -47,3 +50,15 @@ export const workflowRetriesSchema = require('./json-schemas/workflows/retries.s
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const workflowTaskStateSchema = require('./json-schemas/workflows/task-state.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventSuccessSchema = require('./json-schemas/flow/event/success.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventFailSchema = require('./json-schemas/flow/event/fail.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventSourceQuerySchema = require('./json-schemas/flow/event/source-query.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventChoiceSchema = require('./json-schemas/flow/event/choice.schema.json');

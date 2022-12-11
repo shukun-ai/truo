@@ -17,6 +17,11 @@ import {
   workflowPassStateSchema,
   workflowRetriesSchema,
   workflowTaskStateSchema,
+  flowSchema,
+  FlowEventChoiceSchema,
+  FlowEventSuccessSchema,
+  FlowEventFailSchema,
+  FlowEventSourceQuerySchema,
 } from '../../json-exports';
 
 export function createAjv(options?: Options) {
@@ -44,7 +49,9 @@ export function createAjv(options?: Options) {
     .addSchema(viewSchema, 'view.schema.json')
     .addSchema(roleSchema, 'role.schema.json')
     .addSchema(workflowSchema, 'workflow.schema.json')
+    .addSchema(flowSchema, 'flow.schema.json')
     .addSchema(ruleEngineSchema, 'utils/rule-engine.schema.json')
+    // Workflow subordinates
     .addSchema(
       workflowConfigurationsSchema,
       'workflows/configurations.schema.json',
@@ -56,7 +63,15 @@ export function createAjv(options?: Options) {
     .addSchema(workflowFailStateSchema, 'workflows/fail-state.schema.json')
     .addSchema(workflowPassStateSchema, 'workflows/pass-state.schema.json')
     .addSchema(workflowRetriesSchema, 'workflows/retries.schema.json')
-    .addSchema(workflowTaskStateSchema, 'workflows/task-state.schema.json');
+    .addSchema(workflowTaskStateSchema, 'workflows/task-state.schema.json')
+    // Flow subordinates
+    .addSchema(FlowEventSuccessSchema, 'flow/event/success.schema.json')
+    .addSchema(FlowEventFailSchema, 'flow/event/fail.schema.json')
+    .addSchema(
+      FlowEventSourceQuerySchema,
+      'flow/event/source-query.schema.json',
+    )
+    .addSchema(FlowEventChoiceSchema, 'flow/event/choice.schema.json');
 
   return validate;
 }
