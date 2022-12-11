@@ -4,8 +4,9 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": ["next", "startEventName", "events", "description"],
+    "required": ["type", "next", "startEventName", "events", "description"],
     "properties": {
+      "type": { "const": "Repeat" },
       "next": { "type": "string" },
       "startEventName": { "type": "string" },
       "events": {

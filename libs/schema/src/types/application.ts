@@ -71,12 +71,14 @@ export type WorkflowChoices = (WorkflowComparison & {
   [k: string]: unknown;
 })[];
 export type FlowEventChoice = {
+  type: 'Choice';
   next: string;
   condition: string;
   description: string;
   [k: string]: unknown;
 }[];
 export type FlowEventRepeat = {
+  type: 'Repeat';
   next: string;
   startEventName: string;
   events: FlowEvents;
@@ -691,6 +693,7 @@ export interface FlowEventFail {
 }
 export interface FlowEventSourceQuery {
   type: 'SourceQuery';
+  next: string;
   atomName: string;
   query: {
     filter?: FlowEventSourceQueryFilter;
@@ -741,6 +744,7 @@ export interface FlowEventSourceQueryFilterExpression {
 }
 export interface FlowEventSourceCreate {
   type: 'SourceCreate';
+  next: string;
   atomName: string;
   data: {
     [k: string]: unknown;
@@ -749,6 +753,7 @@ export interface FlowEventSourceCreate {
 }
 export interface FlowEventSourceUpdate {
   type: 'SourceUpdate';
+  next: string;
   atomName: string;
   id: string;
   data: {
@@ -758,12 +763,14 @@ export interface FlowEventSourceUpdate {
 }
 export interface FlowEventSourceDelete {
   type: 'SourceDelete';
+  next: string;
   atomName: string;
   id: string;
   [k: string]: unknown;
 }
 export interface FlowEventSourceAddToMany {
   type: 'SourceAddToMany';
+  next: string;
   atomName: string;
   id: string;
   electronName: string;
@@ -772,6 +779,7 @@ export interface FlowEventSourceAddToMany {
 }
 export interface FlowEventSourceRemoveFromMany {
   type: 'SourceRemoveFromMany';
+  next: string;
   atomName: string;
   id: string;
   electronName: string;
@@ -780,6 +788,7 @@ export interface FlowEventSourceRemoveFromMany {
 }
 export interface FlowEventSourceIncrease {
   type: 'SourceIncrease';
+  next: string;
   atomName: string;
   id: string;
   electronName: string;
