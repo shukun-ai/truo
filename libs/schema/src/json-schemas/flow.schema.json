@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowSchema",
+  "description": "Describe Flow Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "description": {
+      "type": "string"
+    },
+    "parameters": {},
+    "startEventName": {
+      "type": "string"
+    },
+    "events": {
+      "title": "FlowEvents",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "object",
+          "oneOf": [
+            {
+              "$ref": "flow/event/success.schema.json"
+            },
+            {
+              "$ref": "flow/event/fail.schema.json"
+            },
+            {
+              "$ref": "flow/event/source-query.schema.json"
+            },
+            {
+              "$ref": "#/definitions/FlowEventSourceCreate"
+            },
+            {
+              "$ref": "#/definitions/FlowEventSourceUpdate"
+            },
+            {
+              "$ref": "#/definitions/FlowEventSourceDelete"
+            },
+            {
+              "$ref": "#/definitions/FlowEventSourceAddToMany"
+            },
+            {
+              "$ref": "#/definitions/FlowEventSourceRemoveFromMany"
+            },
+            {
+              "$ref": "#/definitions/FlowEventSourceIncrease"
+            },
+            {
+              "$ref": "flow/event/choice.schema.json"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "FlowEventSourceCreate": {
+      "title": "FlowEventSourceCreate",
+      "type": "object",
+      "required": ["type", "atomName", "data"],
+      "properties": {
+        "type": { "const": "SourceCreate" },
+        "atomName": { "type": "string" },
+        "data": { "type": "object" }
+      }
+    },
+    "FlowEventSourceUpdate": {
+      "title": "FlowEventSourceUpdate",
+      "type": "object",
+      "required": ["type", "atomName", "id", "data"],
+      "properties": {
+        "type": { "const": "SourceUpdate" },
+        "atomName": { "type": "string" },
+        "id": { "type": "string" },
+        "data": { "type": "object" }
+      }
+    },
+    "FlowEventSourceDelete": {
+      "title": "FlowEventSourceDelete",
+      "type": "object",
+      "required": ["type", "atomName", "id"],
+      "properties": {
+        "type": { "const": "SourceDelete" },
+        "atomName": { "type": "string" },
+        "id": { "type": "string" }
+      }
+    },
+    "FlowEventSourceAddToMany": {
+      "title": "FlowEventSourceAddToMany",
+      "type": "object",
+      "required": ["type", "atomName", "id", "electronName", "foreignId"],
+      "properties": {
+        "type": { "const": "SourceAddToMany" },
+        "atomName": { "type": "string" },
+        "id": { "type": "string" },
+        "electronName": { "type": "string" },
+        "foreignId": { "type": "string" }
+      }
+    },
+    "FlowEventSourceRemoveFromMany": {
+      "title": "FlowEventSourceRemoveFromMany",
+      "type": "object",
+      "required": ["type", "atomName", "id", "electronName", "foreignId"],
+      "properties": {
+        "type": { "const": "SourceRemoveFromMany" },
+        "atomName": { "type": "string" },
+        "id": { "type": "string" },
+        "electronName": { "type": "string" },
+        "foreignId": { "type": "string" }
+      }
+    },
+    "FlowEventSourceIncrease": {
+      "title": "FlowEventSourceIncrease",
+      "type": "object",
+      "required": ["type", "atomName", "id", "electronName", "increment"],
+      "properties": {
+        "type": { "const": "SourceIncrease" },
+        "atomName": { "type": "string" },
+        "id": { "type": "string" },
+        "electronName": { "type": "string" },
+        "increment": { "type": "string" }
+      }
+    }
+  }
+}
