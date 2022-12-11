@@ -4,8 +4,9 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": ["next", "condition", "description"],
+    "required": ["type", "next", "condition", "description"],
     "properties": {
+      "type": { "const": "Choice" },
       "next": { "type": "string" },
       "condition": { "type": "string" },
       "description": { "type": "string" }
