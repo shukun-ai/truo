@@ -76,6 +76,13 @@ export type FlowEventChoice = {
   description: string;
   [k: string]: unknown;
 }[];
+export type FlowEventRepeat = {
+  next: string;
+  startEventName: string;
+  events: FlowEvents;
+  description: string;
+  [k: string]: unknown;
+}[];
 export type RoleAttribute = string;
 
 /**
@@ -663,7 +670,8 @@ export interface FlowEvents {
     | FlowEventSourceAddToMany
     | FlowEventSourceRemoveFromMany
     | FlowEventSourceIncrease
-    | FlowEventChoice;
+    | FlowEventChoice
+    | FlowEventRepeat;
 }
 export interface FlowEventSuccess {
   type: 'Success';

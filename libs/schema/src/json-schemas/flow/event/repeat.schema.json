@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventRepeat",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["next", "startEventName", "events", "description"],
+    "properties": {
+      "next": { "type": "string" },
+      "startEventName": { "type": "string" },
+      "events": {
+        "$ref": "../events.schema.json"
+      },
+      "description": { "type": "string" }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventSourceRemoveFromMany",
+  "type": "object",
+  "required": ["type", "atomName", "id", "electronName", "foreignId"],
+  "properties": {
+    "type": { "const": "SourceRemoveFromMany" },
+    "atomName": { "type": "string" },
+    "id": { "type": "string" },
+    "electronName": { "type": "string" },
+    "foreignId": { "type": "string" }
+  }
+}
