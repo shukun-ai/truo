@@ -2,7 +2,8 @@ import { FlowEvents } from '@shukun/schema';
 
 import { SandboxService } from '../sandbox/sandbox.service';
 
-import { ResolverContext } from './interface';
+import { ResolverContext } from './flow.interface';
+
 import { NestedEventService } from './nested-event.service';
 import { ResolverService } from './resolver.service';
 

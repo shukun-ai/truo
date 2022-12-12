@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { NodeVM } from 'vm2';
 
-import { ResolverContext } from '../flow/interface';
+import { ResolverContext } from '../flow/flow.interface';
+
+import { SandboxVMScope } from './sandbox.interface';
 
 @Injectable()
 export class SandboxService {
@@ -9,7 +12,20 @@ export class SandboxService {
     input: unknown,
     context: ResolverContext,
   ): Promise<unknown> {
-    // TODO implement this method.
-    return 3;
+    const vm = new NodeVM();
+    const exports = vm.run(compiledCode);
+    const output = await exports.default(this.prepareVMScope(input, context));
+    return output;
+  }
+
+  prepareVMScope(input: unknown, context: ResolverContext): SandboxVMScope {
+    const vmScope: SandboxVMScope = {
+      input,
+      index: context.index,
+      env: context.environment,
+      math: Math,
+    };
+
+    return vmScope;
   }
 }

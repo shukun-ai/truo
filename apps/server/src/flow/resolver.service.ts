@@ -6,7 +6,7 @@ import { SandboxService } from '../sandbox/sandbox.service';
 import { FlowDefinitionException } from './exceptions/flow-definition-exception';
 import { FlowNoCompiledCodeException } from './exceptions/flow-no-compiled-code-exception';
 import { FlowRepeatCountException } from './exceptions/flow-repeat-count-exception';
-import { ResolverContext } from './interface';
+import { ResolverContext } from './flow.interface';
 import { NestedEventService } from './nested-event.service';
 
 @Injectable()
