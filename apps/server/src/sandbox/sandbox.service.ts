@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { ResolverContext } from './interface';
+import { ResolverContext } from '../flow/interface';
 
 @Injectable()
-export class VMService {
+export class SandboxService {
   async executeVM(
     compiledCode: string,
     input: unknown,

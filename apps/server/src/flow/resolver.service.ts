@@ -1,18 +1,19 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { FlowEvent, FlowEventRepeat, FlowEvents } from '@shukun/schema';
 
+import { SandboxService } from '../sandbox/sandbox.service';
+
 import { FlowDefinitionException } from './exceptions/flow-definition-exception';
 import { FlowNoCompiledCodeException } from './exceptions/flow-no-compiled-code-exception';
 import { FlowRepeatCountException } from './exceptions/flow-repeat-count-exception';
 import { ResolverContext } from './interface';
 import { NestedEventService } from './nested-event.service';
-import { VMService } from './vm.service';
 
 @Injectable()
 export class ResolverService {
   constructor(
     @Inject() private readonly nestedEventService: NestedEventService,
-    @Inject() private readonly vmService: VMService,
+    @Inject() private readonly sandboxService: SandboxService,
   ) {}
 
   async executeEvent(
@@ -129,6 +130,6 @@ export class ResolverService {
     input: unknown,
     context: ResolverContext,
   ): Promise<unknown> {
-    return await this.vmService.executeVM(compiledCode, input, context);
+    return await this.sandboxService.executeVM(compiledCode, input, context);
   }
 }

@@ -7,7 +7,7 @@ import { ResolverContext } from './interface';
 import { ResolverService } from './resolver.service';
 
 @Injectable()
-export class ExecutorService {
+export class FlowService {
   constructor(
     @Inject() private readonly definitionService: DefinitionService,
     @Inject() private readonly compiledCodeService: CompiledCodeService,
