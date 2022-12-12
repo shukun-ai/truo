@@ -1,4 +1,4 @@
-import { ExceptionStatus } from '../constants';
+import { ExceptionStatus } from '../flow.constants';
 
 export class FlowDefinitionException extends Error {
   constructor(message?: string) {

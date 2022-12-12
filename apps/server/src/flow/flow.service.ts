@@ -3,7 +3,7 @@ import { FlowSchema } from '@shukun/schema';
 
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
-import { ResolverContext } from './interface';
+import { ResolverContext } from './flow.interface';
 import { ResolverService } from './resolver.service';
 
 @Injectable()
