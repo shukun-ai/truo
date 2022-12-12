@@ -1,25 +1,26 @@
 import { FlowEvents } from '@shukun/schema';
 
+import { SandboxService } from '../sandbox/sandbox.service';
+
 import { ResolverContext } from './interface';
 import { NestedEventService } from './nested-event.service';
 import { ResolverService } from './resolver.service';
-import { VMService } from './vm.service';
 
 describe('ResolverService', () => {
   let resolverService: ResolverService;
   let nestedEventService: NestedEventService;
-  let vmService: VMService;
+  let sandboxService: SandboxService;
 
   beforeEach(() => {
     nestedEventService = new NestedEventService();
-    vmService = new VMService();
+    sandboxService = new SandboxService();
 
-    resolverService = new ResolverService(nestedEventService, vmService);
+    resolverService = new ResolverService(nestedEventService, sandboxService);
   });
 
   describe('ExecuteEvents', () => {
     it('should return 3', async () => {
-      jest.spyOn(vmService, 'executeVM').mockImplementation(async () => 3);
+      jest.spyOn(sandboxService, 'executeVM').mockImplementation(async () => 3);
 
       const startEventName = 'test';
       const events: FlowEvents = {
@@ -52,7 +53,7 @@ describe('ResolverService', () => {
     });
 
     it('should return 3', async () => {
-      jest.spyOn(vmService, 'executeVM').mockImplementation(async () => 3);
+      jest.spyOn(sandboxService, 'executeVM').mockImplementation(async () => 3);
 
       const startEventName = 'test';
       const events: FlowEvents = {
