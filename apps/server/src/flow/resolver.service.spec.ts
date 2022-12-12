@@ -1,6 +1,7 @@
 import { FlowEvents } from '@shukun/schema';
 
 import { SandboxService } from '../sandbox/sandbox.service';
+import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
 
 import { ResolverContext } from './flow.interface';
 
@@ -14,7 +15,7 @@ describe('ResolverService', () => {
 
   beforeEach(() => {
     nestedEventService = new NestedEventService();
-    sandboxService = new SandboxService();
+    sandboxService = new SandboxService(mockEmptyDependencies());
 
     resolverService = new ResolverService(nestedEventService, sandboxService);
   });

@@ -1,3 +1,5 @@
+import { SourceResolverService } from './resolvers/source-resolver.service';
+
 export interface SandboxContext {
   index: number;
   store: object;
@@ -14,4 +16,5 @@ export interface SandboxVMScope {
   index: number;
   env: object;
   math: Math;
+  sourceResolver: SourceResolverService;
 }
