@@ -70,21 +70,22 @@ export type WorkflowChoices = (WorkflowComparison & {
   next: string;
   [k: string]: unknown;
 })[];
-export type FlowEventChoice = {
-  type: 'Choice';
-  next: string;
-  condition: string;
-  description: string;
-  [k: string]: unknown;
-}[];
-export type FlowEventRepeat = {
-  type: 'Repeat';
-  next: string;
-  startEventName: string;
-  events: FlowEvents;
-  description: string;
-  [k: string]: unknown;
-}[];
+/**
+ * This interface was referenced by `FlowEvents`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export type FlowEvent =
+  | FlowEventSuccess
+  | FlowEventFail
+  | FlowEventSourceQuery
+  | FlowEventSourceCreate
+  | FlowEventSourceUpdate
+  | FlowEventSourceDelete
+  | FlowEventSourceAddToMany
+  | FlowEventSourceRemoveFromMany
+  | FlowEventSourceIncrease
+  | FlowEventChoice
+  | FlowEventRepeat;
 export type RoleAttribute = string;
 
 /**
@@ -653,27 +654,23 @@ export interface FlowSchema {
   $schema?: string;
   name: string;
   description?: string;
-  parameters?: unknown;
-  startEventName?: string;
-  events?: FlowEvents;
+  /**
+   * The input JSON Schema Rule
+   */
+  input: {
+    [k: string]: unknown;
+  };
+  /**
+   * The output JSON Schema Rule
+   */
+  output: {
+    [k: string]: unknown;
+  };
+  startEventName: string;
+  events: FlowEvents;
 }
 export interface FlowEvents {
-  /**
-   * This interface was referenced by `FlowEvents`'s JSON-Schema definition
-   * via the `patternProperty` "^(\w)+$".
-   */
-  [k: string]:
-    | FlowEventSuccess
-    | FlowEventFail
-    | FlowEventSourceQuery
-    | FlowEventSourceCreate
-    | FlowEventSourceUpdate
-    | FlowEventSourceDelete
-    | FlowEventSourceAddToMany
-    | FlowEventSourceRemoveFromMany
-    | FlowEventSourceIncrease
-    | FlowEventChoice
-    | FlowEventRepeat;
+  [k: string]: FlowEvent;
 }
 export interface FlowEventSuccess {
   type: 'Success';
@@ -793,6 +790,26 @@ export interface FlowEventSourceIncrease {
   id: string;
   electronName: string;
   increment: string;
+  [k: string]: unknown;
+}
+export interface FlowEventChoice {
+  type: 'Choice';
+  next: string;
+  conditions: {
+    condition?: string;
+    eventName?: string;
+    description?: string;
+    [k: string]: unknown;
+  }[];
+  [k: string]: unknown;
+}
+export interface FlowEventRepeat {
+  type: 'Repeat';
+  next: string;
+  repeatCount: string;
+  startEventName: string;
+  events: FlowEvents;
+  description: string;
   [k: string]: unknown;
 }
 /**

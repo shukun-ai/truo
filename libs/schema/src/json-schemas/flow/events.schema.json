@@ -6,6 +6,7 @@
   "minProperties": 1,
   "patternProperties": {
     "^(\\w)+$": {
+      "title": "FlowEvent",
       "type": "object",
       "oneOf": [
         {

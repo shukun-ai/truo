@@ -4,7 +4,7 @@
   "description": "Describe Flow Schema",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name"],
+  "required": ["name", "input", "output", "startEventName", "events"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -16,7 +16,14 @@
     "description": {
       "type": "string"
     },
-    "parameters": {},
+    "input": {
+      "type": "object",
+      "description": "The input JSON Schema Rule"
+    },
+    "output": {
+      "type": "object",
+      "description": "The output JSON Schema Rule"
+    },
     "startEventName": {
       "type": "string"
     },
