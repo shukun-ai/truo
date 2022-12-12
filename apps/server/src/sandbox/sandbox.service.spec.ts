@@ -1,12 +1,19 @@
+import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
+
+import { SourceResolverService } from './resolvers/source-resolver.service';
 import { SandboxContext } from './sandbox.interface';
 import { SandboxService } from './sandbox.service';
 
 describe('SandboxService', () => {
   let sandboxService: SandboxService;
+  let sourceResolverService: SourceResolverService;
   let context: SandboxContext;
 
   beforeEach(() => {
-    sandboxService = new SandboxService();
+    sourceResolverService = new SourceResolverService(mockEmptyDependencies());
+
+    sandboxService = new SandboxService(sourceResolverService);
+
     context = {
       index: 0,
       store: {},
@@ -58,6 +65,24 @@ describe('SandboxService', () => {
       );
 
       expect(output).toEqual({ id: 6 });
+    });
+
+    it('should return input sourceResolver', async () => {
+      jest
+        .spyOn(sourceResolverService, 'query')
+        .mockImplementation(async () => 'hello query.');
+
+      const compiledCode =
+        'async function main($){return{id:await $.sourceResolver.query()}};exports.default=main;';
+      const input = { count: 3 };
+
+      const output = await sandboxService.executeVM(
+        compiledCode,
+        input,
+        context,
+      );
+
+      expect(output).toEqual({ id: 'hello query.' });
     });
   });
 });
