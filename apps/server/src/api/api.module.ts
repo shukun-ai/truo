@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { CoreModule } from '../core/core.module';
+import { FlowModule } from '../flow/flow.module';
 import { IdentityMiddleware } from '../identity/identity.middleware';
 import { IdentityModule } from '../identity/identity.module';
 import { SourceModule } from '../source/source.module';
@@ -31,6 +32,7 @@ import { WebhookController } from './webhook/webhook.controller';
     WebhookModule,
     IdentityModule,
     SourceModule,
+    FlowModule,
   ],
   controllers: [
     AuthenticationController,

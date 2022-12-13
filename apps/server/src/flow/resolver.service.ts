@@ -56,7 +56,7 @@ export class ResolverService {
     input: unknown,
     event: FlowEvent,
     context: ResolverContext,
-  ) {
+  ): Promise<unknown[]> {
     const { startEventName, events } = this.prepareRepeatEvent(event);
     const compiledCode = this.findCompiledCode(context);
     const repeatCount = await this.executeVM(compiledCode, input, context);
@@ -66,8 +66,10 @@ export class ResolverService {
       throw new FlowRepeatCountException('The repeatCount is not number type.');
     }
 
+    this.checkMaxRepeatCount(repeatCount);
+
     for (let index = 0; index < repeatCount; index++) {
-      const oneOutput = await this.executeEvent(events, input, {
+      const { output: oneOutput } = await this.executeEvent(events, input, {
         ...context,
         eventName: startEventName,
         parentEventNames: this.nestedEventService.combinePrefix(
@@ -78,6 +80,7 @@ export class ResolverService {
       });
       output.push(oneOutput);
     }
+
     return output;
   }
 
@@ -123,6 +126,14 @@ export class ResolverService {
     }
 
     throw new FlowDefinitionException('The event is not Repeat event.');
+  }
+
+  protected checkMaxRepeatCount(count: number) {
+    if (count > 1000) {
+      throw new FlowDefinitionException(
+        `The repeat count is more than max value(1000): ${count}.`,
+      );
+    }
   }
 
   protected async executeVM(
