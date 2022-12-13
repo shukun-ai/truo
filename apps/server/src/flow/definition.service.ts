@@ -7,14 +7,29 @@ export class DefinitionService {
     // TODO implement this method.
     const definition: FlowSchema = {
       name: 'test',
-      startEventName: 'first',
+      startEventName: 'repeat',
       input: {},
       output: {},
       events: {
+        repeat: {
+          type: 'Repeat',
+          next: 'first',
+          repeatCount: '$.input.id',
+          startEventName: 'second',
+          events: {
+            second: {
+              type: 'Success',
+              output: {
+                id: '$.index',
+              },
+            },
+          },
+          description: 'hi',
+        },
         first: {
           type: 'Success',
           output: {
-            id: '{ $input.id }',
+            id: '$.input',
           },
         },
       },
