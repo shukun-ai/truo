@@ -21,6 +21,8 @@ describe('SandboxService', () => {
       compiledCodes: {},
       eventName: 'name',
       parentEventNames: undefined,
+      orgName: 'test',
+      operatorId: undefined,
     };
   });
 

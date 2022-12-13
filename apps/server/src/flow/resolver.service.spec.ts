@@ -44,6 +44,8 @@ describe('ResolverService', () => {
         },
         eventName: startEventName,
         parentEventNames: '',
+        orgName: 'test',
+        operatorId: undefined,
       };
 
       const results = await resolverService.executeEvent(
@@ -94,6 +96,8 @@ describe('ResolverService', () => {
         },
         eventName: startEventName,
         parentEventNames: '',
+        orgName: 'test',
+        operatorId: undefined,
       };
 
       const results = await resolverService.executeEvent(
