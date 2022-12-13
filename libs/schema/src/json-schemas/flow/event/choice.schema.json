@@ -9,6 +9,7 @@
     "conditions": {
       "type": "array",
       "items": {
+        "type": "object",
         "properties": {
           "condition": { "type": "string" },
           "eventName": { "type": "string" },
