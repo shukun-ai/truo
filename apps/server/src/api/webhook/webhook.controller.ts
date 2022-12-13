@@ -15,14 +15,17 @@ import { omit } from 'lodash';
 
 import { EXCEPTION_WEBHOOK_TEST_NAME } from '../../app.constant';
 import { WorkflowService } from '../../core/workflow.service';
+import { ExternalContext } from '../../flow/flow.interface';
 import { FlowService } from '../../flow/flow.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
+import { QueryResponse } from '../../util/query/interfaces';
 import { executeWorkflow } from '../../util/workflow/execution';
 import { ResourceService } from '../../webhook/resource.service';
 
 import { WebhookLogService } from '../../webhook/webhook-log.service';
 
+// TODO must remove @UseInterceptors(QueryResponseInterceptor) next webhook to support free-format http response.
 @Controller(`${RoleResourceType.Webhook}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class WebhookController {
@@ -52,7 +55,7 @@ export class WebhookController {
     req: SecurityRequest,
     orgName: string,
     workflowName: string,
-  ) {
+  ): Promise<QueryResponse<unknown>> {
     const externalContext: ExternalContext = {
       orgName,
       operatorId: req.userId,
@@ -64,7 +67,9 @@ export class WebhookController {
       externalContext,
     );
 
-    return output;
+    return {
+      value: output,
+    };
   }
 
   @Post(':workflowName')
