@@ -36,7 +36,10 @@ export class FlowService {
   }
 
   async getCompiledCodes(orgName: string, flowName: string) {
-    return await this.compiledCodeService.getCompiledCodes(orgName, flowName);
+    return await this.compiledCodeService.getEventCompiledCodes(
+      orgName,
+      flowName,
+    );
   }
 
   prepareContext(

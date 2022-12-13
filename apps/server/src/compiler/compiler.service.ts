@@ -20,12 +20,12 @@ export class CompilerService {
   async compileFlows(flows: FlowSchema[]) {
     const flowOrgCompiledCodes: FlowOrgCompiledCodes = {};
 
-    for (const [flowName, flow] of Object.entries(flows)) {
+    for (let index = 0; index < flows.length; index++) {
       const flowEventCompiledCodes = await this.compileEvents(
-        flow.events,
+        flows[index].events,
         undefined,
       );
-      flowOrgCompiledCodes[flowName] = flowEventCompiledCodes;
+      flowOrgCompiledCodes[flows[index].name] = flowEventCompiledCodes;
     }
 
     return flowOrgCompiledCodes;

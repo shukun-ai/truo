@@ -17,13 +17,11 @@ import {
 } from '@shukun/schema';
 import { Express } from 'express';
 
-import { IDString } from '../../app.type';
 import { CompilerService } from '../../compiler/compiler.service';
 import { FlowService } from '../../core/flow.service';
 import { OrgService } from '../../core/org.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
-import { OrgNamePipe } from '../org/org-name.pipe';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName/codebase`)
 @UseInterceptors(QueryResponseInterceptor)
@@ -50,7 +48,7 @@ export class CodebaseController {
     },
   })
   async import(
-    @Param('orgName', OrgNamePipe) orgId: IDString,
+    @Param('orgName') orgName: string,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     @UploadedFile() file: Express.Multer.File,
@@ -89,7 +87,9 @@ export class CodebaseController {
       throw new BadRequestException(systemDataValidator.getErrors()?.join(','));
     }
 
-    await this.orgService.updateCodebase(orgId, merged);
+    await this.orgService.updateCodebase(orgName, merged);
+
+    await this.compileOrgFlowCodes(orgName);
 
     return {
       value: null,
