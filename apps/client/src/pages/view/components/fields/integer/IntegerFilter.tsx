@@ -45,7 +45,7 @@ export const IntegerFilterInput: FunctionComponent<
           ? {
               $eq: value,
             }
-          : null,
+          : undefined,
       );
     },
     [onChange],

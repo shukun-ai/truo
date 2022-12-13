@@ -1,3 +1,4 @@
+// TODO should remove "lib": ["DOM"] at tsconfig, and set this file compatible with nodejs.
 export class RsaHelper {
   publicKey!: CryptoKey;
 

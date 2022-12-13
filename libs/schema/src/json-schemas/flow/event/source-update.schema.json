@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventSourceUpdate",
+  "type": "object",
+  "required": ["type", "next", "atomName", "id", "data"],
+  "properties": {
+    "type": { "const": "SourceUpdate" },
+    "next": { "type": "string" },
+    "atomName": { "type": "string" },
+    "id": { "type": "string" },
+    "data": { "type": "object" }
+  }
+}

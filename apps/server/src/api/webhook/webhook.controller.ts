@@ -1,6 +1,7 @@
+import { IncomingHttpHeaders } from 'http';
+
 import {
   Controller,
-  Inject,
   NotFoundException,
   Param,
   Post,
@@ -14,6 +15,7 @@ import { omit } from 'lodash';
 
 import { EXCEPTION_WEBHOOK_TEST_NAME } from '../../app.constant';
 import { WorkflowService } from '../../core/workflow.service';
+import { FlowService } from '../../flow/flow.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { executeWorkflow } from '../../util/workflow/execution';
@@ -24,14 +26,12 @@ import { WebhookLogService } from '../../webhook/webhook-log.service';
 @Controller(`${RoleResourceType.Webhook}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class WebhookController {
-  @Inject()
-  private readonly resourceService!: ResourceService;
-
-  @Inject()
-  private readonly workflowService!: WorkflowService;
-
-  @Inject()
-  private readonly webhookLogService!: WebhookLogService;
+  constructor(
+    private readonly resourceService: ResourceService,
+    private readonly workflowService: WorkflowService,
+    private readonly webhookLogService: WebhookLogService,
+    private readonly flowService: FlowService,
+  ) {}
 
   // @deprecated for security.
   // @Post('/:workflowName/test')
@@ -44,6 +44,18 @@ export class WebhookController {
   //   return await this.webhook(req, orgName, workflowName, isTestMode);
   // }
 
+  isFlowVersion(headers: IncomingHttpHeaders) {
+    return !!headers['x-flow-version'];
+  }
+
+  async handleFlowVersion(
+    req: SecurityRequest,
+    orgName: string,
+    workflowName: string,
+  ) {
+    return await this.flowService.execute(orgName, workflowName, req.body);
+  }
+
   @Post(':workflowName')
   async webhook(
     @Req() req: SecurityRequest,
@@ -51,6 +63,10 @@ export class WebhookController {
     @Param('workflowName') workflowName: string,
     isTestMode?: boolean,
   ): Promise<any> {
+    if (this.isFlowVersion(req.headers)) {
+      return await this.handleFlowVersion(req, orgName, workflowName);
+    }
+
     const workflow = await this.workflowService.findOne(orgName, workflowName);
 
     if (!workflow.isEnabledWebhook) {

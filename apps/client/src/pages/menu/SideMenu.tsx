@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { ViewSchema, ViewType } from '@shukun/schema';
-import { Menu } from 'antd';
+import { Menu, MenuProps } from 'antd';
+import { MenuItemType, SubMenuType } from 'antd/lib/menu/hooks/useItems';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -42,7 +43,7 @@ export const SideMenu: FunctionComponent<SideMenuProps> = () => {
 
   const subMenu = useMemo(() => {
     const firstLevelViews = grantedViews.filter((item) => !item.parentName);
-    return createSubMenu(firstLevelViews, grantedViews);
+    return createMenu(firstLevelViews, grantedViews);
   }, [grantedViews]);
 
   const selectedKeys = useMemo(() => {
@@ -55,6 +56,18 @@ export const SideMenu: FunctionComponent<SideMenuProps> = () => {
 
     return [currentPath];
   }, [location, dashboardOrgPath]);
+
+  const menuItem = useMemo<NonNullable<MenuProps['items']>>(() => {
+    return [
+      {
+        key: HOMEPAGE_KEY,
+        className: 'global-side-menu__top',
+        icon: <PlusOutlined />,
+        label: <Link to={dashboardOrgPath}>首页</Link>,
+      },
+      ...subMenu,
+    ];
+  }, [dashboardOrgPath, subMenu]);
 
   return (
     <Flex
@@ -69,21 +82,13 @@ export const SideMenu: FunctionComponent<SideMenuProps> = () => {
         className="global-side-menu__menu"
         mode="inline"
         selectedKeys={selectedKeys}
-      >
-        <Menu.Item
-          key={HOMEPAGE_KEY}
-          className="global-side-menu__top"
-          icon={<PlusOutlined />}
-        >
-          <Link to={dashboardOrgPath}>首页</Link>
-        </Menu.Item>
-        {subMenu}
-      </Menu>
+        items={menuItem}
+      />
     </Flex>
   );
 };
 
-function createSubMenu(
+function createMenu(
   firstLevelViews: ViewSchema[],
   allViews: ViewSchema[],
   level = 0,
@@ -99,32 +104,49 @@ function createSubMenu(
         return null;
       }
 
-      return (
-        <Menu.SubMenu
-          key={view.name}
-          title={view.label}
-          className={
-            level === 0 ? 'global-side-menu__top' : 'global-side-menu__child'
-          }
-          icon={level === 0 && <PlusOutlined />}
-        >
-          {createSubMenu(secondLevelViews, allViews, level + 1)}
-        </Menu.SubMenu>
-      );
+      return createSubMenu({
+        view,
+        level,
+        secondLevelViews,
+        allViews,
+      });
     } else {
-      return (
-        <Menu.Item
-          key={view.name}
-          className={
-            level === 0 ? 'global-side-menu__top' : 'global-side-menu__child'
-          }
-          icon={level === 0 && <PlusOutlined />}
-        >
-          <SideLinkItem view={view} />
-        </Menu.Item>
-      );
+      return createMenuItem({ view, level });
     }
   });
 
   return menu.filter((item) => item !== null);
+}
+
+function createSubMenu(props: {
+  view: ViewSchema;
+  level: number;
+  secondLevelViews: ViewSchema[];
+  allViews: ViewSchema[];
+}): SubMenuType {
+  const { view, level, secondLevelViews, allViews } = props;
+
+  return {
+    key: view.name,
+    label: view.label,
+    className:
+      level === 0 ? 'global-side-menu__top' : 'global-side-menu__child',
+    icon: level === 0 && <PlusOutlined />,
+    children: createMenu(secondLevelViews, allViews, level + 1),
+  };
+}
+
+function createMenuItem(props: {
+  view: ViewSchema;
+  level: number;
+}): MenuItemType {
+  const { view, level } = props;
+
+  return {
+    key: view.name,
+    label: <SideLinkItem view={view} />,
+    className:
+      level === 0 ? 'global-side-menu__top' : 'global-side-menu__child',
+    icon: level === 0 && <PlusOutlined />,
+  };
 }
