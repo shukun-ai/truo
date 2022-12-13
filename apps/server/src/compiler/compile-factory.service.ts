@@ -1,33 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { FlowEvent, FlowEventCompiledCode } from '@shukun/schema';
 
-import { BaseCompiler } from './compilers/base-compiler.interface';
-
-import { SourceQueryCompilerService } from './compilers/source-query-compiler.service';
-import { SuccessCompilerService } from './compilers/success-compiler.service';
+import { compileSourceQueryEvent } from './events/compile-source-query';
+import { compileSuccessEvent } from './events/compile-success';
 
 @Injectable()
 export class CompileFactoryService {
-  compilers: Record<FlowEvent['type'], BaseCompiler> = {
-    Success: this.successCompilerService,
-    Fail: this.sourceQueryCompilerService,
-    SourceQuery: this.sourceQueryCompilerService,
-    SourceCreate: this.sourceQueryCompilerService,
-    SourceUpdate: this.sourceQueryCompilerService,
-    SourceDelete: this.sourceQueryCompilerService,
-    SourceAddToMany: this.sourceQueryCompilerService,
-    SourceRemoveFromMany: this.sourceQueryCompilerService,
-    SourceIncrease: this.sourceQueryCompilerService,
-    Choice: this.sourceQueryCompilerService,
-    Repeat: this.sourceQueryCompilerService,
-  };
-
-  constructor(
-    private readonly sourceQueryCompilerService: SourceQueryCompilerService,
-    private readonly successCompilerService: SuccessCompilerService,
-  ) {}
-
   async compileEvent(event: FlowEvent): Promise<FlowEventCompiledCode> {
-    return await this.compilers[event.type].compile(event);
+    switch (event.type) {
+      case 'Success':
+        return await compileSuccessEvent(event);
+      // case 'Fail':
+      //   return await compileSuccessEvent(event);
+      case 'SourceQuery':
+        return await compileSourceQueryEvent(event);
+      // case 'SourceCreate':
+      //   return await compileSuccessEvent(event);
+      // case 'SourceUpdate':
+      //   return await compileSuccessEvent(event);
+      // case 'SourceDelete':
+      //   return await compileSuccessEvent(event);
+      // case 'SourceAddToMany':
+      //   return await compileSuccessEvent(event);
+      // case 'SourceRemoveFromMany':
+      //   return await compileSuccessEvent(event);
+      // case 'SourceIncrease':
+      //   return await compileSuccessEvent(event);
+      // case 'Choice':
+      //   return await compileSuccessEvent(event);
+      // case 'Repeat':
+      //   return await compileSuccessEvent(event);
+      default:
+        throw new Error();
+    }
   }
 }

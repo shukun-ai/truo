@@ -1,14 +1,8 @@
 import { FlowEventSourceQuery } from '@shukun/schema';
 
-import { CompilerHelperService } from './compiler-helper.service';
+import { compileJsonTemplate } from './compiler-expression';
 
 describe('CompilerHelperService', () => {
-  let compilerHelperService: CompilerHelperService;
-
-  beforeEach(() => {
-    compilerHelperService = new CompilerHelperService();
-  });
-
   describe('compileJsonExpression', () => {
     it('should return stringify', async () => {
       const input: FlowEventSourceQuery['query'] = {
@@ -22,7 +16,7 @@ describe('CompilerHelperService', () => {
         },
       };
 
-      const output = compilerHelperService.compileJsonTemplate(input);
+      const output = compileJsonTemplate(input);
 
       expect(output).toEqual(
         '{"filter":{"name":{"$eq":\'Hello \' + $.input}},"select":{"name":true}}',
