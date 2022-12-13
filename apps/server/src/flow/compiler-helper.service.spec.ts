@@ -14,7 +14,7 @@ describe('CompilerHelperService', () => {
       const input: FlowEventSourceQuery['query'] = {
         filter: {
           name: {
-            $eq: 'Hello ${$.input}',
+            $eq: "'Hello ' + $.input",
           },
         },
         select: {
@@ -25,7 +25,7 @@ describe('CompilerHelperService', () => {
       const output = compilerHelperService.compileJsonTemplate(input);
 
       expect(output).toEqual(
-        '{"filter":{"name":{"$eq":`Hello ${$.input}`}},"select":{"name":true}}',
+        '{"filter":{"name":{"$eq":\'Hello \' + $.input}},"select":{"name":true}}',
       );
     });
 

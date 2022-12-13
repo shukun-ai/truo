@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CompilerHelperService {
+  LEFT_TAG = '<%%';
+
+  RIGHT_TAG = '%%>';
+
   compileJsonTemplate(input: unknown): string {
     return this.replaceExpressionTag(
       this.stringify(this.compileJsonExpression(input)),
@@ -10,7 +14,7 @@ export class CompilerHelperService {
 
   compileExpression(input: string): string {
     // input: "Hello ${$.input}"
-    return `<%%${this.checkInjection(input)}%%>`;
+    return `${this.LEFT_TAG}${this.checkInjection(input)}${this.RIGHT_TAG}`;
   }
 
   checkInjection(input: string): string {
@@ -19,7 +23,9 @@ export class CompilerHelperService {
   }
 
   replaceExpressionTag(input: string): string {
-    return input.replaceAll('"<%%', '`').replaceAll('%%>"', '`');
+    return input
+      .replaceAll(`"${this.LEFT_TAG}`, '')
+      .replaceAll(`${this.RIGHT_TAG}"`, '');
   }
 
   compileJsonExpression(input: unknown): unknown {
