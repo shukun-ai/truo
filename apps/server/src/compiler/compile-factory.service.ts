@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { FlowEvent, FlowEventCompiledCode } from '@shukun/schema';
 
+import { compileSourceCreateEvent } from './events/compile-source-create';
+import { compileSourceDeleteEvent } from './events/compile-source-delete';
+
 import { compileSourceQueryEvent } from './events/compile-source-query';
+import { compileSourceUpdateEvent } from './events/compile-source-update';
 import { compileSuccessEvent } from './events/compile-success';
 
 @Injectable()
@@ -14,12 +18,12 @@ export class CompileFactoryService {
       //   return await compileSuccessEvent(event);
       case 'SourceQuery':
         return await compileSourceQueryEvent(event);
-      // case 'SourceCreate':
-      //   return await compileSuccessEvent(event);
-      // case 'SourceUpdate':
-      //   return await compileSuccessEvent(event);
-      // case 'SourceDelete':
-      //   return await compileSuccessEvent(event);
+      case 'SourceCreate':
+        return await compileSourceCreateEvent(event);
+      case 'SourceUpdate':
+        return await compileSourceUpdateEvent(event);
+      case 'SourceDelete':
+        return await compileSourceDeleteEvent(event);
       // case 'SourceAddToMany':
       //   return await compileSuccessEvent(event);
       // case 'SourceRemoveFromMany':
@@ -31,7 +35,9 @@ export class CompileFactoryService {
       // case 'Repeat':
       //   return await compileSuccessEvent(event);
       default:
-        throw new Error();
+        throw new BadRequestException(
+          `We did not support this event type: ${event.type}`,
+        );
     }
   }
 }
