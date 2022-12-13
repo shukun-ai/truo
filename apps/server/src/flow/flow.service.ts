@@ -3,7 +3,7 @@ import { FlowEventCompiledCodes, FlowSchema } from '@shukun/schema';
 
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
-import { ResolverContext } from './flow.interface';
+import { ExternalContext, ResolverContext } from './flow.interface';
 import { ResolverService } from './resolver.service';
 
 @Injectable()
@@ -14,7 +14,12 @@ export class FlowService {
     private readonly resolverService: ResolverService,
   ) {}
 
-  async execute(orgName: string, flowName: string, input: unknown) {
+  async execute(
+    orgName: string,
+    flowName: string,
+    input: unknown,
+    externalContext: ExternalContext,
+  ) {
     const definition = await this.getDefinition(orgName, flowName);
     const compiledCodes = await this.getCompiledCodes(orgName, flowName);
 
@@ -23,7 +28,7 @@ export class FlowService {
     const { output } = await this.resolverService.executeEvent(
       definition.events,
       input,
-      this.prepareContext(definition, compiledCodes),
+      this.prepareContext(definition, compiledCodes, externalContext),
     );
 
     this.validateOutputs(output, definition.output);
@@ -45,6 +50,7 @@ export class FlowService {
   prepareContext(
     definition: FlowSchema,
     compiledCodes: FlowEventCompiledCodes,
+    externalContext: ExternalContext,
   ): ResolverContext {
     return {
       index: 0,
@@ -53,6 +59,8 @@ export class FlowService {
       compiledCodes,
       eventName: definition.startEventName,
       parentEventNames: undefined,
+      orgName: externalContext.orgName,
+      operatorId: externalContext.operatorId,
     };
   }
 

@@ -53,7 +53,18 @@ export class WebhookController {
     orgName: string,
     workflowName: string,
   ) {
-    return await this.flowService.execute(orgName, workflowName, req.body);
+    const externalContext: ExternalContext = {
+      orgName,
+      operatorId: req.userId,
+    };
+    const output = await this.flowService.execute(
+      orgName,
+      workflowName,
+      req.body,
+      externalContext,
+    );
+
+    return output;
   }
 
   @Post(':workflowName')

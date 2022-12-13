@@ -7,8 +7,8 @@ export interface SandboxContext {
   compiledCodes: Record<string, string>;
   eventName: string;
   parentEventNames: string | undefined;
-  // TODO: add orgName
-  // TODO: add operatorId
+  orgName: string;
+  operatorId: string | undefined;
 }
 
 export interface SandboxVMScope {
@@ -17,8 +17,8 @@ export interface SandboxVMScope {
   env: object;
   math: Math;
   sourceResolver: SourceResolverService;
-  // TODO: add orgName
-  // TODO: add operatorId
+  orgName: string;
+  operatorId: string | undefined;
   // TODO: add date
   // TODO: add util functions
   // TODO: add http

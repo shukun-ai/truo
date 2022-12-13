@@ -29,6 +29,8 @@ export class SandboxService {
       env: context.environment,
       math: Math,
       sourceResolver: this.sourceResolverService,
+      orgName: context.orgName,
+      operatorId: context.operatorId,
     };
 
     return vmScope;
