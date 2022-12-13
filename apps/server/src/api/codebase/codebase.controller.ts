@@ -18,9 +18,9 @@ import {
 import { Express } from 'express';
 
 import { IDString } from '../../app.type';
+import { CompilerService } from '../../compiler/compiler.service';
 import { FlowService } from '../../core/flow.service';
 import { OrgService } from '../../core/org.service';
-import { CompileService } from '../../flow/compile.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 import { OrgNamePipe } from '../org/org-name.pipe';
@@ -32,7 +32,7 @@ export class CodebaseController {
   constructor(
     private readonly orgService: OrgService,
     private readonly flowService: FlowService,
-    private readonly compileService: CompileService,
+    private readonly compilerService: CompilerService,
   ) {}
 
   @Post()
@@ -99,7 +99,7 @@ export class CodebaseController {
   @Post()
   async compileOrgFlowCodes(orgName: string): Promise<QueryResponse<null>> {
     const flows = await this.flowService.findAll(orgName);
-    const flowOrgCompiledCodes = await this.compileService.compileFlows(flows);
+    const flowOrgCompiledCodes = await this.compilerService.compileFlows(flows);
 
     await this.orgService.updateFlowOrgCompiledCodes(
       orgName,

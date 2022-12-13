@@ -11,7 +11,7 @@ import { CompileFactoryService } from './compile-factory.service';
 import { NestedEventService } from './nested-event.service';
 
 @Injectable()
-export class CompileService {
+export class CompilerService {
   constructor(
     private readonly compileFactoryService: CompileFactoryService,
     private readonly nestedEventService: NestedEventService,
