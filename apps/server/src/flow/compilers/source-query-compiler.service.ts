@@ -1,13 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { FlowEventSourceQuery } from '@shukun/schema';
 
 import { CompilerHelperService } from '../compiler-helper.service';
 
 @Injectable()
 export class SourceQueryCompilerService {
-  constructor(
-    @Inject() private readonly compilerHelperService: CompilerHelperService,
-  ) {}
+  constructor(private readonly compilerHelperService: CompilerHelperService) {}
 
   compile(event: FlowEventSourceQuery) {
     return `

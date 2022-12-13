@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { FlowEvent, FlowEventRepeat, FlowEvents } from '@shukun/schema';
 
 import { SandboxService } from '../sandbox/sandbox.service';
@@ -12,8 +12,8 @@ import { NestedEventService } from './nested-event.service';
 @Injectable()
 export class ResolverService {
   constructor(
-    @Inject() private readonly nestedEventService: NestedEventService,
-    @Inject() private readonly sandboxService: SandboxService,
+    private readonly nestedEventService: NestedEventService,
+    private readonly sandboxService: SandboxService,
   ) {}
 
   async executeEvent(
