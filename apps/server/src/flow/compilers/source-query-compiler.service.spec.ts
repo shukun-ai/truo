@@ -24,7 +24,10 @@ describe('CompilerHelperService', () => {
         query: {
           filter: {
             name: {
-              $eq: 'Hello ${$.input}',
+              $eq: "'Hello ' + $.input",
+            },
+            count: {
+              $gt: '$.input',
             },
           },
           select: {
@@ -39,7 +42,7 @@ describe('CompilerHelperService', () => {
         async function main($){
             const orgName = $.orgName;
             const atomName = "start";
-            const query = {"filter":{"name":{"$eq":\`Hello \${$.input}\`}},"select":{"name":true}};
+            const query = {"filter":{"name":{"$eq":'Hello ' + $.input},"count":{"$gt":$.input}},"select":{"name":true}};
             return await $.sourceResolver.query($.orgName, atomName, query);
         };
         exports.default=main;
