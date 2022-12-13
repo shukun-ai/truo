@@ -4,11 +4,11 @@ import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper'
 
 import { CompileFactoryService } from './compile-factory.service';
 
-import { CompileService } from './compile.service';
+import { CompilerService } from './compiler.service';
 import { NestedEventService } from './nested-event.service';
 
-describe('CompileService', () => {
-  let compileService: CompileService;
+describe('CompilerService', () => {
+  let compilerService: CompilerService;
   let compileFactoryService: CompileFactoryService;
   let nestedEventService: NestedEventService;
 
@@ -19,7 +19,7 @@ describe('CompileService', () => {
     );
     nestedEventService = new NestedEventService();
 
-    compileService = new CompileService(
+    compilerService = new CompilerService(
       compileFactoryService,
       nestedEventService,
     );
@@ -71,7 +71,7 @@ describe('CompileService', () => {
       };
 
       const parentEventNames = undefined;
-      const output = await compileService.compileEvents(
+      const output = await compilerService.compileEvents(
         events,
         parentEventNames,
       );
