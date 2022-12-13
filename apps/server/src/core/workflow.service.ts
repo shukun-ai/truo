@@ -1,17 +1,11 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { RoleSchema, WorkflowSchema } from '@shukun/schema';
+import { WorkflowSchema } from '@shukun/schema';
 
 import { OrgService } from './org.service';
 
 @Injectable()
 export class WorkflowService {
   @Inject() private readonly orgService!: OrgService;
-
-  async findAll(orgName: string): Promise<RoleSchema[]> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
-
-    return application?.roles || [];
-  }
 
   async findOne(
     orgName: string,

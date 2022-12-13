@@ -24,6 +24,9 @@ export class Org {
 
   @Prop({ type: 'Buffer' })
   codebase?: Buffer;
+
+  @Prop({ type: 'Buffer' })
+  flowCompiledCodes?: Buffer;
 }
 
 export const OrgSchema = SchemaFactory.createForClass(Org);

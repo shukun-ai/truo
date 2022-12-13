@@ -36,7 +36,7 @@ describe('CompilerHelperService', () => {
         },
       };
 
-      const output = sourceQueryCompilerService.compile(event);
+      const output = await sourceQueryCompilerService.compile(event);
 
       expect(output).toEqual(`
         async function main($){
