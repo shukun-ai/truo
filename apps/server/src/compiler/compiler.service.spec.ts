@@ -1,7 +1,5 @@
 import { FlowEvents } from '@shukun/schema';
 
-import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
-
 import { CompileFactoryService } from './compile-factory.service';
 
 import { CompilerService } from './compiler.service';
@@ -13,10 +11,7 @@ describe('CompilerService', () => {
   let nestedEventService: NestedEventService;
 
   beforeEach(() => {
-    compileFactoryService = new CompileFactoryService(
-      mockEmptyDependencies(),
-      mockEmptyDependencies(),
-    );
+    compileFactoryService = new CompileFactoryService();
     nestedEventService = new NestedEventService();
 
     compilerService = new CompilerService(

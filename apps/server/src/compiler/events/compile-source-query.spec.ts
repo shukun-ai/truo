@@ -1,20 +1,7 @@
 import { FlowEventSourceQuery } from '@shukun/schema';
 
-import { CompilerHelperService } from '../compiler-helper.service';
-
-import { SourceQueryCompilerService } from './source-query-compiler.service';
-
+import { compileSourceQueryEvent } from './compile-source-query';
 describe('CompilerHelperService', () => {
-  let sourceQueryCompilerService: SourceQueryCompilerService;
-  let compilerHelperService: CompilerHelperService;
-
-  beforeEach(() => {
-    compilerHelperService = new CompilerHelperService();
-    sourceQueryCompilerService = new SourceQueryCompilerService(
-      compilerHelperService,
-    );
-  });
-
   describe('compileJsonExpression', () => {
     it('should return stringify', async () => {
       const event: FlowEventSourceQuery = {
@@ -36,7 +23,7 @@ describe('CompilerHelperService', () => {
         },
       };
 
-      const output = await sourceQueryCompilerService.compile(event);
+      const output = await compileSourceQueryEvent(event);
 
       expect(output).toEqual(`
         async function main($){
