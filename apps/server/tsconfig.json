@@ -11,6 +11,8 @@
     }
   ],
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "lib": ["es2021", "DOM"],
+    "target": "es2021"
   }
 }
