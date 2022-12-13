@@ -19,8 +19,13 @@ export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
     return electron;
   }, [metadata, viewColumn.electronName]);
 
+  if (['createdAt', 'updatedAt'].includes(viewColumn.electronName)) {
+    return <InternalFilterFormItem viewColumn={viewColumn} />;
+  }
+
   if (!electron) {
-    return <></>;
+    console.error(`Did not find the electron in filter: ${electron}`);
+    return null;
   }
 
   return (
@@ -37,6 +42,33 @@ export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
       referenceViewName={viewColumn.referenceViewName}
       currencyOptions={electron.currencyOptions}
       attachmentOptions={electron.attachmentOptions}
+      filterOptions={viewColumn.filterOptions}
+      filterType={viewColumn.filterType}
+    />
+  );
+};
+
+export interface InternalFilterFormItem {
+  viewColumn: ViewV2Column;
+}
+
+export const InternalFilterFormItem: FunctionComponent<
+  InternalFilterFormItem
+> = ({ viewColumn }) => {
+  return (
+    <FilterFieldFactory
+      key={viewColumn.name}
+      type={viewColumn.type}
+      name={viewColumn.name}
+      label={viewColumn.label}
+      tip={undefined}
+      electronName={viewColumn.name}
+      electronForeignName={undefined}
+      electronReferenceTo={undefined}
+      electronOptions={undefined}
+      referenceViewName={undefined}
+      currencyOptions={undefined}
+      attachmentOptions={undefined}
       filterOptions={viewColumn.filterOptions}
       filterType={viewColumn.filterType}
     />

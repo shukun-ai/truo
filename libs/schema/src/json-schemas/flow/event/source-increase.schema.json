@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventSourceIncrease",
+  "type": "object",
+  "required": ["type", "next", "atomName", "id", "electronName", "increment"],
+  "properties": {
+    "type": { "const": "SourceIncrease" },
+    "next": { "type": "string" },
+    "atomName": { "type": "string" },
+    "id": { "type": "string" },
+    "electronName": { "type": "string" },
+    "increment": { "type": "string" }
+  }
+}

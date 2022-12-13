@@ -1,9 +1,9 @@
 {
   "name": "shukun",
-  "version": "1.17.0",
+  "version": "1.18.0",
   "private": true,
   "scripts": {
-    "start": "nx run-many --target=serve --all",
+    "start": "nx run-many --target=serve --projects=server,client,editor",
     "build": "nx run-many --target=build --all --configuration=production",
     "test": "nx run-many --target=test --all",
     "lint": "nx run-many --target=lint --all",
@@ -84,8 +84,9 @@
     "@types/url-parse": "^1.4.7",
     "@types/validator": "^13.7.1",
     "@types/webpack-env": "^1.16.3",
+    "@types/wicg-file-system-access": "^2020.9.5",
     "@types/write": "^2.0.1",
-    "@vercel/ncc": "^0.30.0",
+    "@vercel/ncc": "^0.36.0",
     "accesscontrol": "^2.2.1",
     "ahooks": "^2.10.14",
     "ajv": "^8.9.0",

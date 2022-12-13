@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventSourceDelete",
+  "type": "object",
+  "required": ["type", "next", "atomName", "id"],
+  "properties": {
+    "type": { "const": "SourceDelete" },
+    "next": { "type": "string" },
+    "atomName": { "type": "string" },
+    "id": { "type": "string" }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventSourceQuery",
+  "type": "object",
+  "required": ["type", "next", "atomName", "query"],
+  "properties": {
+    "type": { "const": "SourceQuery" },
+    "next": { "type": "string" },
+    "atomName": { "type": "string" },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "filter": {
+          "$ref": "#/definitions/FlowEventSourceQueryFilter"
+        },
+        "select": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "type": "boolean",
+              "description": "The style is like MongoDB."
+            }
+          }
+        },
+        "sort": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "enum": ["asc", "desc"],
+              "description": "The style is like MongoDB."
+            }
+          }
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "skip": {
+          "type": "integer"
+        },
+        "count": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "FlowEventSourceQueryFilter": {
+      "title": "FlowEventSourceQueryFilter",
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "$ref": "#/definitions/FlowEventSourceQueryFilterExpression"
+        }
+      }
+    },
+    "FlowEventSourceQueryFilterExpression": {
+      "title": "FlowEventSourceQueryFilterExpression",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "$eq": {
+          "type": "string"
+        },
+        "$ne": {
+          "type": "string"
+        },
+        "$gt": {
+          "type": "string"
+        },
+        "$gte": {
+          "type": "string"
+        },
+        "$lt": {
+          "type": "string"
+        },
+        "$lte": {
+          "type": "string"
+        },
+        "$in": {
+          "type": "string"
+        },
+        "$nin": {
+          "type": "string"
+        },
+        "$and": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FlowEventSourceQueryFilter"
+          }
+        },
+        "$or": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FlowEventSourceQueryFilter"
+          }
+        },
+        "$foreign": {
+          "$ref": "#/definitions/FlowEventSourceQueryFilter"
+        },
+        "$like": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

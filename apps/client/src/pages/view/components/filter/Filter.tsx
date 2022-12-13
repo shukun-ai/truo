@@ -61,8 +61,7 @@ export const Filter: FunctionComponent<FilterProps> = ({
   }, [viewSearch]);
 
   if (visibleViewColumns.length === 0) {
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    return <></>;
+    return null;
   }
 
   return (

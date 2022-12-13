@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventSourceAddToMany",
+  "type": "object",
+  "required": ["type", "next", "atomName", "id", "electronName", "foreignId"],
+  "properties": {
+    "type": { "const": "SourceAddToMany" },
+    "next": { "type": "string" },
+    "atomName": { "type": "string" },
+    "id": { "type": "string" },
+    "electronName": { "type": "string" },
+    "foreignId": { "type": "string" }
+  }
+}
