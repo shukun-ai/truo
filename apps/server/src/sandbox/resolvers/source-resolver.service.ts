@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AddToManyDto, IncreaseDto, IDString } from '@shukun/api';
 import { HttpQuerySchema } from '@shukun/schema';
 
@@ -8,9 +8,7 @@ import { SourceService } from '../../source/source.service';
 
 @Injectable()
 export class SourceResolverService {
-  constructor(
-    @Inject() private readonly sourceService: SourceService<unknown>,
-  ) {}
+  constructor(private readonly sourceService: SourceService<unknown>) {}
 
   async getMetadata(orgName: string, atomName: string) {
     return await this.sourceService.getMetadata(orgName, atomName);

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { NodeVM } from 'vm2';
 
 import { ResolverContext } from '../flow/flow.interface';
@@ -9,9 +9,7 @@ import { SandboxVMScope } from './sandbox.interface';
 
 @Injectable()
 export class SandboxService {
-  constructor(
-    @Inject() private readonly sourceResolverService: SourceResolverService,
-  ) {}
+  constructor(private readonly sourceResolverService: SourceResolverService) {}
 
   async executeVM(
     compiledCode: string,

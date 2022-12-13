@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { FlowSchema } from '@shukun/schema';
 
 import { CompiledCodeService } from './compiled-code.service';
@@ -9,9 +9,9 @@ import { ResolverService } from './resolver.service';
 @Injectable()
 export class FlowService {
   constructor(
-    @Inject() private readonly definitionService: DefinitionService,
-    @Inject() private readonly compiledCodeService: CompiledCodeService,
-    @Inject() private readonly resolverService: ResolverService,
+    private readonly definitionService: DefinitionService,
+    private readonly compiledCodeService: CompiledCodeService,
+    private readonly resolverService: ResolverService,
   ) {}
 
   async execute(orgName: string, flowName: string, input: unknown) {
