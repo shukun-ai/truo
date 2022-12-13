@@ -27,7 +27,12 @@ async function generate(treeRoot: string, projectRoot: string) {
   const originFolder = 'json-schemas';
   const targetFolder = 'types';
 
-  const list = ['application', 'attachments', 'http-query'];
+  const list = [
+    'application',
+    'attachments',
+    'http-query',
+    'flow-compiled-codes',
+  ];
 
   const queue = list.map(async (fileName: string) => {
     const ts = await compileFromFile(

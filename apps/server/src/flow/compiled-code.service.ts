@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { FlowEventCompiledCodes } from '@shukun/schema';
 
 @Injectable()
 export class CompiledCodeService {
   async getCompiledCodes(orgName: string, flowName: string) {
     // TODO: implement this method.
-    const compiledCode: Record<string, string> = {
+    const eventCompiledCodes: FlowEventCompiledCodes = {
       first: 'async function main($){return{id:$.input}};exports.default=main;',
       repeat:
         'async function main($){return $.input.count;};exports.default=main;',
@@ -12,6 +13,6 @@ export class CompiledCodeService {
         'async function main($){return{id:$.index}};exports.default=main;',
     };
 
-    return compiledCode;
+    return eventCompiledCodes;
   }
 }
