@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FlowSchema } from '@shukun/schema';
+import { FlowEventCompiledCodes, FlowSchema } from '@shukun/schema';
 
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
@@ -41,7 +41,7 @@ export class FlowService {
 
   prepareContext(
     definition: FlowSchema,
-    compiledCodes: Record<string, string>,
+    compiledCodes: FlowEventCompiledCodes,
   ): ResolverContext {
     return {
       index: 0,

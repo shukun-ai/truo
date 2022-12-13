@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowCompiledCodes",
+  "description": "Describe Flow Compiled Codes",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^(\\w)+$": {
+      "title": "FlowOrgCompiledCodes",
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "title": "FlowEventCompiledCodes",
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "title": "FlowEventCompiledCode",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
