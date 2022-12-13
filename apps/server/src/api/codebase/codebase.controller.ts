@@ -1,6 +1,5 @@
 import {
   Controller,
-  Inject,
   Param,
   Post,
   UseInterceptors,
@@ -19,7 +18,9 @@ import {
 import { Express } from 'express';
 
 import { IDString } from '../../app.type';
+import { FlowService } from '../../core/flow.service';
 import { OrgService } from '../../core/org.service';
+import { CompileService } from '../../flow/compile.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 import { OrgNamePipe } from '../org/org-name.pipe';
@@ -28,8 +29,11 @@ import { OrgNamePipe } from '../org/org-name.pipe';
 @UseInterceptors(QueryResponseInterceptor)
 @ApiBearerAuth()
 export class CodebaseController {
-  @Inject()
-  private readonly orgService!: OrgService;
+  constructor(
+    private readonly orgService: OrgService,
+    private readonly flowService: FlowService,
+    private readonly compileService: CompileService,
+  ) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
@@ -86,6 +90,21 @@ export class CodebaseController {
     }
 
     await this.orgService.updateCodebase(orgId, merged);
+
+    return {
+      value: null,
+    };
+  }
+
+  @Post()
+  async compileOrgFlowCodes(orgName: string): Promise<QueryResponse<null>> {
+    const flows = await this.flowService.findAll(orgName);
+    const flowOrgCompiledCodes = await this.compileService.compileFlows(flows);
+
+    await this.orgService.updateFlowOrgCompiledCodes(
+      orgName,
+      flowOrgCompiledCodes,
+    );
 
     return {
       value: null,

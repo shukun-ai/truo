@@ -3,11 +3,13 @@ import { FlowEventSourceQuery } from '@shukun/schema';
 
 import { CompilerHelperService } from '../compiler-helper.service';
 
+import { BaseCompiler } from './base-compiler.interface';
+
 @Injectable()
-export class SourceQueryCompilerService {
+export class SourceQueryCompilerService implements BaseCompiler {
   constructor(private readonly compilerHelperService: CompilerHelperService) {}
 
-  compile(event: FlowEventSourceQuery) {
+  async compile(event: FlowEventSourceQuery) {
     return `
         async function main($){
             const orgName = $.orgName;

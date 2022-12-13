@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ApplicationSchema } from '@shukun/schema';
+import { ApplicationSchema, FlowOrgCompiledCodes } from '@shukun/schema';
 import { Model } from 'mongoose';
 
 import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../app.constant';
@@ -114,5 +114,38 @@ export class OrgService {
 
     const application: ApplicationSchema = JSON.parse(org.codebase.toString());
     return application;
+  }
+
+  async updateFlowOrgCompiledCodes(
+    orgName: IDString,
+    flowOrgCompiledCodes: FlowOrgCompiledCodes,
+  ) {
+    const buffer = Buffer.from(JSON.stringify(flowOrgCompiledCodes));
+
+    await this.orgModel.updateOne(
+      { name: orgName },
+      {
+        flowOrgCompiledCodes: buffer,
+      },
+    );
+  }
+
+  async findFlowOrgCompiledCodesByOrgName(
+    orgName: string,
+  ): Promise<FlowOrgCompiledCodes> {
+    const org = await this.orgModel
+      .findOne({ name: orgName })
+      .select('flowCompiledCodes')
+      .exec();
+
+    if (!org?.flowCompiledCodes) {
+      const flowCompiledCodes: FlowOrgCompiledCodes = {};
+      return flowCompiledCodes;
+    }
+
+    const flowCompiledCodes: FlowOrgCompiledCodes = JSON.parse(
+      org.flowCompiledCodes.toString(),
+    );
+    return flowCompiledCodes;
   }
 }
