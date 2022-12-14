@@ -1,8 +1,9 @@
 import { SourceResolverService } from './resolvers/source-resolver.service';
+import { ObservableStore, SandboxStore } from './stores/observable-store.class';
 
 export interface SandboxContext {
   index: number;
-  store: object;
+  store: ObservableStore;
   environment: object;
   compiledCodes: Record<string, string>;
   eventName: string;
@@ -16,6 +17,8 @@ export interface SandboxVMScope {
   index: number;
   env: object;
   math: Math;
+  store: SandboxStore;
+  observableStore: ObservableStore;
   sourceResolver: SourceResolverService;
   orgName: string;
   operatorId: string | undefined;

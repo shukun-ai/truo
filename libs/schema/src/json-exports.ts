@@ -86,3 +86,6 @@ export const FlowEventChoiceSchema = require('./json-schemas/flow/event/choice.s
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const FlowEventRepeatSchema = require('./json-schemas/flow/event/repeat.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventStoreSchema = require('./json-schemas/flow/event/store.schema.json');

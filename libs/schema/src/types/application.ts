@@ -85,7 +85,8 @@ export type FlowEvent =
   | FlowEventSourceRemoveFromMany
   | FlowEventSourceIncrease
   | FlowEventChoice
-  | FlowEventRepeat;
+  | FlowEventRepeat
+  | FlowEventStore;
 export type RoleAttribute = string;
 
 /**
@@ -810,6 +811,13 @@ export interface FlowEventRepeat {
   startEventName: string;
   events: FlowEvents;
   description: string;
+  [k: string]: unknown;
+}
+export interface FlowEventStore {
+  type: 'Store';
+  next: string;
+  key: string;
+  value: string;
   [k: string]: unknown;
 }
 /**

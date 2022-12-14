@@ -3,6 +3,7 @@ import { FlowEvents } from '@shukun/schema';
 import { NestedEventService } from '../compiler/nested-event.service';
 
 import { SandboxService } from '../sandbox/sandbox.service';
+import { ObservableStore } from '../sandbox/stores/observable-store.class';
 import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
 
 import { ResolverContext } from './flow.interface';
@@ -37,7 +38,7 @@ describe('ResolverService', () => {
       const input = { test: 3 };
       const context: ResolverContext = {
         index: 0,
-        store: {},
+        store: new ObservableStore(),
         environment: {},
         compiledCodes: {
           test: 'test',
@@ -87,7 +88,7 @@ describe('ResolverService', () => {
       const input = { test: 3 };
       const context: ResolverContext = {
         index: 0,
-        store: {},
+        store: new ObservableStore(),
         environment: {},
         compiledCodes: {
           test: 'test',
