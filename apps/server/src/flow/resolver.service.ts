@@ -18,12 +18,11 @@ export class ResolverService {
 
   async executeEvent(
     events: FlowEvents,
-    input: unknown,
     context: ResolverContext,
   ): Promise<{ output: unknown; previousContext: ResolverContext }> {
     const startEventName = context.eventName;
     const startEvent = this.findEvent(startEventName, events);
-    const output = await this.executeEventDetail(input, startEvent, context);
+    const output = await this.executeEventDetail(startEvent, context);
     const nextEventName = this.prepareNextEventName(startEvent);
 
     if (!nextEventName) {
@@ -33,33 +32,32 @@ export class ResolverService {
       };
     }
 
-    return await this.executeEvent(events, output, {
+    return await this.executeEvent(events, {
       ...context,
+      input: output,
       eventName: nextEventName,
     });
   }
 
   protected async executeEventDetail(
-    input: unknown,
     event: FlowEvent,
     context: ResolverContext,
   ): Promise<unknown> {
     if (this.isRepeatEvent(event)) {
-      return await this.executeRepeatEvent(input, event, context);
+      return await this.executeRepeatEvent(event, context);
     }
 
     const compiledCode = this.findCompiledCode(context);
-    return await this.executeVM(compiledCode, input, context);
+    return await this.executeVM(compiledCode, context);
   }
 
   protected async executeRepeatEvent(
-    input: unknown,
     event: FlowEvent,
     context: ResolverContext,
   ): Promise<unknown[]> {
     const { startEventName, events } = this.prepareRepeatEvent(event);
     const compiledCode = this.findCompiledCode(context);
-    const repeatCount = await this.executeVM(compiledCode, input, context);
+    const repeatCount = await this.executeVM(compiledCode, context);
     const output: unknown[] = [];
 
     if (typeof repeatCount !== 'number') {
@@ -69,7 +67,7 @@ export class ResolverService {
     this.checkMaxRepeatCount(repeatCount);
 
     for (let index = 0; index < repeatCount; index++) {
-      const { output: oneOutput } = await this.executeEvent(events, input, {
+      const { output: oneOutput } = await this.executeEvent(events, {
         ...context,
         eventName: startEventName,
         parentEventNames: this.nestedEventService.combinePrefix(
@@ -138,9 +136,8 @@ export class ResolverService {
 
   protected async executeVM(
     compiledCode: string,
-    input: unknown,
     context: ResolverContext,
   ): Promise<unknown> {
-    return await this.sandboxService.executeVM(compiledCode, input, context);
+    return await this.sandboxService.executeVM(compiledCode, context);
   }
 }

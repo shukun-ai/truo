@@ -13,19 +13,18 @@ export class SandboxService {
 
   async executeVM(
     compiledCode: string,
-    input: unknown,
     context: ResolverContext,
   ): Promise<unknown> {
     const vm = new NodeVM();
     const exports = vm.run(compiledCode);
-    const $ = this.prepareVMScope(input, context);
+    const $ = this.prepareVMScope(context);
     const output = await exports.default($);
     return output;
   }
 
-  prepareVMScope(input: unknown, context: ResolverContext): SandboxVMScope {
+  prepareVMScope(context: ResolverContext): SandboxVMScope {
     const vmScope: SandboxVMScope = {
-      input,
+      input: context.input,
       index: context.index,
       env: context.environment,
       math: Math,

@@ -3,6 +3,7 @@ import { ObservableStore, SandboxStore } from './stores/observable-store.class';
 
 export interface SandboxContext {
   index: number;
+  input: unknown;
   store: ObservableStore;
   environment: object;
   compiledCodes: Record<string, string>;
