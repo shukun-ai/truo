@@ -6,7 +6,7 @@ export async function compileSourceAddToManyEvent(
   event: FlowEventSourceAddToMany,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$){
             const id = ${compileJsonTemplate(event.id)};
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
@@ -14,8 +14,13 @@ export async function compileSourceAddToManyEvent(
               electronName: ${compileJsonTemplate(event.electronName)},
               foreignId: ${compileJsonTemplate(event.foreignId)},
             };
+            const output = await $.sourceResolver.addToMany(id, orgName, atomName, dto);
 
-            return await $.sourceResolver.addToMany(id, orgName, atomName, dto);
+            return {
+              ...$,
+              next: "${event.next}",
+              output
+            }
         };
         exports.default=main;
     `;

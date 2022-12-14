@@ -6,11 +6,17 @@ export async function compileSourceDeleteEvent(
   event: FlowEventSourceDelete,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$){
             const id = ${compileJsonTemplate(event.id)};
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
-            return await $.sourceResolver.delete(id, orgName, atomName);
+            const output = await $.sourceResolver.delete(id, orgName, atomName);
+
+            return {
+              ...$,
+              next: "${event.next}",
+              output
+            }
         };
         exports.default=main;
     `;

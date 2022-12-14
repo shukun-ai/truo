@@ -7,9 +7,17 @@ export async function compileStoreEvent(
 ): Promise<string> {
   return `
         async function main($){
-            const key = ${event.key};
-            const value = ${compileJsonTemplate(event.save)};
-            return await $.observableStore.setValue(key, value);
+            const key = "${event.key}";
+            const value = ${compileJsonTemplate(event.value)};
+
+            return {
+              ...$,
+              store: {
+                ...$.store,
+                key: value,
+              },
+              next: "${event.next}"
+            }
         };
         exports.default=main;
     `;

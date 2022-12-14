@@ -6,12 +6,18 @@ export async function compileSourceCreateEvent(
   event: FlowEventSourceCreate,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$){
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
             const dto = ${compileJsonTemplate(event.data)};
             const request = $.request;
-            return await $.sourceResolver.create(orgName, atomName, dto, request);
+            const output = await $.sourceResolver.create(orgName, atomName, dto, request);
+            
+            return {
+              ...$,
+              next: "${event.next}",
+              output
+            }
         };
         exports.default=main;
     `;

@@ -6,11 +6,17 @@ export async function compileSourceQueryEvent(
   event: FlowEventSourceQuery,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$){
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
             const query = ${compileJsonTemplate(event.query)};
-            return await $.sourceResolver.query($.orgName, atomName, query);
+            const output = await $$.sourceResolver.query($.orgName, atomName, query);
+
+            return {
+              ...$,
+              next: "${event.next}",
+              output
+            }
         };
         exports.default=main;
     `;

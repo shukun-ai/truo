@@ -3,7 +3,6 @@ import { FlowEvents } from '@shukun/schema';
 import { NestedEventService } from '../compiler/nested-event.service';
 
 import { SandboxService } from '../sandbox/sandbox.service';
-import { ObservableStore } from '../sandbox/stores/observable-store.class';
 import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
 
 import { ResolverContext } from './flow.interface';
@@ -23,9 +22,8 @@ describe('ResolverService', () => {
   });
 
   describe('ExecuteEvents', () => {
-    it('should return 3', async () => {
-      jest.spyOn(sandboxService, 'executeVM').mockImplementation(async () => 3);
-
+    it('should return computedContext', async () => {
+      const input = { test: 3 };
       const startEventName = 'test';
       const events: FlowEvents = {
         test: {
@@ -35,79 +33,33 @@ describe('ResolverService', () => {
           },
         },
       };
-      const input = { test: 3 };
+      const compiledCodes = {
+        test: 'test',
+      };
       const context: ResolverContext = {
+        parameter: input,
+        input,
+        output: null,
+        next: null,
         index: 0,
-        store: new ObservableStore(),
-        environment: {},
-        compiledCodes: {
-          test: 'test',
-        },
+        store: {},
+        env: {},
         eventName: startEventName,
         parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
 
-      const results = await resolverService.executeEvent(
+      jest
+        .spyOn(sandboxService, 'executeVM')
+        .mockImplementation(async () => context);
+
+      const computedContext = await resolverService.executeNextEvent(
         events,
-        input,
+        compiledCodes,
         context,
       );
-      expect(results.output).toEqual(3);
-      expect(results.previousContext.eventName).toEqual('test');
-    });
-
-    it('should return 3', async () => {
-      jest.spyOn(sandboxService, 'executeVM').mockImplementation(async () => 3);
-
-      const startEventName = 'test';
-      const events: FlowEvents = {
-        test: {
-          type: 'Repeat',
-          next: 'second',
-          repeatCount: '3',
-          description: 'description',
-          startEventName: 're1',
-          events: {
-            re1: {
-              type: 'Success',
-              output: {
-                data: '3',
-              },
-            },
-          },
-        },
-        second: {
-          type: 'Success',
-          output: {
-            data: 3,
-          },
-        },
-      };
-      const input = { test: 3 };
-      const context: ResolverContext = {
-        index: 0,
-        store: new ObservableStore(),
-        environment: {},
-        compiledCodes: {
-          test: 'test',
-          'test->re1': 'test2',
-          second: 'test',
-        },
-        eventName: startEventName,
-        parentEventNames: '',
-        orgName: 'test',
-        operatorId: undefined,
-      };
-
-      const results = await resolverService.executeEvent(
-        events,
-        input,
-        context,
-      );
-      expect(results.output).toEqual(3);
-      expect(results.previousContext.eventName).toEqual('second');
+      expect(computedContext).toEqual(context);
     });
   });
 });
