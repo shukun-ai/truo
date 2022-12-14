@@ -3,7 +3,6 @@ import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper'
 import { SourceResolverService } from './resolvers/source-resolver.service';
 import { SandboxContext } from './sandbox.interface';
 import { SandboxService } from './sandbox.service';
-import { ObservableStore } from './stores/observable-store.class';
 
 describe('SandboxService', () => {
   let sandboxService: SandboxService;
@@ -16,10 +15,13 @@ describe('SandboxService', () => {
     sandboxService = new SandboxService(sourceResolverService);
 
     context = {
+      parameter: {},
+      input: { count: 3 },
+      output: null,
+      next: null,
       index: 0,
-      store: new ObservableStore(),
-      environment: {},
-      compiledCodes: {},
+      store: {},
+      env: {},
       eventName: 'name',
       parentEventNames: undefined,
       orgName: 'test',
@@ -31,13 +33,8 @@ describe('SandboxService', () => {
     it('should return input 3', async () => {
       const compiledCode =
         'async function main($){return{id:$.input.count}};exports.default=main;';
-      const input = { count: 3 };
 
-      const output = await sandboxService.executeVM(
-        compiledCode,
-        input,
-        context,
-      );
+      const output = await sandboxService.executeVM(compiledCode, context);
 
       expect(output).toEqual({ id: 3 });
     });
@@ -45,29 +42,10 @@ describe('SandboxService', () => {
     it('should return input 5', async () => {
       const compiledCode =
         'async function main($){return{id:$.input.count + 2}};exports.default=main;';
-      const input = { count: 3 };
 
-      const output = await sandboxService.executeVM(
-        compiledCode,
-        input,
-        context,
-      );
+      const output = await sandboxService.executeVM(compiledCode, context);
 
       expect(output).toEqual({ id: 5 });
-    });
-
-    it('should return input 6', async () => {
-      const compiledCode =
-        'async function main($){return{id:$.math.floor(6.1)}};exports.default=main;';
-      const input = { count: 3 };
-
-      const output = await sandboxService.executeVM(
-        compiledCode,
-        input,
-        context,
-      );
-
-      expect(output).toEqual({ id: 6 });
     });
 
     it('should return input sourceResolver', async () => {
@@ -76,14 +54,9 @@ describe('SandboxService', () => {
         .mockImplementation(async () => 'hello query.');
 
       const compiledCode =
-        'async function main($){return{id:await $.sourceResolver.query()}};exports.default=main;';
-      const input = { count: 3 };
+        'async function main($,$$){return{id:await $$.sourceResolver.query()}};exports.default=main;';
 
-      const output = await sandboxService.executeVM(
-        compiledCode,
-        input,
-        context,
-      );
+      const output = await sandboxService.executeVM(compiledCode, context);
 
       expect(output).toEqual({ id: 'hello query.' });
     });

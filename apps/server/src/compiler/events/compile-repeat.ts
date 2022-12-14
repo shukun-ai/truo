@@ -7,7 +7,13 @@ export async function compileRepeatEvent(
 ): Promise<string> {
   return `
         async function main($){
-            return ${compileJsonTemplate(event.repeatCount)};
+            const output = ${compileJsonTemplate(event.repeatCount)};
+
+            return {
+              ...$,
+              next: "${event.next}",
+              output
+            }
         };
         exports.default=main;
     `;

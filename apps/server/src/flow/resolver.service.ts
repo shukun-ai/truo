@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { FlowEvent, FlowEventRepeat, FlowEvents } from '@shukun/schema';
+import {
+  FlowEvent,
+  FlowEventCompiledCodes,
+  FlowEventRepeat,
+  FlowEvents,
+} from '@shukun/schema';
 
 import { NestedEventService } from '../compiler/nested-event.service';
 import { SandboxService } from '../sandbox/sandbox.service';
@@ -16,49 +21,59 @@ export class ResolverService {
     private readonly sandboxService: SandboxService,
   ) {}
 
-  async executeEvent(
+  async executeNextEvent(
     events: FlowEvents,
+    compiledCodes: FlowEventCompiledCodes,
     context: ResolverContext,
-  ): Promise<{ output: unknown; previousContext: ResolverContext }> {
-    const startEventName = context.eventName;
-    const startEvent = this.findEvent(startEventName, events);
-    const output = await this.executeEventDetail(startEvent, context);
-    const nextEventName = this.prepareNextEventName(startEvent);
+  ): Promise<ResolverContext> {
+    const startEvent = this.findEvent(context.eventName, events);
+    const computedContext = await this.handleEvent(
+      startEvent,
+      compiledCodes,
+      context,
+    );
 
-    if (!nextEventName) {
-      return {
-        output,
-        previousContext: context,
-      };
+    if (!computedContext.next) {
+      return computedContext;
     }
 
-    return await this.executeEvent(events, {
-      ...context,
-      input: output,
-      eventName: nextEventName,
-    });
+    return await this.executeNextEvent(events, compiledCodes, computedContext);
   }
 
-  protected async executeEventDetail(
+  protected async handleEvent(
     event: FlowEvent,
+    compiledCodes: FlowEventCompiledCodes,
     context: ResolverContext,
-  ): Promise<unknown> {
-    if (this.isRepeatEvent(event)) {
-      return await this.executeRepeatEvent(event, context);
+  ): Promise<ResolverContext> {
+    switch (event.type) {
+      case 'Repeat':
+        return this.handleRepeatEvent(event, compiledCodes, context);
+      default:
+        return this.handleCommonEvent(event, compiledCodes, context);
     }
-
-    const compiledCode = this.findCompiledCode(context);
-    return await this.executeVM(compiledCode, context);
   }
 
-  protected async executeRepeatEvent(
+  protected async handleCommonEvent(
     event: FlowEvent,
+    compiledCodes: FlowEventCompiledCodes,
     context: ResolverContext,
-  ): Promise<unknown[]> {
+  ) {
+    const compiledCode = this.findCompiledCode(compiledCodes, context);
+    const computedContext = await this.executeVM(compiledCode, context);
+
+    return computedContext;
+  }
+
+  protected async handleRepeatEvent(
+    event: FlowEvent,
+    compiledCodes: FlowEventCompiledCodes,
+    context: ResolverContext,
+  ): Promise<ResolverContext> {
     const { startEventName, events } = this.prepareRepeatEvent(event);
-    const compiledCode = this.findCompiledCode(context);
-    const repeatCount = await this.executeVM(compiledCode, context);
-    const output: unknown[] = [];
+    const compiledCode = this.findCompiledCode(compiledCodes, context);
+    const computedContext = await this.executeVM(compiledCode, context);
+    const repeatCount = computedContext.output;
+    const outputArray: unknown[] = [];
 
     if (typeof repeatCount !== 'number') {
       throw new FlowRepeatCountException('The repeatCount is not number type.');
@@ -67,7 +82,7 @@ export class ResolverService {
     this.checkMaxRepeatCount(repeatCount);
 
     for (let index = 0; index < repeatCount; index++) {
-      const { output: oneOutput } = await this.executeEvent(events, {
+      const { output } = await this.executeNextEvent(events, compiledCodes, {
         ...context,
         eventName: startEventName,
         parentEventNames: this.nestedEventService.combinePrefix(
@@ -76,10 +91,13 @@ export class ResolverService {
         ),
         index,
       });
-      output.push(oneOutput);
+      outputArray.push(output);
     }
 
-    return output;
+    return {
+      ...computedContext,
+      output: outputArray,
+    };
   }
 
   protected findEvent(eventName: string, events: FlowEvents): FlowEvent {
@@ -98,12 +116,15 @@ export class ResolverService {
       : null;
   }
 
-  protected findCompiledCode(context: ResolverContext): string {
+  protected findCompiledCode(
+    compiledCodes: FlowEventCompiledCodes,
+    context: ResolverContext,
+  ): string {
     const nestedEventName = this.nestedEventService.combinePrefix(
       context.parentEventNames,
       context.eventName,
     );
-    const code = context.compiledCodes[nestedEventName];
+    const code = compiledCodes[nestedEventName];
 
     if (!code) {
       throw new FlowNoCompiledCodeException(
@@ -137,7 +158,7 @@ export class ResolverService {
   protected async executeVM(
     compiledCode: string,
     context: ResolverContext,
-  ): Promise<unknown> {
+  ): Promise<ResolverContext> {
     return await this.sandboxService.executeVM(compiledCode, context);
   }
 }

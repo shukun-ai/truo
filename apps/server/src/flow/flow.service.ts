@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FlowEventCompiledCodes, FlowSchema } from '@shukun/schema';
+import { FlowSchema } from '@shukun/schema';
 
 import { ObservableStore } from '../sandbox/stores/observable-store.class';
 
@@ -28,15 +28,11 @@ export class FlowService {
 
     this.validateInputs(input, definition.input);
 
-    const context = this.prepareContext(
-      definition,
-      compiledCodes,
-      externalContext,
-      parameter,
-    );
+    const context = this.prepareContext(parameter, definition, externalContext);
 
-    const { output } = await this.resolverService.executeEvent(
+    const { output } = await this.resolverService.executeNextEvent(
       definition.events,
+      compiledCodes,
       context,
     );
 
@@ -62,23 +58,22 @@ export class FlowService {
   }
 
   prepareContext(
-    definition: FlowSchema,
-    compiledCodes: FlowEventCompiledCodes,
-    externalContext: ExternalContext,
     parameter: unknown,
+    definition: FlowSchema,
+    externalContext: ExternalContext,
   ): ResolverContext {
-    const store = this.createStore();
-
     return {
-      index: 0,
+      parameter: parameter,
       input: parameter,
-      store,
-      environment: {},
-      compiledCodes,
-      eventName: definition.startEventName,
-      parentEventNames: undefined,
+      output: null,
+      next: null,
+      index: 0,
+      env: {},
+      store: {},
       orgName: externalContext.orgName,
       operatorId: externalContext.operatorId,
+      eventName: definition.startEventName,
+      parentEventNames: undefined,
     };
   }
 
