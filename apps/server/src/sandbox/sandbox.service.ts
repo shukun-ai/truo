@@ -18,7 +18,8 @@ export class SandboxService {
   ): Promise<unknown> {
     const vm = new NodeVM();
     const exports = vm.run(compiledCode);
-    const output = await exports.default(this.prepareVMScope(input, context));
+    const $ = this.prepareVMScope(input, context);
+    const output = await exports.default($);
     return output;
   }
 
@@ -28,6 +29,8 @@ export class SandboxService {
       index: context.index,
       env: context.environment,
       math: Math,
+      store: context.store.getStore(),
+      observableStore: context.store,
       sourceResolver: this.sourceResolverService,
       orgName: context.orgName,
       operatorId: context.operatorId,

@@ -3,6 +3,7 @@ import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper'
 import { SourceResolverService } from './resolvers/source-resolver.service';
 import { SandboxContext } from './sandbox.interface';
 import { SandboxService } from './sandbox.service';
+import { ObservableStore } from './stores/observable-store.class';
 
 describe('SandboxService', () => {
   let sandboxService: SandboxService;
@@ -16,7 +17,7 @@ describe('SandboxService', () => {
 
     context = {
       index: 0,
-      store: {},
+      store: new ObservableStore(),
       environment: {},
       compiledCodes: {},
       eventName: 'name',

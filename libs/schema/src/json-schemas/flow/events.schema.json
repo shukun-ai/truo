@@ -41,6 +41,9 @@
         },
         {
           "$ref": "event/repeat.schema.json"
+        },
+        {
+          "$ref": "event/store.schema.json"
         }
       ]
     }

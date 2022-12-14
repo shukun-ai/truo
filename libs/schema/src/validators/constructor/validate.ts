@@ -30,6 +30,7 @@ import {
   FlowEventSourceRemoveFromManySchema,
   FlowEventSourceIncreaseSchema,
   FlowEventRepeatSchema,
+  FlowEventStoreSchema,
 } from '../../json-exports';
 
 export function createAjv(options?: Options) {
@@ -105,7 +106,8 @@ export function createAjv(options?: Options) {
       'flow/event/source-increase.schema.json',
     )
     .addSchema(FlowEventChoiceSchema, 'flow/event/choice.schema.json')
-    .addSchema(FlowEventRepeatSchema, 'flow/event/repeat.schema.json');
+    .addSchema(FlowEventRepeatSchema, 'flow/event/repeat.schema.json')
+    .addSchema(FlowEventStoreSchema, 'flow/event/store.schema.json');
 
   return validate;
 }

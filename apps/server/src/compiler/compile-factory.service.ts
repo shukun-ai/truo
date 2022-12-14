@@ -6,6 +6,7 @@ import { compileSourceDeleteEvent } from './events/compile-source-delete';
 
 import { compileSourceQueryEvent } from './events/compile-source-query';
 import { compileSourceUpdateEvent } from './events/compile-source-update';
+import { compileStoreEvent } from './events/compile-store';
 import { compileSuccessEvent } from './events/compile-success';
 
 @Injectable()
@@ -34,6 +35,8 @@ export class CompileFactoryService {
       //   return await compileSuccessEvent(event);
       // case 'Repeat':
       //   return await compileSuccessEvent(event);
+      case 'Store':
+        return await compileStoreEvent(event);
       default:
         throw new BadRequestException(
           `We did not support this event type: ${event.type}`,
