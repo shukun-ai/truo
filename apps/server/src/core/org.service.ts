@@ -34,8 +34,8 @@ export class OrgService {
       .find(query.filter)
       .select(query.select)
       .populate(query.populate)
-      .skip(query.skip || DB_DEFAULT_SKIP)
-      .limit(query.limit || DB_DEFAULT_LIMIT)
+      .skip(query.skip ?? DB_DEFAULT_SKIP)
+      .limit(query.limit ?? DB_DEFAULT_LIMIT)
       .sort(query.sort)
       .exec();
     return value;
