@@ -97,8 +97,8 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const value = await this.getAtom()
       .find(mongoQuery.filter)
       .select(mongoQuery.select)
-      .skip(mongoQuery.skip || DB_DEFAULT_SKIP)
-      .limit(mongoQuery.limit || DB_DEFAULT_LIMIT)
+      .skip(mongoQuery.skip ?? DB_DEFAULT_SKIP)
+      .limit(mongoQuery.limit ?? DB_DEFAULT_LIMIT)
       .sort(mongoQuery.sort)
       .exec();
 
