@@ -24,6 +24,7 @@ export class FlowService {
   ) {
     const definition = await this.getDefinition(orgName, flowName);
     const compiledCodes = await this.getCompiledCodes(orgName, flowName);
+    const parameter = input;
 
     this.validateInputs(input, definition.input);
 
@@ -31,11 +32,11 @@ export class FlowService {
       definition,
       compiledCodes,
       externalContext,
+      parameter,
     );
 
     const { output } = await this.resolverService.executeEvent(
       definition.events,
-      input,
       context,
     );
 
@@ -64,11 +65,13 @@ export class FlowService {
     definition: FlowSchema,
     compiledCodes: FlowEventCompiledCodes,
     externalContext: ExternalContext,
+    parameter: unknown,
   ): ResolverContext {
     const store = this.createStore();
 
     return {
       index: 0,
+      input: parameter,
       store,
       environment: {},
       compiledCodes,
