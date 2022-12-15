@@ -12,7 +12,9 @@ export class FlowService {
     return application.flows ?? [];
   }
 
-  takeOne(flows: FlowSchema[], flowName: string) {
+  async findOne(orgName: string, flowName: string): Promise<FlowSchema> {
+    const flows = await this.findAll(orgName);
+
     const flow = flows?.find((item) => item.name === flowName);
 
     if (!flow) {

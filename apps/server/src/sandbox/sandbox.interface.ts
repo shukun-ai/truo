@@ -1,24 +1,21 @@
 import { SourceResolverService } from './resolvers/source-resolver.service';
 
 export interface SandboxContext {
+  parameter: unknown;
+  input: unknown;
+  output: unknown;
+  next: string | null;
   index: number;
-  store: object;
-  environment: object;
-  compiledCodes: Record<string, string>;
+  env: Record<string, string>;
+  store: Record<string, unknown>;
+  orgName: string;
+  operatorId: string | undefined;
   eventName: string;
   parentEventNames: string | undefined;
-  // TODO: add orgName
-  // TODO: add operatorId
 }
 
-export interface SandboxVMScope {
-  input: unknown;
-  index: number;
-  env: object;
-  math: Math;
+export interface SandboxVMResolver {
   sourceResolver: SourceResolverService;
-  // TODO: add orgName
-  // TODO: add operatorId
   // TODO: add date
   // TODO: add util functions
   // TODO: add http

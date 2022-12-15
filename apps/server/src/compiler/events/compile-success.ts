@@ -8,7 +8,11 @@ export async function compileSuccessEvent(
   return `
         async function main($){
             const output = ${compileJsonTemplate(event.output)};
-            return output;
+            return {
+              ...$,
+              output,
+              next: null
+            };
         };
         exports.default=main;
     `;

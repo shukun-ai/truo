@@ -85,7 +85,11 @@ export type FlowEvent =
   | FlowEventSourceRemoveFromMany
   | FlowEventSourceIncrease
   | FlowEventChoice
-  | FlowEventRepeat;
+  | FlowEventRepeat
+  | FlowEventParallel
+  | FlowEventStore
+  | FlowEventFirstOrThrow
+  | FlowEventLastOrThrow;
 export type RoleAttribute = string;
 
 /**
@@ -674,18 +678,12 @@ export interface FlowEvents {
 }
 export interface FlowEventSuccess {
   type: 'Success';
-  output: {
-    [k: string]: unknown;
-  };
-  customHttpStatus?: number;
+  output: string;
   [k: string]: unknown;
 }
 export interface FlowEventFail {
   type: 'Fail';
-  output: {
-    [k: string]: unknown;
-  };
-  customHttpStatus?: number;
+  output: string;
   [k: string]: unknown;
 }
 export interface FlowEventSourceQuery {
@@ -794,12 +792,14 @@ export interface FlowEventSourceIncrease {
 }
 export interface FlowEventChoice {
   type: 'Choice';
+  /**
+   * it means default next.
+   */
   next: string;
   conditions: {
-    condition?: string;
-    eventName?: string;
     description?: string;
-    [k: string]: unknown;
+    condition: string;
+    next: string;
   }[];
   [k: string]: unknown;
 }
@@ -809,7 +809,34 @@ export interface FlowEventRepeat {
   repeatCount: string;
   startEventName: string;
   events: FlowEvents;
-  description: string;
+  description?: string;
+  [k: string]: unknown;
+}
+export interface FlowEventParallel {
+  type: 'Parallel';
+  next: string;
+  branches: {
+    startEventName: string;
+    events: FlowEvents;
+    description?: string;
+  }[];
+  [k: string]: unknown;
+}
+export interface FlowEventStore {
+  type: 'Store';
+  next: string;
+  key: string;
+  value: string;
+  [k: string]: unknown;
+}
+export interface FlowEventFirstOrThrow {
+  type: 'FirstOrThrow';
+  next: string;
+  [k: string]: unknown;
+}
+export interface FlowEventLastOrThrow {
+  type: 'LastOrThrow';
+  next: string;
   [k: string]: unknown;
 }
 /**

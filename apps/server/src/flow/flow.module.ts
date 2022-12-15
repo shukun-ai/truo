@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { CompilerModule } from '../compiler/compiler.module';
+import { CoreModule } from '../core/core.module';
 
 import { SandboxModule } from '../sandbox/sandbox.module';
 
@@ -10,7 +11,7 @@ import { FlowService } from './flow.service';
 import { ResolverService } from './resolver.service';
 
 @Module({
-  imports: [CompilerModule, SandboxModule],
+  imports: [CoreModule, CompilerModule, SandboxModule],
   providers: [
     FlowService,
     DefinitionService,

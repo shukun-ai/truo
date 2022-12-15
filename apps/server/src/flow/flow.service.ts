@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { FlowEventCompiledCodes, FlowSchema } from '@shukun/schema';
+import { FlowSchema } from '@shukun/schema';
+
+import { ObservableStore } from '../sandbox/stores/observable-store.class';
 
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
-import { ResolverContext } from './flow.interface';
+import { ExternalContext, ResolverContext } from './flow.interface';
 import { ResolverService } from './resolver.service';
 
 @Injectable()
@@ -14,16 +16,24 @@ export class FlowService {
     private readonly resolverService: ResolverService,
   ) {}
 
-  async execute(orgName: string, flowName: string, input: unknown) {
+  async execute(
+    orgName: string,
+    flowName: string,
+    input: unknown,
+    externalContext: ExternalContext,
+  ) {
     const definition = await this.getDefinition(orgName, flowName);
     const compiledCodes = await this.getCompiledCodes(orgName, flowName);
+    const parameter = input;
 
     this.validateInputs(input, definition.input);
 
-    const { output } = await this.resolverService.executeEvent(
+    const context = this.prepareContext(parameter, definition, externalContext);
+
+    const { output } = await this.resolverService.executeNextEvent(
       definition.events,
-      input,
-      this.prepareContext(definition, compiledCodes),
+      compiledCodes,
+      context,
     );
 
     this.validateOutputs(output, definition.output);
@@ -36,18 +46,32 @@ export class FlowService {
   }
 
   async getCompiledCodes(orgName: string, flowName: string) {
-    return await this.compiledCodeService.getCompiledCodes(orgName, flowName);
+    return await this.compiledCodeService.getEventCompiledCodes(
+      orgName,
+      flowName,
+    );
+  }
+
+  createStore() {
+    const store = new ObservableStore();
+    return store;
   }
 
   prepareContext(
+    parameter: unknown,
     definition: FlowSchema,
-    compiledCodes: FlowEventCompiledCodes,
+    externalContext: ExternalContext,
   ): ResolverContext {
     return {
+      parameter: parameter,
+      input: parameter,
+      output: null,
+      next: null,
       index: 0,
+      env: {},
       store: {},
-      environment: {},
-      compiledCodes,
+      orgName: externalContext.orgName,
+      operatorId: externalContext.operatorId,
       eventName: definition.startEventName,
       parentEventNames: undefined,
     };

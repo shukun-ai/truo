@@ -6,12 +6,18 @@ export async function compileSourceUpdateEvent(
   event: FlowEventSourceUpdate,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$){
             const id = ${compileJsonTemplate(event.id)};
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
             const dto = ${compileJsonTemplate(event.data)};
-            return await $.sourceResolver.update(id, orgName, atomName, dto);
+            const output = await $$.sourceResolver.update(id, orgName, atomName, dto);
+
+            return {
+              ...$,
+              next: "${event.next}",
+              output
+            }
         };
         exports.default=main;
     `;

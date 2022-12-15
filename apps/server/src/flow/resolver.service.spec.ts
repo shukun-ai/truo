@@ -22,87 +22,108 @@ describe('ResolverService', () => {
   });
 
   describe('ExecuteEvents', () => {
-    it('should return 3', async () => {
-      jest.spyOn(sandboxService, 'executeVM').mockImplementation(async () => 3);
-
+    it('Test Common Event', async () => {
+      const input = { test: 3 };
       const startEventName = 'test';
       const events: FlowEvents = {
         test: {
           type: 'Success',
-          output: {
-            data: 'test',
-          },
+          output: "{ data: 'test' }",
         },
       };
-      const input = { test: 3 };
+      const compiledCodes = {
+        test: 'test',
+      };
       const context: ResolverContext = {
+        parameter: input,
+        input,
+        output: null,
+        next: null,
         index: 0,
         store: {},
-        environment: {},
-        compiledCodes: {
-          test: 'test',
-        },
+        env: {},
         eventName: startEventName,
         parentEventNames: '',
+        orgName: 'test',
+        operatorId: undefined,
       };
 
-      const results = await resolverService.executeEvent(
+      jest
+        .spyOn(sandboxService, 'executeVM')
+        .mockImplementation(async () => context);
+
+      const computedContext = await resolverService.executeNextEvent(
         events,
-        input,
+        compiledCodes,
         context,
       );
-      expect(results.output).toEqual(3);
-      expect(results.previousContext.eventName).toEqual('test');
+      expect(computedContext).toEqual(context);
     });
 
-    it('should return 3', async () => {
-      jest.spyOn(sandboxService, 'executeVM').mockImplementation(async () => 3);
+    it('Test Choice Event', async () => {
+      // TODO
+    });
 
+    it('Test Parallel Event', async () => {
+      const input = { test: 3 };
       const startEventName = 'test';
       const events: FlowEvents = {
         test: {
-          type: 'Repeat',
-          next: 'second',
-          repeatCount: '3',
-          description: 'description',
-          startEventName: 're1',
-          events: {
-            re1: {
-              type: 'Success',
-              output: {
-                data: '3',
+          type: 'Parallel',
+          next: 'test',
+          branches: [
+            {
+              startEventName: 'p1',
+              events: {
+                p1: {
+                  type: 'Parallel',
+                  next: 'test',
+                  branches: [
+                    {
+                      startEventName: 'p2',
+                      events: {
+                        p2: {
+                          type: 'Success',
+                          output: "'hi'",
+                        },
+                      },
+                    },
+                  ],
+                },
               },
             },
-          },
-        },
-        second: {
-          type: 'Success',
-          output: {
-            data: 3,
-          },
+          ],
         },
       };
-      const input = { test: 3 };
+      const compiledCodes = {
+        test: 'test',
+        'test->0->p1': 'test',
+        'test->0->p1->0->p2': 'test',
+      };
       const context: ResolverContext = {
+        parameter: input,
+        input,
+        output: null,
+        next: null,
         index: 0,
         store: {},
-        environment: {},
-        compiledCodes: {
-          test: 'test',
-          'test->re1': 'test2',
-          second: 'test',
-        },
+        env: {},
         eventName: startEventName,
         parentEventNames: '',
+        orgName: 'test',
+        operatorId: undefined,
       };
 
-      const results = await resolverService.executeEvent(
+      jest
+        .spyOn(sandboxService, 'executeVM')
+        .mockImplementation(async () => context);
+
+      const computedContext = await resolverService.executeNextEvent(
         events,
-        input,
+        compiledCodes,
         context,
       );
-      expect(results.output).toEqual(3);
-      expect(results.previousContext.eventName).toEqual('second');
+      expect(computedContext).toEqual({ ...context, output: [[null]] });
     });
   });
 });
