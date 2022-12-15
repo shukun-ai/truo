@@ -34,8 +34,8 @@ export class OrgService {
       .find(query.filter)
       .select(query.select)
       .populate(query.populate)
-      .skip(query.skip || DB_DEFAULT_SKIP)
-      .limit(query.limit || DB_DEFAULT_LIMIT)
+      .skip(query.skip ?? DB_DEFAULT_SKIP)
+      .limit(query.limit ?? DB_DEFAULT_LIMIT)
       .sort(query.sort)
       .exec();
     return value;
@@ -71,11 +71,11 @@ export class OrgService {
     return value;
   }
 
-  async updateCodebase(orgId: IDString, codebase: ApplicationSchema) {
+  async updateCodebase(orgName: string, codebase: ApplicationSchema) {
     const buffer = Buffer.from(JSON.stringify(codebase));
 
     await this.orgModel.updateOne(
-      { _id: orgId },
+      { name: orgName },
       {
         codebase: buffer,
       },
@@ -125,7 +125,7 @@ export class OrgService {
     await this.orgModel.updateOne(
       { name: orgName },
       {
-        flowOrgCompiledCodes: buffer,
+        compiledCodes: buffer,
       },
     );
   }
@@ -135,16 +135,16 @@ export class OrgService {
   ): Promise<FlowOrgCompiledCodes> {
     const org = await this.orgModel
       .findOne({ name: orgName })
-      .select('flowCompiledCodes')
+      .select('compiledCodes')
       .exec();
 
-    if (!org?.flowCompiledCodes) {
+    if (!org?.compiledCodes) {
       const flowCompiledCodes: FlowOrgCompiledCodes = {};
       return flowCompiledCodes;
     }
 
     const flowCompiledCodes: FlowOrgCompiledCodes = JSON.parse(
-      org.flowCompiledCodes.toString(),
+      org.compiledCodes.toString(),
     );
     return flowCompiledCodes;
   }

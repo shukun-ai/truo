@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ExceptionSchema",
+  "description": "Describe Exception Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["names"],
+  "properties": {
+    "names": {
+      "title": "ExceptionNames",
+      "enum": [
+        "IsNotArrayException",
+        "IsEmptyArrayException",
+        "FlowRepeatCountException",
+        "FlowNoCompiledCodeException",
+        "FlowDefinitionException"
+      ],
+      "tsEnumNames": [
+        "IsNotArrayException",
+        "IsEmptyArrayException",
+        "FlowRepeatCountException",
+        "FlowNoCompiledCodeException",
+        "FlowDefinitionException"
+      ]
+    }
+  }
+}

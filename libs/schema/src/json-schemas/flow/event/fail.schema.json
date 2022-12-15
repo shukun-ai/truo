@@ -5,7 +5,6 @@
   "required": ["type", "output"],
   "properties": {
     "type": { "const": "Fail" },
-    "output": { "type": "object" },
-    "customHttpStatus": { "type": "number" }
+    "output": { "type": "string" }
   }
 }

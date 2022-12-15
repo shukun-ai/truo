@@ -20,12 +20,12 @@ export class CompilerService {
   async compileFlows(flows: FlowSchema[]) {
     const flowOrgCompiledCodes: FlowOrgCompiledCodes = {};
 
-    for (const [flowName, flow] of Object.entries(flows)) {
+    for (let index = 0; index < flows.length; index++) {
       const flowEventCompiledCodes = await this.compileEvents(
-        flow.events,
+        flows[index].events,
         undefined,
       );
-      flowOrgCompiledCodes[flowName] = flowEventCompiledCodes;
+      flowOrgCompiledCodes[flows[index].name] = flowEventCompiledCodes;
     }
 
     return flowOrgCompiledCodes;
@@ -67,6 +67,29 @@ export class CompilerService {
         currentEvent.events,
         currentCodeName,
       );
+    }
+
+    if (currentEvent.type === 'Parallel') {
+      const branchesPromise = currentEvent.branches.map(
+        async (branch, index) => {
+          return await this.compileEvents(
+            branch.events,
+            this.nestedEventService.combinePrefix(
+              currentCodeName,
+              index.toString(),
+            ),
+          );
+        },
+      );
+
+      const branchesCodes = await Promise.all(branchesPromise);
+
+      childrenCodes = branchesCodes.reduce((previous, current) => {
+        return {
+          ...previous,
+          ...current,
+        };
+      }, childrenCodes);
     }
 
     return {

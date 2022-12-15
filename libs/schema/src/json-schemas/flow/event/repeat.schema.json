@@ -2,14 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "FlowEventRepeat",
   "type": "object",
-  "required": [
-    "type",
-    "next",
-    "repeatCount",
-    "startEventName",
-    "events",
-    "description"
-  ],
+  "required": ["type", "next", "repeatCount", "startEventName", "events"],
   "properties": {
     "type": { "const": "Repeat" },
     "next": { "type": "string" },

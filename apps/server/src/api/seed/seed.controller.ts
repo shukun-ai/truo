@@ -41,10 +41,7 @@ export class SeedController {
     const org = await this.createOrg(createDto);
 
     // upload codebase
-    await this.orgService.updateCodebase(
-      org._id.toString(),
-      initialApplication,
-    );
+    await this.orgService.updateCodebase(org.name, initialApplication);
 
     // create user
     const rootUser = await this.systemUserService.createOne(

@@ -86,3 +86,15 @@ export const FlowEventChoiceSchema = require('./json-schemas/flow/event/choice.s
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const FlowEventRepeatSchema = require('./json-schemas/flow/event/repeat.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventParallelSchema = require('./json-schemas/flow/event/parallel.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventStoreSchema = require('./json-schemas/flow/event/store.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventFirstOrThrowSchema = require('./json-schemas/flow/event/first-or-throw.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const FlowEventLastOrThrowSchema = require('./json-schemas/flow/event/last-or-throw.schema.json');

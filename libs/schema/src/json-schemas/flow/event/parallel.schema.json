@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowEventParallel",
+  "type": "object",
+  "required": ["type", "next", "branches"],
+  "properties": {
+    "type": { "const": "Parallel" },
+    "next": { "type": "string" },
+    "branches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["startEventName", "events"],
+        "additionalProperties": false,
+        "properties": {
+          "startEventName": { "type": "string" },
+          "events": {
+            "$ref": "../events.schema.json"
+          },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

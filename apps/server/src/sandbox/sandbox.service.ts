@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { NodeVM } from 'vm2';
 
+import { IsEmptyArrayException } from '../exceptions/is-empty-array';
+
+import { IsNotArrayException } from '../exceptions/is-not-array';
+
 import { ResolverContext } from '../flow/flow.interface';
 
 import { SourceResolverService } from './resolvers/source-resolver.service';
 
-import { SandboxVMScope } from './sandbox.interface';
+import { SandboxContext, SandboxVMResolver } from './sandbox.interface';
 
 @Injectable()
 export class SandboxService {
@@ -13,24 +17,40 @@ export class SandboxService {
 
   async executeVM(
     compiledCode: string,
-    input: unknown,
     context: ResolverContext,
-  ): Promise<unknown> {
+  ): Promise<SandboxContext> {
     const vm = new NodeVM();
     const exports = vm.run(compiledCode);
-    const output = await exports.default(this.prepareVMScope(input, context));
-    return output;
+    const $ = this.prepareVMContext(context);
+    const $$ = this.prepareVMResolver();
+    const $$$ = this.prepareVMException();
+
+    try {
+      const output: SandboxContext = await exports.default($, $$, $$$);
+      return output;
+    } catch (error) {
+      throw this.catchError(error);
+    }
   }
 
-  prepareVMScope(input: unknown, context: ResolverContext): SandboxVMScope {
-    const vmScope: SandboxVMScope = {
-      input,
-      index: context.index,
-      env: context.environment,
-      math: Math,
+  prepareVMContext(context: ResolverContext): SandboxContext {
+    return context;
+  }
+
+  prepareVMResolver(): SandboxVMResolver {
+    return {
       sourceResolver: this.sourceResolverService,
     };
+  }
 
-    return vmScope;
+  prepareVMException() {
+    return {
+      IsNotArrayException: IsNotArrayException,
+      IsEmptyArrayException: IsEmptyArrayException,
+    };
+  }
+
+  catchError(error: unknown) {
+    return error;
   }
 }

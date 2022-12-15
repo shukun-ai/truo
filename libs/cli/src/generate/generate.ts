@@ -1,4 +1,5 @@
 import {
+  FlowSchema,
   MetadataSchema,
   RoleSchema,
   ViewSchema,
@@ -26,10 +27,12 @@ export async function generate(options: GenerateOptions) {
   const views = await readSection<ViewSchema>(inputPath, 'views');
   const workflows = await readSection<WorkflowSchema>(inputPath, 'workflows');
   const roles = await readSection<RoleSchema>(inputPath, 'roles');
+  const flows = await readSection<FlowSchema>(inputPath, 'flows');
   application.metadata = metadata;
   application.views = views;
   application.workflows = workflows;
   application.roles = roles;
+  application.flows = flows;
 
   const validated = await validate(application);
   const text = await stringify(validated);
