@@ -1,4 +1,4 @@
-import { FlowEventFirstOrThrow } from '@shukun/schema';
+import { FlowEventLastOrThrow } from '@shukun/schema';
 
 import { IsEmptyArrayException } from '../../exceptions/is-empty-array';
 
@@ -9,14 +9,14 @@ import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.s
 import { SandboxService } from '../../sandbox/sandbox.service';
 import { mockEmptyDependencies } from '../../util/unit-testing/unit-testing.helper';
 
-import { compileFirstOrThrowEvent } from './compile-first-or-throw';
+import { compileLastOrThrowEvent } from './compile-last-or-throw';
 
-describe('compileFirstOrThrowEvent', () => {
+describe('compileLastOrThrowEvent', () => {
   let sandboxService: SandboxService;
   let sourceResolverService: SourceResolverService;
 
-  const event: FlowEventFirstOrThrow = {
-    type: 'FirstOrThrow',
+  const event: FlowEventLastOrThrow = {
+    type: 'LastOrThrow',
     next: 'next',
   };
 
@@ -25,16 +25,16 @@ describe('compileFirstOrThrowEvent', () => {
     sandboxService = new SandboxService(sourceResolverService);
   });
 
-  it('should return 0', async () => {
+  it('should return 9', async () => {
     const context: any = {
       input: new Array(10).fill(1).map((item, index) => index),
     };
-    const code = await compileFirstOrThrowEvent(event);
+    const code = await compileLastOrThrowEvent(event);
     const output = await sandboxService.executeVM(code, context);
 
     expect(output).toEqual({
       ...context,
-      output: 0,
+      output: 9,
       next: 'next',
     });
   });
@@ -43,7 +43,7 @@ describe('compileFirstOrThrowEvent', () => {
     const context: any = {
       input: {},
     };
-    const code = await compileFirstOrThrowEvent(event);
+    const code = await compileLastOrThrowEvent(event);
 
     expect(sandboxService.executeVM(code, context)).rejects.toThrow(
       new IsNotArrayException('The input is not a array.'),
@@ -54,7 +54,7 @@ describe('compileFirstOrThrowEvent', () => {
     const context: any = {
       input: [],
     };
-    const code = await compileFirstOrThrowEvent(event);
+    const code = await compileLastOrThrowEvent(event);
 
     expect(sandboxService.executeVM(code, context)).rejects.toEqual(
       new IsEmptyArrayException('The input is a empty array.'),

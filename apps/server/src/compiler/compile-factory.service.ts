@@ -2,6 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { FlowEvent, FlowEventCompiledCode } from '@shukun/schema';
 
 import { compileFailEvent } from './events/compile-fail';
+import { compileFirstOrThrowEvent } from './events/compile-first-or-throw';
+import { compileLastOrThrowEvent } from './events/compile-last-or-throw';
 import { compileRepeatEvent } from './events/compile-repeat';
 import { compileSourceAddToManyEvent } from './events/compile-source-add-to-many';
 
@@ -50,13 +52,9 @@ export class CompileFactoryService {
       case 'Store':
         return await compileStoreEvent(event);
       case 'FirstOrThrow':
-        throw new BadRequestException(
-          'We did not support FirstOrThrow type in this version.',
-        );
+        return await compileFirstOrThrowEvent(event);
       case 'LastOrThrow':
-        throw new BadRequestException(
-          'We did not support LastOrThrow type in this version.',
-        );
+        return await compileLastOrThrowEvent(event);
     }
   }
 }
