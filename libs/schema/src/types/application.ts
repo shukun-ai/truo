@@ -678,7 +678,6 @@ export interface FlowEventSuccess {
   output: {
     [k: string]: unknown;
   };
-  customHttpStatus?: number;
   [k: string]: unknown;
 }
 export interface FlowEventFail {
@@ -686,7 +685,6 @@ export interface FlowEventFail {
   output: {
     [k: string]: unknown;
   };
-  customHttpStatus?: number;
   [k: string]: unknown;
 }
 export interface FlowEventSourceQuery {
@@ -795,12 +793,14 @@ export interface FlowEventSourceIncrease {
 }
 export interface FlowEventChoice {
   type: 'Choice';
+  /**
+   * it means default next.
+   */
   next: string;
   conditions: {
-    condition?: string;
-    eventName?: string;
     description?: string;
-    [k: string]: unknown;
+    condition: string;
+    next: string;
   }[];
   [k: string]: unknown;
 }
