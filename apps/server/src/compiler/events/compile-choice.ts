@@ -6,7 +6,7 @@ export async function compileChoiceEvent(
   event: FlowEventChoice,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$, $$$){
             let next = "${event.next}";
 
             const condition = [

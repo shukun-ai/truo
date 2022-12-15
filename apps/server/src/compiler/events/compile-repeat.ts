@@ -6,7 +6,7 @@ export async function compileRepeatEvent(
   event: FlowEventRepeat,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$, $$$){
             const output = ${compileJsonTemplate(event.repeatCount)};
 
             return {
