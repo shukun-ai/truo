@@ -69,6 +69,29 @@ export class CompilerService {
       );
     }
 
+    if (currentEvent.type === 'Parallel') {
+      const branchesPromise = currentEvent.branches.map(
+        async (branch, index) => {
+          return await this.compileEvents(
+            branch.events,
+            this.nestedEventService.combinePrefix(
+              currentCodeName,
+              index.toString(),
+            ),
+          );
+        },
+      );
+
+      const branchesCodes = await Promise.all(branchesPromise);
+
+      childrenCodes = branchesCodes.reduce((previous, current) => {
+        return {
+          ...previous,
+          ...current,
+        };
+      }, childrenCodes);
+    }
+
     return {
       [currentCodeName]: currentCode,
       ...childrenCodes,

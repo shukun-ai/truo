@@ -678,16 +678,12 @@ export interface FlowEvents {
 }
 export interface FlowEventSuccess {
   type: 'Success';
-  output: {
-    [k: string]: unknown;
-  };
+  output: string;
   [k: string]: unknown;
 }
 export interface FlowEventFail {
   type: 'Fail';
-  output: {
-    [k: string]: unknown;
-  };
+  output: string;
   [k: string]: unknown;
 }
 export interface FlowEventSourceQuery {

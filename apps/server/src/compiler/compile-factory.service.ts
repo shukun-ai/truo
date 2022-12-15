@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { FlowEvent, FlowEventCompiledCode } from '@shukun/schema';
 
 import { compileChoiceEvent } from './events/compile-choice';
@@ -6,6 +6,7 @@ import { compileChoiceEvent } from './events/compile-choice';
 import { compileFailEvent } from './events/compile-fail';
 import { compileFirstOrThrowEvent } from './events/compile-first-or-throw';
 import { compileLastOrThrowEvent } from './events/compile-last-or-throw';
+import { compileParallelEvent } from './events/compile-parallel';
 import { compileRepeatEvent } from './events/compile-repeat';
 import { compileSourceAddToManyEvent } from './events/compile-source-add-to-many';
 
@@ -46,9 +47,7 @@ export class CompileFactoryService {
       case 'Repeat':
         return await compileRepeatEvent(event);
       case 'Parallel':
-        throw new BadRequestException(
-          'We did not support Parallel type in this version.',
-        );
+        return await compileParallelEvent(event);
       case 'Store':
         return await compileStoreEvent(event);
       case 'FirstOrThrow':
