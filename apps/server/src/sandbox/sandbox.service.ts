@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { NodeVM } from 'vm2';
 
+import { IsEmptyArrayException } from '../exceptions/is-empty-array';
+
+import { IsNotArrayException } from '../exceptions/is-not-array';
+
 import { ResolverContext } from '../flow/flow.interface';
 
 import { SourceResolverService } from './resolvers/source-resolver.service';
@@ -19,7 +23,9 @@ export class SandboxService {
     const exports = vm.run(compiledCode);
     const $ = this.prepareVMContext(context);
     const $$ = this.prepareVMResolver();
-    const output: SandboxContext = await exports.default($, $$);
+    const $$$ = this.prepareVMException();
+    const output: SandboxContext = await exports.default($, $$, $$$);
+
     return output;
   }
 
@@ -30,6 +36,13 @@ export class SandboxService {
   prepareVMResolver(): SandboxVMResolver {
     return {
       sourceResolver: this.sourceResolverService,
+    };
+  }
+
+  prepareVMException() {
+    return {
+      IsNotArrayException: IsNotArrayException,
+      IsEmptyArrayException: IsEmptyArrayException,
     };
   }
 }
