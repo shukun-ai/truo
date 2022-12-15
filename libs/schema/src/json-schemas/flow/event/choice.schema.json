@@ -5,15 +5,17 @@
   "required": ["type", "next", "conditions"],
   "properties": {
     "type": { "const": "Choice" },
-    "next": { "type": "string" },
+    "next": { "type": "string", "description": "it means default next." },
     "conditions": {
       "type": "array",
       "items": {
         "type": "object",
+        "required": ["condition", "next"],
+        "additionalProperties": false,
         "properties": {
+          "description": { "type": "string" },
           "condition": { "type": "string" },
-          "eventName": { "type": "string" },
-          "description": { "type": "string" }
+          "next": { "type": "string" }
         }
       }
     }
