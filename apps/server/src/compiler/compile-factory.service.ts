@@ -43,8 +43,20 @@ export class CompileFactoryService {
         );
       case 'Repeat':
         return await compileRepeatEvent(event);
+      case 'Parallel':
+        throw new BadRequestException(
+          'We did not support Parallel type in this version.',
+        );
       case 'Store':
         return await compileStoreEvent(event);
+      case 'FirstOrThrow':
+        throw new BadRequestException(
+          'We did not support FirstOrThrow type in this version.',
+        );
+      case 'LastOrThrow':
+        throw new BadRequestException(
+          'We did not support LastOrThrow type in this version.',
+        );
     }
   }
 }

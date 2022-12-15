@@ -31,6 +31,9 @@ import {
   FlowEventSourceIncreaseSchema,
   FlowEventRepeatSchema,
   FlowEventStoreSchema,
+  FlowEventParallelSchema,
+  FlowEventFirstOrThrowSchema,
+  FlowEventLastOrThrowSchema,
 } from '../../json-exports';
 
 export function createAjv(options?: Options) {
@@ -107,7 +110,16 @@ export function createAjv(options?: Options) {
     )
     .addSchema(FlowEventChoiceSchema, 'flow/event/choice.schema.json')
     .addSchema(FlowEventRepeatSchema, 'flow/event/repeat.schema.json')
-    .addSchema(FlowEventStoreSchema, 'flow/event/store.schema.json');
+    .addSchema(FlowEventParallelSchema, 'flow/event/parallel.schema.json')
+    .addSchema(FlowEventStoreSchema, 'flow/event/store.schema.json')
+    .addSchema(
+      FlowEventFirstOrThrowSchema,
+      'flow/event/first-or-throw.schema.json',
+    )
+    .addSchema(
+      FlowEventLastOrThrowSchema,
+      'flow/event/last-or-throw.schema.json',
+    );
 
   return validate;
 }
