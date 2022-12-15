@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { FlowEvent, FlowEventCompiledCode } from '@shukun/schema';
 
+import { compileChoiceEvent } from './events/compile-choice';
+
 import { compileFailEvent } from './events/compile-fail';
 import { compileFirstOrThrowEvent } from './events/compile-first-or-throw';
 import { compileLastOrThrowEvent } from './events/compile-last-or-throw';
@@ -40,9 +42,7 @@ export class CompileFactoryService {
       case 'SourceIncrease':
         return await compileSourceIncreaseEvent(event);
       case 'Choice':
-        throw new BadRequestException(
-          'We did not support Choice type in this version.',
-        );
+        return await compileChoiceEvent(event);
       case 'Repeat':
         return await compileRepeatEvent(event);
       case 'Parallel':
