@@ -24,9 +24,13 @@ export class SandboxService {
     const $ = this.prepareVMContext(context);
     const $$ = this.prepareVMResolver();
     const $$$ = this.prepareVMException();
-    const output: SandboxContext = await exports.default($, $$, $$$);
 
-    return output;
+    try {
+      const output: SandboxContext = await exports.default($, $$, $$$);
+      return output;
+    } catch (error) {
+      throw this.catchError(error);
+    }
   }
 
   prepareVMContext(context: ResolverContext): SandboxContext {
@@ -44,5 +48,9 @@ export class SandboxService {
       IsNotArrayException: IsNotArrayException,
       IsEmptyArrayException: IsEmptyArrayException,
     };
+  }
+
+  catchError(error: unknown) {
+    return error;
   }
 }
