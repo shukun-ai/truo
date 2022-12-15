@@ -6,7 +6,7 @@ export async function compileSourceIncreaseEvent(
   event: FlowEventSourceIncrease,
 ): Promise<string> {
   return `
-        async function main($, $$){
+        async function main($, $$, $$$){
             const id = ${compileJsonTemplate(event.id)};
             const orgName = $.orgName;
             const atomName = "${event.atomName}";

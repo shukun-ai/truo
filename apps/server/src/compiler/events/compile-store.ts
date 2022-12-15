@@ -6,7 +6,7 @@ export async function compileStoreEvent(
   event: FlowEventStore,
 ): Promise<string> {
   return `
-        async function main($){
+        async function main($, $$, $$$){
             const key = "${event.key}";
             const value = ${compileJsonTemplate(event.value)};
 
