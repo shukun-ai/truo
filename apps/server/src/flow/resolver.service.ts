@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   FlowEvent,
   FlowEventCompiledCodes,
+  FlowEventParallel,
   FlowEventRepeat,
   FlowEvents,
 } from '@shukun/schema';
@@ -49,6 +50,8 @@ export class ResolverService {
     switch (event.type) {
       case 'Repeat':
         return this.handleRepeatEvent(event, compiledCodes, context);
+      case 'Parallel':
+        return this.handleParallelEvent(event, compiledCodes, context);
       default:
         return this.handleCommonEvent(event, compiledCodes, context);
     }
@@ -65,8 +68,46 @@ export class ResolverService {
     return computedContext;
   }
 
+  protected async handleParallelEvent(
+    event: FlowEventParallel,
+    compiledCodes: FlowEventCompiledCodes,
+    context: ResolverContext,
+  ): Promise<ResolverContext> {
+    const compiledCode = this.findCompiledCode(compiledCodes, context);
+    const computedContext = await this.executeVM(compiledCode, context);
+
+    const branchesPromise = event.branches.map(async (branch, index) => {
+      const parentEventNames = this.nestedEventService.combinePrefix(
+        this.nestedEventService.combinePrefix(
+          context.parentEventNames,
+          context.eventName,
+        ),
+        index.toString(),
+      );
+
+      const { output } = await this.executeNextEvent(
+        branch.events,
+        compiledCodes,
+        {
+          ...context,
+          eventName: branch.startEventName,
+          parentEventNames,
+          index,
+        },
+      );
+      return output;
+    });
+
+    const outputArray = await Promise.all(branchesPromise);
+
+    return {
+      ...computedContext,
+      output: outputArray,
+    };
+  }
+
   protected async handleRepeatEvent(
-    event: FlowEvent,
+    event: FlowEventRepeat,
     compiledCodes: FlowEventCompiledCodes,
     context: ResolverContext,
   ): Promise<ResolverContext> {

@@ -22,15 +22,13 @@ describe('ResolverService', () => {
   });
 
   describe('ExecuteEvents', () => {
-    it('should return computedContext', async () => {
+    it('Test Common Event', async () => {
       const input = { test: 3 };
       const startEventName = 'test';
       const events: FlowEvents = {
         test: {
           type: 'Success',
-          output: {
-            data: 'test',
-          },
+          output: "{ data: 'test' }",
         },
       };
       const compiledCodes = {
@@ -60,6 +58,72 @@ describe('ResolverService', () => {
         context,
       );
       expect(computedContext).toEqual(context);
+    });
+
+    it('Test Choice Event', async () => {
+      // TODO
+    });
+
+    it('Test Parallel Event', async () => {
+      const input = { test: 3 };
+      const startEventName = 'test';
+      const events: FlowEvents = {
+        test: {
+          type: 'Parallel',
+          next: 'test',
+          branches: [
+            {
+              startEventName: 'p1',
+              events: {
+                p1: {
+                  type: 'Parallel',
+                  next: 'test',
+                  branches: [
+                    {
+                      startEventName: 'p2',
+                      events: {
+                        p2: {
+                          type: 'Success',
+                          output: "'hi'",
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      };
+      const compiledCodes = {
+        test: 'test',
+        'test->0->p1': 'test',
+        'test->0->p1->0->p2': 'test',
+      };
+      const context: ResolverContext = {
+        parameter: input,
+        input,
+        output: null,
+        next: null,
+        index: 0,
+        store: {},
+        env: {},
+        eventName: startEventName,
+        parentEventNames: '',
+        orgName: 'test',
+        operatorId: undefined,
+      };
+
+      jest
+        .spyOn(sandboxService, 'executeVM')
+        .mockImplementation(async () => context);
+
+      const computedContext = await resolverService.executeNextEvent(
+        events,
+        compiledCodes,
+        context,
+      );
+      expect(computedContext).toEqual({ ...context, output: [[null]] });
     });
   });
 });
