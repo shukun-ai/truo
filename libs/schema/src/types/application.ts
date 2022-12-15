@@ -86,7 +86,10 @@ export type FlowEvent =
   | FlowEventSourceIncrease
   | FlowEventChoice
   | FlowEventRepeat
-  | FlowEventStore;
+  | FlowEventParallel
+  | FlowEventStore
+  | FlowEventFirstOrThrow
+  | FlowEventLastOrThrow;
 export type RoleAttribute = string;
 
 /**
@@ -810,7 +813,17 @@ export interface FlowEventRepeat {
   repeatCount: string;
   startEventName: string;
   events: FlowEvents;
-  description: string;
+  description?: string;
+  [k: string]: unknown;
+}
+export interface FlowEventParallel {
+  type: 'Parallel';
+  next: string;
+  branches: {
+    startEventName: string;
+    events: FlowEvents;
+    description?: string;
+  }[];
   [k: string]: unknown;
 }
 export interface FlowEventStore {
@@ -818,6 +831,16 @@ export interface FlowEventStore {
   next: string;
   key: string;
   value: string;
+  [k: string]: unknown;
+}
+export interface FlowEventFirstOrThrow {
+  type: 'FirstOrThrow';
+  next: string;
+  [k: string]: unknown;
+}
+export interface FlowEventLastOrThrow {
+  type: 'LastOrThrow';
+  next: string;
   [k: string]: unknown;
 }
 /**

@@ -43,7 +43,16 @@
           "$ref": "event/repeat.schema.json"
         },
         {
+          "$ref": "event/parallel.schema.json"
+        },
+        {
           "$ref": "event/store.schema.json"
+        },
+        {
+          "$ref": "event/first-or-throw.schema.json"
+        },
+        {
+          "$ref": "event/last-or-throw.schema.json"
         }
       ]
     }
