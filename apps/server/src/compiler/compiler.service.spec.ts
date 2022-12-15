@@ -1,4 +1,4 @@
-import { FlowEvents } from '@shukun/schema';
+import { FlowEvents, FlowSchema } from '@shukun/schema';
 
 import { CompileFactoryService } from './compile-factory.service';
 
@@ -128,6 +128,32 @@ describe('CompilerService', () => {
         'parallel->0->p2': 'test',
         'parallel->0->p2->0->p2p1': 'test',
       });
+    });
+  });
+
+  describe('compileFlows', () => {
+    it('', async () => {
+      jest
+        .spyOn(compilerService, 'compileEvents')
+        .mockImplementation(async () => ({}));
+
+      const flows: FlowSchema[] = [
+        {
+          startEventName: 't1',
+          name: 'test',
+          input: {},
+          output: {},
+          events: {
+            t1: {
+              type: 'Success',
+              output: '$.input',
+            },
+          },
+        },
+      ];
+
+      const output = await compilerService.compileFlows(flows);
+      expect(output).toEqual({ test: {} });
     });
   });
 });

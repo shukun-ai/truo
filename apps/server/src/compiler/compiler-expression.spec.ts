@@ -4,7 +4,7 @@ import { compileJsonTemplate } from './compiler-expression';
 
 describe('CompilerHelperService', () => {
   describe('compileJsonExpression', () => {
-    it('should return stringify', async () => {
+    it('Test stringify and intercept', async () => {
       const input: FlowEventSourceQuery['query'] = {
         filter: {
           name: {
@@ -23,19 +23,12 @@ describe('CompilerHelperService', () => {
       );
     });
 
-    // it('should throw FlowInjectionException', async () => {
-    //   const input: FlowEventSourceQuery['query'] = {
-    //     filter: {
-    //       name: {
-    //         $eq: '${$.sourceResolver.query()}',
-    //       },
-    //     },
-    //     select: {
-    //       name: true,
-    //     },
-    //   };
+    it('Test array input', async () => {
+      const input = ["'Hello ' + $.input", 1, 2, 3, 4];
 
-    //   expect(compilerHelperService.compileJsonTemplate(input)).toThrow();
-    // });
+      const output = compileJsonTemplate(input);
+
+      expect(output).toEqual("['Hello ' + $.input,1,2,3,4]");
+    });
   });
 });
