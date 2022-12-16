@@ -66,13 +66,12 @@ export class FlowService {
       parameter: parameter,
       input: parameter,
       output: null,
-      next: null,
+      next: definition.startEventName,
       index: 0,
       env: {},
       store: {},
       orgName: externalContext.orgName,
       operatorId: externalContext.operatorId,
-      eventName: definition.startEventName,
       parentEventNames: undefined,
     };
   }
