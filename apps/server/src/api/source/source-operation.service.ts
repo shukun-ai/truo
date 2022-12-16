@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { HttpQuerySchema } from '@shukun/schema';
 
-import { IDString, SourceServiceCreateDto } from '../../app.type';
+import { IDString, JsonModel, SourceServiceCreateDto } from '../../app.type';
 import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { SourceService } from '../../source/source.service';
@@ -34,7 +34,7 @@ export class SourceOperationService {
     atomName: string,
     query: HttpQuerySchema,
     request: SecurityRequest,
-  ): Promise<QueryResponse<unknown>> {
+  ): Promise<QueryResponse<unknown[]>> {
     if (request.userId) {
       const isOwnRead = await this.securityService.isOwnRead(
         orgName,
@@ -49,10 +49,11 @@ export class SourceOperationService {
       }
     }
 
-    const value = await this.sourceService.findAll(orgName, atomName, query);
-    const count = query.count
-      ? await this.sourceService.count(orgName, atomName, query)
-      : undefined;
+    const { value, count } = await this.sourceService.queryWithCount(
+      orgName,
+      atomName,
+      query,
+    );
 
     return {
       value,

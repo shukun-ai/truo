@@ -19,7 +19,7 @@ export class SourceResolverService {
     atomName: string,
     query: HttpQuerySchema,
   ): Promise<unknown> {
-    return await this.sourceService.findAll(orgName, atomName, query);
+    return await this.sourceService.query(orgName, atomName, query);
   }
 
   async count(
