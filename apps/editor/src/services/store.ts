@@ -9,7 +9,7 @@ export function configureStore() {
 
   persistState({
     key: 'SHUKUN_EDITOR',
-    include: [StoreNames.Metadata],
+    include: [StoreNames.Metadata, StoreNames.Flow],
     preStorageUpdate(storeName, state) {
       if (state.ids) {
         return {
