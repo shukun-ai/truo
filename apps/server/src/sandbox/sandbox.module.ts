@@ -5,13 +5,15 @@ import { IdentityModule } from '../identity/identity.module';
 import { SourceModule } from '../source/source.module';
 import { PassportModule } from '../util/passport/passport.module';
 
+import { DateResolverService } from './resolvers/date-resolver.service';
+
 import { SourceResolverService } from './resolvers/source-resolver.service';
 
 import { SandboxService } from './sandbox.service';
 
 @Module({
   imports: [CoreModule, SourceModule, PassportModule, IdentityModule],
-  providers: [SandboxService, SourceResolverService],
+  providers: [SandboxService, SourceResolverService, DateResolverService],
   exports: [SandboxService],
 })
 export class SandboxModule {}

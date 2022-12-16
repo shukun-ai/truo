@@ -1,5 +1,7 @@
 import { FlowEventSourceQuery } from '@shukun/schema';
 
+import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
+
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 import { SandboxService } from '../../sandbox/sandbox.service';
 import { mockEmptyDependencies } from '../../util/unit-testing/unit-testing.helper';
@@ -8,6 +10,7 @@ import { compileSourceQueryEvent } from './compile-source-query';
 describe('compileSourceQueryEvent', () => {
   let sandboxService: SandboxService;
   let sourceResolverService: SourceResolverService;
+  let dateResolverService: DateResolverService;
 
   const event: FlowEventSourceQuery = {
     type: 'SourceQuery',
@@ -30,7 +33,11 @@ describe('compileSourceQueryEvent', () => {
 
   beforeAll(() => {
     sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    sandboxService = new SandboxService(sourceResolverService);
+    dateResolverService = new DateResolverService();
+    sandboxService = new SandboxService(
+      sourceResolverService,
+      dateResolverService,
+    );
 
     jest
       .spyOn(sourceResolverService, 'query')

@@ -1,5 +1,7 @@
 import { FlowEventChoice } from '@shukun/schema';
 
+import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
+
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
@@ -10,6 +12,7 @@ import { compileChoiceEvent } from './compile-choice';
 describe('compileChoiceEvent', () => {
   let sandboxService: SandboxService;
   let sourceResolverService: SourceResolverService;
+  let dateResolverService: DateResolverService;
 
   const event: FlowEventChoice = {
     type: 'Choice',
@@ -28,7 +31,11 @@ describe('compileChoiceEvent', () => {
 
   beforeAll(() => {
     sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    sandboxService = new SandboxService(sourceResolverService);
+    dateResolverService = new DateResolverService();
+    sandboxService = new SandboxService(
+      sourceResolverService,
+      dateResolverService,
+    );
   });
 
   it('should return first', async () => {

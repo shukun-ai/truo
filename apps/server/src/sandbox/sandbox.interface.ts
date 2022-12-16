@@ -1,22 +1,22 @@
+import { DateResolverService } from './resolvers/date-resolver.service';
 import { SourceResolverService } from './resolvers/source-resolver.service';
 
 export interface SandboxContext {
   parameter: unknown;
   input: unknown;
   output: unknown;
-  next: string | null;
+  next: string;
   index: number;
   env: Record<string, string>;
   store: Record<string, unknown>;
   orgName: string;
   operatorId: string | undefined;
-  eventName: string;
   parentEventNames: string | undefined;
 }
 
 export interface SandboxVMResolver {
   sourceResolver: SourceResolverService;
-  // TODO: add date
+  date: DateResolverService;
   // TODO: add util functions
   // TODO: add http
   // TODO: add passport
