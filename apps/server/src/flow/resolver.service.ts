@@ -28,18 +28,21 @@ export class ResolverService {
     compiledCodes: FlowEventCompiledCodes,
     context: ResolverContext,
   ): Promise<ResolverContext> {
-    const startEvent = this.findEvent(context.eventName, events);
+    if (!context.next) {
+      return context;
+    }
+
+    const startEvent = this.findEvent(context.next, events);
     const computedContext = await this.handleEvent(
       startEvent,
       compiledCodes,
       context,
     );
 
-    if (!computedContext.next) {
-      return computedContext;
-    }
-
-    return await this.executeNextEvent(events, compiledCodes, computedContext);
+    return await this.executeNextEvent(events, compiledCodes, {
+      ...computedContext,
+      input: computedContext.output,
+    });
   }
 
   protected async handleEvent(
@@ -80,7 +83,7 @@ export class ResolverService {
       const parentEventNames = this.nestedEventService.combinePrefix(
         this.nestedEventService.combinePrefix(
           context.parentEventNames,
-          context.eventName,
+          context.next,
         ),
         index.toString(),
       );
@@ -90,7 +93,7 @@ export class ResolverService {
         compiledCodes,
         {
           ...context,
-          eventName: branch.startEventName,
+          next: branch.startEventName,
           parentEventNames,
           index,
         },
@@ -126,10 +129,10 @@ export class ResolverService {
     for (let index = 0; index < repeatCount; index++) {
       const { output } = await this.executeNextEvent(events, compiledCodes, {
         ...context,
-        eventName: startEventName,
+        next: startEventName,
         parentEventNames: this.nestedEventService.combinePrefix(
           context.parentEventNames,
-          context.eventName,
+          context.next,
         ),
         index,
       });
@@ -164,7 +167,7 @@ export class ResolverService {
   ): string {
     const nestedEventName = this.nestedEventService.combinePrefix(
       context.parentEventNames,
-      context.eventName,
+      context.next,
     );
     const code = compiledCodes[nestedEventName];
 
