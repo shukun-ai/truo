@@ -14,8 +14,9 @@ export async function compileStoreEvent(
               ...$,
               store: {
                 ...$.store,
-                key: value,
+                [key]: value,
               },
+              output: $.input,
               next: "${event.next}"
             }
         };
