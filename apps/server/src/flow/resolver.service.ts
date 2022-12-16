@@ -114,14 +114,17 @@ export class ResolverService {
     compiledCodes: FlowEventCompiledCodes,
     context: ResolverContext,
   ): Promise<ResolverContext> {
-    const { startEventName, events } = this.prepareRepeatEvent(event);
+    const { startEventName, events } = event;
     const compiledCode = this.findCompiledCode(compiledCodes, context);
     const computedContext = await this.executeVM(compiledCode, context);
     const repeatCount = computedContext.output;
     const outputArray: unknown[] = [];
 
     if (typeof repeatCount !== 'number') {
-      throw new FlowRepeatCountException('The repeatCount is not number type.');
+      throw new FlowRepeatCountException(
+        'The repeatCount is not number type: {{ repeatCount }}.',
+        { repeatCount },
+      );
     }
 
     this.checkMaxRepeatCount(repeatCount);
@@ -149,16 +152,12 @@ export class ResolverService {
     const event = events[eventName];
 
     if (!event) {
-      throw new FlowDefinitionException(`Did not find event: ${eventName}`);
+      throw new FlowDefinitionException('Did not find event: {{eventName}}', {
+        eventName,
+      });
     }
 
     return event;
-  }
-
-  protected prepareNextEventName(currentEvent: FlowEvent): string | null {
-    return 'next' in currentEvent && typeof currentEvent.next === 'string'
-      ? currentEvent.next
-      : null;
   }
 
   protected findCompiledCode(
@@ -173,29 +172,23 @@ export class ResolverService {
 
     if (!code) {
       throw new FlowNoCompiledCodeException(
-        `Did not find compiled code: ${nestedEventName}.`,
+        `Did not find compiled code: {{nestedEventName}}.`,
+        {
+          nestedEventName,
+        },
       );
     }
 
     return code;
   }
 
-  protected isRepeatEvent(event: FlowEvent) {
-    return event.type === 'Repeat';
-  }
-
-  protected prepareRepeatEvent(event: FlowEvent): FlowEventRepeat {
-    if (event.type === 'Repeat') {
-      return event;
-    }
-
-    throw new FlowDefinitionException('The event is not Repeat event.');
-  }
-
   protected checkMaxRepeatCount(count: number) {
     if (count > 1000) {
       throw new FlowDefinitionException(
-        `The repeat count is more than max value(1000): ${count}.`,
+        'The repeat count is more than max value: {{ count }}',
+        {
+          count,
+        },
       );
     }
   }
