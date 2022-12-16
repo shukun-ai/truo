@@ -21,7 +21,6 @@ import { OrgController } from './org/org.controller';
 import { RoleController } from './role/role.controller';
 import { SeedController } from './seed/seed.controller';
 import { SourceAccessControlService } from './source/source-access-control.service';
-import { SourceForeignQueryService } from './source/source-foreign-query.service';
 import { SourceOperationService } from './source/source-operation.service';
 import { SourceController } from './source/source.controller';
 import { ViewController } from './view/view.controller';
@@ -54,7 +53,6 @@ import { WebhookController } from './webhook/webhook.controller';
   providers: [
     SourceAccessControlService,
     SourceOperationService,
-    SourceForeignQueryService,
     AuthorizationService,
   ],
 })
