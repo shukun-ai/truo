@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { FlowSchema } from '@shukun/schema';
 
+import { SandboxContext } from '../sandbox/sandbox.interface';
+
 import { ObservableStore } from '../sandbox/stores/observable-store.class';
 
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
-import { ExternalContext, ResolverContext } from './flow.interface';
+import { ExternalContext } from './flow.interface';
 import { ResolverService } from './resolver.service';
 
 @Injectable()
@@ -61,7 +63,7 @@ export class FlowService {
     parameter: unknown,
     definition: FlowSchema,
     externalContext: ExternalContext,
-  ): ResolverContext {
+  ): SandboxContext {
     return {
       parameter: parameter,
       input: parameter,
