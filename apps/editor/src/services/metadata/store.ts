@@ -7,7 +7,7 @@ import {
 import { MetadataSchema } from '@shukun/schema';
 import { produce } from 'immer';
 
-import { StoreNames } from '../store-names';
+import { StoreNames } from '../names';
 
 export interface MetadataState
   extends EntityState<MetadataSchema, string>,
