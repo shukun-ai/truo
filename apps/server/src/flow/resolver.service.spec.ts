@@ -5,10 +5,9 @@ import { FlowDefinitionException } from '../exceptions/flow-definition-exception
 import { FlowNoCompiledCodeException } from '../exceptions/flow-no-compiled-code-exception';
 import { FlowRepeatCountException } from '../exceptions/flow-repeat-count-exception';
 
+import { SandboxContext } from '../sandbox/sandbox.interface';
 import { SandboxService } from '../sandbox/sandbox.service';
 import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
-
-import { ResolverContext } from './flow.interface';
 
 import { ResolverService } from './resolver.service';
 
@@ -49,7 +48,7 @@ describe('ResolverService', () => {
         };
         exports.default=main;`,
       };
-      const context: ResolverContext = {
+      const context: SandboxContext = {
         parameter: input,
         input,
         output: null,
@@ -98,7 +97,7 @@ describe('ResolverService', () => {
           exports.default=main;
         `,
       };
-      const context: ResolverContext = {
+      const context: SandboxContext = {
         parameter: input,
         input,
         output: null,
@@ -141,7 +140,7 @@ describe('ResolverService', () => {
           exports.default=main;
         `,
       };
-      const context: ResolverContext = {
+      const context: SandboxContext = {
         parameter: input,
         input,
         output: null,
@@ -239,7 +238,7 @@ describe('ResolverService', () => {
         exports.default=main;
         `,
       };
-      const context: ResolverContext = {
+      const context: SandboxContext = {
         parameter: input,
         input,
         output: null,
@@ -294,7 +293,7 @@ describe('ResolverService', () => {
           exports.default=main;
         `,
       };
-      const context: ResolverContext = {
+      const context: SandboxContext = {
         parameter: input,
         input,
         output: null,
@@ -339,7 +338,7 @@ describe('ResolverService', () => {
           exports.default=main;
         `,
       };
-      const context: ResolverContext = {
+      const context: SandboxContext = {
         parameter: input,
         input,
         output: null,
@@ -425,7 +424,7 @@ describe('ResolverService', () => {
         exports.default=main;
         `,
       };
-      const context: ResolverContext = {
+      const context: SandboxContext = {
         parameter: input,
         input,
         output: null,
