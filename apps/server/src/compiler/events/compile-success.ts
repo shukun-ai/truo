@@ -10,7 +10,7 @@ export async function compileSuccessEvent(
             const output = ${compileJsonTemplate(event.output)};
             return {
               ...$,
-              output,
+              input: output,
               next: null
             };
         };

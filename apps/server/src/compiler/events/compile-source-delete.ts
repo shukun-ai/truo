@@ -15,7 +15,7 @@ export async function compileSourceDeleteEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

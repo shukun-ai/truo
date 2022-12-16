@@ -33,12 +33,11 @@ describe('', () => {
       input: new Array(10).fill(1).map((item, index) => index),
     };
     const code = await compileStoreEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
       store: { name: 0 },
-      output: context.input,
       next: 'next',
     });
   });

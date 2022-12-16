@@ -16,7 +16,6 @@ export async function compileStoreEvent(
                 ...$.store,
                 [key]: value,
               },
-              output: $.input,
               next: "${event.next}"
             }
         };

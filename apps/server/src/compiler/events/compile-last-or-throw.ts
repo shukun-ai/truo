@@ -18,7 +18,7 @@ export async function compileLastOrThrowEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

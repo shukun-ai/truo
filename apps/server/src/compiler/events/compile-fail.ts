@@ -9,7 +9,7 @@ export async function compileFailEvent(event: FlowEventFail): Promise<string> {
             
             return {
                 ...$,
-                output
+                input: output
             }
         };
         exports.default=main;

@@ -19,7 +19,7 @@ export async function compileSourceAddToManyEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

@@ -36,11 +36,11 @@ describe('compileLastOrThrowEvent', () => {
       input: new Array(10).fill(1).map((item, index) => index),
     };
     const code = await compileLastOrThrowEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: 9,
+      input: 9,
       next: 'next',
     });
   });

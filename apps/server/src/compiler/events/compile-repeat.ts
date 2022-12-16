@@ -12,7 +12,7 @@ export async function compileRepeatEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

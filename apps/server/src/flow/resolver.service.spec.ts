@@ -42,7 +42,7 @@ describe('ResolverService', () => {
         async function main($, $$, $$$){
           return {
             ...$,
-            output: 'hi',
+            input: 'hi',
             next: ''
           };
         };
@@ -51,7 +51,6 @@ describe('ResolverService', () => {
       const context: SandboxContext = {
         parameter: input,
         input,
-        output: null,
         next: 'test',
         index: 0,
         store: {},
@@ -69,7 +68,6 @@ describe('ResolverService', () => {
       expect(computedContext).toEqual({
         ...context,
         input: 'hi',
-        output: 'hi',
         next: '',
       });
     });
@@ -90,7 +88,7 @@ describe('ResolverService', () => {
           async function main($, $$, $$$){
             return {
               ...$,
-              output: 'it is a string',
+              input: 'it is a string',
               next: ""
             };
           };
@@ -100,7 +98,6 @@ describe('ResolverService', () => {
       const context: SandboxContext = {
         parameter: input,
         input,
-        output: null,
         next: 'noThisEvent',
         index: 0,
         store: {},
@@ -133,7 +130,7 @@ describe('ResolverService', () => {
           async function main($, $$, $$$){
             return {
               ...$,
-              output: 'it is a string',
+              input: 'it is a string',
               next: ""
             };
           };
@@ -143,7 +140,6 @@ describe('ResolverService', () => {
       const context: SandboxContext = {
         parameter: input,
         input,
-        output: null,
         next: 'test',
         index: 0,
         store: {},
@@ -201,7 +197,7 @@ describe('ResolverService', () => {
           async function main($, $$, $$$){
             return {
               ...$,
-              output: 2,
+              input: 2,
               next: ""
             };
           };
@@ -211,7 +207,7 @@ describe('ResolverService', () => {
           async function main($, $$, $$$){
             return {
               ...$,
-              output: 2,
+              input: 2,
               next: ""
             };
           };
@@ -221,7 +217,7 @@ describe('ResolverService', () => {
         async function main($, $$, $$$){
           return {
             ...$,
-            output: $.parameter.test,
+            input: $.parameter.test,
             next: "p3"
           };
         };
@@ -231,7 +227,7 @@ describe('ResolverService', () => {
         async function main($, $$, $$$){
           return {
             ...$,
-            output: $.input + 2,
+            input: $.input + 2,
             next: ""
           };
         };
@@ -241,7 +237,6 @@ describe('ResolverService', () => {
       const context: SandboxContext = {
         parameter: input,
         input,
-        output: null,
         next: 'test',
         index: 0,
         store: {},
@@ -259,10 +254,6 @@ describe('ResolverService', () => {
       expect(computedContext).toEqual({
         ...context,
         input: [
-          [5, 5],
-          [5, 5],
-        ],
-        output: [
           [5, 5],
           [5, 5],
         ],
@@ -286,7 +277,7 @@ describe('ResolverService', () => {
           async function main($, $$, $$$){
             return {
               ...$,
-              output: "this is not a number",
+              input: "this is not a number",
               next: ""
             };
           };
@@ -296,7 +287,6 @@ describe('ResolverService', () => {
       const context: SandboxContext = {
         parameter: input,
         input,
-        output: null,
         next: 'test',
         index: 0,
         store: {},
@@ -331,7 +321,7 @@ describe('ResolverService', () => {
           async function main($, $$, $$$){
             return {
               ...$,
-              output: 1001,
+              input: 1001,
               next: ""
             };
           };
@@ -341,7 +331,6 @@ describe('ResolverService', () => {
       const context: SandboxContext = {
         parameter: input,
         input,
-        output: null,
         next: 'test',
         index: 0,
         store: {},
@@ -417,7 +406,7 @@ describe('ResolverService', () => {
         async function main($, $$, $$$){
           return {
             ...$,
-            output: $.input.test,
+            input: $.input.test,
             next: ''
           };
         };
@@ -427,7 +416,6 @@ describe('ResolverService', () => {
       const context: SandboxContext = {
         parameter: input,
         input,
-        output: null,
         next: 'test',
         index: 0,
         store: {},
@@ -445,7 +433,6 @@ describe('ResolverService', () => {
       expect(computedContext).toEqual({
         ...context,
         input: [[3]],
-        output: [[3]],
         next: '',
       });
     });

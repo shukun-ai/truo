@@ -38,10 +38,7 @@ export class ResolverService {
       context,
     );
 
-    return await this.executeNextEvent(events, compiledCodes, {
-      ...computedContext,
-      input: computedContext.output,
-    });
+    return await this.executeNextEvent(events, compiledCodes, computedContext);
   }
 
   protected async handleEvent(
@@ -87,7 +84,7 @@ export class ResolverService {
         index.toString(),
       );
 
-      const { output } = await this.executeNextEvent(
+      const computedContext = await this.executeNextEvent(
         branch.events,
         compiledCodes,
         {
@@ -97,14 +94,14 @@ export class ResolverService {
           index,
         },
       );
-      return output;
+      return computedContext.input;
     });
 
     const outputArray = await Promise.all(branchesPromise);
 
     return {
       ...computedContext,
-      output: outputArray,
+      input: outputArray,
     };
   }
 
@@ -116,7 +113,7 @@ export class ResolverService {
     const { startEventName, events } = event;
     const compiledCode = this.findCompiledCode(compiledCodes, context);
     const computedContext = await this.executeVM(compiledCode, context);
-    const repeatCount = computedContext.output;
+    const repeatCount = computedContext.input;
     const outputArray: unknown[] = [];
 
     if (typeof repeatCount !== 'number') {
@@ -129,21 +126,25 @@ export class ResolverService {
     this.checkMaxRepeatCount(repeatCount);
 
     for (let index = 0; index < repeatCount; index++) {
-      const { output } = await this.executeNextEvent(events, compiledCodes, {
-        ...context,
-        next: startEventName,
-        parentEventNames: this.nestedEventService.combinePrefix(
-          context.parentEventNames,
-          context.next,
-        ),
-        index,
-      });
+      const { input: output } = await this.executeNextEvent(
+        events,
+        compiledCodes,
+        {
+          ...context,
+          next: startEventName,
+          parentEventNames: this.nestedEventService.combinePrefix(
+            context.parentEventNames,
+            context.next,
+          ),
+          index,
+        },
+      );
       outputArray.push(output);
     }
 
     return {
       ...computedContext,
-      output: outputArray,
+      input: outputArray,
     };
   }
 
