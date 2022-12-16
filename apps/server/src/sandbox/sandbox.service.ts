@@ -29,32 +29,35 @@ export class SandboxService {
     const $$$ = this.prepareVMException();
 
     try {
-      const output: SandboxContext = await exports.default($, $$, $$$);
-      return output;
+      const computedContext: SandboxContext = await exports.default($, $$, $$$);
+      return this.serialize(computedContext);
     } catch (error) {
       throw this.catchError(error);
     }
   }
+  protected serialize(context: SandboxContext): SandboxContext {
+    return JSON.parse(JSON.stringify(context));
+  }
 
-  prepareVMContext(context: SandboxContext): SandboxContext {
+  protected prepareVMContext(context: SandboxContext): SandboxContext {
     return context;
   }
 
-  prepareVMResolver(): SandboxVMResolver {
+  protected prepareVMResolver(): SandboxVMResolver {
     return {
       sourceResolver: this.sourceResolverService,
       date: this.dateResolverService,
     };
   }
 
-  prepareVMException() {
+  protected prepareVMException() {
     return {
       IsNotArrayException: IsNotArrayException,
       IsEmptyArrayException: IsEmptyArrayException,
     };
   }
 
-  catchError(error: unknown) {
+  protected catchError(error: unknown) {
     return error;
   }
 }
