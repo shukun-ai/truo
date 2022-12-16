@@ -1,9 +1,10 @@
 export enum RoutePath {
   Home = '/editor',
   Welcome = '/editor/welcome',
-  Metadata = '/editor/metadata',
-  View = '/editor/views',
-  Flow = '/editor/flows',
-  Role = '/editor/roles',
+  Workspace = '/editor/workspace',
+  Metadata = '/editor/workspace/metadata',
+  View = '/editor/workspace/views',
+  Flow = '/editor/workspace/flows',
+  Role = '/editor/workspace/roles',
   Help = '/editor/helpers',
 }
