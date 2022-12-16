@@ -26,7 +26,7 @@ export const ChooseDirectory: FunctionComponent<ChooseDirectoryProps> = () => {
       await readDirectoryJson(entryHandle, 'metadata'),
     );
 
-    metadataCommand.set(metadata);
+    metadataCommand.setAll(metadata);
   }, []);
 
   const handleSave = useCallback(async () => {
@@ -36,15 +36,15 @@ export const ChooseDirectory: FunctionComponent<ChooseDirectoryProps> = () => {
 
     const entryHandle = entryHandleRef.current;
 
-    const atom = metadataQuery.getAtom('vehicles');
+    // const atom = metadataQuery.getAtom('vehicles');
 
-    const cloneAtom = cloneDeep(atom);
+    // const cloneAtom = cloneDeep(atom);
 
-    cloneAtom.label = 'new atom vehicles';
+    // cloneAtom.label = 'new atom vehicles';
 
-    const text = JSON.stringify(cloneAtom, null, 2);
+    // const text = JSON.stringify(cloneAtom, null, 2);
 
-    saveJsonToFile(entryHandle, text + '\n', 'metadata', 'vehicles');
+    // saveJsonToFile(entryHandle, text + '\n', 'metadata', 'vehicles');
   }, []);
 
   return (
