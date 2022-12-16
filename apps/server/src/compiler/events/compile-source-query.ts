@@ -15,7 +15,7 @@ export async function compileSourceQueryEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

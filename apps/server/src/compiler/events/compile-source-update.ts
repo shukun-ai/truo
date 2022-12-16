@@ -16,7 +16,7 @@ export async function compileSourceUpdateEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

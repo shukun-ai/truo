@@ -22,7 +22,7 @@ export async function compileChoiceEvent(
             return {
               ...$,
               next,
-              output
+              input: output
             }
         };
         exports.default=main;

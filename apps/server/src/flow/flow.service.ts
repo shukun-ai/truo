@@ -32,7 +32,7 @@ export class FlowService {
 
     const context = this.prepareContext(parameter, definition, externalContext);
 
-    const { output } = await this.resolverService.executeNextEvent(
+    const { input: output } = await this.resolverService.executeNextEvent(
       definition.events,
       compiledCodes,
       context,
@@ -67,7 +67,6 @@ export class FlowService {
     return {
       parameter: parameter,
       input: parameter,
-      output: null,
       next: definition.startEventName,
       index: 0,
       env: {},

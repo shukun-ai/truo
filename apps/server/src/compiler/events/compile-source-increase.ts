@@ -19,7 +19,7 @@ export async function compileSourceIncreaseEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

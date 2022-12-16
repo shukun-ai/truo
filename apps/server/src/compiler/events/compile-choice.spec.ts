@@ -44,11 +44,11 @@ describe('compileChoiceEvent', () => {
       input: 1,
     };
     const code = await compileChoiceEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: 1,
+      input: 1,
       next: 'first',
     });
   });
@@ -59,11 +59,11 @@ describe('compileChoiceEvent', () => {
       input: 2,
     };
     const code = await compileChoiceEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: 2,
+      input: 2,
       next: 'second',
     });
   });
@@ -74,11 +74,11 @@ describe('compileChoiceEvent', () => {
       input: null,
     };
     const code = await compileChoiceEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: null,
+      input: null,
       next: 'default',
     });
   });

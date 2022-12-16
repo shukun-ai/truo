@@ -24,7 +24,6 @@ describe('SandboxService', () => {
     context = {
       parameter: {},
       input: { count: 3 },
-      output: null,
       next: '',
       index: 0,
       store: {},
@@ -40,18 +39,24 @@ describe('SandboxService', () => {
       const compiledCode =
         'async function main($){return{id:$.input.count}};exports.default=main;';
 
-      const output = await sandboxService.executeVM(compiledCode, context);
+      const computedContext = await sandboxService.executeVM(
+        compiledCode,
+        context,
+      );
 
-      expect(output).toEqual({ id: 3 });
+      expect(computedContext).toEqual({ id: 3 });
     });
 
     it('should return input 5', async () => {
       const compiledCode =
         'async function main($){return{id:$.input.count + 2}};exports.default=main;';
 
-      const output = await sandboxService.executeVM(compiledCode, context);
+      const computedContext = await sandboxService.executeVM(
+        compiledCode,
+        context,
+      );
 
-      expect(output).toEqual({ id: 5 });
+      expect(computedContext).toEqual({ id: 5 });
     });
 
     it('should return input sourceResolver', async () => {
@@ -62,9 +67,12 @@ describe('SandboxService', () => {
       const compiledCode =
         'async function main($,$$){return{id:await $$.sourceResolver.query()}};exports.default=main;';
 
-      const output = await sandboxService.executeVM(compiledCode, context);
+      const computedContext = await sandboxService.executeVM(
+        compiledCode,
+        context,
+      );
 
-      expect(output).toEqual({ id: 'hello query.' });
+      expect(computedContext).toEqual({ id: 'hello query.' });
     });
   });
 });

@@ -58,11 +58,11 @@ describe('compileSourceQueryEvent', () => {
     };
 
     const code = await compileSourceQueryEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: {
+      input: {
         orgName: 'orgNameMock',
         atomName: 'start',
         query: {
