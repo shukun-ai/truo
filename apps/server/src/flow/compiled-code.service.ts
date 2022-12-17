@@ -12,15 +12,5 @@ export class CompiledCodeService {
       flowName,
     );
     return codes;
-
-    // TODO move those codes into unit testing.
-    // const eventCompiledCodes: FlowEventCompiledCodes = {
-    //   first: 'async function main($){return{id:$.input}};exports.default=main;',
-    //   repeat:
-    //     'async function main($){return $.input.count;};exports.default=main;',
-    //   'repeat->second':
-    //     'async function main($){return{id:$.index}};exports.default=main;',
-    // };
-    // return eventCompiledCodes;
   }
 }

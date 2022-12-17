@@ -808,7 +808,6 @@ export interface FlowEventRepeat {
   next: string;
   repeatCount: string;
   startEventName: string;
-  events: FlowEvents;
   description?: string;
   [k: string]: unknown;
 }
@@ -817,7 +816,6 @@ export interface FlowEventParallel {
   next: string;
   branches: {
     startEventName: string;
-    events: FlowEvents;
     description?: string;
   }[];
   [k: string]: unknown;

@@ -28,7 +28,6 @@ describe('SandboxService', () => {
       index: 0,
       store: {},
       env: {},
-      parentEventNames: undefined,
       orgName: 'test',
       operatorId: undefined,
     };

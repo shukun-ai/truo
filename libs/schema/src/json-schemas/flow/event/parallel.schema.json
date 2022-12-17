@@ -10,13 +10,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["startEventName", "events"],
+        "required": ["startEventName"],
         "additionalProperties": false,
         "properties": {
           "startEventName": { "type": "string" },
-          "events": {
-            "$ref": "../events.schema.json"
-          },
           "description": { "type": "string" }
         }
       }

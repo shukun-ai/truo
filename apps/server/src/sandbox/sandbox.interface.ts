@@ -10,7 +10,6 @@ export interface SandboxContext {
   store: Record<string, unknown>;
   orgName: string;
   operatorId: string | undefined;
-  parentEventNames: string | undefined;
 }
 
 export interface SandboxVMResolver {

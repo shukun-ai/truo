@@ -1,6 +1,5 @@
 import { FlowEvents } from '@shukun/schema';
 
-import { NestedEventService } from '../compiler/nested-event.service';
 import { FlowDefinitionException } from '../exceptions/flow-definition-exception';
 import { FlowNoCompiledCodeException } from '../exceptions/flow-no-compiled-code-exception';
 import { FlowRepeatCountException } from '../exceptions/flow-repeat-count-exception';
@@ -13,17 +12,15 @@ import { ResolverService } from './resolver.service';
 
 describe('ResolverService', () => {
   let resolverService: ResolverService;
-  let nestedEventService: NestedEventService;
   let sandboxService: SandboxService;
 
   beforeEach(() => {
-    nestedEventService = new NestedEventService();
     sandboxService = new SandboxService(
       mockEmptyDependencies(),
       mockEmptyDependencies(),
     );
 
-    resolverService = new ResolverService(nestedEventService, sandboxService);
+    resolverService = new ResolverService(sandboxService);
   });
 
   describe('Test Common Event', () => {
@@ -55,7 +52,6 @@ describe('ResolverService', () => {
         index: 0,
         store: {},
         env: {},
-        parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
@@ -102,7 +98,6 @@ describe('ResolverService', () => {
         index: 0,
         store: {},
         env: {},
-        parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
@@ -122,7 +117,6 @@ describe('ResolverService', () => {
           next: '',
           repeatCount: 'it is a string',
           startEventName: 'p1',
-          events: {},
         },
       };
       const compiledCodes = {
@@ -144,7 +138,6 @@ describe('ResolverService', () => {
         index: 0,
         store: {},
         env: {},
-        parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
@@ -153,7 +146,7 @@ describe('ResolverService', () => {
         resolverService.executeNextEvent(events, compiledCodes, context),
       ).rejects.toThrow(
         new FlowNoCompiledCodeException(
-          'Did not find compiled code: {{nestedEventName}}.',
+          'Did not find compiled code: {{eventName}}.',
         ),
       );
     });
@@ -168,28 +161,24 @@ describe('ResolverService', () => {
           next: '',
           repeatCount: '2',
           startEventName: 'p1',
-          events: {
-            p1: {
-              type: 'Repeat',
-              next: '',
-              repeatCount: '2',
-              startEventName: 'p2',
-              events: {
-                p2: {
-                  type: 'SourceQuery',
-                  atomName: 'mock',
-                  query: {},
-                  next: 'p3',
-                },
-                p3: {
-                  type: 'SourceQuery',
-                  atomName: 'mock',
-                  query: {},
-                  next: '',
-                },
-              },
-            },
-          },
+        },
+        p1: {
+          type: 'Repeat',
+          next: '',
+          repeatCount: '2',
+          startEventName: 'p2',
+        },
+        p2: {
+          type: 'SourceQuery',
+          atomName: 'mock',
+          query: {},
+          next: 'p3',
+        },
+        p3: {
+          type: 'SourceQuery',
+          atomName: 'mock',
+          query: {},
+          next: '',
         },
       };
       const compiledCodes = {
@@ -203,7 +192,7 @@ describe('ResolverService', () => {
           };
           exports.default=main;
         `,
-        'test->p1': `
+        p1: `
           async function main($, $$, $$$){
             return {
               ...$,
@@ -213,7 +202,7 @@ describe('ResolverService', () => {
           };
           exports.default=main;
         `,
-        'test->p1->p2': `
+        p2: `
         async function main($, $$, $$$){
           return {
             ...$,
@@ -223,7 +212,7 @@ describe('ResolverService', () => {
         };
         exports.default=main;
         `,
-        'test->p1->p3': `
+        p3: `
         async function main($, $$, $$$){
           return {
             ...$,
@@ -241,7 +230,6 @@ describe('ResolverService', () => {
         index: 0,
         store: {},
         env: {},
-        parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
@@ -291,7 +279,6 @@ describe('ResolverService', () => {
         index: 0,
         store: {},
         env: {},
-        parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
@@ -335,7 +322,6 @@ describe('ResolverService', () => {
         index: 0,
         store: {},
         env: {},
-        parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
@@ -360,27 +346,23 @@ describe('ResolverService', () => {
           branches: [
             {
               startEventName: 'p1',
-              events: {
-                p1: {
-                  type: 'Parallel',
-                  next: 'test',
-                  branches: [
-                    {
-                      startEventName: 'p2',
-                      events: {
-                        p2: {
-                          type: 'SourceQuery',
-                          atomName: 'mock',
-                          query: {},
-                          next: '',
-                        },
-                      },
-                    },
-                  ],
-                },
-              },
             },
           ],
+        },
+        p1: {
+          type: 'Parallel',
+          next: 'test',
+          branches: [
+            {
+              startEventName: 'p2',
+            },
+          ],
+        },
+        p2: {
+          type: 'SourceQuery',
+          atomName: 'mock',
+          query: {},
+          next: '',
         },
       };
       const compiledCodes = {
@@ -393,7 +375,7 @@ describe('ResolverService', () => {
           };
           exports.default=main;
         `,
-        'test->0->p1': `
+        p1: `
           async function main($, $$, $$$){
             return {
               ...$,
@@ -402,7 +384,7 @@ describe('ResolverService', () => {
           };
           exports.default=main;
         `,
-        'test->0->p1->0->p2': `
+        p2: `
         async function main($, $$, $$$){
           return {
             ...$,
@@ -420,7 +402,6 @@ describe('ResolverService', () => {
         index: 0,
         store: {},
         env: {},
-        parentEventNames: '',
         orgName: 'test',
         operatorId: undefined,
       };
