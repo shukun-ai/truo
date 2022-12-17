@@ -20,8 +20,9 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
   return (
     <Form
       name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
+      labelAlign="left"
+      labelCol={{ span: 6 }}
+      wrapperCol={{ span: 18 }}
       initialValues={initialValues}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}

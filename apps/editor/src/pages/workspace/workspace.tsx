@@ -1,5 +1,11 @@
 import { Button } from 'antd';
+import Color from 'color';
 import React, { FunctionComponent } from 'react';
+
+import { CANVAS_COLOR, HEADER_BORDER_COLOR, HEADER_COLOR } from '../../color';
+
+import { Brand } from '../../components/brand';
+import { PADDING } from '../flow/flow-constant';
 
 import { WorkspaceSidebar } from './workspace-sidebar';
 import { WorkspaceTabs } from './workspace-tabs';
@@ -22,12 +28,23 @@ export const Workspace: FunctionComponent<WorkspaceProps> = ({ children }) => {
           display: 'flex',
           height: 44,
           borderBottom: 'solid 1px #ccc',
-          backgroundColor: '#fff',
+          borderColor: HEADER_BORDER_COLOR,
+          color: '#fff',
+          backgroundColor: HEADER_COLOR,
           alignItems: 'center',
         }}
       >
-        <div style={{ width: SIDEBAR_WIDTH, backgroundColor: 'blue' }}>
-          SHUKUN FLOWS
+        <div
+          style={{
+            height: '100%',
+            backgroundColor: HEADER_COLOR,
+            display: 'flex',
+            alignItems: 'center',
+            paddingLeft: PADDING,
+            paddingRight: PADDING,
+          }}
+        >
+          <Brand theme="dark" />
         </div>
         <div style={{ flex: 1 }}>
           <WorkspaceTabs />
@@ -42,12 +59,14 @@ export const Workspace: FunctionComponent<WorkspaceProps> = ({ children }) => {
           style={{
             width: SIDEBAR_WIDTH,
             borderRight: 'solid 1px #ccc',
-            backgroundColor: '#fff',
+            borderColor: HEADER_BORDER_COLOR,
+            color: '#fff',
+            backgroundColor: HEADER_COLOR,
           }}
         >
           <WorkspaceSidebar />
         </div>
-        <div style={{ flex: 1 }}>{children}</div>
+        <div style={{ flex: 1, backgroundColor: CANVAS_COLOR }}>{children}</div>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
         flexDirection: 'column',
         width,
         height,
-        background: '#fff',
+        background: '#3D4454',
         borderRadius: RADIUS,
         overflow: 'hidden',
         cursor: 'default',
