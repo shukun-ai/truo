@@ -1,7 +1,9 @@
-import { MetadataSchema } from '@shukun/schema';
+import { FlowSchema, MetadataSchema } from '@shukun/schema';
 import { Button } from 'antd';
 import { cloneDeep } from 'lodash';
 import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
+
+import { flowCommand } from '../../services/flow';
 
 import { metadataQuery, metadataCommand } from '../../services/metadata';
 
@@ -27,6 +29,12 @@ export const ChooseDirectory: FunctionComponent<ChooseDirectoryProps> = () => {
     );
 
     metadataCommand.setAll(metadata);
+
+    const flows = parseJsonContents<FlowSchema>(
+      await readDirectoryJson(entryHandle, 'flows'),
+    );
+
+    flowCommand.setAll(flows);
   }, []);
 
   const handleSave = useCallback(async () => {
