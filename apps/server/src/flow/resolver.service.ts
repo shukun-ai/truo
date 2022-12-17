@@ -7,8 +7,6 @@ import {
   FlowEvents,
 } from '@shukun/schema';
 
-import { NestedEventService } from '../compiler/nested-event.service';
-
 import { FlowDefinitionException } from '../exceptions/flow-definition-exception';
 import { FlowNoCompiledCodeException } from '../exceptions/flow-no-compiled-code-exception';
 import { FlowRepeatCountException } from '../exceptions/flow-repeat-count-exception';
@@ -17,10 +15,7 @@ import { SandboxService } from '../sandbox/sandbox.service';
 
 @Injectable()
 export class ResolverService {
-  constructor(
-    private readonly nestedEventService: NestedEventService,
-    private readonly sandboxService: SandboxService,
-  ) {}
+  constructor(private readonly sandboxService: SandboxService) {}
 
   async executeNextEvent(
     events: FlowEvents,
@@ -34,6 +29,7 @@ export class ResolverService {
     const startEvent = this.findEvent(context.next, events);
     const computedContext = await this.handleEvent(
       startEvent,
+      events,
       compiledCodes,
       context,
     );
@@ -43,21 +39,23 @@ export class ResolverService {
 
   protected async handleEvent(
     event: FlowEvent,
+    events: FlowEvents,
     compiledCodes: FlowEventCompiledCodes,
     context: SandboxContext,
   ): Promise<SandboxContext> {
     switch (event.type) {
       case 'Repeat':
-        return this.handleRepeatEvent(event, compiledCodes, context);
+        return this.handleRepeatEvent(event, events, compiledCodes, context);
       case 'Parallel':
-        return this.handleParallelEvent(event, compiledCodes, context);
+        return this.handleParallelEvent(event, events, compiledCodes, context);
       default:
-        return this.handleCommonEvent(event, compiledCodes, context);
+        return this.handleCommonEvent(event, events, compiledCodes, context);
     }
   }
 
   protected async handleCommonEvent(
     event: FlowEvent,
+    events: FlowEvents,
     compiledCodes: FlowEventCompiledCodes,
     context: SandboxContext,
   ) {
@@ -69,6 +67,7 @@ export class ResolverService {
 
   protected async handleParallelEvent(
     event: FlowEventParallel,
+    events: FlowEvents,
     compiledCodes: FlowEventCompiledCodes,
     context: SandboxContext,
   ): Promise<SandboxContext> {
@@ -76,21 +75,12 @@ export class ResolverService {
     const computedContext = await this.executeVM(compiledCode, context);
 
     const branchesPromise = event.branches.map(async (branch, index) => {
-      const parentEventNames = this.nestedEventService.combinePrefix(
-        this.nestedEventService.combinePrefix(
-          context.parentEventNames,
-          context.next,
-        ),
-        index.toString(),
-      );
-
       const computedContext = await this.executeNextEvent(
-        branch.events,
+        events,
         compiledCodes,
         {
           ...context,
           next: branch.startEventName,
-          parentEventNames,
           index,
         },
       );
@@ -107,10 +97,11 @@ export class ResolverService {
 
   protected async handleRepeatEvent(
     event: FlowEventRepeat,
+    events: FlowEvents,
     compiledCodes: FlowEventCompiledCodes,
     context: SandboxContext,
   ): Promise<SandboxContext> {
-    const { startEventName, events } = event;
+    const { startEventName } = event;
     const compiledCode = this.findCompiledCode(compiledCodes, context);
     const computedContext = await this.executeVM(compiledCode, context);
     const repeatCount = computedContext.input;
@@ -132,10 +123,6 @@ export class ResolverService {
         {
           ...context,
           next: startEventName,
-          parentEventNames: this.nestedEventService.combinePrefix(
-            context.parentEventNames,
-            context.next,
-          ),
           index,
         },
       );
@@ -164,17 +151,14 @@ export class ResolverService {
     compiledCodes: FlowEventCompiledCodes,
     context: SandboxContext,
   ): string {
-    const nestedEventName = this.nestedEventService.combinePrefix(
-      context.parentEventNames,
-      context.next,
-    );
-    const code = compiledCodes[nestedEventName];
+    const eventName = context.next;
+    const code = compiledCodes[eventName];
 
     if (!code) {
       throw new FlowNoCompiledCodeException(
-        `Did not find compiled code: {{nestedEventName}}.`,
+        `Did not find compiled code: {{eventName}}.`,
         {
-          nestedEventName,
+          eventName,
         },
       );
     }
