@@ -1,7 +1,7 @@
 import dagre from 'dagre';
 import { Position } from 'reactflow';
 
-import { FlowEdge, FlowNode } from './flow-interface';
+import { FlowEdge, FlowNode } from './interface/element';
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
@@ -15,8 +15,8 @@ export const calculateLayout = (
 
   nodes.forEach((node) => {
     dagreGraph.setNode(node.id, {
-      width: node.data.width,
-      height: node.data.height,
+      width: node.data.eventUI.width,
+      height: node.data.eventUI.height,
     });
   });
 
@@ -32,8 +32,8 @@ export const calculateLayout = (
     node.sourcePosition = isHorizontal ? Position.Right : Position.Bottom;
 
     node.position = {
-      x: nodeWithPosition.x - node.data.width / 2,
-      y: nodeWithPosition.y - node.data.height / 2,
+      x: nodeWithPosition.x - node.data.eventUI.width / 2,
+      y: nodeWithPosition.y - node.data.eventUI.height / 2,
     };
 
     return node;

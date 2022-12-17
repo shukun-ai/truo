@@ -6,9 +6,10 @@
   "properties": {
     "type": { "const": "SourceQuery" },
     "next": { "type": "string" },
-    "atomName": { "type": "string" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
     "query": {
       "type": "object",
+      "skEditorType": "SourceQuery",
       "additionalProperties": false,
       "properties": {
         "filter": {

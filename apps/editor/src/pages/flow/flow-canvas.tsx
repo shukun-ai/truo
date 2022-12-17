@@ -1,5 +1,11 @@
-import React, { FunctionComponent, useMemo } from 'react';
-import { ReactFlow, ConnectionLineType } from 'reactflow';
+import React, { FunctionComponent, useEffect, useMemo } from 'react';
+import {
+  ReactFlow,
+  ConnectionLineType,
+  useReactFlow,
+  Controls,
+  MiniMap,
+} from 'reactflow';
 
 import { calculateLayout } from './flow-layout';
 import { useGenerateElement } from './use-generate-elements';
@@ -8,6 +14,8 @@ import { useNodeTypes } from './use-node-types';
 export interface FlowCanvasProps {}
 
 export const FlowCanvas: FunctionComponent<FlowCanvasProps> = () => {
+  const reactFlowInstance = useReactFlow();
+
   const elements = useGenerateElement();
 
   const { nodes, edges } = useMemo(() => {
@@ -16,6 +24,11 @@ export const FlowCanvas: FunctionComponent<FlowCanvasProps> = () => {
 
   const nodeTypes = useNodeTypes();
 
+  useEffect(() => {
+    reactFlowInstance.setCenter(500, 150);
+    reactFlowInstance.zoomTo(1);
+  }, [reactFlowInstance]);
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <ReactFlow
@@ -23,8 +36,10 @@ export const FlowCanvas: FunctionComponent<FlowCanvasProps> = () => {
         nodes={nodes}
         edges={edges}
         connectionLineType={ConnectionLineType.SmoothStep}
-        fitView
-      />
+      >
+        <Controls />
+        <MiniMap />
+      </ReactFlow>
     </div>
   );
 };

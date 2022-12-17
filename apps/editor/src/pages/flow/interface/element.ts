@@ -1,12 +1,15 @@
 import { FlowEvent } from '@shukun/schema';
 import { Edge, Node } from 'reactflow';
 
+import { EventSchema } from './event-schema';
+import { EventUI } from './event-ui';
+
 export type FlowNode = Node<{
   label: string;
-  width: number;
-  height: number;
   eventName: string;
   event: FlowEvent;
+  eventSchema: EventSchema;
+  eventUI: EventUI;
 }>;
 
 export type FlowEdge = Edge<undefined>;
@@ -14,4 +17,8 @@ export type FlowEdge = Edge<undefined>;
 export interface FlowElements {
   nodes: FlowNode[];
   edges: FlowEdge[];
+}
+
+export enum FlowCustomNodeName {
+  'EventNode' = 'EventNode',
 }
