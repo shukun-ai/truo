@@ -1,5 +1,6 @@
 import { FlowEvent } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
+import { EdgeMarker, MarkerType } from 'reactflow';
 
 import { flowQuery } from '../../services/flow';
 
@@ -75,6 +76,7 @@ function prepareCommonEventElements(
       id: `${eventName}>${event.next}`,
       source: eventName,
       target: event.next,
+      markerEnd: createEdgeMarker(),
     };
   }
 
@@ -86,4 +88,13 @@ function prepareCommonEventElements(
 
 function getDefaultPosition() {
   return { x: 0, y: 0 };
+}
+
+function createEdgeMarker() {
+  const edgeMarker: EdgeMarker = {
+    type: MarkerType.ArrowClosed,
+    width: 18,
+    height: 18,
+  };
+  return edgeMarker;
 }
