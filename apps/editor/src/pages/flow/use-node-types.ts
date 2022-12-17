@@ -1,13 +1,14 @@
-import { FlowEvent } from '@shukun/schema';
 import { useMemo } from 'react';
 
-import { SourceQueryNode } from './nodes/source-query-node';
+import { FlowCustomNodeName } from './interface/element';
+
+import { EventNode } from './nodes/event-node';
 
 export function useNodeTypes() {
   const nodeTypes = useMemo(() => {
-    const types: Record<FlowEvent['type'], any> = {
-      SourceQuery: SourceQueryNode,
-    } as any;
+    const types: Record<FlowCustomNodeName, any> = {
+      [FlowCustomNodeName.EventNode]: EventNode,
+    };
     return types;
   }, []);
   return nodeTypes;

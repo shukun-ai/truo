@@ -41,6 +41,7 @@ export function createAjv(options?: Options) {
 
   const validate = ajv
     .addKeyword('tsEnumNames')
+    .addKeyword('skEditorType')
     .addFormat('email', {
       type: 'string',
       validate: (value: string) => isEmail(value),

@@ -6,7 +6,7 @@
   "properties": {
     "type": { "const": "Store" },
     "next": { "type": "string" },
-    "key": { "type": "string" },
-    "value": { "type": "string" }
+    "key": { "type": "string", "skEditorType": "StoreKey" },
+    "value": { "type": "string", "skEditorType": "Template" }
   }
 }

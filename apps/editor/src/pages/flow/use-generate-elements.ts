@@ -3,7 +3,15 @@ import { useObservableState } from 'observable-hooks';
 
 import { flowQuery } from '../../services/flow';
 
-import { FlowEdge, FlowElements, FlowNode } from './flow-interface';
+import { eventSchemas } from './flow-event-schemas';
+import { eventUI } from './flow-event-ui';
+
+import {
+  FlowCustomNodeName,
+  FlowEdge,
+  FlowElements,
+  FlowNode,
+} from './interface/element';
 
 export function useGenerateElement(): FlowElements {
   const flow = useObservableState(flowQuery.activeFlow$);
@@ -50,8 +58,14 @@ function prepareCommonEventElements(
   const node: FlowNode = {
     id: eventName,
     position: getDefaultPosition(),
-    data: { label: eventName, ...getDefaultSize(), eventName, event },
-    type: event.type,
+    data: {
+      label: eventName,
+      eventName,
+      event,
+      eventSchema: eventSchemas[event.type],
+      eventUI: eventUI[event.type],
+    },
+    type: FlowCustomNodeName.EventNode,
   };
 
   let edge: FlowEdge | null = null;
@@ -72,11 +86,4 @@ function prepareCommonEventElements(
 
 function getDefaultPosition() {
   return { x: 0, y: 0 };
-}
-
-function getDefaultSize() {
-  return {
-    width: 380,
-    height: 240,
-  };
 }
