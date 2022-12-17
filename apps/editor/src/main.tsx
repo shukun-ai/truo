@@ -7,6 +7,8 @@ import { App } from './App';
 import { configureLocals } from './locales';
 import { configureStore } from './services/store';
 
+import 'reactflow/dist/style.css';
+
 configureLocals();
 configureStore();
 
