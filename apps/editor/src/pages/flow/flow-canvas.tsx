@@ -1,11 +1,17 @@
+import Color from 'color';
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
+
 import {
   ReactFlow,
   ConnectionLineType,
   useReactFlow,
   Controls,
   MiniMap,
+  Background,
+  BackgroundVariant,
 } from 'reactflow';
+
+import { CANVAS_COLOR } from '../../color';
 
 import { calculateLayout } from './flow-layout';
 import { useGenerateElement } from './use-generate-elements';
@@ -38,7 +44,20 @@ export const FlowCanvas: FunctionComponent<FlowCanvasProps> = () => {
         connectionLineType={ConnectionLineType.SmoothStep}
       >
         <Controls />
-        <MiniMap />
+        <MiniMap
+          nodeColor={Color(CANVAS_COLOR).lighten(1).hex()}
+          maskColor={Color(CANVAS_COLOR).darken(0.2).hex()}
+          style={{
+            backgroundColor: CANVAS_COLOR,
+            border: '1px solid',
+            borderColor: Color(CANVAS_COLOR).darken(0.5).hex(),
+          }}
+        />
+        <Background
+          color={Color('#212834').lighten(0.2).hex()}
+          variant={BackgroundVariant.Lines}
+          gap={40}
+        />
       </ReactFlow>
     </div>
   );

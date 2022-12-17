@@ -1,4 +1,6 @@
 @import '~antd/dist/antd.less';
+@import '~antd/dist/antd.dark.less';
+@import '~antd/dist/antd.compact.less';
 
 /* TODO: should remove it and add style in workflow DOM */
 .iframe-box {
@@ -207,5 +209,15 @@
   .ant-tabs-content-holder {
     flex: 1;
     overflow-y: auto;
+  }
+}
+
+#workspace-main {
+  .ant-input {
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .react-flow__minimap {
+    background-color: rgba(0, 0, 0, 0.85);
   }
 }
