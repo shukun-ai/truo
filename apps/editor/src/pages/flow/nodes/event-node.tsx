@@ -7,6 +7,7 @@ import { FlowNode } from '../interface/element';
 
 import { EventNodeForm } from './event-node-form';
 import { EventNodeFormItem } from './event-node-form-item';
+import { EventNodeInsert } from './event-node-insert';
 
 export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
   const { eventName, event, eventSchema, eventUI } = data;
@@ -35,8 +36,8 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
           borderTopRightRadius: RADIUS,
           display: 'flex',
           alignItems: 'center',
-          paddingLeft: 12,
-          paddingRight: 12,
+          paddingLeft: PADDING,
+          paddingRight: PADDING,
         }}
       >
         <div>
@@ -44,13 +45,14 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
         </div>
       </div>
       <div style={{ flex: 1, overflow: 'auto' }}>
-        <div style={{ padding: PADDING }}>
+        <div style={{ padding: PADDING, paddingRight: 28 }}>
           <EventNodeForm initialValues={event}>
             <EventNodeFormItem eventSchema={eventSchema} />
           </EventNodeForm>
         </div>
       </div>
       <Handle type="source" position={Position.Right} />
+      <EventNodeInsert event={event} />
     </div>
   );
 };

@@ -19,4 +19,5 @@ export enum ExceptionNames {
   FlowRepeatCountException = 'FlowRepeatCountException',
   FlowNoCompiledCodeException = 'FlowNoCompiledCodeException',
   FlowDefinitionException = 'FlowDefinitionException',
+  TypeException = 'TypeException',
 }
