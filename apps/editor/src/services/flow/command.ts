@@ -20,11 +20,13 @@ export class FlowCommand {
     nextEvent: FlowEvent,
     previousEventName: string | null,
   ) {
-    return this.flowCommandInsert.insertEvent(
+    this.flowCommandInsert.insertEvent(
       flow,
       nextEventName,
       nextEvent,
       previousEventName,
     );
+
+    this.store.update(flow.name, flow);
   }
 }

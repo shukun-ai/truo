@@ -1,13 +1,32 @@
-import { FlowEvent } from '@shukun/schema';
-import React, { FunctionComponent } from 'react';
+import { FlowEvent, FlowEventStore } from '@shukun/schema';
+import { cloneDeep } from 'lodash';
+import React, { FunctionComponent, useCallback } from 'react';
+
+import { flowCommand, flowQuery } from '../../../services/flow';
 
 export interface EventNodeInsertProps {
+  eventName: string;
   event: FlowEvent;
 }
 
 export const EventNodeInsert: FunctionComponent<EventNodeInsertProps> = ({
+  eventName,
   event,
 }) => {
+  const handleClick = useCallback(() => {
+    const event: FlowEventStore = {
+      type: 'Store',
+      key: 'nihao',
+      value: 'nihao',
+      next: '',
+    };
+
+    const previousEventName = eventName;
+
+    const flow = flowQuery.getFlow('retrieve_receive_tasks');
+    flowCommand.insert(cloneDeep(flow), 'test', event, previousEventName);
+  }, [eventName]);
+
   if (event.type === 'Success' || event.type === 'Fail') {
     return null;
   }
@@ -28,7 +47,7 @@ export const EventNodeInsert: FunctionComponent<EventNodeInsertProps> = ({
         top: '50%',
         transform: 'translate(0, -50%)',
       }}
-      onClick={() => console.log('hi')}
+      onClick={handleClick}
     >
       +
     </div>
