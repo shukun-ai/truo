@@ -5,25 +5,27 @@ import { TypeException } from '../../../exceptions/type-exception';
 export class FlowCommandHelper {
   insertStartEvent(
     flow: FlowSchema,
-    nextEventName: string,
-    nextEvent: FlowEvent,
+    newEventName: string,
+    newEvent: FlowEvent,
   ) {
-    this.insertEvent(flow, nextEventName, nextEvent);
-    flow.startEventName = nextEventName;
+    newEvent = this.updateNewEventNext(newEvent, null);
+    this.insertEvent(flow, newEventName, newEvent);
+    flow.startEventName = newEventName;
   }
 
   insertNextEvent(
     flow: FlowSchema,
-    nextEventName: string,
-    nextEvent: FlowEvent,
+    newEventName: string,
+    newEvent: FlowEvent,
     previousEventName: string,
   ) {
     const previousEvent = this.findPreviousEvent(flow, previousEventName);
-    this.insertEvent(flow, nextEventName, nextEvent);
-    this.updatePreviousEventNext(previousEvent, nextEventName);
+    newEvent = this.updateNewEventNext(newEvent, previousEvent);
+    this.insertEvent(flow, newEventName, newEvent);
+    this.updatePreviousEventNext(previousEvent, newEventName);
   }
 
-  updatePreviousEventNext(previousEvent: FlowEvent, nextEventName: string) {
+  updatePreviousEventNext(previousEvent: FlowEvent, newEventName: string) {
     switch (previousEvent.type) {
       case 'Choice':
       case 'Parallel':
@@ -31,18 +33,39 @@ export class FlowCommandHelper {
       case 'Fail':
         throw new Error('wait');
       default:
-        previousEvent.next = nextEventName;
+        previousEvent.next = newEventName;
     }
   }
 
-  insertEvent(flow: FlowSchema, nextEventName: string, nextEvent: FlowEvent) {
-    if (flow.events[nextEventName]) {
-      throw new TypeException('The Event Name is used: {{nextEventName}}', {
-        nextEventName,
+  updateNewEventNext(
+    newEvent: FlowEvent,
+    previousEvent: FlowEvent | null,
+  ): FlowEvent {
+    if (!previousEvent) {
+      return newEvent;
+    }
+    switch (previousEvent.type) {
+      case 'Choice':
+      case 'Parallel':
+      case 'Success':
+      case 'Fail':
+        throw new Error('wait');
+      default:
+        return {
+          ...newEvent,
+          next: previousEvent.next,
+        };
+    }
+  }
+
+  insertEvent(flow: FlowSchema, newEventName: string, newEvent: FlowEvent) {
+    if (flow.events[newEventName]) {
+      throw new TypeException('The Event Name is used: {{newEventName}}', {
+        newEventName,
       });
     }
 
-    flow.events[nextEventName] = nextEvent;
+    flow.events[newEventName] = newEvent;
   }
 
   findPreviousEvent(flow: FlowSchema, previousEventName: string) {

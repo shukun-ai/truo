@@ -52,7 +52,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
         </div>
       </div>
       <Handle type="source" position={Position.Right} />
-      <EventNodeInsert event={event} />
+      <EventNodeInsert eventName={eventName} event={event} />
     </div>
   );
 };
