@@ -73,7 +73,6 @@ export class FlowService {
       store: {},
       orgName: externalContext.orgName,
       operatorId: externalContext.operatorId,
-      parentEventNames: undefined,
     };
   }
 
