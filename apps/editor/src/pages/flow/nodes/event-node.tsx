@@ -9,7 +9,6 @@ import { EventNodeAction } from './event-node-action';
 
 import { EventNodeForm } from './event-node-form';
 import { EventNodeFormItem } from './event-node-form-item';
-import { EventNodeInsert } from './event-node-insert';
 
 export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
   const { eventName, event, eventSchema, eventUI } = data;
@@ -61,7 +60,6 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
         </div>
       </div>
       <Handle type="source" position={Position.Right} />
-      <EventNodeInsert eventName={eventName} event={event} />
     </div>
   );
 };
