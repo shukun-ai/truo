@@ -1,8 +1,6 @@
 import { QueryEntity } from '@datorama/akita';
-import { FlowEvent, FlowSchema } from '@shukun/schema';
+import { FlowSchema } from '@shukun/schema';
 import { cloneDeep } from 'lodash';
-
-import { TypeException } from '../../exceptions/type-exception';
 
 import { FlowState } from './store';
 

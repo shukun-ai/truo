@@ -32,6 +32,17 @@ export class FlowCommand {
     this.store.update(flow.name, flow);
   }
 
+  insertSimple(flow: FlowSchema, eventName: string, event: FlowEvent) {
+    if (flow.events[eventName]) {
+      throw new TypeException('Did not save duplicate: {{eventName}}', {
+        eventName,
+      });
+    }
+    // TODO use avj to validate the input.
+    flow.events[eventName] = event;
+    this.store.update(flow.name, flow);
+  }
+
   remove(flow: FlowSchema, eventName: string) {
     if (!flow.events[eventName]) {
       throw new TypeException('Did not find event when remove: {{eventName}}', {
