@@ -23,7 +23,7 @@ export const EventNodeInsert: FunctionComponent<EventNodeInsertProps> = ({
 
     const previousEventName = eventName;
 
-    const flow = flowQuery.getFlow('retrieve_receive_tasks');
+    const flow = flowQuery.getCloneFlow('retrieve_receive_tasks');
     flowCommand.insert(cloneDeep(flow), 'test', event, previousEventName);
   }, [eventName]);
 

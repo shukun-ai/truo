@@ -5,6 +5,8 @@ import { PADDING, RADIUS } from '../flow-constant';
 
 import { FlowNode } from '../interface/element';
 
+import { EventNodeAction } from './event-node-action';
+
 import { EventNodeForm } from './event-node-form';
 import { EventNodeFormItem } from './event-node-form-item';
 import { EventNodeInsert } from './event-node-insert';
@@ -12,6 +14,10 @@ import { EventNodeInsert } from './event-node-insert';
 export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
   const { eventName, event, eventSchema, eventUI } = data;
   const { width, height, backgroundColor, fontColor } = eventUI;
+
+  if (!eventName || !event || !eventSchema) {
+    return null;
+  }
 
   return (
     <div
@@ -40,8 +46,11 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
           paddingRight: PADDING,
         }}
       >
-        <div>
+        <div style={{ flex: 1 }}>
           {event.type}: {eventName}
+        </div>
+        <div>
+          <EventNodeAction eventName={eventName} event={event} />
         </div>
       </div>
       <div style={{ flex: 1, overflow: 'auto' }}>
