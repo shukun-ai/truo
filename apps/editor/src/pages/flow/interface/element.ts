@@ -6,9 +6,9 @@ import { EventUI } from './event-ui';
 
 export type FlowNode = Node<{
   label: string;
-  eventName: string;
-  event: FlowEvent;
-  eventSchema: EventSchema;
+  eventName?: string;
+  event?: FlowEvent;
+  eventSchema?: EventSchema;
   eventUI: EventUI;
 }>;
 
@@ -21,4 +21,5 @@ export interface FlowElements {
 
 export enum FlowCustomNodeName {
   'EventNode' = 'EventNode',
+  'FunctionalNode' = 'FunctionalNode',
 }

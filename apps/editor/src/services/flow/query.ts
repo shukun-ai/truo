@@ -1,5 +1,8 @@
 import { QueryEntity } from '@datorama/akita';
-import { FlowSchema } from '@shukun/schema';
+import { FlowEvent, FlowSchema } from '@shukun/schema';
+import { cloneDeep } from 'lodash';
+
+import { TypeException } from '../../exceptions/type-exception';
 
 import { FlowState } from './store';
 
@@ -21,5 +24,13 @@ export class FlowQuery extends QueryEntity<FlowState> {
       throw new Error();
     }
     return entity;
+  }
+
+  getCloneFlow(flowName: string): FlowSchema {
+    return cloneDeep(this.getFlow(flowName));
+  }
+
+  existEvent(flow: FlowSchema, eventName: string): boolean {
+    return !!flow.events[eventName];
   }
 }

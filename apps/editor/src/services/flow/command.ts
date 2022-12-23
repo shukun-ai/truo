@@ -1,5 +1,7 @@
 import { FlowEvent, FlowSchema } from '@shukun/schema';
 
+import { TypeException } from '../../exceptions/type-exception';
+
 import { FlowCommandInsert } from './commands/command-insert';
 
 import { FlowStore } from './store';
@@ -26,6 +28,24 @@ export class FlowCommand {
       nextEvent,
       previousEventName,
     );
+
+    this.store.update(flow.name, flow);
+  }
+
+  remove(flow: FlowSchema, eventName: string) {
+    if (!flow.events[eventName]) {
+      throw new TypeException('Did not find event when remove: {{eventName}}', {
+        eventName,
+      });
+    }
+
+    const result = delete flow.events[eventName];
+
+    if (!result) {
+      throw new TypeException('Can not remove event: {{eventName}}', {
+        eventName,
+      });
+    }
 
     this.store.update(flow.name, flow);
   }

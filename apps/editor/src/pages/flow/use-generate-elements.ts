@@ -14,6 +14,10 @@ import {
   FlowNode,
 } from './interface/element';
 
+export const START_NODE_NAME = '$$start$$';
+export const END_NODE_NAME = '$$end$$';
+export const WRONG_NODE_NAME = '$$wrong$$';
+
 export function useGenerateElement(): FlowElements {
   const flow = useObservableState(flowQuery.activeFlow$);
 
@@ -26,7 +30,7 @@ export function useGenerateElement(): FlowElements {
     return elements;
   }
 
-  const { events } = flow;
+  const { startEventName, events } = flow;
 
   for (const [eventName, event] of Object.entries(events)) {
     const { nodes, edges } = prepareEventElements(eventName, event);
@@ -34,6 +38,16 @@ export function useGenerateElement(): FlowElements {
     elements.nodes = [...elements.nodes, ...nodes];
     elements.edges = [...elements.edges, ...edges];
   }
+
+  {
+    const { nodes, edges } = prepareFunctionalElements(startEventName);
+
+    elements.nodes = [...elements.nodes, ...nodes];
+    elements.edges = [...elements.edges, ...edges];
+  }
+
+  // prepareEndElement()
+  // prepareWrongElement()
 
   return elements;
 }
@@ -72,10 +86,29 @@ function prepareCommonEventElements(
   let edge: FlowEdge | null = null;
 
   if (typeof event.next === 'string' && event.next) {
+    const flow = flowQuery.getFlow('retrieve_receive_tasks');
+    const isExist = flowQuery.existEvent(flow, event.next);
+
+    if (isExist) {
+      edge = {
+        id: `${eventName}>${event.next}`,
+        source: eventName,
+        target: event.next,
+        markerEnd: createEdgeMarker(),
+      };
+    } else {
+      edge = {
+        id: `${eventName}>${WRONG_NODE_NAME}`,
+        source: eventName,
+        target: WRONG_NODE_NAME,
+        markerEnd: createEdgeMarker(),
+      };
+    }
+  } else if (!event.next) {
     edge = {
-      id: `${eventName}>${event.next}`,
+      id: `${eventName}>${END_NODE_NAME}`,
       source: eventName,
-      target: event.next,
+      target: END_NODE_NAME,
       markerEnd: createEdgeMarker(),
     };
   }
@@ -83,6 +116,69 @@ function prepareCommonEventElements(
   return {
     nodes: [node],
     edges: edge ? [edge] : [],
+  };
+}
+
+function prepareFunctionalElements(startName: string): FlowElements {
+  const startNode: FlowNode = {
+    id: START_NODE_NAME,
+    position: getDefaultPosition(),
+    data: {
+      label: 'Start',
+      eventUI: {
+        width: 30,
+        height: 30,
+        backgroundColor: '#000',
+        fontColor: '#fff',
+      },
+    },
+    type: FlowCustomNodeName.FunctionalNode,
+  };
+
+  const endNode: FlowNode = {
+    id: END_NODE_NAME,
+    position: getDefaultPosition(),
+    data: {
+      label: 'End',
+      eventUI: {
+        width: 30,
+        height: 30,
+        backgroundColor: 'green',
+        fontColor: '#fff',
+      },
+    },
+    type: FlowCustomNodeName.FunctionalNode,
+  };
+
+  const wrongNode: FlowNode = {
+    id: WRONG_NODE_NAME,
+    position: getDefaultPosition(),
+    data: {
+      label: 'End',
+      eventUI: {
+        width: 30,
+        height: 30,
+        backgroundColor: 'red',
+        fontColor: '#fff',
+      },
+    },
+    type: FlowCustomNodeName.FunctionalNode,
+  };
+
+  let startEdge: FlowEdge | null = null;
+
+  if (startName) {
+    startEdge = {
+      id: `${START_NODE_NAME}>${startName}`,
+      source: START_NODE_NAME,
+      target: startName,
+      markerEnd: createEdgeMarker(),
+    };
+  }
+
+  return {
+    nodes: [startNode, endNode, wrongNode],
+    edges: startEdge ? [startEdge] : [],
   };
 }
 
