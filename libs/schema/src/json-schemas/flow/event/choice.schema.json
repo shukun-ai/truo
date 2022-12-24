@@ -5,7 +5,11 @@
   "required": ["type", "next", "conditions"],
   "properties": {
     "type": { "const": "Choice" },
-    "next": { "type": "string", "description": "it means default next." },
+    "next": {
+      "type": "string",
+      "skEditorType": "Next",
+      "description": "it means default next."
+    },
     "conditions": {
       "type": "array",
       "items": {

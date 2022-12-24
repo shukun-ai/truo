@@ -5,10 +5,10 @@
   "required": ["type", "next", "atomName", "id", "electronName", "increment"],
   "properties": {
     "type": { "const": "SourceIncrease" },
-    "next": { "type": "string" },
-    "atomName": { "type": "string" },
-    "id": { "type": "string" },
-    "electronName": { "type": "string" },
-    "increment": { "type": "string" }
+    "next": { "type": "string", "skEditorType": "Next" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
+    "id": { "type": "string", "skEditorType": "Template" },
+    "electronName": { "type": "string", "skEditorType": "Template" },
+    "increment": { "type": "string", "skEditorType": "Template" }
   }
 }
