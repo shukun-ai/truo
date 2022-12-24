@@ -6,4 +6,6 @@ export class MetadataQuery extends QueryEntity<MetadataState> {
   metadata$ = this.selectAll();
 
   activeMetadata$ = this.selectActive();
+
+  allowSelectedMetadata$ = this.selectAll();
 }
