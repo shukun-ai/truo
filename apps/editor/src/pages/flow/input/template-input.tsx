@@ -15,7 +15,7 @@ export const TemplateInput: FunctionComponent<InputProps> = ({
       name={name}
       rules={[{ required, message: 'Please input your template!' }]}
     >
-      <Input disabled={!editing} />
+      <Input placeholder={label} disabled={!editing} />
     </Form.Item>
   );
 };

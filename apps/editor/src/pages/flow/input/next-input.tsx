@@ -27,6 +27,7 @@ export const NextInput: FunctionComponent<InputProps> = ({
             id={id}
             value={value}
             onChange={onChange}
+            label={label}
             editing={editing}
           />
         )}
@@ -36,6 +37,7 @@ export const NextInput: FunctionComponent<InputProps> = ({
 };
 
 interface NextFormInputProps extends ExtractFormItemProps<FormItemValue> {
+  label: string;
   editing: boolean;
 }
 
@@ -43,6 +45,7 @@ const NextFormInput: FunctionComponent<NextFormInputProps> = ({
   id,
   value,
   onChange,
+  label,
   editing,
 }) => {
   const flow = useObservableState(flowQuery.activeFlow$);
@@ -64,6 +67,7 @@ const NextFormInput: FunctionComponent<NextFormInputProps> = ({
       onChange={onChange}
       disabled={!editing}
       showSearch
+      placeholder={label}
     >
       {options?.map((option) => (
         <Select.Option key={option.value} value={option.value}>
