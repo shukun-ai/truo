@@ -7,6 +7,7 @@ export const AtomNameInput: FunctionComponent<InputProps> = ({
   label,
   name,
   required,
+  editing,
 }) => {
   return (
     <Form.Item
@@ -14,7 +15,7 @@ export const AtomNameInput: FunctionComponent<InputProps> = ({
       name={name}
       rules={[{ required, message: 'Please input your atom name input!' }]}
     >
-      <Input />
+      <Input disabled={!editing} />
     </Form.Item>
   );
 };

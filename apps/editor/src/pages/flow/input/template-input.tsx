@@ -7,6 +7,7 @@ export const TemplateInput: FunctionComponent<InputProps> = ({
   label,
   name,
   required,
+  editing,
 }) => {
   return (
     <Form.Item
@@ -14,7 +15,7 @@ export const TemplateInput: FunctionComponent<InputProps> = ({
       name={name}
       rules={[{ required, message: 'Please input your template!' }]}
     >
-      <Input />
+      <Input disabled={!editing} />
     </Form.Item>
   );
 };

@@ -17,11 +17,5 @@ export const EventNodeAction: FunctionComponent<EventNodeActionProps> = ({
     flowCommand.remove(flow, eventName);
   }, [eventName]);
 
-  return (
-    <div>
-      <Button size="small" onClick={handleClick}>
-        Remove
-      </Button>
-    </div>
-  );
+  return <div></div>;
 };
