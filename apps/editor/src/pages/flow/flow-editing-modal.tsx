@@ -52,7 +52,7 @@ export const FlowEditingModal: FunctionComponent<
         throw new TypeException('Did not find editingEvent.');
       }
       const flow = flowQuery.getCloneFlow('retrieve_receive_tasks');
-      flowCommand.insertSimple(flow, editingEventName, {
+      flowCommand.insert(flow, editingEventName, {
         ...values,
         type: editingEvent.type,
       });

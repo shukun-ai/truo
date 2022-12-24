@@ -2,37 +2,16 @@ import { FlowEvent, FlowSchema } from '@shukun/schema';
 
 import { TypeException } from '../../exceptions/type-exception';
 
-import { FlowCommandInsert } from './commands/command-insert';
-
 import { FlowStore } from './store';
 
 export class FlowCommand {
-  constructor(
-    private readonly store: FlowStore,
-    private readonly flowCommandInsert: FlowCommandInsert,
-  ) {}
+  constructor(private readonly store: FlowStore) {}
 
   setAll(flows: Record<string, FlowSchema>) {
     this.store.set({ ids: Object.keys(flows), entities: flows });
   }
 
-  insert(
-    flow: FlowSchema,
-    nextEventName: string,
-    nextEvent: FlowEvent,
-    previousEventName: string | null,
-  ) {
-    this.flowCommandInsert.insertEvent(
-      flow,
-      nextEventName,
-      nextEvent,
-      previousEventName,
-    );
-
-    this.store.update(flow.name, flow);
-  }
-
-  insertSimple(flow: FlowSchema, eventName: string, event: FlowEvent) {
+  insert(flow: FlowSchema, eventName: string, event: FlowEvent) {
     if (flow.events[eventName]) {
       throw new TypeException('Did not save duplicate: {{eventName}}', {
         eventName,
