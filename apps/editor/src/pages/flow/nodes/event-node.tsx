@@ -6,6 +6,7 @@ import { PADDING, RADIUS } from '../flow-constant';
 import { FlowNode } from '../interface/element';
 
 import { EventNodeAction } from './event-node-action';
+import { EventNodeDescription } from './event-node-description';
 
 import { EventNodeForm } from './event-node-form';
 import { EventNodeFormItem } from './event-node-form-item';
@@ -20,6 +21,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
 
   return (
     <div
+      className="nowheel nodrag"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -34,7 +36,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
       <Handle type="target" position={Position.Left} />
       <div
         style={{
-          height: 32,
+          height: 36,
           backgroundColor,
           color: fontColor,
           borderTopLeftRadius: RADIUS,
@@ -46,18 +48,20 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
         }}
       >
         <div style={{ flex: 1 }}>
-          {event.type}: {eventName}
+          <div style={{ fontSize: 14, fontWeight: 'bold' }}>{eventName}</div>
+          <div style={{ fontSize: 10, marginTop: -5 }}>{event.type}</div>
         </div>
         <div>
           <EventNodeAction eventName={eventName} event={event} />
         </div>
       </div>
       <div style={{ flex: 1, overflow: 'auto' }}>
-        <div style={{ padding: PADDING, paddingRight: 28 }}>
-          <EventNodeForm initialValues={event}>
+        <EventNodeForm initialValues={event} eventName={eventName}>
+          <div style={{ padding: PADDING }}>
+            <EventNodeDescription event={event} />
             <EventNodeFormItem eventSchema={eventSchema} />
-          </EventNodeForm>
-        </div>
+          </div>
+        </EventNodeForm>
       </div>
       <Handle type="source" position={Position.Right} />
     </div>

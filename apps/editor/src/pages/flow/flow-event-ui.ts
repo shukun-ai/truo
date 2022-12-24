@@ -1,5 +1,4 @@
 import { FlowEvent } from '@shukun/schema';
-import Color from 'color';
 
 import { EventUI } from './interface/event-ui';
 
@@ -47,6 +46,6 @@ function getSmallSize(): {
 } {
   return {
     width: 360,
-    height: 32,
+    height: 180,
   };
 }
