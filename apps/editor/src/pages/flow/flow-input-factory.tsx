@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 
 import { AtomNameInput } from './input/atom-name-input';
+import { NextInput } from './input/next-input';
 import { SourceQueryInput } from './input/source-query-input';
 
 import { StoreKeyInput } from './input/store-key-input';
@@ -69,6 +70,17 @@ export const InputFactory: FunctionComponent<InputFactoryProps> = ({
   if (field.skEditorType === 'Template') {
     return (
       <TemplateInput
+        name={name}
+        label={name}
+        required={required}
+        editing={editing}
+      />
+    );
+  }
+
+  if (field.skEditorType === 'Next') {
+    return (
+      <NextInput
         name={name}
         label={name}
         required={required}
