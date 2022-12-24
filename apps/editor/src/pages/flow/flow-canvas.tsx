@@ -42,9 +42,12 @@ export const FlowCanvas: FunctionComponent<FlowCanvasProps> = () => {
         nodes={nodes}
         edges={edges}
         connectionLineType={ConnectionLineType.SmoothStep}
+        zoomOnScroll={false}
+        zoomOnPinch={false}
+        zoomOnDoubleClick={false}
       >
-        <Controls />
         <MiniMap
+          position="bottom-left"
           nodeColor={Color(CANVAS_COLOR).lighten(1).hex()}
           maskColor={Color(CANVAS_COLOR).darken(0.2).hex()}
           style={{
