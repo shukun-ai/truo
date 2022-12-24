@@ -7,6 +7,6 @@ export interface EventNodeDescriptionProps {
 
 export const EventNodeDescription: FunctionComponent<
   EventNodeDescriptionProps
-> = ({ event }) => {
+> = () => {
   return null;
 };
