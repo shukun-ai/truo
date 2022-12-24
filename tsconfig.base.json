@@ -25,6 +25,7 @@
       "@shukun/api": ["libs/api/src/index.ts"],
       "@shukun/cli": ["libs/cli/src/index.ts"],
       "@shukun/code-resolver": ["libs/code-resolver/src/index.ts"],
+      "@shukun/component": ["libs/component/src/index.ts"],
       "@shukun/schema": ["libs/schema/src/index.ts"]
     }
   },
