@@ -1,23 +1,33 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useMemo } from 'react';
 
 import { AtomNameInput } from './input/atom-name-input';
 import { SourceQueryInput } from './input/source-query-input';
 
 import { StoreKeyInput } from './input/store-key-input';
 import { TemplateInput } from './input/template-input';
-import { EventSchemaField } from './interface/event-schema';
+import { EventSchema, EventSchemaField } from './interface/event-schema';
 import { EventNodeContext } from './nodes/event-node-context';
 
 export interface InputFactoryProps {
   name: string;
   field: EventSchemaField;
+  eventSchema: EventSchema;
 }
 
 export const InputFactory: FunctionComponent<InputFactoryProps> = ({
   name,
   field,
+  eventSchema,
 }) => {
   const { editing } = useContext(EventNodeContext);
+
+  const required = useMemo(() => {
+    if (!eventSchema.required) {
+      return false;
+    }
+    const requiredSets: string[] = eventSchema.required;
+    return requiredSets.includes(name);
+  }, [eventSchema.required, name]);
 
   if (!field.skEditorType) {
     return null;
@@ -28,7 +38,7 @@ export const InputFactory: FunctionComponent<InputFactoryProps> = ({
       <StoreKeyInput
         name={name}
         label={name}
-        required={false}
+        required={required}
         editing={editing}
       />
     );
@@ -39,7 +49,7 @@ export const InputFactory: FunctionComponent<InputFactoryProps> = ({
       <AtomNameInput
         name={name}
         label={name}
-        required={false}
+        required={required}
         editing={editing}
       />
     );
@@ -50,7 +60,7 @@ export const InputFactory: FunctionComponent<InputFactoryProps> = ({
       <SourceQueryInput
         name={name}
         label={name}
-        required={false}
+        required={required}
         editing={editing}
       />
     );
@@ -61,7 +71,7 @@ export const InputFactory: FunctionComponent<InputFactoryProps> = ({
       <TemplateInput
         name={name}
         label={name}
-        required={false}
+        required={required}
         editing={editing}
       />
     );

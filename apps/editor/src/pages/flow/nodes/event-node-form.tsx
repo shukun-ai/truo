@@ -1,3 +1,4 @@
+import { FlowEvent } from '@shukun/schema';
 import { Button, Form } from 'antd';
 import React, { FunctionComponent, useCallback, useState } from 'react';
 
@@ -6,10 +7,11 @@ import { flowCommand, flowQuery } from '../../../services/flow';
 import { PADDING } from '../flow-constant';
 
 import { EventNodeContext } from './event-node-context';
+import { EventNodeRemoveButton } from './event-node-remove-button';
 
 export interface EventNodeFormProps {
   eventName: string;
-  initialValues: any;
+  initialValues: FlowEvent;
 }
 
 export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
@@ -17,6 +19,8 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
   initialValues,
   children,
 }) => {
+  const [form] = Form.useForm<FlowEvent>();
+
   const [editing, setEditing] = useState(false);
 
   const onEdit = useCallback(() => {
@@ -30,25 +34,24 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
 
   const onCancel = useCallback(() => {
     setEditing(false);
-  }, []);
+    form.resetFields();
+  }, [form]);
 
-  const onFinish = (values: any) => {
-    // console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    // console.log('Failed:', errorInfo);
+  const onFinish = (event: FlowEvent) => {
+    const flow = flowQuery.getCloneFlow('retrieve_receive_tasks');
+    flowCommand.update(flow, eventName, event);
+    setEditing(false);
   };
 
   return (
-    <Form
+    <Form<FlowEvent>
+      form={form}
       name="basic"
       labelAlign="left"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 18 }}
       initialValues={initialValues}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       autoComplete="off"
       style={{
         display: 'flex',
@@ -76,11 +79,15 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
           </Button>
         )}
         {!editing && (
-          <Button type="text" onClick={onRemove}>
+          <EventNodeRemoveButton onClick={onRemove}>
             Remove
+          </EventNodeRemoveButton>
+        )}
+        {editing && (
+          <Button type="primary" htmlType="submit">
+            Save
           </Button>
         )}
-        {editing && <Button type="primary">Save</Button>}
         {editing && (
           <Button type="text" onClick={onCancel}>
             Cancel

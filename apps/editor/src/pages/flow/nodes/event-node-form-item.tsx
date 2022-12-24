@@ -13,7 +13,9 @@ export const EventNodeFormItem: FunctionComponent<EventNodeFormItemProps> = ({
   return (
     <>
       {Object.entries(eventSchema.properties).map(([name, field]) => {
-        return <InputFactory name={name} field={field} />;
+        return (
+          <InputFactory name={name} field={field} eventSchema={eventSchema} />
+        );
       })}
     </>
   );
