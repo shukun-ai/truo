@@ -5,7 +5,7 @@
   "required": ["type", "next", "key", "value"],
   "properties": {
     "type": { "const": "Store" },
-    "next": { "type": "string" },
+    "next": { "type": "string", "skEditorType": "Next" },
     "key": { "type": "string", "skEditorType": "StoreKey" },
     "value": { "type": "string", "skEditorType": "Template" }
   }
