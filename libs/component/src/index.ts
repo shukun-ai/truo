@@ -1,1 +1,1 @@
-export * from './lib/component';
+export * from './utils/extract-form-item';

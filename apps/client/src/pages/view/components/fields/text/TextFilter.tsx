@@ -1,3 +1,4 @@
+import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
 import { Input } from 'antd';
 import FormItem from 'antd/es/form/FormItem';
 import React, {
@@ -6,11 +7,6 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
-
-import {
-  ExtractFormItem,
-  ExtractFormItemProps,
-} from '../../../../../components/form/ExtractFormItem';
 
 import { FilterFieldProps } from '../interfaces';
 
