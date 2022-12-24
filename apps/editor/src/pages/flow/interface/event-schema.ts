@@ -13,4 +13,5 @@ export type EventSchemaEditorType =
   | 'StoreKey'
   | 'Template'
   | 'AtomName'
-  | 'SourceQuery';
+  | 'SourceQuery'
+  | 'Next';
