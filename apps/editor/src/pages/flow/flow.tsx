@@ -4,7 +4,6 @@ import { ReactFlowProvider } from 'reactflow';
 import { FlowAction } from './flow-action';
 
 import { FlowCanvas } from './flow-canvas';
-import { FlowEditingModal } from './flow-editing-modal';
 
 export interface FlowProps {}
 

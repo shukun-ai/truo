@@ -2,7 +2,7 @@ import { Modal } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 
-import { flowUICommand, flowUIQuery } from '../../services/flow-ui';
+import { flowUICommand, flowUIQuery } from '../../../services/flow-ui';
 
 import { FlowInsertForm } from './flow-insert-form';
 
