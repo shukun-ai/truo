@@ -72,4 +72,19 @@ export class FlowCommand {
 
     this.store.update(flow.name, flow);
   }
+
+  updateStartEventName(flow: FlowSchema, startEventName: string) {
+    if (!flow.events[startEventName]) {
+      throw new TypeException(
+        'Did not find event when update start event name: {{startEventName}}',
+        {
+          startEventName,
+        },
+      );
+    }
+
+    flow.startEventName = startEventName;
+
+    this.store.update(flow.name, flow);
+  }
 }
