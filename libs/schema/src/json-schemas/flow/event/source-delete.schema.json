@@ -5,8 +5,8 @@
   "required": ["type", "next", "atomName", "id"],
   "properties": {
     "type": { "const": "SourceDelete" },
-    "next": { "type": "string" },
-    "atomName": { "type": "string" },
-    "id": { "type": "string" }
+    "next": { "type": "string", "skEditorType": "Next" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
+    "id": { "type": "string", "skEditorType": "Template" }
   }
 }

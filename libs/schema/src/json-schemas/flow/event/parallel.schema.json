@@ -5,7 +5,7 @@
   "required": ["type", "next", "branches"],
   "properties": {
     "type": { "const": "Parallel" },
-    "next": { "type": "string" },
+    "next": { "type": "string", "skEditorType": "Next" },
     "branches": {
       "type": "array",
       "items": {

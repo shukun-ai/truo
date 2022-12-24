@@ -5,9 +5,9 @@
   "required": ["type", "next", "repeatCount", "startEventName"],
   "properties": {
     "type": { "const": "Repeat" },
-    "next": { "type": "string" },
-    "repeatCount": { "type": "string" },
-    "startEventName": { "type": "string" },
-    "description": { "type": "string" }
+    "next": { "type": "string", "skEditorType": "Next" },
+    "repeatCount": { "type": "string", "skEditorType": "Template" },
+    "startEventName": { "type": "string", "skEditorType": "EventName" },
+    "description": { "type": "string", "skEditorType": "Description" }
   }
 }

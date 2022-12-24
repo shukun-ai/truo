@@ -5,10 +5,10 @@
   "required": ["type", "next", "atomName", "id", "electronName", "foreignId"],
   "properties": {
     "type": { "const": "SourceAddToMany" },
-    "next": { "type": "string" },
-    "atomName": { "type": "string" },
-    "id": { "type": "string" },
-    "electronName": { "type": "string" },
-    "foreignId": { "type": "string" }
+    "next": { "type": "string", "skEditorType": "Next" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
+    "id": { "type": "string", "skEditorType": "Template" },
+    "electronName": { "type": "string", "skEditorType": "Template" },
+    "foreignId": { "type": "string", "skEditorType": "Template" }
   }
 }

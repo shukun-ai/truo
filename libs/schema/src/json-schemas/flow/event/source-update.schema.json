@@ -5,9 +5,9 @@
   "required": ["type", "next", "atomName", "id", "data"],
   "properties": {
     "type": { "const": "SourceUpdate" },
-    "next": { "type": "string" },
-    "atomName": { "type": "string" },
-    "id": { "type": "string" },
-    "data": { "type": "object" }
+    "next": { "type": "string", "skEditorType": "Next" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
+    "id": { "type": "string", "skEditorType": "Template" },
+    "data": { "type": "object", "skEditorType": "Template" }
   }
 }
