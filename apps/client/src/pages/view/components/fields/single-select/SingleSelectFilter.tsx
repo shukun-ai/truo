@@ -1,11 +1,7 @@
+import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
 import { MetadataOptions } from '@shukun/schema';
 import { Form, Select, SelectProps } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
-
-import {
-  ExtractFormItem,
-  ExtractFormItemProps,
-} from '../../../../../components/form';
 
 import { FilterFieldProps } from '../interfaces';
 

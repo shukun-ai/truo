@@ -1,11 +1,7 @@
+import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
 import { DatePicker, Form } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
-
-import {
-  ExtractFormItem,
-  ExtractFormItemProps,
-} from '../../../../../components/form';
 
 import { FilterFieldProps } from '../interfaces';
 
