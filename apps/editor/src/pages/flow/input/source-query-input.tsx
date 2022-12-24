@@ -15,7 +15,7 @@ export const SourceQueryInput: FunctionComponent<InputProps> = ({
       name={name}
       rules={[{ required, message: 'Please input your source query input!' }]}
     >
-      <Input disabled={!editing} />
+      <Input placeholder={label} disabled={!editing} />
     </Form.Item>
   );
 };

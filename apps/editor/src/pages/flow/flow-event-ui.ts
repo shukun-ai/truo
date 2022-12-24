@@ -18,7 +18,7 @@ export const eventUI: Record<FlowEvent['type'], EventUI> = {
   Choice: { ...getDefaultUI() },
   Repeat: { ...getDefaultUI() },
   Parallel: { ...getDefaultUI() },
-  Store: { ...getDefaultUI(), backgroundColor: '#805dca' },
+  Store: { ...getDefaultUI(), ...getSmallSize(), backgroundColor: '#805dca' },
   FirstOrThrow: {
     ...getDefaultUI(),
     ...getSmallSize(),
@@ -34,7 +34,7 @@ export const eventUI: Record<FlowEvent['type'], EventUI> = {
 function getDefaultUI(): EventUI {
   return {
     width: 360,
-    height: 180,
+    height: 360,
     backgroundColor: '#000',
     fontColor: '#fff',
   };

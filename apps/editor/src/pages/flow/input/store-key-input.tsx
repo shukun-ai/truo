@@ -15,7 +15,7 @@ export const StoreKeyInput: FunctionComponent<InputProps> = ({
       name={name}
       rules={[{ required, message: 'Please input your store key!' }]}
     >
-      <Input disabled={!editing} />
+      <Input placeholder={label} disabled={!editing} />
     </Form.Item>
   );
 };

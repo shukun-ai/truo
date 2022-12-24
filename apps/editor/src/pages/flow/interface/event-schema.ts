@@ -1,7 +1,7 @@
 export interface EventSchema {
   $schema?: string;
   type: 'object';
-  required?: ['type', 'next', 'key', 'value'];
+  required?: string[];
   properties: Record<string, EventSchemaField>;
 }
 
@@ -14,4 +14,6 @@ export type EventSchemaEditorType =
   | 'Template'
   | 'AtomName'
   | 'SourceQuery'
-  | 'Next';
+  | 'Next'
+  | 'EventName'
+  | 'Description';
