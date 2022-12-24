@@ -22,7 +22,9 @@ export const FlowAction: FunctionComponent<FlowActionProps> = () => {
       <div
         style={{
           position: 'absolute',
-          width: 360,
+          minWidth: 360,
+          paddingLeft: PADDING,
+          paddingRight: PADDING,
           height: 44,
           background: 'rgba(0,0,0,0.8)',
           left: '50%',
