@@ -86,7 +86,7 @@ function prepareCommonEventElements(
   let edge: FlowEdge | null = null;
 
   if (typeof event.next === 'string' && event.next) {
-    const flow = flowQuery.getFlow('retrieve_receive_tasks');
+    const flow = flowQuery.getCloneActiveFlow();
     const isExist = flowQuery.existEvent(flow, event.next);
 
     if (isExist) {

@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Router, Switch, Route, Redirect, useParams } from 'react-router-dom';
 
 import { history, RoutePath } from '../../routes';
+import { FlowList } from '../flow-list/flow-list';
 import { Flow } from '../flow/flow';
 import { Home } from '../home/home';
 import { NotFound } from '../not-found/not-found';
@@ -18,7 +19,8 @@ export const Routes: FunctionComponent<RoutesProps> = () => {
         <Route path={RoutePath.Workspace}>
           <Workspace>
             <Switch>
-              <Route path={RoutePath.Flow} component={Flow} />
+              <Route path={RoutePath.FlowDetail} component={Flow} />
+              <Route path={RoutePath.FlowList} component={FlowList} />
             </Switch>
           </Workspace>
         </Route>
