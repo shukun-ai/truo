@@ -22,7 +22,6 @@ describe('SandboxService', () => {
     );
 
     context = {
-      parameter: {},
       input: { count: 3 },
       next: '',
       index: 0,
