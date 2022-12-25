@@ -6,6 +6,10 @@ import { flowQuery } from '../../services/flow';
 import { prepareSpecialChoiceEventElements } from './elements/choice-elements';
 
 import { prepareCommonEventElements } from './elements/common-elements';
+import {
+  filterSubEventNames,
+  filterRootEventNames,
+} from './elements/filter-elements';
 
 import { prepareFunctionalElements } from './elements/functional-elements';
 import { prepareSpecialParallelEventElements } from './elements/parallel-elements';
@@ -27,7 +31,13 @@ export function useGenerateElement(): FlowElements {
 
   const { startEventName, events } = flow;
 
-  for (const [eventName, event] of Object.entries(events)) {
+  const subEventNames = filterSubEventNames(events);
+  const rootEventNames = filterRootEventNames(events, subEventNames);
+
+  for (let index = 0; index < rootEventNames.length; index++) {
+    const eventName = rootEventNames[index];
+    const event = events[eventName];
+
     const { nodes, edges } = prepareCommonEventElements(eventName, event);
 
     elements.nodes = [...elements.nodes, ...nodes];

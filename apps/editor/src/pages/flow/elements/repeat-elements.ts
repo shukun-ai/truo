@@ -13,6 +13,7 @@ export function prepareSpecialRepeatEventElements(
   if (event.startEventName) {
     edge = {
       id: `${eventName}>${event.startEventName}`,
+      label: 'Repeat content',
       source: eventName,
       target: event.startEventName,
       markerEnd: createEdgeMarker(),
