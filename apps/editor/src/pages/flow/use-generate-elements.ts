@@ -33,12 +33,17 @@ export function useGenerateElement(): FlowElements {
 
   const subEventNames = filterSubEventNames(events);
   const rootEventNames = filterRootEventNames(events, subEventNames);
+  const allEventNames = [...rootEventNames, ...subEventNames];
 
-  for (let index = 0; index < rootEventNames.length; index++) {
-    const eventName = rootEventNames[index];
+  for (let index = 0; index < allEventNames.length; index++) {
+    const eventName = allEventNames[index];
     const event = events[eventName];
 
-    const { nodes, edges } = prepareCommonEventElements(eventName, event);
+    const { nodes, edges } = prepareCommonEventElements(
+      eventName,
+      event,
+      subEventNames,
+    );
 
     elements.nodes = [...elements.nodes, ...nodes];
     elements.edges = [...elements.edges, ...edges];
