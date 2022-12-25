@@ -11,6 +11,7 @@ export function prepareSpecialChoiceEventElements(
   const edges: FlowEdge[] = event.conditions.map((condition) => {
     const edge: FlowEdge = {
       id: `${eventName}>${condition.next}`,
+      label: condition.condition,
       source: eventName,
       target: condition.next,
       markerEnd: createEdgeMarker(),

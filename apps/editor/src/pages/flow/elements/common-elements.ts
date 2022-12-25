@@ -33,31 +33,19 @@ export function prepareCommonEventElements(
   let edge: FlowEdge | null = null;
 
   if (typeof event.next === 'string' && event.next) {
-    const flow = flowQuery.getCloneActiveFlow();
-    const isExist = flowQuery.existEvent(flow, event.next);
-
-    if (isExist) {
-      edge = {
-        id: `${eventName}>${event.next}`,
-        source: eventName,
-        target: event.next,
-        markerEnd: createEdgeMarker(),
-      };
-    } else {
-      edge = {
-        id: `${eventName}>${WRONG_NODE_NAME}`,
-        source: eventName,
-        target: WRONG_NODE_NAME,
-        markerEnd: createEdgeMarker(),
-      };
-    }
+    edge = {
+      id: `${eventName}>${event.next}`,
+      source: eventName,
+      target: event.next,
+      markerEnd: createEdgeMarker(),
+    };
   } else if (!event.next) {
-    // edge = {
-    //   id: `${eventName}>${END_NODE_NAME}`,
-    //   source: eventName,
-    //   target: END_NODE_NAME,
-    //   markerEnd: createEdgeMarker(),
-    // };
+    edge = {
+      id: `${eventName}>${END_NODE_NAME}`,
+      source: eventName,
+      target: END_NODE_NAME,
+      markerEnd: createEdgeMarker(),
+    };
   }
 
   return {
