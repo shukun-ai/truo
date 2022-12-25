@@ -10,4 +10,12 @@ export class FlowUICommand {
   closeInsertModal() {
     this.store.update(() => ({ insertModalVisible: false }));
   }
+
+  openCodeModal() {
+    this.store.update(() => ({ codeModalVisible: true }));
+  }
+
+  closeCodeModal() {
+    this.store.update(() => ({ codeModalVisible: false }));
+  }
 }

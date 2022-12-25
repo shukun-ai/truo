@@ -6,6 +6,7 @@ import { flowUICommand } from '../../services/flow-ui';
 import { EventAction } from './action/event-action';
 import { PADDING } from './flow-constant';
 import { FlowInsertModal } from './insert/flow-insert-modal';
+import { EventCodeModal } from './modal/event-code-modal';
 
 export interface FlowActionProps {}
 
@@ -45,6 +46,7 @@ export const FlowAction: FunctionComponent<FlowActionProps> = () => {
       </div>
 
       <FlowInsertModal />
+      <EventCodeModal />
     </div>
   );
 };

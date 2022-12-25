@@ -2,10 +2,14 @@ import { json } from '@codemirror/lang-json';
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
-import { Form } from 'antd';
+import { Button, Form, message } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
 import { InputProps } from '../interface/input';
+import {
+  closeEventCodeModal,
+  openEventCodeModal,
+} from '../modal/event-code-modal-service';
 
 export type FormItemValue = unknown;
 
@@ -53,24 +57,33 @@ const SourceQueryFromInput: FunctionComponent<SourceQueryFromInputProps> = ({
     return JSON.stringify(value, null, 2);
   }, [value]);
 
-  const handleChange = useCallback(
-    (value) => {
-      const parsedValue = JSON.parse(value);
-      onChange(parsedValue);
-    },
-    [onChange],
-  );
+  const handleClick = useCallback(() => {
+    const stringifyValue = JSON.stringify(value, null, 2);
+    openEventCodeModal(stringifyValue, (value) => {
+      try {
+        const parsedValue = JSON.parse(value);
+        onChange(parsedValue);
+        closeEventCodeModal();
+      } catch (error) {
+        message.error('The code is not JSON format.');
+      }
+    });
+  }, [onChange, value]);
 
   return (
-    <CodeMirror
-      id={id}
-      value={stringifyValue}
-      onChange={handleChange}
-      theme={githubDark}
-      extensions={[json()]}
-      editable={editing}
-      placeholder={label}
-      height="160px"
-    />
+    <div>
+      <CodeMirror
+        id={id}
+        value={stringifyValue}
+        theme={githubDark}
+        extensions={[json()]}
+        editable={false}
+        placeholder={label}
+        height="160px"
+      />
+      <Button size="small" disabled={!editing} onClick={handleClick}>
+        Edit the code
+      </Button>
+    </div>
   );
 };
