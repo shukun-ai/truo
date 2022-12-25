@@ -26,11 +26,10 @@ export class FlowService {
   ) {
     const definition = await this.getDefinition(orgName, flowName);
     const compiledCodes = await this.getCompiledCodes(orgName, flowName);
-    const parameter = input;
 
     this.validateInputs(input, definition.input);
 
-    const context = this.prepareContext(parameter, definition, externalContext);
+    const context = this.prepareContext(input, definition, externalContext);
 
     const { input: output } = await this.resolverService.executeNextEvent(
       definition.events,
@@ -60,13 +59,12 @@ export class FlowService {
   }
 
   prepareContext(
-    parameter: unknown,
+    input: unknown,
     definition: FlowSchema,
     externalContext: ExternalContext,
   ): SandboxContext {
     return {
-      parameter: parameter,
-      input: parameter,
+      input,
       next: definition.startEventName,
       index: 0,
       env: {},

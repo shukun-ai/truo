@@ -46,7 +46,6 @@ describe('ResolverService', () => {
         exports.default=main;`,
       };
       const context: SandboxContext = {
-        parameter: input,
         input,
         next: 'test',
         index: 0,
@@ -92,7 +91,6 @@ describe('ResolverService', () => {
         `,
       };
       const context: SandboxContext = {
-        parameter: input,
         input,
         next: 'noThisEvent',
         index: 0,
@@ -132,7 +130,6 @@ describe('ResolverService', () => {
         `,
       };
       const context: SandboxContext = {
-        parameter: input,
         input,
         next: 'test',
         index: 0,
@@ -206,7 +203,7 @@ describe('ResolverService', () => {
         async function main($, $$, $$$){
           return {
             ...$,
-            input: $.parameter.test,
+            input: 3,
             next: "p3"
           };
         };
@@ -224,7 +221,6 @@ describe('ResolverService', () => {
         `,
       };
       const context: SandboxContext = {
-        parameter: input,
         input,
         next: 'test',
         index: 0,
@@ -273,7 +269,6 @@ describe('ResolverService', () => {
         `,
       };
       const context: SandboxContext = {
-        parameter: input,
         input,
         next: 'test',
         index: 0,
@@ -316,7 +311,6 @@ describe('ResolverService', () => {
         `,
       };
       const context: SandboxContext = {
-        parameter: input,
         input,
         next: 'test',
         index: 0,
@@ -396,7 +390,6 @@ describe('ResolverService', () => {
         `,
       };
       const context: SandboxContext = {
-        parameter: input,
         input,
         next: 'test',
         index: 0,
