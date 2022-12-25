@@ -28,7 +28,7 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
   }, []);
 
   const onRemove = useCallback(() => {
-    const flow = flowQuery.getCloneFlow('retrieve_receive_tasks');
+    const flow = flowQuery.getCloneActiveFlow();
     flowCommand.remove(flow, eventName);
   }, [eventName]);
 
@@ -38,7 +38,7 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
   }, [form]);
 
   const onFinish = (event: FlowEvent) => {
-    const flow = flowQuery.getCloneFlow('retrieve_receive_tasks');
+    const flow = flowQuery.getCloneActiveFlow();
     flowCommand.update(flow, eventName, event);
     setEditing(false);
   };

@@ -5,27 +5,16 @@ import { cloneDeep } from 'lodash';
 import { FlowState } from './store';
 
 export class FlowQuery extends QueryEntity<FlowState> {
-  flows$ = this.selectAll();
+  allFlows$ = this.selectAll();
 
-  // TODO mock
-  // activeFlow$ = this.selectActive();
-  activeFlow$ = this.selectEntity('retrieve_receive_tasks');
+  activeFlow$ = this.selectActive();
 
-  getActiveFlow(): FlowSchema | null {
-    const entity = this.getActive();
-    return entity ?? null;
-  }
-
-  getFlow(flowName: string): FlowSchema {
-    const entity = this.getEntity(flowName);
-    if (!entity) {
+  getCloneActiveFlow() {
+    const active = this.getActive();
+    if (!active) {
       throw new Error();
     }
-    return entity;
-  }
-
-  getCloneFlow(flowName: string): FlowSchema {
-    return cloneDeep(this.getFlow(flowName));
+    return cloneDeep(active);
   }
 
   existEvent(flow: FlowSchema, eventName: string): boolean {

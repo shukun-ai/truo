@@ -11,6 +11,14 @@ export class FlowCommand {
     this.store.set({ ids: Object.keys(flows), entities: flows });
   }
 
+  setActive(flowName: string) {
+    this.store.setActive(flowName);
+  }
+
+  removeActive(flowName: string) {
+    this.store.removeActive(flowName);
+  }
+
   insert(flow: FlowSchema, eventName: string, event: FlowEvent) {
     if (flow.events[eventName]) {
       throw new TypeException('Did not save duplicate: {{eventName}}', {

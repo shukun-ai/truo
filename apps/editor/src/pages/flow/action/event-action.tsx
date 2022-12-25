@@ -20,7 +20,7 @@ export const EventAction: FunctionComponent<EventActionProps> = () => {
   }, [flow]);
 
   const onChange = useCallback((startEventName) => {
-    const flow = flowQuery.getCloneFlow('retrieve_receive_tasks');
+    const flow = flowQuery.getCloneActiveFlow();
     flowCommand.updateStartEventName(flow, startEventName);
   }, []);
 

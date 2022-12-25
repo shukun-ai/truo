@@ -24,7 +24,7 @@ export const FlowInsertForm: FunctionComponent<FlowInsertFormProps> = () => {
   const handleFinish = useCallback((values: FlowInsertFormDataValue) => {
     const eventSchema = eventSchemas[values.type];
     const eventDefaultValue = createEventDefaultValue(values.type, eventSchema);
-    const flow = flowQuery.getCloneFlow('retrieve_receive_tasks');
+    const flow = flowQuery.getCloneActiveFlow();
     flowCommand.insert(flow, values.name, eventDefaultValue);
 
     flowUICommand.closeInsertModal();

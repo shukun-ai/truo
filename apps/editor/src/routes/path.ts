@@ -4,7 +4,8 @@ export enum RoutePath {
   Workspace = '/editor/workspace',
   Metadata = '/editor/workspace/metadata',
   View = '/editor/workspace/views',
-  Flow = '/editor/workspace/flows',
+  FlowList = '/editor/workspace/flows',
+  FlowDetail = '/editor/workspace/flows/:flowId',
   Role = '/editor/workspace/roles',
   Help = '/editor/helpers',
 }
