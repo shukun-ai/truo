@@ -11,7 +11,7 @@ export const calculateLayout = (
   direction: 'TB' | 'LR' = 'LR',
 ): { nodes: FlowNode[]; edges: FlowEdge[] } => {
   const isHorizontal = direction === 'LR';
-  dagreGraph.setGraph({ rankdir: direction });
+  dagreGraph.setGraph({ rankdir: direction, ranker: 'longest-path' });
 
   nodes.forEach((node) => {
     dagreGraph.setNode(node.id, {

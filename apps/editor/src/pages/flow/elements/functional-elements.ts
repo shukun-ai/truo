@@ -5,11 +5,7 @@ import {
   FlowNode,
 } from '../interface/element';
 
-import {
-  END_NODE_NAME,
-  START_NODE_NAME,
-  WRONG_NODE_NAME,
-} from './element-constant';
+import { END_NODE_NAME, START_NODE_NAME } from './element-constant';
 import { createEdgeMarker, getDefaultPosition } from './element-helper';
 
 export function prepareFunctionalElements(startName: string): FlowElements {
@@ -21,7 +17,7 @@ export function prepareFunctionalElements(startName: string): FlowElements {
       eventUI: {
         width: 30,
         height: 30,
-        backgroundColor: '#000',
+        backgroundColor: '#4361ee',
         fontColor: '#fff',
       },
     },
@@ -36,22 +32,7 @@ export function prepareFunctionalElements(startName: string): FlowElements {
       eventUI: {
         width: 30,
         height: 30,
-        backgroundColor: 'green',
-        fontColor: '#fff',
-      },
-    },
-    type: FlowCustomNodeName.FunctionalNode,
-  };
-
-  const wrongNode: FlowNode = {
-    id: WRONG_NODE_NAME,
-    position: getDefaultPosition(),
-    data: {
-      label: 'End',
-      eventUI: {
-        width: 30,
-        height: 30,
-        backgroundColor: 'red',
+        backgroundColor: '#e7515a',
         fontColor: '#fff',
       },
     },
@@ -70,7 +51,7 @@ export function prepareFunctionalElements(startName: string): FlowElements {
   }
 
   return {
-    nodes: [startNode, endNode, wrongNode],
+    nodes: [startNode, endNode],
     edges: startEdge ? [startEdge] : [],
   };
 }
