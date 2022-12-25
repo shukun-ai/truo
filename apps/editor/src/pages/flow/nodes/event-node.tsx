@@ -37,7 +37,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
       <div
         style={{
           height: 36,
-          backgroundColor,
+          backgroundColor: '#000',
           color: fontColor,
           borderTopLeftRadius: RADIUS,
           borderTopRightRadius: RADIUS,
