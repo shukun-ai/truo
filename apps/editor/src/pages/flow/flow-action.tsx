@@ -1,5 +1,8 @@
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import React, { FunctionComponent, useCallback } from 'react';
+
+import { fileCommand } from '../../services/file';
+import { flowQuery } from '../../services/flow';
 
 import { flowUICommand } from '../../services/flow-ui';
 
@@ -13,6 +16,12 @@ export interface FlowActionProps {}
 export const FlowAction: FunctionComponent<FlowActionProps> = () => {
   const handleClick = useCallback(() => {
     flowUICommand.openInsertModal();
+  }, []);
+
+  const handleSave = useCallback(() => {
+    const flow = flowQuery.getCloneActiveFlow();
+    fileCommand.save(flow, 'flows', flow.name);
+    message.success('已保存');
   }, []);
 
   return (
@@ -42,6 +51,9 @@ export const FlowAction: FunctionComponent<FlowActionProps> = () => {
           <Button type="primary" onClick={handleClick}>
             Insert a event
           </Button>
+        </div>
+        <div style={{ marginLeft: 12 }}>
+          <Button onClick={handleSave}>Save to file</Button>
         </div>
       </div>
 

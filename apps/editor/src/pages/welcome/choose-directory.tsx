@@ -1,28 +1,20 @@
 import { FlowSchema, MetadataSchema } from '@shukun/schema';
 import { Button } from 'antd';
-import { cloneDeep } from 'lodash';
-import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
+
+import { fileCommand } from '../../services/file';
 
 import { flowCommand } from '../../services/flow';
 
-import { metadataQuery, metadataCommand } from '../../services/metadata';
+import { metadataCommand } from '../../services/metadata';
 
-import {
-  pickDirectory,
-  readDirectoryJson,
-  parseJsonContents,
-  saveJsonToFile,
-} from '../../utils/file-system';
+import { readDirectoryJson, parseJsonContents } from '../../utils/file-system';
 
 export interface ChooseDirectoryProps {}
 
 export const ChooseDirectory: FunctionComponent<ChooseDirectoryProps> = () => {
-  const entryHandleRef = useRef<FileSystemDirectoryHandle>();
-
   const handleClick = useCallback(async () => {
-    const entryHandle = await pickDirectory();
-
-    entryHandleRef.current = entryHandle;
+    const entryHandle = await fileCommand.openEntryHandle();
 
     const metadata = parseJsonContents<MetadataSchema>(
       await readDirectoryJson(entryHandle, 'metadata'),
@@ -37,28 +29,9 @@ export const ChooseDirectory: FunctionComponent<ChooseDirectoryProps> = () => {
     flowCommand.setAll(flows);
   }, []);
 
-  const handleSave = useCallback(async () => {
-    if (!entryHandleRef.current) {
-      return;
-    }
-
-    const entryHandle = entryHandleRef.current;
-
-    // const atom = metadataQuery.getAtom('vehicles');
-
-    // const cloneAtom = cloneDeep(atom);
-
-    // cloneAtom.label = 'new atom vehicles';
-
-    // const text = JSON.stringify(cloneAtom, null, 2);
-
-    // saveJsonToFile(entryHandle, text + '\n', 'metadata', 'vehicles');
-  }, []);
-
   return (
-    <div>
+    <div style={{ backgroundColor: '#000' }}>
       <Button onClick={handleClick}>选择目录</Button>
-      <Button onClick={handleSave}>保存文件</Button>
     </div>
   );
 };
