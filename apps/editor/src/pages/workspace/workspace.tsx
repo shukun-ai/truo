@@ -1,11 +1,13 @@
 import { Button } from 'antd';
-import Color from 'color';
+import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent } from 'react';
 
 import { CANVAS_COLOR, HEADER_BORDER_COLOR, HEADER_COLOR } from '../../color';
 
 import { Brand } from '../../components/brand';
+import { fileCommand } from '../../services/file';
 import { PADDING } from '../flow/flow-constant';
+import { ChooseDirectory } from '../welcome/choose-directory';
 
 import { WorkspaceSidebar } from './workspace-sidebar';
 import { WorkspaceTabs } from './workspace-tabs';
@@ -13,6 +15,12 @@ import { WorkspaceTabs } from './workspace-tabs';
 export interface WorkspaceProps {}
 
 export const Workspace: FunctionComponent<WorkspaceProps> = ({ children }) => {
+  const existEntryHandle = useObservableState(fileCommand.exist$(), false);
+
+  if (!existEntryHandle) {
+    return <ChooseDirectory />;
+  }
+
   return (
     <div
       style={{
