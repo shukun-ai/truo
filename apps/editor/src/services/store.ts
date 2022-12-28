@@ -1,7 +1,5 @@
 import { akitaDevtools, akitaConfig, persistState } from '@datorama/akita';
 
-import { StoreNames } from './names';
-
 export function configureStore() {
   akitaDevtools();
 
@@ -9,7 +7,7 @@ export function configureStore() {
 
   persistState({
     key: 'SHUKUN_EDITOR',
-    include: [StoreNames.Metadata, StoreNames.Flow],
+    // include: [StoreNames.Metadata, StoreNames.Flow],
     preStorageUpdate(storeName, state) {
       if (state.ids) {
         return {

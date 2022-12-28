@@ -29,7 +29,7 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
 
   const onRemove = useCallback(() => {
     const flow = flowQuery.getCloneActiveFlow();
-    flowCommand.remove(flow, eventName);
+    flowCommand.removeEvent(flow, eventName);
   }, [eventName]);
 
   const onCancel = useCallback(() => {
@@ -39,7 +39,7 @@ export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
 
   const onFinish = (event: FlowEvent) => {
     const flow = flowQuery.getCloneActiveFlow();
-    flowCommand.update(flow, eventName, event);
+    flowCommand.updateEvent(flow, eventName, event);
     setEditing(false);
   };
 

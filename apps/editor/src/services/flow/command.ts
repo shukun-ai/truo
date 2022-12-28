@@ -19,7 +19,23 @@ export class FlowCommand {
     this.store.removeActive(flowName);
   }
 
-  insert(flow: FlowSchema, eventName: string, event: FlowEvent) {
+  createFlow(flowName: string) {
+    const flow: FlowSchema = {
+      name: flowName,
+      input: {},
+      output: {},
+      startEventName: 'return',
+      events: {
+        return: {
+          type: 'Success',
+          output: '',
+        },
+      },
+    };
+    this.store.add(flow);
+  }
+
+  insertEvent(flow: FlowSchema, eventName: string, event: FlowEvent) {
     if (flow.events[eventName]) {
       throw new TypeException('Did not save duplicate: {{eventName}}', {
         eventName,
@@ -30,7 +46,7 @@ export class FlowCommand {
     this.store.update(flow.name, flow);
   }
 
-  remove(flow: FlowSchema, eventName: string) {
+  removeEvent(flow: FlowSchema, eventName: string) {
     if (!flow.events[eventName]) {
       throw new TypeException('Did not find event when remove: {{eventName}}', {
         eventName,
@@ -48,7 +64,7 @@ export class FlowCommand {
     this.store.update(flow.name, flow);
   }
 
-  update(flow: FlowSchema, eventName: string, event: FlowEvent) {
+  updateEvent(flow: FlowSchema, eventName: string, event: FlowEvent) {
     if (!flow.events[eventName]) {
       throw new TypeException('Did not find event when update: {{eventName}}', {
         eventName,

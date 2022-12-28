@@ -11,14 +11,14 @@ import { FlowCanvas } from './flow-canvas';
 export interface FlowProps {}
 
 export const Flow: FunctionComponent<FlowProps> = () => {
-  const { flowId } = useParams<{ flowId: string }>();
+  const { flowName } = useParams<{ flowName: string }>();
 
   useEffect(() => {
-    flowCommand.setActive(flowId);
+    flowCommand.setActive(flowName);
     return () => {
-      flowCommand.removeActive(flowId);
+      flowCommand.removeActive(flowName);
     };
-  }, [flowId]);
+  }, [flowName]);
 
   return (
     <div
