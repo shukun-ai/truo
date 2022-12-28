@@ -8,6 +8,7 @@
     "next": { "type": "string", "skEditorType": "Next" },
     "branches": {
       "type": "array",
+      "skEditorType": "ParallelBranches",
       "items": {
         "type": "object",
         "required": ["startEventName"],

@@ -12,6 +12,7 @@
     },
     "conditions": {
       "type": "array",
+      "skEditorType": "ChoiceConditions",
       "items": {
         "type": "object",
         "required": ["condition", "next"],

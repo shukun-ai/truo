@@ -16,4 +16,6 @@ export type EventSchemaEditorType =
   | 'SourceQuery'
   | 'Next'
   | 'EventName'
-  | 'Description';
+  | 'Description'
+  | 'ChoiceConditions'
+  | 'ParallelBranches';

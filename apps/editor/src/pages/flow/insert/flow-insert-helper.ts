@@ -58,6 +58,10 @@ export function createFieldDefaultValue(skEditorType: EventSchemaEditorType) {
       return '';
     case 'Description':
       return '';
+    case 'ChoiceConditions':
+      return [];
+    case 'ParallelBranches':
+      return [];
     default:
       throw new TypeException(
         'Did not find this skEditorType: {{skEditorType}}',
