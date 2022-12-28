@@ -1,7 +1,11 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 
 import { AtomNameInput } from './input/atom-name-input';
+import { ChoiceConditionsInput } from './input/choice-conditions';
+import { DescriptionInput } from './input/description-input';
+import { EventNameInput } from './input/event-name-input';
 import { NextInput } from './input/next-input';
+import { ParallelBranchesInput } from './input/parallel-branches';
 import { SourceQueryInput } from './input/source-query-input';
 
 import { StoreKeyInput } from './input/store-key-input';
@@ -81,6 +85,50 @@ export const InputFactory: FunctionComponent<InputFactoryProps> = ({
   if (field.skEditorType === 'Next') {
     return (
       <NextInput
+        name={name}
+        label={name}
+        required={required}
+        editing={editing}
+      />
+    );
+  }
+
+  if (field.skEditorType === 'ChoiceConditions') {
+    return (
+      <ChoiceConditionsInput
+        name={name}
+        label={name}
+        required={required}
+        editing={editing}
+      />
+    );
+  }
+
+  if (field.skEditorType === 'Description') {
+    return (
+      <DescriptionInput
+        name={name}
+        label={name}
+        required={required}
+        editing={editing}
+      />
+    );
+  }
+
+  if (field.skEditorType === 'EventName') {
+    return (
+      <EventNameInput
+        name={name}
+        label={name}
+        required={required}
+        editing={editing}
+      />
+    );
+  }
+
+  if (field.skEditorType === 'ParallelBranches') {
+    return (
+      <ParallelBranchesInput
         name={name}
         label={name}
         required={required}
