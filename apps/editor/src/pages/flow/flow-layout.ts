@@ -8,7 +8,7 @@ const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 export const calculateLayout = (
   nodes: FlowNode[],
   edges: FlowEdge[],
-  direction: 'TB' | 'LR' = 'LR',
+  direction: 'TB' | 'LR' = 'TB',
 ): { nodes: FlowNode[]; edges: FlowEdge[] } => {
   const isHorizontal = direction === 'LR';
   dagreGraph.setGraph({ rankdir: direction, ranker: 'longest-path' });

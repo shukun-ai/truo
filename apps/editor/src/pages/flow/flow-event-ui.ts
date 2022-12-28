@@ -33,8 +33,8 @@ export const eventUI: Record<FlowEvent['type'], EventUI> = {
 
 function getDefaultUI(): EventUI {
   return {
-    width: 360,
-    height: 400,
+    width: 240,
+    height: 36,
     backgroundColor: '#000',
     fontColor: '#fff',
   };
@@ -45,7 +45,7 @@ function getSmallSize(): {
   height: EventUI['height'];
 } {
   return {
-    width: 360,
-    height: 200,
+    width: 240,
+    height: 36,
   };
 }
