@@ -33,7 +33,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
         cursor: 'default',
       }}
     >
-      <Handle type="target" position={Position.Left} />
+      <Handle type="target" position={Position.Top} />
       <div
         style={{
           height: 36,
@@ -55,15 +55,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
           <EventNodeAction eventName={eventName} event={event} />
         </div>
       </div>
-      <div style={{ flex: 1, overflow: 'auto' }}>
-        <EventNodeForm initialValues={event} eventName={eventName}>
-          <div style={{ padding: PADDING }}>
-            <EventNodeDescription event={event} />
-            <EventNodeFormItem eventSchema={eventSchema} />
-          </div>
-        </EventNodeForm>
-      </div>
-      <Handle type="source" position={Position.Right} />
+      <Handle type="source" position={Position.Bottom} />
     </div>
   );
 };
