@@ -25,7 +25,7 @@ export const FlowInsertForm: FunctionComponent<FlowInsertFormProps> = () => {
     const eventSchema = eventSchemas[values.type];
     const eventDefaultValue = createEventDefaultValue(values.type, eventSchema);
     const flow = flowQuery.getCloneActiveFlow();
-    flowCommand.insert(flow, values.name, eventDefaultValue);
+    flowCommand.insertEvent(flow, values.name, eventDefaultValue);
 
     flowUICommand.closeInsertModal();
   }, []);
