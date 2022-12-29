@@ -21,7 +21,6 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
 
   return (
     <div
-      className="nowheel nodrag"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -37,7 +36,7 @@ export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
       <div
         style={{
           height: 36,
-          backgroundColor: '#000',
+          backgroundColor,
           color: fontColor,
           borderTopLeftRadius: RADIUS,
           borderTopRightRadius: RADIUS,
