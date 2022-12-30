@@ -44,6 +44,12 @@
       "items": {
         "$ref": "role.schema.json"
       }
+    },
+    "schedules": {
+      "type": "array",
+      "items": {
+        "$ref": "schedule.schema.json"
+      }
     }
   }
 }
