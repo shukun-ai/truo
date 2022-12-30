@@ -7,6 +7,7 @@ import { MetadataService } from './metadata.service';
 import { OrgService } from './org.service';
 import { OrgSchema, OrgDocumentName } from './org/org.schema';
 import { RoleService } from './role.service';
+import { ScheduleService } from './schedule.service';
 import { ViewService } from './view.service';
 import { WorkflowService } from './workflow.service';
 
@@ -21,6 +22,7 @@ import { WorkflowService } from './workflow.service';
     WorkflowService,
     RoleService,
     FlowService,
+    ScheduleService,
   ],
   exports: [
     OrgService,
@@ -29,6 +31,7 @@ import { WorkflowService } from './workflow.service';
     WorkflowService,
     RoleService,
     FlowService,
+    ScheduleService,
   ],
 })
 export class CoreModule {}
