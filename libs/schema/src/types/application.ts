@@ -867,30 +867,23 @@ export interface ScheduleSchema {
    */
   flow: string;
   /**
-   * The cron syntax.
+   * The cron syntax, like: https://crontab.guru/ or https://cronjob.xyz.
    */
   cron: string;
   /**
-   * The all available timezone: https://momentjs.com/timezone/
+   * The all available timezone: https://momentjs.com/timezone/.
    */
   timezone: string;
   /**
    * The active schedule will be run.
    */
   active: boolean;
-  immediately?: boolean;
   /**
    * The input data for flow.
    */
-  input?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  input?: {
+    [k: string]: unknown;
+  };
 }
 
 export enum MetadataFieldType {

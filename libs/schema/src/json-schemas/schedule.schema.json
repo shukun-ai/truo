@@ -22,22 +22,18 @@
     },
     "cron": {
       "type": "string",
-      "description": "The cron syntax."
+      "description": "The cron syntax, like: https://crontab.guru/ or https://cronjob.xyz."
     },
     "timezone": {
       "type": "string",
-      "description": "The all available timezone: https://momentjs.com/timezone/"
+      "description": "The all available timezone: https://momentjs.com/timezone/."
     },
     "active": {
       "type": "boolean",
       "description": "The active schedule will be run."
     },
-    "immediately": {
-      "type": "boolean",
-      "default": false
-    },
     "input": {
-      "type": ["object", "array", "string", "number", "boolean", "null"],
+      "type": "object",
       "description": "The input data for flow."
     }
   }

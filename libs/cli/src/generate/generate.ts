@@ -2,6 +2,7 @@ import {
   FlowSchema,
   MetadataSchema,
   RoleSchema,
+  ScheduleSchema,
   ViewSchema,
   WorkflowSchema,
 } from '@shukun/schema';
@@ -28,11 +29,13 @@ export async function generate(options: GenerateOptions) {
   const workflows = await readSection<WorkflowSchema>(inputPath, 'workflows');
   const roles = await readSection<RoleSchema>(inputPath, 'roles');
   const flows = await readSection<FlowSchema>(inputPath, 'flows');
+  const schedules = await readSection<ScheduleSchema>(inputPath, 'schedules');
   application.metadata = metadata;
   application.views = views;
   application.workflows = workflows;
   application.roles = roles;
   application.flows = flows;
+  application.schedules = schedules;
 
   const validated = await validate(application);
   const text = await stringify(validated);
