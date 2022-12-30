@@ -25,6 +25,9 @@ export const workflowSchema = require('./json-schemas/workflow.schema.json');
 export const flowSchema = require('./json-schemas/flow.schema.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+export const scheduleSchema = require('./json-schemas/schedule.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 export const workflowCatchesSchema = require('./json-schemas/workflows/catches.schema.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -104,6 +104,7 @@ export interface ApplicationSchema {
   workflows?: WorkflowSchema[];
   flows?: FlowSchema[];
   roles?: RoleSchema[];
+  schedules?: ScheduleSchema[];
 }
 /**
  * Metadata management
@@ -853,6 +854,43 @@ export interface RolePermission {
   resourceName: string;
   action: RoleAction;
   attributes: RoleAttribute[];
+}
+/**
+ * Describe Schedule Schema
+ */
+export interface ScheduleSchema {
+  $schema?: string;
+  name: string;
+  description?: string;
+  /**
+   * The name of a flow.
+   */
+  flow: string;
+  /**
+   * The cron syntax.
+   */
+  cron: string;
+  /**
+   * The all available timezone: https://momentjs.com/timezone/
+   */
+  timezone: string;
+  /**
+   * The active schedule will be run.
+   */
+  active: boolean;
+  immediately?: boolean;
+  /**
+   * The input data for flow.
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 
 export enum MetadataFieldType {

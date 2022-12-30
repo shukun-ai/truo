@@ -34,6 +34,7 @@ import {
   flowEventParallelSchema,
   flowEventFirstOrThrowSchema,
   flowEventLastOrThrowSchema,
+  scheduleSchema,
 } from '../../json-exports';
 
 export function createAjv(options?: Options) {
@@ -63,6 +64,7 @@ export function createAjv(options?: Options) {
     .addSchema(roleSchema, 'role.schema.json')
     .addSchema(workflowSchema, 'workflow.schema.json')
     .addSchema(flowSchema, 'flow.schema.json')
+    .addSchema(scheduleSchema, 'schedule.schema.json')
     .addSchema(ruleEngineSchema, 'utils/rule-engine.schema.json')
     // Workflow subordinates
     .addSchema(
