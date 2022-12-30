@@ -5,6 +5,7 @@
     "cli": "libs/cli",
     "client": "apps/client",
     "code-resolver": "libs/code-resolver",
+    "component": "libs/component",
     "daily-build": "apps/daily-build",
     "editor": "apps/editor",
     "schema": "libs/schema",

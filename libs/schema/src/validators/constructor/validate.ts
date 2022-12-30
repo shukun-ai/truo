@@ -18,22 +18,23 @@ import {
   workflowRetriesSchema,
   workflowTaskStateSchema,
   flowSchema,
-  FlowEventChoiceSchema,
-  FlowEventSuccessSchema,
-  FlowEventFailSchema,
-  FlowEventSourceQuerySchema,
-  FlowEventsSchema,
-  FlowEventSourceCreateSchema,
-  FlowEventSourceUpdateSchema,
-  FlowEventSourceDeleteSchema,
-  FlowEventSourceAddToManySchema,
-  FlowEventSourceRemoveFromManySchema,
-  FlowEventSourceIncreaseSchema,
-  FlowEventRepeatSchema,
-  FlowEventStoreSchema,
-  FlowEventParallelSchema,
-  FlowEventFirstOrThrowSchema,
-  FlowEventLastOrThrowSchema,
+  flowEventChoiceSchema,
+  flowEventSuccessSchema,
+  flowEventFailSchema,
+  flowEventSourceQuerySchema,
+  flowEventsSchema,
+  flowEventSourceCreateSchema,
+  flowEventSourceUpdateSchema,
+  flowEventSourceDeleteSchema,
+  flowEventSourceAddToManySchema,
+  flowEventSourceRemoveFromManySchema,
+  flowEventSourceIncreaseSchema,
+  flowEventRepeatSchema,
+  flowEventStoreSchema,
+  flowEventParallelSchema,
+  flowEventFirstOrThrowSchema,
+  flowEventLastOrThrowSchema,
+  scheduleSchema,
 } from '../../json-exports';
 
 export function createAjv(options?: Options) {
@@ -41,6 +42,7 @@ export function createAjv(options?: Options) {
 
   const validate = ajv
     .addKeyword('tsEnumNames')
+    .addKeyword('skEditorType')
     .addFormat('email', {
       type: 'string',
       validate: (value: string) => isEmail(value),
@@ -62,6 +64,7 @@ export function createAjv(options?: Options) {
     .addSchema(roleSchema, 'role.schema.json')
     .addSchema(workflowSchema, 'workflow.schema.json')
     .addSchema(flowSchema, 'flow.schema.json')
+    .addSchema(scheduleSchema, 'schedule.schema.json')
     .addSchema(ruleEngineSchema, 'utils/rule-engine.schema.json')
     // Workflow subordinates
     .addSchema(
@@ -77,47 +80,47 @@ export function createAjv(options?: Options) {
     .addSchema(workflowRetriesSchema, 'workflows/retries.schema.json')
     .addSchema(workflowTaskStateSchema, 'workflows/task-state.schema.json')
     // Flow subordinates
-    .addSchema(FlowEventsSchema, 'flow/events.schema.json')
-    .addSchema(FlowEventSuccessSchema, 'flow/event/success.schema.json')
-    .addSchema(FlowEventFailSchema, 'flow/event/fail.schema.json')
+    .addSchema(flowEventsSchema, 'flow/events.schema.json')
+    .addSchema(flowEventSuccessSchema, 'flow/event/success.schema.json')
+    .addSchema(flowEventFailSchema, 'flow/event/fail.schema.json')
     .addSchema(
-      FlowEventSourceQuerySchema,
+      flowEventSourceQuerySchema,
       'flow/event/source-query.schema.json',
     )
     .addSchema(
-      FlowEventSourceCreateSchema,
+      flowEventSourceCreateSchema,
       'flow/event/source-create.schema.json',
     )
     .addSchema(
-      FlowEventSourceUpdateSchema,
+      flowEventSourceUpdateSchema,
       'flow/event/source-update.schema.json',
     )
     .addSchema(
-      FlowEventSourceDeleteSchema,
+      flowEventSourceDeleteSchema,
       'flow/event/source-delete.schema.json',
     )
     .addSchema(
-      FlowEventSourceAddToManySchema,
+      flowEventSourceAddToManySchema,
       'flow/event/source-add-to-many.schema.json',
     )
     .addSchema(
-      FlowEventSourceRemoveFromManySchema,
+      flowEventSourceRemoveFromManySchema,
       'flow/event/source-remove-from-many.schema.json',
     )
     .addSchema(
-      FlowEventSourceIncreaseSchema,
+      flowEventSourceIncreaseSchema,
       'flow/event/source-increase.schema.json',
     )
-    .addSchema(FlowEventChoiceSchema, 'flow/event/choice.schema.json')
-    .addSchema(FlowEventRepeatSchema, 'flow/event/repeat.schema.json')
-    .addSchema(FlowEventParallelSchema, 'flow/event/parallel.schema.json')
-    .addSchema(FlowEventStoreSchema, 'flow/event/store.schema.json')
+    .addSchema(flowEventChoiceSchema, 'flow/event/choice.schema.json')
+    .addSchema(flowEventRepeatSchema, 'flow/event/repeat.schema.json')
+    .addSchema(flowEventParallelSchema, 'flow/event/parallel.schema.json')
+    .addSchema(flowEventStoreSchema, 'flow/event/store.schema.json')
     .addSchema(
-      FlowEventFirstOrThrowSchema,
+      flowEventFirstOrThrowSchema,
       'flow/event/first-or-throw.schema.json',
     )
     .addSchema(
-      FlowEventLastOrThrowSchema,
+      flowEventLastOrThrowSchema,
       'flow/event/last-or-throw.schema.json',
     );
 

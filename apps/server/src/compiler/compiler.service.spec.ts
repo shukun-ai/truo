@@ -3,21 +3,15 @@ import { FlowEvents, FlowSchema } from '@shukun/schema';
 import { CompileFactoryService } from './compile-factory.service';
 
 import { CompilerService } from './compiler.service';
-import { NestedEventService } from './nested-event.service';
 
 describe('CompilerService', () => {
   let compilerService: CompilerService;
   let compileFactoryService: CompileFactoryService;
-  let nestedEventService: NestedEventService;
 
   beforeEach(() => {
     compileFactoryService = new CompileFactoryService();
-    nestedEventService = new NestedEventService();
 
-    compilerService = new CompilerService(
-      compileFactoryService,
-      nestedEventService,
-    );
+    compilerService = new CompilerService(compileFactoryService);
   });
 
   describe('compileEvents', () => {
@@ -32,26 +26,22 @@ describe('CompilerService', () => {
           next: 'first',
           repeatCount: '$.input.id',
           startEventName: 'repeatFirst',
-          events: {
-            repeatFirst: {
-              type: 'Repeat',
-              next: 'repeatSecond',
-              repeatCount: '$.input.id',
-              startEventName: 'repeatTwoFirst',
-              events: {
-                repeatTwoFirst: {
-                  type: 'Success',
-                  output: "{ id: '$.index' }",
-                },
-              },
-              description: '',
-            },
-            repeatSecond: {
-              type: 'Success',
-              output: "{ id: '$.index' }",
-            },
-          },
           description: 'hi',
+        },
+        repeatFirst: {
+          type: 'Repeat',
+          next: 'repeatSecond',
+          repeatCount: '$.input.id',
+          startEventName: 'repeatTwoFirst',
+          description: '',
+        },
+        repeatTwoFirst: {
+          type: 'Success',
+          output: "{ id: '$.index' }",
+        },
+        repeatSecond: {
+          type: 'Success',
+          output: "{ id: '$.index' }",
         },
         first: {
           type: 'Success',
@@ -59,17 +49,13 @@ describe('CompilerService', () => {
         },
       };
 
-      const parentEventNames = undefined;
-      const output = await compilerService.compileEvents(
-        events,
-        parentEventNames,
-      );
+      const output = await compilerService.compileEvents(events);
 
       expect(output).toEqual({
         repeat: 'test',
-        'repeat->repeatFirst': 'test',
-        'repeat->repeatFirst->repeatTwoFirst': 'test',
-        'repeat->repeatSecond': 'test',
+        repeatFirst: 'test',
+        repeatTwoFirst: 'test',
+        repeatSecond: 'test',
         first: 'test',
       });
     });
@@ -86,47 +72,39 @@ describe('CompilerService', () => {
           branches: [
             {
               startEventName: 'p1',
-              events: {
-                p1: {
-                  type: 'Store',
-                  next: 'p2',
-                  key: 'hi',
-                  value: 'hi',
-                },
-                p2: {
-                  type: 'Parallel',
-                  next: '',
-                  branches: [
-                    {
-                      startEventName: 'p2p1',
-                      events: {
-                        p2p1: {
-                          type: 'Store',
-                          next: '',
-                          key: 'hi',
-                          value: 'hi',
-                        },
-                      },
-                    },
-                  ],
-                },
-              },
             },
           ],
         },
+        p1: {
+          type: 'Store',
+          next: 'p2',
+          key: 'hi',
+          value: 'hi',
+        },
+        p2: {
+          type: 'Parallel',
+          next: '',
+          branches: [
+            {
+              startEventName: 'p2p1',
+            },
+          ],
+        },
+        p2p1: {
+          type: 'Store',
+          next: '',
+          key: 'hi',
+          value: 'hi',
+        },
       };
 
-      const parentEventNames = undefined;
-      const output = await compilerService.compileEvents(
-        events,
-        parentEventNames,
-      );
+      const output = await compilerService.compileEvents(events);
 
       expect(output).toEqual({
         parallel: 'test',
-        'parallel->0->p1': 'test',
-        'parallel->0->p2': 'test',
-        'parallel->0->p2->0->p2p1': 'test',
+        p1: 'test',
+        p2: 'test',
+        p2p1: 'test',
       });
     });
   });

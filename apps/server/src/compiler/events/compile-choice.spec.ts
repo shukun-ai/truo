@@ -1,5 +1,7 @@
 import { FlowEventChoice } from '@shukun/schema';
 
+import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
+
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
@@ -10,6 +12,7 @@ import { compileChoiceEvent } from './compile-choice';
 describe('compileChoiceEvent', () => {
   let sandboxService: SandboxService;
   let sourceResolverService: SourceResolverService;
+  let dateResolverService: DateResolverService;
 
   const event: FlowEventChoice = {
     type: 'Choice',
@@ -28,7 +31,11 @@ describe('compileChoiceEvent', () => {
 
   beforeAll(() => {
     sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    sandboxService = new SandboxService(sourceResolverService);
+    dateResolverService = new DateResolverService();
+    sandboxService = new SandboxService(
+      sourceResolverService,
+      dateResolverService,
+    );
   });
 
   it('should return first', async () => {
@@ -37,11 +44,11 @@ describe('compileChoiceEvent', () => {
       input: 1,
     };
     const code = await compileChoiceEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: 1,
+      input: 1,
       next: 'first',
     });
   });
@@ -52,11 +59,11 @@ describe('compileChoiceEvent', () => {
       input: 2,
     };
     const code = await compileChoiceEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: 2,
+      input: 2,
       next: 'second',
     });
   });
@@ -67,11 +74,11 @@ describe('compileChoiceEvent', () => {
       input: null,
     };
     const code = await compileChoiceEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: null,
+      input: null,
       next: 'default',
     });
   });

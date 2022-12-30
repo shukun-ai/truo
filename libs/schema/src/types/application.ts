@@ -104,6 +104,7 @@ export interface ApplicationSchema {
   workflows?: WorkflowSchema[];
   flows?: FlowSchema[];
   roles?: RoleSchema[];
+  schedules?: ScheduleSchema[];
 }
 /**
  * Metadata management
@@ -808,7 +809,6 @@ export interface FlowEventRepeat {
   next: string;
   repeatCount: string;
   startEventName: string;
-  events: FlowEvents;
   description?: string;
   [k: string]: unknown;
 }
@@ -817,7 +817,6 @@ export interface FlowEventParallel {
   next: string;
   branches: {
     startEventName: string;
-    events: FlowEvents;
     description?: string;
   }[];
   [k: string]: unknown;
@@ -855,6 +854,36 @@ export interface RolePermission {
   resourceName: string;
   action: RoleAction;
   attributes: RoleAttribute[];
+}
+/**
+ * Describe Schedule Schema
+ */
+export interface ScheduleSchema {
+  $schema?: string;
+  name: string;
+  description?: string;
+  /**
+   * The name of a flow.
+   */
+  flow: string;
+  /**
+   * The cron syntax, like: https://crontab.guru/ or https://cronjob.xyz.
+   */
+  cron: string;
+  /**
+   * The all available timezone: https://momentjs.com/timezone/.
+   */
+  timezone: string;
+  /**
+   * The active schedule will be run.
+   */
+  active: boolean;
+  /**
+   * The input data for flow.
+   */
+  input?: {
+    [k: string]: unknown;
+  };
 }
 
 export enum MetadataFieldType {

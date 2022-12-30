@@ -2,15 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "FlowEventRepeat",
   "type": "object",
-  "required": ["type", "next", "repeatCount", "startEventName", "events"],
+  "required": ["type", "next", "repeatCount", "startEventName"],
   "properties": {
     "type": { "const": "Repeat" },
-    "next": { "type": "string" },
-    "repeatCount": { "type": "string" },
-    "startEventName": { "type": "string" },
-    "events": {
-      "$ref": "../events.schema.json"
-    },
-    "description": { "type": "string" }
+    "next": { "type": "string", "skEditorType": "Next" },
+    "repeatCount": { "type": "string", "skEditorType": "Template" },
+    "startEventName": { "type": "string", "skEditorType": "EventName" },
+    "description": { "type": "string", "skEditorType": "Description" }
   }
 }

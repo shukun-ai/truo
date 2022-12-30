@@ -6,7 +6,7 @@ export async function compileSourceDeleteEvent(
   event: FlowEventSourceDelete,
 ): Promise<string> {
   return `
-        async function main($, $$){
+        async function main($, $$, $$$){
             const id = ${compileJsonTemplate(event.id)};
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
@@ -15,7 +15,7 @@ export async function compileSourceDeleteEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

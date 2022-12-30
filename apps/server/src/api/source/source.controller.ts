@@ -21,7 +21,6 @@ import { QueryParserOptions, QueryResponse } from '../../util/query/interfaces';
 
 import { AddToManyDto } from './dto/add-to-many.dto';
 import { IncreaseDto } from './dto/increase.dto';
-import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceOperationService } from './source-operation.service';
 
 @Controller(`/${RoleResourceType.Source}/:orgName/:atomName`)
@@ -29,9 +28,6 @@ import { SourceOperationService } from './source-operation.service';
 export class SourceController {
   @Inject()
   private readonly sourceOperationService!: SourceOperationService;
-
-  @Inject()
-  private readonly sourceForeignQueryService!: SourceForeignQueryService;
 
   @Post('any/metadata')
   async getMetadata(
@@ -57,12 +53,6 @@ export class SourceController {
     @ParsedHttpQuery() query: HttpQuerySchema,
     @Req() request: SecurityRequest,
   ): Promise<QueryResponse<unknown>> {
-    query.filter = await this.sourceForeignQueryService.prepareForeignQuery(
-      orgName,
-      atomName,
-      query.filter ?? {},
-    );
-
     return await this.sourceOperationService.query(
       orgName,
       atomName,

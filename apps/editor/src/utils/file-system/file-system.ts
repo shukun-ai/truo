@@ -1,4 +1,4 @@
-export type AllowedSubDirectory = 'metadata' | 'views';
+export type AllowedSubDirectory = 'metadata' | 'flows';
 
 export const JSON_FILE_SUFFIX = '.json';
 

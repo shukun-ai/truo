@@ -1,24 +1,72 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { IDString } from '@shukun/api';
 import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
-import { isInteger } from 'lodash';
 
-import { IDString, JsonModel, SourceServiceCreateDto } from '../app.type';
-import { MetadataService } from '../core/metadata.service';
+import { JsonModel, SourceServiceCreateDto } from '../app.type';
 
-import { SourceDataAccessService } from './source-data-access.service';
-
-import { SourceParamUtilService } from './source-param-util.service';
+import { SourceForeignQueryService } from './source-foreign-query.service';
+import { SourceFoundationService } from './source-foundation.service';
 
 @Injectable()
 export class SourceService<Model> {
-  @Inject()
-  private readonly metadataService!: MetadataService;
+  constructor(
+    private readonly sourceFoundationService: SourceFoundationService<Model>,
+    private readonly sourceForeignQueryService: SourceForeignQueryService<Model>,
+  ) {}
 
-  @Inject()
-  private readonly sourceParamUtilService!: SourceParamUtilService;
+  async query(
+    orgName: string,
+    atomName: string,
+    query: HttpQuerySchema,
+  ): Promise<JsonModel<Model>[]> {
+    query.filter = await this.sourceForeignQueryService.prepareForeignQuery(
+      orgName,
+      atomName,
+      query.filter ?? {},
+    );
 
-  @Inject()
-  private readonly sourceDataAccessService!: SourceDataAccessService<Model>;
+    return await this.sourceFoundationService.findAll(orgName, atomName, query);
+  }
+
+  async count(
+    orgName: string,
+    atomName: string,
+    query: HttpQuerySchema,
+  ): Promise<number> {
+    query.filter = await this.sourceForeignQueryService.prepareForeignQuery(
+      orgName,
+      atomName,
+      query.filter ?? {},
+    );
+
+    return await this.sourceFoundationService.count(orgName, atomName, query);
+  }
+
+  async queryWithCount(
+    orgName: string,
+    atomName: string,
+    query: HttpQuerySchema,
+  ): Promise<{ value: JsonModel<Model>[]; count?: number }> {
+    query.filter = await this.sourceForeignQueryService.prepareForeignQuery(
+      orgName,
+      atomName,
+      query.filter ?? {},
+    );
+
+    const value = await this.sourceFoundationService.findAll(
+      orgName,
+      atomName,
+      query,
+    );
+    const count = query.count
+      ? await this.sourceFoundationService.count(orgName, atomName, query)
+      : undefined;
+
+    return {
+      value,
+      count,
+    };
+  }
 
   async createOne(
     orgName: string,
@@ -26,24 +74,12 @@ export class SourceService<Model> {
     dto: SourceServiceCreateDto,
     ownerId: string | null,
   ): Promise<{ _id: IDString }> {
-    const metadata = await this.metadataService.getMetadataByName(
+    return await this.sourceFoundationService.createOne(
       orgName,
       atomName,
+      dto,
+      ownerId,
     );
-
-    const owner = ownerId ? { owner: ownerId } : null;
-
-    const params = this.sourceParamUtilService.buildParams(metadata, {
-      ...dto,
-      ...owner,
-    });
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.createOne(params);
   }
 
   async updateOne(
@@ -52,73 +88,34 @@ export class SourceService<Model> {
     atomName: string,
     dto: SourceServiceCreateDto,
   ): Promise<void> {
-    const metadata = await this.metadataService.getMetadataByName(
+    return await this.sourceFoundationService.updateOne(
+      id,
       orgName,
       atomName,
+      dto,
     );
-
-    const params = this.sourceParamUtilService.buildParams(metadata, dto);
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.updateOne(id, params);
   }
 
+  /**
+   * @deprecated
+   */
   async findOne(
     orgName: string,
     atomName: string,
     query: HttpQuerySchema,
   ): Promise<JsonModel<Model>> {
-    const metadata = await this.metadataService.getMetadataByName(
-      orgName,
-      atomName,
-    );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.findOne(query);
+    return await this.sourceFoundationService.findOne(orgName, atomName, query);
   }
 
+  /**
+   * @deprecated
+   */
   async findAll(
     orgName: string,
     atomName: string,
     query: HttpQuerySchema,
   ): Promise<JsonModel<Model>[]> {
-    const metadata = await this.metadataService.getMetadataByName(
-      orgName,
-      atomName,
-    );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.findAll(query);
-  }
-
-  async count(
-    orgName: string,
-    atomName: string,
-    query: HttpQuerySchema,
-  ): Promise<number> {
-    const metadata = await this.metadataService.getMetadataByName(
-      orgName,
-      atomName,
-    );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.count(query);
+    return await this.sourceFoundationService.findAll(orgName, atomName, query);
   }
 
   async deleteOne(
@@ -126,17 +123,7 @@ export class SourceService<Model> {
     orgName: string,
     atomName: string,
   ): Promise<void> {
-    const metadata = await this.metadataService.getMetadataByName(
-      orgName,
-      atomName,
-    );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.deleteOne(id);
+    return await this.sourceFoundationService.deleteOne(id, orgName, atomName);
   }
 
   async addToMany(
@@ -146,19 +133,13 @@ export class SourceService<Model> {
     electronName: string,
     foreignId: IDString,
   ): Promise<void> {
-    const metadata = await this.validateManyToManyElectron(
+    return await this.sourceFoundationService.addToMany(
+      id,
       orgName,
       atomName,
       electronName,
       foreignId,
     );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.addToMany(id, electronName, foreignId);
   }
 
   async removeFromMany(
@@ -168,19 +149,13 @@ export class SourceService<Model> {
     electronName: string,
     foreignId: IDString,
   ) {
-    const metadata = await this.validateManyToManyElectron(
+    return await this.sourceFoundationService.addToMany(
+      id,
       orgName,
       atomName,
       electronName,
       foreignId,
     );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.removeFromMany(id, electronName, foreignId);
   }
 
   async increase(
@@ -190,82 +165,19 @@ export class SourceService<Model> {
     electronName: string,
     increment: number,
   ): Promise<void> {
-    const metadata = await this.metadataService.getMetadataByName(
+    return await this.sourceFoundationService.increase(
+      id,
       orgName,
       atomName,
+      electronName,
+      increment,
     );
-
-    const electron = metadata.electrons.find(
-      (electron) => electron.name === electronName,
-    );
-
-    if (
-      !electron ||
-      !['Currency', 'Float', 'Integer'].includes(electron.fieldType)
-    ) {
-      throw new BadRequestException(
-        'We did not find specified electron in increase method or the electron field type is not one of Currency, Float, or Integer',
-      );
-    }
-
-    if (electron.fieldType === 'Integer' && !isInteger(increment)) {
-      throw new BadRequestException(
-        'We only support integer increment increased on Integer field.',
-      );
-    }
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
-    );
-
-    return await adaptor.increase(id, electronName, increment);
   }
 
   async getMetadata(
     orgName: string,
     atomName: string,
   ): Promise<MetadataSchema> {
-    const metadata = await this.metadataService.getMetadataByName(
-      orgName,
-      atomName,
-    );
-
-    return metadata;
-  }
-
-  private async validateManyToManyElectron(
-    orgName: string,
-    atomName: string,
-    electronName: string,
-    foreignId: IDString,
-  ): Promise<MetadataSchema> {
-    const metadata = await this.metadataService.getMetadataByName(
-      orgName,
-      atomName,
-    );
-
-    const electron = metadata.electrons.find(
-      (electron) =>
-        electron.name === electronName && electron.fieldType === 'ManyToMany',
-    );
-
-    if (!electron || !electron.referenceTo) {
-      throw new BadRequestException(
-        'We did not find specified electron or the electron is not ManyToMany.',
-      );
-    }
-
-    const foreignEntity = await this.findOne(orgName, electron.referenceTo, {
-      filter: {
-        _id: foreignId,
-      },
-    });
-
-    if (!foreignEntity) {
-      throw new BadRequestException('We did not find specified foreignEntity');
-    }
-
-    return metadata;
+    return await this.sourceFoundationService.getMetadata(orgName, atomName);
   }
 }

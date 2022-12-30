@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { FlowSchema } from '@shukun/schema';
 
+import { SandboxContext } from '../sandbox/sandbox.interface';
+
 import { ObservableStore } from '../sandbox/stores/observable-store.class';
 
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
-import { ExternalContext, ResolverContext } from './flow.interface';
+import { ExternalContext } from './flow.interface';
 import { ResolverService } from './resolver.service';
 
 @Injectable()
@@ -24,13 +26,12 @@ export class FlowService {
   ) {
     const definition = await this.getDefinition(orgName, flowName);
     const compiledCodes = await this.getCompiledCodes(orgName, flowName);
-    const parameter = input;
 
     this.validateInputs(input, definition.input);
 
-    const context = this.prepareContext(parameter, definition, externalContext);
+    const context = this.prepareContext(input, definition, externalContext);
 
-    const { output } = await this.resolverService.executeNextEvent(
+    const { input: output } = await this.resolverService.executeNextEvent(
       definition.events,
       compiledCodes,
       context,
@@ -58,22 +59,18 @@ export class FlowService {
   }
 
   prepareContext(
-    parameter: unknown,
+    input: unknown,
     definition: FlowSchema,
     externalContext: ExternalContext,
-  ): ResolverContext {
+  ): SandboxContext {
     return {
-      parameter: parameter,
-      input: parameter,
-      output: null,
-      next: null,
+      input,
+      next: definition.startEventName,
       index: 0,
       env: {},
       store: {},
       orgName: externalContext.orgName,
       operatorId: externalContext.operatorId,
-      eventName: definition.startEventName,
-      parentEventNames: undefined,
     };
   }
 

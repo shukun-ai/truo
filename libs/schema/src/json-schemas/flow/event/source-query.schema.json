@@ -5,10 +5,11 @@
   "required": ["type", "next", "atomName", "query"],
   "properties": {
     "type": { "const": "SourceQuery" },
-    "next": { "type": "string" },
-    "atomName": { "type": "string" },
+    "next": { "type": "string", "skEditorType": "Next" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
     "query": {
       "type": "object",
+      "skEditorType": "SourceQuery",
       "additionalProperties": false,
       "properties": {
         "filter": {
