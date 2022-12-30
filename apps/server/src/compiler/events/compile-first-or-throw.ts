@@ -18,7 +18,7 @@ export async function compileFirstOrThrowEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

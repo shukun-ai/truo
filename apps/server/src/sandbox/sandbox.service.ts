@@ -5,7 +5,7 @@ import { IsEmptyArrayException } from '../exceptions/is-empty-array';
 
 import { IsNotArrayException } from '../exceptions/is-not-array';
 
-import { ResolverContext } from '../flow/flow.interface';
+import { DateResolverService } from './resolvers/date-resolver.service';
 
 import { SourceResolverService } from './resolvers/source-resolver.service';
 
@@ -13,11 +13,14 @@ import { SandboxContext, SandboxVMResolver } from './sandbox.interface';
 
 @Injectable()
 export class SandboxService {
-  constructor(private readonly sourceResolverService: SourceResolverService) {}
+  constructor(
+    private readonly sourceResolverService: SourceResolverService,
+    private readonly dateResolverService: DateResolverService,
+  ) {}
 
   async executeVM(
     compiledCode: string,
-    context: ResolverContext,
+    context: SandboxContext,
   ): Promise<SandboxContext> {
     const vm = new NodeVM();
     const exports = vm.run(compiledCode);
@@ -26,31 +29,35 @@ export class SandboxService {
     const $$$ = this.prepareVMException();
 
     try {
-      const output: SandboxContext = await exports.default($, $$, $$$);
-      return output;
+      const computedContext: SandboxContext = await exports.default($, $$, $$$);
+      return this.serialize(computedContext);
     } catch (error) {
       throw this.catchError(error);
     }
   }
+  protected serialize(context: SandboxContext): SandboxContext {
+    return JSON.parse(JSON.stringify(context));
+  }
 
-  prepareVMContext(context: ResolverContext): SandboxContext {
+  protected prepareVMContext(context: SandboxContext): SandboxContext {
     return context;
   }
 
-  prepareVMResolver(): SandboxVMResolver {
+  protected prepareVMResolver(): SandboxVMResolver {
     return {
       sourceResolver: this.sourceResolverService,
+      date: this.dateResolverService,
     };
   }
 
-  prepareVMException() {
+  protected prepareVMException() {
     return {
       IsNotArrayException: IsNotArrayException,
       IsEmptyArrayException: IsEmptyArrayException,
     };
   }
 
-  catchError(error: unknown) {
+  protected catchError(error: unknown) {
     return error;
   }
 }

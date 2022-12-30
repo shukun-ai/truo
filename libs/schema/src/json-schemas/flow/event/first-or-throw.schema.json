@@ -5,6 +5,6 @@
   "required": ["type", "next"],
   "properties": {
     "type": { "const": "FirstOrThrow" },
-    "next": { "type": "string" }
+    "next": { "type": "string", "skEditorType": "Next" }
   }
 }

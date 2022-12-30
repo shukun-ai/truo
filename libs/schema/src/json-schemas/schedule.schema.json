@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ScheduleSchema",
+  "description": "Describe Schedule Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "flow", "cron", "timezone", "active"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "description": {
+      "type": "string"
+    },
+    "flow": {
+      "type": "string",
+      "description": "The name of a flow."
+    },
+    "cron": {
+      "type": "string",
+      "description": "The cron syntax, like: https://crontab.guru/ or https://cronjob.xyz."
+    },
+    "timezone": {
+      "type": "string",
+      "description": "The all available timezone: https://momentjs.com/timezone/."
+    },
+    "active": {
+      "type": "boolean",
+      "description": "The active schedule will be run."
+    },
+    "input": {
+      "type": "object",
+      "description": "The input data for flow."
+    }
+  }
+}

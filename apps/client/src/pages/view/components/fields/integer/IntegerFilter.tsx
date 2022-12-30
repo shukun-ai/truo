@@ -1,10 +1,6 @@
+import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
 import { Form, InputNumber, InputNumberProps, SelectProps } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
-
-import {
-  ExtractFormItem,
-  ExtractFormItemProps,
-} from '../../../../../components/form';
 
 import { FilterFieldProps } from '../interfaces';
 

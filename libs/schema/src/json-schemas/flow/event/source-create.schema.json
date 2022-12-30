@@ -5,8 +5,8 @@
   "required": ["type", "next", "atomName", "data"],
   "properties": {
     "type": { "const": "SourceCreate" },
-    "next": { "type": "string" },
-    "atomName": { "type": "string" },
-    "data": { "type": "object" }
+    "next": { "type": "string", "skEditorType": "Next" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
+    "data": { "type": "object", "skEditorType": "Template" }
   }
 }

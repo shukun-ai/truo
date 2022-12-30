@@ -6,7 +6,7 @@ export async function compileSourceRemoveFromManyEvent(
   event: FlowEventSourceRemoveFromMany,
 ): Promise<string> {
   return `
-        async function main($, $$){
+        async function main($, $$, $$$){
             const id = ${compileJsonTemplate(event.id)};
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
@@ -19,7 +19,7 @@ export async function compileSourceRemoveFromManyEvent(
             return {
               ...$,
               next: "${event.next}",
-              output
+              input: output
             }
         };
         exports.default=main;

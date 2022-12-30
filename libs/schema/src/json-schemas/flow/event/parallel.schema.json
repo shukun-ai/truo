@@ -5,18 +5,16 @@
   "required": ["type", "next", "branches"],
   "properties": {
     "type": { "const": "Parallel" },
-    "next": { "type": "string" },
+    "next": { "type": "string", "skEditorType": "Next" },
     "branches": {
       "type": "array",
+      "skEditorType": "ParallelBranches",
       "items": {
         "type": "object",
-        "required": ["startEventName", "events"],
+        "required": ["startEventName"],
         "additionalProperties": false,
         "properties": {
           "startEventName": { "type": "string" },
-          "events": {
-            "$ref": "../events.schema.json"
-          },
           "description": { "type": "string" }
         }
       }

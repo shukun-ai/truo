@@ -3,6 +3,7 @@ import { FlowEventLastOrThrow } from '@shukun/schema';
 import { IsEmptyArrayException } from '../../exceptions/is-empty-array';
 
 import { IsNotArrayException } from '../../exceptions/is-not-array';
+import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
 
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 
@@ -14,6 +15,7 @@ import { compileLastOrThrowEvent } from './compile-last-or-throw';
 describe('compileLastOrThrowEvent', () => {
   let sandboxService: SandboxService;
   let sourceResolverService: SourceResolverService;
+  let dateResolverService: DateResolverService;
 
   const event: FlowEventLastOrThrow = {
     type: 'LastOrThrow',
@@ -22,7 +24,11 @@ describe('compileLastOrThrowEvent', () => {
 
   beforeAll(() => {
     sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    sandboxService = new SandboxService(sourceResolverService);
+    dateResolverService = new DateResolverService();
+    sandboxService = new SandboxService(
+      sourceResolverService,
+      dateResolverService,
+    );
   });
 
   it('should return 9', async () => {
@@ -30,11 +36,11 @@ describe('compileLastOrThrowEvent', () => {
       input: new Array(10).fill(1).map((item, index) => index),
     };
     const code = await compileLastOrThrowEvent(event);
-    const output = await sandboxService.executeVM(code, context);
+    const computedContext = await sandboxService.executeVM(code, context);
 
-    expect(output).toEqual({
+    expect(computedContext).toEqual({
       ...context,
-      output: 9,
+      input: 9,
       next: 'next',
     });
   });
