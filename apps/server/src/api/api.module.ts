@@ -6,6 +6,7 @@ import { CoreModule } from '../core/core.module';
 import { FlowModule } from '../flow/flow.module';
 import { IdentityMiddleware } from '../identity/identity.middleware';
 import { IdentityModule } from '../identity/identity.module';
+import { ScheduleModule } from '../schedule/schedule.module';
 import { SourceModule } from '../source/source.module';
 import { PassportModule } from '../util/passport/passport.module';
 import { WebhookModule } from '../webhook/webhook.module';
@@ -35,6 +36,7 @@ import { WebhookController } from './webhook/webhook.controller';
     SourceModule,
     FlowModule,
     CompilerModule,
+    ScheduleModule,
   ],
   controllers: [
     AuthenticationController,
