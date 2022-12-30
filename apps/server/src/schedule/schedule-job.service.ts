@@ -18,12 +18,8 @@ export class ScheduleJobService {
   createJob(orgName: string, schedule: ScheduleSchema) {
     return new CronJob(
       schedule.cron,
-      () => {
-        this.jobOnTick(orgName, schedule);
-      },
-      () => {
-        this.jobOnComplete(orgName, schedule);
-      },
+      this.createJobOnTick(orgName, schedule),
+      this.createJobOnComplete(orgName, schedule),
       false,
       schedule.timezone,
     );
@@ -45,25 +41,29 @@ export class ScheduleJobService {
     return job.running ?? false;
   }
 
-  protected async jobOnTick(orgName: string, schedule: ScheduleSchema) {
-    try {
-      const output = await this.flowService.execute(
-        orgName,
-        schedule.flow,
-        schedule.input,
-        {
+  createJobOnTick(orgName: string, schedule: ScheduleSchema) {
+    return async () => {
+      try {
+        const output = await this.flowService.execute(
           orgName,
-          operatorId: undefined, // TODO set operatorId.
-        },
-      );
+          schedule.flow,
+          schedule.input,
+          {
+            orgName,
+            operatorId: undefined, // TODO set operatorId.
+          },
+        );
 
-      this.scheduleLogService.logSuccess(orgName, schedule, output);
-    } catch (error) {
-      this.scheduleLogService.logException(orgName, schedule, error);
-    }
+        this.scheduleLogService.logSuccess(orgName, schedule, output);
+      } catch (error) {
+        this.scheduleLogService.logException(orgName, schedule, error);
+      }
+    };
   }
 
-  protected jobOnComplete(orgName: string, schedule: ScheduleSchema) {
-    this.scheduleLogService.logComplete(orgName, schedule);
+  createJobOnComplete(orgName: string, schedule: ScheduleSchema) {
+    return async () => {
+      this.scheduleLogService.logComplete(orgName, schedule);
+    };
   }
 }
