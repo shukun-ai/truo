@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../../../libs/schema/src/json-schemas/metadata.schema.json",
+  "name": "vehicles",
+  "label": "Vehicles",
+  "dataSource": "mongodb://localhost/shukun_app_test",
+  "electrons": [
+    {
+      "name": "license",
+      "label": "vehicle License",
+      "fieldType": "Text",
+      "isRequired": true,
+      "isUnique": true
+    },
+    {
+      "name": "type",
+      "label": "Type",
+      "fieldType": "SingleSelect",
+      "isRequired": true,
+      "options": [
+        {
+          "key": "B-Class",
+          "label": "B-Class"
+        },
+        {
+          "key": "C-Class",
+          "label": "C-Class"
+        },
+        {
+          "key": "SUV",
+          "label": "SUV"
+        }
+      ]
+    }
+  ]
+}
