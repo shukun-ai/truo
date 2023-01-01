@@ -11,7 +11,8 @@ import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../../app.constant';
 
 import { SourceServiceCreateDto } from '../../app.type';
 
-import { DatabaseAdaptor } from './database-adaptor.interface';
+import { DatabaseAdaptor } from '../adaptor/database-adaptor.interface';
+
 import { MongoQueryConvertorService } from './mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongoose-connection.service';
 

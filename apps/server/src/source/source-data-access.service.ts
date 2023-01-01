@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { MetadataSchema } from '@shukun/schema';
 
 import { DatabaseAdaptor } from './adaptor/database-adaptor.interface';
-import { MongoAdaptorService } from './adaptor/mongo-adaptor.service';
+import { MongoAdaptorService } from './mongo/mongo-adaptor.service';
 
 @Injectable()
 export class SourceDataAccessService<Model> {
