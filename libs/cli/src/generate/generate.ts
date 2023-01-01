@@ -18,10 +18,11 @@ import { writeFile } from './helpers/write-file';
 export interface GenerateOptions {
   inputPath: string;
   outputPath: string;
+  disabledValidation?: boolean;
 }
 
 export async function generate(options: GenerateOptions) {
-  const { inputPath, outputPath } = options;
+  const { inputPath, outputPath, disabledValidation } = options;
 
   const application = await readApplication(inputPath);
   const metadata = await readSection<MetadataSchema>(inputPath, 'metadata');
@@ -37,7 +38,9 @@ export async function generate(options: GenerateOptions) {
   application.flows = flows;
   application.schedules = schedules;
 
-  const validated = await validate(application);
+  const validated = disabledValidation
+    ? application
+    : await validate(application);
   const text = await stringify(validated);
   const replacedText = await replaceCode(text, inputPath, compileTs);
 
