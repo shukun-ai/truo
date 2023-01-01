@@ -43,7 +43,7 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.createOne(params);
+    return await adaptor.createOne(orgName, metadata, params);
   }
 
   async updateOne(
@@ -64,7 +64,7 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.updateOne(id, params);
+    return await adaptor.updateOne(orgName, metadata, id, params);
   }
 
   async findOne(
@@ -82,7 +82,7 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.findOne(query);
+    return await adaptor.findOne(orgName, metadata, query);
   }
 
   async findAll(
@@ -100,7 +100,7 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.findAll(query);
+    return await adaptor.findAll(orgName, metadata, query);
   }
 
   async count(
@@ -118,7 +118,7 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.count(query);
+    return await adaptor.count(orgName, metadata, query);
   }
 
   async deleteOne(
@@ -136,7 +136,7 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.deleteOne(id);
+    return await adaptor.deleteOne(orgName, metadata, id);
   }
 
   async addToMany(
@@ -158,7 +158,13 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.addToMany(id, electronName, foreignId);
+    return await adaptor.addToMany(
+      orgName,
+      metadata,
+      id,
+      electronName,
+      foreignId,
+    );
   }
 
   async removeFromMany(
@@ -180,7 +186,13 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.removeFromMany(id, electronName, foreignId);
+    return await adaptor.removeFromMany(
+      orgName,
+      metadata,
+      id,
+      electronName,
+      foreignId,
+    );
   }
 
   async increase(
@@ -219,7 +231,13 @@ export class SourceFoundationService<Model> {
       metadata,
     );
 
-    return await adaptor.increase(id, electronName, increment);
+    return await adaptor.increase(
+      orgName,
+      metadata,
+      id,
+      electronName,
+      increment,
+    );
   }
 
   async getMetadata(
