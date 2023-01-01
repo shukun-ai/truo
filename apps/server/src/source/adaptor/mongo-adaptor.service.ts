@@ -1,9 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { IDString } from '@shukun/api';
 import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
 import {
@@ -22,27 +17,21 @@ import { MongooseConnectionService } from './mongoose-connection.service';
 
 @Injectable()
 export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
-  @Inject()
-  private readonly mongooseConnectionService!: MongooseConnectionService;
+  constructor(
+    private readonly mongooseConnectionService: MongooseConnectionService,
+    private readonly mongoQueryConvertorService: MongoQueryConvertorService,
+  ) {}
 
-  @Inject()
-  private readonly mongoQueryConvertorService!: MongoQueryConvertorService;
-
-  private atom: MongooseModel<Model & Document> | null = null;
-
-  async initAtom(orgName: string, metadata: MetadataSchema): Promise<this> {
-    this.atom = await this.mongooseConnectionService.getAtomModel<Model>(
+  async getAtomModel(
+    orgName: string,
+    metadata: MetadataSchema,
+  ): Promise<MongooseModel<Model & Document>> {
+    const atomModel = await this.mongooseConnectionService.getAtomModel<Model>(
       orgName,
       metadata,
     );
-    return this;
-  }
 
-  getAtom(): MongooseModel<Model & Document> {
-    if (!this.atom) {
-      throw new InternalServerErrorException('Did not init atom.');
-    }
-    return this.atom;
+    return atomModel;
   }
 
   sourceToJSON(value: Model & Document): { _id: IDString } & Model {
@@ -50,28 +39,45 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return json;
   }
 
-  async createOne(params: SourceServiceCreateDto): Promise<{ _id: IDString }> {
-    const atom = this.getAtom();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const entity = new atom(params);
+  async createOne(
+    orgName: string,
+    metadata: MetadataSchema,
+    params: SourceServiceCreateDto,
+  ): Promise<{ _id: IDString }> {
+    const atomModel = await this.getAtomModel(orgName, metadata);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const entity = new atomModel(params as any);
+    // TODO remove checkKeys
     await entity.save({ checkKeys: false }); // forbid error when example: 'email.$'
     const result = this.sourceToJSON(entity);
     return result;
   }
 
-  async updateOne(id: IDString, params: SourceServiceCreateDto): Promise<void> {
-    await this.getAtom().findByIdAndUpdate(
+  async updateOne(
+    orgName: string,
+    metadata: MetadataSchema,
+    id: IDString,
+    params: SourceServiceCreateDto,
+  ): Promise<void> {
+    const atomModel = await this.getAtomModel(orgName, metadata);
+    await atomModel.findByIdAndUpdate(
       id,
       params as unknown as UpdateWithAggregationPipeline,
     );
   }
 
-  async findOne(query: HttpQuerySchema): Promise<{ _id: IDString } & Model> {
-    const atom = this.getAtom();
+  /**
+   * @deprecated please use findAll instead
+   */
+  async findOne(
+    orgName: string,
+    metadata: MetadataSchema,
+    query: HttpQuerySchema,
+  ): Promise<{ _id: IDString } & Model> {
+    const atomModel = await this.getAtomModel(orgName, metadata);
     const mongoQuery = this.mongoQueryConvertorService.parseMongoQuery(query);
 
-    const value = await atom
+    const value = await atomModel
       .findOne(mongoQuery.filter)
       .select(mongoQuery.select)
       .skip(mongoQuery.skip || DB_DEFAULT_SKIP)
@@ -80,7 +86,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
 
     if (!value) {
       throw new NotFoundException(
-        `We did not find specific source in findOne, and source name is ${atom.name}.`,
+        `We did not find specific source in findOne, and source name is ${atomModel.name}.`,
       );
     }
 
@@ -90,11 +96,13 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async findAll(
+    orgName: string,
+    metadata: MetadataSchema,
     query: HttpQuerySchema,
   ): Promise<Array<{ _id: IDString } & Model>> {
     const mongoQuery = this.mongoQueryConvertorService.parseMongoQuery(query);
-
-    const value = await this.getAtom()
+    const atomModel = await this.getAtomModel(orgName, metadata);
+    const value = await atomModel
       .find(mongoQuery.filter)
       .select(mongoQuery.select)
       .skip(mongoQuery.skip ?? DB_DEFAULT_SKIP)
@@ -107,21 +115,29 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return result;
   }
 
-  async count(query: HttpQuerySchema): Promise<number> {
+  async count(
+    orgName: string,
+    metadata: MetadataSchema,
+    query: HttpQuerySchema,
+  ): Promise<number> {
     const mongoQuery = this.mongoQueryConvertorService.parseMongoQuery(query);
-
-    const value = await this.getAtom().find(mongoQuery.filter).countDocuments();
+    const atomModel = await this.getAtomModel(orgName, metadata);
+    const value = await atomModel.find(mongoQuery.filter).countDocuments();
     return value;
   }
 
-  async deleteOne(id: IDString): Promise<void> {
-    const atom = this.getAtom();
+  async deleteOne(
+    orgName: string,
+    metadata: MetadataSchema,
+    id: IDString,
+  ): Promise<void> {
+    const atomModel = await this.getAtomModel(orgName, metadata);
 
-    const model = await atom.findById(id).exec();
+    const model = await atomModel.findById(id).exec();
 
     if (!model) {
       throw new NotFoundException(
-        `We did not find specific source in deleteOne, and source name is ${atom.name}.`,
+        `We did not find specific source in deleteOne, and source name is ${atomModel.name}.`,
       );
     }
 
@@ -129,38 +145,53 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async addToMany(
+    orgName: string,
+    metadata: MetadataSchema,
     id: IDString,
     electronName: string,
     foreignId: IDString,
   ): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    await this.getAtom().findByIdAndUpdate(id, {
+    const atomModel = await this.getAtomModel(orgName, metadata);
+
+    const operator = {
       $addToSet: { [electronName]: foreignId },
-    });
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await atomModel.findByIdAndUpdate(id, operator as any);
   }
 
   async removeFromMany(
+    orgName: string,
+    metadata: MetadataSchema,
     id: IDString,
     electronName: string,
     foreignId: IDString,
   ): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    await this.getAtom().findByIdAndUpdate(id, {
+    const atomModel = await this.getAtomModel(orgName, metadata);
+
+    const operator = {
       $pull: { [electronName]: foreignId },
-    });
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await atomModel.findByIdAndUpdate(id, operator as any);
   }
 
   async increase(
+    orgName: string,
+    metadata: MetadataSchema,
     id: IDString,
     electronName: string,
     increment: number,
   ): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    await this.getAtom().findByIdAndUpdate(id, {
+    const atomModel = await this.getAtomModel(orgName, metadata);
+
+    const operator = {
       $inc: { [electronName]: increment },
-    });
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await atomModel.findByIdAndUpdate(id, operator as any);
   }
 }

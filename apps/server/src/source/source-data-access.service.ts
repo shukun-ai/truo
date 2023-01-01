@@ -13,6 +13,6 @@ export class SourceDataAccessService<Model> {
     orgName: string,
     metadata: MetadataSchema,
   ): Promise<DatabaseAdaptor<Model>> {
-    return await this.mongoAdaptorService.initAtom(orgName, metadata);
+    return this.mongoAdaptorService;
   }
 }
