@@ -20,6 +20,13 @@ export class PostgresConnectionService {
     const client = knex({
       client: 'pg',
       connection: metadata.source,
+      pool: {
+        afterCreate: (connection: any, callback: any) => {
+          connection.query('SET TimeZone = UTC;', function (error: any) {
+            callback(error, connection);
+          });
+        },
+      },
     });
 
     return client;
