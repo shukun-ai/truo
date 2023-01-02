@@ -8,6 +8,7 @@ import { MongoQueryConvertorService } from './mongo/mongo-query-convertor.servic
 import { MongooseConnectionService } from './mongo/mongoose-connection.service';
 import { PostgresAdaptorService } from './postgres/postgres-adaptor.service';
 import { PostgresConnectionService } from './postgres/postgres-connection.service';
+import { PostgresElectronConvertorService } from './postgres/postgres-electron-convertor.service';
 import { PostgresQueryConvertorService } from './postgres/postgres-query-convertor.service';
 import { SourceDataAccessService } from './source-data-access.service';
 import { SourceForeignQueryService } from './source-foreign-query.service';
@@ -30,6 +31,7 @@ import { VariableService } from './variable/variable.service';
     PostgresAdaptorService,
     PostgresConnectionService,
     PostgresQueryConvertorService,
+    PostgresElectronConvertorService,
     SourceDataAccessService,
     SourceForeignQueryService,
   ],

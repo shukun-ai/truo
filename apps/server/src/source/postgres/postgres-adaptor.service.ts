@@ -8,6 +8,7 @@ import { SourceServiceCreateDto } from '../../app.type';
 import { DatabaseAdaptor } from '../adaptor/database-adaptor.interface';
 
 import { PostgresConnectionService } from './postgres-connection.service';
+import { PostgresElectronConvertorService } from './postgres-electron-convertor.service';
 import { PostgresQueryConvertorService } from './postgres-query-convertor.service';
 
 @Injectable()
@@ -15,6 +16,7 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
   constructor(
     private readonly postgresConnectionService: PostgresConnectionService,
     private readonly postgresQueryConvertorService: PostgresQueryConvertorService,
+    private readonly postgresElectronConvertorService: PostgresElectronConvertorService<Model>,
   ) {}
 
   async createOne(
@@ -76,7 +78,11 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     );
 
     const value = await queryBuilder.from(tableName).first();
-    return value;
+
+    return this.postgresElectronConvertorService.convertAfterQueryForOne(
+      value,
+      metadata,
+    );
   }
 
   async findAll(
@@ -103,7 +109,11 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     );
 
     const value = await queryBuilder.from(tableName);
-    return value;
+
+    return this.postgresElectronConvertorService.convertAfterQuery(
+      value,
+      metadata,
+    );
   }
 
   async count(

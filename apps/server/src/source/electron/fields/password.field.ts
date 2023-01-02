@@ -39,4 +39,9 @@ export class PasswordField implements ElectronType {
 
     return value;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  afterQuery(value: unknown, electron: MetadataElectron) {
+    return null;
+  }
 }
