@@ -6,6 +6,8 @@ import {
 } from '@shukun/schema';
 import { Knex } from 'knex';
 
+import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../../app.constant';
+
 @Injectable()
 export class PostgresQueryConvertorService {
   parseQuery(
@@ -32,6 +34,40 @@ export class PostgresQueryConvertorService {
     }
 
     return queryBuilder;
+  }
+
+  parseSort(queryBuilder: Knex.QueryBuilder, sort: HttpQuerySchema['sort']) {
+    if (!sort) {
+      return queryBuilder;
+    }
+
+    const orderBys = [];
+
+    for (const [column, sortString] of Object.entries(sort)) {
+      orderBys.push({ column, order: sortString });
+    }
+
+    return queryBuilder.orderBy(orderBys);
+  }
+
+  parseLimit(queryBuilder: Knex.QueryBuilder, limit: HttpQuerySchema['limit']) {
+    if (limit === 0) {
+      return queryBuilder;
+    }
+
+    if (!limit) {
+      return queryBuilder.limit(DB_DEFAULT_LIMIT);
+    }
+
+    return queryBuilder.limit(limit);
+  }
+
+  parseSkip(queryBuilder: Knex.QueryBuilder, skip: HttpQuerySchema['skip']) {
+    if (!skip) {
+      return queryBuilder.offset(DB_DEFAULT_SKIP);
+    }
+
+    return queryBuilder.offset(skip);
   }
 
   buildQueryFilterClause(
