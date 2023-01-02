@@ -6,6 +6,9 @@ import { PassportModule } from '../util/passport/passport.module';
 import { MongoAdaptorService } from './mongo/mongo-adaptor.service';
 import { MongoQueryConvertorService } from './mongo/mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongo/mongoose-connection.service';
+import { PostgresAdaptorService } from './postgres/postgres-adaptor.service';
+import { PostgresConnectionService } from './postgres/postgres-connection.service';
+import { PostgresQueryConvertorService } from './postgres/postgres-query-convertor.service';
 import { SourceDataAccessService } from './source-data-access.service';
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';
@@ -24,6 +27,9 @@ import { VariableService } from './variable/variable.service';
     MongoAdaptorService,
     MongoQueryConvertorService,
     MongooseConnectionService,
+    PostgresAdaptorService,
+    PostgresConnectionService,
+    PostgresQueryConvertorService,
     SourceDataAccessService,
     SourceForeignQueryService,
   ],
