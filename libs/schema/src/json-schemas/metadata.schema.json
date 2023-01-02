@@ -19,6 +19,10 @@
     "description": {
       "type": "string"
     },
+    "source": {
+      "type": "string",
+      "description": "This property is optional, if the value is empty, the data will be saved into system-level Database (MongoDB). The rule like: protocol://username:password@host:port/database?options..."
+    },
     "electrons": {
       "type": "array",
       "items": {

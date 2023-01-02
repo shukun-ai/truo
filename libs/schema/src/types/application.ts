@@ -114,6 +114,10 @@ export interface MetadataSchema {
   name: string;
   label: string;
   description?: string;
+  /**
+   * This property is optional, if the value is empty, the data will be saved into system-level Database (MongoDB). The rule like: protocol://username:password@host:port/database?options...
+   */
+  source?: string;
   electrons: MetadataElectron[];
 }
 export interface MetadataElectron {
