@@ -22,7 +22,7 @@ export class PostgresConnectionService {
       connection: metadata.source,
       pool: {
         afterCreate: (connection: any, callback: any) => {
-          connection.query('SET TimeZone = UTC;', function (error: any) {
+          connection.query('SET timezone = "UTC";', function (error: any) {
             callback(error, connection);
           });
         },
