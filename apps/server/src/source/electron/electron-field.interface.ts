@@ -3,11 +3,15 @@ import { Connection } from 'mongoose';
 
 export interface ElectronType {
   validateValue: (value: unknown, electron: MetadataElectron) => string[];
+  /**
+   * Only for mongoose, and will be deprecated.
+   */
   buildSchema: (
     electron: MetadataElectron,
     connection: Connection,
   ) => SchemaBuilderResult;
   beforeSave?: (value: unknown, electron: MetadataElectron) => unknown;
+  afterQuery?: (value: unknown, electron: MetadataElectron) => unknown;
 }
 
 export interface SchemaBuilderResult {
