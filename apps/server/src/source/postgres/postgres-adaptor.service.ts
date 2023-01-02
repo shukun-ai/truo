@@ -86,6 +86,14 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
       queryBuilder,
       query.select,
     );
+    queryBuilder = this.postgresQueryConvertorService.parseSort(
+      queryBuilder,
+      query.sort,
+    );
+    queryBuilder = this.postgresQueryConvertorService.parseSkip(
+      queryBuilder,
+      query.skip,
+    );
 
     const value = await queryBuilder.from(tableName).first();
 
@@ -116,6 +124,18 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     queryBuilder = this.postgresQueryConvertorService.parseSelect(
       queryBuilder,
       query.select,
+    );
+    queryBuilder = this.postgresQueryConvertorService.parseSort(
+      queryBuilder,
+      query.sort,
+    );
+    queryBuilder = this.postgresQueryConvertorService.parseSkip(
+      queryBuilder,
+      query.skip,
+    );
+    queryBuilder = this.postgresQueryConvertorService.parseLimit(
+      queryBuilder,
+      query.limit,
     );
 
     const value = await queryBuilder.from(tableName);
