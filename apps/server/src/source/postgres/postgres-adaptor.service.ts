@@ -33,7 +33,14 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
       metadata,
     );
     const id = new ObjectId().toString();
-    await client(tableName).insert({ ...params, _id: id });
+    const updatedAt = new Date();
+    const createdAt = updatedAt;
+    await client(tableName).insert({
+      ...params,
+      _id: id,
+      createdAt,
+      updatedAt,
+    });
     return { _id: id };
   }
 
@@ -51,7 +58,10 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
       orgName,
       metadata,
     );
-    await client(tableName).where('_id', id).update(params);
+    const updatedAt = new Date();
+    await client(tableName)
+      .where('_id', id)
+      .update({ ...params, updatedAt });
   }
 
   async findOne(
