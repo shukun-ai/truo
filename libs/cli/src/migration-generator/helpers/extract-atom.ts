@@ -5,7 +5,7 @@ import { getFieldInstance } from '../electron-factory';
 export function extractAtom(atom: MetadataSchema): string {
   let text = '';
 
-  text += `knex.schema.createTable('${atom.name}', (table) => {`;
+  text += `schema.createTable(helpers.getTableName('${atom.name}'), (table: any) => {`;
 
   text += `table.string('_id', 255); table.timestamp('createdAt'); table.timestamp('updatedAt');`;
 
