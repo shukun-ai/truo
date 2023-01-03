@@ -13,7 +13,7 @@ export interface MigrationGeneratorOptions {
   bannerComment?: string;
 }
 
-export async function typeGenerator({
+export async function generateMigrationAndWrite({
   inputFile,
   outputFile,
   style,

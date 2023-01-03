@@ -8,11 +8,17 @@ export function extractMetadataToTypes(
 ): string {
   let text = '';
 
-  text += 'export const runMigration = (knex) => {';
+  text += 'export const createSchemas = (knex: any, helpers: any) => {';
+
+  text += 'const schema = knex.schema;';
 
   application.metadata?.forEach((atom) => {
-    text += extractAtomFunction(atom);
+    if (atom.source) {
+      text += extractAtomFunction(atom);
+    }
   });
+
+  text += 'return schema;';
 
   text += '};';
 
