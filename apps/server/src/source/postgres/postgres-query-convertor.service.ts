@@ -33,6 +33,9 @@ export class PostgresQueryConvertorService {
       }
     }
 
+    // Please always select _id with compatible with MongoDB.
+    queryBuilder.select('_id');
+
     return queryBuilder;
   }
 
