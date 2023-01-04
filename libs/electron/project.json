@@ -3,6 +3,20 @@
   "sourceRoot": "libs/electron/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/electron",
+        "tsConfig": "libs/electron/tsconfig.lib.json",
+        "packageJson": "libs/electron/package.json",
+        "main": "libs/electron/src/index.ts",
+        "assets": ["libs/electron/*.md"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
