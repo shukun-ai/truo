@@ -1,6 +1,5 @@
+import { getFieldInstance } from '@shukun/electron';
 import { MetadataElectron, MetadataSchema } from '@shukun/schema';
-
-import { getFieldInstance } from '../electron-factory';
 
 export function extractAtom(atom: MetadataSchema): string {
   let text = '';
