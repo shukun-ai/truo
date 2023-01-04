@@ -124,18 +124,33 @@ export interface MetadataElectron {
   name: string;
   label: string;
   fieldType: MetadataFieldType;
-  isRequired: boolean;
   referenceTo?: string;
   foreignName?: string;
-  isUnique?: boolean;
-  isIndexed?: boolean;
   description?: string;
+  /**
+   * It will be effect in Schema builder and Input Validate.
+   */
+  isRequired: boolean;
+  /**
+   * It will be effect in Schema builder and Input Validate. If the isUnique is set as true, the electron should be set as isRequired and isIndex.
+   */
+  isUnique?: boolean;
+  /**
+   * It will be effect in Schema builder and Input Validate.
+   */
+  isIndexed?: boolean;
+  /**
+   * It will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 8.
+   */
   precision?: number;
+  /**
+   * I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2.
+   */
   scale?: number;
-  defaultValue?: unknown;
-  isNegative?: boolean;
-  minLength?: number;
-  maxLength?: number;
+  /**
+   * It will be effect in Schema builder and Input Validate. This field is only apply for Float and Integer type, and the default is false.
+   */
+  unsigned?: boolean;
   options?: MetadataOptions;
   passwordOptions?: MetadataPasswordOptions;
   currencyOptions?: MetadataCurrencyOptions;
@@ -146,9 +161,20 @@ export interface MetadataPasswordOptions {
   requireCharacter?: boolean;
   requireUppercase?: boolean;
   requireLowercase?: boolean;
+  minLength?: number;
+  maxLength?: number;
 }
+/**
+ * More Currency ISO Reference: https://en.wikipedia.org/wiki/ISO_4217, the data precision will be set as 15 and scale will be set as 4.
+ */
 export interface MetadataCurrencyOptions {
+  /**
+   * The code is from ISO 4217.
+   */
   code?: string;
+  /**
+   * This electron.currencyOptions.scale value is different with electron.scale, the scale is just used for Front-end format.
+   */
   scale?: number;
 }
 export interface MetadataAttachmentOptions {

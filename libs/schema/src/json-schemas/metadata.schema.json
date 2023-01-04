@@ -79,39 +79,38 @@
               "Role"
             ]
           },
-          "isRequired": {
-            "type": "boolean"
-          },
           "referenceTo": {
             "type": "string"
           },
           "foreignName": {
             "type": "string"
           },
-          "isUnique": {
-            "type": "boolean"
-          },
-          "isIndexed": {
-            "type": "boolean"
-          },
           "description": {
             "type": "string"
           },
+          "isRequired": {
+            "type": "boolean",
+            "description": "It will be effect in Schema builder and Input Validate."
+          },
+          "isUnique": {
+            "type": "boolean",
+            "description": "It will be effect in Schema builder and Input Validate. If the isUnique is set as true, the electron should be set as isRequired and isIndex."
+          },
+          "isIndexed": {
+            "type": "boolean",
+            "description": "It will be effect in Schema builder and Input Validate."
+          },
           "precision": {
-            "type": "number"
+            "type": "number",
+            "description": "It will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 8."
           },
           "scale": {
-            "type": "number"
+            "type": "number",
+            "description": "I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2."
           },
-          "defaultValue": {},
-          "isNegative": {
-            "type": "boolean"
-          },
-          "minLength": {
-            "type": "number"
-          },
-          "maxLength": {
-            "type": "number"
+          "unsigned": {
+            "type": "boolean",
+            "description": "It will be effect in Schema builder and Input Validate. This field is only apply for Float and Integer type, and the default is false."
           },
           "options": {
             "title": "MetadataOptions",
@@ -149,19 +148,28 @@
               },
               "requireLowercase": {
                 "type": "boolean"
+              },
+              "minLength": {
+                "type": "number"
+              },
+              "maxLength": {
+                "type": "number"
               }
             }
           },
           "currencyOptions": {
             "title": "MetadataCurrencyOptions",
+            "description": "More Currency ISO Reference: https://en.wikipedia.org/wiki/ISO_4217, the data precision will be set as 15 and scale will be set as 4.",
             "type": "object",
             "additionalProperties": false,
             "properties": {
               "code": {
-                "type": "string"
+                "type": "string",
+                "description": "The code is from ISO 4217."
               },
               "scale": {
-                "type": "number"
+                "type": "number",
+                "description": "This electron.currencyOptions.scale value is different with electron.scale, the scale is just used for Front-end format."
               }
             }
           },
