@@ -29,3 +29,7 @@ export const buildRequired = (electron: MetadataElectron): string => {
 export const buildIndexed = (electron: MetadataElectron): string => {
   return electron.isIndexed ? '.index()' : '';
 };
+
+// if unique, the required is true.
+// if indexed, the required is true.
+// we should set required.
