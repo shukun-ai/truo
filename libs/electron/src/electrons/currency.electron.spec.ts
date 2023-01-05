@@ -13,7 +13,7 @@ describe('Currency', () => {
 
     const field = new CurrencyElectron();
     const output = field.buildSqlSchema(electron);
-    expect(output).toEqual(`table.float('mock', 15, 4).notNullable();`);
+    expect(output).toEqual(`.float('mock', 15, 4)`);
   });
 
   it('If the user set custom precision and scale, it will throw error.', () => {
@@ -28,6 +28,6 @@ describe('Currency', () => {
 
     const field = new CurrencyElectron();
     const output = field.buildSqlSchema(electron);
-    expect(output).toEqual(`table.float('mock', 15, 4).notNullable();`);
+    expect(output).toEqual(`.float('mock', 15, 4)`);
   });
 });
