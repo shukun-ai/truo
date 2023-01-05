@@ -1,5 +1,4 @@
 import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
-import { Connection } from 'mongoose';
 
 import { AttachmentElectron } from './electrons/attachment.electron';
 import { BooleanElectron } from './electrons/boolean.electron';
@@ -22,27 +21,6 @@ import { TextElectron } from './electrons/text.electron';
 
 export interface ElectronFactoryInterface {
   buildSqlSchema: (electron: MetadataElectron) => string;
-  buildMongooseSchema: (
-    electron: MetadataElectron,
-    connection: Connection,
-  ) => MongooseSchema;
-  validateElectron: (electron: MetadataElectron) => void;
-  validateValue: (value: unknown, electron: MetadataElectron) => string[];
-  beforeSave?: (value: unknown, electron: MetadataElectron) => unknown;
-  afterQuery?: (value: unknown, electron: MetadataElectron) => unknown;
-}
-
-/**
- * @deprecated Plan to remove Mongoose.
- */
-export interface MongooseSchema {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type: any;
-  ref?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  enum?: any[];
-  // @see https://mongoosejs.com/docs/api/schematype.html#schematype_SchemaType-transform
-  transform?: (value: unknown) => unknown;
 }
 
 export function getFieldInstance(
