@@ -18,3 +18,8 @@ export * from './electrons/password.electron';
 export * from './electrons/role.electron';
 export * from './electrons/single-select.electron';
 export * from './electrons/text.electron';
+
+export * from './validation/is-electron-name';
+export * from './validation/is-engine-name';
+export * from './validation/is-not-double-underscore';
+export * from './validation/is-started-with-lowercase';

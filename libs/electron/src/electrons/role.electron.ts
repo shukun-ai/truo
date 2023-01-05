@@ -1,12 +1,24 @@
 import { MetadataElectron } from '@shukun/schema';
+import { Schema } from 'mongoose';
 
-import { ElectronFactoryInterface } from '../electron-factory';
+import { ElectronFactoryInterface, MongooseSchema } from '../electron-factory';
 
-/**
- * @deprecated The Role did not be supported by SQL
- */
 export class RoleElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron) {
-    return `table.json('${electron.name}');`;
+  buildSqlSchema(electron: MetadataElectron): string {
+    throw new Error('Did not support Role type in SQL Schema.');
+  }
+
+  buildMongooseSchema(): MongooseSchema {
+    return {
+      type: [Schema.Types.String],
+    };
+  }
+
+  validateElectron(): void {
+    return;
+  }
+
+  validateValue(): string[] {
+    return [];
   }
 }

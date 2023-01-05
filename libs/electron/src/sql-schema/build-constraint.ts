@@ -1,12 +1,12 @@
 import { MetadataElectron } from '@shukun/schema';
 
-export const buildConstraint = (electron: MetadataElectron) => {
+export const buildConstraint = (electron: MetadataElectron): string => {
   return (
     buildRequired(electron) + buildUnique(electron) + buildIndexed(electron)
   );
 };
 
-export const buildUnique = (electron: MetadataElectron) => {
+export const buildUnique = (electron: MetadataElectron): string => {
   if (electron.isUnique && !electron.isRequired) {
     throw new Error(
       'When the isUnique set as true, the isRequired and isIndexed must be set as true.',
@@ -22,10 +22,10 @@ export const buildUnique = (electron: MetadataElectron) => {
   return electron.isUnique ? '.unique()' : '';
 };
 
-export const buildRequired = (electron: MetadataElectron) => {
+export const buildRequired = (electron: MetadataElectron): string => {
   return electron.isRequired ? '.notNullable()' : '.nullable()';
 };
 
-export const buildIndexed = (electron: MetadataElectron) => {
+export const buildIndexed = (electron: MetadataElectron): string => {
   return electron.isIndexed ? '.index()' : '';
 };
