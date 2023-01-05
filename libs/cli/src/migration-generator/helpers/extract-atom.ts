@@ -1,4 +1,4 @@
-import { getFieldInstance } from '@shukun/electron';
+import { buildConstraint, getFieldInstance } from '@shukun/electron';
 import { MetadataElectron, MetadataSchema } from '@shukun/schema';
 
 export function extractAtom(atom: MetadataSchema): string {
@@ -6,7 +6,7 @@ export function extractAtom(atom: MetadataSchema): string {
 
   text += `schema.createTable(helpers.getTableName('${atom.name}'), (table: any) => {`;
 
-  text += `table.string('_id', 255); table.timestamp('createdAt'); table.timestamp('updatedAt');`;
+  text += `table.string('_id', 255).unique().notNullable(); table.timestamp('createdAt').nullable(); table.timestamp('updatedAt').nullable();`;
 
   atom.electrons.forEach((electron) => {
     text += extractElectron(electron);
@@ -21,7 +21,10 @@ export function extractAtom(atom: MetadataSchema): string {
 
 function extractElectron(electron: MetadataElectron): string {
   let text = '';
+  text += 'table';
   const clause = getFieldInstance(electron.fieldType);
-  text += clause.sqlSchemaBuilder(electron);
+  text += clause.buildSqlSchema(electron);
+  text += buildConstraint(electron);
+  text += ';';
   return text;
 }

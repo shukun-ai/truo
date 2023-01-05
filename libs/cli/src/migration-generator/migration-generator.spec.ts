@@ -58,12 +58,12 @@ describe('generateMigration', () => {
 export const createSchemas = (knex: any, helpers: any) => {
   const schema = knex.schema;
   schema.createTable(helpers.getTableName('devices'), (table: any) => {
-    table.string('_id', 255);
-    table.timestamp('createdAt');
-    table.timestamp('updatedAt');
-    table.string('number', 1000);
-    table.string('title', 1000);
-    table.string('type', 1000);
+    table.string('_id', 255).unique().notNullable();
+    table.timestamp('createdAt').nullable();
+    table.timestamp('updatedAt').nullable();
+    table.string('number', 1000).notNullable().unique();
+    table.string('title', 1000).notNullable();
+    table.string('type', 1000).notNullable();
     table.primary('_id');
   });
   return schema;
@@ -75,7 +75,6 @@ export const createSchemas = (knex: any, helpers: any) => {
       style: {
         singleQuote: true,
         trailingComma: 'all',
-        // tabWidth: 4,
       },
     });
 

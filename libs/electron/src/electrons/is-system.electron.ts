@@ -4,6 +4,6 @@ import { ElectronFactoryInterface } from '../electron-factory';
 
 export class IsSystemElectron implements ElectronFactoryInterface {
   buildSqlSchema(electron: MetadataElectron): string {
-    return `table.boolean('${electron.name}');`;
+    return `.boolean('${electron.name}')`;
   }
 }
