@@ -19,6 +19,8 @@ export * from './electrons/role.electron';
 export * from './electrons/single-select.electron';
 export * from './electrons/text.electron';
 
+export * from './sql-schema/build-constraint';
+
 export * from './validation/is-electron-name';
 export * from './validation/is-engine-name';
 export * from './validation/is-max-length';

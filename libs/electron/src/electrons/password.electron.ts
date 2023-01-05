@@ -4,6 +4,6 @@ import { ElectronFactoryInterface } from '../electron-factory';
 
 export class PasswordElectron implements ElectronFactoryInterface {
   buildSqlSchema(electron: MetadataElectron): string {
-    return `table.string('${electron.name}', 1000);`;
+    return `.string('${electron.name}', 1000)`;
   }
 }
