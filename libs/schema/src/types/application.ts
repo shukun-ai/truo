@@ -147,10 +147,6 @@ export interface MetadataElectron {
    * I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2.
    */
   scale?: number;
-  /**
-   * It will be effect in Schema builder and Input Validate. This field is only apply for Float and Integer type, and the default is false.
-   */
-  unsigned?: boolean;
   options?: MetadataOptions;
   passwordOptions?: MetadataPasswordOptions;
   currencyOptions?: MetadataCurrencyOptions;
