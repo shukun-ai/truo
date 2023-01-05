@@ -1,16 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
+import { getElectronInstance, MongooseSchema } from '@shukun/electron';
 import { MetadataElectron, MetadataSchema } from '@shukun/schema';
 import { Connection, Schema, Document, Model as MongooseModel } from 'mongoose';
 
 import { IDString } from '../../app.type';
 import { OrgService } from '../../core/org.service';
 
-import {
-  SchemaBuilderResult,
-  SchemaCommonResult,
-} from '../electron/electron-field.interface';
-import { getFieldInstance } from '../electron/fields-map';
+import { SchemaCommonResult } from '../electron/electron-field.interface';
 
 @Injectable()
 export class MongooseConnectionService {
@@ -46,8 +43,7 @@ export class MongooseConnectionService {
   }
 
   protected async buildAtomSchema(metadata: MetadataSchema): Promise<Schema> {
-    const atomSchema: Record<string, SchemaBuilderResult & SchemaCommonResult> =
-      {};
+    const atomSchema: Record<string, MongooseSchema & SchemaCommonResult> = {};
 
     if (metadata.electrons.length < 1) {
       throw new BadRequestException('模型没有生成，或者不存在已生成的字段。');
@@ -62,9 +58,9 @@ export class MongooseConnectionService {
 
   protected async buildElectronSchema(
     electron: MetadataElectron,
-  ): Promise<SchemaBuilderResult & SchemaCommonResult> {
-    const field = getFieldInstance(electron.fieldType);
-    const fieldSchema = field.buildSchema(electron, this.connection);
+  ): Promise<MongooseSchema & SchemaCommonResult> {
+    const field = getElectronInstance(electron.fieldType);
+    const fieldSchema = field.buildMongooseSchema(electron, this.connection);
 
     return {
       ...fieldSchema,

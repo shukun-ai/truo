@@ -1,4 +1,4 @@
-import { getFieldInstance } from '@shukun/electron';
+import { getElectronInstance } from '@shukun/electron';
 import { MetadataElectron, MetadataSchema } from '@shukun/schema';
 
 export function extractAtom(atom: MetadataSchema): string {
@@ -21,7 +21,7 @@ export function extractAtom(atom: MetadataSchema): string {
 
 function extractElectron(electron: MetadataElectron): string {
   let text = '';
-  const clause = getFieldInstance(electron.fieldType);
-  text += clause.sqlSchemaBuilder(electron);
+  const clause = getElectronInstance(electron.fieldType);
+  text += clause.buildSqlSchema(electron);
   return text;
 }
