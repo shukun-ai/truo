@@ -1,5 +1,7 @@
-import { buildConstraint, getFieldInstance } from '@shukun/electron';
 import { MetadataElectron, MetadataSchema } from '@shukun/schema';
+
+import { buildConstraint } from '../constraint/build-constraint';
+import { getFieldInstance } from '../electron-factory';
 
 export function extractAtom(atom: MetadataSchema): string {
   let text = '';
