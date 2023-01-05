@@ -1,12 +1,28 @@
 import { MetadataElectron } from '@shukun/schema';
+import { Schema } from 'mongoose';
 
-import { ElectronFactoryInterface } from '../electron-factory';
+import { ElectronFactoryInterface, MongooseSchema } from '../electron-factory';
 
-/**
- * @deprecated The Role did not be supported by SQL
- */
 export class ManyToManyElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron) {
-    return `table.json('${electron.name}');`;
+  buildSqlSchema(electron: MetadataElectron): string {
+    throw new Error('Did not support ManyToMany type in SQL Schema.');
+  }
+
+  buildMongooseSchema(): MongooseSchema {
+    return {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+        },
+      ],
+    };
+  }
+
+  validateElectron(electron: MetadataElectron): void {
+    return;
+  }
+
+  validateValue(): string[] {
+    return [];
   }
 }

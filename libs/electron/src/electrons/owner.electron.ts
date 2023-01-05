@@ -1,9 +1,3 @@
-import { MetadataElectron } from '@shukun/schema';
+import { ManyToOneElectron } from './many-to-one.electron';
 
-import { ElectronFactoryInterface } from '../electron-factory';
-
-export class OwnerElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron) {
-    return `table.string('${electron.name}', 255);`;
-  }
-}
+export class OwnerElectron extends ManyToOneElectron {}
