@@ -12,7 +12,7 @@ describe('float', () => {
     };
 
     const field = new FloatElectron();
-    const output = field.sqlSchemaBuilder(electron);
+    const output = field.buildSqlSchema(electron);
     expect(output).toEqual(`table.float('mock', 8, 2).notNullable();`);
   });
 
@@ -25,7 +25,7 @@ describe('float', () => {
     };
 
     const field = new FloatElectron();
-    const output = field.sqlSchemaBuilder(electron);
+    const output = field.buildSqlSchema(electron);
     expect(output).toEqual(`table.float('mock', 8, 2).nullable();`);
   });
 
@@ -40,7 +40,7 @@ describe('float', () => {
     };
 
     const field = new FloatElectron();
-    const output = field.sqlSchemaBuilder(electron);
+    const output = field.buildSqlSchema(electron);
     expect(output).toEqual(`table.float('mock', 12, 6).nullable();`);
   });
 });

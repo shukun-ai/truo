@@ -7,7 +7,7 @@ export class CurrencyElectron implements ElectronFactoryInterface {
   DEFAULT_PRECISION = 15;
   DEFAULT_SCALE = 4;
 
-  sqlSchemaBuilder(electron: MetadataElectron) {
+  buildSqlSchema(electron: MetadataElectron) {
     this.validateElectron(electron);
 
     const precision = this.DEFAULT_PRECISION;

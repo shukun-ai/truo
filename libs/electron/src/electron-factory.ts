@@ -17,7 +17,7 @@ import { SingleSelectElectron } from './electrons/single-select.electron';
 import { TextElectron } from './electrons/text.electron';
 
 export interface ElectronFactoryInterface {
-  sqlSchemaBuilder: (electron: MetadataElectron) => string;
+  buildSqlSchema: (electron: MetadataElectron) => string;
 }
 
 export function getFieldInstance(
