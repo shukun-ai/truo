@@ -1,7 +1,6 @@
 import { MetadataElectron } from '@shukun/schema';
-import { Schema } from 'mongoose';
 
-import { ElectronFactoryInterface, MongooseSchema } from '../electron-factory';
+import { ElectronFactoryInterface } from '../electron-factory';
 
 export class FloatElectron implements ElectronFactoryInterface {
   DEFAULT_PRECISION = 8;
@@ -12,19 +11,5 @@ export class FloatElectron implements ElectronFactoryInterface {
     const scale = electron.scale ?? this.DEFAULT_SCALE;
 
     return `.float('${electron.name}', ${precision}, ${scale})`;
-  }
-
-  buildMongooseSchema(): MongooseSchema {
-    return {
-      type: Schema.Types.Number,
-    };
-  }
-
-  validateElectron(electron: MetadataElectron): void {
-    return;
-  }
-
-  validateValue(): string[] {
-    return [];
   }
 }
