@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { IDString } from '@shukun/api';
-import { getElectronInstance } from '@shukun/electron';
 import { MetadataSchema } from '@shukun/schema';
+
+import { getFieldInstance } from '../electron/fields-map';
 
 @Injectable()
 export class PostgresElectronConvertorService<Model> {
@@ -25,7 +26,7 @@ export class PostgresElectronConvertorService<Model> {
         (electron) => electron.name === key,
       );
       if (electron) {
-        const instance = getElectronInstance(electron.fieldType);
+        const instance = getFieldInstance(electron.fieldType);
         newEntity[key] = instance.afterQuery
           ? instance.afterQuery(value, electron)
           : value;

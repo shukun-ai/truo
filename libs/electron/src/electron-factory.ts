@@ -45,7 +45,7 @@ export interface MongooseSchema {
   transform?: (value: unknown) => unknown;
 }
 
-export function getElectronInstance(
+export function getFieldInstance(
   fieldType: MetadataFieldType,
 ): ElectronFactoryInterface {
   switch (fieldType) {
