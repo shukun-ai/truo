@@ -2,7 +2,6 @@ import { MetadataElectron } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
 import { ElectronFactoryInterface, MongooseSchema } from '../electron-factory';
-import { buildConstraint } from '../sql-schema/build-constraint';
 
 export class CurrencyElectron implements ElectronFactoryInterface {
   DEFAULT_PRECISION = 15;
@@ -11,9 +10,8 @@ export class CurrencyElectron implements ElectronFactoryInterface {
   buildSqlSchema(electron: MetadataElectron): string {
     const precision = this.DEFAULT_PRECISION;
     const scale = this.DEFAULT_SCALE;
-    const constraint = buildConstraint(electron);
 
-    return `table.float('${electron.name}', ${precision}, ${scale})${constraint};`;
+    return `.float('${electron.name}', ${precision}, ${scale})`;
   }
 
   buildMongooseSchema(): MongooseSchema {
