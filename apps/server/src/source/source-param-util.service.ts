@@ -1,8 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { getElectronInstance } from '@shukun/electron';
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataFieldType, MetadataSchema } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../app.type';
+
+import { getFieldInstance } from './electron/fields-map';
 
 @Injectable()
 export class SourceParamUtilService {
@@ -22,7 +23,7 @@ export class SourceParamUtilService {
         );
 
         if (electron) {
-          const field = getElectronInstance(electron.fieldType);
+          const field = getFieldInstance(electron.fieldType);
           const result = field.validateValue(value, electron);
 
           const newMessage = result.map((message) => `${key} ${message}`);
