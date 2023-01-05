@@ -1,9 +1,5 @@
+import { isEngineName, isStartedWithLowercase } from '@shukun/electron';
 import { Schema } from 'mongoose';
-
-import {
-  isEngineName,
-  isStartedWithLowercase,
-} from '../../../util/validation/decorators';
 
 import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
 
