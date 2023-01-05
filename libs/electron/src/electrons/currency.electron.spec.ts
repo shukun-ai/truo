@@ -12,7 +12,7 @@ describe('Currency', () => {
     };
 
     const field = new CurrencyElectron();
-    const output = field.sqlSchemaBuilder(electron);
+    const output = field.buildSqlSchema(electron);
     expect(output).toEqual(`table.float('mock', 15, 4).notNullable();`);
   });
 
@@ -27,7 +27,7 @@ describe('Currency', () => {
     };
 
     const field = new CurrencyElectron();
-    expect(() => field.sqlSchemaBuilder(electron)).toThrow(
+    expect(() => field.buildSqlSchema(electron)).toThrow(
       new Error(
         'Please remove precision and scale, those value is not used for Currency type.',
       ),

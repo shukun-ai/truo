@@ -7,7 +7,7 @@ export class FloatElectron implements ElectronFactoryInterface {
   DEFAULT_PRECISION = 8;
   DEFAULT_SCALE = 2;
 
-  sqlSchemaBuilder(electron: MetadataElectron) {
+  buildSqlSchema(electron: MetadataElectron) {
     const precision = electron.precision ?? this.DEFAULT_PRECISION;
     const scale = electron.scale ?? this.DEFAULT_SCALE;
     const constraint = buildConstraint(electron);
