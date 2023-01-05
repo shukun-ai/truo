@@ -1,9 +1,5 @@
+import { isStartedWithLowercase } from '@shukun/electron';
 import { registerDecorator, ValidationOptions } from 'class-validator';
-
-export function isStartedWithLowercase(value: unknown) {
-  const regex = new RegExp(/^[a-z]{1,}/);
-  return typeof value === 'string' && regex.test(value);
-}
 
 export function IsStartedWithLowercase(validationOptions?: ValidationOptions) {
   validationOptions = {

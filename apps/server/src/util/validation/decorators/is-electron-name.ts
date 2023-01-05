@@ -1,9 +1,5 @@
+import { isElectronName } from '@shukun/electron';
 import { registerDecorator, ValidationOptions } from 'class-validator';
-
-export function isElectronName(value: unknown) {
-  const regex = new RegExp(/^[a-zA-Z0-9_]*$/);
-  return typeof value === 'string' && regex.test(value);
-}
 
 export function IsElectronName(validationOptions?: ValidationOptions) {
   validationOptions = {
