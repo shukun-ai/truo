@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import { MetadataFieldType } from '@shukun/schema';
 
 import { ElectronType } from './electron-field.interface';
@@ -20,37 +19,41 @@ import { RoleField } from './fields/role.field';
 import { SingleSelectField } from './fields/single-select.field';
 import { TextField } from './fields/text.field';
 
-const fieldsMap: { [keyName in MetadataFieldType]: any } = {
-  Text: TextField,
-  NameText: NameTextField,
-  LargeText: LargeTextField,
-  SingleSelect: SingleSelectField,
-  MultiSelect: MultiSelectField,
-  Boolean: BooleanField,
-  DateTime: DateTimeField,
-  Integer: IntegerField,
-  Float: FloatField,
-  Currency: CurrencyField,
-  Password: PasswordField,
-  ManyToMany: ManyToManyField,
-  ManyToOne: ManyToOneField,
-  Owner: OwnerField,
-  Attachment: AttachmentField,
-  Mixed: MixedField,
-  Role: RoleField,
-};
-
-export function getFieldInstance(
-  fieldType: MetadataFieldType | string,
-): ElectronType {
-  if (!Object.keys(fieldsMap).includes(fieldType)) {
-    throw new Error(`We do not support ${fieldType} field type.`);
+export function getFieldInstance(fieldType: MetadataFieldType): ElectronType {
+  switch (fieldType) {
+    case MetadataFieldType.Text:
+      return new TextField();
+    case MetadataFieldType.NameText:
+      return new NameTextField();
+    case MetadataFieldType.LargeText:
+      return new LargeTextField();
+    case MetadataFieldType.SingleSelect:
+      return new SingleSelectField();
+    case MetadataFieldType.MultiSelect:
+      return new MultiSelectField();
+    case MetadataFieldType.Boolean:
+      return new BooleanField();
+    case MetadataFieldType.DateTime:
+      return new DateTimeField();
+    case MetadataFieldType.Integer:
+      return new IntegerField();
+    case MetadataFieldType.Float:
+      return new FloatField();
+    case MetadataFieldType.Currency:
+      return new CurrencyField();
+    case MetadataFieldType.Password:
+      return new PasswordField();
+    case MetadataFieldType.ManyToMany:
+      return new ManyToManyField();
+    case MetadataFieldType.ManyToOne:
+      return new ManyToOneField();
+    case MetadataFieldType.Owner:
+      return new OwnerField();
+    case MetadataFieldType.Attachment:
+      return new AttachmentField();
+    case MetadataFieldType.Mixed:
+      return new MixedField();
+    case MetadataFieldType.Role:
+      return new RoleField();
   }
-
-  const Type = fieldsMap[fieldType as MetadataFieldType];
-
-  if (!Type) {
-    throw new BadRequestException(`We do not support ${fieldType} field type.`);
-  }
-  return new Type() as ElectronType;
 }

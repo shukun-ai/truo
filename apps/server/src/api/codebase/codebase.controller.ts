@@ -20,6 +20,7 @@ import { Express } from 'express';
 import { CompilerService } from '../../compiler/compiler.service';
 import { FlowService } from '../../core/flow.service';
 import { OrgService } from '../../core/org.service';
+import { ScheduleOrgOperatorService } from '../../schedule/schedule-org-operator.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
@@ -31,6 +32,7 @@ export class CodebaseController {
     private readonly orgService: OrgService,
     private readonly flowService: FlowService,
     private readonly compilerService: CompilerService,
+    private readonly scheduleOrgOperatorService: ScheduleOrgOperatorService,
   ) {}
 
   @Post()
@@ -91,12 +93,13 @@ export class CodebaseController {
 
     await this.compileOrgFlowCodes(orgName);
 
+    await this.bootstrapOrgSchedules(orgName);
+
     return {
       value: null,
     };
   }
 
-  @Post()
   async compileOrgFlowCodes(orgName: string): Promise<QueryResponse<null>> {
     const flows = await this.flowService.findAll(orgName);
     const flowOrgCompiledCodes = await this.compilerService.compileFlows(flows);
@@ -105,6 +108,16 @@ export class CodebaseController {
       orgName,
       flowOrgCompiledCodes,
     );
+
+    return {
+      value: null,
+    };
+  }
+
+  async bootstrapOrgSchedules(orgName: string): Promise<QueryResponse<null>> {
+    this.scheduleOrgOperatorService.unregisterOrgSchedules(orgName);
+    await this.scheduleOrgOperatorService.registerOrgSchedules(orgName);
+    this.scheduleOrgOperatorService.startOrgSchedules(orgName);
 
     return {
       value: null,

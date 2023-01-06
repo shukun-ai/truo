@@ -12,4 +12,8 @@ export class MixedField implements ElectronType {
       type: Schema.Types.Mixed,
     };
   }
+
+  // TODO set beforeSave for SQL source
+  // @see {@link https://knexjs.org/guide/schema-builder.html#json}
+  // JSON.stringify(mightBeAnArray)
 }

@@ -1,9 +1,5 @@
+import { isEngineName } from '@shukun/electron';
 import { registerDecorator, ValidationOptions } from 'class-validator';
-
-export function isEngineName(value: unknown) {
-  const regex = new RegExp(/^[a-z0-9_]*$/);
-  return typeof value === 'string' && regex.test(value);
-}
 
 export function IsEngineName(validationOptions?: ValidationOptions) {
   validationOptions = {
