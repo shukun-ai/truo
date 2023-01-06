@@ -1,20 +1,20 @@
 import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
 
-import { TextElectron } from './text.electron';
+import { IntegerElectron } from './integer.electron';
 
-describe('Text Electron', () => {
+describe('Integer Electron', () => {
   describe('buildSqlSchema', () => {
     it('Should show default length.', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Text,
+        fieldType: MetadataFieldType.Integer,
         isRequired: true,
       };
 
-      const field = new TextElectron();
+      const field = new IntegerElectron();
       const output = field.buildSqlSchema(electron);
-      expect(output).toEqual(`.string('mock', 1000)`);
+      expect(output).toEqual(`.bigInteger('mock')`);
     });
   });
 });
