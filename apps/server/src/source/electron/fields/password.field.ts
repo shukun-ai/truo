@@ -1,3 +1,7 @@
+import {
+  PASSWORD_DEFAULT_MAX_LENGTH,
+  PASSWORD_DEFAULT_MIN_LENGTH,
+} from '@shukun/electron';
 import { MetadataElectron } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
@@ -7,16 +11,13 @@ import { cryptoPassword } from '../../../identity/utils/password.utils';
 
 import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
 
-const DEFAULT_PASSWORD_MIN_LENGTH = 6;
-const DEFAULT_PASSWORD_MAX_LENGTH = 99;
-
 export class PasswordField implements ElectronType {
   validateValue(value: unknown, electron: MetadataElectron) {
     const messages = [];
     const minLength =
-      electron.passwordOptions?.minLength || DEFAULT_PASSWORD_MIN_LENGTH;
+      electron.passwordOptions?.minLength || PASSWORD_DEFAULT_MIN_LENGTH;
     const maxLength =
-      electron.passwordOptions?.maxLength || DEFAULT_PASSWORD_MAX_LENGTH;
+      electron.passwordOptions?.maxLength || PASSWORD_DEFAULT_MAX_LENGTH;
 
     if (!value || typeof value !== 'string') {
       messages.push('密码输入值应为非空字符串。');
