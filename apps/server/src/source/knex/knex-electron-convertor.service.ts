@@ -5,7 +5,7 @@ import { MetadataSchema } from '@shukun/schema';
 import { getFieldInstance } from '../electron/fields-map';
 
 @Injectable()
-export class PostgresElectronConvertorService<Model> {
+export class KnexElectronConvertorService<Model> {
   convertAfterQuery(
     entities: Array<{ _id: IDString } & Model>,
     metadata: MetadataSchema,

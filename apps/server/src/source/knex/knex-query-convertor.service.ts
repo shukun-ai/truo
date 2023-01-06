@@ -9,7 +9,7 @@ import { Knex } from 'knex';
 import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../../app.constant';
 
 @Injectable()
-export class PostgresQueryConvertorService {
+export class KnexQueryConvertorService {
   parseQuery(
     client: Knex,
     filter: HttpQuerySchema['filter'],
