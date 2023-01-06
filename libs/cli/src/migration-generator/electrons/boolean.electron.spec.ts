@@ -1,20 +1,20 @@
 import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
 
-import { TextElectron } from './text.electron';
+import { BooleanElectron } from './boolean.electron';
 
-describe('Text Electron', () => {
+describe('Boolean Electron', () => {
   describe('buildSqlSchema', () => {
-    it('Should show default length.', () => {
+    it('Should show timestamp.', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Text,
+        fieldType: MetadataFieldType.Boolean,
         isRequired: true,
       };
 
-      const field = new TextElectron();
+      const field = new BooleanElectron();
       const output = field.buildSqlSchema(electron);
-      expect(output).toEqual(`.string('mock', 1000)`);
+      expect(output).toEqual(`.boolean('mock')`);
     });
   });
 });

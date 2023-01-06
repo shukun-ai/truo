@@ -1,20 +1,20 @@
 import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
 
-import { TextElectron } from './text.electron';
+import { AttachmentElectron } from './attachment.electron';
 
-describe('Text Electron', () => {
+describe('Attachment Electron', () => {
   describe('buildSqlSchema', () => {
     it('Should show default length.', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Text,
+        fieldType: MetadataFieldType.Attachment,
         isRequired: true,
       };
 
-      const field = new TextElectron();
+      const field = new AttachmentElectron();
       const output = field.buildSqlSchema(electron);
-      expect(output).toEqual(`.string('mock', 1000)`);
+      expect(output).toEqual(`.json('mock')`);
     });
   });
 });

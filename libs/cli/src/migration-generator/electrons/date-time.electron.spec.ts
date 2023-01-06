@@ -1,20 +1,20 @@
 import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
 
-import { TextElectron } from './text.electron';
+import { DateTimeElectron } from './date-time.electron';
 
-describe('Text Electron', () => {
+describe('DateTime Electron', () => {
   describe('buildSqlSchema', () => {
-    it('Should show default length.', () => {
+    it('Should show timestamp.', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Text,
+        fieldType: MetadataFieldType.DateTime,
         isRequired: true,
       };
 
-      const field = new TextElectron();
+      const field = new DateTimeElectron();
       const output = field.buildSqlSchema(electron);
-      expect(output).toEqual(`.string('mock', 1000)`);
+      expect(output).toEqual(`.timestamp('mock')`);
     });
   });
 });
