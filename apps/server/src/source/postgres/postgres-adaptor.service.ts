@@ -9,6 +9,7 @@ import { DatabaseAdaptor } from '../adaptor/database-adaptor.interface';
 
 import { PostgresConnectionService } from './postgres-connection.service';
 import { PostgresElectronConvertorService } from './postgres-electron-convertor.service';
+import { PostgresExceptionHandlerService } from './postgres-exception-handler.service';
 import { PostgresQueryConvertorService } from './postgres-query-convertor.service';
 
 @Injectable()
@@ -17,6 +18,7 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     private readonly postgresConnectionService: PostgresConnectionService,
     private readonly postgresQueryConvertorService: PostgresQueryConvertorService,
     private readonly postgresElectronConvertorService: PostgresElectronConvertorService<Model>,
+    private readonly postgresExceptionHandlerService: PostgresExceptionHandlerService,
   ) {}
 
   async createOne(
@@ -35,13 +37,18 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const id = new ObjectId().toString();
     const updatedAt = new Date();
     const createdAt = updatedAt;
-    await client(tableName).insert({
-      ...params,
-      _id: id,
-      createdAt,
-      updatedAt,
-    });
-    return { _id: id };
+
+    try {
+      await client(tableName).insert({
+        ...params,
+        _id: id,
+        createdAt,
+        updatedAt,
+      });
+      return { _id: id };
+    } catch (error) {
+      throw this.postgresExceptionHandlerService.handle(error);
+    }
   }
 
   async updateOne(
@@ -59,9 +66,13 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
       metadata,
     );
     const updatedAt = new Date();
-    await client(tableName)
-      .where('_id', id)
-      .update({ ...params, updatedAt });
+    try {
+      await client(tableName)
+        .where('_id', id)
+        .update({ ...params, updatedAt });
+    } catch (error) {
+      throw this.postgresExceptionHandlerService.handle(error);
+    }
   }
 
   async findOne(
