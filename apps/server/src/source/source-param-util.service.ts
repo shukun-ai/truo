@@ -23,9 +23,7 @@ export class SourceParamUtilService {
         );
 
         if (electron) {
-          const field = getFieldInstance(
-            electron.fieldType as MetadataFieldType,
-          );
+          const field = getFieldInstance(electron.fieldType);
           const result = field.validateValue(value, electron);
 
           const newMessage = result.map((message) => `${key} ${message}`);

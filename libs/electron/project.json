@@ -1,0 +1,37 @@
+{
+  "root": "libs/electron",
+  "sourceRoot": "libs/electron/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/electron",
+        "tsConfig": "libs/electron/tsconfig.lib.json",
+        "packageJson": "libs/electron/package.json",
+        "main": "libs/electron/src/index.ts",
+        "assets": ["libs/electron/*.md"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/electron/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/electron"],
+      "options": {
+        "jestConfig": "libs/electron/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

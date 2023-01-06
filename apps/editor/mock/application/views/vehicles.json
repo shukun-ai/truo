@@ -1,0 +1,61 @@
+{
+  "$schema": "../../../../../libs/schema/src/json-schemas/view.schema.json",
+  "name": "vehicles",
+  "label": "Vehicles",
+  "type": "Simple",
+  "isVisible": true,
+  "priority": 0,
+  "atomName": "vehicles",
+  "configurations": {
+    "v2Columns": [
+      {
+        "name": "license",
+        "label": "Vehicle License",
+        "type": "LinkText",
+        "electronName": "license",
+        "link": {
+          "type": "ReadOne"
+        }
+      },
+      {
+        "name": "type",
+        "label": "Type",
+        "type": "SingleSelect",
+        "electronName": "type"
+      }
+    ],
+    "v2Fields": [
+      {
+        "name": "license",
+        "label": "Vehicle License",
+        "type": "LinkText",
+        "electronName": "license"
+      },
+      {
+        "name": "type",
+        "label": "Type",
+        "type": "SingleSelect",
+        "electronName": "type"
+      }
+    ],
+    "v2FieldRibbons": [
+      {
+        "name": "edit",
+        "label": "编辑",
+        "type": "UpdateOne"
+      },
+      {
+        "name": "delete",
+        "label": "删除",
+        "type": "DeleteOne"
+      }
+    ],
+    "v2ColumnRibbons": [
+      {
+        "name": "create",
+        "label": "新建",
+        "type": "CreateOne"
+      }
+    ]
+  }
+}

@@ -1,11 +1,13 @@
 import { format, Options as FormatOptions } from 'prettier';
 
+import { readApplication } from '../io/read-application';
+
+import { writeFile } from '../io/write-file';
+
 import { extractAtom } from './helpers/extract-atom';
 import { extractElectronOptions } from './helpers/extract-electron-options';
 import { extractMetadataToTypes } from './helpers/extract-metadata';
 import { extractShard } from './helpers/extract-shared';
-import { readApplication } from './helpers/read-application';
-import { writeFile } from './helpers/write-file';
 
 export interface TypeGeneratorOptions {
   inputFile: string;

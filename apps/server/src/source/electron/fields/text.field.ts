@@ -1,10 +1,20 @@
+import { isMaxLength, TEXT_MAX_LENGTH } from '@shukun/electron';
+import { MetadataElectron } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
 import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
 
 export class TextField implements ElectronType {
-  validateValue() {
-    return [];
+  validateValue(value: unknown, electron: MetadataElectron): string[] {
+    const errorMessages = [];
+
+    if (isMaxLength(value, TEXT_MAX_LENGTH)) {
+      errorMessages.push(
+        `${electron.name} 字段输入值应小于 ${TEXT_MAX_LENGTH} 位。`,
+      );
+    }
+
+    return errorMessages;
   }
 
   buildSchema(): SchemaBuilderResult {

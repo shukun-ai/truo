@@ -1,9 +1,5 @@
+import { isNotDoubleUnderscore } from '@shukun/electron';
 import { registerDecorator, ValidationOptions } from 'class-validator';
-
-export function isNotDoubleUnderscore(value: unknown) {
-  const regex = new RegExp(/_{2,}/);
-  return typeof value === 'string' && !regex.test(value);
-}
 
 export function IsNotDoubleUnderscore(validationOptions?: ValidationOptions) {
   validationOptions = {
