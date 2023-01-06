@@ -3,14 +3,14 @@ import { Module } from '@nestjs/common';
 import { CoreModule } from '../core/core.module';
 import { PassportModule } from '../util/passport/passport.module';
 
+import { KnexAdaptorService } from './knex/knex-adaptor.service';
+import { KnexConnectionService } from './knex/knex-connection.service';
+import { KnexElectronConvertorService } from './knex/knex-electron-convertor.service';
+import { KnexExceptionHandlerService } from './knex/knex-exception-handler.service';
+import { KnexQueryConvertorService } from './knex/knex-query-convertor.service';
 import { MongoAdaptorService } from './mongo/mongo-adaptor.service';
 import { MongoQueryConvertorService } from './mongo/mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongo/mongoose-connection.service';
-import { PostgresAdaptorService } from './postgres/postgres-adaptor.service';
-import { PostgresConnectionService } from './postgres/postgres-connection.service';
-import { PostgresElectronConvertorService } from './postgres/postgres-electron-convertor.service';
-import { PostgresExceptionHandlerService } from './postgres/postgres-exception-handler.service';
-import { PostgresQueryConvertorService } from './postgres/postgres-query-convertor.service';
 import { SourceDataAccessService } from './source-data-access.service';
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';
@@ -29,11 +29,11 @@ import { VariableService } from './variable/variable.service';
     MongoAdaptorService,
     MongoQueryConvertorService,
     MongooseConnectionService,
-    PostgresAdaptorService,
-    PostgresConnectionService,
-    PostgresQueryConvertorService,
-    PostgresElectronConvertorService,
-    PostgresExceptionHandlerService,
+    KnexAdaptorService,
+    KnexConnectionService,
+    KnexQueryConvertorService,
+    KnexElectronConvertorService,
+    KnexExceptionHandlerService,
     SourceDataAccessService,
     SourceForeignQueryService,
   ],

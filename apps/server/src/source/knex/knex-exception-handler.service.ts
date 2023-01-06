@@ -1,8 +1,8 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
-export class PostgresExceptionHandlerService {
-  handle(error: unknown): Error {
+export class KnexExceptionHandlerService {
+  handle(error: any): Error {
     if (
       typeof error === 'object' &&
       error !== null &&
@@ -40,7 +40,7 @@ export class PostgresExceptionHandlerService {
     routine: '_bt_check_unique'
   }
   */
-  handlePostgresDuplicationException(error: unknown): Error {
+  handlePostgresDuplicationException(error: any): Error {
     const message =
       typeof error === 'object' && error !== null && 'detail' in error
         ? error.detail

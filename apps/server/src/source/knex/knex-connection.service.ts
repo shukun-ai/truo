@@ -6,7 +6,7 @@ import { OrgService } from '../../core/org.service';
 import { TypeException } from '../../exceptions/type-exception';
 
 @Injectable()
-export class PostgresConnectionService {
+export class KnexConnectionService {
   constructor(private readonly orgService: OrgService) {}
 
   async getClient(orgName: string, metadata: MetadataSchema) {

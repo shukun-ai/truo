@@ -7,18 +7,18 @@ import { SourceServiceCreateDto } from '../../app.type';
 
 import { DatabaseAdaptor } from '../adaptor/database-adaptor.interface';
 
-import { PostgresConnectionService } from './postgres-connection.service';
-import { PostgresElectronConvertorService } from './postgres-electron-convertor.service';
-import { PostgresExceptionHandlerService } from './postgres-exception-handler.service';
-import { PostgresQueryConvertorService } from './postgres-query-convertor.service';
+import { KnexConnectionService } from './knex-connection.service';
+import { KnexElectronConvertorService } from './knex-electron-convertor.service';
+import { KnexExceptionHandlerService } from './knex-exception-handler.service';
+import { KnexQueryConvertorService } from './knex-query-convertor.service';
 
 @Injectable()
-export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
+export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   constructor(
-    private readonly postgresConnectionService: PostgresConnectionService,
-    private readonly postgresQueryConvertorService: PostgresQueryConvertorService,
-    private readonly postgresElectronConvertorService: PostgresElectronConvertorService<Model>,
-    private readonly postgresExceptionHandlerService: PostgresExceptionHandlerService,
+    private readonly knexConnectionService: KnexConnectionService,
+    private readonly knexQueryConvertorService: KnexQueryConvertorService,
+    private readonly knexElectronConvertorService: KnexElectronConvertorService<Model>,
+    private readonly knexExceptionHandlerService: KnexExceptionHandlerService,
   ) {}
 
   async createOne(
@@ -26,11 +26,11 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
   ): Promise<{ _id: IDString }> {
-    const tableName = this.postgresConnectionService.getTableName(
+    const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
     );
-    const client = await this.postgresConnectionService.getClient(
+    const client = await this.knexConnectionService.getClient(
       orgName,
       metadata,
     );
@@ -47,7 +47,7 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
       });
       return { _id: id };
     } catch (error) {
-      throw this.postgresExceptionHandlerService.handle(error);
+      throw this.knexExceptionHandlerService.handle(error);
     }
   }
 
@@ -57,11 +57,11 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     id: IDString,
     params: SourceServiceCreateDto,
   ): Promise<void> {
-    const tableName = this.postgresConnectionService.getTableName(
+    const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
     );
-    const client = await this.postgresConnectionService.getClient(
+    const client = await this.knexConnectionService.getClient(
       orgName,
       metadata,
     );
@@ -71,7 +71,7 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
         .where('_id', id)
         .update({ ...params, updatedAt });
     } catch (error) {
-      throw this.postgresExceptionHandlerService.handle(error);
+      throw this.knexExceptionHandlerService.handle(error);
     }
   }
 
@@ -80,35 +80,35 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     metadata: MetadataSchema,
     query: HttpQuerySchema,
   ): Promise<{ _id: IDString } & Model> {
-    const tableName = this.postgresConnectionService.getTableName(
+    const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
     );
-    const client = await this.postgresConnectionService.getClient(
+    const client = await this.knexConnectionService.getClient(
       orgName,
       metadata,
     );
 
-    let queryBuilder = this.postgresQueryConvertorService.parseQuery(
+    let queryBuilder = this.knexQueryConvertorService.parseQuery(
       client,
       query.filter,
     );
-    queryBuilder = this.postgresQueryConvertorService.parseSelect(
+    queryBuilder = this.knexQueryConvertorService.parseSelect(
       queryBuilder,
       query.select,
     );
-    queryBuilder = this.postgresQueryConvertorService.parseSort(
+    queryBuilder = this.knexQueryConvertorService.parseSort(
       queryBuilder,
       query.sort,
     );
-    queryBuilder = this.postgresQueryConvertorService.parseSkip(
+    queryBuilder = this.knexQueryConvertorService.parseSkip(
       queryBuilder,
       query.skip,
     );
 
     const value = await queryBuilder.from(tableName).first();
 
-    return this.postgresElectronConvertorService.convertAfterQueryForOne(
+    return this.knexElectronConvertorService.convertAfterQueryForOne(
       value,
       metadata,
     );
@@ -119,42 +119,39 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     metadata: MetadataSchema,
     query: HttpQuerySchema,
   ): Promise<Array<{ _id: IDString } & Model>> {
-    const tableName = this.postgresConnectionService.getTableName(
+    const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
     );
-    const client = await this.postgresConnectionService.getClient(
+    const client = await this.knexConnectionService.getClient(
       orgName,
       metadata,
     );
 
-    let queryBuilder = this.postgresQueryConvertorService.parseQuery(
+    let queryBuilder = this.knexQueryConvertorService.parseQuery(
       client,
       query.filter,
     );
-    queryBuilder = this.postgresQueryConvertorService.parseSelect(
+    queryBuilder = this.knexQueryConvertorService.parseSelect(
       queryBuilder,
       query.select,
     );
-    queryBuilder = this.postgresQueryConvertorService.parseSort(
+    queryBuilder = this.knexQueryConvertorService.parseSort(
       queryBuilder,
       query.sort,
     );
-    queryBuilder = this.postgresQueryConvertorService.parseSkip(
+    queryBuilder = this.knexQueryConvertorService.parseSkip(
       queryBuilder,
       query.skip,
     );
-    queryBuilder = this.postgresQueryConvertorService.parseLimit(
+    queryBuilder = this.knexQueryConvertorService.parseLimit(
       queryBuilder,
       query.limit,
     );
 
     const value = await queryBuilder.from(tableName);
 
-    return this.postgresElectronConvertorService.convertAfterQuery(
-      value,
-      metadata,
-    );
+    return this.knexElectronConvertorService.convertAfterQuery(value, metadata);
   }
 
   async count(
@@ -162,15 +159,15 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     metadata: MetadataSchema,
     query: HttpQuerySchema,
   ): Promise<number> {
-    const tableName = this.postgresConnectionService.getTableName(
+    const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
     );
-    const client = await this.postgresConnectionService.getClient(
+    const client = await this.knexConnectionService.getClient(
       orgName,
       metadata,
     );
-    const value = await this.postgresQueryConvertorService
+    const value = await this.knexQueryConvertorService
       .parseQuery(client, query.filter)
       .from(tableName)
       .count();
@@ -185,11 +182,11 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     metadata: MetadataSchema,
     id: IDString,
   ): Promise<void> {
-    const tableName = this.postgresConnectionService.getTableName(
+    const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
     );
-    const client = await this.postgresConnectionService.getClient(
+    const client = await this.knexConnectionService.getClient(
       orgName,
       metadata,
     );
@@ -223,11 +220,11 @@ export class PostgresAdaptorService<Model> implements DatabaseAdaptor<Model> {
     electronName: string,
     increment: number,
   ): Promise<void> {
-    const tableName = this.postgresConnectionService.getTableName(
+    const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
     );
-    const client = await this.postgresConnectionService.getClient(
+    const client = await this.knexConnectionService.getClient(
       orgName,
       metadata,
     );
