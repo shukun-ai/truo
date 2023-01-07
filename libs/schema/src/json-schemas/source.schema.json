@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "SourceSchema",
+  "description": "Describe Source Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["connections"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "connections": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "title": "SourceConnection",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["connection", "metadata"],
+          "properties": {
+            "connection": {
+              "type": "string",
+              "description": "The data will be saved into system-level Database (MongoDB). The rule like: protocol://username:password@host:port/database?options..."
+            },
+            "metadata": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tablePrefix": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

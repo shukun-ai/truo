@@ -1,0 +1,8 @@
+{
+  "connections": {
+    "postgres": {
+      "connection": "postgres://localhost/database",
+      "metadata": ["devices"]
+    }
+  }
+}
