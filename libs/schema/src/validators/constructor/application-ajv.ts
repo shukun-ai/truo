@@ -1,5 +1,4 @@
-import Ajv, { Options } from 'ajv';
-import { isEmail, isISO8601 } from 'class-validator';
+import { Options } from 'ajv';
 
 import {
   applicationSchema,
@@ -37,27 +36,10 @@ import {
   scheduleSchema,
 } from '../../json-exports';
 
-export function createAjv(options?: Options) {
-  const ajv = new Ajv(options);
+import { createBaseAjv } from './base-ajv';
 
-  const validate = ajv
-    .addKeyword('tsEnumNames')
-    .addKeyword('skEditorType')
-    .addFormat('email', {
-      type: 'string',
-      validate: (value: string) => isEmail(value),
-    })
-    .addFormat('dateTimeISO', {
-      type: 'string',
-      validate: (value: string) => isISO8601(value, { strict: true }),
-    })
-    .addFormat('apiName', {
-      type: 'string',
-      validate: (value: string) => {
-        const regex = new RegExp(/^[a-z0-9_]*$/);
-        return regex.test(value);
-      },
-    })
+export function createApplicationAjv(options?: Options) {
+  const validate = createBaseAjv(options)
     .addSchema(applicationSchema, 'application.schema.json')
     .addSchema(metadataSchema, 'metadata.schema.json')
     .addSchema(viewSchema, 'view.schema.json')
