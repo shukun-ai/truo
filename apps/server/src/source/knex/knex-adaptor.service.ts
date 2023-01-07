@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { IDString } from '@shukun/api';
-import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
+import {
+  DataSourceConnection,
+  HttpQuerySchema,
+  MetadataSchema,
+} from '@shukun/schema';
 import { ObjectId } from 'mongodb';
 
 import { SourceServiceCreateDto } from '../../app.type';
@@ -22,6 +26,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   ) {}
 
   async createOne(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
@@ -29,10 +34,10 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
+      dataSourceConnection,
     );
     const client = await this.knexConnectionService.getClient(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
     const id = new ObjectId().toString();
     const updatedAt = new Date();
@@ -52,6 +57,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async updateOne(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -60,10 +66,10 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
+      dataSourceConnection,
     );
     const client = await this.knexConnectionService.getClient(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
     const updatedAt = new Date();
     try {
@@ -76,6 +82,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async findOne(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -83,10 +90,10 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
+      dataSourceConnection,
     );
     const client = await this.knexConnectionService.getClient(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
 
     let queryBuilder = this.knexQueryConvertorService.parseQuery(
@@ -115,6 +122,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async findAll(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -122,10 +130,10 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
+      dataSourceConnection,
     );
     const client = await this.knexConnectionService.getClient(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
 
     let queryBuilder = this.knexQueryConvertorService.parseQuery(
@@ -155,6 +163,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async count(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -162,10 +171,10 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
+      dataSourceConnection,
     );
     const client = await this.knexConnectionService.getClient(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
     const value = await this.knexQueryConvertorService
       .parseQuery(client, query.filter)
@@ -178,6 +187,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async deleteOne(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -185,15 +195,16 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
+      dataSourceConnection,
     );
     const client = await this.knexConnectionService.getClient(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
     await client(tableName).where('_id', id).delete();
   }
 
   async addToMany(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -204,6 +215,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async removeFromMany(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -214,6 +226,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async increase(
+    dataSourceConnection: DataSourceConnection | null,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -223,10 +236,10 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
       metadata,
+      dataSourceConnection,
     );
     const client = await this.knexConnectionService.getClient(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
     await client(tableName).where('_id', id).increment(electronName, increment);
   }

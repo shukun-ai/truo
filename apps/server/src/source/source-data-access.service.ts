@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { MetadataSchema } from '@shukun/schema';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { DataSourceConnection } from '@shukun/schema';
 
 import { DatabaseAdaptor } from './adaptor/database-adaptor.interface';
 import { KnexAdaptorService } from './knex/knex-adaptor.service';
@@ -9,16 +9,19 @@ import { MongoAdaptorService } from './mongo/mongo-adaptor.service';
 export class SourceDataAccessService<Model> {
   constructor(
     private readonly mongoAdaptorService: MongoAdaptorService<Model>,
-    private readonly postgresAdaptorService: KnexAdaptorService<Model>,
+    private readonly knexAdaptorService: KnexAdaptorService<Model>,
   ) {}
 
   async getAdaptor(
-    orgName: string,
-    metadata: MetadataSchema,
+    dataSourceConnection: DataSourceConnection | null,
   ): Promise<DatabaseAdaptor<Model>> {
     // TODO add env to enable other data source for security reason, because if the service is host in a SASS.
-    if (metadata.source && metadata.source.startsWith('postgres')) {
-      return this.postgresAdaptorService;
+    if (dataSourceConnection?.type === 'postgres') {
+      return this.knexAdaptorService;
+    }
+
+    if (dataSourceConnection?.type === 'oracleDB') {
+      throw new BadRequestException('We did not support oracleDB.');
     }
 
     return this.mongoAdaptorService;

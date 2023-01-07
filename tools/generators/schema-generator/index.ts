@@ -33,6 +33,7 @@ async function generate(treeRoot: string, projectRoot: string) {
     'http-query',
     'flow-compiled-codes',
     'exception',
+    'data-source',
   ];
 
   const queue = list.map(async (fileName: string) => {

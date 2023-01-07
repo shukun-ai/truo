@@ -15,6 +15,7 @@ import { AuthenticationController } from './authentication/authentication.contro
 import { AuthorizationController } from './authorization/authorization.controller';
 import { AuthorizationService } from './authorization/authorization.service';
 import { CodebaseController } from './codebase/codebase.controller';
+import { DataSourceController } from './data-source/data-source.controller';
 import { GrantListController } from './grant-list/grant-list.controller';
 import { GrantRoleController } from './grant-role/grant-role.controller';
 import { InspectionController } from './inspection/inspection.controller';
@@ -47,6 +48,7 @@ import { WebhookController } from './webhook/webhook.controller';
     WebhookController,
     ViewController,
     CodebaseController,
+    DataSourceController,
     SourceController,
     SeedController,
     RoleController,

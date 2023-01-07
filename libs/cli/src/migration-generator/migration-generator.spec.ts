@@ -10,7 +10,6 @@ describe('generateMigration', () => {
         {
           name: 'devices',
           label: 'Devices',
-          source: 'postgres://localhost/mock_db',
           electrons: [
             {
               name: 'number',

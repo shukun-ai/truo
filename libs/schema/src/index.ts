@@ -1,6 +1,7 @@
 export * from './types/application';
 export * from './types/attachments';
 export * from './types/http-query';
+export * from './types/data-source';
 export * from './types/flow-compiled-codes';
 export * from './types/exception';
 export * from './internals/seed/system-models';
@@ -11,4 +12,5 @@ export * from './validators/attachment/validate';
 export * from './validators/workflow-configurations/validate';
 export * from './validators/workflow-input/validate';
 export * from './validators/http-query/validate';
+export * from './validators/data-source/validate';
 export * from './json-exports';

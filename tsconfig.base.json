@@ -20,6 +20,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@shukun/api": ["libs/api/src/index.ts"],
