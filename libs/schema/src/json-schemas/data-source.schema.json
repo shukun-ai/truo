@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "title": "SourceSchema",
-  "description": "Describe Source Schema",
+  "title": "DataSourceSchema",
+  "description": "Describe Data Source Schema",
   "type": "object",
   "additionalProperties": false,
   "required": ["connections"],
@@ -13,7 +13,7 @@
       "type": "object",
       "patternProperties": {
         "^(\\w)+$": {
-          "title": "SourceConnection",
+          "title": "DataSourceConnection",
           "type": "object",
           "additionalProperties": false,
           "required": ["connection", "metadata"],

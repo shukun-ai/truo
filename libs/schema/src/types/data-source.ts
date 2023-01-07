@@ -7,19 +7,19 @@
  */
 
 /**
- * Describe Source Schema
+ * Describe Data Source Schema
  */
-export interface SourceSchema {
+export interface DataSourceSchema {
   $schema?: string;
   connections: {
-    [k: string]: SourceConnection;
+    [k: string]: DataSourceConnection;
   };
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export interface SourceConnection {
+export interface DataSourceConnection {
   /**
    * The data will be saved into system-level Database (MongoDB). The rule like: protocol://username:password@host:port/database?options...
    */
