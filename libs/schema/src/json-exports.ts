@@ -101,3 +101,9 @@ export const flowEventFirstOrThrowSchema = require('./json-schemas/flow/event/fi
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const flowEventLastOrThrowSchema = require('./json-schemas/flow/event/last-or-throw.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const httpQuerySchema = require('./json-schemas/http-query.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const sourceSchema = require('./json-schemas/source.schema.json');

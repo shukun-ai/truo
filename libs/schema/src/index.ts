@@ -11,4 +11,5 @@ export * from './validators/attachment/validate';
 export * from './validators/workflow-configurations/validate';
 export * from './validators/workflow-input/validate';
 export * from './validators/http-query/validate';
+export * from './validators/source/validate';
 export * from './json-exports';
