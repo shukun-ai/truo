@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { DataSourceSchema } from '@shukun/schema';
 import { Document } from 'mongoose';
 
 export const OrgDocumentName = 'orgs';
@@ -27,6 +28,9 @@ export class Org {
 
   @Prop({ type: 'Buffer' })
   compiledCodes?: Buffer;
+
+  @Prop({ type: 'Mixed' })
+  dataSource?: DataSourceSchema;
 }
 
 export const OrgSchema = SchemaFactory.createForClass(Org);

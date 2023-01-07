@@ -1,6 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ApplicationSchema, FlowOrgCompiledCodes } from '@shukun/schema';
+import {
+  ApplicationSchema,
+  FlowOrgCompiledCodes,
+  DataSourceSchema,
+} from '@shukun/schema';
 import { Model } from 'mongoose';
 
 import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../app.constant';
@@ -147,5 +151,30 @@ export class OrgService {
       org.compiledCodes.toString(),
     );
     return flowCompiledCodes;
+  }
+
+  async updateDataSource(orgName: IDString, dataSource: DataSourceSchema) {
+    await this.orgModel.updateOne(
+      { name: orgName },
+      {
+        dataSource,
+      },
+    );
+  }
+
+  async findDataSource(orgName: string): Promise<DataSourceSchema> {
+    const org = await this.orgModel
+      .findOne({ name: orgName })
+      .select('dataSource')
+      .exec();
+
+    if (!org?.dataSource) {
+      const dataSource: DataSourceSchema = {
+        connections: {},
+      };
+      return dataSource;
+    }
+
+    return org.dataSource;
   }
 }

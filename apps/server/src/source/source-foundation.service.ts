@@ -1,8 +1,9 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
 import { isInteger } from 'lodash';
 
 import { IDString, JsonModel, SourceServiceCreateDto } from '../app.type';
+import { DataSourceService } from '../core/data-source.service';
 import { MetadataService } from '../core/metadata.service';
 
 import { SourceDataAccessService } from './source-data-access.service';
@@ -11,14 +12,12 @@ import { SourceParamUtilService } from './source-param-util.service';
 
 @Injectable()
 export class SourceFoundationService<Model> {
-  @Inject()
-  private readonly metadataService!: MetadataService;
-
-  @Inject()
-  private readonly sourceParamUtilService!: SourceParamUtilService;
-
-  @Inject()
-  private readonly sourceDataAccessService!: SourceDataAccessService<Model>;
+  constructor(
+    private readonly metadataService: MetadataService,
+    private readonly sourceParamUtilService: SourceParamUtilService,
+    private readonly sourceDataAccessService: SourceDataAccessService<Model>,
+    private readonly dataSourceService: DataSourceService,
+  ) {}
 
   async createOne(
     orgName: string,
@@ -27,6 +26,10 @@ export class SourceFoundationService<Model> {
     ownerId: string | null,
   ): Promise<{ _id: IDString }> {
     const metadata = await this.metadataService.getMetadataByName(
+      orgName,
+      atomName,
+    );
+    const dataSourceConnection = await this.dataSourceService.findOne(
       orgName,
       atomName,
     );
@@ -39,11 +42,15 @@ export class SourceFoundationService<Model> {
     });
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
 
-    return await adaptor.createOne(orgName, metadata, params);
+    return await adaptor.createOne(
+      dataSourceConnection,
+      orgName,
+      metadata,
+      params,
+    );
   }
 
   async updateOne(
@@ -56,15 +63,24 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
+    const dataSourceConnection = await this.dataSourceService.findOne(
+      orgName,
+      atomName,
+    );
 
     const params = this.sourceParamUtilService.buildParams(metadata, dto);
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
 
-    return await adaptor.updateOne(orgName, metadata, id, params);
+    return await adaptor.updateOne(
+      dataSourceConnection,
+      orgName,
+      metadata,
+      id,
+      params,
+    );
   }
 
   async findOne(
@@ -76,13 +92,21 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
+    const dataSourceConnection = await this.dataSourceService.findOne(
       orgName,
-      metadata,
+      atomName,
     );
 
-    return await adaptor.findOne(orgName, metadata, query);
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
+      dataSourceConnection,
+    );
+
+    return await adaptor.findOne(
+      dataSourceConnection,
+      orgName,
+      metadata,
+      query,
+    );
   }
 
   async findAll(
@@ -94,13 +118,21 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
+    const dataSourceConnection = await this.dataSourceService.findOne(
       orgName,
-      metadata,
+      atomName,
     );
 
-    return await adaptor.findAll(orgName, metadata, query);
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
+      dataSourceConnection,
+    );
+
+    return await adaptor.findAll(
+      dataSourceConnection,
+      orgName,
+      metadata,
+      query,
+    );
   }
 
   async count(
@@ -112,13 +144,16 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
+    const dataSourceConnection = await this.dataSourceService.findOne(
       orgName,
-      metadata,
+      atomName,
     );
 
-    return await adaptor.count(orgName, metadata, query);
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
+      dataSourceConnection,
+    );
+
+    return await adaptor.count(dataSourceConnection, orgName, metadata, query);
   }
 
   async deleteOne(
@@ -130,13 +165,16 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-
-    const adaptor = await this.sourceDataAccessService.getAdaptor(
+    const dataSourceConnection = await this.dataSourceService.findOne(
       orgName,
-      metadata,
+      atomName,
     );
 
-    return await adaptor.deleteOne(orgName, metadata, id);
+    const adaptor = await this.sourceDataAccessService.getAdaptor(
+      dataSourceConnection,
+    );
+
+    return await adaptor.deleteOne(dataSourceConnection, orgName, metadata, id);
   }
 
   async addToMany(
@@ -152,13 +190,17 @@ export class SourceFoundationService<Model> {
       electronName,
       foreignId,
     );
+    const dataSourceConnection = await this.dataSourceService.findOne(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
 
     return await adaptor.addToMany(
+      dataSourceConnection,
       orgName,
       metadata,
       id,
@@ -180,13 +222,17 @@ export class SourceFoundationService<Model> {
       electronName,
       foreignId,
     );
+    const dataSourceConnection = await this.dataSourceService.findOne(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
 
     return await adaptor.removeFromMany(
+      dataSourceConnection,
       orgName,
       metadata,
       id,
@@ -203,6 +249,10 @@ export class SourceFoundationService<Model> {
     increment: number,
   ): Promise<void> {
     const metadata = await this.metadataService.getMetadataByName(
+      orgName,
+      atomName,
+    );
+    const dataSourceConnection = await this.dataSourceService.findOne(
       orgName,
       atomName,
     );
@@ -227,11 +277,11 @@ export class SourceFoundationService<Model> {
     }
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
-      orgName,
-      metadata,
+      dataSourceConnection,
     );
 
     return await adaptor.increase(
+      dataSourceConnection,
       orgName,
       metadata,
       id,
