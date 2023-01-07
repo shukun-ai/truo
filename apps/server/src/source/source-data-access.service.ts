@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MetadataSchema } from '@shukun/schema';
+import { DataSourceConnection } from '@shukun/schema';
 
 import { DatabaseAdaptor } from './adaptor/database-adaptor.interface';
 import { KnexAdaptorService } from './knex/knex-adaptor.service';
@@ -13,11 +13,13 @@ export class SourceDataAccessService<Model> {
   ) {}
 
   async getAdaptor(
-    orgName: string,
-    metadata: MetadataSchema,
+    dataSourceConnection: DataSourceConnection | null,
   ): Promise<DatabaseAdaptor<Model>> {
     // TODO add env to enable other data source for security reason, because if the service is host in a SASS.
-    if (metadata.source && metadata.source.startsWith('postgres')) {
+    if (
+      dataSourceConnection &&
+      dataSourceConnection.connection.startsWith('postgres')
+    ) {
       return this.postgresAdaptorService;
     }
 
