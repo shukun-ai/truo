@@ -13,9 +13,7 @@ export function extractMetadataToTypes(
   text += 'const schema = knex.schema;';
 
   application.metadata?.forEach((atom) => {
-    if (atom.source) {
-      text += extractAtomFunction(atom);
-    }
+    text += extractAtomFunction(atom);
   });
 
   text += 'return schema;';

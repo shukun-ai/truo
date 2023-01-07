@@ -12,8 +12,14 @@ export class KnexConnectionService {
     }
 
     const client = knex({
-      client: 'pg',
-      connection: dataSourceConnection.connection,
+      client: this.prepareDatabaseType(dataSourceConnection),
+      connection: {
+        host: dataSourceConnection.host,
+        port: dataSourceConnection.port,
+        user: dataSourceConnection.username,
+        password: dataSourceConnection.password,
+        database: dataSourceConnection.database,
+      },
       pool: {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         afterCreate: (connection: any, callback: any) => {
@@ -38,5 +44,14 @@ export class KnexConnectionService {
     }
 
     return `${dataSourceConnection.tablePrefix}${metadata.name}`;
+  }
+
+  prepareDatabaseType(dataSourceConnection: DataSourceConnection) {
+    switch (dataSourceConnection.type) {
+      case 'postgres':
+        return 'pg';
+      case 'oracleDB':
+        return 'oracledb';
+    }
   }
 }
