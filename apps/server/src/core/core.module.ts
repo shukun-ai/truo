@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { DataSourceService } from './data-source.service';
+
 import { FlowService } from './flow.service';
 
 import { MetadataService } from './metadata.service';
@@ -23,6 +25,7 @@ import { WorkflowService } from './workflow.service';
     RoleService,
     FlowService,
     ScheduleService,
+    DataSourceService,
   ],
   exports: [
     OrgService,
@@ -32,6 +35,7 @@ import { WorkflowService } from './workflow.service';
     RoleService,
     FlowService,
     ScheduleService,
+    DataSourceService,
   ],
 })
 export class CoreModule {}
