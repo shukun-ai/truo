@@ -1,7 +1,9 @@
 {
   "connections": {
     "postgres": {
-      "connection": "postgres://localhost/database",
+      "type": "postgres",
+      "host": "localhost",
+      "database": "mock",
       "metadata": ["devices"]
     }
   }

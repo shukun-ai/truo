@@ -20,10 +20,13 @@ export interface DataSourceSchema {
  * via the `patternProperty` "^(\w)+$".
  */
 export interface DataSourceConnection {
-  /**
-   * The data will be saved into system-level Database (MongoDB). The rule like: protocol://username:password@host:port/database?options...
-   */
-  connection: string;
+  type: 'postgres' | 'oracleDB';
+  host: string;
+  port?: number;
+  username?: string;
+  password?: string;
+  database: string;
+  schema?: string;
   metadata: string[];
   tablePrefix?: string;
   description?: string;

@@ -16,11 +16,28 @@
           "title": "DataSourceConnection",
           "type": "object",
           "additionalProperties": false,
-          "required": ["connection", "metadata"],
+          "required": ["type", "host", "database", "metadata"],
           "properties": {
-            "connection": {
-              "type": "string",
-              "description": "The data will be saved into system-level Database (MongoDB). The rule like: protocol://username:password@host:port/database?options..."
+            "type": {
+              "enum": ["postgres", "oracleDB"]
+            },
+            "host": {
+              "type": "string"
+            },
+            "port": {
+              "type": "number"
+            },
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "database": {
+              "type": "string"
+            },
+            "schema": {
+              "type": "string"
             },
             "metadata": {
               "type": "array",
