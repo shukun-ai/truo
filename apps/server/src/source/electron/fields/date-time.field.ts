@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { isDateTimeIso } from '@shukun/electron';
 import { Schema } from 'mongoose';
 
 import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
@@ -7,8 +7,10 @@ export class DateTimeField implements ElectronType {
   validateValue(value: unknown) {
     const errorMessage = [];
 
-    if (typeof value === 'string' && !dayjs(value).isValid()) {
-      errorMessage.push('should be a correct data, e.g. YYYY-MM-DD HH:mm:ss.');
+    if (value && !isDateTimeIso(value)) {
+      errorMessage.push(
+        'The date format should be ISO8601, try to use ".toISOString()."',
+      );
     }
 
     return errorMessage;
