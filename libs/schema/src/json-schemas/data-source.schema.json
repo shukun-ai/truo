@@ -19,7 +19,9 @@
           "required": ["type", "host", "database", "metadata"],
           "properties": {
             "type": {
-              "enum": ["postgres", "oracleDB"]
+              "title": "DataSourceType",
+              "enum": ["default", "postgres", "oracleDB"],
+              "description": "The default value means using platform default database, if set default, the other values will not effective."
             },
             "host": {
               "type": "string"

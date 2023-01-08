@@ -1,4 +1,4 @@
-import { MetadataElectron } from '@shukun/schema';
+import { DataSourceType, MetadataElectron } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
 export interface ElectronType {
@@ -10,8 +10,16 @@ export interface ElectronType {
     electron: MetadataElectron,
     connection: Connection,
   ) => SchemaBuilderResult;
-  beforeSave?: (value: unknown, electron: MetadataElectron) => unknown;
-  afterQuery?: (value: unknown, electron: MetadataElectron) => unknown;
+  beforeSave?: (
+    value: unknown,
+    electron: MetadataElectron,
+    connectionType: DataSourceType,
+  ) => unknown;
+  afterQuery?: (
+    value: unknown,
+    electron: MetadataElectron,
+    connectionType: DataSourceType,
+  ) => unknown;
 }
 
 export interface SchemaBuilderResult {

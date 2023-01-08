@@ -26,7 +26,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   ) {}
 
   async createOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
@@ -57,7 +57,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async updateOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -82,7 +82,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async findOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -116,13 +116,14 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const value = await queryBuilder.from(tableName).first();
 
     return this.knexElectronConvertorService.convertAfterQueryForOne(
+      dataSourceConnection,
       value,
       metadata,
     );
   }
 
   async findAll(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -159,11 +160,15 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
 
     const value = await queryBuilder.from(tableName);
 
-    return this.knexElectronConvertorService.convertAfterQuery(value, metadata);
+    return this.knexElectronConvertorService.convertAfterQuery(
+      dataSourceConnection,
+      value,
+      metadata,
+    );
   }
 
   async count(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -187,7 +192,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async deleteOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -204,7 +209,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async addToMany(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -215,7 +220,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async removeFromMany(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -226,7 +231,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async increase(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,

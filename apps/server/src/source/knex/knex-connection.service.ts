@@ -6,7 +6,7 @@ import { TypeException } from '../../exceptions/type-exception';
 
 @Injectable()
 export class KnexConnectionService {
-  async getClient(dataSourceConnection: DataSourceConnection | null) {
+  async getClient(dataSourceConnection: DataSourceConnection) {
     if (!dataSourceConnection) {
       throw new TypeException('The metadata data source is not defined');
     }
@@ -37,7 +37,7 @@ export class KnexConnectionService {
   getTableName(
     orgName: string,
     metadata: MetadataSchema,
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
   ) {
     if (!dataSourceConnection?.tablePrefix) {
       return metadata.name;
@@ -52,6 +52,11 @@ export class KnexConnectionService {
         return 'pg';
       case 'oracleDB':
         return 'oracledb';
+      default:
+        throw new TypeException(
+          'We did not support this data source: {{type}}',
+          { type: dataSourceConnection.type },
+        );
     }
   }
 }
