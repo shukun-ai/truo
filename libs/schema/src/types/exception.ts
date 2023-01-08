@@ -20,4 +20,5 @@ export enum ExceptionNames {
   FlowNoCompiledCodeException = 'FlowNoCompiledCodeException',
   FlowDefinitionException = 'FlowDefinitionException',
   TypeException = 'TypeException',
+  ElectronValueException = 'ElectronValueException',
 }

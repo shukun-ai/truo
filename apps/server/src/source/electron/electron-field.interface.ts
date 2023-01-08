@@ -1,8 +1,13 @@
 import { DataSourceType, MetadataElectron } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
+import { ElectronValueException } from '../../exceptions/electron-value-exception';
+
 export interface ElectronType {
-  validateValue: (value: unknown, electron: MetadataElectron) => string[];
+  validateValue: (
+    value: unknown,
+    electron: MetadataElectron,
+  ) => ElectronExceptions;
   // TODO Only for mongoose, and will be deprecated when remove mongoose.
   buildSchema: (
     electron: MetadataElectron,
@@ -35,3 +40,5 @@ export interface MongooseConstraintSchema {
   required: boolean;
   unique: boolean;
 }
+
+export type ElectronExceptions = ElectronValueException[];

@@ -1,15 +1,23 @@
 import { isDateTimeIso } from '@shukun/electron';
 import { Schema } from 'mongoose';
 
-import { ElectronType, MongooseSchema } from '../electron-field.interface';
+import { ElectronValueException } from '../../../exceptions/electron-value-exception';
+
+import {
+  ElectronExceptions,
+  ElectronType,
+  MongooseSchema,
+} from '../electron-field.interface';
 
 export class DateTimeField implements ElectronType {
-  validateValue(value: unknown) {
+  validateValue(value: unknown): ElectronExceptions {
     const errorMessage = [];
 
     if (value && !isDateTimeIso(value)) {
       errorMessage.push(
-        'The date format should be ISO8601, try to use ".toISOString()."',
+        new ElectronValueException(
+          'should be ISO8601 date, try to use "date.toISOString()."',
+        ),
       );
     }
 

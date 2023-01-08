@@ -5,14 +5,22 @@ import {
 } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ElectronType, MongooseSchema } from '../electron-field.interface';
+import { ElectronValueException } from '../../../exceptions/electron-value-exception';
+
+import {
+  ElectronExceptions,
+  ElectronType,
+  MongooseSchema,
+} from '../electron-field.interface';
 
 export class AttachmentField implements ElectronType {
-  validateValue(value: unknown): string[] {
-    const messages: string[] = [];
+  validateValue(value: unknown): ElectronExceptions {
+    const messages = [];
 
     if (!validateAttachmentsSchema(value)) {
-      messages.push('附件的格式不正确。');
+      messages.push(
+        new ElectronValueException('should be a attachment format.'),
+      );
     }
 
     return messages;

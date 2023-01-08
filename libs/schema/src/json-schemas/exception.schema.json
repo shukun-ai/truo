@@ -14,7 +14,8 @@
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
         "FlowDefinitionException",
-        "TypeException"
+        "TypeException",
+        "ElectronValueException"
       ],
       "tsEnumNames": [
         "IsNotArrayException",
@@ -22,7 +23,8 @@
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
         "FlowDefinitionException",
-        "TypeException"
+        "TypeException",
+        "ElectronValueException"
       ]
     }
   }
