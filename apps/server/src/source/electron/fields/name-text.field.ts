@@ -2,7 +2,7 @@ import { isEngineName, isStartedWithLowercase } from '@shukun/electron';
 import { MetadataElectron } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import { ElectronType, MongooseSchema } from '../electron-field.interface';
 
 export class NameTextField implements ElectronType {
   validateValue(value: unknown, electron: MetadataElectron): string[] {
@@ -19,7 +19,7 @@ export class NameTextField implements ElectronType {
     return errorMessage;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: Schema.Types.String,
     };

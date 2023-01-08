@@ -1,14 +1,14 @@
 import { DataSourceType, MetadataElectron } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import { ElectronType, MongooseSchema } from '../electron-field.interface';
 
 export class MixedField implements ElectronType {
   validateValue() {
     return [];
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: Schema.Types.Mixed,
     };

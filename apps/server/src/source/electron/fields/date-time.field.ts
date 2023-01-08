@@ -1,7 +1,7 @@
 import { isDateTimeIso } from '@shukun/electron';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import { ElectronType, MongooseSchema } from '../electron-field.interface';
 
 export class DateTimeField implements ElectronType {
   validateValue(value: unknown) {
@@ -16,7 +16,8 @@ export class DateTimeField implements ElectronType {
     return errorMessage;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
+    // TODO remove MongooseSchema, use afterQuery to implement it.
     return {
       type: Schema.Types.Date,
       transform: (value) => {
