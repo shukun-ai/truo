@@ -47,6 +47,10 @@
                 "type": "string"
               }
             },
+            "maxPools": {
+              "type": "number",
+              "description": "The default value is 30."
+            },
             "tablePrefix": {
               "type": "string"
             },
