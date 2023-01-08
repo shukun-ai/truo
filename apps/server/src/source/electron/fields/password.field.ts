@@ -9,7 +9,7 @@ import validator from 'validator';
 
 import { cryptoPassword } from '../../../identity/utils/password.utils';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import { ElectronType, MongooseSchema } from '../electron-field.interface';
 
 export class PasswordField implements ElectronType {
   validateValue(value: unknown, electron: MetadataElectron) {
@@ -28,7 +28,8 @@ export class PasswordField implements ElectronType {
     return messages;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
+    // TODO remove MongooseSchema, use afterQuery to implement it.
     return {
       type: Schema.Types.String,
       transform: () => null,

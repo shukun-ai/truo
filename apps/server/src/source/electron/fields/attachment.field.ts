@@ -5,7 +5,7 @@ import {
 } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import { ElectronType, MongooseSchema } from '../electron-field.interface';
 
 export class AttachmentField implements ElectronType {
   validateValue(value: unknown): string[] {
@@ -18,7 +18,7 @@ export class AttachmentField implements ElectronType {
     return messages;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: [Schema.Types.Mixed],
     };

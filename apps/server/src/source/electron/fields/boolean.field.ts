@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import { ElectronType, MongooseSchema } from '../electron-field.interface';
 
 export class BooleanField implements ElectronType {
   validateValue(value: unknown) {
@@ -13,7 +13,7 @@ export class BooleanField implements ElectronType {
     return errorMessage;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: Schema.Types.Boolean,
     };

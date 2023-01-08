@@ -3,13 +3,11 @@ import { Connection } from 'mongoose';
 
 export interface ElectronType {
   validateValue: (value: unknown, electron: MetadataElectron) => string[];
-  /**
-   * Only for mongoose, and will be deprecated.
-   */
+  // TODO Only for mongoose, and will be deprecated when remove mongoose.
   buildSchema: (
     electron: MetadataElectron,
     connection: Connection,
-  ) => SchemaBuilderResult;
+  ) => MongooseSchema;
   beforeSave?: (
     value: unknown,
     electron: MetadataElectron,
@@ -22,15 +20,17 @@ export interface ElectronType {
   ) => unknown;
 }
 
-export interface SchemaBuilderResult {
+export interface MongooseSchema {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type: any;
   ref?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   enum?: any[];
   // @see https://mongoosejs.com/docs/api/schematype.html#schematype_SchemaType-transform
   transform?: (value: unknown) => unknown;
 }
 
-export interface SchemaCommonResult {
+export interface MongooseConstraintSchema {
   index: boolean;
   required: boolean;
   unique: boolean;

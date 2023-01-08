@@ -7,8 +7,8 @@ import { IDString } from '../../app.type';
 import { OrgService } from '../../core/org.service';
 
 import {
-  SchemaBuilderResult,
-  SchemaCommonResult,
+  MongooseSchema,
+  MongooseConstraintSchema,
 } from '../electron/electron-field.interface';
 import { getFieldInstance } from '../electron/fields-map';
 
@@ -46,8 +46,10 @@ export class MongooseConnectionService {
   }
 
   protected async buildAtomSchema(metadata: MetadataSchema): Promise<Schema> {
-    const atomSchema: Record<string, SchemaBuilderResult & SchemaCommonResult> =
-      {};
+    const atomSchema: Record<
+      string,
+      MongooseSchema & MongooseConstraintSchema
+    > = {};
 
     if (metadata.electrons.length < 1) {
       throw new BadRequestException('模型没有生成，或者不存在已生成的字段。');
@@ -62,7 +64,7 @@ export class MongooseConnectionService {
 
   protected async buildElectronSchema(
     electron: MetadataElectron,
-  ): Promise<SchemaBuilderResult & SchemaCommonResult> {
+  ): Promise<MongooseSchema & MongooseConstraintSchema> {
     const field = getFieldInstance(electron.fieldType);
     const fieldSchema = field.buildSchema(electron, this.connection);
 
