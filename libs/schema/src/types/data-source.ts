@@ -33,6 +33,10 @@ export interface DataSourceConnection {
   database: string;
   schema?: string;
   metadata: string[];
+  /**
+   * The default value is 30.
+   */
+  maxPools?: number;
   tablePrefix?: string;
   description?: string;
 }
