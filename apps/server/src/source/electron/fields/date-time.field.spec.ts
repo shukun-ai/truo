@@ -1,35 +1,42 @@
+import { ElectronValueException } from '../../../exceptions/electron-value-exception';
+
 import { DateTimeField } from './date-time.field';
 
 describe('date-time.field', () => {
   describe('validateValue', () => {
-    it('validateValue should be a data.', async () => {
+    it('validateValue should be a data.', () => {
       const field = new DateTimeField();
-      // 2023-01-08T03:21:47.392Z
       expect(field.validateValue('2020-02-29T14:39:00.392Z')).toEqual([]);
     });
 
-    it('Should return error messages, when it is not a strict iso date.', async () => {
+    it('Should return error messages, when it is not a strict iso date.', () => {
       const field = new DateTimeField();
       expect(field.validateValue('2020-02-29 14:39:00')).toEqual([
-        'The date format should be ISO8601, try to use ".toISOString()."',
+        new ElectronValueException(
+          'should be ISO8601 date, try to use "date.toISOString()."',
+        ),
       ]);
     });
 
-    it('Should return error messages, when use date.toString().', async () => {
+    it('Should return error messages, when use date.toString().', () => {
       const field = new DateTimeField();
       expect(
         field.validateValue(
           'Sun Jan 08 2023 12:53:21 GMT+0800 (China Standard Time)',
         ),
       ).toEqual([
-        'The date format should be ISO8601, try to use ".toISOString()."',
+        new ElectronValueException(
+          'should be ISO8601 date, try to use "date.toISOString()."',
+        ),
       ]);
     });
 
-    it('Should return error messages, when it is not an iso date.', async () => {
+    it('Should return error messages, when it is not an iso date.', () => {
       const field = new DateTimeField();
       expect(field.validateValue('20')).toEqual([
-        'The date format should be ISO8601, try to use ".toISOString()."',
+        new ElectronValueException(
+          'should be ISO8601 date, try to use "date.toISOString()."',
+        ),
       ]);
     });
   });

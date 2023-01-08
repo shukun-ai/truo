@@ -25,9 +25,11 @@ export class SourceParamUtilService {
 
         if (electron) {
           const field = getFieldInstance(electron.fieldType);
-          const result = field.validateValue(value, electron);
+          const electronExceptions = field.validateValue(value, electron);
 
-          const newMessage = result.map((message) => `${key} ${message}`);
+          const newMessage = electronExceptions.map(
+            (exception) => `${key}: ${exception.message}`,
+          );
 
           errorMessage = [...errorMessage, ...newMessage];
 

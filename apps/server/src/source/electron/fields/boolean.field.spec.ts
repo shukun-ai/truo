@@ -1,3 +1,5 @@
+import { ElectronValueException } from '../../../exceptions/electron-value-exception';
+
 import { BooleanField } from './boolean.field';
 
 describe('boolean.field', () => {
@@ -5,6 +7,8 @@ describe('boolean.field', () => {
     const field = new BooleanField();
     expect(field.validateValue(true)).toEqual([]);
     expect(field.validateValue(false)).toEqual([]);
-    expect(field.validateValue('true')).toEqual(['should be a boolean.']);
+    expect(field.validateValue('true')).toEqual([
+      new ElectronValueException('should be a boolean type.'),
+    ]);
   });
 });
