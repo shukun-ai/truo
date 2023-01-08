@@ -7,6 +7,11 @@
  */
 
 /**
+ * The default value means using platform default database, if set default, the other values will not effective.
+ */
+export type DataSourceType = 'default' | 'postgres' | 'oracleDB';
+
+/**
  * Describe Data Source Schema
  */
 export interface DataSourceSchema {
@@ -20,7 +25,7 @@ export interface DataSourceSchema {
  * via the `patternProperty` "^(\w)+$".
  */
 export interface DataSourceConnection {
-  type: 'postgres' | 'oracleDB';
+  type: DataSourceType;
   host: string;
   port?: number;
   username?: string;

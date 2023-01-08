@@ -36,10 +36,14 @@ export class SourceFoundationService<Model> {
 
     const owner = ownerId ? { owner: ownerId } : null;
 
-    const params = this.sourceParamUtilService.buildParams(metadata, {
-      ...dto,
-      ...owner,
-    });
+    const params = this.sourceParamUtilService.buildParams(
+      dataSourceConnection,
+      metadata,
+      {
+        ...dto,
+        ...owner,
+      },
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -68,7 +72,11 @@ export class SourceFoundationService<Model> {
       atomName,
     );
 
-    const params = this.sourceParamUtilService.buildParams(metadata, dto);
+    const params = this.sourceParamUtilService.buildParams(
+      dataSourceConnection,
+      metadata,
+      dto,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,

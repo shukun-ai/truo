@@ -15,8 +15,8 @@ describe('attachment.field', () => {
       size: 1024,
     };
     const rightValue = [wrongValue];
-    expect(field.validateValue(wrongValue)).toEqual(['value 的格式不正确。']);
-    expect(field.validateValue(wrongValue2)).toEqual(['value 的格式不正确。']);
+    expect(field.validateValue(wrongValue)).toEqual(['附件的格式不正确。']);
+    expect(field.validateValue(wrongValue2)).toEqual(['附件的格式不正确。']);
     expect(field.validateValue(rightValue)).toEqual([]);
   });
 });
