@@ -13,6 +13,7 @@
         "IsEmptyArrayException",
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
+        "FlowBadCompileException",
         "FlowDefinitionException",
         "TypeException",
         "ElectronValueException"
@@ -22,6 +23,7 @@
         "IsEmptyArrayException",
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
+        "FlowBadCompileException",
         "FlowDefinitionException",
         "TypeException",
         "ElectronValueException"

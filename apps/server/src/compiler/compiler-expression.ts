@@ -1,3 +1,5 @@
+import { FlowBadCompileException } from '@shukun/exception';
+
 export const LEFT_TAG = '<%%';
 
 export const RIGHT_TAG = '%%>';
@@ -11,7 +13,14 @@ export function compileExpression(input: string): string {
 }
 
 export function checkInjection(input: string): string {
-  // TODO throw error
+  const regex = new RegExp(/\$\$\._[a-zA-Z0-9_-]*[.(;\s]/);
+
+  if (regex.test(input)) {
+    throw new FlowBadCompileException(
+      'Do not allow to use private method in code, like: $$._',
+    );
+  }
+
   return input;
 }
 

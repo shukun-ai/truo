@@ -18,6 +18,7 @@ export enum ExceptionNames {
   IsEmptyArrayException = 'IsEmptyArrayException',
   FlowRepeatCountException = 'FlowRepeatCountException',
   FlowNoCompiledCodeException = 'FlowNoCompiledCodeException',
+  FlowBadCompileException = 'FlowBadCompileException',
   FlowDefinitionException = 'FlowDefinitionException',
   TypeException = 'TypeException',
   ElectronValueException = 'ElectronValueException',
