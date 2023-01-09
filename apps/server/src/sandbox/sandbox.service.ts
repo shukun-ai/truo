@@ -45,7 +45,7 @@ export class SandboxService {
 
   protected prepareVMResolver(): SandboxVMResolver {
     return {
-      sourceResolver: this.sourceResolverService,
+      _sourceResolver: this.sourceResolverService,
       date: this.dateResolverService,
     };
   }

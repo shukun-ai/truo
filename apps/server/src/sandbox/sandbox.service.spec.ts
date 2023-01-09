@@ -63,7 +63,7 @@ describe('SandboxService', () => {
         .mockImplementation(async () => 'hello query.');
 
       const compiledCode =
-        'async function main($,$$){return{id:await $$.sourceResolver.query()}};exports.default=main;';
+        'async function main($,$$){return{id:await $$._sourceResolver.query()}};exports.default=main;';
 
       const computedContext = await sandboxService.executeVM(
         compiledCode,

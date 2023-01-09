@@ -14,7 +14,7 @@ export async function compileSourceIncreaseEvent(
               electronName: ${compileJsonTemplate(event.electronName)},
               increment: ${compileJsonTemplate(event.increment)},
             };
-            const output = await $.sourceResolver.increase(id, orgName, atomName, dto);
+            const output = await $$._sourceResolver.increase(id, orgName, atomName, dto);
 
             return {
               ...$,

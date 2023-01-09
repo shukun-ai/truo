@@ -11,7 +11,7 @@ export async function compileSourceCreateEvent(
             const atomName = "${event.atomName}";
             const dto = ${compileJsonTemplate(event.data)};
             const request = $.request;
-            const output = await $.sourceResolver.create(orgName, atomName, dto, request);
+            const output = await $$._sourceResolver.create(orgName, atomName, dto, request);
             
             return {
               ...$,
