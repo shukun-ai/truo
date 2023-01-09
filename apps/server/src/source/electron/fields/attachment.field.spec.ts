@@ -1,4 +1,4 @@
-import { ElectronValueException } from '../../../exceptions/electron-value-exception';
+import { ElectronValueException } from '@shukun/exception';
 
 import { AttachmentField } from './attachment.field';
 

@@ -1,8 +1,6 @@
+import { IsEmptyArrayException, IsNotArrayException } from '@shukun/exception';
 import { FlowEventLastOrThrow } from '@shukun/schema';
 
-import { IsEmptyArrayException } from '../../exceptions/is-empty-array';
-
-import { IsNotArrayException } from '../../exceptions/is-not-array';
 import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
 
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';

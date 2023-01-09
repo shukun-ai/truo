@@ -1,7 +1,6 @@
+import { ElectronValueException } from '@shukun/exception';
 import { DataSourceType, MetadataElectron } from '@shukun/schema';
 import { Connection } from 'mongoose';
-
-import { ElectronValueException } from '../../exceptions/electron-value-exception';
 
 export interface ElectronType {
   validateValue: (

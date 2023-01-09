@@ -1,7 +1,6 @@
 import { isDateTimeIso } from '@shukun/electron';
+import { ElectronValueException } from '@shukun/exception';
 import { Schema } from 'mongoose';
-
-import { ElectronValueException } from '../../../exceptions/electron-value-exception';
 
 import {
   ElectronExceptions,
