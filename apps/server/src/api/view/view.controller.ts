@@ -52,12 +52,13 @@ export class ViewController {
   }
 
   async createJsonTemplate(orgName: string) {
-    const dataSource = await this.dataSourceService.findDataSource(orgName);
+    const publicEnvironments =
+      await this.dataSourceService.findPublicEnvironments(orgName);
 
     const jsonTemplate = new JsonTemplate('States', {
       secret: (value: unknown) => {
         if (typeof value === 'string') {
-          const variable = dataSource.environments?.[value];
+          const variable = publicEnvironments?.[value];
           if (variable) {
             return variable.value;
           }

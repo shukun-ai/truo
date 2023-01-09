@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { TypeException } from '@shukun/exception';
-import {
-  DataSourceConnection,
-  DataSourceEnvironment,
-  DataSourceSchema,
-} from '@shukun/schema';
+import { DataSourceConnection, DataSourceSchema } from '@shukun/schema';
+import { pickBy } from 'lodash';
 
 import { OrgService } from './org.service';
 
@@ -12,16 +8,16 @@ import { OrgService } from './org.service';
 export class DataSourceService {
   constructor(private readonly orgService: OrgService) {}
 
-  async findDataSource(orgName: string): Promise<DataSourceSchema> {
+  async findAll(orgName: string): Promise<DataSourceSchema> {
     const dataSource = await this.orgService.findDataSource(orgName);
     return dataSource;
   }
 
-  async findDataSourceConnection(
+  async findConnection(
     orgName: string,
     atomName: string,
   ): Promise<DataSourceConnection> {
-    const dataSource = await this.findDataSource(orgName);
+    const dataSource = await this.findAll(orgName);
     let dataSourceConnection = this.prepareDefaultConnection();
 
     if (!dataSource.connections) {
@@ -37,22 +33,23 @@ export class DataSourceService {
     return dataSourceConnection;
   }
 
-  async findDataSourceEnvironment(
+  async findAllEnvironments(
     orgName: string,
-    environmentName: string,
-  ): Promise<DataSourceEnvironment> {
-    const dataSource = await this.findDataSource(orgName);
+  ): Promise<NonNullable<DataSourceSchema['environments']>> {
+    const dataSource = await this.findAll(orgName);
+    const environments = dataSource.environments ?? {};
+    return environments;
+  }
 
-    const environment = dataSource.environments?.[environmentName];
-
-    if (!environment) {
-      throw new TypeException(
-        'Did not find data source environment: {{environmentName}}',
-        { environmentName },
-      );
-    }
-
-    return environment;
+  async findPublicEnvironments(
+    orgName: string,
+  ): Promise<NonNullable<DataSourceSchema['environments']>> {
+    const allEnvironments = await this.findAllEnvironments(orgName);
+    const publicEnvironments = pickBy(
+      allEnvironments,
+      (environment) => environment.isPublic,
+    );
+    return publicEnvironments;
   }
 
   protected prepareDefaultConnection(): DataSourceConnection {

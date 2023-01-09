@@ -31,8 +31,10 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const owner = ownerId ? { owner: ownerId } : null;
 
@@ -69,8 +71,10 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const params = this.sourceParamUtilService.buildParams(
       dataSourceConnection,
@@ -102,8 +106,10 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -126,8 +132,10 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -150,8 +158,10 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -169,8 +179,10 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -192,8 +204,10 @@ export class SourceFoundationService<Model> {
       electronName,
       foreignId,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -222,8 +236,10 @@ export class SourceFoundationService<Model> {
       electronName,
       foreignId,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -250,8 +266,10 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection =
-      await this.dataSourceService.findDataSourceConnection(orgName, atomName);
+    const dataSourceConnection = await this.dataSourceService.findConnection(
+      orgName,
+      atomName,
+    );
 
     const electron = metadata.electrons.find(
       (electron) => electron.name === electronName,
