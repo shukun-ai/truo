@@ -1,3 +1,5 @@
+import { DataSourceEnvironments } from '@shukun/schema';
+
 import { DateResolverService } from './resolvers/date-resolver.service';
 import { SourceResolverService } from './resolvers/source-resolver.service';
 
@@ -11,7 +13,7 @@ export interface SandboxContext {
   input: unknown;
   next: string;
   index: number;
-  env: Record<string, string>;
+  env: DataSourceEnvironments;
   store: Record<string, unknown>;
   orgName: string;
   operatorId: string | undefined;

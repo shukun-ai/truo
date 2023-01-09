@@ -30,6 +30,7 @@ describe('', () => {
       mockEmptyDependencies(),
       mockEmptyDependencies(),
       mockEmptyDependencies(),
+      mockEmptyDependencies(),
     );
     configService = new ConfigService({
       schedule: { disabled: false },

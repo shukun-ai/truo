@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { FlowSchema } from '@shukun/schema';
+import { DataSourceEnvironments, FlowSchema } from '@shukun/schema';
+
+import { EnvironmentService } from '../core/environment.service';
 
 import { SandboxContext } from '../sandbox/sandbox.interface';
 
@@ -16,6 +18,7 @@ export class FlowService {
     private readonly definitionService: DefinitionService,
     private readonly compiledCodeService: CompiledCodeService,
     private readonly resolverService: ResolverService,
+    private readonly environmentService: EnvironmentService,
   ) {}
 
   async execute(
@@ -26,10 +29,18 @@ export class FlowService {
   ) {
     const definition = await this.getDefinition(orgName, flowName);
     const compiledCodes = await this.getCompiledCodes(orgName, flowName);
+    const environments = await this.environmentService.findAllEnvironments(
+      orgName,
+    );
 
     this.validateInputs(input, definition.input);
 
-    const context = this.prepareContext(input, definition, externalContext);
+    const context = this.prepareContext(
+      input,
+      environments,
+      definition,
+      externalContext,
+    );
 
     const { input: output } = await this.resolverService.executeNextEvent(
       definition.events,
@@ -60,6 +71,7 @@ export class FlowService {
 
   prepareContext(
     input: unknown,
+    environments: DataSourceEnvironments,
     definition: FlowSchema,
     externalContext: ExternalContext,
   ): SandboxContext {
@@ -67,7 +79,7 @@ export class FlowService {
       input,
       next: definition.startEventName,
       index: 0,
-      env: {},
+      env: environments,
       store: {},
       orgName: externalContext.orgName,
       operatorId: externalContext.operatorId,
