@@ -14,7 +14,7 @@ export async function compileSourceRemoveFromManyEvent(
               electronName: ${compileJsonTemplate(event.electronName)},
               foreignId: ${compileJsonTemplate(event.foreignId)},
             };
-            const output = await $$.sourceResolver.removeFromMany(id, orgName, atomName, dto);
+            const output = await $$._sourceResolver.removeFromMany(id, orgName, atomName, dto);
 
             return {
               ...$,

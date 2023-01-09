@@ -10,7 +10,7 @@ export async function compileSourceDeleteEvent(
             const id = ${compileJsonTemplate(event.id)};
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
-            const output = await $.sourceResolver.delete(id, orgName, atomName);
+            const output = await $$._sourceResolver.delete(id, orgName, atomName);
 
             return {
               ...$,

@@ -14,7 +14,7 @@ export async function compileSourceAddToManyEvent(
               electronName: ${compileJsonTemplate(event.electronName)},
               foreignId: ${compileJsonTemplate(event.foreignId)},
             };
-            const output = await $.sourceResolver.addToMany(id, orgName, atomName, dto);
+            const output = await $$._sourceResolver.addToMany(id, orgName, atomName, dto);
 
             return {
               ...$,

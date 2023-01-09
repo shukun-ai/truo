@@ -10,7 +10,7 @@ export async function compileSourceQueryEvent(
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
             const query = ${compileJsonTemplate(event.query)};
-            const output = await $$.sourceResolver.query($.orgName, atomName, query);
+            const output = await $$._sourceResolver.query($.orgName, atomName, query);
 
             return {
               ...$,
