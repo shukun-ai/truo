@@ -28,7 +28,7 @@ export class SourceParamUtilService {
           const electronExceptions = field.validateValue(value, electron);
 
           const newMessage = electronExceptions.map(
-            (exception) => `${key}: ${exception.message}`,
+            (exception) => `${electron.label}: ${exception.message}`,
           );
 
           errorMessage = [...errorMessage, ...newMessage];

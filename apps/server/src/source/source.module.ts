@@ -12,6 +12,7 @@ import { MongoAdaptorService } from './mongo/mongo-adaptor.service';
 import { MongoQueryConvertorService } from './mongo/mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongo/mongoose-connection.service';
 import { SourceDataAccessService } from './source-data-access.service';
+import { SourceDtoConstraintService } from './source-dto-constraint.service';
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';
 
@@ -25,6 +26,7 @@ import { VariableService } from './variable/variable.service';
     SourceService,
     SourceFoundationService,
     SourceParamUtilService,
+    SourceDtoConstraintService,
     VariableService,
     MongoAdaptorService,
     MongoQueryConvertorService,
