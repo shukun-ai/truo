@@ -105,6 +105,7 @@ export interface ApplicationSchema {
   flows?: FlowSchema[];
   roles?: RoleSchema[];
   schedules?: ScheduleSchema[];
+  environments?: EnvironmentSchema[];
 }
 /**
  * Metadata management
@@ -906,6 +907,16 @@ export interface ScheduleSchema {
   input?: {
     [k: string]: unknown;
   };
+}
+/**
+ * Describe Environment Schema
+ */
+export interface EnvironmentSchema {
+  $schema?: string;
+  name: string;
+  description?: string;
+  value: string;
+  isPublic: boolean;
 }
 
 export enum MetadataFieldType {

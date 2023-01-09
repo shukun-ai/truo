@@ -1,7 +1,7 @@
 import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { RoleResourceType, ViewSchema } from '@shukun/schema';
 
-import { DataSourceService } from '../../core/data-source.service';
+import { EnvironmentService } from '../../core/environment.service';
 
 import { ViewService } from '../../core/view.service';
 import { JsonTemplate } from '../../util/json-template';
@@ -13,7 +13,7 @@ import { QueryResponse } from '../../util/query/interfaces';
 export class ViewController {
   constructor(
     private readonly viewService: ViewService,
-    private readonly dataSourceService: DataSourceService,
+    private readonly environmentService: EnvironmentService,
   ) {}
 
   @Get('views')
@@ -53,14 +53,14 @@ export class ViewController {
 
   async createJsonTemplate(orgName: string) {
     const publicEnvironments =
-      await this.dataSourceService.findPublicEnvironments(orgName);
+      await this.environmentService.findPublicEnvironments(orgName);
 
     const jsonTemplate = new JsonTemplate('States', {
       secret: (value: unknown) => {
         if (typeof value === 'string') {
-          const variable = publicEnvironments?.[value];
-          if (variable) {
-            return variable.value;
+          const environmentValue = publicEnvironments?.[value];
+          if (environmentValue) {
+            return environmentValue;
           }
         }
         return value;
