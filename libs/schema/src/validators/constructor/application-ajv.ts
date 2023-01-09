@@ -34,6 +34,7 @@ import {
   flowEventFirstOrThrowSchema,
   flowEventLastOrThrowSchema,
   scheduleSchema,
+  environmentSchema,
 } from '../../json-exports';
 
 import { createBaseAjv } from './base-ajv';
@@ -47,6 +48,7 @@ export function createApplicationAjv(options?: Options) {
     .addSchema(workflowSchema, 'workflow.schema.json')
     .addSchema(flowSchema, 'flow.schema.json')
     .addSchema(scheduleSchema, 'schedule.schema.json')
+    .addSchema(environmentSchema, 'environment.schema.json')
     .addSchema(ruleEngineSchema, 'utils/rule-engine.schema.json')
     // Workflow subordinates
     .addSchema(

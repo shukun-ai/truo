@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { DataSourceService } from './data-source.service';
+import { EnvironmentService } from './environment.service';
 
 import { FlowService } from './flow.service';
 
@@ -25,6 +26,7 @@ import { WorkflowService } from './workflow.service';
     RoleService,
     FlowService,
     ScheduleService,
+    EnvironmentService,
     DataSourceService,
   ],
   exports: [
@@ -35,6 +37,7 @@ import { WorkflowService } from './workflow.service';
     RoleService,
     FlowService,
     ScheduleService,
+    EnvironmentService,
     DataSourceService,
   ],
 })

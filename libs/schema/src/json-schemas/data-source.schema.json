@@ -61,24 +61,11 @@
       }
     },
     "environments": {
+      "title": "DataSourceEnvironments",
       "type": "object",
       "patternProperties": {
         "^(\\w)+$": {
-          "title": "DataSourceEnvironment",
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["value", "isPublic"],
-          "properties": {
-            "value": {
-              "type": "string"
-            },
-            "isPublic": {
-              "type": "boolean"
-            },
-            "description": {
-              "type": "string"
-            }
-          }
+          "type": "string"
         }
       }
     }

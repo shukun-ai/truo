@@ -38,6 +38,9 @@ export class DataSourceController {
       );
     }
 
+    // @remark to avoid MongoDB throw error.
+    delete dataSource.$schema;
+
     this.orgService.updateDataSource(orgName, dataSource);
 
     return {

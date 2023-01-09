@@ -19,9 +19,7 @@ export interface DataSourceSchema {
   connections?: {
     [k: string]: DataSourceConnection;
   };
-  environments?: {
-    [k: string]: DataSourceEnvironment;
-  };
+  environments?: DataSourceEnvironments;
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
@@ -43,12 +41,10 @@ export interface DataSourceConnection {
   tablePrefix?: string;
   description?: string;
 }
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export interface DataSourceEnvironment {
-  value: string;
-  isPublic: boolean;
-  description?: string;
+export interface DataSourceEnvironments {
+  /**
+   * This interface was referenced by `DataSourceEnvironments`'s JSON-Schema definition
+   * via the `patternProperty` "^(\w)+$".
+   */
+  [k: string]: string;
 }

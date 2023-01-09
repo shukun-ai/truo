@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { DataSourceConnection, DataSourceSchema } from '@shukun/schema';
-import { pickBy } from 'lodash';
 
 import { OrgService } from './org.service';
 
@@ -31,25 +30,6 @@ export class DataSourceService {
     }
 
     return dataSourceConnection;
-  }
-
-  async findAllEnvironments(
-    orgName: string,
-  ): Promise<NonNullable<DataSourceSchema['environments']>> {
-    const dataSource = await this.findAll(orgName);
-    const environments = dataSource.environments ?? {};
-    return environments;
-  }
-
-  async findPublicEnvironments(
-    orgName: string,
-  ): Promise<NonNullable<DataSourceSchema['environments']>> {
-    const allEnvironments = await this.findAllEnvironments(orgName);
-    const publicEnvironments = pickBy(
-      allEnvironments,
-      (environment) => environment.isPublic,
-    );
-    return publicEnvironments;
   }
 
   protected prepareDefaultConnection(): DataSourceConnection {
