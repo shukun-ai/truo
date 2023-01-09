@@ -7,6 +7,7 @@ import { DataSourceService } from '../core/data-source.service';
 import { MetadataService } from '../core/metadata.service';
 
 import { SourceDataAccessService } from './source-data-access.service';
+import { SourceDtoConstraintService } from './source-dto-constraint.service';
 
 import { SourceParamUtilService } from './source-param-util.service';
 
@@ -15,6 +16,7 @@ export class SourceFoundationService<Model> {
   constructor(
     private readonly metadataService: MetadataService,
     private readonly sourceParamUtilService: SourceParamUtilService,
+    private readonly sourceDtoConstraintService: SourceDtoConstraintService,
     private readonly sourceDataAccessService: SourceDataAccessService<Model>,
     private readonly dataSourceService: DataSourceService,
   ) {}
@@ -44,6 +46,8 @@ export class SourceFoundationService<Model> {
         ...owner,
       },
     );
+
+    this.sourceDtoConstraintService.validateCreateConstraint(metadata, params);
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -77,6 +81,8 @@ export class SourceFoundationService<Model> {
       metadata,
       dto,
     );
+
+    this.sourceDtoConstraintService.validateUpdateConstraint(metadata, params);
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
