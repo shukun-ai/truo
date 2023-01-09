@@ -1,4 +1,10 @@
 import { Injectable } from '@nestjs/common';
+
+import {
+  FlowDefinitionException,
+  FlowNoCompiledCodeException,
+  FlowRepeatCountException,
+} from '@shukun/exception';
 import {
   FlowEvent,
   FlowEventCompiledCodes,
@@ -7,9 +13,6 @@ import {
   FlowEvents,
 } from '@shukun/schema';
 
-import { FlowDefinitionException } from '../exceptions/flow-definition-exception';
-import { FlowNoCompiledCodeException } from '../exceptions/flow-no-compiled-code-exception';
-import { FlowRepeatCountException } from '../exceptions/flow-repeat-count-exception';
 import { SandboxContext } from '../sandbox/sandbox.interface';
 import { SandboxService } from '../sandbox/sandbox.service';
 

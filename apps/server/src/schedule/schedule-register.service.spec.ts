@@ -1,8 +1,7 @@
 import { ConfigService } from '@nestjs/config';
+import { TypeException } from '@shukun/exception';
 import { ScheduleSchema } from '@shukun/schema';
 import { CronJob } from 'cron';
-
-import { TypeException } from '../exceptions/type-exception';
 
 import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
 

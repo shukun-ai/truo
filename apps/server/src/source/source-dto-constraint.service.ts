@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { ElectronValueException } from '@shukun/exception';
 import { MetadataElectron, MetadataSchema } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../app.type';
-import { ElectronValueException } from '../exceptions/electron-value-exception';
 
 @Injectable()
 export class SourceDtoConstraintService {

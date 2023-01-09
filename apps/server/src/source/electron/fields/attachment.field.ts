@@ -1,11 +1,10 @@
+import { ElectronValueException } from '@shukun/exception';
 import {
   DataSourceType,
   MetadataElectron,
   validateAttachmentsSchema,
 } from '@shukun/schema';
 import { Schema } from 'mongoose';
-
-import { ElectronValueException } from '../../../exceptions/electron-value-exception';
 
 import {
   ElectronExceptions,

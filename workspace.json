@@ -9,6 +9,7 @@
     "daily-build": "apps/daily-build",
     "editor": "apps/editor",
     "electron": "libs/electron",
+    "exception": "libs/exception",
     "schema": "libs/schema",
     "server": "apps/server",
     "web-engine": "apps/web-engine"

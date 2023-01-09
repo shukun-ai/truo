@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { TypeException } from '@shukun/exception';
 import { DataSourceConnection, MetadataSchema } from '@shukun/schema';
 import knex, { Knex } from 'knex';
 
 import { DB_DEFAULT_MAX_POOLS } from '../../app.constant';
-
-import { TypeException } from '../../exceptions/type-exception';
 
 @Injectable()
 export class KnexConnectionService {

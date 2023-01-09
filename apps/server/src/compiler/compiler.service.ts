@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { FlowDefinitionException } from '@shukun/exception';
 import {
   FlowEvent,
   FlowEventCompiledCode,
@@ -7,8 +8,6 @@ import {
   FlowOrgCompiledCodes,
   FlowSchema,
 } from '@shukun/schema';
-
-import { FlowDefinitionException } from '../exceptions/flow-definition-exception';
 
 import { CompileFactoryService } from './compile-factory.service';
 
