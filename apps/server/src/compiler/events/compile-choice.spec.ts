@@ -1,7 +1,7 @@
 import { FlowEventChoice } from '@shukun/schema';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { createSandboxTesting } from '../../util/unit-testing/sandbox-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
 
 import { compileChoiceEvent } from './compile-choice';
 
@@ -24,7 +24,7 @@ describe('compileChoiceEvent', () => {
   };
 
   beforeAll(() => {
-    const sandboxTesting = createSandboxTesting();
+    const sandboxTesting = createTestingSandbox();
     sandboxService = sandboxTesting.sandboxService;
   });
 

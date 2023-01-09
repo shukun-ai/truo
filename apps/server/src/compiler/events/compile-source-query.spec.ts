@@ -2,7 +2,7 @@ import { FlowEventSourceQuery } from '@shukun/schema';
 
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { createSandboxTesting } from '../../util/unit-testing/sandbox-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
 
 import { compileSourceQueryEvent } from './compile-source-query';
 describe('compileSourceQueryEvent', () => {
@@ -29,7 +29,7 @@ describe('compileSourceQueryEvent', () => {
   };
 
   beforeAll(() => {
-    const sandboxTesting = createSandboxTesting();
+    const sandboxTesting = createTestingSandbox();
     sandboxService = sandboxTesting.sandboxService;
     sourceResolverService = sandboxTesting.sourceResolverService;
 
