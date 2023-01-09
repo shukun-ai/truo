@@ -26,8 +26,3 @@ export interface SystemUserModel {
   locale: string;
   timezone: string;
 }
-
-export interface SystemVariableModel {
-  name: string;
-  value: string;
-}

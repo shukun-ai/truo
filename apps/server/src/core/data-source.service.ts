@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { DataSourceConnection, DataSourceSchema } from '@shukun/schema';
+import { TypeException } from '@shukun/exception';
+import {
+  DataSourceConnection,
+  DataSourceEnvironment,
+  DataSourceSchema,
+} from '@shukun/schema';
 
 import { OrgService } from './org.service';
 
@@ -7,17 +12,21 @@ import { OrgService } from './org.service';
 export class DataSourceService {
   constructor(private readonly orgService: OrgService) {}
 
-  async findAll(orgName: string): Promise<DataSourceSchema> {
+  async findDataSource(orgName: string): Promise<DataSourceSchema> {
     const dataSource = await this.orgService.findDataSource(orgName);
     return dataSource;
   }
 
-  async findOne(
+  async findDataSourceConnection(
     orgName: string,
     atomName: string,
   ): Promise<DataSourceConnection> {
-    const dataSource = await this.findAll(orgName);
+    const dataSource = await this.findDataSource(orgName);
     let dataSourceConnection = this.prepareDefaultConnection();
+
+    if (!dataSource.connections) {
+      return dataSourceConnection;
+    }
 
     for (const connection of Object.values(dataSource.connections)) {
       if (connection.metadata.includes(atomName)) {
@@ -26,6 +35,24 @@ export class DataSourceService {
     }
 
     return dataSourceConnection;
+  }
+
+  async findDataSourceEnvironment(
+    orgName: string,
+    environmentName: string,
+  ): Promise<DataSourceEnvironment> {
+    const dataSource = await this.findDataSource(orgName);
+
+    const environment = dataSource.environments?.[environmentName];
+
+    if (!environment) {
+      throw new TypeException(
+        'Did not find data source environment: {{environmentName}}',
+        { environmentName },
+      );
+    }
+
+    return environment;
   }
 
   protected prepareDefaultConnection(): DataSourceConnection {

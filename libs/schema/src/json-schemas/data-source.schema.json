@@ -4,7 +4,6 @@
   "description": "Describe Data Source Schema",
   "type": "object",
   "additionalProperties": false,
-  "required": ["connections"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -53,6 +52,28 @@
             },
             "tablePrefix": {
               "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "environments": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "title": "DataSourceEnvironment",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "isPublic"],
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "isPublic": {
+              "type": "boolean"
             },
             "description": {
               "type": "string"

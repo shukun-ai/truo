@@ -16,8 +16,11 @@ export type DataSourceType = 'default' | 'postgres' | 'oracleDB';
  */
 export interface DataSourceSchema {
   $schema?: string;
-  connections: {
+  connections?: {
     [k: string]: DataSourceConnection;
+  };
+  environments?: {
+    [k: string]: DataSourceEnvironment;
   };
 }
 /**
@@ -38,5 +41,14 @@ export interface DataSourceConnection {
    */
   maxPools?: number;
   tablePrefix?: string;
+  description?: string;
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export interface DataSourceEnvironment {
+  value: string;
+  isPublic: boolean;
   description?: string;
 }
