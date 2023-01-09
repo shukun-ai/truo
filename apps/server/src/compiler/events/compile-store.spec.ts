@@ -1,7 +1,7 @@
 import { FlowEventStore } from '@shukun/schema';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { createSandboxTesting } from '../../util/unit-testing/sandbox-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
 
 import { compileStoreEvent } from './compile-store';
 
@@ -16,7 +16,7 @@ describe('', () => {
   };
 
   beforeAll(() => {
-    const sandboxTesting = createSandboxTesting();
+    const sandboxTesting = createTestingSandbox();
     sandboxService = sandboxTesting.sandboxService;
   });
 

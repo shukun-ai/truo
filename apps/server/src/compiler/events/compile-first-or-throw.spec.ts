@@ -2,7 +2,7 @@ import { IsEmptyArrayException, IsNotArrayException } from '@shukun/exception';
 import { FlowEventFirstOrThrow } from '@shukun/schema';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { createSandboxTesting } from '../../util/unit-testing/sandbox-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
 
 import { compileFirstOrThrowEvent } from './compile-first-or-throw';
 
@@ -15,7 +15,7 @@ describe('compileFirstOrThrowEvent', () => {
   };
 
   beforeAll(() => {
-    const sandboxTesting = createSandboxTesting();
+    const sandboxTesting = createTestingSandbox();
     sandboxService = sandboxTesting.sandboxService;
   });
 
