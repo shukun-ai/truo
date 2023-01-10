@@ -128,6 +128,7 @@ describe('CompilerService', () => {
               output: '$.input',
             },
           },
+          store: {},
         },
       ];
 

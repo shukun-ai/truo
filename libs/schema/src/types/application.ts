@@ -696,6 +696,7 @@ export interface FlowSchema {
   };
   startEventName: string;
   events: FlowEvents;
+  store: FlowStore;
 }
 export interface FlowEvents {
   [k: string]: FlowEvent;
@@ -859,6 +860,46 @@ export interface FlowEventFirstOrThrow {
 export interface FlowEventLastOrThrow {
   type: 'LastOrThrow';
   next: string;
+  [k: string]: unknown;
+}
+export interface FlowStore {
+  /**
+   * This interface was referenced by `FlowStore`'s JSON-Schema definition
+   * via the `patternProperty` "^(\w)+$".
+   */
+  [k: string]:
+    | FlowStoreStringType
+    | FlowStoreNumberType
+    | FlowStoreBooleanType
+    | FlowStoreObjectType
+    | FlowStoreAtomsType
+    | FlowStoreAtomType;
+}
+export interface FlowStoreStringType {
+  type: 'string';
+  [k: string]: unknown;
+}
+export interface FlowStoreNumberType {
+  type: 'number';
+  [k: string]: unknown;
+}
+export interface FlowStoreBooleanType {
+  type: 'boolean';
+  [k: string]: unknown;
+}
+export interface FlowStoreObjectType {
+  type: 'object';
+  validateObject: unknown;
+  [k: string]: unknown;
+}
+export interface FlowStoreAtomsType {
+  type: 'atoms';
+  atomName: string;
+  [k: string]: unknown;
+}
+export interface FlowStoreAtomType {
+  type: 'atom';
+  atomName: string;
   [k: string]: unknown;
 }
 /**

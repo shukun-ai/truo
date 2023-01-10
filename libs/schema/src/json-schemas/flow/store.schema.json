@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FlowStore",
+  "type": "object",
+  "patternProperties": {
+    "^(\\w)+$": {
+      "oneOf": [
+        {
+          "title": "FlowStoreStringType",
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "const": "string"
+            }
+          }
+        },
+        {
+          "title": "FlowStoreNumberType",
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "const": "number"
+            }
+          }
+        },
+        {
+          "title": "FlowStoreBooleanType",
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "const": "boolean"
+            }
+          }
+        },
+        {
+          "title": "FlowStoreObjectType",
+          "type": "object",
+          "required": ["type", "validateObject"],
+          "properties": {
+            "type": {
+              "const": "object"
+            },
+            "validateObject": {}
+          }
+        },
+        {
+          "title": "FlowStoreAtomsType",
+          "type": "object",
+          "required": ["type", "atomName"],
+          "properties": {
+            "type": {
+              "const": "atoms"
+            },
+            "atomName": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "title": "FlowStoreAtomType",
+          "type": "object",
+          "required": ["type", "atomName"],
+          "properties": {
+            "type": {
+              "const": "atom"
+            },
+            "atomName": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

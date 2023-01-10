@@ -4,7 +4,7 @@
   "description": "Describe Flow Schema",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "input", "output", "startEventName", "events"],
+  "required": ["name", "input", "output", "startEventName", "events", "store"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -29,6 +29,9 @@
     },
     "events": {
       "$ref": "flow/events.schema.json"
+    },
+    "store": {
+      "$ref": "flow/store.schema.json"
     }
   }
 }
