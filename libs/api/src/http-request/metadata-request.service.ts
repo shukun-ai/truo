@@ -1,14 +1,16 @@
-import { MetadataElectron, MetadataSchema, IDString } from '@shukun/schema';
+import {
+  MetadataElectron,
+  MetadataSchema,
+  IDString,
+  HttpQuerySchema,
+  UnknownSourceModel,
+  ApiResponseData,
+} from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 
 import { HttpRequestService } from './http-request.service';
 
 import { RestfulRequestService } from './restful-request.service';
-import {
-  UnknownSourceModel,
-  ApiResponseData,
-  QueryParams,
-} from './shared-types';
 
 export class MetadataRequestService<Model = UnknownSourceModel> {
   metadata: MetadataSchema;
@@ -47,13 +49,13 @@ export class MetadataRequestService<Model = UnknownSourceModel> {
   }
 
   public async findMany(
-    params?: QueryParams,
+    params?: HttpQuerySchema,
   ): Promise<AxiosResponse<ApiResponseData<Model[]>>> {
     return this.request.findMany(params || {}, this.globalSelect);
   }
 
   public async findOne(
-    params?: QueryParams,
+    params?: HttpQuerySchema,
   ): Promise<AxiosResponse<ApiResponseData<Model>>> {
     return this.request.findOne(params || {}, this.globalSelect);
   }
