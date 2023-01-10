@@ -89,11 +89,13 @@ export class CodeResolverService implements Resolver {
           atomName: string,
           data: Partial<T>,
         ) => {
+          const modifierId = null; // The webhook will be deprecated, so set modifierId as null.
           return await this.sourceService.updateOne(
             id,
             orgName,
             atomName,
             data as unknown as Partial<SourceServiceCreateDto>,
+            modifierId,
           );
         },
 

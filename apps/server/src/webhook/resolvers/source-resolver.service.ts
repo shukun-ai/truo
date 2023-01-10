@@ -71,7 +71,8 @@ export class SourceResolverService implements Resolver {
 
   async executeUpdateOne(args: InputOrOutput, orgName: string) {
     const { id, atomName, data } = args;
-    await this.sourceService.updateOne(id, orgName, atomName, data);
+    const modifierId = null; // The webhook will be deprecated, so set modifierId as null.
+    await this.sourceService.updateOne(id, orgName, atomName, data, modifierId);
     return null;
   }
 
