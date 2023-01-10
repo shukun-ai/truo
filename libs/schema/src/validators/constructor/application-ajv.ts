@@ -35,6 +35,7 @@ import {
   flowEventLastOrThrowSchema,
   scheduleSchema,
   environmentSchema,
+  flowStoreSchema,
 } from '../../json-exports';
 
 import { createBaseAjv } from './base-ajv';
@@ -65,6 +66,7 @@ export function createApplicationAjv(options?: Options) {
     .addSchema(workflowTaskStateSchema, 'workflows/task-state.schema.json')
     // Flow subordinates
     .addSchema(flowEventsSchema, 'flow/events.schema.json')
+    .addSchema(flowStoreSchema, 'flow/store.schema.json')
     .addSchema(flowEventSuccessSchema, 'flow/event/success.schema.json')
     .addSchema(flowEventFailSchema, 'flow/event/fail.schema.json')
     .addSchema(

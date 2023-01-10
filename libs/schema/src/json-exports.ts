@@ -61,6 +61,9 @@ export const workflowTaskStateSchema = require('./json-schemas/workflows/task-st
 export const flowEventsSchema = require('./json-schemas/flow/events.schema.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+export const flowStoreSchema = require('./json-schemas/flow/store.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 export const flowEventSuccessSchema = require('./json-schemas/flow/event/success.schema.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
