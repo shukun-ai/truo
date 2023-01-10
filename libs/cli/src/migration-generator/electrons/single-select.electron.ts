@@ -1,4 +1,4 @@
-import { SINGLE_SELECT_MAX_LENGTH } from '@shukun/electron';
+import { SINGLE_SELECT_MAX_LENGTH } from '@shukun/schema';
 import { MetadataElectron } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';

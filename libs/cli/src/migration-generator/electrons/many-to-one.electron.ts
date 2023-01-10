@@ -1,4 +1,4 @@
-import { MANY_TO_ONE_MAX_LENGTH } from '@shukun/electron';
+import { MANY_TO_ONE_MAX_LENGTH } from '@shukun/schema';
 import { MetadataElectron } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';

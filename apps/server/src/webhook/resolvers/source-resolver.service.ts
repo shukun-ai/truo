@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-
-import { IDString } from '../../app.type';
+import { IDString } from '@shukun/schema';
 
 import { SourceService } from '../../source/source.service';
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
@@ -71,7 +70,8 @@ export class SourceResolverService implements Resolver {
 
   async executeUpdateOne(args: InputOrOutput, orgName: string) {
     const { id, atomName, data } = args;
-    await this.sourceService.updateOne(id, orgName, atomName, data);
+    const modifierId = null; // The webhook will be deprecated, so set modifierId as null.
+    await this.sourceService.updateOne(id, orgName, atomName, data, modifierId);
     return null;
   }
 

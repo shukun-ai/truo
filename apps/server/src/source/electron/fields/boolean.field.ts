@@ -1,19 +1,26 @@
+import { ElectronValueException } from '@shukun/exception';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import {
+  ElectronExceptions,
+  ElectronType,
+  MongooseSchema,
+} from '../electron-field.interface';
 
 export class BooleanField implements ElectronType {
-  validateValue(value: unknown) {
+  validateValue(value: unknown): ElectronExceptions {
     const errorMessage = [];
 
     if (typeof value !== 'boolean') {
-      errorMessage.push('should be a boolean.');
+      errorMessage.push(
+        new ElectronValueException('should be a boolean type.'),
+      );
     }
 
     return errorMessage;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: Schema.Types.Boolean,
     };

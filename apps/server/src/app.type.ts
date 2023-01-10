@@ -1,4 +1,4 @@
-export type IDString = string;
+import { IDString } from '@shukun/schema';
 
 export interface SourceServiceCreateDto {
   [keyName: string]: unknown;

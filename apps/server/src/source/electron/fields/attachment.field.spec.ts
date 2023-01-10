@@ -1,7 +1,9 @@
+import { ElectronValueException } from '@shukun/exception';
+
 import { AttachmentField } from './attachment.field';
 
 describe('attachment.field', () => {
-  it('validateValue should pass joi.', async () => {
+  it('validateValue', async () => {
     const field = new AttachmentField();
     const wrongValue = {
       mime: 'image/png',
@@ -15,8 +17,12 @@ describe('attachment.field', () => {
       size: 1024,
     };
     const rightValue = [wrongValue];
-    expect(field.validateValue(wrongValue)).toEqual(['value 的格式不正确。']);
-    expect(field.validateValue(wrongValue2)).toEqual(['value 的格式不正确。']);
+    expect(field.validateValue(wrongValue)).toEqual([
+      new ElectronValueException('should be a attachment format.'),
+    ]);
+    expect(field.validateValue(wrongValue2)).toEqual([
+      new ElectronValueException('should be a attachment format.'),
+    ]);
     expect(field.validateValue(rightValue)).toEqual([]);
   });
 });

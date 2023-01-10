@@ -5,9 +5,8 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { WorkflowSchema } from '@shukun/schema';
+import { IDString, WorkflowSchema } from '@shukun/schema';
 
-import { IDString } from '../../app.type';
 import { WorkflowService } from '../../core/workflow.service';
 
 import { executeWorkflow } from '../../util/workflow/execution';

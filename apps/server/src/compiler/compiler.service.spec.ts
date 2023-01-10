@@ -3,6 +3,7 @@ import { FlowEvents, FlowSchema } from '@shukun/schema';
 import { CompileFactoryService } from './compile-factory.service';
 
 import { CompilerService } from './compiler.service';
+import { compileCommonWrapper } from './wrappers/compile-common-wrapper';
 
 describe('CompilerService', () => {
   let compilerService: CompilerService;
@@ -52,11 +53,11 @@ describe('CompilerService', () => {
       const output = await compilerService.compileEvents(events);
 
       expect(output).toEqual({
-        repeat: 'test',
-        repeatFirst: 'test',
-        repeatTwoFirst: 'test',
-        repeatSecond: 'test',
-        first: 'test',
+        repeat: await compileCommonWrapper('test'),
+        repeatFirst: await compileCommonWrapper('test'),
+        repeatTwoFirst: await compileCommonWrapper('test'),
+        repeatSecond: await compileCommonWrapper('test'),
+        first: await compileCommonWrapper('test'),
       });
     });
 
@@ -101,10 +102,10 @@ describe('CompilerService', () => {
       const output = await compilerService.compileEvents(events);
 
       expect(output).toEqual({
-        parallel: 'test',
-        p1: 'test',
-        p2: 'test',
-        p2p1: 'test',
+        parallel: await compileCommonWrapper('test'),
+        p1: await compileCommonWrapper('test'),
+        p2: await compileCommonWrapper('test'),
+        p2p1: await compileCommonWrapper('test'),
       });
     });
   });

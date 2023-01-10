@@ -1,21 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { IDString } from '@shukun/api';
-import { MetadataSchema } from '@shukun/schema';
+import { IDString } from '@shukun/schema';
+import { DataSourceConnection, MetadataSchema } from '@shukun/schema';
 
 import { getFieldInstance } from '../electron/fields-map';
 
 @Injectable()
 export class KnexElectronConvertorService<Model> {
   convertAfterQuery(
+    dataSourceConnection: DataSourceConnection,
     entities: Array<{ _id: IDString } & Model>,
     metadata: MetadataSchema,
   ): Array<{ _id: IDString } & Model> {
     return entities.map((entity) =>
-      this.convertAfterQueryForOne(entity, metadata),
+      this.convertAfterQueryForOne(dataSourceConnection, entity, metadata),
     );
   }
 
   convertAfterQueryForOne(
+    dataSourceConnection: DataSourceConnection,
     entity: { _id: IDString } & Model,
     metadata: MetadataSchema,
   ): { _id: IDString } & Model {
@@ -28,7 +30,7 @@ export class KnexElectronConvertorService<Model> {
       if (electron) {
         const instance = getFieldInstance(electron.fieldType);
         newEntity[key] = instance.afterQuery
-          ? instance.afterQuery(value, electron)
+          ? instance.afterQuery(value, electron, dataSourceConnection.type)
           : value;
       } else if (key === 'createdAt' || key === 'updatedAt') {
         newEntity[key] = value;

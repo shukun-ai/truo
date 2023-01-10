@@ -12,12 +12,12 @@ import { MongoAdaptorService } from './mongo/mongo-adaptor.service';
 import { MongoQueryConvertorService } from './mongo/mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongo/mongoose-connection.service';
 import { SourceDataAccessService } from './source-data-access.service';
+import { SourceDtoConstraintService } from './source-dto-constraint.service';
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';
 
 import { SourceParamUtilService } from './source-param-util.service';
 import { SourceService } from './source.service';
-import { VariableService } from './variable/variable.service';
 
 @Module({
   imports: [CoreModule, PassportModule],
@@ -25,7 +25,7 @@ import { VariableService } from './variable/variable.service';
     SourceService,
     SourceFoundationService,
     SourceParamUtilService,
-    VariableService,
+    SourceDtoConstraintService,
     MongoAdaptorService,
     MongoQueryConvertorService,
     MongooseConnectionService,
@@ -37,6 +37,6 @@ import { VariableService } from './variable/variable.service';
     SourceDataAccessService,
     SourceForeignQueryService,
   ],
-  exports: [SourceService, VariableService],
+  exports: [SourceService],
 })
 export class SourceModule {}

@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { MetadataFieldType, MetadataSchema } from '@shukun/schema';
+import { DataSourceConnection, MetadataSchema } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../app.type';
 
@@ -8,6 +8,7 @@ import { getFieldInstance } from './electron/fields-map';
 @Injectable()
 export class SourceParamUtilService {
   buildParams(
+    dataSourceConnection: DataSourceConnection,
     metadata: MetadataSchema,
     dto: SourceServiceCreateDto,
   ): SourceServiceCreateDto {
@@ -24,14 +25,16 @@ export class SourceParamUtilService {
 
         if (electron) {
           const field = getFieldInstance(electron.fieldType);
-          const result = field.validateValue(value, electron);
+          const electronExceptions = field.validateValue(value, electron);
 
-          const newMessage = result.map((message) => `${key} ${message}`);
+          const newMessage = electronExceptions.map(
+            (exception) => `${electron.label}: ${exception.message}`,
+          );
 
           errorMessage = [...errorMessage, ...newMessage];
 
           const parsedValue = field.beforeSave
-            ? field.beforeSave(value, electron)
+            ? field.beforeSave(value, electron, dataSourceConnection.type)
             : value;
 
           sets[key] = parsedValue;

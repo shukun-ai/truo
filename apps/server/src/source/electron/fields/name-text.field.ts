@@ -1,25 +1,31 @@
-import { isEngineName, isStartedWithLowercase } from '@shukun/electron';
-import { MetadataElectron } from '@shukun/schema';
+import { ElectronValueException } from '@shukun/exception';
+import { isEngineName, isStartedWithLowercase } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import {
+  ElectronExceptions,
+  ElectronType,
+  MongooseSchema,
+} from '../electron-field.interface';
 
 export class NameTextField implements ElectronType {
-  validateValue(value: unknown, electron: MetadataElectron): string[] {
+  validateValue(value: unknown): ElectronExceptions {
     const errorMessage = [];
 
     if (!isEngineName(value)) {
-      errorMessage.push(`${electron.name} 字段仅允许 a-z, 0-9 或 _ 字符。`);
+      errorMessage.push(
+        new ElectronValueException('should be a-z, 0-9 or _ .'),
+      );
     }
 
     if (!isStartedWithLowercase(value)) {
-      errorMessage.push(`${electron.name} 字段仅允许以 a-z 作为第一个字符。`);
+      errorMessage.push(new ElectronValueException('should start with a-z.'));
     }
 
     return errorMessage;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: Schema.Types.String,
     };

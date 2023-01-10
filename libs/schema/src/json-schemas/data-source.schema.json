@@ -4,7 +4,6 @@
   "description": "Describe Data Source Schema",
   "type": "object",
   "additionalProperties": false,
-  "required": ["connections"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -19,7 +18,9 @@
           "required": ["type", "host", "database", "metadata"],
           "properties": {
             "type": {
-              "enum": ["postgres", "oracleDB"]
+              "title": "DataSourceType",
+              "enum": ["default", "postgres", "oracleDB"],
+              "description": "The default value means using platform default database, if set default, the other values will not effective."
             },
             "host": {
               "type": "string"
@@ -45,6 +46,10 @@
                 "type": "string"
               }
             },
+            "maxPools": {
+              "type": "number",
+              "description": "The default value is 30."
+            },
             "tablePrefix": {
               "type": "string"
             },
@@ -52,6 +57,15 @@
               "type": "string"
             }
           }
+        }
+      }
+    },
+    "environments": {
+      "title": "DataSourceEnvironments",
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "string"
         }
       }
     }

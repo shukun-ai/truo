@@ -4,7 +4,7 @@ describe('compileTs', () => {
   it('compileTs get minify code.', async () => {
     const text = await compileTs(`
             import { CodeResolver } from '@shukun/code-resolver';
-            import { IDString } from '@shukun/api';
+            import { IDString } from '@shukun/schema';
 
             export default async function main(
                 scope: CodeResolver,

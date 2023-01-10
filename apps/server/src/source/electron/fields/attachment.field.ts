@@ -1,53 +1,47 @@
-import { JSONSchemaType } from 'ajv';
+import { ElectronValueException } from '@shukun/exception';
+import {
+  DataSourceType,
+  MetadataElectron,
+  validateAttachmentsSchema,
+} from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ajv } from '../../../util/schema/ajv';
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
-
-interface AttachmentValue {
-  mime: string;
-  path: string;
-  size: number;
-  name: string;
-}
-
-// @todo rewrite in JSON file.
-// eslint-disable-next-line
-// @ts-ignore
-const valueSchema: JSONSchemaType<AttachmentValue[]> = {
-  type: 'array',
-  items: {
-    type: 'object',
-    properties: {
-      mime: { type: 'string' },
-      path: { type: 'string' },
-      size: { type: 'integer' },
-      name: { type: 'string' },
-    },
-    required: ['mime', 'path', 'size', 'name'],
-    additionalProperties: false,
-  },
-};
+import {
+  ElectronExceptions,
+  ElectronType,
+  MongooseSchema,
+} from '../electron-field.interface';
 
 export class AttachmentField implements ElectronType {
-  validateValue(value: unknown): string[] {
-    const messages: string[] = [];
-    const validate = ajv.compile(valueSchema);
+  validateValue(value: unknown): ElectronExceptions {
+    const messages = [];
 
-    if (!validate?.(value)) {
-      messages.push('value 的格式不正确。');
+    if (!validateAttachmentsSchema(value)) {
+      messages.push(
+        new ElectronValueException('should be a attachment format.'),
+      );
     }
 
     return messages;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: [Schema.Types.Mixed],
     };
   }
 
-  // TODO set beforeSave for SQL source
   // @see {@link https://knexjs.org/guide/schema-builder.html#json}
   // JSON.stringify(mightBeAnArray)
+  beforeSave(
+    value: unknown,
+    electron: MetadataElectron,
+    connectionType: DataSourceType,
+  ): unknown {
+    if (connectionType === 'postgres') {
+      return JSON.stringify(value);
+    } else {
+      return value;
+    }
+  }
 }

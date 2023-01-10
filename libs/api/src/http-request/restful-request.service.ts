@@ -1,11 +1,14 @@
-import { RoleResourceType } from '@shukun/schema';
+import {
+  RoleResourceType,
+  IDString,
+  HttpQuerySchema,
+  ApiResponseData,
+} from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 import merge from 'lodash/merge';
 
 import { HttpRequestService } from './http-request.service';
 import { RestfulRequestNotFoundError } from './restful-request.exception';
-
-import { IDString, ApiResponseData, QueryParams } from './shared-types';
 
 export interface RestfulRequestServiceOptions {
   atomName: string;
@@ -45,7 +48,7 @@ export class RestfulRequestService<Model> {
   }
 
   public async findMany<SelectedFields extends keyof Model>(
-    params: QueryParams,
+    params: HttpQuerySchema,
     select: Record<SelectedFields, true>,
   ): Promise<AxiosResponse<ApiResponseData<Pick<Model, SelectedFields>[]>>> {
     const data = merge({}, params, {
@@ -62,7 +65,7 @@ export class RestfulRequestService<Model> {
   }
 
   public async findOne<SelectedFields extends keyof Model>(
-    params: QueryParams,
+    params: HttpQuerySchema,
     select: Record<SelectedFields, true>,
   ): Promise<AxiosResponse<ApiResponseData<Pick<Model, SelectedFields>>>> {
     const data = merge(
@@ -96,7 +99,7 @@ export class RestfulRequestService<Model> {
   }
 
   public async findOneOrNull<SelectedFields extends keyof Model>(
-    params: QueryParams,
+    params: HttpQuerySchema,
     select: Record<SelectedFields, true>,
   ): Promise<AxiosResponse<
     ApiResponseData<Pick<Model, SelectedFields>>

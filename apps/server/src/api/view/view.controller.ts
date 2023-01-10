@@ -1,14 +1,9 @@
-import {
-  Controller,
-  Get,
-  Inject,
-  Param,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { RoleResourceType, ViewSchema } from '@shukun/schema';
 
+import { EnvironmentService } from '../../core/environment.service';
+
 import { ViewService } from '../../core/view.service';
-import { VariableService } from '../../source/variable/variable.service';
 import { JsonTemplate } from '../../util/json-template';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
@@ -16,17 +11,16 @@ import { QueryResponse } from '../../util/query/interfaces';
 @Controller(`${RoleResourceType.View}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class ViewController {
-  @Inject()
-  private readonly viewService!: ViewService;
-
-  @Inject()
-  private readonly variableService!: VariableService;
+  constructor(
+    private readonly viewService: ViewService,
+    private readonly environmentService: EnvironmentService,
+  ) {}
 
   @Get('views')
   async index(
     @Param('orgName') orgName: string,
   ): Promise<QueryResponse<ViewSchema[]>> {
-    // @todo controlled by roles
+    // TODO controlled by roles
     const views = await this.viewService.findAll(orgName);
 
     const jsonTemplate = await this.createJsonTemplate(orgName);
@@ -58,16 +52,15 @@ export class ViewController {
   }
 
   async createJsonTemplate(orgName: string) {
-    const variables = await this.variableService.findAll(orgName);
+    const publicEnvironments =
+      await this.environmentService.findPublicEnvironments(orgName);
 
     const jsonTemplate = new JsonTemplate('States', {
       secret: (value: unknown) => {
         if (typeof value === 'string') {
-          const variable = variables.find(
-            (variable) => variable.name === value,
-          );
-          if (variable) {
-            return variable.value;
+          const environmentValue = publicEnvironments?.[value];
+          if (environmentValue) {
+            return environmentValue;
           }
         }
         return value;

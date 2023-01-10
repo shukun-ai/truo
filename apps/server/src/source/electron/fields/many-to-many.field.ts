@@ -1,13 +1,13 @@
 import { Schema } from 'mongoose';
 
-import { SchemaBuilderResult, ElectronType } from '../electron-field.interface';
+import { MongooseSchema, ElectronType } from '../electron-field.interface';
 
 export class ManyToManyField implements ElectronType {
   validateValue() {
     return [];
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: [
         {

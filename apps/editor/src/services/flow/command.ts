@@ -1,6 +1,5 @@
+import { TypeException } from '@shukun/exception';
 import { FlowEvent, FlowSchema } from '@shukun/schema';
-
-import { TypeException } from '../../exceptions/type-exception';
 
 import { FlowStore } from './store';
 

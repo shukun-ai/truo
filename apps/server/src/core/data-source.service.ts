@@ -12,19 +12,33 @@ export class DataSourceService {
     return dataSource;
   }
 
-  async findOne(
+  async findConnection(
     orgName: string,
     atomName: string,
-  ): Promise<DataSourceConnection | null> {
+  ): Promise<DataSourceConnection> {
     const dataSource = await this.findAll(orgName);
-    let sourceConnection = null;
+    let dataSourceConnection = this.prepareDefaultConnection();
+
+    if (!dataSource.connections) {
+      return dataSourceConnection;
+    }
 
     for (const connection of Object.values(dataSource.connections)) {
       if (connection.metadata.includes(atomName)) {
-        sourceConnection = connection;
+        dataSourceConnection = connection;
       }
     }
 
-    return sourceConnection;
+    return dataSourceConnection;
+  }
+
+  protected prepareDefaultConnection(): DataSourceConnection {
+    // TODO when refactor the mongoose, please use real database connection information.
+    return {
+      type: 'default',
+      host: 'localhost',
+      database: 'database',
+      metadata: [],
+    };
   }
 }

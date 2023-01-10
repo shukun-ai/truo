@@ -6,14 +6,11 @@ export async function compileSuccessEvent(
   event: FlowEventSuccess,
 ): Promise<string> {
   return `
-        async function main($, $$, $$$){
-            const output = ${compileJsonTemplate(event.output)};
-            return {
-              ...$,
-              input: output,
-              next: null
-            };
-        };
-        exports.default=main;
+      const output = ${compileJsonTemplate(event.output)};
+      return {
+        ...$,
+        input: output,
+        next: ''
+      };
     `;
 }

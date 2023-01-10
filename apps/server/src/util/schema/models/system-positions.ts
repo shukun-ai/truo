@@ -1,4 +1,4 @@
-import { IDString } from '../../../app.type';
+import { IDString } from '@shukun/schema';
 
 export class SystemPositionModel {
   name!: string;

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { TypeException } from '@shukun/exception';
 import { ScheduleSchema } from '@shukun/schema';
-
-import { TypeException } from '../exceptions/type-exception';
 
 import { ScheduleJobService } from './schedule-job.service';
 

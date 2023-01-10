@@ -1,16 +1,14 @@
 import { FlowEventSourceQuery } from '@shukun/schema';
 
-import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
-
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { mockEmptyDependencies } from '../../util/unit-testing/unit-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileSourceQueryEvent } from './compile-source-query';
 describe('compileSourceQueryEvent', () => {
   let sandboxService: SandboxService;
   let sourceResolverService: SourceResolverService;
-  let dateResolverService: DateResolverService;
 
   const event: FlowEventSourceQuery = {
     type: 'SourceQuery',
@@ -32,12 +30,9 @@ describe('compileSourceQueryEvent', () => {
   };
 
   beforeAll(() => {
-    sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    dateResolverService = new DateResolverService();
-    sandboxService = new SandboxService(
-      sourceResolverService,
-      dateResolverService,
-    );
+    const sandboxTesting = createTestingSandbox();
+    sandboxService = sandboxTesting.sandboxService;
+    sourceResolverService = sandboxTesting.sourceResolverService;
 
     jest
       .spyOn(sourceResolverService, 'query')
@@ -58,7 +53,11 @@ describe('compileSourceQueryEvent', () => {
     };
 
     const code = await compileSourceQueryEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -90,7 +89,8 @@ describe('compileSourceQueryEvent', () => {
     };
 
     const code = await compileSourceQueryEvent(event);
+    const wrappedCode = await compileCommonWrapper(code);
 
-    expect(sandboxService.executeVM(code, context)).rejects.toThrow();
+    expect(sandboxService.executeVM(wrappedCode, context)).rejects.toThrow();
   });
 });

@@ -1,20 +1,26 @@
-import { MetadataElectron } from '@shukun/schema';
+import { ElectronValueException } from '@shukun/exception';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import {
+  ElectronExceptions,
+  ElectronType,
+  MongooseSchema,
+} from '../electron-field.interface';
 
 export class IsSystemField implements ElectronType {
-  validateValue(value: unknown, electron: MetadataElectron) {
+  validateValue(value: unknown): ElectronExceptions {
     const errorMessage = [];
 
     if (typeof value !== 'boolean') {
-      errorMessage.push(`${electron} 应该为一个 boolean 类型.`);
+      errorMessage.push(
+        new ElectronValueException('should be a boolean type.'),
+      );
     }
 
     return errorMessage;
   }
 
-  buildSchema(): SchemaBuilderResult {
+  buildSchema(): MongooseSchema {
     return {
       type: Schema.Types.Boolean,
     };

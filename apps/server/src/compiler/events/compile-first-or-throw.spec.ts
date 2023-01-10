@@ -1,21 +1,14 @@
+import { IsEmptyArrayException, IsNotArrayException } from '@shukun/exception';
 import { FlowEventFirstOrThrow } from '@shukun/schema';
 
-import { IsEmptyArrayException } from '../../exceptions/is-empty-array';
-
-import { IsNotArrayException } from '../../exceptions/is-not-array';
-import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
-
-import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
-
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { mockEmptyDependencies } from '../../util/unit-testing/unit-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileFirstOrThrowEvent } from './compile-first-or-throw';
 
 describe('compileFirstOrThrowEvent', () => {
   let sandboxService: SandboxService;
-  let sourceResolverService: SourceResolverService;
-  let dateResolverService: DateResolverService;
 
   const event: FlowEventFirstOrThrow = {
     type: 'FirstOrThrow',
@@ -23,20 +16,21 @@ describe('compileFirstOrThrowEvent', () => {
   };
 
   beforeAll(() => {
-    sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    dateResolverService = new DateResolverService();
-    sandboxService = new SandboxService(
-      sourceResolverService,
-      dateResolverService,
-    );
+    const sandboxTesting = createTestingSandbox();
+    sandboxService = sandboxTesting.sandboxService;
   });
 
   it('should return 0', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const context: any = {
       input: new Array(10).fill(1).map((item, index) => index),
     };
     const code = await compileFirstOrThrowEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -46,23 +40,27 @@ describe('compileFirstOrThrowEvent', () => {
   });
 
   it('should return throw is not a array.', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const context: any = {
       input: {},
     };
     const code = await compileFirstOrThrowEvent(event);
+    const wrappedCode = await compileCommonWrapper(code);
 
-    expect(sandboxService.executeVM(code, context)).rejects.toThrow(
+    expect(sandboxService.executeVM(wrappedCode, context)).rejects.toThrow(
       new IsNotArrayException('The input is not a array.'),
     );
   });
 
   it('should return throw is a empty array.', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const context: any = {
       input: [],
     };
     const code = await compileFirstOrThrowEvent(event);
+    const wrappedCode = await compileCommonWrapper(code);
 
-    expect(sandboxService.executeVM(code, context)).rejects.toEqual(
+    expect(sandboxService.executeVM(wrappedCode, context)).rejects.toEqual(
       new IsEmptyArrayException('The input is a empty array.'),
     );
   });

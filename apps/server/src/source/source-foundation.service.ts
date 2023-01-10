@@ -1,12 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
+import { HttpQuerySchema, IDString, MetadataSchema } from '@shukun/schema';
 import { isInteger } from 'lodash';
 
-import { IDString, JsonModel, SourceServiceCreateDto } from '../app.type';
+import { JsonModel, SourceServiceCreateDto } from '../app.type';
 import { DataSourceService } from '../core/data-source.service';
 import { MetadataService } from '../core/metadata.service';
 
 import { SourceDataAccessService } from './source-data-access.service';
+import { SourceDtoConstraintService } from './source-dto-constraint.service';
 
 import { SourceParamUtilService } from './source-param-util.service';
 
@@ -15,6 +16,7 @@ export class SourceFoundationService<Model> {
   constructor(
     private readonly metadataService: MetadataService,
     private readonly sourceParamUtilService: SourceParamUtilService,
+    private readonly sourceDtoConstraintService: SourceDtoConstraintService,
     private readonly sourceDataAccessService: SourceDataAccessService<Model>,
     private readonly dataSourceService: DataSourceService,
   ) {}
@@ -29,17 +31,23 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
 
     const owner = ownerId ? { owner: ownerId } : null;
 
-    const params = this.sourceParamUtilService.buildParams(metadata, {
-      ...dto,
-      ...owner,
-    });
+    const params = this.sourceParamUtilService.buildParams(
+      dataSourceConnection,
+      metadata,
+      {
+        ...dto,
+        ...owner,
+      },
+    );
+
+    this.sourceDtoConstraintService.validateCreateConstraint(metadata, params);
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -63,12 +71,18 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
 
-    const params = this.sourceParamUtilService.buildParams(metadata, dto);
+    const params = this.sourceParamUtilService.buildParams(
+      dataSourceConnection,
+      metadata,
+      dto,
+    );
+
+    this.sourceDtoConstraintService.validateUpdateConstraint(metadata, params);
 
     const adaptor = await this.sourceDataAccessService.getAdaptor(
       dataSourceConnection,
@@ -92,7 +106,7 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
@@ -118,7 +132,7 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
@@ -144,7 +158,7 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
@@ -165,7 +179,7 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
@@ -190,7 +204,7 @@ export class SourceFoundationService<Model> {
       electronName,
       foreignId,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
@@ -222,7 +236,7 @@ export class SourceFoundationService<Model> {
       electronName,
       foreignId,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );
@@ -252,7 +266,7 @@ export class SourceFoundationService<Model> {
       orgName,
       atomName,
     );
-    const dataSourceConnection = await this.dataSourceService.findOne(
+    const dataSourceConnection = await this.dataSourceService.findConnection(
       orgName,
       atomName,
     );

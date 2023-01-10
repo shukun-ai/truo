@@ -10,9 +10,9 @@ import {
   Delete,
   Req,
 } from '@nestjs/common';
-import { HttpQuerySchema, RoleResourceType } from '@shukun/schema';
+import { HttpQuerySchema, IDString, RoleResourceType } from '@shukun/schema';
 
-import { IDString, SourceServiceCreateDto } from '../../app.type';
+import { SourceServiceCreateDto } from '../../app.type';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { ParsedHttpQuery } from '../../util/query/decorators/parsed-http-query.decorator';
 import { ParsedQuery } from '../../util/query/decorators/parsed-query.decorator';
@@ -88,7 +88,7 @@ export class SourceController {
       orgName,
       atomName,
       createDto,
-      request,
+      request.userId ?? null,
     );
   }
 
@@ -104,7 +104,7 @@ export class SourceController {
       orgName,
       atomName,
       createDto,
-      request,
+      request.userId ?? null,
     );
   }
 
@@ -114,12 +114,14 @@ export class SourceController {
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
     @Body() createDto: SourceServiceCreateDto,
+    @Req() request: SecurityRequest,
   ): Promise<QueryResponse<null>> {
     return await this.sourceOperationService.update(
       id,
       orgName,
       atomName,
       createDto,
+      request.userId ?? null,
     );
   }
 
@@ -130,12 +132,14 @@ export class SourceController {
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
     @Body() createDto: SourceServiceCreateDto,
+    @Req() request: SecurityRequest,
   ): Promise<QueryResponse<null>> {
     return await this.sourceOperationService.update(
       id,
       orgName,
       atomName,
       createDto,
+      request.userId ?? null,
     );
   }
 

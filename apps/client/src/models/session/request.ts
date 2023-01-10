@@ -1,5 +1,5 @@
-import { ApiResponseData, RsaHelper } from '@shukun/api';
-import { RoleResourceType } from '@shukun/schema';
+import { RsaHelper } from '@shukun/api';
+import { RoleResourceType, ApiResponseData } from '@shukun/schema';
 
 import { environment } from '../../environments';
 

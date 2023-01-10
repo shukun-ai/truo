@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
+
+import { IsEmptyArrayException } from '@shukun/exception';
+
+import { IsNotArrayException } from '@shukun/exception';
 import { NodeVM } from 'vm2';
-
-import { IsEmptyArrayException } from '../exceptions/is-empty-array';
-
-import { IsNotArrayException } from '../exceptions/is-not-array';
 
 import { DateResolverService } from './resolvers/date-resolver.service';
 
@@ -45,7 +45,7 @@ export class SandboxService {
 
   protected prepareVMResolver(): SandboxVMResolver {
     return {
-      sourceResolver: this.sourceResolverService,
+      _sourceResolver: this.sourceResolverService,
       date: this.dateResolverService,
     };
   }

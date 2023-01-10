@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { IDString } from '@shukun/schema';
 
-import { IDString } from '../../app.type';
 import { OrgService } from '../../core/org.service';
 import { SecurityService } from '../../identity/security.service';
 import { SourceService } from '../../source/source.service';
