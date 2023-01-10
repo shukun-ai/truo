@@ -6,6 +6,7 @@
     "start": "nx run-many --target=serve --projects=server,client,editor",
     "build": "nx run-many --target=build --all --configuration=production",
     "test": "nx run-many --target=test --all",
+    "test:coverage": "nx run-many --target=test --all --coverage",
     "lint": "nx run-many --target=lint --all",
     "prepare": "husky install",
     "git-pre-commit": "nx format:write --uncommitted",
