@@ -11,7 +11,8 @@ export async function compileSourceUpdateEvent(
             const orgName = $.orgName;
             const atomName = "${event.atomName}";
             const dto = ${compileJsonTemplate(event.data)};
-            const output = await $$._sourceResolver.update(id, orgName, atomName, dto);
+            const operatorId = $.operatorId;
+            const output = await $$._sourceResolver.update(id, orgName, atomName, dto, operatorId);
 
             return {
               ...$,

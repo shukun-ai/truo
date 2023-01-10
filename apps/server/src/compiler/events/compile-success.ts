@@ -11,7 +11,7 @@ export async function compileSuccessEvent(
             return {
               ...$,
               input: output,
-              next: null
+              next: ''
             };
         };
         exports.default=main;
