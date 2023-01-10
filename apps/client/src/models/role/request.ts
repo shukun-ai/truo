@@ -1,4 +1,5 @@
-import { RoleResourceType, RoleSchema, ApiResponseData } from '@shukun/schema';
+import { ApiResponseData } from '@shukun/api';
+import { RoleResourceType, RoleSchema } from '@shukun/schema';
 
 import { httpRequestService } from '../../utils/http-helper';
 

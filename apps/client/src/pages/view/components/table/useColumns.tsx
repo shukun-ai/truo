@@ -1,9 +1,9 @@
+import { UnknownSourceModel } from '@shukun/api';
 import {
   MetadataElectron,
   MetadataSchema,
   ViewSchema,
   ViewV2Column,
-  UnknownSourceModel,
 } from '@shukun/schema';
 import { TableColumnsType, TableColumnType } from 'antd';
 import { useObservableState } from 'observable-hooks';
