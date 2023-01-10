@@ -716,7 +716,12 @@ export interface FlowEventSourceQuery {
   next: string;
   atomName: string;
   query: {
-    filter?: FlowEventSourceQueryFilter;
+    /**
+     * The filter should be validate by custom program.
+     */
+    filter?: {
+      [k: string]: unknown;
+    };
     select?: {
       /**
        * The style is like MongoDB.
@@ -740,27 +745,6 @@ export interface FlowEventSourceQuery {
     count?: boolean;
   };
   [k: string]: unknown;
-}
-export interface FlowEventSourceQueryFilter {
-  [k: string]: FlowEventSourceQueryFilterExpression;
-}
-/**
- * This interface was referenced by `FlowEventSourceQueryFilter`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export interface FlowEventSourceQueryFilterExpression {
-  $eq?: string;
-  $ne?: string;
-  $gt?: string;
-  $gte?: string;
-  $lt?: string;
-  $lte?: string;
-  $in?: string;
-  $nin?: string;
-  $and?: FlowEventSourceQueryFilter[];
-  $or?: FlowEventSourceQueryFilter[];
-  $foreign?: FlowEventSourceQueryFilter;
-  $like?: string;
 }
 export interface FlowEventSourceCreate {
   type: 'SourceCreate';

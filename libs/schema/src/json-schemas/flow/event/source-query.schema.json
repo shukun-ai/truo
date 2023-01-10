@@ -13,7 +13,8 @@
       "additionalProperties": false,
       "properties": {
         "filter": {
-          "$ref": "#/definitions/FlowEventSourceQueryFilter"
+          "type": "object",
+          "description": "The filter should be validate by custom program."
         },
         "select": {
           "type": "object",
@@ -41,66 +42,6 @@
         },
         "count": {
           "type": "boolean"
-        }
-      }
-    }
-  },
-  "definitions": {
-    "FlowEventSourceQueryFilter": {
-      "title": "FlowEventSourceQueryFilter",
-      "type": "object",
-      "patternProperties": {
-        "^(\\w)+$": {
-          "$ref": "#/definitions/FlowEventSourceQueryFilterExpression"
-        }
-      }
-    },
-    "FlowEventSourceQueryFilterExpression": {
-      "title": "FlowEventSourceQueryFilterExpression",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "$eq": {
-          "type": "string"
-        },
-        "$ne": {
-          "type": "string"
-        },
-        "$gt": {
-          "type": "string"
-        },
-        "$gte": {
-          "type": "string"
-        },
-        "$lt": {
-          "type": "string"
-        },
-        "$lte": {
-          "type": "string"
-        },
-        "$in": {
-          "type": "string"
-        },
-        "$nin": {
-          "type": "string"
-        },
-        "$and": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/FlowEventSourceQueryFilter"
-          }
-        },
-        "$or": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/FlowEventSourceQueryFilter"
-          }
-        },
-        "$foreign": {
-          "$ref": "#/definitions/FlowEventSourceQueryFilter"
-        },
-        "$like": {
-          "type": "string"
         }
       }
     }
