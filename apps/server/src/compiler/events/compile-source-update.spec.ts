@@ -1,6 +1,6 @@
-import { FlowEventSourceUpdate } from '@shukun/schema';
+import { FlowEventSourceUpdate, OperatorId } from '@shukun/schema';
 
-import { OperatorId, SourceServiceCreateDto } from '../../app.type';
+import { SourceServiceCreateDto } from '../../app.type';
 
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 import { SandboxService } from '../../sandbox/sandbox.service';
