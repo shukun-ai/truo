@@ -1,15 +1,102 @@
+import { inspectTestingValidate } from '../../testing/testing-validate-inspector';
+import { HttpQuerySchema } from '../../types/http-query';
+
 import { validateHttpQuerySchema } from './validate';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const httpQueryData = require('./http-query.test.json');
+describe('validateHttpQuerySchema', () => {
+  it('should pass when simple filter', () => {
+    const query: HttpQuerySchema = {
+      filter: {
+        name: {
+          $eq: 'system',
+        },
+      },
+      limit: 10,
+    };
+    const result = validateHttpQuerySchema(query);
+    expect(result).toEqual(true);
+  });
 
-describe('attachment', () => {
-  it('validateHttpQuerySchema', () => {
-    const result = validateHttpQuerySchema(httpQueryData);
-    if (!result) {
-      // Just convince for debug if validate gets errors
-      console.error(validateHttpQuerySchema.errors);
-    }
+  it('should pass when simple filter', () => {
+    const query: HttpQuerySchema = {
+      filter: {
+        name: {
+          $or: [
+            {
+              name: { $eq: 'system' },
+            },
+            {
+              label: { $eq: 'hello' },
+            },
+          ],
+        },
+      },
+      limit: 10,
+    };
+    const result = validateHttpQuerySchema(query);
+    expect(result).toEqual(true);
+  });
+
+  it('should pass when top or filter', () => {
+    const query: HttpQuerySchema = {
+      filter: {
+        $or: [
+          {
+            name: 'system',
+          },
+          {
+            age: 30,
+          },
+        ],
+      },
+      limit: 10,
+    };
+    const result = validateHttpQuerySchema(query);
+    inspectTestingValidate(result, validateHttpQuerySchema);
+    expect(result).toEqual(true);
+  });
+
+  it('should pass when top or filter', () => {
+    const query: HttpQuerySchema = {
+      filter: {
+        $or: [
+          {
+            name: 'system',
+            vehicle: {
+              $eq: 's',
+            },
+          },
+        ],
+      },
+      limit: 10,
+    };
+
+    const result = validateHttpQuerySchema(query);
+    inspectTestingValidate(result, validateHttpQuerySchema);
+    expect(result).toEqual(true);
+  });
+
+  it('should pass when top or filter', () => {
+    const query: HttpQuerySchema = {
+      filter: {
+        $or: [
+          {
+            name: 'system',
+            vehicle: {
+              $eq: 's',
+              $in: ['hi'],
+            },
+          },
+          {
+            age: 30,
+          },
+        ],
+      },
+      limit: 10,
+    };
+
+    const result = validateHttpQuerySchema(query);
+    inspectTestingValidate(result, validateHttpQuerySchema);
     expect(result).toEqual(true);
   });
 });
