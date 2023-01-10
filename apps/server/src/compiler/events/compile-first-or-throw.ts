@@ -4,23 +4,20 @@ export async function compileFirstOrThrowEvent(
   event: FlowEventFirstOrThrow,
 ): Promise<string> {
   return `
-        async function main($, $$, $$$){
-            if (!Array.isArray($.input)) {
-              throw new $$$.IsNotArrayException('The input is not a array.');
-            }
+      if (!Array.isArray($.input)) {
+        throw new $$$.IsNotArrayException('The input is not a array.');
+      }
 
-            if ($.input.length === 0) {
-              throw new $$$.IsEmptyArrayException('The input is a empty array.');
-            }
+      if ($.input.length === 0) {
+        throw new $$$.IsEmptyArrayException('The input is a empty array.');
+      }
 
-            const output = $.input[0];
+      const output = $.input[0];
 
-            return {
-              ...$,
-              next: "${event.next}",
-              input: output
-            }
-        };
-        exports.default=main;
+      return {
+        ...$,
+        next: "${event.next}",
+        input: output
+      }
     `;
 }

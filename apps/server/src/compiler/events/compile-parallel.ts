@@ -4,12 +4,9 @@ export async function compileParallelEvent(
   event: FlowEventParallel,
 ): Promise<string> {
   return `
-        async function main($, $$, $$$){
-            return {
-              ...$,
-              next: "${event.next}",
-            };
-        };
-        exports.default=main;
+      return {
+        ...$,
+        next: "${event.next}",
+      };
     `;
 }

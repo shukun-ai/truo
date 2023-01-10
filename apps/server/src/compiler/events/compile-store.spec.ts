@@ -2,6 +2,7 @@ import { FlowEventStore } from '@shukun/schema';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
 import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileStoreEvent } from './compile-store';
 
@@ -26,7 +27,11 @@ describe('', () => {
       input: new Array(10).fill(1).map((item, index) => index),
     };
     const code = await compileStoreEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,

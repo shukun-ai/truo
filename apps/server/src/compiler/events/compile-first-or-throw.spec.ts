@@ -3,6 +3,7 @@ import { FlowEventFirstOrThrow } from '@shukun/schema';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
 import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileFirstOrThrowEvent } from './compile-first-or-throw';
 
@@ -25,7 +26,11 @@ describe('compileFirstOrThrowEvent', () => {
       input: new Array(10).fill(1).map((item, index) => index),
     };
     const code = await compileFirstOrThrowEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -40,8 +45,9 @@ describe('compileFirstOrThrowEvent', () => {
       input: {},
     };
     const code = await compileFirstOrThrowEvent(event);
+    const wrappedCode = await compileCommonWrapper(code);
 
-    expect(sandboxService.executeVM(code, context)).rejects.toThrow(
+    expect(sandboxService.executeVM(wrappedCode, context)).rejects.toThrow(
       new IsNotArrayException('The input is not a array.'),
     );
   });
@@ -52,8 +58,9 @@ describe('compileFirstOrThrowEvent', () => {
       input: [],
     };
     const code = await compileFirstOrThrowEvent(event);
+    const wrappedCode = await compileCommonWrapper(code);
 
-    expect(sandboxService.executeVM(code, context)).rejects.toEqual(
+    expect(sandboxService.executeVM(wrappedCode, context)).rejects.toEqual(
       new IsEmptyArrayException('The input is a empty array.'),
     );
   });
