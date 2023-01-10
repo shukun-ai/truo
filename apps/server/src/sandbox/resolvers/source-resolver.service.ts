@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { AddToManyDto, IncreaseDto, IDString } from '@shukun/api';
-import { HttpQuerySchema } from '@shukun/schema';
+import { AddToManyDto, IncreaseDto } from '@shukun/api';
+import { HttpQuerySchema, OperatorId, IDString } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../../app.type';
-import { SecurityRequest } from '../../identity/utils/security-request';
 import { SourceService } from '../../source/source.service';
 
 @Injectable()
@@ -34,13 +33,13 @@ export class SourceResolverService {
     orgName: string,
     atomName: string,
     dto: SourceServiceCreateDto,
-    request: SecurityRequest,
+    ownerId: OperatorId,
   ): Promise<{ _id: IDString }> {
     const value = await this.sourceService.createOne(
       orgName,
       atomName,
       dto,
-      request.userId || null,
+      ownerId,
     );
 
     return {
@@ -53,8 +52,9 @@ export class SourceResolverService {
     orgName: string,
     atomName: string,
     dto: SourceServiceCreateDto,
+    modifierId: OperatorId,
   ): Promise<null> {
-    await this.sourceService.updateOne(id, orgName, atomName, dto);
+    await this.sourceService.updateOne(id, orgName, atomName, dto, modifierId);
 
     return null;
   }

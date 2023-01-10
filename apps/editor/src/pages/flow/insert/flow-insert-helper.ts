@@ -1,6 +1,6 @@
+import { TypeException } from '@shukun/exception';
 import { FlowEvent } from '@shukun/schema';
 
-import { TypeException } from '../../../exceptions/type-exception';
 import { EventSchema, EventSchemaEditorType } from '../interface/event-schema';
 
 export const eventTypes: NonNullable<FlowEvent['type']>[] = [

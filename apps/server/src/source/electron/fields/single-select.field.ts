@@ -1,14 +1,14 @@
 import { MetadataElectron } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ElectronType, SchemaBuilderResult } from '../electron-field.interface';
+import { ElectronType, MongooseSchema } from '../electron-field.interface';
 
 export class SingleSelectField implements ElectronType {
   validateValue() {
     return [];
   }
 
-  buildSchema(electron: MetadataElectron): SchemaBuilderResult {
+  buildSchema(electron: MetadataElectron): MongooseSchema {
     return {
       type: Schema.Types.String,
       enum: (electron.options || []).map((option) => option.key),

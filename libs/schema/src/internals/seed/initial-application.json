@@ -126,24 +126,6 @@
           "isRequired": false
         }
       ]
-    },
-    {
-      "name": "system__variables",
-      "label": "环境变量",
-      "electrons": [
-        {
-          "name": "name",
-          "label": "名称",
-          "fieldType": "Text",
-          "isRequired": true
-        },
-        {
-          "name": "value",
-          "label": "值",
-          "fieldType": "Text",
-          "isRequired": true
-        }
-      ]
     }
   ],
   "views": [
@@ -417,64 +399,6 @@
       "parentName": "system__menu",
       "priority": 3,
       "atomName": "system__groups"
-    },
-    {
-      "name": "system__variables",
-      "label": "环境变量",
-      "type": "Simple",
-      "isVisible": true,
-      "isSystem": true,
-      "configurations": {
-        "v2Columns": [
-          {
-            "name": "name",
-            "label": "名称",
-            "type": "LinkText",
-            "electronName": "name",
-            "link": {
-              "type": "ReadOne"
-            }
-          }
-        ],
-        "v2Fields": [
-          {
-            "name": "name",
-            "label": "名称",
-            "type": "Text",
-            "electronName": "name",
-            "requiredCode": "return true;"
-          },
-          {
-            "name": "value",
-            "label": "值",
-            "type": "LargeText",
-            "electronName": "value",
-            "requiredCode": "return true;"
-          }
-        ],
-        "v2FieldRibbons": [
-          {
-            "name": "edit",
-            "label": "编辑",
-            "type": "UpdateOne"
-          },
-          {
-            "name": "delete",
-            "label": "删除",
-            "type": "DeleteOne"
-          }
-        ],
-        "v2ColumnRibbons": [
-          {
-            "name": "create",
-            "label": "新建",
-            "type": "CreateOne"
-          }
-        ]
-      },
-      "parentName": "system__menu",
-      "priority": 4,
-      "atomName": "system__variables"
     }
   ],
   "workflows": [],

@@ -13,16 +13,20 @@
         "IsEmptyArrayException",
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
+        "FlowBadCompileException",
         "FlowDefinitionException",
-        "TypeException"
+        "TypeException",
+        "ElectronValueException"
       ],
       "tsEnumNames": [
         "IsNotArrayException",
         "IsEmptyArrayException",
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
+        "FlowBadCompileException",
         "FlowDefinitionException",
-        "TypeException"
+        "TypeException",
+        "ElectronValueException"
       ]
     }
   }

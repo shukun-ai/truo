@@ -7,20 +7,26 @@
  */
 
 /**
+ * The default value means using platform default database, if set default, the other values will not effective.
+ */
+export type DataSourceType = 'default' | 'postgres' | 'oracleDB';
+
+/**
  * Describe Data Source Schema
  */
 export interface DataSourceSchema {
   $schema?: string;
-  connections: {
+  connections?: {
     [k: string]: DataSourceConnection;
   };
+  environments?: DataSourceEnvironments;
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
 export interface DataSourceConnection {
-  type: 'postgres' | 'oracleDB';
+  type: DataSourceType;
   host: string;
   port?: number;
   username?: string;
@@ -28,6 +34,17 @@ export interface DataSourceConnection {
   database: string;
   schema?: string;
   metadata: string[];
+  /**
+   * The default value is 30.
+   */
+  maxPools?: number;
   tablePrefix?: string;
   description?: string;
+}
+export interface DataSourceEnvironments {
+  /**
+   * This interface was referenced by `DataSourceEnvironments`'s JSON-Schema definition
+   * via the `patternProperty` "^(\w)+$".
+   */
+  [k: string]: string;
 }

@@ -6,26 +6,23 @@ export async function compileChoiceEvent(
   event: FlowEventChoice,
 ): Promise<string> {
   return `
-        async function main($, $$, $$$){
-            let next = "${event.next}";
+      let next = "${event.next}";
 
-            const condition = [
-              ${prepareConditions(event.conditions)}
-            ].find(item => !!item.condition);
+      const condition = [
+        ${prepareConditions(event.conditions)}
+      ].find(item => !!item.condition);
 
-            if (condition) {
-              next = condition.next;
-            }
+      if (condition) {
+        next = condition.next;
+      }
 
-            const output = $.input;
+      const output = $.input;
 
-            return {
-              ...$,
-              next,
-              input: output
-            }
-        };
-        exports.default=main;
+      return {
+        ...$,
+        next,
+        input: output
+      }
     `;
 }
 

@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { CodeResolver } from '@shukun/code-resolver';
-import { HttpQuerySchema } from '@shukun/schema';
+import { HttpQuerySchema, IDString } from '@shukun/schema';
 import { NodeVM } from 'vm2';
 
-import { IDString, SourceServiceCreateDto } from '../../app.type';
+import { SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
 
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
@@ -89,11 +89,13 @@ export class CodeResolverService implements Resolver {
           atomName: string,
           data: Partial<T>,
         ) => {
+          const modifierId = null; // The webhook will be deprecated, so set modifierId as null.
           return await this.sourceService.updateOne(
             id,
             orgName,
             atomName,
             data as unknown as Partial<SourceServiceCreateDto>,
+            modifierId,
           );
         },
 

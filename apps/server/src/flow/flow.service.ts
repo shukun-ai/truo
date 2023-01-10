@@ -1,9 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { FlowSchema } from '@shukun/schema';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  createBaseAjv,
+  DataSourceEnvironments,
+  FlowSchema,
+  stringifyValidateErrors,
+} from '@shukun/schema';
+
+import { EnvironmentService } from '../core/environment.service';
 
 import { SandboxContext } from '../sandbox/sandbox.interface';
-
-import { ObservableStore } from '../sandbox/stores/observable-store.class';
 
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
@@ -16,6 +21,7 @@ export class FlowService {
     private readonly definitionService: DefinitionService,
     private readonly compiledCodeService: CompiledCodeService,
     private readonly resolverService: ResolverService,
+    private readonly environmentService: EnvironmentService,
   ) {}
 
   async execute(
@@ -26,10 +32,18 @@ export class FlowService {
   ) {
     const definition = await this.getDefinition(orgName, flowName);
     const compiledCodes = await this.getCompiledCodes(orgName, flowName);
+    const environments = await this.environmentService.findAllEnvironments(
+      orgName,
+    );
 
-    this.validateInputs(input, definition.input);
+    this.validateInputOrOutput(input, definition.input);
 
-    const context = this.prepareContext(input, definition, externalContext);
+    const context = this.prepareContext(
+      input,
+      environments,
+      definition,
+      externalContext,
+    );
 
     const { input: output } = await this.resolverService.executeNextEvent(
       definition.events,
@@ -37,7 +51,7 @@ export class FlowService {
       context,
     );
 
-    this.validateOutputs(output, definition.output);
+    this.validateInputOrOutput(output, definition.output);
 
     return output;
   }
@@ -53,13 +67,9 @@ export class FlowService {
     );
   }
 
-  createStore() {
-    const store = new ObservableStore();
-    return store;
-  }
-
   prepareContext(
     input: unknown,
+    environments: DataSourceEnvironments,
     definition: FlowSchema,
     externalContext: ExternalContext,
   ): SandboxContext {
@@ -67,18 +77,22 @@ export class FlowService {
       input,
       next: definition.startEventName,
       index: 0,
-      env: {},
+      env: environments,
       store: {},
       orgName: externalContext.orgName,
       operatorId: externalContext.operatorId,
     };
   }
 
-  validateInputs(input: unknown, jsonSchemaRule: FlowSchema['input']) {
-    // TODO: implement this method
-  }
+  validateInputOrOutput(
+    inputOrOutput: unknown,
+    jsonSchema: FlowSchema['input'] | FlowSchema['output'],
+  ): void {
+    const validate = createBaseAjv().compile(jsonSchema);
+    const result = validate(inputOrOutput);
 
-  validateOutputs(output: unknown, jsonSchemaRule: FlowSchema['output']) {
-    // TODO: implement this method
+    if (!result) {
+      throw new BadRequestException(stringifyValidateErrors(validate));
+    }
   }
 }

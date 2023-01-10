@@ -1,16 +1,13 @@
 import { FlowEventStore } from '@shukun/schema';
 
-import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
-import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { mockEmptyDependencies } from '../../util/unit-testing/unit-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileStoreEvent } from './compile-store';
 
 describe('', () => {
   let sandboxService: SandboxService;
-  let sourceResolverService: SourceResolverService;
-  let dateResolverService: DateResolverService;
 
   const event: FlowEventStore = {
     type: 'Store',
@@ -20,20 +17,21 @@ describe('', () => {
   };
 
   beforeAll(() => {
-    sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    dateResolverService = new DateResolverService();
-    sandboxService = new SandboxService(
-      sourceResolverService,
-      dateResolverService,
-    );
+    const sandboxTesting = createTestingSandbox();
+    sandboxService = sandboxTesting.sandboxService;
   });
 
   it('', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const context: any = {
       input: new Array(10).fill(1).map((item, index) => index),
     };
     const code = await compileStoreEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,

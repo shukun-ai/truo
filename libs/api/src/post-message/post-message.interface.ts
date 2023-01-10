@@ -1,7 +1,4 @@
-import { HttpQuerySchema } from '@shukun/schema';
-
-// TODO: should be extract a shared lib
-type IDString = string;
+import { HttpQuerySchema, IDString } from '@shukun/schema';
 
 // TODO: should be extract a shared lib
 interface AuthModel {

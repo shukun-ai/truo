@@ -1,4 +1,4 @@
-import { isElectronName } from '@shukun/electron';
+import { isElectronName } from '@shukun/schema';
 import { registerDecorator, ValidationOptions } from 'class-validator';
 
 export function IsElectronName(validationOptions?: ValidationOptions) {

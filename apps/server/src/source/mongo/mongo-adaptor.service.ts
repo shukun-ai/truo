@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IDString } from '@shukun/api';
+import { IDString } from '@shukun/schema';
 import {
   DataSourceConnection,
   HttpQuerySchema,
@@ -45,7 +45,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async createOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
@@ -60,7 +60,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async updateOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -77,7 +77,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
    * @deprecated please use findAll instead
    */
   async findOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -104,7 +104,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async findAll(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -125,7 +125,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async count(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     query: HttpQuerySchema,
@@ -137,7 +137,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async deleteOne(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -156,7 +156,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async addToMany(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -174,7 +174,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async removeFromMany(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,
@@ -192,7 +192,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   }
 
   async increase(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
     orgName: string,
     metadata: MetadataSchema,
     id: IDString,

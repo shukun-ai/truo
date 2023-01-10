@@ -13,7 +13,7 @@ export class SourceDataAccessService<Model> {
   ) {}
 
   async getAdaptor(
-    dataSourceConnection: DataSourceConnection | null,
+    dataSourceConnection: DataSourceConnection,
   ): Promise<DatabaseAdaptor<Model>> {
     // TODO add env to enable other data source for security reason, because if the service is host in a SASS.
     if (dataSourceConnection?.type === 'postgres') {

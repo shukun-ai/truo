@@ -1,18 +1,13 @@
 import { FlowEventChoice } from '@shukun/schema';
 
-import { DateResolverService } from '../../sandbox/resolvers/date-resolver.service';
-
-import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
-
 import { SandboxService } from '../../sandbox/sandbox.service';
-import { mockEmptyDependencies } from '../../util/unit-testing/unit-testing.helper';
+import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileChoiceEvent } from './compile-choice';
 
 describe('compileChoiceEvent', () => {
   let sandboxService: SandboxService;
-  let sourceResolverService: SourceResolverService;
-  let dateResolverService: DateResolverService;
 
   const event: FlowEventChoice = {
     type: 'Choice',
@@ -30,12 +25,8 @@ describe('compileChoiceEvent', () => {
   };
 
   beforeAll(() => {
-    sourceResolverService = new SourceResolverService(mockEmptyDependencies());
-    dateResolverService = new DateResolverService();
-    sandboxService = new SandboxService(
-      sourceResolverService,
-      dateResolverService,
-    );
+    const sandboxTesting = createTestingSandbox();
+    sandboxService = sandboxTesting.sandboxService;
   });
 
   it('should return first', async () => {
@@ -44,7 +35,11 @@ describe('compileChoiceEvent', () => {
       input: 1,
     };
     const code = await compileChoiceEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -59,7 +54,11 @@ describe('compileChoiceEvent', () => {
       input: 2,
     };
     const code = await compileChoiceEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -74,7 +73,11 @@ describe('compileChoiceEvent', () => {
       input: null,
     };
     const code = await compileChoiceEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
