@@ -1,11 +1,11 @@
-import { RoleResourceType } from '@shukun/schema';
+import { RoleResourceType, IDString } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 import merge from 'lodash/merge';
 
 import { HttpRequestService } from './http-request.service';
 import { RestfulRequestNotFoundError } from './restful-request.exception';
 
-import { IDString, ApiResponseData, QueryParams } from './shared-types';
+import { ApiResponseData, QueryParams } from './shared-types';
 
 export interface RestfulRequestServiceOptions {
   atomName: string;

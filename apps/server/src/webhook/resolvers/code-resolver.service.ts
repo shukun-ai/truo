@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { CodeResolver } from '@shukun/code-resolver';
-import { HttpQuerySchema } from '@shukun/schema';
+import { HttpQuerySchema, IDString } from '@shukun/schema';
 import { NodeVM } from 'vm2';
 
-import { IDString, SourceServiceCreateDto } from '../../app.type';
+import { SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
 
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';

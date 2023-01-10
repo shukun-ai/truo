@@ -29,3 +29,5 @@ export * from './validators/http-query/validate';
 export * from './validators/data-source/validate';
 
 export * from './json-exports';
+
+export * from './shared.type';

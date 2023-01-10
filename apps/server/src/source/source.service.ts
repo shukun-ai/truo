@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { IDString } from '@shukun/api';
-import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
+import { IDString } from '@shukun/schema';
+import { HttpQuerySchema, MetadataSchema, OperatorId } from '@shukun/schema';
 
-import { JsonModel, OperatorId, SourceServiceCreateDto } from '../app.type';
+import { JsonModel, SourceServiceCreateDto } from '../app.type';
 
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';

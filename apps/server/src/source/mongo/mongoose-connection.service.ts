@@ -1,9 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
-import { MetadataElectron, MetadataSchema } from '@shukun/schema';
+import { IDString, MetadataElectron, MetadataSchema } from '@shukun/schema';
 import { Connection, Schema, Document, Model as MongooseModel } from 'mongoose';
 
-import { IDString } from '../../app.type';
 import { OrgService } from '../../core/org.service';
 
 import {

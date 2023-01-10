@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IDString } from '@shukun/api';
+import { IDString } from '@shukun/schema';
 import { DataSourceConnection, MetadataSchema } from '@shukun/schema';
 
 import { getFieldInstance } from '../electron/fields-map';

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { HttpQuerySchema } from '@shukun/schema';
+import { HttpQuerySchema, IDString, OperatorId } from '@shukun/schema';
 
-import { IDString, OperatorId, SourceServiceCreateDto } from '../../app.type';
+import { SourceServiceCreateDto } from '../../app.type';
 import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { SourceService } from '../../source/source.service';

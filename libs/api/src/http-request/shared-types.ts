@@ -1,7 +1,4 @@
-import { HttpQuerySchema } from '@shukun/schema';
-
-// TODO: should be extract a shared lib
-export type IDString = string;
+import { HttpQuerySchema, IDString } from '@shukun/schema';
 
 // TODO: should be extract a shared lib
 export interface UnknownSourceModel {

@@ -1,10 +1,9 @@
-import { MetadataElectron, MetadataSchema } from '@shukun/schema';
+import { MetadataElectron, MetadataSchema, IDString } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 
 import { HttpRequestService } from './http-request.service';
 
 import { RestfulRequestService } from './restful-request.service';
-import { IDString } from './shared-types';
 import {
   UnknownSourceModel,
   ApiResponseData,

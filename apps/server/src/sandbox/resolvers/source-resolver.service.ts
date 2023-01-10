@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { AddToManyDto, IncreaseDto, IDString } from '@shukun/api';
-import { HttpQuerySchema } from '@shukun/schema';
+import { AddToManyDto, IncreaseDto } from '@shukun/api';
+import { HttpQuerySchema, OperatorId, IDString } from '@shukun/schema';
 
-import { OperatorId, SourceServiceCreateDto } from '../../app.type';
+import { SourceServiceCreateDto } from '../../app.type';
 import { SourceService } from '../../source/source.service';
 
 @Injectable()
