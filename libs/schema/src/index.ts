@@ -5,6 +5,8 @@ export * from './types/data-source';
 export * from './types/flow-compiled-codes';
 export * from './types/exception';
 export * from './internals/seed/system-models';
+export * from './validators/constructor/base-ajv';
+export * from './validators/constructor/validate-errors';
 export * from './validators/application/validate';
 export * from './validators/application/dependency-check';
 export * from './validators/application/dependency-merge';

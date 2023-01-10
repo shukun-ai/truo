@@ -1,5 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { DataSourceEnvironments, FlowSchema } from '@shukun/schema';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  createBaseAjv,
+  DataSourceEnvironments,
+  FlowSchema,
+  stringifyValidateErrors,
+} from '@shukun/schema';
 
 import { EnvironmentService } from '../core/environment.service';
 
@@ -31,7 +36,7 @@ export class FlowService {
       orgName,
     );
 
-    this.validateInputs(input, definition.input);
+    this.validateInputOrOutput(input, definition.input);
 
     const context = this.prepareContext(
       input,
@@ -46,7 +51,7 @@ export class FlowService {
       context,
     );
 
-    this.validateOutputs(output, definition.output);
+    this.validateInputOrOutput(output, definition.output);
 
     return output;
   }
@@ -79,11 +84,15 @@ export class FlowService {
     };
   }
 
-  validateInputs(input: unknown, jsonSchemaRule: FlowSchema['input']) {
-    // TODO: implement this method
-  }
+  validateInputOrOutput(
+    inputOrOutput: unknown,
+    jsonSchema: FlowSchema['input'] | FlowSchema['output'],
+  ): void {
+    const validate = createBaseAjv().compile(jsonSchema);
+    const result = validate(inputOrOutput);
 
-  validateOutputs(output: unknown, jsonSchemaRule: FlowSchema['output']) {
-    // TODO: implement this method
+    if (!result) {
+      throw new BadRequestException(stringifyValidateErrors(validate));
+    }
   }
 }
