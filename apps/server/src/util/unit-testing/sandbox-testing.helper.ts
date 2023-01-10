@@ -32,7 +32,7 @@ export function createTestingContext(
     env: {},
     store: {},
     orgName: 'mockOrgName',
-    operatorId: undefined,
+    operatorId: 'mockOperatorId',
   };
   return {
     ...defaultContext,
