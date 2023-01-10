@@ -88,7 +88,7 @@ export class SourceController {
       orgName,
       atomName,
       createDto,
-      request,
+      request.userId ?? null,
     );
   }
 
@@ -104,7 +104,7 @@ export class SourceController {
       orgName,
       atomName,
       createDto,
-      request,
+      request.userId ?? null,
     );
   }
 
@@ -114,12 +114,14 @@ export class SourceController {
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
     @Body() createDto: SourceServiceCreateDto,
+    @Req() request: SecurityRequest,
   ): Promise<QueryResponse<null>> {
     return await this.sourceOperationService.update(
       id,
       orgName,
       atomName,
       createDto,
+      request.userId ?? null,
     );
   }
 
@@ -130,12 +132,14 @@ export class SourceController {
     @Param('orgName') orgName: string,
     @Param('atomName') atomName: string,
     @Body() createDto: SourceServiceCreateDto,
+    @Req() request: SecurityRequest,
   ): Promise<QueryResponse<null>> {
     return await this.sourceOperationService.update(
       id,
       orgName,
       atomName,
       createDto,
+      request.userId ?? null,
     );
   }
 

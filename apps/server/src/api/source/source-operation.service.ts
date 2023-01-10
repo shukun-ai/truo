@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { HttpQuerySchema } from '@shukun/schema';
 
-import { IDString, JsonModel, SourceServiceCreateDto } from '../../app.type';
+import { IDString, OperatorId, SourceServiceCreateDto } from '../../app.type';
 import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { SourceService } from '../../source/source.service';
@@ -65,7 +65,7 @@ export class SourceOperationService {
     orgName: string,
     atomName: string,
     createDto: SourceServiceCreateDto,
-    request: SecurityRequest,
+    ownerId: OperatorId,
   ): Promise<QueryResponse<{ _id: IDString }>> {
     const dto = await this.sourceAccessControlService.filterDto(
       orgName,
@@ -77,7 +77,7 @@ export class SourceOperationService {
       orgName,
       atomName,
       dto,
-      request.userId || null,
+      ownerId,
     );
 
     return {
@@ -92,6 +92,7 @@ export class SourceOperationService {
     orgName: string,
     atomName: string,
     createDto: SourceServiceCreateDto,
+    modifierId: OperatorId,
   ): Promise<QueryResponse<null>> {
     const dto = await this.sourceAccessControlService.filterDto(
       orgName,
@@ -99,7 +100,7 @@ export class SourceOperationService {
       createDto,
     );
 
-    await this.sourceService.updateOne(id, orgName, atomName, dto);
+    await this.sourceService.updateOne(id, orgName, atomName, dto, modifierId);
 
     return {
       value: null,

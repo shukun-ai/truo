@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IDString } from '@shukun/api';
 import { HttpQuerySchema, MetadataSchema } from '@shukun/schema';
 
-import { JsonModel, SourceServiceCreateDto } from '../app.type';
+import { JsonModel, OperatorId, SourceServiceCreateDto } from '../app.type';
 
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';
@@ -72,7 +72,7 @@ export class SourceService<Model> {
     orgName: string,
     atomName: string,
     dto: SourceServiceCreateDto,
-    ownerId: string | null,
+    ownerId: OperatorId,
   ): Promise<{ _id: IDString }> {
     return await this.sourceFoundationService.createOne(
       orgName,
@@ -87,6 +87,9 @@ export class SourceService<Model> {
     orgName: string,
     atomName: string,
     dto: SourceServiceCreateDto,
+    // @remark add modifierId for recording audit logs later
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    modifierId: OperatorId,
   ): Promise<void> {
     return await this.sourceFoundationService.updateOne(
       id,
