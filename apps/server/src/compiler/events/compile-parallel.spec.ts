@@ -5,6 +5,7 @@ import {
   createTestingSandbox,
   createTestingContext,
 } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileParallelEvent } from './compile-parallel';
 
@@ -32,7 +33,11 @@ describe('compileParallelEvent', () => {
   it('should change next', async () => {
     const context = createTestingContext();
     const code = await compileParallelEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,

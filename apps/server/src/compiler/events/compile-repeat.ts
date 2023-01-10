@@ -6,15 +6,12 @@ export async function compileRepeatEvent(
   event: FlowEventRepeat,
 ): Promise<string> {
   return `
-        async function main($, $$, $$$){
-            const output = ${compileJsonTemplate(event.repeatCount)};
+      const output = ${compileJsonTemplate(event.repeatCount)};
 
-            return {
-              ...$,
-              next: "${event.next}",
-              input: output
-            }
-        };
-        exports.default=main;
+      return {
+        ...$,
+        next: "${event.next}",
+        input: output
+      }
     `;
 }

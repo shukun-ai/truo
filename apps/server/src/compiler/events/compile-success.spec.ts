@@ -6,6 +6,7 @@ import {
   createTestingSandbox,
   createTestingContext,
 } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileSuccessEvent } from './compile-success';
 
@@ -26,7 +27,11 @@ describe('compileSuccessEvent', () => {
   it('Should return new next and input.', async () => {
     const context = createTestingContext();
     const code = await compileSuccessEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,

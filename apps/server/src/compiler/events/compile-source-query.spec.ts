@@ -3,6 +3,7 @@ import { FlowEventSourceQuery } from '@shukun/schema';
 import { SourceResolverService } from '../../sandbox/resolvers/source-resolver.service';
 import { SandboxService } from '../../sandbox/sandbox.service';
 import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileSourceQueryEvent } from './compile-source-query';
 describe('compileSourceQueryEvent', () => {
@@ -52,7 +53,11 @@ describe('compileSourceQueryEvent', () => {
     };
 
     const code = await compileSourceQueryEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -84,7 +89,8 @@ describe('compileSourceQueryEvent', () => {
     };
 
     const code = await compileSourceQueryEvent(event);
+    const wrappedCode = await compileCommonWrapper(code);
 
-    expect(sandboxService.executeVM(code, context)).rejects.toThrow();
+    expect(sandboxService.executeVM(wrappedCode, context)).rejects.toThrow();
   });
 });

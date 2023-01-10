@@ -2,6 +2,7 @@ import { FlowEventChoice } from '@shukun/schema';
 
 import { SandboxService } from '../../sandbox/sandbox.service';
 import { createTestingSandbox } from '../../util/unit-testing/sandbox-testing.helper';
+import { compileCommonWrapper } from '../wrappers/compile-common-wrapper';
 
 import { compileChoiceEvent } from './compile-choice';
 
@@ -34,7 +35,11 @@ describe('compileChoiceEvent', () => {
       input: 1,
     };
     const code = await compileChoiceEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -49,7 +54,11 @@ describe('compileChoiceEvent', () => {
       input: 2,
     };
     const code = await compileChoiceEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,
@@ -64,7 +73,11 @@ describe('compileChoiceEvent', () => {
       input: null,
     };
     const code = await compileChoiceEvent(event);
-    const computedContext = await sandboxService.executeVM(code, context);
+    const wrappedCode = await compileCommonWrapper(code);
+    const computedContext = await sandboxService.executeVM(
+      wrappedCode,
+      context,
+    );
 
     expect(computedContext).toEqual({
       ...context,

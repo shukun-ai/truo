@@ -6,22 +6,19 @@ export async function compileSourceIncreaseEvent(
   event: FlowEventSourceIncrease,
 ): Promise<string> {
   return `
-        async function main($, $$, $$$){
-            const id = ${compileJsonTemplate(event.id)};
-            const orgName = $.orgName;
-            const atomName = "${event.atomName}";
-            const dto = {
-              electronName: ${compileJsonTemplate(event.electronName)},
-              increment: ${compileJsonTemplate(event.increment)},
-            };
-            const output = await $$._sourceResolver.increase(id, orgName, atomName, dto);
+      const id = ${compileJsonTemplate(event.id)};
+      const orgName = $.orgName;
+      const atomName = "${event.atomName}";
+      const dto = {
+        electronName: ${compileJsonTemplate(event.electronName)},
+        increment: ${compileJsonTemplate(event.increment)},
+      };
+      const output = await $$._sourceResolver.increase(id, orgName, atomName, dto);
 
-            return {
-              ...$,
-              next: "${event.next}",
-              input: output
-            }
-        };
-        exports.default=main;
+      return {
+        ...$,
+        next: "${event.next}",
+        input: output
+      }
     `;
 }

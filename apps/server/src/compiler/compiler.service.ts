@@ -10,6 +10,7 @@ import {
 } from '@shukun/schema';
 
 import { CompileFactoryService } from './compile-factory.service';
+import { compileCommonWrapper } from './wrappers/compile-common-wrapper';
 
 @Injectable()
 export class CompilerService {
@@ -57,6 +58,8 @@ export class CompilerService {
       currentEvent,
     );
 
-    return currentCode;
+    const wrappedCode = compileCommonWrapper(currentCode);
+
+    return wrappedCode;
   }
 }
