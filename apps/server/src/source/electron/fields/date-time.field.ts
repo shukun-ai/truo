@@ -1,5 +1,5 @@
-import { isDateTimeIso } from '@shukun/electron';
 import { ElectronValueException } from '@shukun/exception';
+import { isDateTimeIso } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
 import {
