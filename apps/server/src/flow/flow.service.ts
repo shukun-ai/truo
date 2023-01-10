@@ -5,8 +5,6 @@ import { EnvironmentService } from '../core/environment.service';
 
 import { SandboxContext } from '../sandbox/sandbox.interface';
 
-import { ObservableStore } from '../sandbox/stores/observable-store.class';
-
 import { CompiledCodeService } from './compiled-code.service';
 import { DefinitionService } from './definition.service';
 import { ExternalContext } from './flow.interface';
@@ -62,11 +60,6 @@ export class FlowService {
       orgName,
       flowName,
     );
-  }
-
-  createStore() {
-    const store = new ObservableStore();
-    return store;
   }
 
   prepareContext(
