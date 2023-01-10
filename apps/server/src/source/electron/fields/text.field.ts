@@ -1,5 +1,5 @@
-import { isMaxLength, TEXT_MAX_LENGTH } from '@shukun/schema';
 import { ElectronValueException } from '@shukun/exception';
+import { isMaxLength, TEXT_MAX_LENGTH } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
 import {
