@@ -3,7 +3,11 @@ import {
   createParamDecorator,
   ExecutionContext,
 } from '@nestjs/common';
-import { HttpQuerySchema, validateHttpQuerySchema } from '@shukun/schema';
+import {
+  HttpQuerySchema,
+  validateHttpQuerySchema,
+  validateQueryFilter,
+} from '@shukun/schema';
 
 import { SecurityRequest } from '../../../identity/utils/security-request';
 
@@ -18,6 +22,8 @@ export const ParsedHttpQuery = createParamDecorator(
         JSON.stringify(validateHttpQuerySchema.errors),
       );
     }
+
+    validateQueryFilter(result);
 
     return body as HttpQuerySchema;
   },
