@@ -31,7 +31,7 @@ export function createTestingContext(
     index: 0,
     env: {},
     store: {},
-    orgName: 'mock',
+    orgName: 'mockOrgName',
     operatorId: undefined,
   };
   return {
