@@ -1,9 +1,9 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { IDString } from '@shukun/schema';
 import { AccessControl } from 'accesscontrol';
 import { merge } from 'lodash';
 
-import { IDString } from '../app.type';
 import { RoleService } from '../core/role.service';
 import { SourceService } from '../source/source.service';
 import { jwtConstants } from '../util/passport/jwt/jwt.constants';

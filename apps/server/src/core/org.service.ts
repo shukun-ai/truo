@@ -4,11 +4,11 @@ import {
   ApplicationSchema,
   FlowOrgCompiledCodes,
   DataSourceSchema,
+  IDString,
 } from '@shukun/schema';
 import { Model } from 'mongoose';
 
 import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../app.constant';
-import { IDString } from '../app.type';
 import { QueryParserOptions } from '../util/query/interfaces';
 
 import { OrgDocument, OrgDocumentName } from './org/org.schema';

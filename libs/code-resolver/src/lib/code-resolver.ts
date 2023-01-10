@@ -1,4 +1,4 @@
-import { IDString } from '@shukun/api';
+import { IDString } from '@shukun/schema';
 import { HttpQuerySchema } from '@shukun/schema';
 
 export interface CodeResolver {

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IDString } from '@shukun/api';
+import { IDString } from '@shukun/schema';
 import {
   DataSourceConnection,
   HttpQuerySchema,

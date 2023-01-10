@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-
-import { IDString } from '../../app.type';
+import { IDString } from '@shukun/schema';
 
 import { SourceService } from '../../source/source.service';
 import { TaskFailed } from '../../util/workflow/errors/TaskFailed';
