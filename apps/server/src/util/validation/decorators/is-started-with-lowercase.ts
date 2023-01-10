@@ -1,4 +1,4 @@
-import { isStartedWithLowercase } from '@shukun/electron';
+import { isStartedWithLowercase } from '@shukun/schema';
 import { registerDecorator, ValidationOptions } from 'class-validator';
 
 export function IsStartedWithLowercase(validationOptions?: ValidationOptions) {

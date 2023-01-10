@@ -1,4 +1,4 @@
-import { PASSWORD_MAX_LENGTH } from '@shukun/electron';
+import { PASSWORD_MAX_LENGTH } from '@shukun/schema';
 import { MetadataElectron } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';

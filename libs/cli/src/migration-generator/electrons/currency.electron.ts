@@ -1,4 +1,4 @@
-import { CURRENCY_PRECISION, CURRENCY_SCALE } from '@shukun/electron';
+import { CURRENCY_PRECISION, CURRENCY_SCALE } from '@shukun/schema';
 import { MetadataElectron } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';
