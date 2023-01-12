@@ -3,6 +3,20 @@
   "sourceRoot": "libs/exception/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/exception",
+        "tsConfig": "libs/exception/tsconfig.lib.json",
+        "packageJson": "libs/exception/package.json",
+        "main": "libs/exception/src/index.ts",
+        "assets": ["libs/exception/README.md"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

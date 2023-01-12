@@ -1,15 +1,9 @@
 import { ApplicationSchema } from '@shukun/schema';
-import { validateApplicationSchema } from '@shukun/validator';
+import { applicationSchemaValidator } from '@shukun/validator';
 
 export async function validate(
   application: ApplicationSchema,
 ): Promise<ApplicationSchema> {
-  const result = validateApplicationSchema(application);
-
-  if (!result) {
-    console.error(validateApplicationSchema.errors);
-    throw new Error('Failed to validate this application schema.');
-  }
-
+  applicationSchemaValidator.validate(application);
   return application;
 }
