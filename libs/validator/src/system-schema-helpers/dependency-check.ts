@@ -4,7 +4,7 @@ import {
   MetadataSchema,
   ViewSchema,
   RoleSchema,
-  initialApplicationSchema,
+  initialApplicationSeedData,
 } from '@shukun/schema';
 
 export class SystemDataValidator {
@@ -15,7 +15,7 @@ export class SystemDataValidator {
   }
 
   check(application: ApplicationSchema): boolean {
-    const dependencyApplication = initialApplicationSchema;
+    const dependencyApplication = initialApplicationSeedData;
 
     if (
       !this.checkMetadata(application.metadata, dependencyApplication.metadata)
