@@ -1,9 +1,6 @@
 import { ElectronValueException } from '@shukun/exception';
-import {
-  DataSourceType,
-  MetadataElectron,
-  validateAttachmentsSchema,
-} from '@shukun/schema';
+import { DataSourceType, MetadataElectron } from '@shukun/schema';
+import { validateAttachmentsSchema } from '@shukun/validator';
 import { Schema } from 'mongoose';
 
 import {

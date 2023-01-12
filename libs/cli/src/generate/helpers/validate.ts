@@ -1,4 +1,5 @@
-import { ApplicationSchema, validateApplicationSchema } from '@shukun/schema';
+import { ApplicationSchema } from '@shukun/schema';
+import { validateApplicationSchema } from '@shukun/validator';
 
 export async function validate(
   application: ApplicationSchema,

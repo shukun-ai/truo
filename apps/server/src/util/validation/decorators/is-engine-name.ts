@@ -1,4 +1,4 @@
-import { isEngineName } from '@shukun/schema';
+import { isEngineName } from '@shukun/validator';
 import { registerDecorator, ValidationOptions } from 'class-validator';
 
 export function IsEngineName(validationOptions?: ValidationOptions) {

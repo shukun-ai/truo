@@ -1,5 +1,8 @@
-import { FLOAT_DEFAULT_PRECISION, FLOAT_DEFAULT_SCALE } from '@shukun/schema';
 import { MetadataElectron } from '@shukun/schema';
+import {
+  FLOAT_DEFAULT_PRECISION,
+  FLOAT_DEFAULT_SCALE,
+} from '@shukun/validator';
 
 import { ElectronFactoryInterface } from '../electron-factory';
 

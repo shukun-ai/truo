@@ -7,11 +7,8 @@ import {
   Body,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import {
-  RoleResourceType,
-  DataSourceSchema,
-  validateDataSourceSchema,
-} from '@shukun/schema';
+import { RoleResourceType, DataSourceSchema } from '@shukun/schema';
+import { validateDataSourceSchema } from '@shukun/validator';
 
 import { OrgService } from '../../core/org.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';

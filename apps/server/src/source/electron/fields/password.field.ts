@@ -1,9 +1,9 @@
 import { ElectronValueException } from '@shukun/exception';
+import { MetadataElectron } from '@shukun/schema';
 import {
   PASSWORD_DEFAULT_MAX_LENGTH,
   PASSWORD_DEFAULT_MIN_LENGTH,
-} from '@shukun/schema';
-import { MetadataElectron } from '@shukun/schema';
+} from '@shukun/validator';
 import { Schema } from 'mongoose';
 
 import validator from 'validator';
