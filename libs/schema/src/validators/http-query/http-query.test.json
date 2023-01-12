@@ -1,8 +1,0 @@
-{
-  "filter": {
-    "name": {
-      "$eq": "system"
-    }
-  },
-  "limit": 10
-}

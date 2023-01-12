@@ -1,9 +1,10 @@
-import { MetadataFieldType, ViewType, ApplicationSchema } from '@shukun/schema';
+import {
+  MetadataFieldType,
+  ViewType,
+  initialApplicationSeedData,
+} from '@shukun/schema';
 
 import { SystemDataValidator } from './dependency-check';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const initialApplicationData = require('../../internals/seed/initial-application.json');
 
 describe('dependency-check', () => {
   it('return true, current electrons is more than dependency electrons.', () => {
@@ -114,9 +115,7 @@ describe('dependency-check', () => {
 
   it('checkInitialApplicationData', () => {
     const systemDataValidator = new SystemDataValidator();
-    const output = systemDataValidator.check(
-      initialApplicationData as ApplicationSchema,
-    );
+    const output = systemDataValidator.check(initialApplicationSeedData);
     expect(output).toEqual(true);
   });
 });
