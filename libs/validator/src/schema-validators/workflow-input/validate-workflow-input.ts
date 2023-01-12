@@ -1,8 +1,11 @@
 import { workflowInputSchema } from '@shukun/schema';
 
 import { createApplicationAjv } from '../../base-schema-validator/application-ajv';
+import { SchemaValidator } from '../../base-schema-validator/schema-validator';
 
-export const validateWorkflowInput = createApplicationAjv({
-  validateFormats: false,
-  strict: false,
-}).compile(workflowInputSchema);
+export const workflowInputSchemaValidator = new SchemaValidator(
+  createApplicationAjv({
+    validateFormats: false,
+    strict: false,
+  }),
+).compile(workflowInputSchema);

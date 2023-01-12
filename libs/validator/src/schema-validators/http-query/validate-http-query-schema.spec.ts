@@ -1,10 +1,8 @@
 import { HttpQuerySchema } from '@shukun/schema';
 
-import { inspectTestingValidate } from '../../testing-helpers/testing-validate-inspector';
+import { httpQuerySchemaValidator } from './validate-http-query-schema';
 
-import { validateHttpQuerySchema } from './validate-http-query-schema';
-
-describe('validateHttpQuerySchema', () => {
+describe('httpQuerySchemaValidator', () => {
   it('should pass when simple filter.', () => {
     const query: HttpQuerySchema = {
       filter: {
@@ -14,8 +12,7 @@ describe('validateHttpQuerySchema', () => {
       },
       limit: 10,
     };
-    const result = validateHttpQuerySchema(query);
-    expect(result).toEqual(true);
+    httpQuerySchemaValidator.validate(query);
   });
 
   it('should pass when $or under electron name.', () => {
@@ -34,8 +31,7 @@ describe('validateHttpQuerySchema', () => {
       },
       limit: 10,
     };
-    const result = validateHttpQuerySchema(query);
-    expect(result).toEqual(true);
+    httpQuerySchemaValidator.validate(query);
   });
 
   it('should pass when $or in top level.', () => {
@@ -52,9 +48,7 @@ describe('validateHttpQuerySchema', () => {
       },
       limit: 10,
     };
-    const result = validateHttpQuerySchema(query);
-    inspectTestingValidate(result, validateHttpQuerySchema);
-    expect(result).toEqual(true);
+    httpQuerySchemaValidator.validate(query);
   });
 
   it('should pass when $or in top level and name and vehicle combined structure.', () => {
@@ -72,9 +66,7 @@ describe('validateHttpQuerySchema', () => {
       limit: 10,
     };
 
-    const result = validateHttpQuerySchema(query);
-    inspectTestingValidate(result, validateHttpQuerySchema);
-    expect(result).toEqual(true);
+    httpQuerySchemaValidator.validate(query);
   });
 
   it('should pass when complex or.', () => {
@@ -96,8 +88,6 @@ describe('validateHttpQuerySchema', () => {
       limit: 10,
     };
 
-    const result = validateHttpQuerySchema(query);
-    inspectTestingValidate(result, validateHttpQuerySchema);
-    expect(result).toEqual(true);
+    httpQuerySchemaValidator.validate(query);
   });
 });

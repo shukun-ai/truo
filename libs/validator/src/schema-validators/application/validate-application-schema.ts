@@ -1,6 +1,8 @@
-import { ApplicationSchema, applicationSchema } from '@shukun/schema';
+import { applicationSchema } from '@shukun/schema';
 
 import { createApplicationAjv } from '../../base-schema-validator/application-ajv';
+import { SchemaValidator } from '../../base-schema-validator/schema-validator';
 
-export const validateApplicationSchema =
-  createApplicationAjv().compile<ApplicationSchema>(applicationSchema);
+export const applicationSchemaValidator = new SchemaValidator(
+  createApplicationAjv(),
+).compile(applicationSchema);
