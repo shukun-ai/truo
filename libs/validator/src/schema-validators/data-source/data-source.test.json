@@ -1,0 +1,10 @@
+{
+  "connections": {
+    "postgres": {
+      "type": "postgres",
+      "host": "localhost",
+      "database": "mock",
+      "metadata": ["devices"]
+    }
+  }
+}

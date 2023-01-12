@@ -1,0 +1,37 @@
+{
+  "root": "libs/validator",
+  "sourceRoot": "libs/validator/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/validator",
+        "tsConfig": "libs/validator/tsconfig.lib.json",
+        "packageJson": "libs/validator/package.json",
+        "main": "libs/validator/src/index.ts",
+        "assets": ["libs/validator/README.md"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/validator/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/validator"],
+      "options": {
+        "jestConfig": "libs/validator/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
