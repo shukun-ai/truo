@@ -1,7 +1,7 @@
 {
   "$schema": "../../json-schemas/application.schema.json",
-  "title": "Siemswitch Application",
-  "description": "Siemswitch Application for Shukun low-code platform",
+  "title": "Mock Application",
+  "description": "Mock Application for SKP",
   "metadata": [
     {
       "name": "product_categories",
@@ -1129,77 +1129,7 @@
           }
         }
       },
-      "configurations": {
-        "columns": [
-          {
-            "electronName": "owner"
-          },
-          {
-            "electronName": "isSystem"
-          },
-          {
-            "electronName": "username",
-            "showColumn": true
-          },
-          {
-            "electronName": "displayName",
-            "showColumn": true
-          },
-          {
-            "electronName": "password"
-          },
-          {
-            "electronName": "avatar"
-          },
-          {
-            "electronName": "locale"
-          },
-          {
-            "electronName": "timezone"
-          },
-          {
-            "electronName": "company"
-          },
-          {
-            "electronName": "jobNumber"
-          },
-          {
-            "electronName": "companyName",
-            "showColumn": true
-          },
-          {
-            "electronName": "employeeNumber",
-            "showColumn": true
-          }
-        ],
-        "form": {
-          "owner": {
-            "hidden": {
-              "globalCondition": "always"
-            }
-          },
-          "isSystem": {
-            "hidden": {
-              "globalCondition": "always"
-            }
-          },
-          "avatar": {
-            "hidden": {
-              "globalCondition": "always"
-            }
-          },
-          "locale": {
-            "hidden": {
-              "globalCondition": "always"
-            }
-          },
-          "timezone": {
-            "hidden": {
-              "globalCondition": "always"
-            }
-          }
-        }
-      },
+      "configurations": {},
       "parentName": "system__menu",
       "priority": 1,
       "atomName": "system__users"
@@ -1299,25 +1229,113 @@
       "priority": 1000,
       "atomName": "orders",
       "configurations": {
-        "detailCustomActions": [
+        "v2Columns": [
           {
-            "key": "detail",
-            "label": "详情",
-            "type": "View",
-            "value": "order_detail",
-            "query": "orderId={_id}"
+            "name": "code",
+            "label": "机场代码",
+            "type": "LinkText",
+            "electronName": "code",
+            "link": {
+              "type": "ReadOne"
+            }
+          },
+          {
+            "name": "title",
+            "label": "机场名称",
+            "type": "Text",
+            "electronName": "title"
+          },
+          {
+            "name": "region",
+            "label": "国家或地区代码",
+            "type": "Text",
+            "electronName": "region"
+          },
+          {
+            "name": "isHighRisk",
+            "label": "是否中高风险",
+            "type": "Boolean",
+            "electronName": "isHighRisk"
+          },
+          {
+            "name": "cityCode",
+            "label": "城市代码",
+            "type": "Text",
+            "electronName": "cityCode"
+          },
+          {
+            "name": "cityTitle",
+            "label": "城市名称",
+            "type": "Text",
+            "electronName": "cityTitle"
           }
         ],
-        "detailEditAction": {
-          "hidden": {
-            "globalCondition": "none"
+        "v2Fields": [
+          {
+            "name": "code",
+            "label": "机场代码",
+            "type": "Text",
+            "electronName": "code",
+            "requiredCode": "return true;",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "title",
+            "label": "机场名称",
+            "type": "Text",
+            "electronName": "title",
+            "requiredCode": "return true;",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "region",
+            "label": "国家或地区代码",
+            "type": "Text",
+            "electronName": "region",
+            "requiredCode": "return true;",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "isHighRisk",
+            "label": "是否中高风险",
+            "type": "Boolean",
+            "electronName": "isHighRisk",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "cityCode",
+            "label": "城市代码",
+            "type": "Text",
+            "electronName": "cityCode",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "cityTitle",
+            "label": "城市名称",
+            "type": "Text",
+            "electronName": "cityTitle",
+            "disabledCode": "return scope.mode === 'Edit'"
           }
-        },
-        "detailRemoveAction": {
-          "hidden": {
-            "globalCondition": "none"
+        ],
+        "v2FieldRibbons": [
+          {
+            "name": "edit",
+            "label": "编辑",
+            "type": "UpdateOne"
+          },
+          {
+            "name": "delete",
+            "label": "删除",
+            "type": "DeleteOne"
           }
-        }
+        ],
+        "v2ColumnRibbons": [
+          {
+            "name": "create",
+            "label": "新建",
+            "type": "CreateOne"
+          }
+        ]
       }
     },
     {
