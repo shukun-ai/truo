@@ -4,11 +4,13 @@ import {
   applicationSeedData,
 } from '@shukun/schema';
 
-import { SystemDataValidator } from './dependency-check';
+import { SystemDataValidator } from './system-data-validator';
 
 describe('dependency-check', () => {
   it('return true, current electrons is more than dependency electrons.', () => {
     const systemDataValidator = new SystemDataValidator();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const output = systemDataValidator.checkElectrons(
       'mockAtomName',
       [
@@ -39,6 +41,8 @@ describe('dependency-check', () => {
 
   it('return false, current electrons is more than dependency electrons.', () => {
     const systemDataValidator = new SystemDataValidator();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const output = systemDataValidator.checkElectrons(
       'mockAtomName',
       [
@@ -69,6 +73,8 @@ describe('dependency-check', () => {
 
   it("return true, if views' name label and type are same.", () => {
     const systemDataValidator = new SystemDataValidator();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const output = systemDataValidator.checkViews(
       [
         {
@@ -94,6 +100,8 @@ describe('dependency-check', () => {
 
   it("return true, if roles' name is same.", () => {
     const systemDataValidator = new SystemDataValidator();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const output = systemDataValidator.checkRoles(
       [
         {

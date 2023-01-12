@@ -10,7 +10,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { ApplicationSchema, RoleResourceType } from '@shukun/schema';
 import {
-  mergeDependencies,
+  SystemDataCombination,
   SystemDataValidator,
   validateApplicationSchema,
 } from '@shukun/validator';
@@ -79,7 +79,9 @@ export class CodebaseController {
       );
     }
 
-    const merged = mergeDependencies(plugin);
+    const merged = new SystemDataCombination().combineApplicationLowCode(
+      plugin,
+    );
 
     const systemDataValidator = new SystemDataValidator();
     const check = systemDataValidator.check(merged);

@@ -1,10 +1,10 @@
 import { ApplicationSchema, applicationSeedData } from '@shukun/schema';
 
 import applicationData from '../schema-validators/application/application.test.json';
-import { validateApplicationSchema } from '../schema-validators/application/validate';
+import { validateApplicationSchema } from '../schema-validators/application/validate-application-schema';
 
-import { SystemDataValidator } from './dependency-check';
-import { mergeDependencies } from './dependency-merge';
+import { SystemDataCombination } from './system-data-combination';
+import { SystemDataValidator } from './system-data-validator';
 
 describe('application', () => {
   it('merge initial application', () => {
@@ -16,7 +16,9 @@ describe('application', () => {
 
     expect(result).toEqual(true);
 
-    const merged = mergeDependencies(applicationSeedData as ApplicationSchema);
+    const merged = new SystemDataCombination().combineApplicationLowCode(
+      applicationSeedData,
+    );
 
     const systemDataValidator = new SystemDataValidator();
     const checked = systemDataValidator.check(merged);
@@ -25,7 +27,9 @@ describe('application', () => {
   });
 
   it('merge real application', () => {
-    const merged = mergeDependencies(applicationData as ApplicationSchema);
+    const merged = new SystemDataCombination().combineApplicationLowCode(
+      applicationData as ApplicationSchema,
+    );
 
     const systemDataValidator = new SystemDataValidator();
     const checked = systemDataValidator.check(merged);

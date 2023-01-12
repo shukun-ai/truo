@@ -8,13 +8,14 @@ import {
 } from '@shukun/schema';
 
 export class SystemDataValidator {
-  errorMessage: string[] = [];
+  private errorMessage: string[] = [];
 
-  getErrors() {
+  // TODO write a new SystemDataValidator class, use throw not errors array.
+  public getErrors() {
     return this.errorMessage.length === 0 ? null : this.errorMessage;
   }
 
-  check(application: ApplicationSchema): boolean {
+  public check(application: ApplicationSchema): boolean {
     const dependencyApplication = applicationSeedData;
 
     if (
@@ -33,7 +34,7 @@ export class SystemDataValidator {
     return true;
   }
 
-  checkMetadata(
+  private checkMetadata(
     current: MetadataSchema[] | undefined,
     dependency: MetadataSchema[] | undefined,
   ): boolean {
@@ -64,7 +65,7 @@ export class SystemDataValidator {
     });
   }
 
-  checkElectrons(
+  private checkElectrons(
     atomName: string,
     currentElectrons: MetadataElectron[],
     dependencyElectrons: MetadataElectron[],
@@ -89,7 +90,7 @@ export class SystemDataValidator {
     });
   }
 
-  checkViews(
+  private checkViews(
     current: ViewSchema[] | undefined,
     dependency: ViewSchema[] | undefined,
   ): boolean {
@@ -120,7 +121,7 @@ export class SystemDataValidator {
     });
   }
 
-  checkRoles(
+  private checkRoles(
     current: RoleSchema[] | undefined,
     dependency: RoleSchema[] | undefined,
   ): boolean {

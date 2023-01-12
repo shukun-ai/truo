@@ -1,6 +1,6 @@
 import { MetadataSchema, MetadataFieldType } from '@shukun/schema';
 
-import { mergeMetadata } from './dependency-merge';
+import { SystemDataCombination } from './system-data-combination';
 
 const currentAtoms: MetadataSchema[] = [
   {
@@ -261,7 +261,13 @@ const expectedAtoms: MetadataSchema[] = [
 
 describe('dependency-merge', () => {
   it('mergeMetadata', () => {
-    const output = mergeMetadata(currentAtoms, dependencyAtoms);
+    const systemDataCombination = new SystemDataCombination();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const output = systemDataCombination.mergeMetadata(
+      currentAtoms,
+      dependencyAtoms,
+    );
     expect(output).toEqual(expectedAtoms);
   });
 
