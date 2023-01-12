@@ -1,7 +1,7 @@
 import { dataSourceSchema } from '@shukun/schema';
 
-import { createBaseAjv } from '../../base-schema-validator/base-ajv';
-import { SchemaValidator } from '../../base-schema-validator/schema-validator';
+import { createBaseAjv } from '../../schema-validator/internal/base-ajv';
+import { SchemaValidator } from '../../schema-validator/schema-validator';
 
 export const dataSourceSchemaValidator = new SchemaValidator(
   createBaseAjv(),
