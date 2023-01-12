@@ -1,4 +1,4 @@
-import { MetadataSchema, ViewV2Field } from '@shukun/schema';
+import { MetadataSchema, ViewField } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -9,7 +9,7 @@ import { runStringCode } from '../ribbon/runStringCode';
 
 export interface DetailFieldProps {
   metadata: MetadataSchema;
-  viewField: ViewV2Field;
+  viewField: ViewField;
   detailMode: DetailMode;
 }
 

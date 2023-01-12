@@ -54,10 +54,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "v2Columns": {
+        "columns": {
           "type": "array",
           "items": {
-            "title": "ViewV2Column",
+            "title": "ViewColumn",
             "type": "object",
             "additionalProperties": false,
             "required": ["name", "label", "type", "electronName"],
@@ -69,7 +69,7 @@
                 "type": "string"
               },
               "type": {
-                "$ref": "#/definitions/ViewV2FieldType"
+                "$ref": "#/definitions/ViewFieldType"
               },
               "electronName": {
                 "type": "string"
@@ -85,7 +85,7 @@
                 "additionalProperties": false,
                 "required": ["type"],
                 "properties": {
-                  "type": { "$ref": "#/definitions/ViewV2LinkType" },
+                  "type": { "$ref": "#/definitions/ViewLinkType" },
                   "value": { "type": "string" },
                   "query": { "type": "string" }
                 }
@@ -94,7 +94,7 @@
                 "type": "boolean"
               },
               "filterOptions": {
-                "title": "ViewV2ColumnFilterOptions",
+                "title": "ViewColumnFilterOptions",
                 "type": "array",
                 "description": "It only work on SingleSelect and MultipleSelect now.",
                 "items": {
@@ -102,27 +102,27 @@
                 }
               },
               "filterType": {
-                "$ref": "#/definitions/ViewV2ColumnFilterType"
+                "$ref": "#/definitions/ViewColumnFilterType"
               }
             }
           }
         },
-        "v2ColumnRibbons": {
+        "columnRibbons": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ViewV2Ribbon"
+            "$ref": "#/definitions/ViewRibbon"
           }
         },
-        "v2CustomActions": {
+        "customActions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ViewV2CustomAction"
+            "$ref": "#/definitions/ViewCustomAction"
           }
         },
-        "v2Fields": {
+        "fields": {
           "type": "array",
           "items": {
-            "title": "ViewV2Field",
+            "title": "ViewField",
             "type": "object",
             "additionalProperties": false,
             "required": ["name", "label", "type", "electronName"],
@@ -134,7 +134,7 @@
                 "type": "string"
               },
               "type": {
-                "$ref": "#/definitions/ViewV2FieldType"
+                "$ref": "#/definitions/ViewFieldType"
               },
               "electronName": {
                 "type": "string"
@@ -167,7 +167,7 @@
                 "type": "string"
               },
               "filterOptions": {
-                "title": "ViewV2FieldFilterOptions",
+                "title": "ViewFieldFilterOptions",
                 "type": "array",
                 "description": "It only work on SingleSelect and MultipleSelect now.",
                 "items": {
@@ -177,10 +177,10 @@
             }
           }
         },
-        "v2FieldGroups": {
+        "fieldGroups": {
           "type": "array",
           "items": {
-            "title": "ViewV2FieldGroup",
+            "title": "ViewFieldGroup",
             "type": "object",
             "additionalProperties": false,
             "required": ["name", "label", "type"],
@@ -192,7 +192,7 @@
                 "type": "string"
               },
               "type": {
-                "$ref": "#/definitions/ViewV2FieldGroupType"
+                "$ref": "#/definitions/ViewFieldGroupType"
               },
               "value": {
                 "type": "string"
@@ -200,10 +200,10 @@
             }
           }
         },
-        "v2FieldRibbons": {
+        "fieldRibbons": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ViewV2Ribbon"
+            "$ref": "#/definitions/ViewRibbon"
           }
         }
       }
@@ -285,8 +285,8 @@
         }
       }
     },
-    "ViewV2FieldType": {
-      "title": "ViewV2FieldType",
+    "ViewFieldType": {
+      "title": "ViewFieldType",
       "type": "string",
       "enum": [
         "Text",
@@ -331,8 +331,8 @@
         "LinkText"
       ]
     },
-    "ViewV2Ribbon": {
-      "title": "ViewV2Ribbon",
+    "ViewRibbon": {
+      "title": "ViewRibbon",
       "type": "object",
       "additionalProperties": false,
       "required": ["name", "label", "type"],
@@ -344,7 +344,7 @@
           "type": "string"
         },
         "type": {
-          "$ref": "#/definitions/ViewV2LinkType"
+          "$ref": "#/definitions/ViewLinkType"
         },
         "value": {
           "type": "string"
@@ -366,9 +366,9 @@
         }
       }
     },
-    "ViewV2LinkType": {
+    "ViewLinkType": {
       "type": "string",
-      "title": "ViewV2LinkType",
+      "title": "ViewLinkType",
       "description": "Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.",
       "enum": [
         "None",
@@ -397,33 +397,33 @@
         "CustomModal"
       ]
     },
-    "ViewV2FieldGroupType": {
+    "ViewFieldGroupType": {
       "type": "string",
-      "title": "ViewV2FieldGroupType",
+      "title": "ViewFieldGroupType",
       "enum": ["None", "CustomTab"],
       "tsEnumNames": ["None", "CustomTab"]
     },
-    "ViewV2CustomAction": {
+    "ViewCustomAction": {
       "type": "object",
-      "title": "ViewV2CustomAction",
+      "title": "ViewCustomAction",
       "additionalProperties": false,
       "required": ["name", "label", "type"],
       "properties": {
         "name": { "type": "string" },
         "label": { "type": "string" },
-        "type": { "$ref": "#/definitions/ViewV2CustomActionType" },
+        "type": { "$ref": "#/definitions/ViewCustomActionType" },
         "value": { "type": "string" }
       }
     },
-    "ViewV2CustomActionType": {
+    "ViewCustomActionType": {
       "type": "string",
-      "title": "ViewV2CustomActionType",
+      "title": "ViewCustomActionType",
       "enum": ["Column"],
       "tsEnumNames": ["Column"]
     },
-    "ViewV2ColumnFilterType": {
+    "ViewColumnFilterType": {
       "type": "string",
-      "title": "ViewV2ColumnFilterType",
+      "title": "ViewColumnFilterType",
       "enum": ["SelectRadio"],
       "tsEnumNames": ["SelectRadio"]
     }

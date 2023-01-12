@@ -1,4 +1,4 @@
-import { ViewV2Ribbon, ViewV2LinkType } from '@shukun/schema';
+import { ViewRibbon, ViewLinkType } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 import { useHistory } from 'react-router';
@@ -12,7 +12,7 @@ import { RoutePath, useOrgPath } from '../../../../utils/history-provider';
 import { runStringCode } from './runStringCode';
 
 export interface RibbonCustomButtonProps {
-  viewRibbon: ViewV2Ribbon;
+  viewRibbon: ViewRibbon;
   source: UnknownSourceModel | null;
   sources: UnknownSourceModel[];
 }
@@ -27,7 +27,7 @@ export const RibbonCustomButton: FunctionComponent<RibbonCustomButtonProps> = ({
   const viewPrefixOrgPath = useOrgPath(RoutePath.ViewPrefix);
 
   const handleClick = useCallback(() => {
-    if (viewRibbon.type === ViewV2LinkType.View) {
+    if (viewRibbon.type === ViewLinkType.View) {
       const search = viewRibbon.query
         ? format(viewRibbon.query, source || [])
         : undefined;

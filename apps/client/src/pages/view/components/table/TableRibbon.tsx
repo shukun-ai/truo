@@ -2,8 +2,8 @@ import { PostMessageCustomModeType } from '@shukun/api';
 import {
   MetadataSchema,
   ViewSchema,
-  ViewV2LinkType,
-  ViewV2Ribbon,
+  ViewLinkType,
+  ViewRibbon,
 } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, ReactNode, useCallback } from 'react';
@@ -21,7 +21,7 @@ import { TableRemoveButton } from './ribbons/TableRemoveButton';
 
 export interface TableRibbonProps {
   metadata: MetadataSchema;
-  viewRibbons: ViewV2Ribbon[];
+  viewRibbons: ViewRibbon[];
   view: ViewSchema;
 }
 
@@ -32,12 +32,12 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
 }) => {
   const tableActiveEntities = useObservableState(tableActiveEntities$, []);
 
-  const customRibbons = useCallback<(viewRibbon: ViewV2Ribbon) => ReactNode>(
+  const customRibbons = useCallback<(viewRibbon: ViewRibbon) => ReactNode>(
     (viewRibbon) => {
       switch (viewRibbon.type) {
-        case ViewV2LinkType.CreateOne:
+        case ViewLinkType.CreateOne:
           return <TableCreateButton key="TableCreateButton" view={view} />;
-        case ViewV2LinkType.DeleteOne:
+        case ViewLinkType.DeleteOne:
           return (
             <TableRemoveButton
               key="TableRemoveButton"
@@ -47,11 +47,11 @@ export const TableRibbon: FunctionComponent<TableRibbonProps> = ({
               sources={tableActiveEntities}
             />
           );
-        case ViewV2LinkType.Excel:
+        case ViewLinkType.Excel:
           return <TableExcelButton key="TableExcelButton" view={view} />;
-        case ViewV2LinkType.Csv:
+        case ViewLinkType.Csv:
           return <TableCsvButton key="TableCsvButton" view={view} />;
-        case ViewV2LinkType.CustomModal:
+        case ViewLinkType.CustomModal:
           return (
             <RibbonCustomModalButton
               key={viewRibbon.name}

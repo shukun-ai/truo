@@ -1,5 +1,5 @@
 import { PostMessageCustomModeType } from '@shukun/api';
-import { ViewV2Ribbon, ViewSchema, MetadataSchema } from '@shukun/schema';
+import { ViewRibbon, ViewSchema, MetadataSchema } from '@shukun/schema';
 import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
@@ -16,7 +16,7 @@ export interface RibbonCustomModalButtonProps {
   customMode: PostMessageCustomModeType;
   view: ViewSchema;
   metadata: MetadataSchema;
-  viewRibbon: ViewV2Ribbon;
+  viewRibbon: ViewRibbon;
   sources: UnknownSourceModel[];
 }
 

@@ -1,11 +1,11 @@
-import { MetadataSchema, ViewV2Column } from '@shukun/schema';
+import { MetadataSchema, ViewColumn } from '@shukun/schema';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { FilterFieldFactory } from '../fields/FilterFieldFactory';
 
 export interface FilterFormItemProps {
   metadata: MetadataSchema;
-  viewColumn: ViewV2Column;
+  viewColumn: ViewColumn;
 }
 
 export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
@@ -49,7 +49,7 @@ export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
 };
 
 export interface InternalFilterFormItem {
-  viewColumn: ViewV2Column;
+  viewColumn: ViewColumn;
 }
 
 export const InternalFilterFormItem: FunctionComponent<

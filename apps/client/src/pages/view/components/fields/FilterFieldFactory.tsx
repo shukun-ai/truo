@@ -1,4 +1,4 @@
-import { ViewV2FieldType } from '@shukun/schema';
+import { ViewFieldType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 
 import { BooleanFilter } from './boolean/BooleanFilter';
@@ -13,58 +13,58 @@ export const FilterFieldFactory: FunctionComponent<FilterFieldProps> = (
   props,
 ) => {
   if (
-    props.type === ViewV2FieldType.Text ||
-    props.type === ViewV2FieldType.LinkText ||
-    props.type === ViewV2FieldType.LargeText ||
-    props.type === ViewV2FieldType.NameText
+    props.type === ViewFieldType.Text ||
+    props.type === ViewFieldType.LinkText ||
+    props.type === ViewFieldType.LargeText ||
+    props.type === ViewFieldType.NameText
   ) {
     return <TextFilter {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Boolean) {
+  if (props.type === ViewFieldType.Boolean) {
     return <BooleanFilter {...props} />;
   }
 
   if (
-    props.type === ViewV2FieldType.Integer ||
-    props.type === ViewV2FieldType.Float ||
-    props.type === ViewV2FieldType.Currency
+    props.type === ViewFieldType.Integer ||
+    props.type === ViewFieldType.Float ||
+    props.type === ViewFieldType.Currency
   ) {
     return <IntegerFilter {...props} />;
   }
 
   if (
-    props.type === ViewV2FieldType.SingleSelect ||
-    props.type === ViewV2FieldType.MultiSelect
+    props.type === ViewFieldType.SingleSelect ||
+    props.type === ViewFieldType.MultiSelect
   ) {
     return <SingleSelectFilter {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.DateTime) {
+  if (props.type === ViewFieldType.DateTime) {
     return <DateTimeFilter {...props} />;
   }
 
-  // if (props.type === ViewV2FieldType.Attachment) {
+  // if (props.type === ViewFieldType.Attachment) {
   //   return <AttachmentField {...props} />;
   // }
 
-  // if (props.type === ViewV2FieldType.Owner) {
+  // if (props.type === ViewFieldType.Owner) {
   //   return <OwnerField {...props} />;
   // }
 
-  if (props.type === ViewV2FieldType.ManyToOne) {
+  if (props.type === ViewFieldType.ManyToOne) {
     return <ManyToOneFilter {...props} />;
   }
 
-  // if (props.type === ViewV2FieldType.ManyToMany) {
+  // if (props.type === ViewFieldType.ManyToMany) {
   //   return <ManyToManyField {...props} />;
   // }
 
-  // if (props.type === ViewV2FieldType.Role) {
+  // if (props.type === ViewFieldType.Role) {
   //   return <RoleField {...props} />;
   // }
 
-  // if (props.type === ViewV2FieldType.LinkText) {
+  // if (props.type === ViewFieldType.LinkText) {
   //   return <LinkTextField {...props} />;
   // }
 
