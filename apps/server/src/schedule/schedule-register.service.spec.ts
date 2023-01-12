@@ -68,23 +68,19 @@ describe('ScheduleRegisterService', () => {
     ).toEqual(schedule);
   });
 
-  it('startAll', () => {
+  it('startAll, stopAll and start', () => {
     scheduleRegisterService.startAll();
 
     expect(
       scheduleRegisterService.scheduleContexts.get('org->test')?.job.running,
     ).toEqual(true);
-  });
 
-  it('stopAll', () => {
     scheduleRegisterService.stopAll();
 
     expect(
       scheduleRegisterService.scheduleContexts.get('org->test')?.job.running,
     ).toEqual(false);
-  });
 
-  it('start', () => {
     scheduleRegisterService.start(orgName, schedule);
 
     expect(

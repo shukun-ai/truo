@@ -7,6 +7,7 @@
     "build": "nx run-many --target=build --all --configuration=production",
     "test": "nx run-many --target=test --all",
     "test:coverage": "nx run-many --target=test --all --coverage",
+    "test:all": "npm run lint && npm run test && npm run build && npm run test:coverage",
     "lint": "nx run-many --target=lint --all",
     "prepare": "husky install",
     "git-pre-commit": "nx format:write --uncommitted",
