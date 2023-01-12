@@ -58,6 +58,16 @@ describe('validateHttpQuerySchema', () => {
     expect(validateQueryFilter(filter)).toEqual(undefined);
   });
 
+  it('should pass when undefined, null and boolean.', () => {
+    const filter = {
+      name: undefined,
+      vehicle: null,
+      highRisk: false,
+    };
+
+    expect(validateQueryFilter(filter)).toEqual(undefined);
+  });
+
   it('should pass when complex or.', () => {
     const filter = {
       $or: [

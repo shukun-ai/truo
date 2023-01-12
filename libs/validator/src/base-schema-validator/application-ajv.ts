@@ -39,6 +39,9 @@ import { Options } from 'ajv';
 
 import { createBaseAjv } from './base-ajv';
 
+/**
+ * @deprecated
+ */
 export function createApplicationAjv(options?: Options) {
   const validate = createBaseAjv(options)
     .addSchema(applicationSchema, 'application.schema.json')

@@ -1,6 +1,8 @@
 import { ValidateFunction } from 'ajv';
 
 /**
+ * @deprecated
+ *
  * @remark
  * Convince for debug if validate gets errors
  */

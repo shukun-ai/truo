@@ -7,6 +7,9 @@ import {
   applicationSeedData,
 } from '@shukun/schema';
 
+/**
+ * @deprecated
+ */
 export class SystemDataValidator {
   private errorMessage: string[] = [];
 
