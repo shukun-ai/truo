@@ -1229,7 +1229,7 @@
       "priority": 1000,
       "atomName": "orders",
       "configurations": {
-        "columns": [
+        "tableFields": [
           {
             "name": "code",
             "label": "机场代码",
@@ -1270,7 +1270,7 @@
             "electronName": "cityTitle"
           }
         ],
-        "fields": [
+        "detailFields": [
           {
             "name": "code",
             "label": "机场代码",

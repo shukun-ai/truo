@@ -29,12 +29,12 @@ export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
   const mode = useObservableState(mode$, DetailMode.Show);
 
   const viewFields = useMemo(() => {
-    return (view.configurations?.fields || []).filter(
+    return (view.configurations?.detailFields || []).filter(
       (field) =>
         field.belongToGroup === viewFieldGroup.name ||
         viewFieldGroup.name === DEFAULT_GROUP_NAME,
     );
-  }, [view.configurations?.fields, viewFieldGroup.name]);
+  }, [view.configurations?.detailFields, viewFieldGroup.name]);
 
   return (
     <Card bordered={false}>
@@ -43,7 +43,7 @@ export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
           <Col key={field.name} span={8}>
             <DetailField
               metadata={metadata}
-              viewField={field}
+              viewDetailField={field}
               detailMode={mode}
             />
           </Col>

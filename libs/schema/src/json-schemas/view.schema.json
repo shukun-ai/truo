@@ -54,10 +54,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "columns": {
+        "tableFields": {
           "type": "array",
           "items": {
-            "title": "ViewColumn",
+            "title": "ViewTableField",
             "type": "object",
             "additionalProperties": false,
             "required": ["name", "label", "type", "electronName"],
@@ -119,10 +119,10 @@
             "$ref": "#/definitions/ViewCustomAction"
           }
         },
-        "fields": {
+        "detailFields": {
           "type": "array",
           "items": {
-            "title": "ViewField",
+            "title": "ViewDetailField",
             "type": "object",
             "additionalProperties": false,
             "required": ["name", "label", "type", "electronName"],

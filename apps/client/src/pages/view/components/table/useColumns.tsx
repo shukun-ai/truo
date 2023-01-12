@@ -3,7 +3,7 @@ import {
   MetadataElectron,
   MetadataSchema,
   ViewSchema,
-  ViewColumn,
+  ViewTableField,
 } from '@shukun/schema';
 import { TableColumnsType, TableColumnType } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -28,9 +28,9 @@ export function useColumns(
   const columns = useMemo<TableColumnsType<UnknownSourceModel>>(() => {
     const antColumns: TableColumnsType<UnknownSourceModel> = [];
 
-    const viewColumns = view.configurations?.columns || [];
+    const viewTableFields = view.configurations?.tableFields || [];
 
-    viewColumns.forEach((viewColumn) => {
+    viewTableFields.forEach((viewColumn) => {
       const electron = metadata.electrons.find(
         (electron) => electron.name === viewColumn.electronName,
       );
@@ -62,7 +62,7 @@ export function useColumns(
 
 function createElectronColumn(
   metadata: MetadataSchema,
-  viewColumn: ViewColumn,
+  viewColumn: ViewTableField,
   electron: MetadataElectron,
   sort: SearchSort | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
 ): TableColumnType<UnknownSourceModel> {
@@ -99,7 +99,7 @@ function createElectronColumn(
 
 function createInternalColumn(
   metadata: MetadataSchema,
-  viewColumn: ViewColumn,
+  viewColumn: ViewTableField,
   electronName: string,
   sort: SearchSort | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
 ): TableColumnType<UnknownSourceModel> {

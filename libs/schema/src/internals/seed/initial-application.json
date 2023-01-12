@@ -144,7 +144,7 @@
       "isVisible": true,
       "isSystem": false,
       "configurations": {
-        "columns": [
+        "tableFields": [
           {
             "name": "username",
             "label": "用户名",
@@ -167,7 +167,7 @@
             "electronName": "avatar"
           }
         ],
-        "fields": [
+        "detailFields": [
           {
             "name": "username",
             "label": "账户名",
@@ -226,7 +226,7 @@
       "isVisible": true,
       "isSystem": false,
       "configurations": {
-        "columns": [
+        "tableFields": [
           {
             "name": "name",
             "label": "角色组名",
@@ -255,7 +255,7 @@
             "electronName": "roles"
           }
         ],
-        "fields": [
+        "detailFields": [
           {
             "name": "name",
             "label": "角色组名",
@@ -317,7 +317,7 @@
       "isVisible": true,
       "isSystem": false,
       "configurations": {
-        "columns": [
+        "tableFields": [
           {
             "name": "label",
             "label": "显示名称",
@@ -346,7 +346,7 @@
             "electronName": "parent"
           }
         ],
-        "fields": [
+        "detailFields": [
           {
             "name": "label",
             "label": "显示名称",

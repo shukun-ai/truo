@@ -1,4 +1,4 @@
-import { MetadataSchema, ViewSearch, ViewColumn } from '@shukun/schema';
+import { MetadataSchema, ViewSearch, ViewTableField } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, Space } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -16,13 +16,13 @@ import { FilterFormItem } from './FilterFormItem';
 
 export interface FilterProps {
   metadata: MetadataSchema;
-  viewColumns: ViewColumn[];
+  viewTableFields: ViewTableField[];
   viewSearch: ViewSearch | undefined;
 }
 
 export const Filter: FunctionComponent<FilterProps> = ({
   metadata,
-  viewColumns,
+  viewTableFields,
   viewSearch,
 }) => {
   const filters = useObservableState(
@@ -32,9 +32,9 @@ export const Filter: FunctionComponent<FilterProps> = ({
 
   const [form] = Form.useForm<SearchFilter>();
 
-  const visibleViewColumns = useMemo(() => {
-    return viewColumns.filter((item) => !item.filterHidden);
-  }, [viewColumns]);
+  const visibleViewTableFields = useMemo(() => {
+    return viewTableFields.filter((item) => !item.filterHidden);
+  }, [viewTableFields]);
 
   useDebounceEffect(
     () => {
@@ -60,16 +60,19 @@ export const Filter: FunctionComponent<FilterProps> = ({
     searchService.resetSearchFilter(viewSearch ?? null);
   }, [viewSearch]);
 
-  if (visibleViewColumns.length === 0) {
+  if (visibleViewTableFields.length === 0) {
     return null;
   }
 
   return (
     <FilterContext.Provider value={{ form }}>
       <Form<SearchFilter> form={form} layout="inline" onFinish={handleFinish}>
-        {visibleViewColumns.map((viewColumn) => (
-          <div key={viewColumn.name} style={{ marginBottom: 8 }}>
-            <FilterFormItem metadata={metadata} viewColumn={viewColumn} />
+        {visibleViewTableFields.map((viewTableField) => (
+          <div key={viewTableField.name} style={{ marginBottom: 8 }}>
+            <FilterFormItem
+              metadata={metadata}
+              viewTableField={viewTableField}
+            />
           </div>
         ))}
         <Space style={{ marginBottom: 8 }}>

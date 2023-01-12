@@ -2,7 +2,7 @@ import {
   MetadataAttachmentOptions,
   MetadataCurrencyOptions,
   MetadataOptions,
-  ViewColumn,
+  ViewTableField,
   ViewColumnFilterOptions,
   ViewColumnFilterType,
   ViewFieldFilterOptions,
@@ -28,7 +28,7 @@ export interface ColumnFieldProps {
   referenceViewName: string | undefined;
   currencyOptions: MetadataCurrencyOptions | undefined;
   attachmentOptions: MetadataAttachmentOptions | undefined;
-  viewLink: NonNullable<ViewColumn['link']> | undefined;
+  viewLink: NonNullable<ViewTableField['link']> | undefined;
   tip: string | undefined;
   row: UnknownSourceModel | undefined;
 }
