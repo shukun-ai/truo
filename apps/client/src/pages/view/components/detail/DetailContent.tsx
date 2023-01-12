@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
-import { MetadataSchema, ViewSchema, ViewFieldGroupType } from '@shukun/schema';
+import {
+  MetadataSchema,
+  ViewSchema,
+  ViewDetailGroupType,
+} from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, FormInstance, FormProps, message, Tabs } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -37,7 +41,7 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
   const viewDetailOrgPath = useOrgPath(RoutePath.ViewDetail);
 
   const viewFieldGroups = useMemo(() => {
-    const groups = view.configurations?.fieldGroups || [];
+    const groups = view.configurations?.detailGroups || [];
 
     if (groups.length > 0) {
       return groups;
@@ -46,11 +50,11 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
         {
           name: DEFAULT_GROUP_NAME,
           label: view.label,
-          type: ViewFieldGroupType.None,
+          type: ViewDetailGroupType.None,
         },
       ];
     }
-  }, [view.configurations?.fieldGroups, view.label]);
+  }, [view.configurations?.detailGroups, view.label]);
 
   const handleFinish = useCallback(
     async (values: UnknownSourceModel) => {

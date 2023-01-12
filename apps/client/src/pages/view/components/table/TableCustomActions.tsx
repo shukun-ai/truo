@@ -25,18 +25,18 @@ export const TableCustomActions: FunctionComponent<TableCustomActionsProps> = ({
 
   const tableActiveEntities = useObservableState(tableActiveEntities$, []);
 
-  const customActions = useMemo<ViewCustomAction[]>(() => {
-    if (!view?.configurations?.customActions) {
+  const tableCustomActions = useMemo<ViewCustomAction[]>(() => {
+    if (!view?.configurations?.tableCustomActions) {
       return [];
     }
-    return view.configurations.customActions.filter(
+    return view.configurations.tableCustomActions.filter(
       (custom) => custom.type === ViewCustomActionType.Column,
     );
-  }, [view?.configurations?.customActions]);
+  }, [view?.configurations?.tableCustomActions]);
 
   return (
     <>
-      {customActions.map((customAction) => (
+      {tableCustomActions.map((customAction) => (
         <TableCustomAction
           key={customAction.name}
           search={search ?? null}

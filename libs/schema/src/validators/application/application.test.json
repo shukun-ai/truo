@@ -1317,7 +1317,7 @@
             "disabledCode": "return scope.mode === 'Edit'"
           }
         ],
-        "fieldRibbons": [
+        "detailRibbons": [
           {
             "name": "edit",
             "label": "编辑",
@@ -1329,7 +1329,7 @@
             "type": "DeleteOne"
           }
         ],
-        "columnRibbons": [
+        "tableRibbons": [
           {
             "name": "create",
             "label": "新建",

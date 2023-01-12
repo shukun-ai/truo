@@ -195,11 +195,11 @@ export interface ViewSchema {
 }
 export interface ViewConfigurations {
   columns?: ViewColumn[];
-  columnRibbons?: ViewRibbon[];
-  customActions?: ViewCustomAction[];
+  tableRibbons?: ViewRibbon[];
+  tableCustomActions?: ViewCustomAction[];
   fields?: ViewField[];
-  fieldGroups?: ViewFieldGroup[];
-  fieldRibbons?: ViewRibbon[];
+  detailGroups?: ViewDetailGroup[];
+  detailRibbons?: ViewRibbon[];
 }
 export interface ViewColumn {
   name: string;
@@ -250,10 +250,10 @@ export interface ViewField {
   belongToGroup?: string;
   filterOptions?: ViewFieldFilterOptions;
 }
-export interface ViewFieldGroup {
+export interface ViewDetailGroup {
   name: string;
   label: string;
-  type: ViewFieldGroupType;
+  type: ViewDetailGroupType;
   value?: string;
 }
 /**
@@ -949,7 +949,7 @@ export enum ViewColumnFilterType {
 export enum ViewCustomActionType {
   Column = 'Column',
 }
-export enum ViewFieldGroupType {
+export enum ViewDetailGroupType {
   None = 'None',
   CustomTab = 'CustomTab',
 }

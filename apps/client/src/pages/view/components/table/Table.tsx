@@ -111,7 +111,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
     <>
       <TableRibbon
         metadata={metadata}
-        viewRibbons={view.configurations?.columnRibbons || []}
+        viewRibbons={view.configurations?.tableRibbons || []}
         view={view}
       />
       <TableCustomActions view={view} metadata={metadata} />

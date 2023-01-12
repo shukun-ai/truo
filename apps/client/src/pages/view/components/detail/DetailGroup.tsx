@@ -1,8 +1,8 @@
 import {
   MetadataSchema,
   ViewSchema,
-  ViewFieldGroup,
-  ViewFieldGroupType,
+  ViewDetailGroup,
+  ViewDetailGroupType,
 } from '@shukun/schema';
 import { Card, Col, Row } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -18,7 +18,7 @@ export const DEFAULT_GROUP_NAME = '$$$_DEFAULT';
 export interface DetailGroupProps {
   metadata: MetadataSchema;
   view: ViewSchema;
-  viewFieldGroup: ViewFieldGroup;
+  viewFieldGroup: ViewDetailGroup;
 }
 
 export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
@@ -50,7 +50,7 @@ export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
         ))}
       </Row>
 
-      {viewFieldGroup.type === ViewFieldGroupType.CustomTab && (
+      {viewFieldGroup.type === ViewDetailGroupType.CustomTab && (
         <CustomTab
           metadata={metadata}
           view={view}

@@ -35,7 +35,7 @@ export const Create: FunctionComponent<CreateProps> = ({ view, metadata }) => {
     <Spin spinning={loading}>
       <FormContext.Provider value={{ form, row: null, mode: mode }}>
         <CreateRibbon
-          viewRibbons={view.configurations?.fieldRibbons || []}
+          viewRibbons={view.configurations?.detailRibbons || []}
           metadata={metadata}
         />
         <DetailContent
