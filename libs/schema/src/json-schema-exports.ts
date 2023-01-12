@@ -1,8 +1,3 @@
-import { ApplicationSchema } from './types/application';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const initialApplicationSeedData: ApplicationSchema = require('./internals/seed/initial-application.json');
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const applicationSchema = require('./json-schemas/application.schema.json');
 

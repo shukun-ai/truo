@@ -1,5 +1,7 @@
-import { IDString } from '../../shared.type';
-import { AttachmentsSchema } from '../../types/attachments';
+import { AttachmentsSchema } from './attachments';
+
+export type IDString = string;
+export type OperatorId = IDString | null;
 
 export interface SystemPositionModel {
   owner: IDString;
