@@ -18,7 +18,7 @@ export type ViewTableFilterOptions = string[];
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
-export type ViewFieldFilterOptions = string[];
+export type ViewDetailFilterOptions = string[];
 export type WorkflowTaskState = {
   type: 'Task';
   comment?: string;
@@ -248,7 +248,7 @@ export interface ViewDetailField {
     foreignName?: string;
   };
   belongToGroup?: string;
-  filterOptions?: ViewFieldFilterOptions;
+  filterOptions?: ViewDetailFilterOptions;
 }
 export interface ViewDetailGroup {
   name: string;
