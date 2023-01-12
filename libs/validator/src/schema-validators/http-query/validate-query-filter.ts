@@ -1,6 +1,3 @@
-import { HttpQuerySchema, httpQuerySchema } from '@shukun/schema';
-import Ajv from 'ajv';
-
 export const QUERY_FILTER_ALLOWED_KEYS = [
   '$eq',
   '$ne',
@@ -15,11 +12,6 @@ export const QUERY_FILTER_ALLOWED_KEYS = [
   '$foreign',
   '$like',
 ];
-
-// TODO wrap Ajv validate function and set a handy exception mechanism
-export const validateHttpQuerySchema = new Ajv().compile<HttpQuerySchema>(
-  httpQuerySchema,
-);
 
 export const validateQueryFilter = (filter: unknown): void => {
   if (typeof filter === 'string') {
