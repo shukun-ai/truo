@@ -35,16 +35,3 @@ export class SchemaValidator implements SchemaValidatorInterface {
     return this.validateFunction;
   }
 }
-
-// export function createSchemaValidate(validateFunction: ValidateFunction) {
-//   return (input: unknown): void => {
-//     const result = validateFunction(input);
-
-//     if (result === false) {
-//       // TODO add a new SchemaValidateError
-//       throw new TypeError(
-//         'Schema Validate Errors: ' + JSON.stringify(validateFunction.errors),
-//       );
-//     }
-//   };
-// }
