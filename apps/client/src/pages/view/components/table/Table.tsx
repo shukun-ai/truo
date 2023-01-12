@@ -125,7 +125,7 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
       >
         <Filter
           metadata={metadata}
-          viewColumns={view.configurations?.columns || []}
+          viewTableFields={view.configurations?.tableFields || []}
           viewSearch={view.search}
         />
       </div>

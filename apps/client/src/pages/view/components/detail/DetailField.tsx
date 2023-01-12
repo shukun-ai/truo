@@ -1,4 +1,4 @@
-import { MetadataSchema, ViewField } from '@shukun/schema';
+import { MetadataSchema, ViewDetailField } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -9,40 +9,40 @@ import { runStringCode } from '../ribbon/runStringCode';
 
 export interface DetailFieldProps {
   metadata: MetadataSchema;
-  viewField: ViewField;
+  viewDetailField: ViewDetailField;
   detailMode: DetailMode;
 }
 
 export const DetailField: FunctionComponent<DetailFieldProps> = ({
   metadata,
-  viewField,
+  viewDetailField,
   detailMode,
 }) => {
   const electron = useMemo(() => {
     return metadata.electrons.find(
-      (electron) => electron.name === viewField.electronName,
+      (electron) => electron.name === viewDetailField.electronName,
     );
-  }, [metadata.electrons, viewField.electronName]);
+  }, [metadata.electrons, viewDetailField.electronName]);
 
   const source = useObservableState(source$);
 
   const disabled = useMemo(() => {
     return runStringCode(
-      viewField.disabledCode,
+      viewDetailField.disabledCode,
       source ?? undefined,
       source ? [source] : [],
       detailMode,
     );
-  }, [source, viewField.disabledCode, detailMode]);
+  }, [source, viewDetailField.disabledCode, detailMode]);
 
   const required = useMemo(() => {
     return runStringCode(
-      viewField.requiredCode,
+      viewDetailField.requiredCode,
       source ?? undefined,
       source ? [source] : [],
       detailMode,
     );
-  }, [source, viewField.requiredCode, detailMode]);
+  }, [source, viewDetailField.requiredCode, detailMode]);
 
   if (!electron) {
     return <>不存在该字段</>;
@@ -51,38 +51,38 @@ export const DetailField: FunctionComponent<DetailFieldProps> = ({
   if (detailMode === DetailMode.Show) {
     return (
       <ShowFieldFactory
-        type={viewField.type}
-        name={viewField.name}
-        label={viewField.label}
+        type={viewDetailField.type}
+        name={viewDetailField.name}
+        label={viewDetailField.label}
         viewLink={undefined}
-        electronName={viewField.electronName}
+        electronName={viewDetailField.electronName}
         electronOptions={electron.options}
         electronForeignName={electron.foreignName}
         electronReferenceTo={electron.referenceTo}
-        referenceViewName={viewField.referenceViewName}
+        referenceViewName={viewDetailField.referenceViewName}
         currencyOptions={electron.currencyOptions}
         attachmentOptions={electron.attachmentOptions}
-        tip={viewField.tip}
+        tip={viewDetailField.tip}
         row={source ?? undefined}
       />
     );
   } else {
     return (
       <InputFieldFactory
-        type={viewField.type}
-        name={viewField.name}
-        label={viewField.label}
-        electronName={viewField.electronName}
+        type={viewDetailField.type}
+        name={viewDetailField.name}
+        label={viewDetailField.label}
+        electronName={viewDetailField.electronName}
         electronOptions={electron.options}
         electronForeignName={electron.foreignName}
         electronReferenceTo={electron.referenceTo}
-        referenceViewName={viewField.referenceViewName}
+        referenceViewName={viewDetailField.referenceViewName}
         currencyOptions={electron.currencyOptions}
         attachmentOptions={electron.attachmentOptions}
-        tip={viewField.tip}
+        tip={viewDetailField.tip}
         required={required}
         disabled={disabled}
-        filterOptions={viewField.filterOptions}
+        filterOptions={viewDetailField.filterOptions}
       />
     );
   }

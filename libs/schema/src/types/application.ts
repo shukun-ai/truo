@@ -194,14 +194,14 @@ export interface ViewSchema {
   search?: ViewSearch;
 }
 export interface ViewConfigurations {
-  columns?: ViewColumn[];
+  tableFields?: ViewTableField[];
   tableRibbons?: ViewRibbon[];
   tableCustomActions?: ViewCustomAction[];
-  fields?: ViewField[];
+  detailFields?: ViewDetailField[];
   detailGroups?: ViewDetailGroup[];
   detailRibbons?: ViewRibbon[];
 }
-export interface ViewColumn {
+export interface ViewTableField {
   name: string;
   label: string;
   type: ViewFieldType;
@@ -234,7 +234,7 @@ export interface ViewCustomAction {
   type: ViewCustomActionType;
   value?: string;
 }
-export interface ViewField {
+export interface ViewDetailField {
   name: string;
   label: string;
   type: ViewFieldType;
