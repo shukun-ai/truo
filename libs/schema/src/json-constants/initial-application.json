@@ -1,5 +1,5 @@
 {
-  "$schema": "../../json-schemas/application.schema.json",
+  "$schema": "../json-schemas/application.schema.json",
   "title": "Initial Application Seed",
   "metadata": [
     {
