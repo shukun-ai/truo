@@ -107,13 +107,13 @@
             }
           }
         },
-        "columnRibbons": {
+        "tableRibbons": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ViewRibbon"
           }
         },
-        "customActions": {
+        "tableCustomActions": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ViewCustomAction"
@@ -177,10 +177,10 @@
             }
           }
         },
-        "fieldGroups": {
+        "detailGroups": {
           "type": "array",
           "items": {
-            "title": "ViewFieldGroup",
+            "title": "ViewDetailGroup",
             "type": "object",
             "additionalProperties": false,
             "required": ["name", "label", "type"],
@@ -192,7 +192,7 @@
                 "type": "string"
               },
               "type": {
-                "$ref": "#/definitions/ViewFieldGroupType"
+                "$ref": "#/definitions/ViewDetailGroupType"
               },
               "value": {
                 "type": "string"
@@ -200,7 +200,7 @@
             }
           }
         },
-        "fieldRibbons": {
+        "detailRibbons": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/ViewRibbon"
@@ -397,9 +397,9 @@
         "CustomModal"
       ]
     },
-    "ViewFieldGroupType": {
+    "ViewDetailGroupType": {
       "type": "string",
-      "title": "ViewFieldGroupType",
+      "title": "ViewDetailGroupType",
       "enum": ["None", "CustomTab"],
       "tsEnumNames": ["None", "CustomTab"]
     },

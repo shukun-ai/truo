@@ -48,7 +48,7 @@ export const Detail: FunctionComponent<DetailProps> = ({ view, metadata }) => {
     <Spin spinning={loading}>
       <FormContext.Provider value={{ form, row: source ?? null, mode: mode }}>
         <DetailRibbon
-          viewRibbons={view.configurations?.fieldRibbons || []}
+          viewRibbons={view.configurations?.detailRibbons || []}
           view={view}
           metadata={metadata}
         />
