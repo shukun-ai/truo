@@ -14,7 +14,7 @@ export type MetadataOptions = {
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
-export type ViewColumnFilterOptions = string[];
+export type ViewTableFilterOptions = string[];
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
@@ -214,8 +214,8 @@ export interface ViewTableField {
     query?: string;
   };
   filterHidden?: boolean;
-  filterOptions?: ViewColumnFilterOptions;
-  filterType?: ViewColumnFilterType;
+  filterOptions?: ViewTableFilterOptions;
+  filterType?: ViewTableFilterType;
 }
 export interface ViewRibbon {
   name: string;
@@ -943,7 +943,7 @@ export enum ViewLinkType {
   Csv = 'Csv',
   CustomModal = 'CustomModal',
 }
-export enum ViewColumnFilterType {
+export enum ViewTableFilterType {
   SelectRadio = 'SelectRadio',
 }
 export enum ViewCustomActionType {

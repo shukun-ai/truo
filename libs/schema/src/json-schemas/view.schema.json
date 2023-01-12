@@ -94,7 +94,7 @@
                 "type": "boolean"
               },
               "filterOptions": {
-                "title": "ViewColumnFilterOptions",
+                "title": "ViewTableFilterOptions",
                 "type": "array",
                 "description": "It only work on SingleSelect and MultipleSelect now.",
                 "items": {
@@ -102,7 +102,7 @@
                 }
               },
               "filterType": {
-                "$ref": "#/definitions/ViewColumnFilterType"
+                "$ref": "#/definitions/ViewTableFilterType"
               }
             }
           }
@@ -421,9 +421,9 @@
       "enum": ["Column"],
       "tsEnumNames": ["Column"]
     },
-    "ViewColumnFilterType": {
+    "ViewTableFilterType": {
       "type": "string",
-      "title": "ViewColumnFilterType",
+      "title": "ViewTableFilterType",
       "enum": ["SelectRadio"],
       "tsEnumNames": ["SelectRadio"]
     }
