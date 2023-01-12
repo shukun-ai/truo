@@ -5,6 +5,9 @@ import {
   applicationSeedData,
 } from '@shukun/schema';
 
+/**
+ * @deprecated
+ */
 export class SystemDataCombination {
   public combineApplicationLowCode(
     current: ApplicationSchema,

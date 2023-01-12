@@ -1,6 +1,9 @@
 import Ajv, { Options } from 'ajv';
 import { isEmail, isISO8601 } from 'class-validator';
 
+/**
+ * @deprecated
+ */
 export function createBaseAjv(options?: Options) {
   return new Ajv(options)
     .addKeyword('tsEnumNames')
