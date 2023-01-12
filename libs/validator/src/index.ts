@@ -12,13 +12,13 @@ export * from './base-validator/is-started-with-lowercase';
 
 export * from './electron/electron-constant';
 
-export * from './schema-validators/application/validate';
-export * from './schema-validators/attachment/validate';
-export * from './schema-validators/workflow-configurations/validate';
-export * from './schema-validators/workflow-input/validate';
+export * from './schema-validators/application/validate-application-schema';
+export * from './schema-validators/attachment/validate-attachments-schema';
+export * from './schema-validators/workflow-configurations/validate-workflow-configurations';
+export * from './schema-validators/workflow-input/validate-workflow-input';
 export * from './schema-validators/http-query/validate-http-query-schema';
 export * from './schema-validators/http-query/validate-query-filter';
-export * from './schema-validators/data-source/validate';
+export * from './schema-validators/data-source/validate-data-source-schema';
 
 export * from './system-schema-helpers/dependency-check';
 export * from './system-schema-helpers/dependency-merge';

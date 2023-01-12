@@ -1,7 +1,7 @@
 import { inspectTestingValidate } from '../../testing-helpers/testing-validate-inspector';
 
 import attachmentsData from './attachments.test.json';
-import { validateAttachmentsSchema } from './validate';
+import { validateAttachmentsSchema } from './validate-attachments-schema';
 
 describe('attachment', () => {
   it('validateAttachmentsSchema', () => {
