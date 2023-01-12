@@ -11,6 +11,7 @@
     "exception": "libs/exception",
     "schema": "libs/schema",
     "server": "apps/server",
+    "validator": "libs/validator",
     "web-engine": "apps/web-engine"
   }
 }

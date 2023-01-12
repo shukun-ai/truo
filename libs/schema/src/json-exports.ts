@@ -1,7 +1,7 @@
 import { ApplicationSchema } from './types/application';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-export const initialApplication: ApplicationSchema = require('./internals/seed/initial-application.json');
+export const initialApplicationSchema: ApplicationSchema = require('./internals/seed/initial-application.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const applicationSchema = require('./json-schemas/application.schema.json');
@@ -107,6 +107,12 @@ export const flowEventFirstOrThrowSchema = require('./json-schemas/flow/event/fi
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const flowEventLastOrThrowSchema = require('./json-schemas/flow/event/last-or-throw.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const workflowInputSchema = require('./json-schemas/utils/workflow-input.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const attachmentsSchema = require('./json-schemas/attachments.schema.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const httpQuerySchema = require('./json-schemas/http-query.schema.json');
