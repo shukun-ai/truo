@@ -167,7 +167,7 @@
                 "type": "string"
               },
               "filterOptions": {
-                "title": "ViewFieldFilterOptions",
+                "title": "ViewDetailFilterOptions",
                 "type": "array",
                 "description": "It only work on SingleSelect and MultipleSelect now.",
                 "items": {

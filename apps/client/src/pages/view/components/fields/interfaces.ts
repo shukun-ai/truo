@@ -5,7 +5,7 @@ import {
   ViewTableField,
   ViewTableFilterOptions,
   ViewTableFilterType,
-  ViewFieldFilterOptions,
+  ViewDetailFilterOptions,
   ViewFieldType,
 } from '@shukun/schema';
 
@@ -47,7 +47,7 @@ export interface InputFieldProps {
   required: boolean;
   disabled: boolean;
   tip: string | undefined;
-  filterOptions: ViewFieldFilterOptions | undefined;
+  filterOptions: ViewDetailFilterOptions | undefined;
 }
 
 export interface FilterFieldProps {
