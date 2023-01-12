@@ -1,7 +1,7 @@
 import {
   MetadataFieldType,
   ViewType,
-  initialApplicationSeedData,
+  applicationSeedData,
 } from '@shukun/schema';
 
 import { SystemDataValidator } from './dependency-check';
@@ -115,7 +115,7 @@ describe('dependency-check', () => {
 
   it('checkInitialApplicationData', () => {
     const systemDataValidator = new SystemDataValidator();
-    const output = systemDataValidator.check(initialApplicationSeedData);
+    const output = systemDataValidator.check(applicationSeedData);
     expect(output).toEqual(true);
   });
 });

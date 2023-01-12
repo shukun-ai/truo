@@ -7,7 +7,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import {
-  initialApplicationSeedData,
+  applicationSeedData,
   RoleResourceType,
   SystemPositionModel,
   SystemUserModel,
@@ -41,7 +41,7 @@ export class SeedController {
     const org = await this.createOrg(createDto);
 
     // upload codebase
-    await this.orgService.updateCodebase(org.name, initialApplicationSeedData);
+    await this.orgService.updateCodebase(org.name, applicationSeedData);
 
     // create user
     const rootUser = await this.systemUserService.createOne(
