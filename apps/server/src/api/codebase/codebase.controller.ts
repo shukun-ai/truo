@@ -12,7 +12,7 @@ import { ApplicationSchema, RoleResourceType } from '@shukun/schema';
 import {
   SystemDataCombination,
   SystemDataValidator,
-  validateApplicationSchema,
+  applicationSchemaValidator,
 } from '@shukun/validator';
 import { Express } from 'express';
 
@@ -70,14 +70,7 @@ export class CodebaseController {
       throw new BadRequestException('The file is not a standard format.');
     }
 
-    const result = validateApplicationSchema(plugin);
-
-    if (!result) {
-      const errorMessage = JSON.stringify(validateApplicationSchema.errors);
-      throw new BadRequestException(
-        `The file is not validated by application JSON Schema: ${errorMessage}`,
-      );
-    }
+    applicationSchemaValidator.validate(plugin);
 
     const merged = new SystemDataCombination().combineApplicationLowCode(
       plugin,

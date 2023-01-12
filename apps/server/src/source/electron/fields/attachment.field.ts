@@ -1,6 +1,6 @@
 import { ElectronValueException } from '@shukun/exception';
 import { DataSourceType, MetadataElectron } from '@shukun/schema';
-import { validateAttachmentsSchema } from '@shukun/validator';
+import { attachmentsSchemaValidator } from '@shukun/validator';
 import { Schema } from 'mongoose';
 
 import {
@@ -13,7 +13,9 @@ export class AttachmentField implements ElectronType {
   validateValue(value: unknown): ElectronExceptions {
     const messages = [];
 
-    if (!validateAttachmentsSchema(value)) {
+    try {
+      attachmentsSchemaValidator.validate(value);
+    } catch (error) {
       messages.push(
         new ElectronValueException('should be a attachment format.'),
       );

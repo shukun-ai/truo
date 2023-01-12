@@ -1,11 +1,7 @@
-import {
-  BadRequestException,
-  createParamDecorator,
-  ExecutionContext,
-} from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { HttpQuerySchema } from '@shukun/schema';
 import {
-  validateHttpQuerySchema,
+  httpQuerySchemaValidator,
   validateQueryFilter,
 } from '@shukun/validator';
 
@@ -15,13 +11,7 @@ export const ParsedHttpQuery = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const body = getRequestBody(ctx);
 
-    const result = validateHttpQuerySchema(body);
-
-    if (!result) {
-      throw new BadRequestException(
-        JSON.stringify(validateHttpQuerySchema.errors),
-      );
-    }
+    const result = httpQuerySchemaValidator.validate(body);
 
     validateQueryFilter(result);
 
