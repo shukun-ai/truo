@@ -1,12 +1,8 @@
-import { inspectTestingValidate } from '../../testing-helpers/testing-validate-inspector';
-
 import attachmentsData from './attachments.test.json';
-import { validateAttachmentsSchema } from './validate-attachments-schema';
+import { attachmentsSchemaValidator } from './validate-attachments-schema';
 
 describe('attachment', () => {
-  it('validateAttachmentsSchema', () => {
-    const result = validateAttachmentsSchema(attachmentsData);
-    inspectTestingValidate(result, validateAttachmentsSchema);
-    expect(result).toEqual(true);
+  it('attachmentsSchemaValidator', () => {
+    attachmentsSchemaValidator.validate(attachmentsData);
   });
 });

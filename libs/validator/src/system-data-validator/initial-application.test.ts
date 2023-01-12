@@ -1,20 +1,14 @@
 import { ApplicationSchema, applicationSeedData } from '@shukun/schema';
 
 import applicationData from '../schema-validators/application/application.test.json';
-import { validateApplicationSchema } from '../schema-validators/application/validate-application-schema';
+import { applicationSchemaValidator } from '../schema-validators/application/validate-application-schema';
 
 import { SystemDataCombination } from './system-data-combination';
 import { SystemDataValidator } from './system-data-validator';
 
 describe('application', () => {
   it('merge initial application', () => {
-    const result = validateApplicationSchema(applicationSeedData);
-    if (!result) {
-      // Just convince for debug if validate gets errors
-      console.error(validateApplicationSchema.errors);
-    }
-
-    expect(result).toEqual(true);
+    applicationSchemaValidator.validate(applicationSeedData);
 
     const merged = new SystemDataCombination().combineApplicationLowCode(
       applicationSeedData,

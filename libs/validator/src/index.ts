@@ -1,6 +1,5 @@
-export * from './base-schema-validator/application-ajv';
-export * from './base-schema-validator/base-ajv';
-export * from './base-schema-validator/validate-errors';
+export * from './base-schema-validator/schema-validator';
+export * from './base-schema-validator/schema-validator.interface';
 
 export * from './base-validator/is-date-time-iso';
 export * from './base-validator/is-electron-name';

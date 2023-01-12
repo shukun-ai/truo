@@ -1,6 +1,8 @@
-import { AttachmentsSchema, attachmentsSchema } from '@shukun/schema';
-import Ajv from 'ajv';
+import { attachmentsSchema } from '@shukun/schema';
 
-export const validateAttachmentsSchema = new Ajv().compile<AttachmentsSchema>(
-  attachmentsSchema,
-);
+import { createBaseAjv } from '../../base-schema-validator/base-ajv';
+import { SchemaValidator } from '../../base-schema-validator/schema-validator';
+
+export const attachmentsSchemaValidator = new SchemaValidator(
+  createBaseAjv(),
+).compile(attachmentsSchema);
