@@ -1,5 +1,4 @@
-import initialApplicationSeedDataJson from './json-constants/initial-application.json';
+import applicationSeedDataJson from './json-constants/initial-application.json';
 import { ApplicationSchema } from './types/application';
 
-export const initialApplicationSeedData =
-  initialApplicationSeedDataJson as ApplicationSchema;
+export const applicationSeedData = applicationSeedDataJson as ApplicationSchema;

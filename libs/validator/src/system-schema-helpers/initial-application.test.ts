@@ -1,4 +1,4 @@
-import { ApplicationSchema, initialApplicationSeedData } from '@shukun/schema';
+import { ApplicationSchema, applicationSeedData } from '@shukun/schema';
 
 import applicationData from '../schema-validators/application/application.test.json';
 import { validateApplicationSchema } from '../schema-validators/application/validate';
@@ -8,7 +8,7 @@ import { mergeDependencies } from './dependency-merge';
 
 describe('application', () => {
   it('merge initial application', () => {
-    const result = validateApplicationSchema(initialApplicationSeedData);
+    const result = validateApplicationSchema(applicationSeedData);
     if (!result) {
       // Just convince for debug if validate gets errors
       console.error(validateApplicationSchema.errors);
@@ -16,9 +16,7 @@ describe('application', () => {
 
     expect(result).toEqual(true);
 
-    const merged = mergeDependencies(
-      initialApplicationSeedData as ApplicationSchema,
-    );
+    const merged = mergeDependencies(applicationSeedData as ApplicationSchema);
 
     const systemDataValidator = new SystemDataValidator();
     const checked = systemDataValidator.check(merged);

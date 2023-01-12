@@ -2,7 +2,7 @@ import {
   ApplicationSchema,
   MetadataSchema,
   MetadataElectron,
-  initialApplicationSeedData,
+  applicationSeedData,
 } from '@shukun/schema';
 
 export function mergeDependencies(
@@ -11,16 +11,13 @@ export function mergeDependencies(
   return {
     ...current,
     metadata: current.metadata
-      ? mergeMetadata(
-          current.metadata,
-          initialApplicationSeedData.metadata || [],
-        )
+      ? mergeMetadata(current.metadata, applicationSeedData.metadata || [])
       : undefined,
     views: current.views
-      ? mergeNameArray(current.views, initialApplicationSeedData.views || [])
+      ? mergeNameArray(current.views, applicationSeedData.views || [])
       : undefined,
     roles: current.roles
-      ? mergeNameArray(current.roles, initialApplicationSeedData.roles || [])
+      ? mergeNameArray(current.roles, applicationSeedData.roles || [])
       : undefined,
   };
 }
