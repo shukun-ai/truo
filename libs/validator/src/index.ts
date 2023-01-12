@@ -16,7 +16,8 @@ export * from './schema-validators/application/validate';
 export * from './schema-validators/attachment/validate';
 export * from './schema-validators/workflow-configurations/validate';
 export * from './schema-validators/workflow-input/validate';
-export * from './schema-validators/http-query/validate';
+export * from './schema-validators/http-query/validate-http-query-schema';
+export * from './schema-validators/http-query/validate-query-filter';
 export * from './schema-validators/data-source/validate';
 
 export * from './system-schema-helpers/dependency-check';
