@@ -1,116 +1,81 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const applicationSchema = require('./json-schemas/application.schema.json');
+import applicationSchemaJson from './json-schemas/application.schema.json';
+import environmentSchemaJson from './json-schemas/application/environment.schema.json';
+import flowSchemaJson from './json-schemas/application/flow.schema.json';
+import flowEventChoiceSchemaJson from './json-schemas/application/flow/event/choice.schema.json';
+import flowEventFailSchemaJson from './json-schemas/application/flow/event/fail.schema.json';
+import flowEventFirstOrThrowSchemaJson from './json-schemas/application/flow/event/first-or-throw.schema.json';
+import flowEventLastOrThrowSchemaJson from './json-schemas/application/flow/event/last-or-throw.schema.json';
+import flowEventParallelSchemaJson from './json-schemas/application/flow/event/parallel.schema.json';
+import flowEventRepeatSchemaJson from './json-schemas/application/flow/event/repeat.schema.json';
+import flowEventSourceAddToManySchemaJson from './json-schemas/application/flow/event/source-add-to-many.schema.json';
+import flowEventSourceCreateSchemaJson from './json-schemas/application/flow/event/source-create.schema.json';
+import flowEventSourceDeleteSchemaJson from './json-schemas/application/flow/event/source-delete.schema.json';
+import flowEventSourceIncreaseSchemaJson from './json-schemas/application/flow/event/source-increase.schema.json';
+import flowEventSourceQuerySchemaJson from './json-schemas/application/flow/event/source-query.schema.json';
+import flowEventSourceRemoveFromManySchemaJson from './json-schemas/application/flow/event/source-remove-from-many.schema.json';
+import flowEventSourceUpdateSchemaJson from './json-schemas/application/flow/event/source-update.schema.json';
+import flowEventStoreSchemaJson from './json-schemas/application/flow/event/store.schema.json';
+import flowEventSuccessSchemaJson from './json-schemas/application/flow/event/success.schema.json';
+import flowEventsSchemaJson from './json-schemas/application/flow/events.schema.json';
+import flowStoreSchemaJson from './json-schemas/application/flow/store.schema.json';
+import metadataSchemaJson from './json-schemas/application/metadata.schema.json';
+import roleSchemaJson from './json-schemas/application/role.schema.json';
+import scheduleSchemaJson from './json-schemas/application/schedule.schema.json';
+import ruleEngineSchemaJson from './json-schemas/application/utils/rule-engine.schema.json';
+import workflowInputSchemaJson from './json-schemas/application/utils/workflow-input.schema.json';
+import viewSchemaJson from './json-schemas/application/view.schema.json';
+import workflowSchemaJson from './json-schemas/application/workflow.schema.json';
+import workflowCatchesSchemaJson from './json-schemas/application/workflows/catches.schema.json';
+import workflowChoiceStateSchemaJson from './json-schemas/application/workflows/choice-state.schema.json';
+import workflowChoicesSchemaJson from './json-schemas/application/workflows/choices.schema.json';
+import workflowComparisonSchemaJson from './json-schemas/application/workflows/comparison.schema.json';
+import workflowConfigurationsSchemaJson from './json-schemas/application/workflows/configurations.schema.json';
+import workflowFailStateSchemaJson from './json-schemas/application/workflows/fail-state.schema.json';
+import workflowPassStateSchemaJson from './json-schemas/application/workflows/pass-state.schema.json';
+import workflowRetriesSchemaJson from './json-schemas/application/workflows/retries.schema.json';
+import workflowTaskStateSchemaJson from './json-schemas/application/workflows/task-state.schema.json';
+import attachmentsSchemaJson from './json-schemas/attachments.schema.json';
+import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
+import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const metadataSchema = require('./json-schemas/metadata.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const roleSchema = require('./json-schemas/role.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const ruleEngineSchema = require('./json-schemas/utils/rule-engine.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const viewSchema = require('./json-schemas/view.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowSchema = require('./json-schemas/workflow.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowSchema = require('./json-schemas/flow.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const scheduleSchema = require('./json-schemas/schedule.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const environmentSchema = require('./json-schemas/environment.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowCatchesSchema = require('./json-schemas/workflows/catches.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowChoiceStateSchema = require('./json-schemas/workflows/choice-state.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowChoicesSchema = require('./json-schemas/workflows/choices.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowComparisonSchema = require('./json-schemas/workflows/comparison.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowConfigurationsSchema = require('./json-schemas/workflows/configurations.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowFailStateSchema = require('./json-schemas/workflows/fail-state.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowPassStateSchema = require('./json-schemas/workflows/pass-state.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowRetriesSchema = require('./json-schemas/workflows/retries.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowTaskStateSchema = require('./json-schemas/workflows/task-state.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventsSchema = require('./json-schemas/flow/events.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowStoreSchema = require('./json-schemas/flow/store.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSuccessSchema = require('./json-schemas/flow/event/success.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventFailSchema = require('./json-schemas/flow/event/fail.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSourceQuerySchema = require('./json-schemas/flow/event/source-query.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSourceCreateSchema = require('./json-schemas/flow/event/source-create.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSourceUpdateSchema = require('./json-schemas/flow/event/source-update.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSourceDeleteSchema = require('./json-schemas/flow/event/source-delete.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSourceAddToManySchema = require('./json-schemas/flow/event/source-add-to-many.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSourceRemoveFromManySchema = require('./json-schemas/flow/event/source-remove-from-many.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventSourceIncreaseSchema = require('./json-schemas/flow/event/source-increase.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventChoiceSchema = require('./json-schemas/flow/event/choice.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventRepeatSchema = require('./json-schemas/flow/event/repeat.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventParallelSchema = require('./json-schemas/flow/event/parallel.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventStoreSchema = require('./json-schemas/flow/event/store.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventFirstOrThrowSchema = require('./json-schemas/flow/event/first-or-throw.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const flowEventLastOrThrowSchema = require('./json-schemas/flow/event/last-or-throw.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const workflowInputSchema = require('./json-schemas/utils/workflow-input.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const attachmentsSchema = require('./json-schemas/attachments.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const httpQuerySchema = require('./json-schemas/http-query.schema.json');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const dataSourceSchema = require('./json-schemas/data-source.schema.json');
+export const applicationSchema = applicationSchemaJson;
+export const metadataSchema = metadataSchemaJson;
+export const roleSchema = roleSchemaJson;
+export const ruleEngineSchema = ruleEngineSchemaJson;
+export const viewSchema = viewSchemaJson;
+export const workflowSchema = workflowSchemaJson;
+export const flowSchema = flowSchemaJson;
+export const scheduleSchema = scheduleSchemaJson;
+export const environmentSchema = environmentSchemaJson;
+export const workflowCatchesSchema = workflowCatchesSchemaJson;
+export const workflowChoiceStateSchema = workflowChoiceStateSchemaJson;
+export const workflowChoicesSchema = workflowChoicesSchemaJson;
+export const workflowComparisonSchema = workflowComparisonSchemaJson;
+export const workflowConfigurationsSchema = workflowConfigurationsSchemaJson;
+export const workflowFailStateSchema = workflowFailStateSchemaJson;
+export const workflowPassStateSchema = workflowPassStateSchemaJson;
+export const workflowRetriesSchema = workflowRetriesSchemaJson;
+export const workflowTaskStateSchema = workflowTaskStateSchemaJson;
+export const flowEventsSchema = flowEventsSchemaJson;
+export const flowStoreSchema = flowStoreSchemaJson;
+export const flowEventSuccessSchema = flowEventSuccessSchemaJson;
+export const flowEventFailSchema = flowEventFailSchemaJson;
+export const flowEventSourceQuerySchema = flowEventSourceQuerySchemaJson;
+export const flowEventSourceCreateSchema = flowEventSourceCreateSchemaJson;
+export const flowEventSourceUpdateSchema = flowEventSourceUpdateSchemaJson;
+export const flowEventSourceDeleteSchema = flowEventSourceDeleteSchemaJson;
+export const flowEventSourceAddToManySchema =
+  flowEventSourceAddToManySchemaJson;
+export const flowEventSourceRemoveFromManySchema =
+  flowEventSourceRemoveFromManySchemaJson;
+export const flowEventSourceIncreaseSchema = flowEventSourceIncreaseSchemaJson;
+export const flowEventChoiceSchema = flowEventChoiceSchemaJson;
+export const flowEventRepeatSchema = flowEventRepeatSchemaJson;
+export const flowEventParallelSchema = flowEventParallelSchemaJson;
+export const flowEventStoreSchema = flowEventStoreSchemaJson;
+export const flowEventFirstOrThrowSchema = flowEventFirstOrThrowSchemaJson;
+export const flowEventLastOrThrowSchema = flowEventLastOrThrowSchemaJson;
+export const workflowInputSchema = workflowInputSchemaJson;
+export const attachmentsSchema = attachmentsSchemaJson;
+export const httpQuerySchema = httpQuerySchemaJson;
+export const dataSourceSchema = dataSourceSchemaJson;
