@@ -20,7 +20,7 @@ export * from './schema-validators/http-query/validate-http-query-schema';
 export * from './schema-validators/http-query/validate-query-filter';
 export * from './schema-validators/data-source/validate-data-source-schema';
 
-export * from './system-schema-helpers/dependency-check';
-export * from './system-schema-helpers/dependency-merge';
+export * from './system-data-validator/system-data-validator';
+export * from './system-data-validator/system-data-combination';
 
 export * from './testing-helpers/testing-validate-inspector';
