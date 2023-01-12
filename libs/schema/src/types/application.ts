@@ -200,14 +200,6 @@ export interface ViewConfigurations {
   v2Fields?: ViewV2Field[];
   v2FieldGroups?: ViewV2FieldGroup[];
   v2FieldRibbons?: ViewV2Ribbon[];
-  columns?: ViewColumn[];
-  form?: {
-    [k: string]: ViewFormItem;
-  };
-  tree?: ViewTree;
-  detailCustomActions?: ViewDetailCustomAction[];
-  detailEditAction?: ViewDetailEditAction;
-  detailRemoveAction?: ViewDetailRemoveAction;
 }
 export interface ViewV2Column {
   name: string;
@@ -263,65 +255,6 @@ export interface ViewV2FieldGroup {
   label: string;
   type: ViewV2FieldGroupType;
   value?: string;
-}
-export interface ViewColumn {
-  electronName: string;
-  allowSort?: boolean;
-  allowSearch?: boolean;
-  showColumn?: boolean;
-}
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export interface ViewFormItem {
-  hidden?: RuleEngineSet;
-  required?: RuleEngineSet;
-  disabled?: RuleEngineSet;
-  priority?: number;
-}
-/**
- * Describe Rule Engine
- */
-export interface RuleEngineSet {
-  globalCondition?: RuleEngineGlobalCondition;
-  conditions?: {
-    sourceMethod: RuleEngineSourceMethod;
-    sourceParam: unknown;
-    operator: RuleEngineOperator;
-    targetMethod?: RuleEngineTargetMethod;
-    targetParam?: unknown;
-  }[];
-}
-export interface ViewTree {
-  parentElectronName?: string;
-  labelElectronName?: string;
-}
-export interface ViewDetailCustomAction {
-  key: string;
-  label: string;
-  type: ViewDetailCustomActionType;
-  value?: string;
-  query?: string;
-  disabled?: RuleEngineSet;
-  disabledTip?: string;
-  confirmed?: boolean;
-  confirmedTip?: string;
-  hidden?: RuleEngineSet;
-}
-export interface ViewDetailEditAction {
-  disabled?: RuleEngineSet;
-  disabledTip?: string;
-  confirmed?: boolean;
-  confirmedTip?: string;
-  hidden?: RuleEngineSet;
-}
-export interface ViewDetailRemoveAction {
-  disabled?: RuleEngineSet;
-  disabledTip?: string;
-  confirmed?: boolean;
-  confirmedTip?: string;
-  hidden?: RuleEngineSet;
 }
 /**
  * Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.
@@ -1019,38 +952,6 @@ export enum ViewV2CustomActionType {
 export enum ViewV2FieldGroupType {
   None = 'None',
   CustomTab = 'CustomTab',
-}
-export enum RuleEngineGlobalCondition {
-  always = 'always',
-  none = 'none',
-  every = 'every',
-  some = 'some',
-}
-export enum RuleEngineSourceMethod {
-  getField = 'getField',
-  getFixed = 'getFixed',
-  getFieldOptions = 'getFieldOptions',
-}
-export enum RuleEngineOperator {
-  equal = 'equal',
-  notEqual = 'notEqual',
-  in = 'in',
-  notIn = 'notIn',
-  lessThan = 'lessThan',
-  lessThanInclusive = 'lessThanInclusive',
-  greaterThan = 'greaterThan',
-  greaterThanInclusive = 'greaterThanInclusive',
-  isTrue = 'isTrue',
-}
-export enum RuleEngineTargetMethod {
-  getField = 'getField',
-  getFixed = 'getFixed',
-  getFieldOptions = 'getFieldOptions',
-}
-export enum ViewDetailCustomActionType {
-  None = 'None',
-  View = 'View',
-  Webhook = 'Webhook',
 }
 export enum RoleResourceType {
   Public = 'public',

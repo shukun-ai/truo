@@ -1,15 +1,12 @@
-import { validateApplicationSchema } from './validate';
+import { inspectTestingValidate } from '../../testing/testing-validate-inspector';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const applicationData = require('./application.test.json');
+import applicationData from './application.test.json';
+import { validateApplicationSchema } from './validate';
 
 describe('application', () => {
   it('validateApplicationSchema', () => {
     const result = validateApplicationSchema(applicationData);
-    if (!result) {
-      // Just convince for debug if validate gets errors
-      console.error(validateApplicationSchema.errors);
-    }
+    inspectTestingValidate(result, validateApplicationSchema);
     expect(result).toEqual(true);
   });
 });
