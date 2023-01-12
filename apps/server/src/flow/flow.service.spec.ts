@@ -63,7 +63,7 @@ describe('FlowService', () => {
         flowService.validateInputOrOutput(value, jsonSchema),
       ).toThrow(
         new BadRequestException(
-          `[{"instancePath":"","schemaPath":"#/required","keyword":"required","params":{"missingProperty":"name"},"message":"must have required property 'name'"}]`,
+          `Schema Validate Errors: [{"instancePath":"","schemaPath":"#/required","keyword":"required","params":{"missingProperty":"name"},"message":"must have required property 'name'"}]`,
         ),
       );
     });
