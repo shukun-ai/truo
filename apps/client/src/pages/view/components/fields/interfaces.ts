@@ -3,8 +3,8 @@ import {
   MetadataCurrencyOptions,
   MetadataOptions,
   ViewTableField,
-  ViewColumnFilterOptions,
-  ViewColumnFilterType,
+  ViewTableFilterOptions,
+  ViewTableFilterType,
   ViewFieldFilterOptions,
   ViewFieldType,
 } from '@shukun/schema';
@@ -62,6 +62,6 @@ export interface FilterFieldProps {
   currencyOptions: MetadataCurrencyOptions | undefined;
   attachmentOptions: MetadataAttachmentOptions | undefined;
   tip: string | undefined;
-  filterOptions: ViewColumnFilterOptions | undefined;
-  filterType: ViewColumnFilterType | undefined;
+  filterOptions: ViewTableFilterOptions | undefined;
+  filterType: ViewTableFilterType | undefined;
 }
