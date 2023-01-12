@@ -3,11 +3,11 @@ import {
   createParamDecorator,
   ExecutionContext,
 } from '@nestjs/common';
+import { HttpQuerySchema } from '@shukun/schema';
 import {
-  HttpQuerySchema,
   validateHttpQuerySchema,
   validateQueryFilter,
-} from '@shukun/schema';
+} from '@shukun/validator';
 
 import { SecurityRequest } from '../../../identity/utils/security-request';
 

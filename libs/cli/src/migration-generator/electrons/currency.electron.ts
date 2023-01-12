@@ -1,5 +1,5 @@
-import { CURRENCY_PRECISION, CURRENCY_SCALE } from '@shukun/schema';
 import { MetadataElectron } from '@shukun/schema';
+import { CURRENCY_PRECISION, CURRENCY_SCALE } from '@shukun/validator';
 
 import { ElectronFactoryInterface } from '../electron-factory';
 

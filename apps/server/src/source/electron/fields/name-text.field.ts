@@ -1,5 +1,5 @@
 import { ElectronValueException } from '@shukun/exception';
-import { isEngineName, isStartedWithLowercase } from '@shukun/schema';
+import { isEngineName, isStartedWithLowercase } from '@shukun/validator';
 import { Schema } from 'mongoose';
 
 import {

@@ -1,10 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import {
-  createBaseAjv,
-  DataSourceEnvironments,
-  FlowSchema,
-  stringifyValidateErrors,
-} from '@shukun/schema';
+import { DataSourceEnvironments, FlowSchema } from '@shukun/schema';
+import { createBaseAjv, stringifyValidateErrors } from '@shukun/validator';
 
 import { EnvironmentService } from '../core/environment.service';
 

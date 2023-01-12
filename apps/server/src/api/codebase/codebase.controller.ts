@@ -8,13 +8,12 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApplicationSchema, RoleResourceType } from '@shukun/schema';
 import {
-  ApplicationSchema,
   mergeDependencies,
-  RoleResourceType,
   SystemDataValidator,
   validateApplicationSchema,
-} from '@shukun/schema';
+} from '@shukun/validator';
 import { Express } from 'express';
 
 import { CompilerService } from '../../compiler/compiler.service';
