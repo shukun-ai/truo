@@ -1,4 +1,4 @@
-import { ViewV2FieldType } from '@shukun/schema';
+import { ViewFieldType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 
 import { AttachmentField } from './attachment/AttachmentField';
@@ -24,75 +24,75 @@ import { TextField } from './text/TextField';
 export const ColumnFieldFactory: FunctionComponent<ColumnFieldProps> = (
   props,
 ) => {
-  if (props.type === ViewV2FieldType.Text) {
+  if (props.type === ViewFieldType.Text) {
     return <TextField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.NameText) {
+  if (props.type === ViewFieldType.NameText) {
     return <NameTextField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.LargeText) {
+  if (props.type === ViewFieldType.LargeText) {
     return <LargeTextField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Mixed) {
+  if (props.type === ViewFieldType.Mixed) {
     return <MixedField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Boolean) {
+  if (props.type === ViewFieldType.Boolean) {
     return <BooleanField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Integer) {
+  if (props.type === ViewFieldType.Integer) {
     return <IntegerField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Float) {
+  if (props.type === ViewFieldType.Float) {
     return <FloatField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Currency) {
+  if (props.type === ViewFieldType.Currency) {
     return <CurrencyField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Password) {
+  if (props.type === ViewFieldType.Password) {
     return <PasswordField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.SingleSelect) {
+  if (props.type === ViewFieldType.SingleSelect) {
     return <SingleSelectField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.MultiSelect) {
+  if (props.type === ViewFieldType.MultiSelect) {
     return <MultiSelectField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.DateTime) {
+  if (props.type === ViewFieldType.DateTime) {
     return <DateTimeField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Attachment) {
+  if (props.type === ViewFieldType.Attachment) {
     return <AttachmentField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Owner) {
+  if (props.type === ViewFieldType.Owner) {
     return <OwnerField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.ManyToOne) {
+  if (props.type === ViewFieldType.ManyToOne) {
     return <ManyToOneField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.ManyToMany) {
+  if (props.type === ViewFieldType.ManyToMany) {
     return <ManyToManyField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Role) {
+  if (props.type === ViewFieldType.Role) {
     return <RoleField {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.LinkText) {
+  if (props.type === ViewFieldType.LinkText) {
     return <LinkTextField {...props} />;
   }
 

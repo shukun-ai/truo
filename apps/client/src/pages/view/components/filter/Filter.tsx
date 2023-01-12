@@ -1,4 +1,4 @@
-import { MetadataSchema, ViewSearch, ViewV2Column } from '@shukun/schema';
+import { MetadataSchema, ViewSearch, ViewColumn } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, Space } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -16,7 +16,7 @@ import { FilterFormItem } from './FilterFormItem';
 
 export interface FilterProps {
   metadata: MetadataSchema;
-  viewColumns: ViewV2Column[];
+  viewColumns: ViewColumn[];
   viewSearch: ViewSearch | undefined;
 }
 

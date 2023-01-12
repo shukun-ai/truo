@@ -7,7 +7,7 @@
   "priority": 0,
   "atomName": "vehicles",
   "configurations": {
-    "v2Columns": [
+    "columns": [
       {
         "name": "license",
         "label": "Vehicle License",
@@ -24,7 +24,7 @@
         "electronName": "type"
       }
     ],
-    "v2Fields": [
+    "fields": [
       {
         "name": "license",
         "label": "Vehicle License",
@@ -38,7 +38,7 @@
         "electronName": "type"
       }
     ],
-    "v2FieldRibbons": [
+    "fieldRibbons": [
       {
         "name": "edit",
         "label": "编辑",
@@ -50,7 +50,7 @@
         "type": "DeleteOne"
       }
     ],
-    "v2ColumnRibbons": [
+    "columnRibbons": [
       {
         "name": "create",
         "label": "新建",

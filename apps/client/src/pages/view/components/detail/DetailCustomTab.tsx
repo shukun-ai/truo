@@ -1,5 +1,5 @@
 import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
-import { MetadataSchema, ViewSchema, ViewV2FieldGroup } from '@shukun/schema';
+import { MetadataSchema, ViewSchema, ViewFieldGroup } from '@shukun/schema';
 import React, { FunctionComponent, useCallback, useContext } from 'react';
 
 import { detailService } from '../../../../services/detail';
@@ -9,7 +9,7 @@ import { FormContext } from '../form/FormContext';
 export interface CustomTabProps {
   metadata: MetadataSchema;
   view: ViewSchema;
-  viewFieldGroup: ViewV2FieldGroup;
+  viewFieldGroup: ViewFieldGroup;
 }
 
 export const CustomTab: FunctionComponent<CustomTabProps> = ({

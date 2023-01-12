@@ -1229,7 +1229,7 @@
       "priority": 1000,
       "atomName": "orders",
       "configurations": {
-        "v2Columns": [
+        "columns": [
           {
             "name": "code",
             "label": "机场代码",
@@ -1270,7 +1270,7 @@
             "electronName": "cityTitle"
           }
         ],
-        "v2Fields": [
+        "fields": [
           {
             "name": "code",
             "label": "机场代码",
@@ -1317,7 +1317,7 @@
             "disabledCode": "return scope.mode === 'Edit'"
           }
         ],
-        "v2FieldRibbons": [
+        "fieldRibbons": [
           {
             "name": "edit",
             "label": "编辑",
@@ -1329,7 +1329,7 @@
             "type": "DeleteOne"
           }
         ],
-        "v2ColumnRibbons": [
+        "columnRibbons": [
           {
             "name": "create",
             "label": "新建",

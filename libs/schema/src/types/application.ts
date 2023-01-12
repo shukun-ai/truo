@@ -14,11 +14,11 @@ export type MetadataOptions = {
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
-export type ViewV2ColumnFilterOptions = string[];
+export type ViewColumnFilterOptions = string[];
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
-export type ViewV2FieldFilterOptions = string[];
+export type ViewFieldFilterOptions = string[];
 export type WorkflowTaskState = {
   type: 'Task';
   comment?: string;
@@ -194,33 +194,33 @@ export interface ViewSchema {
   search?: ViewSearch;
 }
 export interface ViewConfigurations {
-  v2Columns?: ViewV2Column[];
-  v2ColumnRibbons?: ViewV2Ribbon[];
-  v2CustomActions?: ViewV2CustomAction[];
-  v2Fields?: ViewV2Field[];
-  v2FieldGroups?: ViewV2FieldGroup[];
-  v2FieldRibbons?: ViewV2Ribbon[];
+  columns?: ViewColumn[];
+  columnRibbons?: ViewRibbon[];
+  customActions?: ViewCustomAction[];
+  fields?: ViewField[];
+  fieldGroups?: ViewFieldGroup[];
+  fieldRibbons?: ViewRibbon[];
 }
-export interface ViewV2Column {
+export interface ViewColumn {
   name: string;
   label: string;
-  type: ViewV2FieldType;
+  type: ViewFieldType;
   electronName: string;
   referenceViewName?: string;
   computedCode?: string;
   link?: {
-    type: ViewV2LinkType;
+    type: ViewLinkType;
     value?: string;
     query?: string;
   };
   filterHidden?: boolean;
-  filterOptions?: ViewV2ColumnFilterOptions;
-  filterType?: ViewV2ColumnFilterType;
+  filterOptions?: ViewColumnFilterOptions;
+  filterType?: ViewColumnFilterType;
 }
-export interface ViewV2Ribbon {
+export interface ViewRibbon {
   name: string;
   label: string;
-  type: ViewV2LinkType;
+  type: ViewLinkType;
   value?: string;
   query?: string;
   disabledCode?: string;
@@ -228,16 +228,16 @@ export interface ViewV2Ribbon {
   confirmedTip?: string;
   color?: string;
 }
-export interface ViewV2CustomAction {
+export interface ViewCustomAction {
   name: string;
   label: string;
-  type: ViewV2CustomActionType;
+  type: ViewCustomActionType;
   value?: string;
 }
-export interface ViewV2Field {
+export interface ViewField {
   name: string;
   label: string;
-  type: ViewV2FieldType;
+  type: ViewFieldType;
   electronName: string;
   referenceViewName?: string;
   tip?: string;
@@ -248,12 +248,12 @@ export interface ViewV2Field {
     foreignName?: string;
   };
   belongToGroup?: string;
-  filterOptions?: ViewV2FieldFilterOptions;
+  filterOptions?: ViewFieldFilterOptions;
 }
-export interface ViewV2FieldGroup {
+export interface ViewFieldGroup {
   name: string;
   label: string;
-  type: ViewV2FieldGroupType;
+  type: ViewFieldGroupType;
   value?: string;
 }
 /**
@@ -906,7 +906,7 @@ export enum ViewType {
   Link = 'Link',
   Menu = 'Menu',
 }
-export enum ViewV2FieldType {
+export enum ViewFieldType {
   Text = 'Text',
   NameText = 'NameText',
   LargeText = 'LargeText',
@@ -930,7 +930,7 @@ export enum ViewV2FieldType {
 /**
  * Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.
  */
-export enum ViewV2LinkType {
+export enum ViewLinkType {
   None = 'None',
   View = 'View',
   Webhook = 'Webhook',
@@ -943,13 +943,13 @@ export enum ViewV2LinkType {
   Csv = 'Csv',
   CustomModal = 'CustomModal',
 }
-export enum ViewV2ColumnFilterType {
+export enum ViewColumnFilterType {
   SelectRadio = 'SelectRadio',
 }
-export enum ViewV2CustomActionType {
+export enum ViewCustomActionType {
   Column = 'Column',
 }
-export enum ViewV2FieldGroupType {
+export enum ViewFieldGroupType {
   None = 'None',
   CustomTab = 'CustomTab',
 }

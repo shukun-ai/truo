@@ -1,8 +1,8 @@
 import {
   MetadataSchema,
   ViewSchema,
-  ViewV2FieldGroup,
-  ViewV2FieldGroupType,
+  ViewFieldGroup,
+  ViewFieldGroupType,
 } from '@shukun/schema';
 import { Card, Col, Row } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -18,7 +18,7 @@ export const DEFAULT_GROUP_NAME = '$$$_DEFAULT';
 export interface DetailGroupProps {
   metadata: MetadataSchema;
   view: ViewSchema;
-  viewFieldGroup: ViewV2FieldGroup;
+  viewFieldGroup: ViewFieldGroup;
 }
 
 export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
@@ -29,12 +29,12 @@ export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
   const mode = useObservableState(mode$, DetailMode.Show);
 
   const viewFields = useMemo(() => {
-    return (view.configurations?.v2Fields || []).filter(
+    return (view.configurations?.fields || []).filter(
       (field) =>
         field.belongToGroup === viewFieldGroup.name ||
         viewFieldGroup.name === DEFAULT_GROUP_NAME,
     );
-  }, [view.configurations?.v2Fields, viewFieldGroup.name]);
+  }, [view.configurations?.fields, viewFieldGroup.name]);
 
   return (
     <Card bordered={false}>
@@ -50,7 +50,7 @@ export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
         ))}
       </Row>
 
-      {viewFieldGroup.type === ViewV2FieldGroupType.CustomTab && (
+      {viewFieldGroup.type === ViewFieldGroupType.CustomTab && (
         <CustomTab
           metadata={metadata}
           view={view}
