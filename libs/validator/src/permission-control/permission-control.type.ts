@@ -13,3 +13,9 @@ export type GrantAction =
   | 'readOwn'
   | 'updateOwn'
   | 'deleteOwn';
+
+export enum AllowedResourceTypes {
+  Source = 'source',
+  View = 'view',
+  Webhook = 'webhook',
+}

@@ -1,13 +1,18 @@
 import { TypeException } from '@shukun/exception';
-import { RoleResourceType } from '@shukun/schema';
 import { AccessControl } from 'accesscontrol';
 
-import { AcPermission } from './external-access-control.type';
-import { LegacyActionConvertor } from './legacy-action-convertor';
-import { LegacyRoleConvertor } from './legacy-role-convertor';
-import { GrantAction, GrantList, GrantRoles } from './permission-control.type';
+import { AcPermission } from './internals/external-access-control.type';
+import { LegacyActionConvertor } from './internals/legacy-action-convertor';
+import { LegacyRoleConvertor } from './internals/legacy-role-convertor';
+import { IPermissionControl } from './permission-control.interface';
+import {
+  AllowedResourceTypes,
+  GrantAction,
+  GrantList,
+  GrantRoles,
+} from './permission-control.type';
 
-export class PermissionControl {
+export class PermissionControl implements IPermissionControl {
   private acPermissions: AcPermission[];
 
   private ac: AccessControl;
@@ -22,7 +27,7 @@ export class PermissionControl {
 
   public grantSource(name: string, action: GrantAction): boolean {
     const permission = this.getAcPermission(
-      RoleResourceType.Source,
+      AllowedResourceTypes.Source,
       name,
       action,
     );
@@ -31,7 +36,7 @@ export class PermissionControl {
 
   public grantView(name: string): boolean {
     const permission = this.getAcPermission(
-      RoleResourceType.View,
+      AllowedResourceTypes.View,
       name,
       'read',
     );
@@ -40,7 +45,7 @@ export class PermissionControl {
 
   public grantWebhook(name: string): boolean {
     const permission = this.getAcPermission(
-      RoleResourceType.Webhook,
+      AllowedResourceTypes.Webhook,
       name,
       'create',
     );
@@ -48,7 +53,7 @@ export class PermissionControl {
   }
 
   private getAcPermission(
-    type: RoleResourceType,
+    type: AllowedResourceTypes,
     name: string,
     action: GrantAction,
   ) {
@@ -94,7 +99,7 @@ export class PermissionControl {
   }
 
   private combineAcResource(
-    resourceType: RoleResourceType,
+    resourceType: AllowedResourceTypes,
     resourceName: string,
   ): string {
     return `${resourceType}/${resourceName}`;
