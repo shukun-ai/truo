@@ -1,21 +1,10 @@
-export type GrantList = {
+export type GrantedRoles = string[];
+
+export type PermissionNodes = {
+  type: string;
   name: string;
-  permissions: string[];
-}[];
-
-export type GrantRoles = string[];
-
-export type GrantAction =
-  | 'create'
-  | 'read'
-  | 'update'
-  | 'delete'
-  | 'readOwn'
-  | 'updateOwn'
-  | 'deleteOwn';
-
-export enum AllowedResourceTypes {
-  Source = 'source',
-  View = 'view',
-  Webhook = 'webhook',
-}
+  action: string | null;
+  recordMode: 'any' | 'own';
+  attributeMode: 'allow' | 'deny';
+  reverseAttributes: string[];
+};

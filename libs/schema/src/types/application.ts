@@ -90,7 +90,6 @@ export type FlowEvent =
   | FlowEventStore
   | FlowEventFirstOrThrow
   | FlowEventLastOrThrow;
-export type RoleAttribute = string;
 
 /**
  * Describe a Shukun Application
@@ -827,14 +826,7 @@ export interface RoleSchema {
   name: string;
   label: string;
   description?: string;
-  isSystem?: boolean;
-  permissions: RolePermission[];
-}
-export interface RolePermission {
-  resourceType: RoleResourceType;
-  resourceName: string;
-  action: RoleAction;
-  attributes: RoleAttribute[];
+  permissions: string[];
 }
 /**
  * Describe Schedule Schema
@@ -952,22 +944,4 @@ export enum ViewCustomActionType {
 export enum ViewDetailGroupType {
   None = 'None',
   CustomTab = 'CustomTab',
-}
-export enum RoleResourceType {
-  Public = 'public',
-  Internal = 'internal',
-  Source = 'source',
-  View = 'view',
-  Webhook = 'webhook',
-  Developer = 'developer',
-  Tenant = 'tenant',
-}
-export enum RoleAction {
-  ReadAny = 'read:any',
-  CreateAny = 'create:any',
-  UpdateAny = 'update:any',
-  DeleteAny = 'delete:any',
-  ReadOwn = 'read:own',
-  UpdateOwn = 'update:own',
-  DeleteOwn = 'delete:own',
 }

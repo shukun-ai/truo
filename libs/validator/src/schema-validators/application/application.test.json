@@ -2358,420 +2358,98 @@
     {
       "name": "owner",
       "label": "所有者角色",
-      "isSystem": false,
       "permissions": []
     },
     {
       "name": "anonymous",
-      "label": "匿名角色",
-      "isSystem": false,
+      "label": "未登录角色",
       "permissions": [
-        {
-          "resourceType": "webhook",
-          "resourceName": "sign_up",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "reset_password",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "get_email_verify_code",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "signin",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "notify_wechat_prepayid",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "get_wechat_jwt",
-          "action": "create:any",
-          "attributes": ["*"]
-        }
+        "webhook:sign_up",
+        "webhook:reset_password",
+        "webhook:get_email_verify_code",
+        "webhook:signin",
+        "webhook:notify_wechat_prepayid",
+        "webhook:get_wechat_jwt"
       ]
     },
     {
       "name": "registered",
       "label": "普通内购用户",
-      "isSystem": false,
       "permissions": [
-        {
-          "resourceType": "source",
-          "resourceName": "addresses",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "addresses",
-          "action": "read:own",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "addresses",
-          "action": "update:own",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "addresses",
-          "action": "delete:own",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "banners",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "orders",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "orders",
-          "action": "read:own",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_deliveries",
-          "action": "read:own",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_products",
-          "action": "read:own",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "products",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "product_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "create_order",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "sign_up",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "webhook",
-          "resourceName": "signin",
-          "action": "create:any",
-          "attributes": ["*"]
-        }
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
       ]
     },
     {
       "name": "support",
       "label": "客服角色",
-      "isSystem": false,
       "permissions": [
-        {
-          "resourceType": "source",
-          "resourceName": "orders",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_deliveries",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_logs",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_products",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "products",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "product_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "stock_logs",
-          "action": "read:any",
-          "attributes": ["*"]
-        }
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
       ]
     },
     {
       "name": "operator",
       "label": "运营角色",
-      "isSystem": false,
       "permissions": [
-        {
-          "resourceType": "source",
-          "resourceName": "banners",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "banners",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "banners",
-          "action": "update:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "banners",
-          "action": "delete:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "menu_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "menu_categories",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "menu_categories",
-          "action": "update:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "menu_categories",
-          "action": "delete:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "products",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "products",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "products",
-          "action": "update:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "products",
-          "action": "delete:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "product_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "product_categories",
-          "action": "create:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "product_categories",
-          "action": "update:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "product_categories",
-          "action": "delete:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "view",
-          "resourceName": "product_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "view",
-          "resourceName": "products",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "view",
-          "resourceName": "menu_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "view",
-          "resourceName": "banners",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "view",
-          "resourceName": "system__users",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "view",
-          "resourceName": "orders",
-          "action": "read:any",
-          "attributes": ["*"]
-        }
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
       ]
     },
     {
       "name": "auditor",
       "label": "审计角色",
-      "isSystem": false,
       "permissions": [
-        {
-          "resourceType": "source",
-          "resourceName": "addresses",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "banners",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "carts",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "menu_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "orders",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_deliveries",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_logs",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "order_products",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "products",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "product_categories",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "stock_logs",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "system__users",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "verify_codes",
-          "action": "read:any",
-          "attributes": ["*"]
-        },
-        {
-          "resourceType": "source",
-          "resourceName": "system__positions",
-          "action": "read:any",
-          "attributes": ["*"]
-        }
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
       ]
     }
   ],

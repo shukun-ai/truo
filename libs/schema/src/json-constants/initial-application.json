@@ -406,13 +406,11 @@
     {
       "name": "owner",
       "label": "所有者角色",
-      "isSystem": false,
       "permissions": []
     },
     {
       "name": "anonymous",
-      "label": "匿名角色",
-      "isSystem": false,
+      "label": "未登录角色",
       "permissions": []
     }
   ]
