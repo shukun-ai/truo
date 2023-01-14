@@ -19,73 +19,58 @@
     "description": {
       "type": "string"
     },
-    "isSystem": {
-      "type": "boolean"
-    },
     "permissions": {
       "type": "array",
       "items": {
-        "title": "RolePermission",
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["resourceType", "resourceName", "action", "attributes"],
-        "properties": {
-          "resourceType": {
-            "title": "RoleResourceType",
-            "type": "string",
-            "enum": [
-              "public",
-              "internal",
-              "source",
-              "view",
-              "webhook",
-              "developer",
-              "tenant"
-            ],
-            "tsEnumNames": [
-              "Public",
-              "Internal",
-              "Source",
-              "View",
-              "Webhook",
-              "Developer",
-              "Tenant"
-            ]
-          },
-          "resourceName": {
-            "type": "string"
-          },
-          "action": {
-            "title": "RoleAction",
-            "type": "string",
-            "enum": [
-              "read:any",
-              "create:any",
-              "update:any",
-              "delete:any",
-              "read:own",
-              "update:own",
-              "delete:own"
-            ],
-            "tsEnumNames": [
-              "ReadAny",
-              "CreateAny",
-              "UpdateAny",
-              "DeleteAny",
-              "ReadOwn",
-              "UpdateOwn",
-              "DeleteOwn"
-            ]
-          },
-          "attributes": {
-            "type": "array",
-            "items": {
-              "title": "RoleAttribute",
-              "type": "string"
-            }
-          }
-        }
+        "type": "string",
+        "description": "Rule: type:name:action:recordMode:attributeMode:attributes, Sample: source:orders:read:own:deny:time."
       }
+    }
+  },
+  "definitions": {
+    "RoleResourceType": {
+      "title": "RoleResourceType",
+      "type": "string",
+      "enum": [
+        "public",
+        "internal",
+        "source",
+        "view",
+        "webhook",
+        "developer",
+        "tenant"
+      ],
+      "tsEnumNames": [
+        "Public",
+        "Internal",
+        "Source",
+        "View",
+        "Webhook",
+        "Developer",
+        "Tenant"
+      ]
+    },
+    "RoleAction": {
+      "title": "RoleAction",
+      "type": "string",
+      "enum": [
+        "read:any",
+        "create:any",
+        "update:any",
+        "delete:any",
+        "read:own",
+        "update:own",
+        "delete:own"
+      ],
+      "tsEnumNames": [
+        "ReadAny",
+        "CreateAny",
+        "UpdateAny",
+        "DeleteAny",
+        "ReadOwn",
+        "UpdateOwn",
+        "DeleteOwn"
+      ]
     }
   }
 }

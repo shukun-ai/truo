@@ -1,107 +1,43 @@
-import { TypeException } from '@shukun/exception';
-import { AccessControl } from 'accesscontrol';
+import { RoleSchema } from '@shukun/schema';
 
-import { AcPermission } from './internals/external-access-control.type';
-import { LegacyActionConvertor } from './internals/legacy-action-convertor';
-import { LegacyRoleConvertor } from './internals/legacy-role-convertor';
+import { union } from 'lodash';
+
 import { IPermissionControl } from './permission-control.interface';
-import {
-  AllowedResourceTypes,
-  GrantAction,
-  GrantList,
-  GrantRoles,
-} from './permission-control.type';
+import { GrantedRoles, PermissionNodes } from './permission-control.type';
+
+import { PermissionConvertor } from './permission-convertor';
 
 export class PermissionControl implements IPermissionControl {
-  private acPermissions: AcPermission[];
-
-  private ac: AccessControl;
+  private permissions: PermissionNodes[];
 
   constructor(
-    private readonly grantList: GrantList,
-    private readonly grantRoles: GrantRoles,
+    private readonly roles: RoleSchema[],
+    private readonly grantedRoles: GrantedRoles,
   ) {
-    this.acPermissions = this.prepareAcPermissions(this.grantList);
-    this.ac = new AccessControl(this.acPermissions);
+    this.permissions = this.createPermissions();
   }
 
-  public grantSource(name: string, action: GrantAction): boolean {
-    const permission = this.getAcPermission(
-      AllowedResourceTypes.Source,
-      name,
-      action,
+  public grant(type: string, name: string, action?: string): boolean {
+    return this.permissions.some(
+      (permission) =>
+        permission.type === type &&
+        permission.name === name &&
+        permission.action === (action ?? null),
     );
-    return permission.granted;
   }
 
-  public grantView(name: string): boolean {
-    const permission = this.getAcPermission(
-      AllowedResourceTypes.View,
-      name,
-      'read',
-    );
-    return permission.granted;
+  private createPermissions(): PermissionNodes[] {
+    return this.roles
+      .filter(this.filterRoles.bind(this))
+      .reduce(this.mergePermissions.bind(this), [])
+      .map((value) => new PermissionConvertor().parse(value));
   }
 
-  public grantWebhook(name: string): boolean {
-    const permission = this.getAcPermission(
-      AllowedResourceTypes.Webhook,
-      name,
-      'create',
-    );
-    return permission.granted;
+  private filterRoles(role: RoleSchema) {
+    return this.grantedRoles.includes(role.name);
   }
 
-  private getAcPermission(
-    type: AllowedResourceTypes,
-    name: string,
-    action: GrantAction,
-  ) {
-    try {
-      return this.ac.permission({
-        role: this.grantRoles,
-        action: this.prepareAcAction(action),
-        resource: this.combineAcResource(type, name),
-      });
-    } catch (error) {
-      throw new TypeException('Did not find correct role.');
-    }
-  }
-
-  private prepareAcPermissions(grantList: GrantList): AcPermission[] {
-    const acPermissions: AcPermission[] = [];
-
-    grantList.forEach((role) => {
-      role.permissions.forEach((permission) => {
-        acPermissions.push(this.prepareAcPermission(role.name, permission));
-      });
-    });
-
-    return acPermissions;
-  }
-
-  private prepareAcPermission(
-    roleName: string,
-    stringPermission: string,
-  ): AcPermission {
-    const acPartialPermission = new LegacyRoleConvertor().parse(
-      stringPermission,
-    );
-
-    return {
-      role: roleName,
-      ...acPartialPermission,
-    };
-  }
-
-  private prepareAcAction(action: GrantAction): AcPermission['action'] {
-    return new LegacyActionConvertor().parse(action);
-  }
-
-  private combineAcResource(
-    resourceType: AllowedResourceTypes,
-    resourceName: string,
-  ): string {
-    return `${resourceType}/${resourceName}`;
+  private mergePermissions(permissions: string[], role: RoleSchema) {
+    return union(permissions, role.permissions);
   }
 }
