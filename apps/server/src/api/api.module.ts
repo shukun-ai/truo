@@ -8,6 +8,7 @@ import { IdentityMiddleware } from '../identity/identity.middleware';
 import { IdentityModule } from '../identity/identity.module';
 import { ScheduleModule } from '../schedule/schedule.module';
 import { SourceModule } from '../source/source.module';
+import { SystemSourceModule } from '../system-source/system-source.module';
 import { PassportModule } from '../util/passport/passport.module';
 import { WebhookModule } from '../webhook/webhook.module';
 
@@ -35,6 +36,7 @@ import { WebhookController } from './webhook/webhook.controller';
     WebhookModule,
     IdentityModule,
     SourceModule,
+    SystemSourceModule,
     FlowModule,
     CompilerModule,
     ScheduleModule,
