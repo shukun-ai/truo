@@ -51,13 +51,16 @@ export class AuthorizationService {
     }
 
     // if target path is equal itself, then always do not validate.
-    if (resourceNodes.resourceType === RoleResourceType.Internal) {
+    if (
+      resourceNodes.resourceType === RoleResourceType.Internal ||
+      resourceNodes.resourceType === RoleResourceType.Tenant
+    ) {
       throw new ForbiddenException('没有权限操作内部接口。');
     }
 
     // if has token, go to signed user, then go to anonymous.
     if (token) {
-      const authJwt = this.getAuthJwt(token);
+      const authJwt = this.prepareAuthJwt(token);
       const valid = await this.validateSignedUser(resourceNodes, authJwt);
 
       if (!valid) {
@@ -127,18 +130,14 @@ export class AuthorizationService {
     return this.validateGrantList(grantList, roleNames, resourceNodes);
   }
 
-  private getAuthJwt(token: string) {
-    let authJwt: AuthJwt;
-
+  private prepareAuthJwt(token: string) {
     try {
-      authJwt = this.jwtService.verify<AuthJwt>(token);
+      return this.jwtService.verify<AuthJwt>(token);
     } catch {
       throw new BadRequestException(
         'Your token was not standard, we cannot parse it, when we was recognizing you.',
       );
     }
-
-    return authJwt;
   }
 
   private async validateAndGetUserId(authJwt: AuthJwt) {

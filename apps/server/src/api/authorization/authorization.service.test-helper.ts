@@ -129,7 +129,9 @@ export const mockSecurityServiceGetGrantList = async (
         'create:any': ['*'],
       },
       'source/products': {
-        'read:own': ['*'],
+        'read:any': ['*'],
+        'update:any': ['*'],
+        'delete:any': ['*'],
       },
     },
     [cooRole]: {
@@ -142,10 +144,15 @@ export const mockSecurityServiceGetGrantList = async (
       'webhook/workflow_name': {
         'create:any': ['*'],
       },
+      'developer/codebase': {
+        'create:any': ['*'],
+      },
     },
     [cfoRole]: {
       'source/payments': {
         'read:own': ['*'],
+        'update:own': ['*'],
+        'delete:own': ['*'],
       },
     },
   };
