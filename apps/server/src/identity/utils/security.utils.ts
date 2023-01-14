@@ -66,16 +66,16 @@ export function getAccessActionType(
   resourceNodes: ResourceNodes,
 ): AccessActionType {
   if (!resourceNodes.resourceFunction) {
-    return getLegendAccessActionType(resourceNodes.method);
+    return getRestfulAccessActionType(resourceNodes.method);
   } else {
-    return getAllPostAccessActionType(
+    return getAllPostSourceAccessActionType(
       resourceNodes.method,
       resourceNodes.resourceFunction,
     );
   }
 }
 
-export function getAllPostAccessActionType(
+export function getAllPostSourceAccessActionType(
   method: ResourceNodes['method'],
   resourceFunction: NonNullable<ResourceNodes['resourceFunction']>,
 ) {
@@ -105,7 +105,7 @@ export function getAllPostAccessActionType(
   );
 }
 
-export function getLegendAccessActionType(method: ResourceNodes['method']) {
+export function getRestfulAccessActionType(method: ResourceNodes['method']) {
   switch (method) {
     case 'GET':
       return AccessActionType.Read;
