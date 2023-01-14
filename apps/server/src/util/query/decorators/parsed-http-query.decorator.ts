@@ -11,9 +11,9 @@ export const ParsedHttpQuery = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const body = getRequestBody(ctx);
 
-    const result = httpQuerySchemaValidator.validate(body);
+    httpQuerySchemaValidator.validate(body);
 
-    validateQueryFilter(result);
+    validateQueryFilter(body);
 
     return body as HttpQuerySchema;
   },
