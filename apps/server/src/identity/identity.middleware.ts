@@ -12,6 +12,9 @@ import { AuthJwt } from '../util/passport/jwt/jwt.interface';
 
 import { parseToken } from './utils/security.utils';
 
+/**
+ * @deprecated
+ */
 @Injectable()
 export class IdentityMiddleware implements NestMiddleware {
   @Inject()

@@ -1,7 +1,6 @@
 import {
   Controller,
   UseInterceptors,
-  Inject,
   Param,
   Post,
   Body,
@@ -12,7 +11,7 @@ import { RoleResourceType } from '@shukun/schema';
 
 import { OrgService } from '../../core/org.service';
 
-import { SecurityService } from '../../identity/security.service';
+import { TokenGeneratorService } from '../../identity/token-generator.service';
 import { cryptoPassword } from '../../identity/utils/password.utils';
 import { SourceService } from '../../source/source.service';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
@@ -27,14 +26,13 @@ import { SignInDto } from './dto/sign-in.dto';
 @Controller(`${RoleResourceType.Public}/:orgName/authentication`)
 @UseInterceptors(QueryResponseInterceptor)
 export class AuthenticationController {
-  @Inject()
-  private readonly securityService!: SecurityService;
+  constructor(
+    private readonly tokenGeneratorService: TokenGeneratorService,
 
-  @Inject()
-  private readonly systemUserService!: SourceService<SystemUserModel>;
+    private readonly systemUserService: SourceService<SystemUserModel>,
 
-  @Inject()
-  private readonly orgService!: OrgService;
+    private readonly orgService: OrgService,
+  ) {}
 
   @Post('jwt')
   async signIn(
@@ -58,7 +56,7 @@ export class AuthenticationController {
       throw new Error('缺少用户的 ID 值');
     }
 
-    const output = await this.securityService.generateJwt(
+    const output = await this.tokenGeneratorService.generate(
       user._id,
       user.username,
       orgId,

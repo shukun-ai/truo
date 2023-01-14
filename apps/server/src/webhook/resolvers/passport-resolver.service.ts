@@ -1,8 +1,8 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { IDString } from '@shukun/schema';
 
 import { OrgService } from '../../core/org.service';
-import { SecurityService } from '../../identity/security.service';
+import { TokenGeneratorService } from '../../identity/token-generator.service';
 import { SourceService } from '../../source/source.service';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 import { SystemUserModel } from '../../util/schema/models/system-users';
@@ -18,14 +18,11 @@ interface Parameters {
 
 @Injectable()
 export class PassportResolverService implements Resolver {
-  @Inject()
-  private readonly systemUserService!: SourceService<SystemUserModel>;
-
-  @Inject()
-  private readonly orgService!: OrgService;
-
-  @Inject()
-  private readonly securityService!: SecurityService;
+  constructor(
+    private readonly systemUserService: SourceService<SystemUserModel>,
+    private readonly orgService: OrgService,
+    private readonly tokenGeneratorService: TokenGeneratorService,
+  ) {}
 
   validateParameters() {
     return true;
@@ -58,7 +55,7 @@ export class PassportResolverService implements Resolver {
       throw new BadRequestException('We did not find specific user.');
     }
 
-    const output = await this.securityService.generateJwt(
+    const output = await this.tokenGeneratorService.generate(
       user._id,
       user.username,
       org._id,

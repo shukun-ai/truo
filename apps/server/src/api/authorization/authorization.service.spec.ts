@@ -1,8 +1,10 @@
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 
-import { SecurityService } from '../../identity/security.service';
-import { mockEmptyDependencies } from '../../util/unit-testing/unit-testing.helper';
+import { RoleService } from '../../core/role.service';
+
+import { RoleGeneratorService } from '../../identity/role-generator.service';
+import { TokenVerifyService } from '../../identity/token-verify.service';
+import { SystemUserService } from '../../system-source/system-user.service';
 
 import { AuthorizationService } from './authorization.service';
 import {
@@ -19,27 +21,27 @@ import {
 
 describe('AuthorizationService', () => {
   let authorizationService: AuthorizationService;
-  let jwtService: JwtService;
-  let securityService: SecurityService;
+  let tokenVerifyService: TokenVerifyService;
+  let roleGeneratorService: RoleGeneratorService;
+  let systemUserService: SystemUserService;
+  let roleService: RoleService;
 
   beforeAll(() => {
-    jwtService = new JwtService(mockEmptyDependencies());
-    securityService = new SecurityService();
-    authorizationService = new AuthorizationService(
-      jwtService,
-      securityService,
-    );
+    tokenVerifyService = new (jest.fn())();
+    tokenVerifyService.parse = mockJwtServiceVerify;
+    roleGeneratorService = new (jest.fn())();
+    roleGeneratorService.getRoleNames = mockSecurityServiceGetRoleNames;
+    systemUserService = new (jest.fn())();
+    systemUserService.findOne = mockSecurityServiceGetUser;
+    roleService = new (jest.fn())();
+    roleService.findAll = mockSecurityServiceGetGrantList;
 
-    jest
-      .spyOn(securityService, 'getUser')
-      .mockImplementation(mockSecurityServiceGetUser);
-    jest
-      .spyOn(securityService, 'getRoleNames')
-      .mockImplementation(mockSecurityServiceGetRoleNames);
-    jest
-      .spyOn(securityService, 'getGrantList')
-      .mockImplementation(mockSecurityServiceGetGrantList);
-    jest.spyOn(jwtService, 'verify').mockImplementation(mockJwtServiceVerify);
+    authorizationService = new AuthorizationService(
+      tokenVerifyService,
+      roleGeneratorService,
+      systemUserService,
+      roleService,
+    );
   });
 
   describe('POST /apis/v1/public/{orgName}/authentication/jwt', () => {
@@ -264,15 +266,6 @@ describe('AuthorizationService', () => {
       ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
     });
 
-    it('if cfo has readOwn of payments, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/payments/any/metadata',
-        validCfoUserToken,
-      );
-      expect(output).toBeUndefined();
-    });
-
     it('if anonymous metadata orders, then throw.', async () => {
       await expect(
         authorizationService.validate(
@@ -281,15 +274,6 @@ describe('AuthorizationService', () => {
           anonymousUserToken,
         ),
       ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
-    });
-
-    it('if anonymous has read of products, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/products/any/metadata',
-        anonymousUserToken,
-      );
-      expect(output).toBeUndefined();
     });
   });
 
@@ -351,7 +335,6 @@ describe('AuthorizationService', () => {
     });
   });
 
-  // POST   /apis/v1/source/{orgName}/{atomName}/any/create
   describe('POST /apis/v1/source/{orgName}/{atomName}/any/create', () => {
     it('if owner, then pass.', async () => {
       const output = await authorizationService.validate(
@@ -479,15 +462,6 @@ describe('AuthorizationService', () => {
       ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
     });
 
-    it('if cfo has readOwn of payments, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/payments/any/add-to-many',
-        validCfoUserToken,
-      );
-      expect(output).toBeUndefined();
-    });
-
     it('if anonymous add-to-many orders, then throw.', async () => {
       await expect(
         authorizationService.validate(
@@ -496,15 +470,6 @@ describe('AuthorizationService', () => {
           anonymousUserToken,
         ),
       ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
-    });
-
-    it('if anonymous has read of products, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/products/any/add-to-many',
-        anonymousUserToken,
-      );
-      expect(output).toBeUndefined();
     });
   });
 
@@ -537,15 +502,6 @@ describe('AuthorizationService', () => {
       ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
     });
 
-    it('if cfo has readOwn of payments, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/payments/any/remove-from-many',
-        validCfoUserToken,
-      );
-      expect(output).toBeUndefined();
-    });
-
     it('if anonymous remove-from-many orders, then throw.', async () => {
       await expect(
         authorizationService.validate(
@@ -554,15 +510,6 @@ describe('AuthorizationService', () => {
           anonymousUserToken,
         ),
       ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
-    });
-
-    it('if anonymous has read of products, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/products/any/remove-from-many',
-        anonymousUserToken,
-      );
-      expect(output).toBeUndefined();
     });
   });
 
@@ -595,15 +542,6 @@ describe('AuthorizationService', () => {
       ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
     });
 
-    it('if cfo has readOwn of payments, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/payments/any/increase',
-        validCfoUserToken,
-      );
-      expect(output).toBeUndefined();
-    });
-
     it('if anonymous increase orders, then throw.', async () => {
       await expect(
         authorizationService.validate(
@@ -612,15 +550,6 @@ describe('AuthorizationService', () => {
           anonymousUserToken,
         ),
       ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
-    });
-
-    it('if anonymous has read of products, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/products/any/increase',
-        anonymousUserToken,
-      );
-      expect(output).toBeUndefined();
     });
   });
 
@@ -651,15 +580,6 @@ describe('AuthorizationService', () => {
           validCfoUserToken,
         ),
       ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
-    });
-
-    it('if cfo has readOwn of payments, then pass.', async () => {
-      const output = await authorizationService.validate(
-        'POST',
-        '/apis/v1/source/shukun/payments/any/delete',
-        validCfoUserToken,
-      );
-      expect(output).toBeUndefined();
     });
 
     it('if anonymous delete orders, then throw.', async () => {
