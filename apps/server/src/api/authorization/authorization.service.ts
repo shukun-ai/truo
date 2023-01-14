@@ -1,23 +1,17 @@
 import {
-  BadRequestException,
   ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { RoleResourceType } from '@shukun/schema';
-import { AccessControl } from 'accesscontrol';
+import { RoleResourceType, RoleSchema } from '@shukun/schema';
+import { GrantedRoles, PermissionControl } from '@shukun/validator';
 
-import {
-  AccessActionRange,
-  AccessActionType,
-  AccessInternalRoles,
-  GrantList,
-} from '../../identity/interfaces';
-import { SecurityService } from '../../identity/security.service';
-import { getAccessActionType } from '../../identity/utils/security.utils';
+import { RoleService } from '../../core/role.service';
 
-import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
+import { AccessInternalRoles } from '../../identity/interfaces';
+import { RoleGeneratorService } from '../../identity/role-generator.service';
+import { TokenVerifyService } from '../../identity/token-verify.service';
+import { SystemUserService } from '../../system-source/system-user.service';
 
 import { ResourceNodes } from './authorization.interface';
 import { getResourceNodes } from './authorization.utils';
@@ -25,8 +19,10 @@ import { getResourceNodes } from './authorization.utils';
 @Injectable()
 export class AuthorizationService {
   constructor(
-    private readonly jwtService: JwtService,
-    private readonly securityService: SecurityService,
+    private readonly tokenVerifyService: TokenVerifyService,
+    private readonly roleGeneratorService: RoleGeneratorService,
+    private readonly systemUserService: SystemUserService,
+    private readonly roleService: RoleService,
   ) {}
 
   async validate(
@@ -35,179 +31,97 @@ export class AuthorizationService {
     token: string | null,
   ): Promise<void> {
     const resourceNodes = getResourceNodes(method, uri);
-    await this.validateResource(resourceNodes, token);
+    await this.validateResource(resourceNodes, token ?? undefined);
   }
 
   async validateResource(
     resourceNodes: ResourceNodes,
-    token: string | undefined | null,
+    token?: string,
   ): Promise<void> {
-    // if target path is equal public, then always pass.
-    if (
-      resourceNodes.resourceType === RoleResourceType.Public ||
-      resourceNodes.resourceType === RoleResourceType.View
-    ) {
-      return;
-    }
-
-    // if target path is equal itself, then always do not validate.
-    if (
-      resourceNodes.resourceType === RoleResourceType.Internal ||
-      resourceNodes.resourceType === RoleResourceType.Tenant
-    ) {
-      throw new ForbiddenException('没有权限操作内部接口。');
-    }
-
-    // if has token, go to signed user, then go to anonymous.
-    if (token) {
-      const authJwt = this.prepareAuthJwt(token);
-      const valid = await this.validateSignedUser(resourceNodes, authJwt);
-
-      if (!valid) {
-        throw new ForbiddenException('未授权访问该资源。');
-      }
-    } else {
-      const valid = await this.validateAnonymousUser(resourceNodes);
-
-      if (!valid) {
-        throw new UnauthorizedException('未登录无法访问该资源。');
-      }
+    switch (resourceNodes.resourceType) {
+      case RoleResourceType.Public:
+      case RoleResourceType.View:
+        return this.allowAny();
+      case RoleResourceType.Internal:
+      case RoleResourceType.Tenant:
+        return this.forbidAny();
+      case RoleResourceType.Source:
+      case RoleResourceType.Webhook:
+      case RoleResourceType.Developer:
+        return await this.validateAny(resourceNodes, token);
     }
   }
 
-  private async validateSignedUser(
+  allowAny() {
+    return;
+  }
+
+  forbidAny() {
+    throw new ForbiddenException('没有权限操作内部接口。');
+  }
+
+  async validateAny(
     resourceNodes: ResourceNodes,
-    authJwt: AuthJwt,
-  ): Promise<boolean> {
-    // validate jwt org name and target url path name, if is not equal, then throw exception
+    token?: string,
+  ): Promise<void> {
+    if (!token) {
+      return await this.validateAnonymous(resourceNodes);
+    } else {
+      return await this.validateSigned(resourceNodes, token);
+    }
+  }
+
+  async validateSigned(
+    resourceNodes: ResourceNodes,
+    token: string,
+  ): Promise<void> {
+    const authJwt = this.tokenVerifyService.parse(token);
     if (resourceNodes.orgName !== authJwt.orgName) {
       throw new ForbiddenException('您没有权限请求另一组织的接口');
     }
-
-    // get user roles
-    const userId = await this.validateAndGetUserId(authJwt);
-
-    if (!userId) {
-      throw new Error('We did not find userId.');
-    }
-
-    const roleNames = await this.getRoleNames(resourceNodes, userId);
-
-    // if owner, then return true.
-    if (roleNames.includes(AccessInternalRoles.Owner)) {
-      return true;
-    }
-
-    // get grant list
-    const grantList = await this.securityService.getGrantList(
-      resourceNodes.orgName,
-    );
-
-    if (!grantList) {
-      throw new Error('Do not generate grantList.');
-    }
-
-    // validate permission by roles, target resource and grant list.
-    return this.validateGrantList(grantList, roleNames, resourceNodes);
-  }
-
-  private async validateAnonymousUser(
-    resourceNodes: ResourceNodes,
-  ): Promise<boolean> {
-    // mock user roles
-    const roleNames = [AccessInternalRoles.Anonymous];
-
-    // get grant list
-    const grantList = await this.securityService.getGrantList(
-      resourceNodes.orgName,
-    );
-
-    if (!grantList) {
-      throw new Error('Do not generate grantList.');
-    }
-
-    // validate permission by roles, target resource and grant list.
-    return this.validateGrantList(grantList, roleNames, resourceNodes);
-  }
-
-  private prepareAuthJwt(token: string) {
-    try {
-      return this.jwtService.verify<AuthJwt>(token);
-    } catch {
-      throw new BadRequestException(
-        'Your token was not standard, we cannot parse it, when we was recognizing you.',
-      );
-    }
-  }
-
-  private async validateAndGetUserId(authJwt: AuthJwt) {
-    const user = await this.securityService.getUser(
+    const user = await this.systemUserService.findOne(
       authJwt.orgName,
       authJwt.userId,
     );
-
-    if (!user) {
-      throw new BadRequestException('Token 内包含的用户 ID 不存在');
+    const roleNames = await this.getRoleNames(resourceNodes, user._id);
+    // TODO extract it.
+    if (roleNames.includes(AccessInternalRoles.Owner)) {
+      return;
     }
+    const roles = await this.roleService.findAll(resourceNodes.orgName);
+    const result = this.validateGrantList(roles, roleNames, resourceNodes);
+    if (!result) {
+      throw new ForbiddenException('未授权访问该资源。');
+    }
+  }
 
-    return user._id;
+  private async validateAnonymous(resourceNodes: ResourceNodes): Promise<void> {
+    const roleNames = [AccessInternalRoles.Anonymous];
+    const roles = await this.roleService.findAll(resourceNodes.orgName);
+    const result = this.validateGrantList(roles, roleNames, resourceNodes);
+    if (!result) {
+      throw new UnauthorizedException('未登录无法访问该资源。');
+    }
   }
 
   private async getRoleNames(resourceNodes: ResourceNodes, userId: string) {
-    const roleNames = await this.securityService.getRoleNames(
+    const roleNames = await this.roleGeneratorService.getRoleNames(
       resourceNodes.orgName,
       userId,
     );
     return roleNames;
   }
 
-  private createPermission(
-    access: AccessControl,
-    roleNames: string[],
-    actionType: AccessActionType,
-    actionRange: AccessActionRange,
-    resourceNodes: ResourceNodes,
-  ) {
-    return access.permission({
-      role: roleNames,
-      action: `${actionType}:${actionRange}`,
-      resource: `${resourceNodes.resourceType}/${resourceNodes.resourceName}`,
-    });
-  }
-
   private validateGrantList(
-    grantList: GrantList,
-    roleNames: string[],
+    roles: RoleSchema[],
+    roleNames: GrantedRoles,
     resourceNodes: ResourceNodes,
   ) {
-    const access = new AccessControl(grantList);
-
-    const actionType = getAccessActionType(resourceNodes);
-
-    const anyPermission = this.createPermission(
-      access,
-      roleNames,
-      actionType,
-      AccessActionRange.Any,
-      resourceNodes,
+    const permissionControl = new PermissionControl(roles, roleNames);
+    return permissionControl.grant(
+      resourceNodes.resourceType,
+      resourceNodes.resourceName,
+      resourceNodes.resourceFunction,
     );
-
-    if (anyPermission.granted) {
-      return true;
-    }
-
-    const ownPermission = this.createPermission(
-      access,
-      roleNames,
-      actionType,
-      AccessActionRange.Own,
-      resourceNodes,
-    );
-
-    if (ownPermission.granted) {
-      return true;
-    }
-
-    return false;
   }
 }

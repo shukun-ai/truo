@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { HttpQuerySchema, IDString, OperatorId } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../../app.type';
-import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { SourceService } from '../../source/source.service';
 import { QueryResponse } from '../../util/query/interfaces';
@@ -19,9 +18,6 @@ export class SourceOperationService {
   @Inject()
   private readonly sourceAccessControlService!: SourceAccessControlService;
 
-  @Inject()
-  private readonly securityService!: SecurityService;
-
   async getMetadata(orgName: string, atomName: string) {
     const value = await this.sourceService.getMetadata(orgName, atomName);
     return {
@@ -36,11 +32,13 @@ export class SourceOperationService {
     request: SecurityRequest,
   ): Promise<QueryResponse<unknown[]>> {
     if (request.userId) {
-      const isOwnRead = await this.securityService.isOwnRead(
-        orgName,
-        atomName,
-        request.userId,
-      );
+      // TODO recover this code.
+      // const isOwnRead = await this.securityService.isOwnRead(
+      //   orgName,
+      //   atomName,
+      //   request.userId,
+      // );
+      const isOwnRead = false;
       if (isOwnRead) {
         query = {
           ...query,

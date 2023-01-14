@@ -1,6 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
+import { RoleSchema } from '@shukun/schema';
 
-import { AccessInternalRoles, GrantList } from '../../identity/interfaces';
+import { AccessInternalRoles } from '../../identity/interfaces';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 
 export const cooRole = 'coo';
@@ -118,42 +119,48 @@ export const mockJwtServiceVerify = (token: string): AuthJwt => {
 
 export const mockSecurityServiceGetGrantList = async (
   orgName: string,
-): Promise<GrantList> => {
-  return {
-    [AccessInternalRoles.Owner]: {
-      none: { 'read:any': ['*'] },
+): Promise<RoleSchema[]> => {
+  return [
+    {
+      name: AccessInternalRoles.Owner,
+      label: AccessInternalRoles.Owner,
+      permissions: [],
     },
-    [AccessInternalRoles.Anonymous]: {
-      none: { 'read:any': ['*'] },
-      'webhook/workflow_public': {
-        'create:any': ['*'],
-      },
-      'source/products': {
-        'read:any': ['*'],
-        'update:any': ['*'],
-        'delete:any': ['*'],
-      },
+    {
+      name: AccessInternalRoles.Anonymous,
+      label: AccessInternalRoles.Anonymous,
+      permissions: [
+        'webhook:workflow_public',
+        'source:products:query',
+        'source:products:update',
+        'source:products:delete',
+      ],
     },
-    [cooRole]: {
-      'source/orders': {
-        'create:any': ['*'],
-        'read:any': ['*'],
-        'update:any': ['*'],
-        'delete:any': ['*'],
-      },
-      'webhook/workflow_name': {
-        'create:any': ['*'],
-      },
-      'developer/codebase': {
-        'create:any': ['*'],
-      },
+    {
+      name: cooRole,
+      label: cooRole,
+      permissions: [
+        'source:orders:metadata',
+        'source:orders:create',
+        'source:orders:query',
+        'source:orders:update',
+        'source:orders:add-to-many',
+        'source:orders:remove-from-many',
+        'source:orders:increase',
+        'source:orders:delete',
+        'webhook:workflow_name',
+        'developer:codebase',
+      ],
     },
-    [cfoRole]: {
-      'source/payments': {
-        'read:own': ['*'],
-        'update:own': ['*'],
-        'delete:own': ['*'],
-      },
+    {
+      name: cfoRole,
+      label: cfoRole,
+      permissions: [
+        'source:payments:metadata',
+        'source:payments:query',
+        'source:payments:update',
+        'source:payments:delete',
+      ],
     },
-  };
+  ];
 };

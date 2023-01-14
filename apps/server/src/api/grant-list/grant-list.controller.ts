@@ -1,36 +1,21 @@
-import {
-  Controller,
-  Get,
-  UseInterceptors,
-  Inject,
-  Param,
-  BadRequestException,
-} from '@nestjs/common';
-import { RoleResourceType } from '@shukun/schema';
+import { Controller, Get, UseInterceptors, Param } from '@nestjs/common';
+import { RoleResourceType, RoleSchema } from '@shukun/schema';
 
-import { GrantList } from '../../identity/interfaces';
-import { SecurityService } from '../../identity/security.service';
+import { RoleService } from '../../core/role.service';
+
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
 @Controller(`${RoleResourceType.Public}/:orgName/grant-list`)
 @UseInterceptors(QueryResponseInterceptor)
 export class GrantListController {
-  @Inject()
-  private readonly securityService!: SecurityService;
+  constructor(private readonly roleService: RoleService) {}
 
   @Get()
   async index(
     @Param('orgName') orgName: string,
-  ): Promise<QueryResponse<GrantList>> {
-    const grantList = await this.securityService.getGrantList(orgName);
-
-    if (!grantList) {
-      throw new BadRequestException('We did not generate a grantList.');
-    }
-
-    return {
-      value: grantList,
-    };
+  ): Promise<QueryResponse<RoleSchema[]>> {
+    const value = await this.roleService.findAll(orgName);
+    return { value };
   }
 }
