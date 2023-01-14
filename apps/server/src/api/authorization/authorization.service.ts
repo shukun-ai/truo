@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   ForbiddenException,
-  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -21,14 +20,23 @@ import { getAccessActionType } from '../../identity/utils/security.utils';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 
 import { ResourceNodes } from './authorization.interface';
+import { getResourceNodes } from './authorization.utils';
 
 @Injectable()
 export class AuthorizationService {
-  @Inject()
-  private readonly jwtService!: JwtService;
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly securityService: SecurityService,
+  ) {}
 
-  @Inject()
-  private readonly securityService!: SecurityService;
+  async validate(
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+    uri: string,
+    token: string | null,
+  ): Promise<void> {
+    const resourceNodes = getResourceNodes(method, uri);
+    await this.validateResource(resourceNodes, token);
+  }
 
   async validateResource(
     resourceNodes: ResourceNodes,
