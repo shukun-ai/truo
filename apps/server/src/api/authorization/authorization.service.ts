@@ -26,7 +26,7 @@ export class AuthorizationService {
   ) {}
 
   async validate(
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+    method: string,
     uri: string,
     token: string | null,
   ): Promise<void> {
@@ -34,7 +34,7 @@ export class AuthorizationService {
     await this.validateResource(resourceNodes, token ?? undefined);
   }
 
-  async validateResource(
+  private async validateResource(
     resourceNodes: ResourceNodes,
     token?: string,
   ): Promise<void> {
@@ -52,15 +52,15 @@ export class AuthorizationService {
     }
   }
 
-  allowAny() {
+  private allowAny() {
     return;
   }
 
-  forbidAny() {
+  private forbidAny() {
     throw new ForbiddenException('没有权限操作内部接口。');
   }
 
-  async validateAny(
+  private async validateAny(
     resourceNodes: ResourceNodes,
     token?: string,
   ): Promise<void> {
@@ -71,7 +71,7 @@ export class AuthorizationService {
     }
   }
 
-  async validateSigned(
+  private async validateSigned(
     resourceNodes: ResourceNodes,
     token: string,
   ): Promise<void> {
