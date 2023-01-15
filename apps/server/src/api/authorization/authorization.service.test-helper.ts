@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import { RoleSchema, AccessInternalRoles } from '@shukun/schema';
 
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
@@ -49,7 +48,7 @@ export const mockSecurityServiceGetUser = async (
     case cfoUser._id:
       return cfoUser;
     default:
-      throw new BadRequestException();
+      throw new Error('Did not find user.');
   }
 };
 
@@ -65,7 +64,7 @@ export const mockSecurityServiceGetRoleNames = async (
     case cfoUser._id:
       return [cfoRole];
     default:
-      throw new BadRequestException();
+      throw new Error('Did not find role names.');
   }
 };
 
@@ -112,7 +111,7 @@ export const mockJwtServiceVerify = (token: string): AuthJwt => {
         expiresIn: 0,
       };
     default:
-      throw new Error();
+      throw new Error('Did not verify token.');
   }
 };
 
