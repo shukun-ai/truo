@@ -29,12 +29,12 @@ describe('PermissionConvertor', () => {
     expect(output).toEqual(expected);
   });
 
-  it('source:orders:query', () => {
-    const output = new PermissionConvertor().parse('source:orders:query');
+  it('source:orders:read', () => {
+    const output = new PermissionConvertor().parse('source:orders:read');
     const expected: PermissionNodes = {
       type: 'source',
       name: 'orders',
-      action: 'query',
+      action: 'read',
       recordMode: 'any',
       attributeMode: 'allow',
       reverseAttributes: [],
@@ -42,14 +42,12 @@ describe('PermissionConvertor', () => {
     expect(output).toEqual(expected);
   });
 
-  it('source:orders:query:::name', () => {
-    const output = new PermissionConvertor().parse(
-      'source:orders:query:::name',
-    );
+  it('source:orders:read:::name', () => {
+    const output = new PermissionConvertor().parse('source:orders:read:::name');
     const expected: PermissionNodes = {
       type: 'source',
       name: 'orders',
-      action: 'query',
+      action: 'read',
       recordMode: 'any',
       attributeMode: 'allow',
       reverseAttributes: ['name'],
@@ -57,14 +55,14 @@ describe('PermissionConvertor', () => {
     expect(output).toEqual(expected);
   });
 
-  it('source:orders:query:any:allow:name', () => {
+  it('source:orders:read:any:allow:name', () => {
     const output = new PermissionConvertor().parse(
-      'source:orders:query:any:allow:name',
+      'source:orders:read:any:allow:name',
     );
     const expected: PermissionNodes = {
       type: 'source',
       name: 'orders',
-      action: 'query',
+      action: 'read',
       recordMode: 'any',
       attributeMode: 'allow',
       reverseAttributes: ['name'],
@@ -72,12 +70,12 @@ describe('PermissionConvertor', () => {
     expect(output).toEqual(expected);
   });
 
-  it('source:orders:query:own', () => {
-    const output = new PermissionConvertor().parse('source:orders:query:own');
+  it('source:orders:read:own', () => {
+    const output = new PermissionConvertor().parse('source:orders:read:own');
     const expected: PermissionNodes = {
       type: 'source',
       name: 'orders',
-      action: 'query',
+      action: 'read',
       recordMode: 'own',
       attributeMode: 'allow',
       reverseAttributes: [],
@@ -85,14 +83,14 @@ describe('PermissionConvertor', () => {
     expect(output).toEqual(expected);
   });
 
-  it('source:orders:query:own:deny:age', () => {
+  it('source:orders:read:own:deny:age', () => {
     const output = new PermissionConvertor().parse(
-      'source:orders:query:own:deny:age',
+      'source:orders:read:own:deny:age',
     );
     const expected: PermissionNodes = {
       type: 'source',
       name: 'orders',
-      action: 'query',
+      action: 'read',
       recordMode: 'own',
       attributeMode: 'deny',
       reverseAttributes: ['age'],
@@ -100,9 +98,9 @@ describe('PermissionConvertor', () => {
     expect(output).toEqual(expected);
   });
 
-  it('source:orders:query:own:deny:age', () => {
+  it('source:orders:read:own:deny:age', () => {
     expect(() =>
-      new PermissionConvertor().parse('source:orders:query:own:deny:$age'),
+      new PermissionConvertor().parse('source:orders:read:own:deny:$age'),
     ).toThrow(
       new TypeException(
         'The attribute is not match electron name: {{attribute}}',
@@ -111,9 +109,9 @@ describe('PermissionConvertor', () => {
     );
   });
 
-  it('if source:orders:query:only, throw error.', () => {
+  it('if source:orders:read:only, throw error.', () => {
     expect(() =>
-      new PermissionConvertor().parse('source:orders:query:only'),
+      new PermissionConvertor().parse('source:orders:read:only'),
     ).toThrow(
       new TypeException('Only support all or own: {{recordMode}}', {
         recordMode: 'only',
@@ -121,9 +119,9 @@ describe('PermissionConvertor', () => {
     );
   });
 
-  it('if source:orders:query::filter, throw error.', () => {
+  it('if source:orders:read::filter, throw error.', () => {
     expect(() =>
-      new PermissionConvertor().parse('source:orders:query::filter'),
+      new PermissionConvertor().parse('source:orders:read::filter'),
     ).toThrow(
       new TypeException('Only support allow or deny: {{attributeMode}}', {
         attributeMode: 'filter',
@@ -136,7 +134,7 @@ describe('PermissionConvertor', () => {
       new PermissionConvertor().parse('source:orders:metadata'),
     ).toThrow(
       new TypeException(
-        'Only support query, create, update, delete for source type, do not support {{name}}',
+        'Only support read, create, update, delete for source type, do not support {{name}}',
         {
           name: 'metadata',
         },

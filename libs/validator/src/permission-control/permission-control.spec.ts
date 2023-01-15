@@ -9,15 +9,15 @@ describe('PermissionControl', () => {
         name: 'admin',
         label: 'admin',
         permissions: [
-          'source:orders:query',
-          'source:refunds:query',
+          'source:orders:read',
+          'source:refunds:read',
           'view:orders_page',
         ],
       },
       {
         name: 'client',
         label: 'client',
-        permissions: ['source:orders:query:own'],
+        permissions: ['source:orders:read:own'],
       },
     ];
 
@@ -63,7 +63,7 @@ describe('PermissionControl', () => {
       {
         name: 'admin',
         label: 'admin',
-        permissions: ['source:orders:query'],
+        permissions: ['source:orders:read'],
       },
     ];
 
@@ -115,12 +115,12 @@ describe('PermissionControl', () => {
       {
         name: 'admin',
         label: 'admin',
-        permissions: ['source:orders:query', 'source:refunds:query'],
+        permissions: ['source:orders:read', 'source:refunds:read'],
       },
       {
         name: 'client',
         label: 'client',
-        permissions: ['source:orders:query:own'],
+        permissions: ['source:orders:read:own'],
       },
     ];
 

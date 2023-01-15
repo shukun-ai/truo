@@ -1,6 +1,6 @@
 import {
   PermissionNodes,
-  SOURCE_QUERY_FAMILY,
+  SOURCE_READ_FAMILY,
   SOURCE_UPDATE_FAMILY,
 } from './permission-control.type';
 
@@ -20,8 +20,8 @@ export class PermissionGranter {
     permission: PermissionNodes,
     action?: string,
   ): string | null {
-    if (this.isSourceQuery(permission, action)) {
-      return 'query';
+    if (this.isSourceRead(permission, action)) {
+      return 'read';
     }
 
     if (this.isSourceUpdate(permission, action)) {
@@ -31,12 +31,12 @@ export class PermissionGranter {
     return action ?? null;
   }
 
-  private isSourceQuery(permission: PermissionNodes, action?: string): boolean {
+  private isSourceRead(permission: PermissionNodes, action?: string): boolean {
     return (
       !!action &&
       permission.type === 'source' &&
-      permission.action === 'query' &&
-      SOURCE_QUERY_FAMILY.includes(action)
+      permission.action === 'read' &&
+      SOURCE_READ_FAMILY.includes(action)
     );
   }
 
