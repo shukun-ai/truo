@@ -1,7 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
-import { RoleSchema } from '@shukun/schema';
+import { RoleSchema, AccessInternalRoles } from '@shukun/schema';
 
-import { AccessInternalRoles } from '../../identity/interfaces';
 import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 
 export const cooRole = 'coo';
@@ -117,9 +116,9 @@ export const mockJwtServiceVerify = (token: string): AuthJwt => {
   }
 };
 
-export const mockSecurityServiceGetGrantList = async (
-  orgName: string,
-): Promise<RoleSchema[]> => {
+export const mockSecurityServiceGetGrantList = async (): Promise<
+  RoleSchema[]
+> => {
   return [
     {
       name: AccessInternalRoles.Owner,

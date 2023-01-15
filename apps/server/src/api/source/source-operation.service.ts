@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HttpQuerySchema, IDString, OperatorId } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../../app.type';
@@ -9,14 +9,15 @@ import { QueryResponse } from '../../util/query/interfaces';
 import { AddToManyDto } from './dto/add-to-many.dto';
 import { IncreaseDto } from './dto/increase.dto';
 import { SourceAccessControlService } from './source-access-control.service';
+import { SourceQueryPermissionService } from './source-query-permission.service';
 
 @Injectable()
 export class SourceOperationService {
-  @Inject()
-  private readonly sourceService!: SourceService<unknown>;
-
-  @Inject()
-  private readonly sourceAccessControlService!: SourceAccessControlService;
+  constructor(
+    private readonly sourceService: SourceService<unknown>,
+    private readonly sourceAccessControlService: SourceAccessControlService,
+    private readonly sourceQueryPermissionService: SourceQueryPermissionService,
+  ) {}
 
   async getMetadata(orgName: string, atomName: string) {
     const value = await this.sourceService.getMetadata(orgName, atomName);
@@ -32,19 +33,12 @@ export class SourceOperationService {
     request: SecurityRequest,
   ): Promise<QueryResponse<unknown[]>> {
     if (request.userId) {
-      // TODO recover this code.
-      // const isOwnRead = await this.securityService.isOwnRead(
-      //   orgName,
-      //   atomName,
-      //   request.userId,
-      // );
-      const isOwnRead = false;
-      if (isOwnRead) {
-        query = {
-          ...query,
-          filter: { $and: [{ owner: request.userId }, query.filter ?? {}] },
-        };
-      }
+      query = await this.sourceQueryPermissionService.buildOwnQuery(
+        orgName,
+        atomName,
+        query,
+        request.userId,
+      );
     }
 
     const { value, count } = await this.sourceService.queryWithCount(

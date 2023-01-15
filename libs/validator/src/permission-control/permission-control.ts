@@ -1,4 +1,4 @@
-import { RoleSchema } from '@shukun/schema';
+import { RoleSchema, AccessInternalRoles } from '@shukun/schema';
 
 import { IPermissionControl } from './permission-control.interface';
 import { GrantedRoles, PermissionNodes } from './permission-control.type';
@@ -24,6 +24,10 @@ export class PermissionControl implements IPermissionControl {
     this.permissions = permissionParser.parse(this.roles, this.grantedRoles);
     this.granter = new PermissionGranter(this.permissions);
     this.ownValidator = new PermissionOwnValidator(this.permissions);
+  }
+
+  public isOwner() {
+    return this.grantedRoles.includes(AccessInternalRoles.Owner);
   }
 
   public grant(type: string, name: string, action?: string): boolean {
