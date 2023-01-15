@@ -130,7 +130,7 @@ export const mockSecurityServiceGetGrantList = async (): Promise<
       label: AccessInternalRoles.Anonymous,
       permissions: [
         'webhook:workflow_public',
-        'source:products:query',
+        'source:products:read',
         'source:products:update',
         'source:products:delete',
       ],
@@ -139,13 +139,9 @@ export const mockSecurityServiceGetGrantList = async (): Promise<
       name: cooRole,
       label: cooRole,
       permissions: [
-        'source:orders:metadata',
         'source:orders:create',
-        'source:orders:query',
+        'source:orders:read',
         'source:orders:update',
-        'source:orders:add-to-many',
-        'source:orders:remove-from-many',
-        'source:orders:increase',
         'source:orders:delete',
         'webhook:workflow_name',
         'developer:codebase',
@@ -155,8 +151,7 @@ export const mockSecurityServiceGetGrantList = async (): Promise<
       name: cfoRole,
       label: cfoRole,
       permissions: [
-        'source:payments:metadata',
-        'source:payments:query',
+        'source:payments:read',
         'source:payments:update',
         'source:payments:delete',
       ],
