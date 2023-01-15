@@ -32,4 +32,8 @@ describe('isElectronName', () => {
   it('if hello__world, then throw', () => {
     expect(isElectronName('hello__world')).toEqual(false);
   });
+
+  it('if is not a string, then false', () => {
+    expect(isElectronName(10)).toEqual(false);
+  });
 });
