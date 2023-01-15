@@ -1,5 +1,10 @@
 import Ajv, { Options } from 'ajv';
-import { isEmail, isISO8601 } from 'class-validator';
+
+import { isDateTimeIso } from '../../base-validator/is-date-time-iso';
+import { isElectronName } from '../../base-validator/is-electron-name';
+import { isEmail } from '../../base-validator/is-email';
+import { isEngineName } from '../../base-validator/is-engine-name';
+import { isRolePermission } from '../../base-validator/is-role-permission';
 
 export function createBaseAjv(options?: Options) {
   return new Ajv(options)
@@ -7,17 +12,26 @@ export function createBaseAjv(options?: Options) {
     .addKeyword('skEditorType')
     .addFormat('email', {
       type: 'string',
-      validate: (value: string) => isEmail(value),
+      validate: isEmail,
     })
     .addFormat('dateTimeISO', {
       type: 'string',
-      validate: (value: string) => isISO8601(value, { strict: true }),
+      validate: isDateTimeIso,
+    })
+    .addFormat('engineName', {
+      type: 'string',
+      validate: isEngineName,
     })
     .addFormat('apiName', {
       type: 'string',
-      validate: (value: string) => {
-        const regex = new RegExp(/^[a-z0-9_]*$/);
-        return regex.test(value);
-      },
+      validate: isEngineName,
+    })
+    .addFormat('electronName', {
+      type: 'string',
+      validate: isElectronName,
+    })
+    .addFormat('rolePermission', {
+      type: 'string',
+      validate: isRolePermission,
     });
 }

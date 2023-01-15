@@ -28,7 +28,8 @@
         "additionalProperties": false,
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "format": "electronName"
           },
           "label": {
             "type": "string"

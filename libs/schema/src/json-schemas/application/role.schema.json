@@ -23,6 +23,7 @@
       "type": "array",
       "items": {
         "type": "string",
+        "format": "rolePermission",
         "description": "Rule: type:name:action:recordMode:attributeMode:attributes, Sample: source:orders:read:own:deny:time."
       }
     }
