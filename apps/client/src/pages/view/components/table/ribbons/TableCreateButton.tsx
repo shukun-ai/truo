@@ -1,4 +1,4 @@
-import { ViewSchema } from '@shukun/schema';
+import { RoleResourceType, ViewSchema } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
@@ -27,16 +27,20 @@ export const TableCreateButton: FunctionComponent<TableCreateButtonProps> = ({
     history.push(viewCreateOrgPath.replace(':viewName', view.name));
   }, [history, viewCreateOrgPath, view.name]);
 
-  const grantList = useObservableState(grantList$, null);
+  const grantList = useObservableState(grantList$, []);
 
-  const grantRoles = useObservableState(grantRoles$, null);
+  const grantRoles = useObservableState(grantRoles$, []);
 
   const canCreate = useMemo(() => {
+    if (!view.atomName) {
+      throw new Error('Did not configure atomName in view.');
+    }
     return isGranted({
       grantList,
       grantRoles,
-      resource: `source/${view.atomName}`,
-      action: 'create:any',
+      type: RoleResourceType.Source,
+      name: view.atomName,
+      action: 'create',
     });
   }, [view.atomName, grantList, grantRoles]);
 

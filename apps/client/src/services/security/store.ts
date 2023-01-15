@@ -1,17 +1,17 @@
 import { createStore } from '@datorama/akita';
+import { RoleSchema } from '@shukun/schema';
 import { produce } from 'immer';
 
-import { GrantList, GrantRoles } from '../../models/security';
 import { StoreNames } from '../../utils/store-names';
 
 export interface SecurityState {
-  grantList: GrantList | null;
-  grantRoles: GrantRoles | null;
+  grantList: RoleSchema[];
+  grantRoles: string[];
 }
 
 const initialState: SecurityState = {
-  grantList: null,
-  grantRoles: null,
+  grantList: [],
+  grantRoles: [],
 };
 
 export const securityStore = createStore<SecurityState>(initialState, {
