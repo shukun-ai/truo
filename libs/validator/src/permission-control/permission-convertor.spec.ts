@@ -130,4 +130,17 @@ describe('PermissionConvertor', () => {
       }),
     );
   });
+
+  it('if source:orders:metadata, then throw', () => {
+    expect(() =>
+      new PermissionConvertor().parse('source:orders:metadata'),
+    ).toThrow(
+      new TypeException(
+        'Only support query, create, update, delete for source type, do not support {{name}}',
+        {
+          name: 'metadata',
+        },
+      ),
+    );
+  });
 });

@@ -2,7 +2,10 @@ import { TypeException } from '@shukun/exception';
 
 import { isElectronName } from '../base-validator/is-electron-name';
 
-import { PermissionNodes } from './permission-control.type';
+import {
+  PermissionNodes,
+  SOURCE_ALLOW_ACTIONS,
+} from './permission-control.type';
 
 export class PermissionConvertor {
   parse(stringPermission: string): PermissionNodes {
@@ -11,7 +14,7 @@ export class PermissionConvertor {
 
     this.validate(type, name, stringPermission);
 
-    return {
+    const permissionNodes: PermissionNodes = {
       type,
       name,
       action: this.parseAction(action),
@@ -19,6 +22,10 @@ export class PermissionConvertor {
       attributeMode: this.parseAttributeMode(attributeMode),
       reverseAttributes: this.parseReverseAttributes(attributes),
     };
+
+    this.validateSource(permissionNodes);
+
+    return permissionNodes;
   }
 
   private parseAction(action?: string): string | null {
@@ -82,6 +89,21 @@ export class PermissionConvertor {
         'Did not find type and name: {{stringPermission}}. Rule: type:name[:action[[(own)]:attributes]].',
         {
           stringPermission,
+        },
+      );
+    }
+  }
+
+  private validateSource(permissionNodes: PermissionNodes): void {
+    if (
+      permissionNodes.type === 'source' &&
+      permissionNodes.action &&
+      !SOURCE_ALLOW_ACTIONS.includes(permissionNodes.action)
+    ) {
+      throw new TypeException(
+        'Only support query, create, update, delete for source type, do not support {{name}}',
+        {
+          name: permissionNodes.action,
         },
       );
     }

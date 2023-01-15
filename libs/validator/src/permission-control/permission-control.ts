@@ -5,12 +5,15 @@ import { GrantedRoles, PermissionNodes } from './permission-control.type';
 
 import { PermissionConvertor } from './permission-convertor';
 import { PermissionGranter } from './permission-granter';
+import { PermissionOwnValidator } from './permission-own-validator';
 import { PermissionParser } from './permission-parser';
 
 export class PermissionControl implements IPermissionControl {
   private permissions: PermissionNodes[];
 
   private granter: PermissionGranter;
+
+  private ownValidator: PermissionOwnValidator;
 
   constructor(
     private readonly roles: RoleSchema[],
@@ -20,9 +23,18 @@ export class PermissionControl implements IPermissionControl {
     const permissionParser = new PermissionParser(permissionConvertor);
     this.permissions = permissionParser.parse(this.roles, this.grantedRoles);
     this.granter = new PermissionGranter(this.permissions);
+    this.ownValidator = new PermissionOwnValidator(this.permissions);
   }
 
   public grant(type: string, name: string, action?: string): boolean {
     return this.granter.grant(type, name, action);
+  }
+
+  public getGranter(): PermissionGranter {
+    return this.granter;
+  }
+
+  public getOwnValidator(): PermissionOwnValidator {
+    return this.ownValidator;
   }
 }
