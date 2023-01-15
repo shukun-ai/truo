@@ -1,10 +1,12 @@
+import { TypeException } from '@shukun/exception';
+
 import { PermissionNodes } from './permission-control.type';
 
 export class PermissionOwnValidator {
   constructor(private readonly permissions: PermissionNodes[]) {}
 
-  onlyQueryOwn(name: string): boolean {
-    return this.onlyOwn(name, 'query');
+  onlyReadOwn(name: string): boolean {
+    return this.onlyOwn(name, 'read');
   }
 
   onlyUpdateOwn(name: string): boolean {
@@ -22,6 +24,16 @@ export class PermissionOwnValidator {
         permission.name === name &&
         permission.action === action,
     );
+
+    if (matched.length === 0) {
+      throw new TypeException(
+        'Did not find matched permissions to check own or all, name is {{name}} and action is {{ action }}',
+        {
+          name,
+          action,
+        },
+      );
+    }
 
     return matched.every((permission) => permission.recordMode === 'own');
   }
