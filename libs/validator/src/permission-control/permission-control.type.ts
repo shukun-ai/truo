@@ -9,7 +9,9 @@ export type PermissionNodes = {
   reverseAttributes: string[];
 };
 
-export const SOURCE_QUERY_FAMILY = ['metadata', 'query'];
+export const SOURCE_ALLOW_ACTIONS = ['read', 'create', 'update', 'delete'];
+
+export const SOURCE_READ_FAMILY = ['metadata', 'query'];
 
 export const SOURCE_UPDATE_FAMILY = [
   'update',
@@ -17,5 +19,3 @@ export const SOURCE_UPDATE_FAMILY = [
   'remove-from-many',
   'increase',
 ];
-
-export const SOURCE_ALLOW_ACTIONS = ['query', 'create', 'update', 'delete'];

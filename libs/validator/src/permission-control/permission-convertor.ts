@@ -101,7 +101,7 @@ export class PermissionConvertor {
       !SOURCE_ALLOW_ACTIONS.includes(permissionNodes.action)
     ) {
       throw new TypeException(
-        'Only support query, create, update, delete for source type, do not support {{name}}',
+        'Only support read, create, update, delete for source type, do not support {{name}}',
         {
           name: permissionNodes.action,
         },
