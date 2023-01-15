@@ -3,7 +3,12 @@ import { RoleSchema } from '@shukun/schema';
 import { union } from 'lodash';
 
 import { IPermissionControl } from './permission-control.interface';
-import { GrantedRoles, PermissionNodes } from './permission-control.type';
+import {
+  GrantedRoles,
+  PermissionNodes,
+  SOURCE_QUERY_FAMILY,
+  SOURCE_UPDATE_FAMILY,
+} from './permission-control.type';
 
 import { PermissionConvertor } from './permission-convertor';
 
@@ -22,7 +27,43 @@ export class PermissionControl implements IPermissionControl {
       (permission) =>
         permission.type === type &&
         permission.name === name &&
-        permission.action === (action ?? null),
+        permission.action === this.validateAction(permission, action),
+    );
+  }
+
+  private validateAction(
+    permission: PermissionNodes,
+    action?: string,
+  ): string | null {
+    if (this.isSourceQuery(permission, action)) {
+      return 'query';
+    }
+
+    if (this.isSourceUpdate(permission, action)) {
+      return 'update';
+    }
+
+    return action ?? null;
+  }
+
+  private isSourceQuery(permission: PermissionNodes, action?: string): boolean {
+    return (
+      !!action &&
+      permission.type === 'source' &&
+      permission.action === 'query' &&
+      SOURCE_QUERY_FAMILY.includes(action)
+    );
+  }
+
+  private isSourceUpdate(
+    permission: PermissionNodes,
+    action?: string,
+  ): boolean {
+    return (
+      !!action &&
+      permission.type === 'source' &&
+      permission.action === 'update' &&
+      SOURCE_UPDATE_FAMILY.includes(action)
     );
   }
 
