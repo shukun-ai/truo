@@ -17,3 +17,5 @@ export const SOURCE_UPDATE_FAMILY = [
   'remove-from-many',
   'increase',
 ];
+
+export const SOURCE_ALLOW_ACTIONS = ['query', 'create', 'update', 'delete'];

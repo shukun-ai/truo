@@ -109,4 +109,25 @@ describe('PermissionControl', () => {
       expect(control.grant('source', 'orders', 'increase')).toEqual(true);
     });
   });
+
+  describe('own', () => {
+    const roles: RoleSchema[] = [
+      {
+        name: 'admin',
+        label: 'admin',
+        permissions: ['source:orders:query', 'source:refunds:query'],
+      },
+      {
+        name: 'client',
+        label: 'client',
+        permissions: ['source:orders:query:own'],
+      },
+    ];
+
+    it('If the admin has query orders, return true', () => {
+      const control = new PermissionControl(roles, ['admin']);
+      const output = control.grant('source', 'orders', 'query');
+      expect(output).toEqual(true);
+    });
+  });
 });
