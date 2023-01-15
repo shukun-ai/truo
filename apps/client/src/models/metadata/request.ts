@@ -3,12 +3,13 @@ import { MetadataSchema, RoleResourceType } from '@shukun/schema';
 
 import { httpRequestService } from '../../utils/http-helper';
 
-// TODO should use core api not source api for getting metadata.
+// TODO Design a new API SDK in @shukun/api, not only source api.
+// TODO SE stable level
 export async function findOneMetadata(source: string, params?: QueryParams) {
   const response = await httpRequestService
     .createAxios()
-    .get<ApiResponseData<MetadataSchema>>(
-      `${RoleResourceType.Source}/:orgName/${source}/metadata`,
+    .post<ApiResponseData<MetadataSchema>>(
+      `${RoleResourceType.Source}/:orgName/${source}/any/metadata`,
       { params },
     );
   return response;
