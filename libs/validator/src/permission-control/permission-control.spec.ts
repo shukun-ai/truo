@@ -146,4 +146,26 @@ describe('PermissionControl', () => {
       expect(output).toEqual(false);
     });
   });
+
+  describe('isOwner', () => {
+    const roles: RoleSchema[] = [
+      {
+        name: 'admin',
+        label: 'admin',
+        permissions: ['source:orders:read', 'source:refunds:read'],
+      },
+    ];
+
+    it('If the admin has query orders and client has own, return false', () => {
+      const control = new PermissionControl(roles, ['admin']);
+      const output = control.isOwner();
+      expect(output).toEqual(false);
+    });
+
+    it('If the admin has query orders and client has own, return false', () => {
+      const control = new PermissionControl(roles, ['owner']);
+      const output = control.isOwner();
+      expect(output).toEqual(true);
+    });
+  });
 });

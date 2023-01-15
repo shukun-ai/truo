@@ -1,8 +1,7 @@
 import { Controller, Get, UseInterceptors, Param, Req } from '@nestjs/common';
 
-import { RoleResourceType } from '@shukun/schema';
+import { RoleResourceType, AccessInternalRoles } from '@shukun/schema';
 
-import { AccessInternalRoles } from '../../identity/interfaces';
 import { RoleGeneratorService } from '../../identity/role-generator.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 

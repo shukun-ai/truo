@@ -25,6 +25,7 @@ import { RoleController } from './role/role.controller';
 import { SeedController } from './seed/seed.controller';
 import { SourceAccessControlService } from './source/source-access-control.service';
 import { SourceOperationService } from './source/source-operation.service';
+import { SourceQueryPermissionService } from './source/source-query-permission.service';
 import { SourceController } from './source/source.controller';
 import { ViewController } from './view/view.controller';
 import { WebhookController } from './webhook/webhook.controller';
@@ -58,6 +59,7 @@ import { WebhookController } from './webhook/webhook.controller';
   ],
   providers: [
     SourceAccessControlService,
+    SourceQueryPermissionService,
     SourceOperationService,
     AuthorizationService,
   ],

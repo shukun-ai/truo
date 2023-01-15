@@ -1,3 +1,4 @@
+export * from './types/access-internal-roles';
 export * from './types/application';
 export * from './types/attachments';
 export * from './types/http-query-override';

@@ -3,12 +3,15 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { RoleResourceType, RoleSchema } from '@shukun/schema';
+import {
+  RoleResourceType,
+  RoleSchema,
+  AccessInternalRoles,
+} from '@shukun/schema';
 import { GrantedRoles, PermissionControl } from '@shukun/validator';
 
 import { RoleService } from '../../core/role.service';
 
-import { AccessInternalRoles } from '../../identity/interfaces';
 import { RoleGeneratorService } from '../../identity/role-generator.service';
 import { TokenVerifyService } from '../../identity/token-verify.service';
 import { SystemUserService } from '../../system-source/system-user.service';
