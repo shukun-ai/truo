@@ -1,14 +1,12 @@
 import { ApiResponseData } from '@shukun/api';
-import { RoleResourceType } from '@shukun/schema';
+import { RoleResourceType, RoleSchema } from '@shukun/schema';
 
 import { httpRequestService } from '../../utils/http-helper';
-
-import { GrantList, GrantRoles } from './model';
 
 export async function findGrantList() {
   const response = await httpRequestService
     .createAxios()
-    .get<ApiResponseData<GrantList>>(
+    .get<ApiResponseData<RoleSchema[]>>(
       `${RoleResourceType.Public}/:orgName/grant-list`,
     );
   return response;
@@ -17,7 +15,7 @@ export async function findGrantList() {
 export async function findGrantRoles() {
   const response = await httpRequestService
     .createAxios()
-    .get<ApiResponseData<GrantRoles>>(
+    .get<ApiResponseData<string[]>>(
       `${RoleResourceType.Public}/:orgName/grant-roles`,
     );
   return response;
