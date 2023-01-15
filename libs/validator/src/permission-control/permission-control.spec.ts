@@ -1,6 +1,7 @@
 import { RoleSchema } from '@shukun/schema';
 
 import { PermissionControl } from './permission-control';
+import { PermissionGranter } from './permission-granter';
 
 describe('PermissionControl', () => {
   describe('grant', () => {
@@ -110,7 +111,22 @@ describe('PermissionControl', () => {
     });
   });
 
-  describe('own', () => {
+  describe('getOwnValidator', () => {
+    const roles: RoleSchema[] = [
+      {
+        name: 'admin',
+        label: 'admin',
+        permissions: ['source:orders:read'],
+      },
+    ];
+
+    it('If the admin has query orders and client has own, return false', () => {
+      const control = new PermissionControl(roles, ['admin']);
+      expect(control.getGranter()).toBeInstanceOf(PermissionGranter);
+    });
+  });
+
+  describe('getOwnValidator', () => {
     const roles: RoleSchema[] = [
       {
         name: 'admin',
@@ -124,10 +140,10 @@ describe('PermissionControl', () => {
       },
     ];
 
-    it('If the admin has query orders, return true', () => {
+    it('If the admin has query orders and client has own, return false', () => {
       const control = new PermissionControl(roles, ['admin']);
-      const output = control.grant('source', 'orders', 'query');
-      expect(output).toEqual(true);
+      const output = control.getOwnValidator().onlyReadOwn('orders');
+      expect(output).toEqual(false);
     });
   });
 });
