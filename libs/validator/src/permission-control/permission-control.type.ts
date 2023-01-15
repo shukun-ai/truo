@@ -8,3 +8,12 @@ export type PermissionNodes = {
   attributeMode: 'allow' | 'deny';
   reverseAttributes: string[];
 };
+
+export const SOURCE_QUERY_FAMILY = ['metadata', 'query'];
+
+export const SOURCE_UPDATE_FAMILY = [
+  'update',
+  'add-to-many',
+  'remove-from-many',
+  'increase',
+];
