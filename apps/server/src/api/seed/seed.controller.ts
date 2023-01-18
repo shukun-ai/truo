@@ -21,6 +21,9 @@ import { QueryResponse } from '../../util/query/interfaces';
 
 import { SeedCreateDto } from './seed.dto';
 
+/**
+ * @deprecated
+ */
 @Controller(`/${RoleResourceType.Tenant}/any/seeds`)
 @UseInterceptors(QueryResponseInterceptor)
 export class SeedController {

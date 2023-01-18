@@ -2,10 +2,19 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DataSourceSchema } from '@shukun/schema';
 import { Document } from 'mongoose';
 
+/**
+ * @deprecated
+ */
 export const OrgDocumentName = 'orgs';
 
+/**
+ * @deprecated
+ */
 export type OrgDocument = Org & Document;
 
+/**
+ * @deprecated
+ */
 @Schema({ collection: OrgDocumentName, timestamps: true })
 export class Org {
   @Prop({ required: true, unique: true })

@@ -2,7 +2,10 @@
 import Postmate from 'postmate';
 import { BehaviorSubject } from 'rxjs';
 
-import { PostMessageEvent, PostMessageNotificationProps } from '..';
+import {
+  PostMessageEvent,
+  PostMessageNotificationProps,
+} from './post-message.interface';
 
 import {
   PostMessageAuth,

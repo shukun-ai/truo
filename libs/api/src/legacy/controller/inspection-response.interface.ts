@@ -6,6 +6,9 @@ import {
   WorkflowSchema,
 } from '@shukun/schema';
 
+/**
+ * @move to @shukun/schema
+ */
 export interface InspectionResponse {
   title: ApplicationSchema['title'];
   description?: ApplicationSchema['description'];
