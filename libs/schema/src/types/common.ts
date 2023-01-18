@@ -13,6 +13,14 @@ export enum RoleResourceType {
   Tenant = 'tenant',
 }
 
+export type SystemPublicOrgModel = {
+  name: string;
+  label: string;
+  lightLogo?: string;
+  darkLogo?: string;
+  mainColor?: string;
+};
+
 export interface SystemPositionModel {
   owner: IDString;
   name: string;

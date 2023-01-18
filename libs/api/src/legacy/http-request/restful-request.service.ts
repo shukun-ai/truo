@@ -2,6 +2,11 @@ import { RoleResourceType, IDString } from '@shukun/schema';
 import { AxiosResponse } from 'axios';
 import merge from 'lodash/merge';
 
+import {
+  AddToManyDto,
+  IncreaseDto,
+} from '../../request-adaptor/request-adaptor.type';
+
 import { HttpRequestService } from './http-request.service';
 import { RestfulRequestNotFoundError } from './restful-request.exception';
 
@@ -10,16 +15,6 @@ import { ApiResponseData, QueryParams } from './shared-types';
 export interface RestfulRequestServiceOptions {
   atomName: string;
   orgName?: string;
-}
-
-export interface AddToManyDto {
-  electronName: string;
-  foreignId: string;
-}
-
-export interface IncreaseDto {
-  electronName: string;
-  increment: number;
 }
 
 /**

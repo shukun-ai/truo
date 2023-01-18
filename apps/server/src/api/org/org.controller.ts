@@ -5,10 +5,9 @@ import {
   Inject,
   Param,
 } from '@nestjs/common';
-import { RoleResourceType } from '@shukun/schema';
+import { RoleResourceType, SystemPublicOrgModel } from '@shukun/schema';
 
 import { OrgService } from '../../core/org.service';
-import { OrgDocument } from '../../core/org/org.schema';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
@@ -22,14 +21,7 @@ export class OrgController {
   @Get()
   async index(
     @Param('orgName') orgName: string,
-  ): Promise<
-    QueryResponse<
-      Pick<
-        OrgDocument,
-        'name' | 'label' | 'lightLogo' | 'darkLogo' | 'mainColor'
-      >
-    >
-  > {
+  ): Promise<QueryResponse<SystemPublicOrgModel>> {
     const value = await this.orgService.findOne({ filter: { name: orgName } });
 
     return {
