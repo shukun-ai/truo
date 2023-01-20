@@ -1,4 +1,4 @@
-export interface AuthJwt {
+export interface AuthenticationToken {
   userId: string;
   username: string;
   orgName: string;

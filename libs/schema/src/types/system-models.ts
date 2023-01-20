@@ -1,17 +1,5 @@
 import { AttachmentsSchema } from './attachments';
-
-export type IDString = string;
-export type OperatorId = IDString | null;
-
-export enum RoleResourceType {
-  Public = 'public',
-  Internal = 'internal',
-  Source = 'source',
-  View = 'view',
-  Webhook = 'webhook',
-  Developer = 'developer',
-  Tenant = 'tenant',
-}
+import { IDString } from './utils';
 
 export type SystemPublicOrgModel = {
   name: string;
