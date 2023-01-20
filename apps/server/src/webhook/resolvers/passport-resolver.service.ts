@@ -1,10 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { IDString } from '@shukun/schema';
+import { AuthenticationToken, IDString } from '@shukun/schema';
 
 import { OrgService } from '../../core/org.service';
 import { TokenGeneratorService } from '../../identity/token-generator.service';
 import { SourceService } from '../../source/source.service';
-import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 import { SystemUserModel } from '../../util/schema/models/system-users';
 
 import { InputOrOutput } from '../../util/workflow/types';
@@ -40,7 +39,10 @@ export class PassportResolverService implements Resolver {
     throw new BadRequestException('We only support jwt now.');
   }
 
-  async getJwt(parameters: Parameters, orgName: string): Promise<AuthJwt> {
+  async getJwt(
+    parameters: Parameters,
+    orgName: string,
+  ): Promise<AuthenticationToken> {
     const { userId, expiresIn } = parameters;
 
     const user = await this.systemUserService.findOne(

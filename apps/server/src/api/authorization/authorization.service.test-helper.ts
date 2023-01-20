@@ -1,6 +1,8 @@
-import { RoleSchema, AccessInternalRoles } from '@shukun/schema';
-
-import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
+import {
+  RoleSchema,
+  AccessInternalRoles,
+  AuthenticationToken,
+} from '@shukun/schema';
 
 export const cooRole = 'coo';
 
@@ -68,7 +70,7 @@ export const mockSecurityServiceGetRoleNames = async (
   }
 };
 
-export const mockJwtServiceVerify = (token: string): AuthJwt => {
+export const mockJwtServiceVerify = (token: string): AuthenticationToken => {
   switch (token) {
     case validOwnerUserToken:
       return {

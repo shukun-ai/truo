@@ -7,14 +7,13 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 
-import { RoleResourceType } from '@shukun/schema';
+import { AuthenticationToken, RoleResourceType } from '@shukun/schema';
 
 import { OrgService } from '../../core/org.service';
 
 import { TokenGeneratorService } from '../../identity/token-generator.service';
 import { cryptoPassword } from '../../identity/utils/password.utils';
 import { SourceService } from '../../source/source.service';
-import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 import { RsaHelper } from '../../util/rsa/rsa-helper';
@@ -38,7 +37,7 @@ export class AuthenticationController {
   async signIn(
     @Param('orgName') orgName: string,
     @Body() signInDto: SignInDto,
-  ): Promise<QueryResponse<AuthJwt>> {
+  ): Promise<QueryResponse<AuthenticationToken>> {
     const atomName = 'system__users';
 
     const password = cryptoPassword(signInDto.password);
@@ -72,7 +71,7 @@ export class AuthenticationController {
   async signInWithEncrypt(
     @Param('orgName') orgName: string,
     @Body() signInWithEncryptDto: SignInWithEncryptDto,
-  ): Promise<QueryResponse<AuthJwt>> {
+  ): Promise<QueryResponse<AuthenticationToken>> {
     const rsaHelper = new RsaHelper();
 
     const password = rsaHelper.decrypt(signInWithEncryptDto.encryptPassword);

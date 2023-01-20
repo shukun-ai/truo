@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { IDString } from '@shukun/schema';
+import { AuthenticationToken, IDString } from '@shukun/schema';
 
 import { jwtConstants } from '../util/passport/jwt/jwt.constants';
-
-import { AuthJwt } from '../util/passport/jwt/jwt.interface';
 
 @Injectable()
 export class TokenGeneratorService {
@@ -16,7 +14,7 @@ export class TokenGeneratorService {
     orgId: IDString,
     orgName: string,
     expiresIn?: number,
-  ): Promise<AuthJwt> {
+  ): Promise<AuthenticationToken> {
     const payload = {
       userId: userId,
       username: username,
