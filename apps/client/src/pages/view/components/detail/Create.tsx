@@ -1,9 +1,8 @@
-import { MetadataSchema, ViewSchema } from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 import { Form, Spin } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useEffect } from 'react';
 
-import { UnknownMetadataModel } from '../../../../models/metadata';
 import {
   DetailMode,
   detailService,
@@ -21,7 +20,7 @@ export interface CreateProps {
 }
 
 export const Create: FunctionComponent<CreateProps> = ({ view, metadata }) => {
-  const [form] = Form.useForm<UnknownMetadataModel>();
+  const [form] = Form.useForm<UnknownSourceModel>();
 
   const mode = useObservableState(mode$, DetailMode.Show);
 
