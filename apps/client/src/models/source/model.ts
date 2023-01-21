@@ -1,6 +1,4 @@
-import { UnknownMetadataModel } from '../metadata';
-
-export type UnknownSourceModel = UnknownMetadataModel;
+import { UnknownSourceModel } from '@shukun/schema';
 
 export interface SourceModel {
   uniqueId: string;
