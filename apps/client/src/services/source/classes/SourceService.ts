@@ -1,6 +1,6 @@
 import { applyTransaction } from '@datorama/akita';
+import { UnknownSourceModel } from '@shukun/schema';
 
-import { UnknownSourceModel } from '../../../models/source';
 import { IDString } from '../../../utils/model-helpers';
 import { getMetadataName, getUniqueId, metadataOrName } from '../helpers';
 import { sourcesStore } from '../store';

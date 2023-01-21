@@ -10,6 +10,7 @@ import {
   listenChild,
   PostMessageNotificationProps,
 } from '@shukun/api';
+import { UnknownSourceModel } from '@shukun/schema';
 import { useUnmount } from 'ahooks';
 import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -17,7 +18,6 @@ import Postmate from 'postmate';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 
 import { environment } from '../../../../environments';
-import { UnknownSourceModel } from '../../../../models/source';
 import { SearchModel } from '../../../../services/search';
 import { validAuth$ } from '../../../../services/session';
 import {

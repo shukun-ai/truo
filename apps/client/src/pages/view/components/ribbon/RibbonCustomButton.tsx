@@ -1,11 +1,10 @@
-import { ViewRibbon, ViewLinkType } from '@shukun/schema';
+import { ViewRibbon, ViewLinkType, UnknownSourceModel } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 import { useHistory } from 'react-router';
 import format from 'string-format';
 
 import { RibbonButton } from '../../../../components/ribbon/RibbonButton';
-import { UnknownSourceModel } from '../../../../models/source';
 import { mode$ } from '../../../../services/detail';
 import { RoutePath, useOrgPath } from '../../../../utils/history-provider';
 

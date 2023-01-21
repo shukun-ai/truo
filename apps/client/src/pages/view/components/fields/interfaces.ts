@@ -7,9 +7,9 @@ import {
   ViewTableFilterType,
   ViewDetailFilterOptions,
   ViewFieldType,
+  UnknownSourceModel,
 } from '@shukun/schema';
 
-import { UnknownSourceModel } from '../../../../models/source';
 import { IDString } from '../../../../utils/model-helpers';
 
 export interface BaseReferenceItem {

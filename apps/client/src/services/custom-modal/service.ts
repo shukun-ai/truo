@@ -1,7 +1,6 @@
 import { PostMessageCustomModeType } from '@shukun/api';
-import { MetadataSchema, ViewSchema } from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 
-import { UnknownSourceModel } from '../../models/source';
 import { SearchModel } from '../search';
 
 import { CustomModalStore } from './store';

@@ -1,7 +1,6 @@
 import { MetadataRequestService } from '@shukun/api';
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel } from '@shukun/schema';
 
-import { UnknownSourceModel } from '../../models/source';
 import { httpRequestService } from '../../utils/http-helper';
 import { IDString } from '../../utils/model-helpers';
 
