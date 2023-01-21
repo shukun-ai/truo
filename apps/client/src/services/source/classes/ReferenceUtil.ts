@@ -1,7 +1,9 @@
-import { MetadataFieldType, MetadataSchema } from '@shukun/schema';
+import {
+  MetadataFieldType,
+  MetadataSchema,
+  UnknownSourceModel,
+} from '@shukun/schema';
 import uniq from 'lodash/uniq';
-
-import { UnknownSourceModel } from '../../../models/source';
 
 import { ReferenceMap } from './ReferenceMap.interface';
 

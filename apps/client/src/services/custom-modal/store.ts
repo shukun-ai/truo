@@ -1,9 +1,8 @@
 import { StoreConfig, Store } from '@datorama/akita';
 import { PostMessageCustomModeType } from '@shukun/api';
-import { MetadataSchema, ViewSchema } from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 import { produce } from 'immer';
 
-import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
 import { SearchModel } from '../search';
 

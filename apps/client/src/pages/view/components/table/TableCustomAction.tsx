@@ -1,8 +1,12 @@
 import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
-import { MetadataSchema, ViewSchema, ViewCustomAction } from '@shukun/schema';
+import {
+  MetadataSchema,
+  ViewSchema,
+  ViewCustomAction,
+  UnknownSourceModel,
+} from '@shukun/schema';
 import React, { FunctionComponent, useCallback } from 'react';
 
-import { UnknownSourceModel } from '../../../../models/source';
 import { SearchModel, searchService } from '../../../../services/search';
 import { tableService } from '../../../../services/table';
 import { CustomViewExperiment } from '../custom/CustomViewExperiment';

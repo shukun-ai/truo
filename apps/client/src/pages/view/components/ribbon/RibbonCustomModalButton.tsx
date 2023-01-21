@@ -1,11 +1,15 @@
 import { PostMessageCustomModeType } from '@shukun/api';
-import { ViewRibbon, ViewSchema, MetadataSchema } from '@shukun/schema';
+import {
+  ViewRibbon,
+  ViewSchema,
+  MetadataSchema,
+  UnknownSourceModel,
+} from '@shukun/schema';
 import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
 import { RibbonButton } from '../../../../components/ribbon/RibbonButton';
-import { UnknownSourceModel } from '../../../../models/source';
 import { customModalService } from '../../../../services/custom-modal';
 import { mode$ } from '../../../../services/detail';
 import { searchQuery } from '../../../../services/search';

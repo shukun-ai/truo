@@ -1,7 +1,7 @@
 import { createStore } from '@datorama/akita';
+import { UnknownSourceModel } from '@shukun/schema';
 import { produce } from 'immer';
 
-import { UnknownSourceModel } from '../../models/source';
 import { StoreNames } from '../../utils/store-names';
 
 import { DetailMode } from './model';

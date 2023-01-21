@@ -1,9 +1,8 @@
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel } from '@shukun/schema';
 import React, { FunctionComponent, useCallback } from 'react';
 import { AiOutlineReload } from 'react-icons/ai';
 
 import { RibbonButton } from '../../../../../components/ribbon/RibbonButton';
-import { UnknownSourceModel } from '../../../../../models/source';
 import { detailService } from '../../../../../services/detail';
 
 export interface DetailRefreshButtonProps {
