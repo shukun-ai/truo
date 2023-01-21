@@ -3,6 +3,7 @@ import {
   MetadataSchema,
   ViewSchema,
   ViewDetailGroupType,
+  UnknownSourceModel,
 } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, FormInstance, FormProps, message, Tabs } from 'antd';
@@ -10,8 +11,6 @@ import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
-import { UnknownMetadataModel } from '../../../../models/metadata';
-import { UnknownSourceModel } from '../../../../models/source';
 import { DetailMode, detailService, mode$ } from '../../../../services/detail';
 import { sourceReferenceService } from '../../../../services/source';
 import { RoutePath, useOrgPath } from '../../../../utils/history-provider';
@@ -20,7 +19,7 @@ import { DETAIL_FORM_ID } from '../../constant';
 import { DEFAULT_GROUP_NAME, DetailGroup } from './DetailGroup';
 
 export interface DetailContentProps {
-  form: FormInstance<UnknownMetadataModel>;
+  form: FormInstance<UnknownSourceModel>;
   metadata: MetadataSchema;
   view: ViewSchema;
   source: UnknownSourceModel | null;
