@@ -1,10 +1,11 @@
-import { findAllViews } from '../../models/view';
+import { viewRequester } from '../../apis/requester';
 
 import { viewsStore } from './store';
 
 class ViewService {
   async fetch() {
-    const response = await findAllViews();
+    const response = await viewRequester.getViews();
+
     viewsStore.set(response.data.value);
   }
 

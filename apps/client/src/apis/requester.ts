@@ -1,4 +1,4 @@
-import { AxiosAdaptor, PublicRequester } from '@shukun/api';
+import { AxiosAdaptor, PublicRequester, ViewRequester } from '@shukun/api';
 
 import { environment } from '../environments';
 import { sessionService } from '../services/session';
@@ -11,3 +11,5 @@ export const axiosAdaptor = new AxiosAdaptor({
 });
 
 export const publicRequester = new PublicRequester(axiosAdaptor);
+
+export const viewRequester = new ViewRequester(axiosAdaptor);
