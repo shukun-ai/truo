@@ -1,7 +1,7 @@
-import { MetadataRequestService } from '@shukun/api';
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
 
-import { httpRequestService } from '../../utils/http-helper';
+import { createSourceRequester } from '../../apis/requester';
+
 import { SearchService, searchService } from '../search';
 import { sourceReferenceService } from '../source';
 import { SourceReferenceService } from '../source/classes/SourceReferenceService';
@@ -21,13 +21,14 @@ class TableService {
     const { currentPage, pageSize, filter, sort } = filterValues;
     const skip = (currentPage - 1) * pageSize;
 
-    const request = new MetadataRequestService(httpRequestService, metadata);
+    const requester = createSourceRequester(metadata.name);
 
-    const response = await request.findMany({
+    const response = await requester.query({
       filter: filter ?? undefined,
       limit: pageSize,
       skip,
       sort: sort ?? undefined,
+      count: true,
     });
 
     tableStore.set(response.data.value);

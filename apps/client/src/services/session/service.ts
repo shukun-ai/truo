@@ -3,12 +3,10 @@ import dayjs from 'dayjs';
 
 import { publicRequester } from '../../apis/requester';
 
-import { SignInData } from '../../models/session';
-
 import { sessionStore } from './store';
 
 class SessionService {
-  async signIn(data: SignInData) {
+  async signIn(data: { orgName: string; username: string; password: string }) {
     const response = await publicRequester.signIn(data.orgName, {
       username: data.username,
       password: data.password,
