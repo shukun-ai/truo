@@ -12,6 +12,7 @@ import {
   AddToManyDto,
   IncreaseDto,
   RemoveFromManyDto,
+  CreateResponseData,
 } from '../request-adaptor/request-adaptor.type';
 
 import { ApiResponse } from '../request-adaptor/request-adaptor.type';
@@ -42,6 +43,16 @@ export class SourceRequester<Model> {
    * @deprecated
    */
   public async findOne(params: HttpQuerySchema): Promise<ApiResponse<Model>> {
+    return this.findOneOrThrow(params);
+  }
+
+  public async findIdOrThrow(id: IDString): Promise<ApiResponse<Model>> {
+    return this.findOneOrThrow({ filter: { _id: id } });
+  }
+
+  public async findOneOrThrow(
+    params: HttpQuerySchema,
+  ): Promise<ApiResponse<Model>> {
     const response = await this.query({ ...params, limit: 1 });
     const value = firstOrNull(response.data.value);
 
@@ -71,7 +82,7 @@ export class SourceRequester<Model> {
     };
   }
 
-  public async create(model: Model): Promise<ApiResponse<Model>> {
+  public async create(model: Model): Promise<ApiResponse<CreateResponseData>> {
     return await this.post('create', model);
   }
 
@@ -79,7 +90,9 @@ export class SourceRequester<Model> {
    * @deprecated
    * @alias create
    */
-  public async createOne(model: Model): Promise<ApiResponse<Model>> {
+  public async createOne(
+    model: Model,
+  ): Promise<ApiResponse<CreateResponseData>> {
     return this.create(model);
   }
 
@@ -114,21 +127,21 @@ export class SourceRequester<Model> {
   }
 
   public async addToMany(
-    id: string,
+    id: IDString,
     body: AddToManyDto,
   ): Promise<ApiResponse<null>> {
     return await this.post('add-to-many', body, id);
   }
 
   public async removeFromMany(
-    id: string,
+    id: IDString,
     body: RemoveFromManyDto,
   ): Promise<ApiResponse<null>> {
     return await this.post('remove-from-many', body, id);
   }
 
   public async increase(
-    id: string,
+    id: IDString,
     body: IncreaseDto,
   ): Promise<ApiResponse<null>> {
     return await this.post('increase', body, id);
