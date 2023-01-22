@@ -1,8 +1,6 @@
-import { RoleSchema } from '@shukun/schema';
+import { AccessInternalRoles, RoleSchema } from '@shukun/schema';
 
 import { PermissionControl } from '@shukun/validator';
-
-import { AccessInternalRoles } from '../../models/role';
 
 export function isGranted(options: {
   grantList: RoleSchema[];

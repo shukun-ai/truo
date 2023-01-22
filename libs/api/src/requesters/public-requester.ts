@@ -1,6 +1,7 @@
 import {
   AuthenticationToken,
   RoleResourceType,
+  RoleSchema,
   SystemPublicOrgModel,
 } from '@shukun/schema';
 
@@ -63,8 +64,10 @@ export class PublicRequester {
    * @remarks
    * GET /apis/v1/public/{orgName}/grant-list
    */
-  public async getGrantList(orgName?: string) {
-    return await this.requestAdaptor.fetch<string[]>(
+  public async getGrantList(
+    orgName?: string,
+  ): Promise<ApiResponse<RoleSchema[]>> {
+    return await this.requestAdaptor.fetch(
       'GET',
       this.buildUri('grant-list', orgName),
     );
@@ -74,8 +77,8 @@ export class PublicRequester {
    * @remarks
    * GET /apis/v1/public/{orgName}/grant-roles
    */
-  public async getGrantRoles(orgName?: string) {
-    return await this.requestAdaptor.fetch<string[]>(
+  public async getGrantRoles(orgName?: string): Promise<ApiResponse<string[]>> {
+    return await this.requestAdaptor.fetch(
       'GET',
       this.buildUri('grant-roles', orgName),
     );
@@ -86,9 +89,10 @@ export class PublicRequester {
    * GET /apis/v1/public/{orgName}/roles
    */
   public async getRoles(orgName?: string) {
-    return await this.requestAdaptor.fetch<
-      ApiResponse<{ name: string; label: string }[]>
-    >('GET', this.buildUri('roles', orgName));
+    return await this.requestAdaptor.fetch<{ name: string; label: string }[]>(
+      'GET',
+      this.buildUri('roles', orgName),
+    );
   }
 
   /**

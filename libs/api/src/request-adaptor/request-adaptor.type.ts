@@ -1,3 +1,5 @@
+import { IDString } from '@shukun/schema';
+
 export type ApiRequesterOptions = {
   baseUrl?: string;
   timeout?: number;
@@ -42,3 +44,5 @@ export type IncreaseDto = {
   electronName: string;
   increment: number;
 };
+
+export type CreateResponseData = { _id: IDString };
