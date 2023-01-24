@@ -28,6 +28,24 @@
       "port": 9230
     },
     {
+      "name": "Debug Integration testing",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx.js",
+      "args": [
+        "run",
+        "server:integration-test",
+        "--watchAll",
+        "--codeCoverage=false",
+        "--runInBand",
+        "--detectOpenHandles",
+        "--inspect-brk"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
       "name": "Launch client on Edge",
       "type": "pwa-msedge",
       "request": "launch",
