@@ -28,6 +28,13 @@ export type SignInDto = {
   password: string;
 };
 
+export type SeedCreateDto = {
+  name: string;
+  label: string;
+  username: string;
+  password: string;
+};
+
 export type EncryptSignInDto = {
   username: string;
   encryptPassword: string;

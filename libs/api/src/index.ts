@@ -22,3 +22,4 @@ export * from './requesters/public-requester';
 export * from './requesters/view-requester';
 export * from './requesters/webhook-requester';
 export * from './requesters/source-requester';
+export * from './requesters/tenant-requester';
