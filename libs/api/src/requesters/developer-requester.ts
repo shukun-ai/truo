@@ -15,7 +15,10 @@ export class DeveloperRequester {
    * formData.append('file', acceptedFiles[0]);
    * updateCodebase(formData);
    */
-  public async updateCodebase(formData: FormData) {
+  public async updateCodebase(
+    formData: FormData,
+    headers: Record<string, string>,
+  ) {
     return await this.requestAdaptor.fetch<null>(
       'POST',
       this.buildUri('codebase'),
@@ -23,6 +26,7 @@ export class DeveloperRequester {
         body: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
+          ...headers,
         },
       },
     );

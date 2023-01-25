@@ -1,0 +1,100 @@
+{
+  "$schema": "../../../../libs/schema/src/json-schemas/application.schema.json",
+  "title": "MOCK-APPLICATION",
+  "environments": [
+    {
+      "name": "viewCustomActionTask",
+      "value": "view-custom-action-task",
+      "isPublic": true
+    },
+    {
+      "name": "viewCustomActionSecret",
+      "value": "view-custom-action-secret",
+      "isPublic": false
+    }
+  ],
+  "metadata": [
+    {
+      "name": "airports",
+      "label": "Airport",
+      "electrons": [
+        {
+          "name": "code",
+          "label": "Airport Code",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "region",
+          "label": "Region Code",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "isHighRisk",
+          "label": "Is High Risk Region",
+          "fieldType": "Boolean",
+          "isRequired": true
+        },
+        {
+          "name": "cityCode",
+          "label": "City Code",
+          "fieldType": "Text",
+          "isRequired": false
+        },
+        {
+          "name": "cityTitle",
+          "label": "City Name",
+          "fieldType": "Text",
+          "isRequired": false
+        }
+      ]
+    },
+    {
+      "name": "devices",
+      "label": "Devices",
+      "electrons": [
+        {
+          "name": "number",
+          "label": "NO.",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "type",
+          "label": "Type",
+          "fieldType": "SingleSelect",
+          "isRequired": true,
+          "options": [
+            {
+              "key": "vehicle",
+              "label": "Vehicle Pad"
+            },
+            {
+              "key": "delivery",
+              "label": "Delivery PDA"
+            },
+            {
+              "key": "ticket",
+              "label": "Ticket PDA"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -14,7 +14,6 @@ import {
   SystemDataValidator,
   applicationSchemaValidator,
 } from '@shukun/validator';
-import { Express } from 'express';
 
 import { CompilerService } from '../../compiler/compiler.service';
 import { FlowService } from '../../core/flow.service';
@@ -52,7 +51,7 @@ export class CodebaseController {
     @Param('orgName') orgName: string,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: { buffer: Buffer }, // Express.Multer.File
   ): Promise<QueryResponse<null>> {
     const fileString = file.buffer.toString();
 
