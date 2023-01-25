@@ -75,6 +75,11 @@ export class OrgService {
     return value;
   }
 
+  async deleteOne(orgName: string): Promise<null> {
+    await this.orgModel.deleteOne({ name: orgName });
+    return null;
+  }
+
   async updateCodebase(orgName: string, codebase: ApplicationSchema) {
     const buffer = Buffer.from(JSON.stringify(codebase));
 

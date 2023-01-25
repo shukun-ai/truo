@@ -94,4 +94,15 @@ export class SeedController {
 
     return org;
   }
+
+  @Post('destroy')
+  async destroyOrg(
+    @Body() dto: { orgName: string },
+  ): Promise<QueryResponse<null>> {
+    // TODO destroy all collections.
+    await this.orgService.deleteOne(dto.orgName);
+    return {
+      value: null,
+    };
+  }
 }

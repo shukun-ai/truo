@@ -18,6 +18,14 @@ export class TenantRequester {
     );
   }
 
+  public async destroyOrg(orgName: string) {
+    return await this.requestAdaptor.fetch<null>(
+      'POST',
+      this.buildUri('seeds/destroy'),
+      { body: { orgName } },
+    );
+  }
+
   private buildUri(suffix: string) {
     return `${RoleResourceType.Tenant}/any/${suffix}`;
   }
