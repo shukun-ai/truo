@@ -24,8 +24,7 @@
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9230
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "name": "Debug Integration testing",
@@ -44,14 +43,6 @@
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "name": "Launch client on Edge",
-      "type": "pwa-msedge",
-      "request": "launch",
-      "url": "http://localhost:9000",
-      "webRoot": "${workspaceFolder}",
-      "userDataDir": "${workspaceFolder}/.vscode/vscode-edge-debug-userdatadir"
     },
     {
       "name": "Launch client on Chrome",
