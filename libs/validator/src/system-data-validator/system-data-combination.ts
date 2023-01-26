@@ -14,18 +14,18 @@ export class SystemDataCombination {
   ): ApplicationSchema {
     return {
       ...current,
-      metadata: current.metadata
-        ? this.mergeMetadata(
-            current.metadata,
-            applicationSeedData.metadata || [],
-          )
-        : undefined,
-      views: current.views
-        ? this.mergeNameArray(current.views, applicationSeedData.views || [])
-        : undefined,
-      roles: current.roles
-        ? this.mergeNameArray(current.roles, applicationSeedData.roles || [])
-        : undefined,
+      metadata: this.mergeMetadata(
+        current.metadata || [],
+        applicationSeedData.metadata || [],
+      ),
+      views: this.mergeNameArray(
+        current.views || [],
+        applicationSeedData.views || [],
+      ),
+      roles: this.mergeNameArray(
+        current.roles || [],
+        applicationSeedData.roles || [],
+      ),
     };
   }
 
