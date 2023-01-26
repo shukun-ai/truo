@@ -1,5 +1,7 @@
 import { UnknownSourceModel } from '@shukun/api';
 import {
+  MetadataAttachmentOptions,
+  MetadataCurrencyOptions,
   MetadataElectron,
   MetadataSchema,
   ViewSchema,
@@ -83,12 +85,24 @@ function createElectronColumn(
         viewLink={viewColumn.link}
         tip={undefined}
         electronName={electron.name}
-        electronForeignName={electron.foreignName}
-        electronReferenceTo={electron.referenceTo}
-        electronOptions={electron.options}
+        electronForeignName={
+          typeof electron.foreignName === 'string'
+            ? electron.foreignName
+            : undefined
+        }
+        electronReferenceTo={
+          typeof electron.referenceTo === 'string'
+            ? electron.referenceTo
+            : undefined
+        }
+        electronOptions={
+          Array.isArray(electron.options) ? electron.options : undefined
+        }
         referenceViewName={viewColumn.referenceViewName}
-        currencyOptions={electron.currencyOptions}
-        attachmentOptions={electron.attachmentOptions}
+        currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+        attachmentOptions={
+          electron.attachmentOptions as MetadataAttachmentOptions
+        }
         row={row}
       />,
     ],

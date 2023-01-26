@@ -64,8 +64,8 @@ export class MongooseConnectionService {
   protected async buildElectronSchema(
     electron: MetadataElectron,
   ): Promise<MongooseSchema & MongooseConstraintSchema> {
-    const field = getFieldInstance(electron.fieldType);
-    const fieldSchema = field.buildSchema(electron, this.connection);
+    const field = getFieldInstance(electron);
+    const fieldSchema = field.buildSchema(this.connection);
 
     return {
       ...fieldSchema,

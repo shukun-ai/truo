@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { PasswordElectron } from './password.electron';
 
@@ -8,12 +8,12 @@ describe('Password Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Password,
+        fieldType: 'Password',
         isRequired: true,
       };
 
-      const field = new PasswordElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new PasswordElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.string('mock', 1000)`);
     });
   });

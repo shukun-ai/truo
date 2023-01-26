@@ -1,9 +1,10 @@
-import { DataSourceType, MetadataElectron } from '@shukun/schema';
+import { DataSourceType } from '@shukun/schema';
 import { Schema } from 'mongoose';
 
-import { ElectronType, MongooseSchema } from '../electron-field.interface';
+import { MongooseSchema } from '../electron-field.interface';
+import { IElectronInterpreter } from '../electron-interpreter.interface';
 
-export class MixedField implements ElectronType {
+export class MixedField implements IElectronInterpreter {
   validateValue() {
     return [];
   }
@@ -16,11 +17,7 @@ export class MixedField implements ElectronType {
 
   // @see {@link https://knexjs.org/guide/schema-builder.html#json}
   // JSON.stringify(mightBeAnArray)
-  beforeSave(
-    value: unknown,
-    electron: MetadataElectron,
-    connectionType: DataSourceType,
-  ): unknown {
+  beforeSave(value: unknown, connectionType: DataSourceType): unknown {
     if (connectionType === 'postgres') {
       return JSON.stringify(value);
     } else {

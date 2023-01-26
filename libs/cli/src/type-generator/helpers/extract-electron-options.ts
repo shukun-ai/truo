@@ -1,19 +1,14 @@
-import {
-  MetadataElectron,
-  MetadataFieldType,
-  MetadataSchema,
-} from '@shukun/schema';
+import { MetadataElectronSelect, MetadataSchema } from '@shukun/schema';
 import { toPascalCase } from 'js-convert-case';
 
 export function extractElectronOptions(atom: MetadataSchema): string {
   let text = '';
 
-  text += atom.electrons
-    .filter((electron) =>
-      [MetadataFieldType.SingleSelect, MetadataFieldType.MultiSelect].includes(
-        electron.fieldType,
-      ),
-    )
+  const selectElectrons = atom.electrons.filter((electron) =>
+    ['SingleSelect', 'MultiSelect'].includes(electron.fieldType),
+  ) as MetadataElectronSelect[];
+
+  text += selectElectrons
     .map((electron) => extractElectronOption(atom, electron))
     .join('');
 
@@ -22,12 +17,8 @@ export function extractElectronOptions(atom: MetadataSchema): string {
 
 function extractElectronOption(
   atom: MetadataSchema,
-  electron: MetadataElectron,
+  electron: MetadataElectronSelect,
 ) {
-  if (!electron.options) {
-    return '';
-  }
-
   let text = '';
 
   text += `export const ${toPascalCase(atom.name)}${toPascalCase(

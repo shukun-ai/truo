@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { LargeTextElectron } from './large-text.electron';
 
@@ -8,12 +8,12 @@ describe('LargeText Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.LargeText,
+        fieldType: 'LargeText',
         isRequired: true,
       };
 
-      const field = new LargeTextElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new LargeTextElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.text('mock')`);
     });
   });

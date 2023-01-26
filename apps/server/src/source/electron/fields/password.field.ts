@@ -1,5 +1,5 @@
 import { ElectronValueException } from '@shukun/exception';
-import { MetadataElectron } from '@shukun/schema';
+import { MetadataElectronPassword } from '@shukun/schema';
 import {
   PASSWORD_DEFAULT_MAX_LENGTH,
   PASSWORD_DEFAULT_MIN_LENGTH,
@@ -12,20 +12,19 @@ import { cryptoPassword } from '../../../identity/utils/password.utils';
 
 import {
   ElectronExceptions,
-  ElectronType,
   MongooseSchema,
 } from '../electron-field.interface';
+import { IElectronInterpreter } from '../electron-interpreter.interface';
 
-export class PasswordField implements ElectronType {
-  validateValue(
-    value: unknown,
-    electron: MetadataElectron,
-  ): ElectronExceptions {
+export class PasswordField implements IElectronInterpreter {
+  constructor(private readonly electron: MetadataElectronPassword) {}
+
+  validateValue(value: unknown): ElectronExceptions {
     const messages = [];
     const minLength =
-      electron.passwordOptions?.minLength || PASSWORD_DEFAULT_MIN_LENGTH;
+      this.electron.passwordOptions?.minLength || PASSWORD_DEFAULT_MIN_LENGTH;
     const maxLength =
-      electron.passwordOptions?.maxLength || PASSWORD_DEFAULT_MAX_LENGTH;
+      this.electron.passwordOptions?.maxLength || PASSWORD_DEFAULT_MAX_LENGTH;
 
     if (
       typeof value === 'string' &&
@@ -61,8 +60,7 @@ export class PasswordField implements ElectronType {
     return value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  afterQuery(value: unknown, electron: MetadataElectron) {
+  afterQuery() {
     return null;
   }
 }

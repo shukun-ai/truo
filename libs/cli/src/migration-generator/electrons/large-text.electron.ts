@@ -1,9 +1,11 @@
-import { MetadataElectron } from '@shukun/schema';
+import { MetadataElectronLargeText } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';
 
 export class LargeTextElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron): string {
-    return `.text('${electron.name}')`;
+  constructor(private readonly electron: MetadataElectronLargeText) {}
+
+  buildSqlSchema(): string {
+    return `.text('${this.electron.name}')`;
   }
 }

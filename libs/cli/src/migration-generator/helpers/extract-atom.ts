@@ -24,8 +24,8 @@ export function extractAtom(atom: MetadataSchema): string {
 function extractElectron(electron: MetadataElectron): string {
   let text = '';
   text += 'table';
-  const clause = getFieldInstance(electron.fieldType);
-  text += clause.buildSqlSchema(electron);
+  const clause = getFieldInstance(electron);
+  text += clause.buildSqlSchema();
   text += buildConstraint(electron);
   text += ';';
   return text;

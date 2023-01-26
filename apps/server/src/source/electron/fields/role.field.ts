@@ -1,8 +1,10 @@
 import { Schema } from 'mongoose';
 
-import { ElectronType, MongooseSchema } from '../electron-field.interface';
+import { MongooseSchema } from '../electron-field.interface';
 
-export class RoleField implements ElectronType {
+import { IElectronInterpreter } from '../electron-interpreter.interface';
+
+export class RoleField implements IElectronInterpreter {
   validateValue() {
     return [];
   }

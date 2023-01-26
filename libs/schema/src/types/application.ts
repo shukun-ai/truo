@@ -6,11 +6,114 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type MetadataElectron =
+  | MetadataElectronText
+  | MetadataElectronNameText
+  | MetadataElectronLargeText
+  | MetadataElectronSingleSelect
+  | MetadataElectronMultiSelect
+  | MetadataElectronBoolean
+  | MetadataElectronDateTime
+  | MetadataElectronInteger
+  | MetadataElectronFloat
+  | MetadataElectronCurrency
+  | MetadataElectronPassword
+  | MetadataElectronManyToMany
+  | MetadataElectronManyToOne
+  | MetadataElectronOwner
+  | MetadataElectronAttachment
+  | MetadataElectronMixed
+  | MetadataElectronRole;
+export type MetadataElectronText = MetadataElectronBasic & {
+  fieldType: 'Text';
+  [k: string]: unknown;
+};
+export type MetadataElectronNameText = MetadataElectronBasic & {
+  fieldType: 'NameText';
+  [k: string]: unknown;
+};
+export type MetadataElectronLargeText = MetadataElectronBasic & {
+  fieldType: 'LargeText';
+  [k: string]: unknown;
+};
+export type MetadataElectronSingleSelect = MetadataElectronBasic & {
+  fieldType: 'SingleSelect';
+  options: MetadataOptions;
+  [k: string]: unknown;
+};
 export type MetadataOptions = {
   key: string;
   label: string;
   color?: string;
 }[];
+export type MetadataElectronMultiSelect = MetadataElectronBasic & {
+  fieldType: 'MultiSelect';
+  options: MetadataOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronBoolean = MetadataElectronBasic & {
+  fieldType: 'Boolean';
+  [k: string]: unknown;
+};
+export type MetadataElectronDateTime = MetadataElectronBasic & {
+  fieldType: 'DateTime';
+  [k: string]: unknown;
+};
+export type MetadataElectronInteger = MetadataElectronBasic & {
+  fieldType: 'Integer';
+  [k: string]: unknown;
+};
+export type MetadataElectronFloat = MetadataElectronBasic & {
+  fieldType: 'Float';
+  /**
+   * It will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 8.
+   */
+  precision?: number;
+  /**
+   * I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2.
+   */
+  scale?: number;
+  [k: string]: unknown;
+};
+export type MetadataElectronCurrency = MetadataElectronBasic & {
+  fieldType: 'Currency';
+  currencyOptions?: MetadataCurrencyOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronPassword = MetadataElectronBasic & {
+  fieldType: 'Password';
+  passwordOptions?: MetadataPasswordOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronManyToMany = MetadataElectronBasic & {
+  fieldType: 'ManyToMany';
+  referenceTo: string;
+  foreignName: string;
+  [k: string]: unknown;
+};
+export type MetadataElectronManyToOne = MetadataElectronBasic & {
+  fieldType: 'ManyToOne';
+  referenceTo: string;
+  foreignName: string;
+  [k: string]: unknown;
+};
+export type MetadataElectronOwner = MetadataElectronBasic & {
+  fieldType: 'Owner';
+  [k: string]: unknown;
+};
+export type MetadataElectronAttachment = MetadataElectronBasic & {
+  fieldType: 'Attachment';
+  attachmentOptions?: MetadataAttachmentOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronMixed = MetadataElectronBasic & {
+  fieldType: 'Mixed';
+  [k: string]: unknown;
+};
+export type MetadataElectronRole = MetadataElectronBasic & {
+  fieldType: 'Role';
+  [k: string]: unknown;
+};
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
@@ -116,13 +219,9 @@ export interface MetadataSchema {
   description?: string;
   electrons: MetadataElectron[];
 }
-export interface MetadataElectron {
+export interface MetadataElectronBasic {
   name: string;
   label: string;
-  fieldType: MetadataFieldType;
-  referenceTo?: string;
-  foreignName?: string;
-  description?: string;
   /**
    * It will be effect in Schema builder and Input Validate.
    */
@@ -135,26 +234,8 @@ export interface MetadataElectron {
    * It will be effect in Schema builder and Input Validate.
    */
   isIndexed?: boolean;
-  /**
-   * It will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 8.
-   */
-  precision?: number;
-  /**
-   * I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2.
-   */
-  scale?: number;
-  options?: MetadataOptions;
-  passwordOptions?: MetadataPasswordOptions;
-  currencyOptions?: MetadataCurrencyOptions;
-  attachmentOptions?: MetadataAttachmentOptions;
-}
-export interface MetadataPasswordOptions {
-  requireNumber?: number;
-  requireCharacter?: boolean;
-  requireUppercase?: boolean;
-  requireLowercase?: boolean;
-  minLength?: number;
-  maxLength?: number;
+  description?: string;
+  [k: string]: unknown;
 }
 /**
  * More Currency ISO Reference: https://en.wikipedia.org/wiki/ISO_4217, the data precision will be set as 15 and scale will be set as 4.
@@ -168,6 +249,14 @@ export interface MetadataCurrencyOptions {
    * This electron.currencyOptions.scale value is different with electron.scale, the scale is just used for Front-end format.
    */
   scale?: number;
+}
+export interface MetadataPasswordOptions {
+  requireNumber?: number;
+  requireCharacter?: boolean;
+  requireUppercase?: boolean;
+  requireLowercase?: boolean;
+  minLength?: number;
+  maxLength?: number;
 }
 export interface MetadataAttachmentOptions {
   allowedMime?: string[];
@@ -869,25 +958,6 @@ export interface EnvironmentSchema {
   isPublic: boolean;
 }
 
-export enum MetadataFieldType {
-  Text = 'Text',
-  NameText = 'NameText',
-  LargeText = 'LargeText',
-  SingleSelect = 'SingleSelect',
-  MultiSelect = 'MultiSelect',
-  Boolean = 'Boolean',
-  DateTime = 'DateTime',
-  Integer = 'Integer',
-  Float = 'Float',
-  Currency = 'Currency',
-  Password = 'Password',
-  ManyToMany = 'ManyToMany',
-  ManyToOne = 'ManyToOne',
-  Owner = 'Owner',
-  Attachment = 'Attachment',
-  Mixed = 'Mixed',
-  Role = 'Role',
-}
 export enum ViewType {
   Simple = 'Simple',
   Tree = 'Tree',

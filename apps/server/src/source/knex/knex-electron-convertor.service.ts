@@ -28,9 +28,9 @@ export class KnexElectronConvertorService<Model> {
         (electron) => electron.name === key,
       );
       if (electron) {
-        const instance = getFieldInstance(electron.fieldType);
+        const instance = getFieldInstance(electron);
         newEntity[key] = instance.afterQuery
-          ? instance.afterQuery(value, electron, dataSourceConnection.type)
+          ? instance.afterQuery(value, dataSourceConnection.type)
           : value;
       } else if (key === 'createdAt' || key === 'updatedAt') {
         newEntity[key] = value;

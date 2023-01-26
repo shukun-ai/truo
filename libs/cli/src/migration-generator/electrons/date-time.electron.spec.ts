@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { DateTimeElectron } from './date-time.electron';
 
@@ -8,12 +8,12 @@ describe('DateTime Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.DateTime,
+        fieldType: 'DateTime',
         isRequired: true,
       };
 
-      const field = new DateTimeElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new DateTimeElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.timestamp('mock')`);
     });
   });

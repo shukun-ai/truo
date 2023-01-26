@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { IntegerElectron } from './integer.electron';
 
@@ -8,12 +8,12 @@ describe('Integer Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Integer,
+        fieldType: 'Integer',
         isRequired: true,
       };
 
-      const field = new IntegerElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new IntegerElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.bigInteger('mock')`);
     });
   });

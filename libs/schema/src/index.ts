@@ -4,6 +4,7 @@ export * from './types/data-source';
 export * from './types/exception';
 export * from './types/flow-compiled-codes';
 export * from './types/http-query-override';
+export * from './types/metadata-field-type';
 export * from './types/system-authentication';
 export * from './types/system-models';
 export * from './types/system-resources';
