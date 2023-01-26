@@ -4,6 +4,9 @@ import nock from 'nock';
 import { initializeWebServer, stopWebServer } from '../../src/app';
 import { createOrg, destroyOrg, updateCodebase } from '../hooks/seed';
 import { signIn } from '../hooks/sign-in';
+
+import applicationMockData from './application.mock.json';
+
 describe('Source apis', () => {
   const orgName = 'test_source';
   let adaptor: IRequestAdaptor;
@@ -30,7 +33,7 @@ describe('Source apis', () => {
     const auth = await signIn(adaptor, { orgName });
     accessToken = auth.accessToken;
 
-    await updateCodebase(adaptor);
+    await updateCodebase(adaptor, applicationMockData);
   });
 
   afterAll(async () => {
@@ -83,6 +86,25 @@ describe('Source apis', () => {
         ],
       });
     });
+
+    it.todo('should remove security fields, when get metadata.');
+  });
+
+  describe('create', () => {
+    it('should return new id, when create', async () => {
+      const requester = new SourceRequester(adaptor, 'devices');
+      const response = await requester.create({
+        number: 'TU700',
+        title: 'TU-700',
+        type: 'vehicle',
+      });
+      expect(typeof response.data.value._id).toBe('string');
+      expect(response.data.value._id.length).toBe(24);
+    });
+
+    it.todo(
+      'should throw error, when some field is required, unique and index and get expected exception message.',
+    );
   });
 
   describe.skip('query', () => {

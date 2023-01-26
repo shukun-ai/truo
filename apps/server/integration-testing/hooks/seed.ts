@@ -1,5 +1,4 @@
-import { createReadStream } from 'fs';
-import { join } from 'path';
+import { Readable } from 'node:stream';
 
 import { faker } from '@faker-js/faker';
 import {
@@ -31,10 +30,12 @@ export const destroyOrg = async (
   await requester.destroyOrg(payload.orgName);
 };
 
-export const updateCodebase = async (adaptor: IRequestAdaptor) => {
+export const updateCodebase = async (
+  adaptor: IRequestAdaptor,
+  lowCode: unknown,
+) => {
   const developerRequester = new DeveloperRequester(adaptor);
-  // formData.getHeaders();
-  const formData = getJsonFormData();
+  const formData = convertJsonToFormData(lowCode);
   await developerRequester.updateCodebase(
     formData as any,
     formData.getHeaders(),
@@ -44,12 +45,14 @@ export const updateCodebase = async (adaptor: IRequestAdaptor) => {
 /**
  * @see {@link https://maximorlov.com/send-a-file-with-axios-in-nodejs/}
  * How to upload file with Axios in Node.
+ *
+ * @see {@link https://stackoverflow.com/questions/54423322/how-to-pass-string-as-a-read-stream-object-in-nodejs}
+ * How to create Stream from JSON.
  */
-const getJsonFormData = () => {
-  // const json = JSON.stringify(applicationMockData);
-  // const blob = new Blob([json], { type: 'application/json' });
-  const file = createReadStream(join(__dirname, './application.mock.json'));
+const convertJsonToFormData = (lowCode: unknown): FormData => {
+  const json = JSON.stringify(lowCode);
+  const stream = Readable.from(json);
   const formData = new FormData();
-  formData.append('file', file, 'application.json');
+  formData.append('file', stream, 'application.json');
   return formData;
 };
