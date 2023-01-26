@@ -17,7 +17,7 @@ export class DeveloperRequester {
    */
   public async updateCodebase(
     formData: FormData,
-    headers: Record<string, string>,
+    headers?: Record<string, string>,
   ) {
     return await this.requestAdaptor.fetch<null>(
       'POST',
