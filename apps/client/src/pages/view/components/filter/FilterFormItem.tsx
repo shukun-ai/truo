@@ -1,4 +1,10 @@
-import { MetadataSchema, ViewTableField } from '@shukun/schema';
+import {
+  MetadataAttachmentOptions,
+  MetadataCurrencyOptions,
+  MetadataOptions,
+  MetadataSchema,
+  ViewTableField,
+} from '@shukun/schema';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { FilterFieldFactory } from '../fields/FilterFieldFactory';
@@ -36,12 +42,14 @@ export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
       label={viewTableField.label}
       tip={undefined}
       electronName={electron.name}
-      electronForeignName={electron.foreignName}
-      electronReferenceTo={electron.referenceTo}
-      electronOptions={electron.options}
+      electronForeignName={electron.foreignName as string | undefined}
+      electronReferenceTo={electron.referenceTo as string | undefined}
+      electronOptions={electron.options as MetadataOptions}
       referenceViewName={viewTableField.referenceViewName}
-      currencyOptions={electron.currencyOptions}
-      attachmentOptions={electron.attachmentOptions}
+      currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+      attachmentOptions={
+        electron.attachmentOptions as MetadataAttachmentOptions
+      }
       filterOptions={viewTableField.filterOptions}
       filterType={viewTableField.filterType}
     />

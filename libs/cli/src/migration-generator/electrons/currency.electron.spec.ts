@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { CurrencyElectron } from './currency.electron';
 
@@ -7,12 +7,12 @@ describe('Currency', () => {
     const electron: MetadataElectron = {
       name: 'mock',
       label: 'Mock',
-      fieldType: MetadataFieldType.Float,
+      fieldType: 'Currency',
       isRequired: true,
     };
 
-    const field = new CurrencyElectron();
-    const output = field.buildSqlSchema(electron);
+    const field = new CurrencyElectron(electron);
+    const output = field.buildSqlSchema();
     expect(output).toEqual(`.float('mock', 15, 4)`);
   });
 
@@ -20,14 +20,14 @@ describe('Currency', () => {
     const electron: MetadataElectron = {
       name: 'mock',
       label: 'Mock',
-      fieldType: MetadataFieldType.Float,
+      fieldType: 'Currency',
       isRequired: true,
       precision: 12,
       scale: 6,
     };
 
-    const field = new CurrencyElectron();
-    const output = field.buildSqlSchema(electron);
+    const field = new CurrencyElectron(electron);
+    const output = field.buildSqlSchema();
     expect(output).toEqual(`.float('mock', 15, 4)`);
   });
 });

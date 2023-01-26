@@ -1,6 +1,6 @@
-import { MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
-import { ElectronType } from './electron-field.interface';
+import { IElectronInterpreter } from './electron-interpreter.interface';
 import { AttachmentField } from './fields/attachment.field';
 import { BooleanField } from './fields/boolean.field';
 import { CurrencyField } from './fields/currency.field';
@@ -19,41 +19,43 @@ import { RoleField } from './fields/role.field';
 import { SingleSelectField } from './fields/single-select.field';
 import { TextField } from './fields/text.field';
 
-export function getFieldInstance(fieldType: MetadataFieldType): ElectronType {
-  switch (fieldType) {
-    case MetadataFieldType.Text:
+export function getFieldInstance(
+  electron: MetadataElectron,
+): IElectronInterpreter {
+  switch (electron.fieldType) {
+    case 'Text':
       return new TextField();
-    case MetadataFieldType.NameText:
+    case 'NameText':
       return new NameTextField();
-    case MetadataFieldType.LargeText:
+    case 'LargeText':
       return new LargeTextField();
-    case MetadataFieldType.SingleSelect:
-      return new SingleSelectField();
-    case MetadataFieldType.MultiSelect:
-      return new MultiSelectField();
-    case MetadataFieldType.Boolean:
+    case 'SingleSelect':
+      return new SingleSelectField(electron);
+    case 'MultiSelect':
+      return new MultiSelectField(electron);
+    case 'Boolean':
       return new BooleanField();
-    case MetadataFieldType.DateTime:
+    case 'DateTime':
       return new DateTimeField();
-    case MetadataFieldType.Integer:
+    case 'Integer':
       return new IntegerField();
-    case MetadataFieldType.Float:
+    case 'Float':
       return new FloatField();
-    case MetadataFieldType.Currency:
+    case 'Currency':
       return new CurrencyField();
-    case MetadataFieldType.Password:
-      return new PasswordField();
-    case MetadataFieldType.ManyToMany:
+    case 'Password':
+      return new PasswordField(electron);
+    case 'ManyToMany':
       return new ManyToManyField();
-    case MetadataFieldType.ManyToOne:
+    case 'ManyToOne':
       return new ManyToOneField();
-    case MetadataFieldType.Owner:
+    case 'Owner':
       return new OwnerField();
-    case MetadataFieldType.Attachment:
+    case 'Attachment':
       return new AttachmentField();
-    case MetadataFieldType.Mixed:
+    case 'Mixed':
       return new MixedField();
-    case MetadataFieldType.Role:
+    case 'Role':
       return new RoleField();
   }
 }

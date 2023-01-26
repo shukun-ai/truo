@@ -100,7 +100,7 @@ export class SourceForeignQueryService<Model> {
       );
     }
 
-    if (!electron.referenceTo) {
+    if (typeof electron.referenceTo !== 'string' || !electron.referenceTo) {
       throw new Error(
         `Did not find specific referenceTo in getForeignAtomName: ${electronName}`,
       );

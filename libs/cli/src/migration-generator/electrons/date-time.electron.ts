@@ -1,9 +1,11 @@
-import { MetadataElectron } from '@shukun/schema';
+import { MetadataElectronDateTime } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';
 
 export class DateTimeElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron): string {
-    return `.timestamp('${electron.name}')`;
+  constructor(private readonly electron: MetadataElectronDateTime) {}
+
+  buildSqlSchema(): string {
+    return `.timestamp('${this.electron.name}')`;
   }
 }

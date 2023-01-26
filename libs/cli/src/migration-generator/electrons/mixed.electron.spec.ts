@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { MixedElectron } from './mixed.electron';
 
@@ -8,12 +8,12 @@ describe('Mixed Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Text,
+        fieldType: 'Mixed',
         isRequired: true,
       };
 
-      const field = new MixedElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new MixedElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.json('mock')`);
     });
   });

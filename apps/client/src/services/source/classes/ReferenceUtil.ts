@@ -1,18 +1,10 @@
-import {
-  MetadataFieldType,
-  MetadataSchema,
-  UnknownSourceModel,
-} from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel } from '@shukun/schema';
 import uniq from 'lodash/uniq';
 
 import { ReferenceMap } from './ReferenceMap.interface';
 
 export class ReferenceUtil {
-  protected REFERENCE_TYPES = [
-    MetadataFieldType.ManyToMany,
-    MetadataFieldType.ManyToOne,
-    MetadataFieldType.Owner,
-  ];
+  private REFERENCE_TYPES = ['ManyToMany', 'ManyToOne', 'Owner'];
 
   getReferenceMap(
     metadata: MetadataSchema,
@@ -34,8 +26,8 @@ export class ReferenceUtil {
     metadata.electrons.forEach((electron) => {
       if (
         this.REFERENCE_TYPES.includes(electron.fieldType) &&
-        electron.referenceTo &&
-        electron.foreignName
+        typeof electron.referenceTo === 'string' &&
+        typeof electron.foreignName === 'string'
       ) {
         initialReferenceMaps.push({
           electronName: electron.name,

@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { AttachmentElectron } from './attachment.electron';
 
@@ -8,12 +8,12 @@ describe('Attachment Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Attachment,
+        fieldType: 'Attachment',
         isRequired: true,
       };
 
-      const field = new AttachmentElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new AttachmentElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.json('mock')`);
     });
   });

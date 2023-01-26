@@ -1,9 +1,11 @@
-import { MetadataElectron } from '@shukun/schema';
+import { MetadataElectronMixed } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';
 
 export class MixedElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron): string {
-    return `.json('${electron.name}')`;
+  constructor(private readonly electron: MetadataElectronMixed) {}
+
+  buildSqlSchema(): string {
+    return `.json('${this.electron.name}')`;
   }
 }

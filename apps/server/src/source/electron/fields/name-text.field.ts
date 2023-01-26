@@ -4,11 +4,11 @@ import { Schema } from 'mongoose';
 
 import {
   ElectronExceptions,
-  ElectronType,
   MongooseSchema,
 } from '../electron-field.interface';
+import { IElectronInterpreter } from '../electron-interpreter.interface';
 
-export class NameTextField implements ElectronType {
+export class NameTextField implements IElectronInterpreter {
   validateValue(value: unknown): ElectronExceptions {
     const errorMessage = [];
 

@@ -1,4 +1,4 @@
-import { MetadataElectron } from '@shukun/schema';
+import { MetadataElectronFloat } from '@shukun/schema';
 import {
   FLOAT_DEFAULT_PRECISION,
   FLOAT_DEFAULT_SCALE,
@@ -7,10 +7,12 @@ import {
 import { ElectronFactoryInterface } from '../electron-factory';
 
 export class FloatElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron): string {
-    const precision = electron.precision ?? FLOAT_DEFAULT_PRECISION;
-    const scale = electron.scale ?? FLOAT_DEFAULT_SCALE;
+  constructor(private readonly electron: MetadataElectronFloat) {}
 
-    return `.float('${electron.name}', ${precision}, ${scale})`;
+  buildSqlSchema(): string {
+    const precision = this.electron.precision ?? FLOAT_DEFAULT_PRECISION;
+    const scale = this.electron.scale ?? FLOAT_DEFAULT_SCALE;
+
+    return `.float('${this.electron.name}', ${precision}, ${scale})`;
   }
 }

@@ -1,5 +1,6 @@
 import {
   MetadataElectron,
+  MetadataElectronSelect,
   MetadataFieldType,
   MetadataSchema,
 } from '@shukun/schema';
@@ -85,7 +86,9 @@ function parseElectronFieldType(electron: MetadataElectron): string {
   return text;
 }
 
-export function listElectronOptionKey(electron: MetadataElectron): string {
+export function listElectronOptionKey(
+  electron: MetadataElectronSelect,
+): string {
   if (!electron.options) {
     return 'undefined';
   }

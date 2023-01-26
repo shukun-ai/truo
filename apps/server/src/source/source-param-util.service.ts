@@ -24,8 +24,8 @@ export class SourceParamUtilService {
         );
 
         if (electron) {
-          const field = getFieldInstance(electron.fieldType);
-          const electronExceptions = field.validateValue(value, electron);
+          const field = getFieldInstance(electron);
+          const electronExceptions = field.validateValue(value);
 
           const newMessage = electronExceptions.map(
             (exception) => `${electron.label}: ${exception.message}`,
@@ -34,7 +34,7 @@ export class SourceParamUtilService {
           errorMessage = [...errorMessage, ...newMessage];
 
           const parsedValue = field.beforeSave
-            ? field.beforeSave(value, electron, dataSourceConnection.type)
+            ? field.beforeSave(value, dataSourceConnection.type)
             : value;
 
           sets[key] = parsedValue;

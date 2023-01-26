@@ -1,4 +1,10 @@
-import { MetadataSchema, ViewDetailField } from '@shukun/schema';
+import {
+  MetadataAttachmentOptions,
+  MetadataCurrencyOptions,
+  MetadataOptions,
+  MetadataSchema,
+  ViewDetailField,
+} from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -56,12 +62,14 @@ export const DetailField: FunctionComponent<DetailFieldProps> = ({
         label={viewDetailField.label}
         viewLink={undefined}
         electronName={viewDetailField.electronName}
-        electronOptions={electron.options}
-        electronForeignName={electron.foreignName}
-        electronReferenceTo={electron.referenceTo}
+        electronOptions={electron.options as MetadataOptions}
+        electronForeignName={electron.foreignName as string}
+        electronReferenceTo={electron.referenceTo as string}
         referenceViewName={viewDetailField.referenceViewName}
-        currencyOptions={electron.currencyOptions}
-        attachmentOptions={electron.attachmentOptions}
+        currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+        attachmentOptions={
+          electron.attachmentOptions as MetadataAttachmentOptions
+        }
         tip={viewDetailField.tip}
         row={source ?? undefined}
       />
@@ -73,12 +81,14 @@ export const DetailField: FunctionComponent<DetailFieldProps> = ({
         name={viewDetailField.name}
         label={viewDetailField.label}
         electronName={viewDetailField.electronName}
-        electronOptions={electron.options}
-        electronForeignName={electron.foreignName}
-        electronReferenceTo={electron.referenceTo}
+        electronOptions={electron.options as MetadataOptions}
+        electronForeignName={electron.foreignName as string | undefined}
+        electronReferenceTo={electron.referenceTo as string | undefined}
         referenceViewName={viewDetailField.referenceViewName}
-        currencyOptions={electron.currencyOptions}
-        attachmentOptions={electron.attachmentOptions}
+        currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+        attachmentOptions={
+          electron.attachmentOptions as MetadataAttachmentOptions
+        }
         tip={viewDetailField.tip}
         required={required}
         disabled={disabled}

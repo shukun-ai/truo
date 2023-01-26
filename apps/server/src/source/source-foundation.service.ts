@@ -332,7 +332,11 @@ export class SourceFoundationService<Model> {
         electron.name === electronName && electron.fieldType === 'ManyToMany',
     );
 
-    if (!electron || !electron.referenceTo) {
+    if (
+      !electron ||
+      !electron.referenceTo ||
+      typeof electron.referenceTo !== 'string'
+    ) {
       throw new BadRequestException(
         'We did not find specified electron or the electron is not ManyToMany.',
       );

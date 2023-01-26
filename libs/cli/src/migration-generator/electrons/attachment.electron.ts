@@ -1,9 +1,11 @@
-import { MetadataElectron } from '@shukun/schema';
+import { MetadataElectronAttachment } from '@shukun/schema';
 
 import { ElectronFactoryInterface } from '../electron-factory';
 
 export class AttachmentElectron implements ElectronFactoryInterface {
-  buildSqlSchema(electron: MetadataElectron): string {
-    return `.json('${electron.name}')`;
+  constructor(private readonly electron: MetadataElectronAttachment) {}
+
+  buildSqlSchema(): string {
+    return `.json('${this.electron.name}')`;
   }
 }

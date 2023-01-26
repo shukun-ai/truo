@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { SingleSelectElectron } from './single-select.electron';
 
@@ -8,12 +8,13 @@ describe('SingleSelect Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.SingleSelect,
+        fieldType: 'SingleSelect',
         isRequired: true,
+        options: [],
       };
 
-      const field = new SingleSelectElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new SingleSelectElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.string('mock', 1000)`);
     });
   });

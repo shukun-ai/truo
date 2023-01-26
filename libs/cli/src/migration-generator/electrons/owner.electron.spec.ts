@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { OwnerElectron } from './owner.electron';
 
@@ -8,12 +8,12 @@ describe('Owner Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Owner,
+        fieldType: 'Owner',
         isRequired: true,
       };
 
-      const field = new OwnerElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new OwnerElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.string('mock', 255)`);
     });
   });

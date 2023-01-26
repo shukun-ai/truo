@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { BooleanElectron } from './boolean.electron';
 
@@ -8,12 +8,12 @@ describe('Boolean Electron', () => {
       const electron: MetadataElectron = {
         name: 'mock',
         label: 'Mock',
-        fieldType: MetadataFieldType.Boolean,
+        fieldType: 'Boolean',
         isRequired: true,
       };
 
-      const field = new BooleanElectron();
-      const output = field.buildSqlSchema(electron);
+      const field = new BooleanElectron(electron);
+      const output = field.buildSqlSchema();
       expect(output).toEqual(`.boolean('mock')`);
     });
   });

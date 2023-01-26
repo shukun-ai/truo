@@ -1,4 +1,4 @@
-import { MetadataElectron, MetadataFieldType } from '@shukun/schema';
+import { MetadataElectron } from '@shukun/schema';
 
 import { AttachmentElectron } from './electrons/attachment.electron';
 import { BooleanElectron } from './electrons/boolean.electron';
@@ -20,46 +20,46 @@ import { SingleSelectElectron } from './electrons/single-select.electron';
 import { TextElectron } from './electrons/text.electron';
 
 export interface ElectronFactoryInterface {
-  buildSqlSchema: (electron: MetadataElectron) => string;
+  buildSqlSchema: () => string;
 }
 
 export function getFieldInstance(
-  fieldType: MetadataFieldType,
+  electron: MetadataElectron,
 ): ElectronFactoryInterface {
-  switch (fieldType) {
-    case MetadataFieldType.Text:
-      return new TextElectron();
-    case MetadataFieldType.NameText:
-      return new NameTextElectron();
-    case MetadataFieldType.LargeText:
-      return new LargeTextElectron();
-    case MetadataFieldType.SingleSelect:
-      return new SingleSelectElectron();
-    case MetadataFieldType.MultiSelect:
+  switch (electron.fieldType) {
+    case 'Text':
+      return new TextElectron(electron);
+    case 'NameText':
+      return new NameTextElectron(electron);
+    case 'LargeText':
+      return new LargeTextElectron(electron);
+    case 'SingleSelect':
+      return new SingleSelectElectron(electron);
+    case 'MultiSelect':
       return new MultiSelectElectron();
-    case MetadataFieldType.Boolean:
-      return new BooleanElectron();
-    case MetadataFieldType.DateTime:
-      return new DateTimeElectron();
-    case MetadataFieldType.Integer:
-      return new IntegerElectron();
-    case MetadataFieldType.Float:
-      return new FloatElectron();
-    case MetadataFieldType.Currency:
-      return new CurrencyElectron();
-    case MetadataFieldType.Password:
-      return new PasswordElectron();
-    case MetadataFieldType.ManyToMany:
+    case 'Boolean':
+      return new BooleanElectron(electron);
+    case 'DateTime':
+      return new DateTimeElectron(electron);
+    case 'Integer':
+      return new IntegerElectron(electron);
+    case 'Float':
+      return new FloatElectron(electron);
+    case 'Currency':
+      return new CurrencyElectron(electron);
+    case 'Password':
+      return new PasswordElectron(electron);
+    case 'ManyToMany':
       return new ManyToManyElectron();
-    case MetadataFieldType.ManyToOne:
-      return new ManyToOneElectron();
-    case MetadataFieldType.Owner:
-      return new OwnerElectron();
-    case MetadataFieldType.Attachment:
-      return new AttachmentElectron();
-    case MetadataFieldType.Mixed:
-      return new MixedElectron();
-    case MetadataFieldType.Role:
+    case 'ManyToOne':
+      return new ManyToOneElectron(electron);
+    case 'Owner':
+      return new OwnerElectron(electron);
+    case 'Attachment':
+      return new AttachmentElectron(electron);
+    case 'Mixed':
+      return new MixedElectron(electron);
+    case 'Role':
       return new RoleElectron();
   }
 }
