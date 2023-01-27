@@ -13,6 +13,7 @@ import { MongoQueryConvertorService } from './mongo/mongo-query-convertor.servic
 import { MongooseConnectionService } from './mongo/mongoose-connection.service';
 import { SourceDataAccessService } from './source-data-access.service';
 import { SourceDtoConstraintService } from './source-dto-constraint.service';
+import { SourceFieldFilterService } from './source-field-filter.service';
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';
 
@@ -36,6 +37,7 @@ import { SourceService } from './source.service';
     KnexExceptionHandlerService,
     SourceDataAccessService,
     SourceForeignQueryService,
+    SourceFieldFilterService,
   ],
   exports: [SourceService],
 })
