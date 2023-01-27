@@ -16,6 +16,7 @@ import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../../app.constant';
 import { SourceServiceCreateDto } from '../../app.type';
 
 import { DatabaseAdaptor } from '../adaptor/database-adaptor.interface';
+import { SourceFieldFilterService } from '../source-field-filter.service';
 
 import { MongoQueryConvertorService } from './mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongoose-connection.service';
@@ -25,9 +26,10 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   constructor(
     private readonly mongooseConnectionService: MongooseConnectionService,
     private readonly mongoQueryConvertorService: MongoQueryConvertorService,
+    private readonly sourceFieldFilterService: SourceFieldFilterService,
   ) {}
 
-  async getAtomModel(
+  private async getAtomModel(
     orgName: string,
     metadata: MetadataSchema,
   ): Promise<MongooseModel<Model & Document>> {
@@ -39,9 +41,12 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return atomModel;
   }
 
-  sourceToJSON(value: Model & Document): { _id: IDString } & Model {
+  private sourceToJSON(
+    value: Model & Document,
+    metadata: MetadataSchema,
+  ): { _id: IDString } & Model {
     const json = JSON.parse(JSON.stringify(value.toJSON()));
-    return json;
+    return this.sourceFieldFilterService.filter(json, metadata);
   }
 
   async createOne(
@@ -55,7 +60,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const entity = new atomModel(params as any);
     // TODO remove checkKeys
     await entity.save({ checkKeys: false }); // forbid error when example: 'email.$'
-    const result = this.sourceToJSON(entity);
+    const result = this.sourceToJSON(entity, metadata);
     return result;
   }
 
@@ -98,7 +103,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
       );
     }
 
-    const result = this.sourceToJSON(value);
+    const result = this.sourceToJSON(value, metadata);
 
     return result;
   }
@@ -119,7 +124,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
       .sort(mongoQuery.sort)
       .exec();
 
-    const result = value.map((value) => this.sourceToJSON(value));
+    const result = value.map((value) => this.sourceToJSON(value, metadata));
 
     return result;
   }

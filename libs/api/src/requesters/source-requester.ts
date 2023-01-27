@@ -4,6 +4,7 @@ import {
   IDString,
   MetadataSchema,
   RoleResourceType,
+  UnknownSourceModel,
 } from '@shukun/schema';
 
 import { firstOrNull } from '../helpers/source-helper';
@@ -17,7 +18,7 @@ import {
 
 import { ApiResponse } from '../request-adaptor/request-adaptor.type';
 
-export class SourceRequester<Model> {
+export class SourceRequester<Model extends UnknownSourceModel> {
   constructor(
     private readonly requestAdaptor: IRequestAdaptor,
     private readonly atomName: string,
@@ -82,7 +83,9 @@ export class SourceRequester<Model> {
     };
   }
 
-  public async create(model: Model): Promise<ApiResponse<CreateResponseData>> {
+  public async create(
+    model: Omit<Model, '_id' | 'createdAt' | 'updatedAt'>,
+  ): Promise<ApiResponse<CreateResponseData>> {
     return await this.post('create', model);
   }
 
@@ -91,7 +94,7 @@ export class SourceRequester<Model> {
    * @alias create
    */
   public async createOne(
-    model: Model,
+    model: Omit<Model, '_id' | 'createdAt' | 'updatedAt'>,
   ): Promise<ApiResponse<CreateResponseData>> {
     return this.create(model);
   }
