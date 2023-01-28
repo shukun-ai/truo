@@ -64,6 +64,7 @@ export class SourceRequester<Model extends UnknownSourceModel> {
     }
 
     return {
+      ...response,
       data: {
         value,
       },
@@ -77,6 +78,7 @@ export class SourceRequester<Model extends UnknownSourceModel> {
     const value = firstOrNull(response.data.value);
 
     return {
+      ...response,
       data: {
         value,
       },

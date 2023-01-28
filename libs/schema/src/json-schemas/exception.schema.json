@@ -16,7 +16,8 @@
         "FlowBadCompileException",
         "FlowDefinitionException",
         "TypeException",
-        "ElectronValueException"
+        "ElectronValueException",
+        "ApiResponseException"
       ],
       "tsEnumNames": [
         "IsNotArrayException",
@@ -26,7 +27,8 @@
         "FlowBadCompileException",
         "FlowDefinitionException",
         "TypeException",
-        "ElectronValueException"
+        "ElectronValueException",
+        "ApiResponseException"
       ]
     }
   }
