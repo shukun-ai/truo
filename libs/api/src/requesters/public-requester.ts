@@ -102,7 +102,7 @@ export class PublicRequester {
   public async getOrg(orgName?: string) {
     return await this.requestAdaptor.fetch<SystemPublicOrgModel>(
       'GET',
-      this.buildUri('grant-roles', orgName),
+      this.buildUri('org', orgName),
     );
   }
 
