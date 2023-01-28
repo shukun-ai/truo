@@ -1,3 +1,4 @@
+export * from './base-exception.type';
 export * from './exceptions/electron-value-exception';
 export * from './exceptions/flow-definition-exception';
 export * from './exceptions/flow-bad-compile-exception';
