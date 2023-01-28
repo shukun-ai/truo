@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx", "import"],
+  "plugins": ["@nrwl/nx", "import", "security"],
+  "extends": ["plugin:security/recommended"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -40,7 +41,8 @@
           {
             "allow": ["error", "warn", "info"]
           }
-        ]
+        ],
+        "no-throw-literal": "error"
       }
     },
     {

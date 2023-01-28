@@ -22,7 +22,8 @@
     "upsert",
     "mockdate",
     "postmate",
-    "untitle"
+    "untitle",
+    "buildable"
   ],
   "ignoreWords": [],
   "import": []
