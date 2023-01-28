@@ -1,6 +1,6 @@
 import { ExceptionNames } from '@shukun/schema';
 
-export type InterpolationMap = Record<string, unknown>;
+import { InterpolationMap } from './base-exception.type';
 
 export class BaseException extends Error {
   interpolationMap?: InterpolationMap;
