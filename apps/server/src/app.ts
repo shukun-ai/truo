@@ -1,4 +1,8 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  INestApplication,
+  NestApplicationOptions,
+  ValidationPipe,
+} from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
@@ -7,8 +11,15 @@ import { createApiCenter } from './util/swagger/swagger';
 
 let app: INestApplication;
 
-export async function initializeWebServer(port?: number | string) {
-  app = await NestFactory.create(AppModule);
+type WebServerOptions = {
+  port?: string;
+  ci?: boolean;
+};
+
+const RADOM_PORT = 0;
+
+export async function initializeWebServer(options: WebServerOptions = {}) {
+  app = await NestFactory.create(AppModule, prepareOptions(options.ci));
 
   const { httpAdapter } = app.get(HttpAdapterHost);
 
@@ -16,7 +27,7 @@ export async function initializeWebServer(port?: number | string) {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   createApiCenter(app);
-  await app.listen(port ?? 0);
+  await app.listen(options.port ?? RADOM_PORT);
 
   return app.getHttpServer().address();
 }
@@ -25,4 +36,8 @@ export const stopWebServer = async () => {
   if (app) {
     return await app.close();
   }
+};
+
+const prepareOptions = (ci?: boolean): NestApplicationOptions | undefined => {
+  return ci ? { logger: false } : undefined;
 };

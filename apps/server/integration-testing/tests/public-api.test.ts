@@ -9,7 +9,7 @@ describe('PublicRequester', () => {
   let adaptor: IRequestAdaptor;
 
   beforeAll(async () => {
-    const apiConnection = await initializeWebServer();
+    const apiConnection = await initializeWebServer({ ci: true });
 
     nock.disableNetConnect();
     nock.enableNetConnect('127.0.0.1');
