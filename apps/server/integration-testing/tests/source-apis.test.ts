@@ -15,7 +15,7 @@ describe('Source apis', () => {
   let auth: AuthenticationToken | undefined;
 
   beforeAll(async () => {
-    const apiConnection = await initializeWebServer();
+    const apiConnection = await initializeWebServer({ ci: true });
 
     nock.disableNetConnect();
     nock.enableNetConnect('127.0.0.1');
@@ -47,8 +47,6 @@ describe('Source apis', () => {
       const response = await sourceRequester.metadata();
       expect(response.data.value).toEqual(fieldsMockData.metadata[0]);
     });
-
-    it.todo('should remove security fields, when get metadata.');
   });
 
   describe('create', () => {
