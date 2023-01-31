@@ -1,7 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InterpolationMap, SourceValidateException } from '@shukun/exception';
 import { DataSourceConnection, MetadataSchema } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../app.type';
+
+import { ElectronExceptions } from './electron/electron-field.interface';
 
 import { getFieldInstance } from './electron/fields-map';
 
@@ -13,7 +16,7 @@ export class SourceParamUtilService {
     dto: SourceServiceCreateDto,
   ): SourceServiceCreateDto {
     const sets: SourceServiceCreateDto = {};
-    let errorMessage: string[] = [];
+    let errorMessages: ElectronExceptions = [];
 
     for (const key in dto) {
       if (Object.prototype.hasOwnProperty.call(dto, key)) {
@@ -27,11 +30,7 @@ export class SourceParamUtilService {
           const field = getFieldInstance(electron);
           const electronExceptions = field.validateValue(value);
 
-          const newMessage = electronExceptions.map(
-            (exception) => `${electron.label}: ${exception.message}`,
-          );
-
-          errorMessage = [...errorMessage, ...newMessage];
+          errorMessages = [...errorMessages, ...electronExceptions];
 
           const parsedValue = field.beforeSave
             ? field.beforeSave(value, dataSourceConnection.type)
@@ -42,10 +41,35 @@ export class SourceParamUtilService {
       }
     }
 
-    if (errorMessage.length > 0) {
-      throw new BadRequestException(errorMessage);
+    if (errorMessages.length > 0) {
+      throw this.combineElectronExceptions(errorMessages);
     }
 
     return sets;
+  }
+
+  private combineElectronExceptions(exceptions: ElectronExceptions) {
+    const initialException: {
+      messages: string;
+      interpolationMap: InterpolationMap;
+    } = {
+      messages: '',
+      interpolationMap: {},
+    };
+
+    const exceptionMap = exceptions.reduce((previous, next) => {
+      return {
+        messages: `${previous.messages} ${next.message}`,
+        interpolationMap: {
+          ...previous.interpolationMap,
+          ...next.interpolationMap,
+        },
+      };
+    }, initialException);
+
+    return new SourceValidateException(
+      exceptions[0].message,
+      exceptionMap.interpolationMap,
+    );
   }
 }
