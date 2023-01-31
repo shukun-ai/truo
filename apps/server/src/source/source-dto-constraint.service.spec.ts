@@ -1,15 +1,10 @@
-import { BadRequestException } from '@nestjs/common';
-import {
-  MetadataElectron,
-  MetadataFieldType,
-  MetadataSchema,
-} from '@shukun/schema';
+import { SourceRequiredException } from '@shukun/exception';
+import { MetadataSchema } from '@shukun/schema';
 
 import { SourceDtoConstraintService } from './source-dto-constraint.service';
 
 describe('SourceDtoConstraintService', () => {
-  describe('validateCreateConstraint', () => {
-    const sourceDtoConstraintService = new SourceDtoConstraintService();
+  const createMetadata = (params: { isRequired: boolean }) => {
     const metadata: MetadataSchema = {
       name: 'mock',
       label: 'Mock',
@@ -17,142 +12,61 @@ describe('SourceDtoConstraintService', () => {
         {
           name: 'mock',
           label: 'Mock',
-          fieldType: MetadataFieldType.Text,
-          isRequired: false,
+          fieldType: 'Text',
+          isRequired: params.isRequired,
         },
       ],
     };
-    const dto = {};
-    const output = sourceDtoConstraintService.validateCreateConstraint(
-      metadata,
-      dto,
-    );
-    expect(output).toEqual(undefined);
+    return metadata;
+  };
+
+  describe('validateCreateConstraint', () => {
+    it('should pass, then not required.', () => {
+      const sourceDtoConstraintService = new SourceDtoConstraintService();
+      const metadata = createMetadata({ isRequired: false });
+      const dto = {};
+      const output = sourceDtoConstraintService.validateCreateConstraint(
+        metadata,
+        dto,
+      );
+      expect(output).toBeUndefined();
+    });
+
+    it('should throw error, then need required.', () => {
+      const sourceDtoConstraintService = new SourceDtoConstraintService();
+      const metadata = createMetadata({ isRequired: true });
+      const dto = {};
+      expect(() =>
+        sourceDtoConstraintService.validateCreateConstraint(metadata, dto),
+      ).toThrow(
+        new SourceRequiredException('{{electronName}}: should be empty.', {
+          electronName: 'mock',
+        }),
+      );
+    });
   });
 
   describe('validateUpdateConstraint', () => {
-    const sourceDtoConstraintService = new SourceDtoConstraintService();
-    const metadata: MetadataSchema = {
-      name: 'mock',
-      label: 'Mock',
-      electrons: [
-        {
-          name: 'mock',
-          label: 'Mock',
-          fieldType: MetadataFieldType.Text,
-          isRequired: true,
-        },
-      ],
-    };
-    const dto = {};
-    const output = sourceDtoConstraintService.validateUpdateConstraint(
-      metadata,
-      dto,
-    );
-    expect(output).toEqual(undefined);
-  });
-
-  describe('validateConstraint', () => {
-    it('should pass, when is not required.', () => {
+    it('should pass, when not required.', () => {
       const sourceDtoConstraintService = new SourceDtoConstraintService();
-      const metadata: MetadataSchema = {
-        name: 'mock',
-        label: 'Mock',
-        electrons: [
-          {
-            name: 'mock',
-            label: 'Mock',
-            fieldType: MetadataFieldType.Text,
-            isRequired: false,
-          },
-        ],
-      };
+      const metadata = createMetadata({ isRequired: false });
       const dto = {};
-      const mode = 'create';
-      const output = sourceDtoConstraintService.validateConstraint(
+      const output = sourceDtoConstraintService.validateUpdateConstraint(
         metadata,
         dto,
-        mode,
       );
-      expect(output).toEqual(undefined);
+      expect(output).toBeUndefined();
     });
 
-    it('should throw error, when is required.', () => {
+    it('should pass, when need required.', () => {
       const sourceDtoConstraintService = new SourceDtoConstraintService();
-      const metadata: MetadataSchema = {
-        name: 'mock',
-        label: 'Mock',
-        electrons: [
-          {
-            name: 'mock',
-            label: 'Mock',
-            fieldType: MetadataFieldType.Text,
-            isRequired: true,
-          },
-        ],
-      };
+      const metadata = createMetadata({ isRequired: true });
       const dto = {};
-      const mode = 'create';
-
-      expect(() =>
-        sourceDtoConstraintService.validateConstraint(metadata, dto, mode),
-      ).toThrow(new BadRequestException(['Mock: should not be empty.']));
-    });
-  });
-
-  describe('validateRequired', () => {
-    it('should pass, when create and is not required.', () => {
-      const sourceDtoConstraintService = new SourceDtoConstraintService();
-      const value = undefined;
-      const electron: MetadataElectron = {
-        name: 'mock',
-        label: 'Mock',
-        fieldType: MetadataFieldType.Text,
-        isRequired: false,
-      };
-      const mode = 'create';
-      const output = sourceDtoConstraintService.validateRequired(
-        value,
-        electron,
-        mode,
+      const output = sourceDtoConstraintService.validateUpdateConstraint(
+        metadata,
+        dto,
       );
-      expect(output).toEqual([]);
-    });
-
-    it('should throw error, when create and is required.', () => {
-      const sourceDtoConstraintService = new SourceDtoConstraintService();
-      const value = undefined;
-      const electron: MetadataElectron = {
-        name: 'mock',
-        label: 'Mock',
-        fieldType: MetadataFieldType.Text,
-        isRequired: true,
-      };
-      const mode = 'create';
-      const output = sourceDtoConstraintService.validateRequired(
-        value,
-        electron,
-        mode,
-      );
-      expect(output).toEqual(['Mock: should not be empty.']);
-    });
-
-    it('should pass, when update and is required.', () => {
-      const sourceDtoConstraintService = new SourceDtoConstraintService();
-      const value = undefined;
-      const electron: MetadataElectron = {
-        name: 'mock',
-        label: 'Mock',
-        fieldType: MetadataFieldType.Text,
-        isRequired: true,
-      };
-      const mode = 'update';
-      const output = sourceDtoConstraintService.validateRequired(
-        value,
-        electron,
-        mode,
-      );
-      expect(output).toEqual([]);
+      expect(output).toBeUndefined();
     });
   });
 });

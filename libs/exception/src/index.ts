@@ -11,5 +11,6 @@ export * from './exceptions/source-duplicate-exception';
 export * from './exceptions/source-not-found-exception';
 export * from './exceptions/source-unknown-exception';
 export * from './exceptions/source-validate-exception';
+export * from './exceptions/source-required-exception';
 
 export * from './base-exception';
