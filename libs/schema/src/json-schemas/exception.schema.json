@@ -11,24 +11,32 @@
       "enum": [
         "IsNotArrayException",
         "IsEmptyArrayException",
+        "TypeException",
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
         "FlowBadCompileException",
         "FlowDefinitionException",
-        "TypeException",
         "ElectronValueException",
-        "ApiResponseException"
+        "ApiResponseException",
+        "SourceDuplicateException",
+        "SourceUnknownException",
+        "SourceValidateException",
+        "SourceNotFoundException"
       ],
       "tsEnumNames": [
         "IsNotArrayException",
         "IsEmptyArrayException",
+        "TypeException",
         "FlowRepeatCountException",
         "FlowNoCompiledCodeException",
         "FlowBadCompileException",
         "FlowDefinitionException",
-        "TypeException",
         "ElectronValueException",
-        "ApiResponseException"
+        "ApiResponseException",
+        "SourceDuplicateException",
+        "SourceUnknownException",
+        "SourceValidateException",
+        "SourceNotFoundException"
       ]
     }
   }
