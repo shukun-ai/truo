@@ -52,7 +52,7 @@ describe('Source apis', () => {
       } catch (error) {
         expect(error).toMatchObject({
           status: 400,
-          message: '{{electronName}}: should be empty.',
+          message: '{{electronName}}: should be required.',
           interpolationMap: { electronName: 'number' },
           internalServerCode: 'SourceRequiredException',
         });
