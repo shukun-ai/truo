@@ -1,15 +1,17 @@
 import { AxiosAdaptor, IRequestAdaptor, PublicRequester } from '@shukun/api';
 import nock from 'nock';
 
-import { initializeWebServer, stopWebServer } from '../../src/app';
+import { WebServer } from '../../src/app';
 import { createOrg, destroyOrg } from '../hooks/seed';
 
 describe('PublicRequester', () => {
   const orgName = 'test_source';
+  let webServer: WebServer;
   let adaptor: IRequestAdaptor;
 
   beforeAll(async () => {
-    const apiConnection = await initializeWebServer({ ci: true });
+    webServer = new WebServer({ ci: true });
+    const apiConnection = await webServer.start();
 
     nock.disableNetConnect();
     nock.enableNetConnect('127.0.0.1');
@@ -27,7 +29,7 @@ describe('PublicRequester', () => {
 
   afterAll(async () => {
     await destroyOrg(adaptor, { orgName });
-    await stopWebServer();
+    await webServer.stop();
     nock.enableNetConnect();
   });
 

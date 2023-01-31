@@ -4,7 +4,7 @@ import { AuthenticationToken } from '@shukun/schema';
 import { isDateTimeIso } from '@shukun/validator';
 import nock from 'nock';
 
-import { initializeWebServer, stopWebServer } from '../../src/app';
+import { WebServer } from '../../src/app';
 import { createOrg, destroyOrg, updateCodebase } from '../hooks/seed';
 import { signIn } from '../hooks/sign-in';
 
@@ -13,10 +13,12 @@ import fieldsMockData from './source-electrons.mock.json';
 describe('Source apis', () => {
   const orgName = 'test_source';
   let adaptor: IRequestAdaptor;
+  let webServer: WebServer;
   let auth: AuthenticationToken | undefined;
 
   beforeAll(async () => {
-    const apiConnection = await initializeWebServer({ ci: true });
+    webServer = new WebServer({ ci: true });
+    const apiConnection = await webServer.start();
 
     nock.disableNetConnect();
     nock.enableNetConnect('127.0.0.1');
@@ -38,7 +40,7 @@ describe('Source apis', () => {
 
   afterAll(async () => {
     await destroyOrg(adaptor, { orgName });
-    await stopWebServer();
+    await webServer.stop();
     nock.enableNetConnect();
   });
 
