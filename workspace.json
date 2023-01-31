@@ -9,6 +9,7 @@
     "daily-build": "apps/daily-build",
     "editor": "apps/editor",
     "exception": "libs/exception",
+    "migration": "libs/migration",
     "schema": "libs/schema",
     "server": "apps/server",
     "validator": "libs/validator",
