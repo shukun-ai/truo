@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
 import { AuthenticationToken } from '@shukun/schema';
 import { isDateTimeIso } from '@shukun/validator';
@@ -7,7 +8,7 @@ import { initializeWebServer, stopWebServer } from '../../src/app';
 import { createOrg, destroyOrg, updateCodebase } from '../hooks/seed';
 import { signIn } from '../hooks/sign-in';
 
-import fieldsMockData from './source-query.mock.json';
+import fieldsMockData from './source-electrons.mock.json';
 
 describe('Source apis', () => {
   const orgName = 'test_source';
@@ -49,10 +50,11 @@ describe('Source apis', () => {
     });
   });
 
-  describe('create', () => {
-    it('should return new id, when create', async () => {
+  describe('query', () => {
+    it('When query all devices, then return all devices.', async () => {
       const requester = new SourceRequester(adaptor, 'atom_a');
-      const response = await requester.create({
+
+      await requester.create({
         text: 'text',
         nameText: 'name_text',
         largeText: 'largeText',
@@ -79,28 +81,7 @@ describe('Source apis', () => {
         mixed: { title: 'Hello World!' },
         role: ['admin'],
       });
-      expect(typeof response.data.value._id).toBe('string');
-      expect(response.data.value._id.length).toBe(24);
-    });
 
-    it.todo(
-      'should throw error, when some field is required, unique and index and get expected exception message.',
-    );
-
-    it.todo('should throw error, when create data for manyToMany field.');
-
-    it.todo('should throw error, when text is too long.');
-
-    it.todo('should get shorten integer, when float is too long.');
-
-    it.todo('should get shorten float, when float is too long.');
-
-    it.todo('should throw error, when password is not match rule.');
-  });
-
-  describe('query', () => {
-    it('When query all devices, then return all devices.', async () => {
-      const requester = new SourceRequester(adaptor, 'atom_a');
       const response = await requester.query({
         filter: { text: { $eq: 'text' } },
       });
@@ -143,16 +124,95 @@ describe('Source apis', () => {
       });
     });
 
-    it.todo('should result with $or operator.');
+    it('should result with $or operator.', async () => {
+      const requester = new SourceRequester(adaptor, 'atom_a');
+      await requester.create({
+        text: 'mock_text_1',
+      });
+      await requester.create({
+        text: 'mock_text_2',
+      });
+      await requester.create({
+        text: 'mock_text_3',
+      });
+      const response = await requester.query({
+        filter: {
+          $or: [{ text: { $eq: 'mock_text_1' } }, { text: 'mock_text_2' }],
+        },
+        count: true,
+      });
 
-    it.todo('should result with $foreign operator.');
+      expect(response.data).toMatchObject({
+        count: 2,
+        value: [{ text: 'mock_text_1' }, { text: 'mock_text_2' }],
+      });
+    });
 
-    it.todo('should result with $like operator.');
+    it('should result with $foreign operator.', async () => {
+      const bRequester = new SourceRequester(adaptor, 'atom_b');
+      const b1Response = await bRequester.create({
+        number: 'mock_b_number_1',
+      });
+      await bRequester.create({
+        number: 'mock_b_number_2',
+      });
+      const aRequester = new SourceRequester(adaptor, 'atom_a');
+      await aRequester.create({
+        text: 'a',
+        manyToOne: b1Response.data.value._id,
+      });
+      const response = await aRequester.query({
+        filter: {
+          manyToOne: { $foreign: { number: 'mock_b_number_1' } },
+        },
+        count: true,
+      });
+
+      expect(response.data).toMatchObject({
+        count: 1,
+        value: [{ text: 'a', manyToOne: expect.any(String) }],
+      });
+    });
+
+    it('should result with $like operator.', async () => {
+      const slug = faker.commerce.product();
+      const text = `mock_${slug}_text_1`;
+      const requester = new SourceRequester(adaptor, 'atom_a');
+      await requester.create({
+        text,
+      });
+      const response = await requester.query({
+        filter: {
+          text: { $like: slug },
+        },
+        count: true,
+      });
+
+      expect(response.data).toMatchObject({
+        count: 1,
+        value: [{ text }],
+      });
+    });
 
     it.todo('should result with $boolean operator.');
 
-    it.todo('should result with select.');
-
-    it.todo('should result with order.');
+    it('should result with select.', async () => {
+      const requester = new SourceRequester(adaptor, 'atom_a');
+      const slug = faker.commerce.product();
+      await requester.create({
+        text: `mock_select_${slug}`,
+        float: faker.commerce.price,
+      });
+      const response = await requester.query({
+        filter: {
+          text: `mock_select_${slug}`,
+        },
+        select: { text: true },
+        count: true,
+      });
+      expect(response.data.value).toMatchObject([
+        { _id: expect.any(String), text: `mock_select_${slug}` },
+      ]);
+    });
   });
 });
