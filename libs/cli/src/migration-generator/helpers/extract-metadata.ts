@@ -8,7 +8,7 @@ export function extractMetadataToTypes(
 ): string {
   let text = '';
 
-  text += 'export const createSchemas = (knex: any, helpers: any) => {';
+  text += 'const createSchemas = (knex, helpers) => {';
 
   text += 'const schema = knex.schema;';
 

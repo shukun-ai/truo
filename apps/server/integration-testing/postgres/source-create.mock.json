@@ -1,0 +1,45 @@
+{
+  "$schema": "../../../../libs/schema/src/json-schemas/application.schema.json",
+  "title": "response exceptions",
+  "metadata": [
+    {
+      "name": "devices",
+      "label": "Devices",
+      "electrons": [
+        {
+          "name": "number",
+          "label": "NO.",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "type",
+          "label": "Type",
+          "fieldType": "SingleSelect",
+          "isRequired": true,
+          "options": [
+            {
+              "key": "vehicle",
+              "label": "Vehicle Pad"
+            },
+            {
+              "key": "delivery",
+              "label": "Delivery PDA"
+            },
+            {
+              "key": "ticket",
+              "label": "Ticket PDA"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
