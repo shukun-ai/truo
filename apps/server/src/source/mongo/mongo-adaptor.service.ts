@@ -20,6 +20,7 @@ import { SourceFieldFilterService } from '../source-field-filter.service';
 
 import { MongoQueryConvertorService } from './mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongoose-connection.service';
+import { MongoExceptionHandlerService } from './monogo-exception-handler.service';
 
 @Injectable()
 export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
@@ -27,6 +28,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     private readonly mongooseConnectionService: MongooseConnectionService,
     private readonly mongoQueryConvertorService: MongoQueryConvertorService,
     private readonly sourceFieldFilterService: SourceFieldFilterService,
+    private readonly mongoExceptionHandlerService: MongoExceptionHandlerService,
   ) {}
 
   private async getAtomModel(
@@ -58,10 +60,13 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const atomModel = await this.getAtomModel(orgName, metadata);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const entity = new atomModel(params as any);
-    // TODO remove checkKeys
-    await entity.save({ checkKeys: false }); // forbid error when example: 'email.$'
-    const result = this.sourceToJSON(entity, metadata);
-    return result;
+
+    try {
+      await entity.save();
+      return this.sourceToJSON(entity, metadata);
+    } catch (error) {
+      throw this.mongoExceptionHandlerService.handle(error, metadata);
+    }
   }
 
   async updateOne(

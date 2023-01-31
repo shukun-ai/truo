@@ -16,11 +16,15 @@ export interface ExceptionSchema {
 export enum ExceptionNames {
   IsNotArrayException = 'IsNotArrayException',
   IsEmptyArrayException = 'IsEmptyArrayException',
+  TypeException = 'TypeException',
   FlowRepeatCountException = 'FlowRepeatCountException',
   FlowNoCompiledCodeException = 'FlowNoCompiledCodeException',
   FlowBadCompileException = 'FlowBadCompileException',
   FlowDefinitionException = 'FlowDefinitionException',
-  TypeException = 'TypeException',
   ElectronValueException = 'ElectronValueException',
   ApiResponseException = 'ApiResponseException',
+  SourceDuplicateException = 'SourceDuplicateException',
+  SourceUnknownException = 'SourceUnknownException',
+  SourceValidateException = 'SourceValidateException',
+  SourceNotFoundException = 'SourceNotFoundException',
 }
