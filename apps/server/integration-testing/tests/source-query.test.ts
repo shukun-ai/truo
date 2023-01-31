@@ -7,7 +7,7 @@ import { initializeWebServer, stopWebServer } from '../../src/app';
 import { createOrg, destroyOrg, updateCodebase } from '../hooks/seed';
 import { signIn } from '../hooks/sign-in';
 
-import fieldsMockData from './fields.mock.json';
+import fieldsMockData from './source-query.mock.json';
 
 describe('Source apis', () => {
   const orgName = 'test_source';
