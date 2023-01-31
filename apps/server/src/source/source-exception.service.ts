@@ -10,14 +10,17 @@ export class SourceExceptionService {
   public prepareDuplicateException(
     metadata: MetadataSchema,
   ): SourceDuplicateException {
-    const fields = metadata.electrons
+    const electronNames = metadata.electrons
       .filter((electron) => electron.isUnique)
       .map((electron) => electron.name)
       .join(', ');
 
-    return new SourceDuplicateException('{{fields}}: should be unique.', {
-      fields,
-    });
+    return new SourceDuplicateException(
+      '{{electronNames}}: should be unique.',
+      {
+        electronNames,
+      },
+    );
   }
 
   public prepareUnknownException(error: unknown): SourceUnknownException {

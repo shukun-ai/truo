@@ -24,6 +24,7 @@ export enum ExceptionNames {
   ElectronValueException = 'ElectronValueException',
   ApiResponseException = 'ApiResponseException',
   SourceDuplicateException = 'SourceDuplicateException',
+  SourceRequiredException = 'SourceRequiredException',
   SourceUnknownException = 'SourceUnknownException',
   SourceValidateException = 'SourceValidateException',
   SourceNotFoundException = 'SourceNotFoundException',

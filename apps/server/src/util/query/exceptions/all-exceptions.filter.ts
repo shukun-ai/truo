@@ -9,6 +9,7 @@ import { InternalServerCode } from '@shukun/api';
 import {
   BaseException,
   SourceDuplicateException,
+  SourceRequiredException,
   SourceUnknownException,
   SourceValidateException,
 } from '@shukun/exception';
@@ -30,17 +31,21 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       return this.handleHttpError(response, exception);
     }
 
+    if (exception instanceof SourceRequiredException) {
+      return this.handlePlatformException(response, exception, 400);
+    }
+
     if (exception instanceof SourceDuplicateException) {
+      return this.handlePlatformException(response, exception, 400);
+    }
+
+    if (exception instanceof SourceValidateException) {
       return this.handlePlatformException(response, exception, 400);
     }
 
     if (exception instanceof SourceUnknownException) {
       console.error(exception);
       return this.handlePlatformException(response, exception, 500);
-    }
-
-    if (exception instanceof SourceValidateException) {
-      return this.handlePlatformException(response, exception, 400);
     }
 
     return this.handleUnknownError(response, exception);
