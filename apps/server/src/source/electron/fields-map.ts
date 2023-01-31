@@ -24,11 +24,11 @@ export function getFieldInstance(
 ): IElectronInterpreter {
   switch (electron.fieldType) {
     case 'Text':
-      return new TextField();
+      return new TextField(electron);
     case 'NameText':
       return new NameTextField();
     case 'LargeText':
-      return new LargeTextField();
+      return new LargeTextField(electron);
     case 'SingleSelect':
       return new SingleSelectField(electron);
     case 'MultiSelect':
