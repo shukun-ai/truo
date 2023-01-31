@@ -27,9 +27,12 @@ export class SourceDtoConstraintService {
 
   private validateRequired(value: unknown, electron: MetadataElectron): void {
     if (electron.isRequired && !value) {
-      throw new SourceRequiredException('{{electronName}}: should be empty.', {
-        electronName: electron.name,
-      });
+      throw new SourceRequiredException(
+        '{{electronName}}: should be required.',
+        {
+          electronName: electron.name,
+        },
+      );
     }
   }
 }

@@ -39,7 +39,7 @@ describe('SourceDtoConstraintService', () => {
       expect(() =>
         sourceDtoConstraintService.validateCreateConstraint(metadata, dto),
       ).toThrow(
-        new SourceRequiredException('{{electronName}}: should be empty.', {
+        new SourceRequiredException('{{electronName}}: should be required.', {
           electronName: 'mock',
         }),
       );
