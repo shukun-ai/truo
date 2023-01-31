@@ -1,3 +1,3 @@
-import { initializeWebServer } from './app';
+import { WebServer } from './app';
 
-initializeWebServer({ port: process.env.PORT ?? '3000' });
+new WebServer({ port: process.env.PORT ?? '3000' }).start();

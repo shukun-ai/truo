@@ -3,7 +3,7 @@ import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
 import { AuthenticationToken } from '@shukun/schema';
 import nock from 'nock';
 
-import { initializeWebServer, stopWebServer } from '../../src/app';
+import { WebServer } from '../../src/app';
 import { createOrg, destroyOrg, updateCodebase } from '../hooks/seed';
 import { signIn } from '../hooks/sign-in';
 
@@ -11,11 +11,13 @@ import mockApplication from './source-create.mock.json';
 
 describe('Source apis', () => {
   const orgName = 'test_source';
+  let webServer: WebServer;
   let adaptor: IRequestAdaptor;
   let auth: AuthenticationToken | undefined;
 
   beforeAll(async () => {
-    const apiConnection = await initializeWebServer({ ci: true });
+    webServer = new WebServer({ ci: true });
+    const apiConnection = await webServer.start();
 
     nock.disableNetConnect();
     nock.enableNetConnect('127.0.0.1');
@@ -36,7 +38,7 @@ describe('Source apis', () => {
 
   afterAll(async () => {
     await destroyOrg(adaptor, { orgName });
-    await stopWebServer();
+    await webServer.stop();
     nock.enableNetConnect();
   });
 
