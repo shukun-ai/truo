@@ -6,6 +6,7 @@ import {
   IRequestAdaptor,
   TenantRequester,
 } from '@shukun/api';
+import { DataSourceSchema } from '@shukun/schema';
 import FormData from 'form-data';
 
 export const createOrg = async (
@@ -40,6 +41,14 @@ export const updateCodebase = async (
     formData as any,
     formData.getHeaders(),
   );
+};
+
+export const updateDataSource = async (
+  adaptor: IRequestAdaptor,
+  dataSource: DataSourceSchema,
+) => {
+  const developerRequester = new DeveloperRequester(adaptor);
+  await developerRequester.updateDataSource(dataSource);
 };
 
 /**
