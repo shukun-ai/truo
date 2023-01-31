@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
 import { AuthenticationToken } from '@shukun/schema';
 import nock from 'nock';
@@ -39,26 +40,62 @@ describe('Source apis', () => {
     nock.enableNetConnect();
   });
 
-  describe('Make wrong request.', () => {
-    it('should throw error, when make a 400 bad request.', async () => {
+  describe('Make wrong create request.', () => {
+    it('should throw error, when the number is required, but we did not set it.', async () => {
       const sourceRequester = new SourceRequester(adaptor, 'devices');
       try {
         await sourceRequester.create({
+          number: undefined,
           title: 'title',
           type: 'vehicle',
         });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        expect(error.status).toEqual(400);
-        expect(error.message).toEqual('NO.: should not be empty.');
-        expect(error.interpolationMap).toEqual(undefined);
-        // TODO should return Bad Request, not Unknown.
-        expect(error.internalServerCode).toEqual('Unknown');
+      } catch (error) {
+        expect(error).toMatchObject({
+          status: 400,
+          message: '{{electronName}}: should be empty.',
+          interpolationMap: { electronName: 'number' },
+          internalServerCode: 'SourceRequiredException',
+        });
       }
     });
 
-    it.todo('should throw error, when make a duplication value input.');
+    it('should throw error, when make a duplication value input.', async () => {
+      const sourceRequester = new SourceRequester(adaptor, 'devices');
+      const payload = {
+        number: faker.datatype.string(),
+        title: 'title',
+        type: 'vehicle',
+      };
+      await sourceRequester.create(payload);
 
-    it.todo('should throw error, when make a 403 authorization.');
+      try {
+        await sourceRequester.create(payload);
+      } catch (error) {
+        expect(error).toMatchObject({
+          status: 400,
+          message: '{{electronNames}}: should be unique.',
+          interpolationMap: { electronNames: 'number' },
+          internalServerCode: 'SourceDuplicateException',
+        });
+      }
+    });
+
+    it('should throw error, when it did not pass validator.', async () => {
+      const sourceRequester = new SourceRequester(adaptor, 'devices');
+      try {
+        await sourceRequester.create({
+          number: faker.datatype.string(1200),
+          title: 'title',
+          type: 'vehicle',
+        });
+      } catch (error) {
+        expect(error).toMatchObject({
+          status: 400,
+          message: '{{electronName}}: should be less than {{maxLength}}.',
+          interpolationMap: { electronName: 'number', maxLength: 1000 },
+          internalServerCode: 'SourceValidateException',
+        });
+      }
+    });
   });
 });
