@@ -6,6 +6,10 @@ export type DiffMetadataSchema = {
   };
 };
 
+export type DiffMetadataElectron = {
+  [electronName: string]: Partial<MetadataElectron>;
+};
+
 export type DiffResult = {
   added: DiffMetadataSchema;
   deleted: DiffMetadataSchema;
