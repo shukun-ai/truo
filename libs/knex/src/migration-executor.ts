@@ -1,4 +1,4 @@
-import { IMigrationExecutor, MigrationChanges } from '@shukun/interface';
+import { IMigrationExecutor, MigrationChanges } from '@shukun/schema';
 import { DataSourceConnection } from '@shukun/schema';
 
 export class MigrationExecutor implements IMigrationExecutor {

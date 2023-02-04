@@ -13,3 +13,5 @@ export * from './types/utils';
 
 export * from './json-schema-exports';
 export * from './json-constant-exports';
+
+export * from './interfaces/migration-executor.interface';
