@@ -1,5 +1,9 @@
-import { MigrationElectronMap, MigrationMetadataMap } from '@shukun/interface';
-import { MetadataElectron, MetadataSchema } from '@shukun/schema';
+import {
+  MetadataElectron,
+  MetadataSchema,
+  MigrationElectronMap,
+  MigrationMetadataMap,
+} from '@shukun/schema';
 
 export class MetadataMapper {
   public parse(metadata: MetadataSchema[]): MigrationMetadataMap {

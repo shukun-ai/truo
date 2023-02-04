@@ -1,4 +1,4 @@
-import { MigrationDifference, MigrationMetadataMap } from '@shukun/interface';
+import { MigrationDifference, MigrationMetadataMap } from '@shukun/schema';
 
 import { MetadataDiffer } from './metadata-differ';
 
