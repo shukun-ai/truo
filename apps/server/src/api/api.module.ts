@@ -6,6 +6,7 @@ import { CoreModule } from '../core/core.module';
 import { FlowModule } from '../flow/flow.module';
 import { IdentityMiddleware } from '../identity/identity.middleware';
 import { IdentityModule } from '../identity/identity.module';
+import { MigrationModule } from '../migration/migration.module';
 import { ScheduleModule } from '../schedule/schedule.module';
 import { SourceModule } from '../source/source.module';
 import { SystemSourceModule } from '../system-source/system-source.module';
@@ -20,6 +21,7 @@ import { DataSourceController } from './data-source/data-source.controller';
 import { GrantListController } from './grant-list/grant-list.controller';
 import { GrantRoleController } from './grant-role/grant-role.controller';
 import { InspectionController } from './inspection/inspection.controller';
+import { MigrationController } from './migration/migration.controller';
 import { OrgController } from './org/org.controller';
 import { RoleController } from './role/role.controller';
 import { SeedController } from './seed/seed.controller';
@@ -41,6 +43,7 @@ import { WebhookController } from './webhook/webhook.controller';
     FlowModule,
     CompilerModule,
     ScheduleModule,
+    MigrationModule,
   ],
   controllers: [
     AuthenticationController,
@@ -56,6 +59,7 @@ import { WebhookController } from './webhook/webhook.controller';
     SeedController,
     RoleController,
     InspectionController,
+    MigrationController,
   ],
   providers: [
     SourceAccessControlService,

@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
+  DataSourceConnection,
+  MetadataSchema,
   MigrationDifference,
   IMigrationExecutor,
   MigrationChanges,
-} from '@shukun/interface';
-import { DataSourceConnection, MetadataSchema } from '@shukun/schema';
+} from '@shukun/schema';
 
 import { DataSourceService } from '../core/data-source.service';
 import { MetadataService } from '../core/metadata.service';

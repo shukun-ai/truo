@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
-import { ApplicationSchema, AuthenticationToken } from '@shukun/schema';
+import { AuthenticationToken } from '@shukun/schema';
 import nock from 'nock';
 
 import { WebServer } from '../../src/app';
-import { generateMigration } from '../hooks/migration';
+import { executeMigration } from '../hooks/migration';
 import {
   createOrg,
   destroyOrg,
@@ -15,7 +15,7 @@ import { signIn } from '../hooks/sign-in';
 
 import mockApplication from './source-create.mock.json';
 
-describe('Source apis', () => {
+describe.only('Source apis', () => {
   const orgName = 'test_source';
   let webServer: WebServer;
   let adaptor: IRequestAdaptor;
@@ -56,7 +56,7 @@ describe('Source apis', () => {
       },
     });
 
-    await generateMigration(mockApplication as ApplicationSchema);
+    await executeMigration(adaptor);
   });
 
   afterAll(async () => {
