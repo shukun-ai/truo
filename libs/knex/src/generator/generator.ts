@@ -14,9 +14,12 @@ export class Generator {
     const diffResult = this.differ.getDetail();
     const clauses: string[] = [];
 
+    clauses.push(`const createSchemas = (schema, helpers) => {`);
     clauses.push(this.prepareAdded(diffResult.added));
     clauses.push(this.prepareUpdated(diffResult.updated));
     clauses.push(this.prepareDeleted(diffResult.deleted));
+    clauses.push(`\nreturn schema;\n`);
+    clauses.push(`};`);
 
     return clauses.join('');
   }
