@@ -1,17 +1,17 @@
 {
-  "root": "libs/migration",
-  "sourceRoot": "libs/migration/src",
+  "root": "libs/knex",
+  "sourceRoot": "libs/knex/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/node:package",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/migration",
-        "tsConfig": "libs/migration/tsconfig.lib.json",
-        "packageJson": "libs/migration/package.json",
-        "main": "libs/migration/src/index.ts",
-        "assets": ["libs/migration/*.md"]
+        "outputPath": "dist/libs/knex",
+        "tsConfig": "libs/knex/tsconfig.lib.json",
+        "packageJson": "libs/knex/package.json",
+        "main": "libs/knex/src/index.ts",
+        "assets": ["libs/knex/*.md"]
       },
       "configurations": {
         "production": {}
@@ -21,14 +21,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/migration/**/*.ts"]
+        "lintFilePatterns": ["libs/knex/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/migration"],
+      "outputs": ["coverage/libs/knex"],
       "options": {
-        "jestConfig": "libs/migration/jest.config.js",
+        "jestConfig": "libs/knex/jest.config.js",
         "passWithNoTests": true
       }
     }

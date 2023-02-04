@@ -1,6 +1,6 @@
 {
-  "name": "@shukun/migration",
+  "name": "@shukun/knex",
   "version": "1.24.0",
   "author": "SHUKUN TECHNOLOGY",
-  "license": "MIT"
+  "license": "private"
 }
