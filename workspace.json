@@ -9,7 +9,6 @@
     "daily-build": "apps/daily-build",
     "editor": "apps/editor",
     "exception": "libs/exception",
-    "interface": "libs/interface",
     "knex": "libs/knex",
     "schema": "libs/schema",
     "server": "apps/server",
