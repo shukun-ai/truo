@@ -1,11 +1,17 @@
-import { DataSourceConnection, MetadataElectron } from '@shukun/schema';
+import { MetadataElectron } from '../types/application';
+import { DataSourceConnection } from '../types/data-source';
 
 export interface IMigrationExecutor {
   run(
-    connection: DataSourceConnection,
     changes: MigrationChanges,
+    context: MigrationExecutorContext,
   ): Promise<void>;
 }
+
+export type MigrationExecutorContext = {
+  orgName: string;
+  connection: DataSourceConnection;
+};
 
 export type MigrationChanges = {
   difference: MigrationDifference;
