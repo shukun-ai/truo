@@ -37,7 +37,7 @@ export class MigrationService implements IMigrationService {
     const connections = await this.prepareConnections(orgName);
 
     for (const connection of Object.values(connections)) {
-      this.executeMigration(connection, changes);
+      this.executeMigration(orgName, connection, changes);
     }
   }
 
@@ -62,14 +62,21 @@ export class MigrationService implements IMigrationService {
   }
 
   private async executeMigration(
+    orgName: string,
     connection: DataSourceConnection,
     changes: MigrationChanges,
   ): Promise<void> {
     switch (connection.type) {
       case 'postgres':
-        return this.postgresMigrationExecutor.run(connection, changes);
+        return this.postgresMigrationExecutor.run(changes, {
+          orgName,
+          connection,
+        });
       case 'oracleDB':
-        return this.oracleMigrationExecutor.run(connection, changes);
+        return this.oracleMigrationExecutor.run(changes, {
+          orgName,
+          connection,
+        });
       case 'default':
         throw new TypeError('We do not need to run migration for default DB.');
     }

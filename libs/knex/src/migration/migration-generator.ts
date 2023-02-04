@@ -1,33 +1,39 @@
-import { MetadataElectron } from '@shukun/schema';
-
-import { Differ } from '../differ/differ';
+import { TypeException } from '@shukun/exception';
 import {
-  DiffMetadataSchema,
-  DiffMetadataElectron,
-} from '../differ/differ.type';
+  DataSourceConnection,
+  MetadataElectron,
+  MigrationChanges,
+  MigrationElectronDifference,
+  MigrationMetadataDifference,
+} from '@shukun/schema';
+
 import { ElectronBuilderFactory } from '../electrons/electron-builder.factory';
 
-export class Generator {
-  constructor(private readonly differ: Differ) {}
+export class MigrationGenerator {
+  constructor(
+    private readonly changes: MigrationChanges,
+    private readonly connection: DataSourceConnection,
+  ) {}
 
   public generate(): string {
-    const diffResult = this.differ.getDetail();
     const clauses: string[] = [];
 
     clauses.push(`const createSchemas = (schema, helpers) => {`);
-    clauses.push(this.prepareAdded(diffResult.added));
-    clauses.push(this.prepareUpdated(diffResult.updated));
-    clauses.push(this.prepareDeleted(diffResult.deleted));
+    clauses.push(this.prepareAdded(this.changes.difference.added));
+    clauses.push(this.prepareUpdated(this.changes.difference.updated));
+    clauses.push(this.prepareDeleted(this.changes.difference.deleted));
     clauses.push(`\nreturn schema;\n`);
     clauses.push(`};`);
 
     return clauses.join('');
   }
 
-  prepareAdded(atoms: DiffMetadataSchema): string {
+  private prepareAdded(atoms: MigrationMetadataDifference): string {
     const clauses: string[] = [];
+
     for (const [atomName, electrons] of Object.entries(atoms)) {
-      clauses.push(`
+      if (this.includesAtom(atomName)) {
+        clauses.push(`
         schema.createTable(helpers.getTableName('${atomName}'), (table) => {
             ${this.prepareColumns(
               atomName,
@@ -36,14 +42,16 @@ export class Generator {
             )}
         });
         `);
+      }
     }
     return clauses.join('\n');
   }
 
-  prepareUpdated(atoms: DiffMetadataSchema): string {
+  private prepareUpdated(atoms: MigrationMetadataDifference): string {
     const clauses: string[] = [];
     for (const [atomName, electrons] of Object.entries(atoms)) {
-      clauses.push(`
+      if (this.includesAtom(atomName)) {
+        clauses.push(`
         schema.alterTable(helpers.getTableName('${atomName}'), (table) => {
             ${this.prepareColumns(
               atomName,
@@ -52,11 +60,12 @@ export class Generator {
             )}
         });
         `);
+      }
     }
     return clauses.join('\n');
   }
 
-  prepareDeleted(atoms: DiffMetadataSchema): string {
+  prepareDeleted(atoms: MigrationMetadataDifference): string {
     const clauses: string[] = [];
     for (const [atomName] of Object.entries(atoms)) {
       clauses.push(`
@@ -68,7 +77,7 @@ export class Generator {
 
   private prepareColumns(
     atomName: string,
-    electrons: DiffMetadataElectron,
+    electrons: MigrationElectronDifference,
     callback: (
       atomName: string,
       electronName: string,
@@ -147,9 +156,18 @@ export class Generator {
   }
 
   private prepareElectron(atomName: string, electronName: string): string {
-    const electron = this.differ.seekRightElectron(atomName, electronName);
+    const electron = this.changes.next?.[atomName]?.[electronName];
+
+    if (!electron) {
+      throw new TypeException('Did not find electron in migration-generator.');
+    }
+
     const electronBuilder = ElectronBuilderFactory.create(electron);
     const code = electronBuilder.buildSqlSchema();
     return `table${code};`;
+  }
+
+  private includesAtom(atomName: string) {
+    return this.connection.metadata.includes(atomName);
   }
 }
