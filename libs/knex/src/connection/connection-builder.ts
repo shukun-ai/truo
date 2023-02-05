@@ -8,10 +8,6 @@ export class ConnectionBuilder {
   async createClient(
     dataSourceConnection: DataSourceConnection,
   ): Promise<Knex> {
-    if (!dataSourceConnection) {
-      throw new TypeException('The metadata data source is not defined');
-    }
-
     const client = knex({
       client: this.prepareDatabaseType(dataSourceConnection),
       connection: {
