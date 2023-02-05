@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
   DataSourceConnection,
-  MetadataSchema,
   MigrationDifference,
   IMigrationExecutor,
   MigrationChanges,
+  MetadataSchema,
 } from '@shukun/schema';
 
 import { DataSourceService } from '../core/data-source.service';
@@ -28,22 +28,29 @@ export class MigrationService implements IMigrationService {
   ) {}
 
   async preview(orgName: string): Promise<MigrationDifference> {
-    const changes = await this.prepareChanges(orgName);
+    const previousMetadata = await this.metadataService.findMigrated(orgName);
+    const nextMetadata = await this.metadataService.getAll(orgName);
+    const changes = await this.prepareChanges(previousMetadata, nextMetadata);
     return changes.difference;
   }
 
   async execute(orgName: string): Promise<void> {
-    const changes = await this.prepareChanges(orgName);
+    const previousMetadata = await this.metadataService.findMigrated(orgName);
+    const nextMetadata = await this.metadataService.getAll(orgName);
+    const changes = await this.prepareChanges(previousMetadata, nextMetadata);
     const connections = await this.prepareConnections(orgName);
 
     for (const connection of Object.values(connections)) {
       this.executeMigration(orgName, connection, changes);
     }
+
+    await this.metadataService.updateMigrated(orgName, nextMetadata);
   }
 
-  private async prepareChanges(orgName: string): Promise<MigrationChanges> {
-    const previousMetadata: MetadataSchema[] = []; // TODO
-    const nextMetadata = await this.metadataService.getAll(orgName);
+  private async prepareChanges(
+    previousMetadata: MetadataSchema[],
+    nextMetadata: MetadataSchema[],
+  ): Promise<MigrationChanges> {
     const previous = new MetadataMapper().parse(previousMetadata);
     const next = new MetadataMapper().parse(nextMetadata);
     const difference = new MetadataDiffer().getDetail(previous, next);

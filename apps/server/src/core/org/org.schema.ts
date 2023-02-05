@@ -40,6 +40,9 @@ export class Org {
 
   @Prop({ type: 'Mixed' })
   dataSource?: DataSourceSchema;
+
+  @Prop({ type: 'Buffer' })
+  migrated?: Buffer;
 }
 
 export const OrgSchema = SchemaFactory.createForClass(Org);

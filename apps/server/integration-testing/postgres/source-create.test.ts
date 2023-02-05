@@ -1,13 +1,14 @@
 import { faker } from '@faker-js/faker';
 import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
-import { AuthenticationToken } from '@shukun/schema';
+import { AuthenticationToken, DataSourceConnection } from '@shukun/schema';
 import nock from 'nock';
 
 import { WebServer } from '../../src/app';
+import { createDatabase, destroyDatabase } from '../hooks/database';
 import { executeMigration } from '../hooks/migration';
 import {
-  createOrg,
   destroyOrg,
+  hasOrCreateOrg,
   updateCodebase,
   updateDataSource,
 } from '../hooks/seed';
@@ -16,12 +17,24 @@ import { signIn } from '../hooks/sign-in';
 import mockApplication from './source-create.mock.json';
 
 describe('Source apis', () => {
-  const orgName = faker.commerce.product().toLowerCase();
+  const orgName = 'test_source_oosps';
+  const connection: DataSourceConnection = {
+    type: 'postgres',
+    host: 'localhost',
+    port: 25432,
+    username: 'test',
+    password: 'test',
+    database: 'test',
+    metadata: ['devices'],
+    maxPools: 3,
+  };
   let webServer: WebServer;
   let adaptor: IRequestAdaptor;
   let auth: AuthenticationToken | undefined;
 
   beforeAll(async () => {
+    await createDatabase(connection);
+
     webServer = new WebServer({ ci: true });
     const apiConnection = await webServer.start();
 
@@ -36,23 +49,15 @@ describe('Source apis', () => {
       onAccessToken: () => auth?.accessToken ?? null,
     });
 
-    await createOrg(adaptor, { orgName });
+    await hasOrCreateOrg(adaptor, { orgName });
+
     auth = await signIn(adaptor, { orgName });
 
     await updateCodebase(adaptor, mockApplication);
 
     await updateDataSource(adaptor, {
       connections: {
-        postgres: {
-          type: 'postgres',
-          host: 'localhost',
-          port: 25432,
-          username: 'test',
-          password: 'test',
-          database: 'test',
-          metadata: ['devices'],
-          maxPools: 3,
-        },
+        postgres: connection,
       },
     });
 
@@ -62,6 +67,7 @@ describe('Source apis', () => {
   afterAll(async () => {
     await destroyOrg(adaptor, { orgName });
     await webServer.stop();
+    await destroyDatabase(connection);
     nock.enableNetConnect();
   });
 
