@@ -11,7 +11,7 @@ import { signIn } from '../hooks/sign-in';
 import fieldsMockData from './source-electrons.mock.json';
 
 describe('Source apis', () => {
-  const orgName = 'test_source';
+  const orgName = 'default_source_electrons_org';
   let adaptor: IRequestAdaptor;
   let webServer: WebServer;
   let auth: AuthenticationToken | undefined;

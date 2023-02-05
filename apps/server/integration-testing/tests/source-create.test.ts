@@ -10,7 +10,7 @@ import { signIn } from '../hooks/sign-in';
 import mockApplication from './source-create.mock.json';
 
 describe('Source apis', () => {
-  const orgName = 'test_source';
+  const orgName = 'default_source_create_org';
   let webServer: WebServer;
   let adaptor: IRequestAdaptor;
   let auth: AuthenticationToken | undefined;
