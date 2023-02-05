@@ -35,7 +35,14 @@ export class MetadataService {
     return atom;
   }
 
-  async getMigrated(orgName: string): Promise<MetadataSchema[]> {
-    return [];
+  async findMigrated(orgName: string): Promise<MetadataSchema[]> {
+    return await this.orgService.findMigrated(orgName);
+  }
+
+  async updateMigrated(
+    orgName: string,
+    metadata: MetadataSchema[],
+  ): Promise<void> {
+    return await this.orgService.updateMigrated(orgName, metadata);
   }
 }

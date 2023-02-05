@@ -4,10 +4,35 @@ import { faker } from '@faker-js/faker';
 import {
   DeveloperRequester,
   IRequestAdaptor,
+  PublicRequester,
   TenantRequester,
 } from '@shukun/api';
 import { DataSourceSchema } from '@shukun/schema';
 import FormData from 'form-data';
+
+export const hasOrCreateOrg = async (
+  adaptor: IRequestAdaptor,
+  payload: { orgName: string },
+) => {
+  if (await hasOrg(adaptor, payload)) {
+    return;
+  }
+
+  await createOrg(adaptor, payload);
+};
+
+export const hasOrg = async (
+  adaptor: IRequestAdaptor,
+  payload: { orgName: string },
+) => {
+  const requester = new PublicRequester(adaptor);
+  try {
+    await requester.getOrg(payload.orgName);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 export const createOrg = async (
   adaptor: IRequestAdaptor,
