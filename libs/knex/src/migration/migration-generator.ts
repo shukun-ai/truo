@@ -35,6 +35,7 @@ export class MigrationGenerator {
       if (this.includesAtom(atomName)) {
         clauses.push(`
         schema.createTable(helpers.getTableName('${atomName}'), (table) => {
+            ${this.prepareInternalColumns()}
             ${this.prepareColumns(
               atomName,
               electrons,
@@ -44,6 +45,16 @@ export class MigrationGenerator {
         `);
       }
     }
+    return clauses.join('\n');
+  }
+
+  private prepareInternalColumns() {
+    const clauses: string[] = [];
+    clauses.push(`table.string('_id', 255).unique().notNullable();`);
+    clauses.push(`table.primary('_id');`);
+    clauses.push(`table.string('owner', 255);`);
+    clauses.push(`table.timestamp('createdAt').nullable();`);
+    clauses.push(`table.timestamp('updatedAt').nullable();`);
     return clauses.join('\n');
   }
 

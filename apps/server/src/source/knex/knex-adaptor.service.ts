@@ -52,7 +52,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
       });
       return { _id: id };
     } catch (error) {
-      throw this.knexExceptionHandlerService.handle(error);
+      throw this.knexExceptionHandlerService.handle(error, metadata);
     }
   }
 
@@ -77,7 +77,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
         .where('_id', id)
         .update({ ...params, updatedAt });
     } catch (error) {
-      throw this.knexExceptionHandlerService.handle(error);
+      throw this.knexExceptionHandlerService.handle(error, metadata);
     }
   }
 

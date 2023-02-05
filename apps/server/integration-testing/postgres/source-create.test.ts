@@ -15,8 +15,8 @@ import { signIn } from '../hooks/sign-in';
 
 import mockApplication from './source-create.mock.json';
 
-describe.only('Source apis', () => {
-  const orgName = 'test_source';
+describe('Source apis', () => {
+  const orgName = faker.commerce.product().toLowerCase();
   let webServer: WebServer;
   let adaptor: IRequestAdaptor;
   let auth: AuthenticationToken | undefined;
