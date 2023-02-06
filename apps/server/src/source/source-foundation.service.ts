@@ -36,15 +36,10 @@ export class SourceFoundationService<Model> {
       atomName,
     );
 
-    const owner = ownerId ? { owner: ownerId } : null;
-
     const params = this.sourceParamUtilService.buildParams(
       dataSourceConnection,
       metadata,
-      {
-        ...dto,
-        ...owner,
-      },
+      dto,
     );
 
     this.sourceDtoConstraintService.validateCreateConstraint(metadata, params);
@@ -58,6 +53,7 @@ export class SourceFoundationService<Model> {
       orgName,
       metadata,
       params,
+      ownerId,
     );
   }
 

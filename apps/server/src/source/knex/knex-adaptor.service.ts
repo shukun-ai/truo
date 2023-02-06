@@ -30,6 +30,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     orgName: string,
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
+    ownerId: IDString | null,
   ): Promise<{ _id: IDString }> {
     const tableName = this.knexConnectionService.getTableName(
       orgName,
@@ -42,6 +43,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
     const id = new ObjectId().toString();
     const updatedAt = new Date();
     const createdAt = updatedAt;
+    const owner = ownerId;
 
     try {
       await client(tableName).insert({
@@ -49,6 +51,7 @@ export class KnexAdaptorService<Model> implements DatabaseAdaptor<Model> {
         _id: id,
         createdAt,
         updatedAt,
+        owner,
       });
       return { _id: id };
     } catch (error) {

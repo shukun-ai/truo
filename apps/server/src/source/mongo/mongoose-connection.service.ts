@@ -55,15 +55,17 @@ export class MongooseConnectionService {
     }
 
     for (const electron of metadata.electrons) {
-      atomSchema[electron.name] = await this.buildElectronSchema(electron);
+      atomSchema[electron.name] = this.buildElectronSchema(electron);
     }
+
+    atomSchema.owner = this.buildOwnerSchema();
 
     return new Schema(atomSchema, { timestamps: true });
   }
 
-  protected async buildElectronSchema(
+  protected buildElectronSchema(
     electron: MetadataElectron,
-  ): Promise<MongooseSchema & MongooseConstraintSchema> {
+  ): MongooseSchema & MongooseConstraintSchema {
     const field = getFieldInstance(electron);
     const fieldSchema = field.buildSchema(this.connection);
 
@@ -81,5 +83,14 @@ export class MongooseConnectionService {
     }
 
     return `org_${orgId}_${metadata.name}`;
+  }
+
+  private buildOwnerSchema(): MongooseSchema & MongooseConstraintSchema {
+    return {
+      type: Schema.Types.ObjectId,
+      index: false,
+      required: false,
+      unique: false,
+    };
   }
 }
