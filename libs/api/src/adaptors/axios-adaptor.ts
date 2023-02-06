@@ -35,7 +35,7 @@ export class AxiosAdaptor implements IRequestAdaptor {
     };
   }
 
-  createAxiosInstance({
+  private createAxiosInstance({
     baseUrl,
     timeout,
     retries,
