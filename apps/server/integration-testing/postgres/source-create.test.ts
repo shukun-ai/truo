@@ -33,6 +33,7 @@ describe('Source apis', () => {
   let auth: AuthenticationToken | undefined;
 
   beforeAll(async () => {
+    await destroyDatabase(connection);
     await createDatabase(connection);
 
     webServer = new WebServer({ ci: true });
