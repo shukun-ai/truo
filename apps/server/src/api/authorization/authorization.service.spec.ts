@@ -1,4 +1,7 @@
-import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
+import {
+  GatewayForbiddenException,
+  GatewayUnauthorizedException,
+} from '@shukun/exception';
 
 import { RoleService } from '../../core/role.service';
 
@@ -136,7 +139,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/webhook/shukun/workflow_name',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous, then throw.', async () => {
@@ -146,7 +149,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/webhook/shukun/workflow_name',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
 
     it('if anonymous post workflow_public, then pass.', async () => {
@@ -223,7 +228,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/developer/shukun/codebase',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous metadata orders, then throw.', async () => {
@@ -233,7 +238,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/developer/shukun/codebase',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
   });
 
@@ -263,7 +270,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/metadata',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous metadata orders, then throw.', async () => {
@@ -273,7 +280,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/metadata',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
   });
 
@@ -303,7 +312,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/query',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if cfo has readOwn of payments, then pass.', async () => {
@@ -322,7 +331,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/query',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
 
     it('if anonymous has read of products, then pass.', async () => {
@@ -361,7 +372,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/create',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous query orders, then throw.', async () => {
@@ -371,7 +382,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/create',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
   });
 
@@ -401,7 +414,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/update',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if cfo has readOwn of payments, then pass.', async () => {
@@ -420,7 +433,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/update',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
 
     it('if anonymous has read of products, then pass.', async () => {
@@ -459,7 +474,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/add-to-many',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous add-to-many orders, then throw.', async () => {
@@ -469,7 +484,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/add-to-many',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
   });
 
@@ -499,7 +516,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/remove-from-many',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous remove-from-many orders, then throw.', async () => {
@@ -509,7 +526,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/remove-from-many',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
   });
 
@@ -539,7 +558,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/increase',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous increase orders, then throw.', async () => {
@@ -549,7 +568,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/increase',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
   });
 
@@ -579,7 +600,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/delete',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
 
     it('if anonymous delete orders, then throw.', async () => {
@@ -589,7 +610,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/any/delete',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new UnauthorizedException('未登录无法访问该资源。'));
+      ).rejects.toThrow(
+        new GatewayUnauthorizedException('未登录无法访问该资源。'),
+      );
     });
 
     it('if anonymous has read of products, then pass.', async () => {
@@ -610,7 +633,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/tenant/any/seeds',
           validOwnerUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('没有权限操作内部接口。'));
+      ).rejects.toThrow(
+        new GatewayForbiddenException('没有权限操作内部接口。'),
+      );
     });
 
     it('if coo, then throw.', async () => {
@@ -620,7 +645,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/tenant/any/seeds',
           validCooUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('没有权限操作内部接口。'));
+      ).rejects.toThrow(
+        new GatewayForbiddenException('没有权限操作内部接口。'),
+      );
     });
 
     it('if cfo, then throw.', async () => {
@@ -630,7 +657,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/tenant/any/seeds',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('没有权限操作内部接口。'));
+      ).rejects.toThrow(
+        new GatewayForbiddenException('没有权限操作内部接口。'),
+      );
     });
 
     it('if anonymous add-to-many orders, then throw.', async () => {
@@ -640,7 +669,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/tenant/any/seeds',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('没有权限操作内部接口。'));
+      ).rejects.toThrow(
+        new GatewayForbiddenException('没有权限操作内部接口。'),
+      );
     });
   });
 
@@ -652,7 +683,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/internal/shukun/any',
           anonymousUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('没有权限操作内部接口。'));
+      ).rejects.toThrow(
+        new GatewayForbiddenException('没有权限操作内部接口。'),
+      );
     });
   });
 
@@ -682,7 +715,7 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/mockId/update',
           validCfoUserToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('未授权访问该资源。'));
+      ).rejects.toThrow(new GatewayForbiddenException('未授权访问该资源。'));
     });
   });
 
@@ -694,7 +727,9 @@ describe('AuthorizationService', () => {
           '/apis/v1/source/shukun/orders/mockId/update',
           invalidOrgNameToken,
         ),
-      ).rejects.toThrow(new ForbiddenException('您没有权限请求另一组织的接口'));
+      ).rejects.toThrow(
+        new GatewayForbiddenException('您没有权限请求另一组织的接口'),
+      );
     });
   });
 });

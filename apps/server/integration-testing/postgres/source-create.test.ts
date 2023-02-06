@@ -1,5 +1,10 @@
 import { faker } from '@faker-js/faker';
-import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
+import {
+  ApiResponseException,
+  AxiosAdaptor,
+  IRequestAdaptor,
+  SourceRequester,
+} from '@shukun/api';
 import { AuthenticationToken, DataSourceConnection } from '@shukun/schema';
 import nock from 'nock';
 
@@ -82,12 +87,14 @@ describe('Source apis', () => {
           type: 'vehicle',
         });
       } catch (error) {
-        expect(error).toMatchObject({
-          status: 400,
-          message: '{{electronName}}: should be required.',
-          interpolationMap: { electronName: 'number' },
-          internalServerCode: 'SourceRequiredException',
-        });
+        expect(error).toEqual(
+          new ApiResponseException(
+            400,
+            '{{electronName}}: should be required.',
+            { electronName: 'number' },
+            'SourceRequiredException',
+          ),
+        );
       }
     });
 
@@ -103,12 +110,14 @@ describe('Source apis', () => {
       try {
         await sourceRequester.create(payload);
       } catch (error) {
-        expect(error).toMatchObject({
-          status: 400,
-          message: '{{electronNames}}: should be unique.',
-          interpolationMap: { electronNames: 'number' },
-          internalServerCode: 'SourceDuplicateException',
-        });
+        expect(error).toEqual(
+          new ApiResponseException(
+            400,
+            '{{electronNames}}: should be unique.',
+            { electronNames: 'number' },
+            'SourceDuplicateException',
+          ),
+        );
       }
     });
 
@@ -121,12 +130,14 @@ describe('Source apis', () => {
           type: 'vehicle',
         });
       } catch (error) {
-        expect(error).toMatchObject({
-          status: 400,
-          message: '{{electronName}}: should be less than {{maxLength}}.',
-          interpolationMap: { electronName: 'number', maxLength: 1000 },
-          internalServerCode: 'SourceValidateException',
-        });
+        expect(error).toEqual(
+          new ApiResponseException(
+            400,
+            '{{electronName}}: should be less than {{maxLength}}.',
+            { electronName: 'number', maxLength: 1000 },
+            'SourceValidateException',
+          ),
+        );
       }
     });
   });
