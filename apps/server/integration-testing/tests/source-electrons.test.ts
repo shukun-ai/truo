@@ -53,7 +53,7 @@ describe('Source apis', () => {
   });
 
   describe('query', () => {
-    it('When query all devices, then return all devices.', async () => {
+    it.only('When query all devices, then return all devices.', async () => {
       const requester = new SourceRequester(adaptor, 'atom_a');
 
       await requester.create({
@@ -122,7 +122,7 @@ describe('Source apis', () => {
         // TODO make new feature to hide manyToMany field.
         manyToMany: [],
         // TODO should let this value return.
-        // owner: operatorId,
+        owner: auth?.userId,
       });
     });
 

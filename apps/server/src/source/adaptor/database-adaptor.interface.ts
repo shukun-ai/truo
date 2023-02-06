@@ -13,6 +13,7 @@ export interface DatabaseAdaptor<Model> {
     orgName: string,
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
+    ownerId: IDString | null,
   ): Promise<{ _id: IDString }>;
   updateOne(
     dataSourceConnection: DataSourceConnection,
