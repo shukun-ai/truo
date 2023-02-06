@@ -48,7 +48,7 @@ export class PublicRequester {
    * validateAuthorization("POST", "/apis/v1/source/:orgName/system__users/any/query")
    */
   public async validateAuthorization(method: string, uri: string) {
-    return await this.requestAdaptor.fetch<string[]>(
+    return await this.requestAdaptor.fetch<boolean>(
       'GET',
       this.buildUri('authorization/validate', 'any'),
       {
