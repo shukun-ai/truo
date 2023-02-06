@@ -1,8 +1,8 @@
+import { Injectable } from '@nestjs/common';
 import {
-  ForbiddenException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+  GatewayForbiddenException,
+  GatewayUnauthorizedException,
+} from '@shukun/exception';
 import {
   RoleResourceType,
   RoleSchema,
@@ -60,7 +60,7 @@ export class AuthorizationService {
   }
 
   private forbidAny() {
-    throw new ForbiddenException('没有权限操作内部接口。');
+    throw new GatewayForbiddenException('没有权限操作内部接口。');
   }
 
   private async validateAny(
@@ -80,7 +80,7 @@ export class AuthorizationService {
   ): Promise<void> {
     const authJwt = this.tokenVerifyService.parse(token);
     if (resourceNodes.orgName !== authJwt.orgName) {
-      throw new ForbiddenException('您没有权限请求另一组织的接口');
+      throw new GatewayForbiddenException('您没有权限请求另一组织的接口');
     }
     const user = await this.systemUserService.findOne(
       authJwt.orgName,
@@ -94,7 +94,7 @@ export class AuthorizationService {
     const roles = await this.roleService.findAll(resourceNodes.orgName);
     const result = this.validateGrantList(roles, roleNames, resourceNodes);
     if (!result) {
-      throw new ForbiddenException('未授权访问该资源。');
+      throw new GatewayForbiddenException('未授权访问该资源。');
     }
   }
 
@@ -103,7 +103,7 @@ export class AuthorizationService {
     const roles = await this.roleService.findAll(resourceNodes.orgName);
     const result = this.validateGrantList(roles, roleNames, resourceNodes);
     if (!result) {
-      throw new UnauthorizedException('未登录无法访问该资源。');
+      throw new GatewayUnauthorizedException('未登录无法访问该资源。');
     }
   }
 

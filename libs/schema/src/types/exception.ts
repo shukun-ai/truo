@@ -28,4 +28,6 @@ export enum ExceptionNames {
   SourceUnknownException = 'SourceUnknownException',
   SourceValidateException = 'SourceValidateException',
   SourceNotFoundException = 'SourceNotFoundException',
+  GatewayUnauthorizedException = 'GatewayUnauthorizedException',
+  GatewayForbiddenException = 'GatewayForbiddenException',
 }

@@ -8,6 +8,8 @@ import { BaseExceptionFilter } from '@nestjs/core';
 import { InternalServerCode } from '@shukun/api';
 import {
   BaseException,
+  GatewayForbiddenException,
+  GatewayUnauthorizedException,
   SourceDuplicateException,
   SourceRequiredException,
   SourceUnknownException,
@@ -41,6 +43,14 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
 
     if (exception instanceof SourceValidateException) {
       return this.handlePlatformException(response, exception, 400);
+    }
+
+    if (exception instanceof GatewayForbiddenException) {
+      return this.handlePlatformException(response, exception, 403);
+    }
+
+    if (exception instanceof GatewayUnauthorizedException) {
+      return this.handlePlatformException(response, exception, 401);
     }
 
     if (exception instanceof SourceUnknownException) {

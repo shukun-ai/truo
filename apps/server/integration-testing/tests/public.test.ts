@@ -90,14 +90,14 @@ describe('PublicRequester', () => {
           '/apis/v1/source/test/devices',
         );
       } catch (error) {
-        // TODO should expect more details for error.
-        expect(error).toBeInstanceOf(ApiResponseException);
-        // expect(error).toEqual({
-        //   status: 401,
-        //   message: '未登录无法访问该资源。',
-        //   interpolationMap: undefined,
-        //   internalServerCode: 'AuthenticationException',
-        // });
+        expect(error).toEqual(
+          new ApiResponseException(
+            401,
+            '未登录无法访问该资源。',
+            undefined,
+            'GatewayUnauthorizedException',
+          ),
+        );
       }
     });
   });
