@@ -1,25 +1,30 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { MetadataSchema } from '@shukun/schema';
 
 import { OrgService } from './org.service';
 
 @Injectable()
 export class MetadataService {
-  @Inject() private readonly orgService!: OrgService;
+  constructor(private readonly orgService: OrgService) {}
+
+  async getAll(orgName: string): Promise<MetadataSchema[]> {
+    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    return application.metadata ?? [];
+  }
 
   async getMetadataByName(
     orgName: string,
     atomName: string,
   ): Promise<MetadataSchema> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const metadata = await this.getAll(orgName);
 
-    if (!application.metadata) {
+    if (metadata.length === 0) {
       throw new BadRequestException(
         `${orgName} 组织名下没有找到 metadata 数据。`,
       );
     }
 
-    const atom = application.metadata.find((atom) => atom.name === atomName);
+    const atom = metadata.find((atom) => atom.name === atomName);
 
     if (!atom) {
       throw new BadRequestException(
@@ -28,5 +33,16 @@ export class MetadataService {
     }
 
     return atom;
+  }
+
+  async findMigrated(orgName: string): Promise<MetadataSchema[]> {
+    return await this.orgService.findMigrated(orgName);
+  }
+
+  async updateMigrated(
+    orgName: string,
+    metadata: MetadataSchema[],
+  ): Promise<void> {
+    return await this.orgService.updateMigrated(orgName, metadata);
   }
 }

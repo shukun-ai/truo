@@ -1,4 +1,9 @@
-import { AxiosAdaptor, IRequestAdaptor, PublicRequester } from '@shukun/api';
+import {
+  ApiResponseException,
+  AxiosAdaptor,
+  IRequestAdaptor,
+  PublicRequester,
+} from '@shukun/api';
 import nock from 'nock';
 
 import { WebServer } from '../../src/app';
@@ -42,6 +47,91 @@ describe('PublicRequester', () => {
         label: expect.any(String),
         name: orgName,
       });
+    });
+  });
+
+  describe('signIn', () => {
+    it('should pass, when signIn.', async () => {
+      const publicRequester = new PublicRequester(adaptor);
+      const response = await publicRequester.signIn(orgName, {
+        username: 'admin',
+        password: '123456',
+      });
+
+      expect(response.data.value).toEqual({
+        userId: expect.any(String),
+        username: 'admin',
+        orgName,
+        orgId: expect.any(String),
+        tokenType: 'jwt',
+        accessToken: expect.any(String),
+        expiresIn: 36000000,
+      });
+    });
+  });
+
+  describe('validateAuthorization', () => {
+    it('should return true, when validate authorization of public without token.', async () => {
+      const publicRequester = new PublicRequester(adaptor);
+      const response = await publicRequester.validateAuthorization(
+        'POST',
+        '/apis/v1/public/any/org',
+      );
+
+      expect(response.data.value).toEqual(true);
+    });
+
+    it('should throw error, when validate authorization of source without token.', async () => {
+      const publicRequester = new PublicRequester(adaptor);
+
+      try {
+        await publicRequester.validateAuthorization(
+          'POST',
+          '/apis/v1/source/test/devices',
+        );
+      } catch (error) {
+        expect(error).toEqual(
+          new ApiResponseException(
+            401,
+            '未登录无法访问该资源。',
+            undefined,
+            'GatewayUnauthorizedException',
+          ),
+        );
+      }
+    });
+  });
+
+  describe('getGrantList', () => {
+    it('should pass, when getGrantList.', async () => {
+      const publicRequester = new PublicRequester(adaptor);
+      const response = await publicRequester.getGrantList(orgName);
+
+      expect(response.data.value).toEqual([
+        { label: '所有者角色', name: 'owner', permissions: [] },
+        { label: '未登录角色', name: 'anonymous', permissions: [] },
+      ]);
+    });
+  });
+
+  describe('getGrantRoles', () => {
+    it('should pass, when getGrantRoles.', async () => {
+      const publicRequester = new PublicRequester(adaptor);
+      const response = await publicRequester.getGrantRoles(orgName);
+
+      expect(response.data.value).toEqual(['anonymous']);
+    });
+  });
+
+  describe('getRoles', () => {
+    it('should pass, when getRoles.', async () => {
+      const publicRequester = new PublicRequester(adaptor);
+      const response = await publicRequester.getRoles(orgName);
+
+      expect(response.data.value).toEqual([
+        { label: '所有者角色', name: 'owner' },
+        { label: '未登录角色', name: 'anonymous' },
+      ]);
     });
   });
 });

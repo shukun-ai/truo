@@ -22,7 +22,9 @@
         "SourceRequiredException",
         "SourceUnknownException",
         "SourceValidateException",
-        "SourceNotFoundException"
+        "SourceNotFoundException",
+        "GatewayUnauthorizedException",
+        "GatewayForbiddenException"
       ],
       "tsEnumNames": [
         "IsNotArrayException",
@@ -38,7 +40,9 @@
         "SourceRequiredException",
         "SourceUnknownException",
         "SourceValidateException",
-        "SourceNotFoundException"
+        "SourceNotFoundException",
+        "GatewayUnauthorizedException",
+        "GatewayForbiddenException"
       ]
     }
   }

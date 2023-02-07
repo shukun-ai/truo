@@ -56,10 +56,12 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     orgName: string,
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
+    ownerId: IDString | null,
   ): Promise<{ _id: IDString }> {
     const atomModel = await this.getAtomModel(orgName, metadata);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const entity = new atomModel(params as any);
+    const paramsWithOwner: any = { ...params, owner: ownerId };
+    const entity = new atomModel(paramsWithOwner);
 
     try {
       await entity.save();
