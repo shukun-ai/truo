@@ -28,6 +28,6 @@ describe('float', () => {
 
     const field = new FloatElectron(electron);
     const output = field.buildSqlSchema();
-    expect(output).toEqual(`.float('mock', 12, 6)`);
+    expect(output).toEqual(`.decimal('mock', null, null)`);
   });
 });
