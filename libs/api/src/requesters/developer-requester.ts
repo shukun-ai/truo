@@ -1,4 +1,8 @@
-import { DataSourceSchema, RoleResourceType } from '@shukun/schema';
+import {
+  DataSourceSchema,
+  RoleResourceType,
+  MigrationDifference,
+} from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
 import { ApiResponse } from '../request-adaptor/request-adaptor.type';
@@ -43,6 +47,28 @@ export class DeveloperRequester {
       {
         body: dataSource,
       },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/migration/preview
+   */
+  public async previewMigration() {
+    return await this.requestAdaptor.fetch<ApiResponse<MigrationDifference>>(
+      'POST',
+      this.buildUri('migration/preview'),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/migration/execute
+   */
+  public async executeMigration() {
+    return await this.requestAdaptor.fetch<ApiResponse<null>>(
+      'POST',
+      this.buildUri('migration/execute'),
     );
   }
 

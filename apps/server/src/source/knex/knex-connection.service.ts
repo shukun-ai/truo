@@ -1,13 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { TypeException } from '@shukun/exception';
+import { buildTableName } from '@shukun/knex';
 import { DataSourceConnection, MetadataSchema } from '@shukun/schema';
 import knex, { Knex } from 'knex';
 
 import { DB_DEFAULT_MAX_POOLS } from '../../app.constant';
 
 @Injectable()
-export class KnexConnectionService {
-  knexClients = new Map<string, Knex>();
+export class KnexConnectionService implements OnModuleDestroy {
+  private knexClients = new Map<string, Knex>();
+
+  async onModuleDestroy() {
+    for (const [key, client] of this.knexClients.entries()) {
+      await client.destroy();
+      this.knexClients.delete(key);
+    }
+  }
 
   async getClient(dataSourceConnection: DataSourceConnection): Promise<Knex> {
     const clientIdentifier = this.prepareClientIdentifier(dataSourceConnection);
@@ -58,11 +66,8 @@ export class KnexConnectionService {
     metadata: MetadataSchema,
     dataSourceConnection: DataSourceConnection,
   ) {
-    if (!dataSourceConnection?.tablePrefix) {
-      return metadata.name;
-    }
-
-    return `${dataSourceConnection.tablePrefix}${metadata.name}`;
+    // TODO refactor, move the whole service into @shukun/knex.
+    return buildTableName(orgName, metadata.name, dataSourceConnection);
   }
 
   prepareDatabaseType(dataSourceConnection: DataSourceConnection) {

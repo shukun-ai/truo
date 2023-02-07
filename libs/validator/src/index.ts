@@ -8,6 +8,7 @@ export * from './base-validator/is-electron-name';
 export * from './base-validator/is-email';
 export * from './base-validator/is-engine-name';
 export * from './base-validator/is-max-length';
+export * from './base-validator/is-max-scale';
 export * from './base-validator/is-not-double-underscore';
 export * from './base-validator/is-started-with-lowercase';
 

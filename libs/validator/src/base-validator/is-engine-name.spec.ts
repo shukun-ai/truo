@@ -24,4 +24,8 @@ describe('isEngineName', () => {
   it('if $hello, then false', () => {
     expect(isEngineName('$hello')).toEqual(false);
   });
+
+  it('if 0, then false', () => {
+    expect(isEngineName(0)).toEqual(false);
+  });
 });

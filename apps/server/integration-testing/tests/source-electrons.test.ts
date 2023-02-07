@@ -11,7 +11,7 @@ import { signIn } from '../hooks/sign-in';
 import fieldsMockData from './source-electrons.mock.json';
 
 describe('Source apis', () => {
-  const orgName = 'test_source';
+  const orgName = 'default_source_electrons_org';
   let adaptor: IRequestAdaptor;
   let webServer: WebServer;
   let auth: AuthenticationToken | undefined;
@@ -65,7 +65,7 @@ describe('Source apis', () => {
         boolean: true,
         dateTime: new Date('2023-01-26T19:03:00.000Z').toISOString(),
         integer: 1,
-        float: 2.00000888,
+        float: 2.0000088888888881,
         currency: 7.9999,
         password: 123456,
         // TODO Add manyToMany test case.
@@ -105,7 +105,7 @@ describe('Source apis', () => {
         boolean: true,
         dateTime: new Date('2023-01-26T19:03:00.000Z').toISOString(),
         integer: 1,
-        float: 2.00000888,
+        float: 2.0000088888888881,
         currency: 7.9999,
         password: null,
         mixed: { title: 'Hello World!' },
@@ -122,7 +122,7 @@ describe('Source apis', () => {
         // TODO make new feature to hide manyToMany field.
         manyToMany: [],
         // TODO should let this value return.
-        // owner: operatorId,
+        owner: auth?.userId,
       });
     });
 
