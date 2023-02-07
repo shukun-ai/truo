@@ -13,7 +13,7 @@ describe('float', () => {
 
     const field = new FloatElectron(electron);
     const output = field.buildSqlSchema();
-    expect(output).toEqual(`.float('mock', 8, 2)`);
+    expect(output).toEqual(`.decimal('mock', null, null)`);
   });
 
   it('custom precision, scale', () => {
