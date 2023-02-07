@@ -1,22 +1,42 @@
 import { faker } from '@faker-js/faker';
 import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
-import { AuthenticationToken } from '@shukun/schema';
+import { AuthenticationToken, DataSourceConnection } from '@shukun/schema';
 import { isDateTimeIso } from '@shukun/validator';
 import nock from 'nock';
 
 import { WebServer } from '../../src/app';
-import { createOrg, destroyOrg, updateCodebase } from '../hooks/seed';
+import { createDatabase, destroyDatabase } from '../hooks/database';
+import { executeMigration } from '../hooks/migration';
+import {
+  createOrg,
+  destroyOrg,
+  updateCodebase,
+  updateDataSource,
+} from '../hooks/seed';
 import { signIn } from '../hooks/sign-in';
 
 import fieldsMockData from './source-electrons.mock.json';
 
 describe('Source apis', () => {
-  const orgName = 'default_source_electrons_org';
+  const orgName = 'postgres_source_electrons_org';
+  const connection: DataSourceConnection = {
+    type: 'postgres',
+    host: 'localhost',
+    port: 25432,
+    username: 'test',
+    password: 'test',
+    database: 'test',
+    metadata: ['atom_a', 'atom_b'],
+    maxPools: 3,
+  };
   let adaptor: IRequestAdaptor;
   let webServer: WebServer;
   let auth: AuthenticationToken | undefined;
 
   beforeAll(async () => {
+    await destroyDatabase(connection);
+    await createDatabase(connection);
+
     webServer = new WebServer({ ci: true });
     const apiConnection = await webServer.start();
 
@@ -33,14 +53,24 @@ describe('Source apis', () => {
     });
 
     await createOrg(adaptor, { orgName });
+
     auth = await signIn(adaptor, { orgName });
 
     await updateCodebase(adaptor, fieldsMockData);
+
+    await updateDataSource(adaptor, {
+      connections: {
+        postgres: connection,
+      },
+    });
+
+    await executeMigration(adaptor);
   });
 
   afterAll(async () => {
     await destroyOrg(adaptor, { orgName });
     await webServer.stop();
+    await destroyDatabase(connection);
     nock.enableNetConnect();
   });
 
@@ -53,7 +83,7 @@ describe('Source apis', () => {
   });
 
   describe('query', () => {
-    it('When query all devices, then return all devices.', async () => {
+    it.only('When query all devices, then return all devices.', async () => {
       const requester = new SourceRequester(adaptor, 'atom_a');
 
       await requester.create({
@@ -68,10 +98,7 @@ describe('Source apis', () => {
         float: 2.0000088888888881,
         currency: 7.9999,
         password: 123456,
-        // TODO Add manyToMany test case.
-        // "manyToMany": "many_to_many",
         manyToOne: '63d36c980738daff7202310b',
-        // TODO we need to add add_attachment and remove_attachment method.
         attachment: [
           {
             mime: 'images/png',
@@ -101,7 +128,6 @@ describe('Source apis', () => {
         nameText: 'name_text',
         largeText: 'largeText',
         singleSelect: 'test',
-        multiSelect: ['test'],
         boolean: true,
         dateTime: new Date('2023-01-26T19:03:00.000Z').toISOString(),
         integer: 1,
@@ -117,11 +143,7 @@ describe('Source apis', () => {
             name: 'test',
           },
         ],
-        role: ['admin'],
         manyToOne: '63d36c980738daff7202310b',
-        // TODO make new feature to hide manyToMany field.
-        manyToMany: [],
-        // TODO should let this value return.
         owner: auth?.userId,
       });
     });

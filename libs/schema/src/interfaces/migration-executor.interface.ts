@@ -20,17 +20,9 @@ export type MigrationChanges = {
 };
 
 export type MigrationDifference = {
-  added: MigrationMetadataDifference;
-  deleted: MigrationMetadataDifference;
-  updated: MigrationMetadataDifference;
-};
-
-export type MigrationMetadataDifference = {
-  [atomName: string]: MigrationElectronDifference;
-};
-
-export type MigrationElectronDifference = {
-  [electronName: string]: Partial<MetadataElectron>;
+  added: MigrationMetadataMap;
+  deleted: MigrationMetadataMap;
+  updated: MigrationMetadataMap;
 };
 
 export type MigrationMetadataMap = {
