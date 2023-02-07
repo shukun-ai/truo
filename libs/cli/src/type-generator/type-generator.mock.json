@@ -1,0 +1,131 @@
+{
+  "$schema": "../../../../libs/schema/src/json-schemas/application.schema.json",
+  "title": "Fields",
+  "metadata": [
+    {
+      "name": "atom_a",
+      "label": "Atom A Entity",
+      "electrons": [
+        {
+          "name": "text",
+          "label": "Text",
+          "fieldType": "Text",
+          "isRequired": false
+        },
+        {
+          "name": "nameText",
+          "label": "NameText",
+          "fieldType": "NameText",
+          "isRequired": false
+        },
+        {
+          "name": "largeText",
+          "label": "LargeText",
+          "fieldType": "LargeText",
+          "isRequired": false
+        },
+        {
+          "name": "singleSelect",
+          "label": "SingleSelect",
+          "fieldType": "SingleSelect",
+          "isRequired": false,
+          "options": [
+            { "key": "test", "label": "test", "color": "#333" },
+            { "key": "test2", "label": "test2", "color": "#333" },
+            { "key": "test3", "label": "test3", "color": "#333" }
+          ]
+        },
+        {
+          "name": "multiSelect",
+          "label": "MultiSelect",
+          "fieldType": "MultiSelect",
+          "isRequired": false,
+          "options": [{ "key": "test", "label": "test", "color": "#333" }]
+        },
+        {
+          "name": "boolean",
+          "label": "Boolean",
+          "fieldType": "Boolean",
+          "isRequired": false
+        },
+        {
+          "name": "dateTime",
+          "label": "DateTime",
+          "fieldType": "DateTime",
+          "isRequired": false
+        },
+        {
+          "name": "integer",
+          "label": "Integer",
+          "fieldType": "Integer",
+          "isRequired": false
+        },
+        {
+          "name": "float",
+          "label": "Float",
+          "fieldType": "Float",
+          "isRequired": false
+        },
+        {
+          "name": "currency",
+          "label": "Currency",
+          "fieldType": "Currency",
+          "isRequired": false
+        },
+        {
+          "name": "password",
+          "label": "Password",
+          "fieldType": "Password",
+          "isRequired": false
+        },
+        {
+          "name": "manyToMany",
+          "label": "ManyToMany",
+          "fieldType": "ManyToMany",
+          "isRequired": false,
+          "referenceTo": "atom_b",
+          "foreignName": "number"
+        },
+        {
+          "name": "manyToOne",
+          "label": "ManyToOne",
+          "fieldType": "ManyToOne",
+          "isRequired": false,
+          "referenceTo": "atom_b",
+          "foreignName": "number"
+        },
+        {
+          "name": "attachment",
+          "label": "Attachment",
+          "fieldType": "Attachment",
+          "isRequired": false
+        },
+        {
+          "name": "mixed",
+          "label": "Mixed",
+          "fieldType": "Mixed",
+          "isRequired": false
+        },
+        {
+          "name": "role",
+          "label": "Role",
+          "fieldType": "Role",
+          "isRequired": false
+        }
+      ]
+    },
+    {
+      "name": "atom_b",
+      "label": "Atom B Entity",
+      "electrons": [
+        {
+          "name": "number",
+          "label": "NO.",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
+        }
+      ]
+    }
+  ]
+}

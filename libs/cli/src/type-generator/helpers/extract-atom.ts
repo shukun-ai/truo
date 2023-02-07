@@ -15,7 +15,7 @@ import {
 export function extractAtom(atom: MetadataSchema): string {
   let text = '';
 
-  text += `export interface ${toPascalCase(atom.name)}Model {`;
+  text += `export type ${toPascalCase(atom.name)}Model = {`;
 
   text += `_id: IDString; owner?: IDString; createdAt?: DateTimeIsoString; updatedAt?: DateTimeIsoString; `;
 
