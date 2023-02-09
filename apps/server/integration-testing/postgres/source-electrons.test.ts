@@ -25,7 +25,7 @@ describe('Source apis', () => {
     port: 25432,
     username: 'test',
     password: 'test',
-    database: 'test',
+    database: 'electron_test',
     metadata: ['atom_a', 'atom_b'],
     maxPools: 3,
   };

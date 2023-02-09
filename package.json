@@ -6,14 +6,14 @@
     "start": "nx run-many --target=serve --projects=server,client,editor",
     "build": "nx run-many --target=build --all --configuration=production",
     "pass": "npm run lint && npm run test && npm run build",
-    "test": "npm run test:unit && test:integrate",
+    "test": "npm run test:unit && npm run test:integrate",
     "test:integrate": "nx run server:integration-test",
     "test:unit": "nx run-many --target=test --all",
     "test:unit:coverage": "nx run-many --target=test --all --coverage",
     "lint": "nx run-many --target=lint --all",
     "prepare": "husky install",
     "git-pre-commit": "nx format:write --uncommitted",
-    "git-pre-push": "npm run test:unit"
+    "git-pre-push": "npm run pass"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
