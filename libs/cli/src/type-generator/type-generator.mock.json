@@ -40,7 +40,11 @@
           "label": "MultiSelect",
           "fieldType": "MultiSelect",
           "isRequired": false,
-          "options": [{ "key": "test", "label": "test", "color": "#333" }]
+          "options": [
+            { "key": "test", "label": "test", "color": "#333" },
+            { "key": "test2", "label": "test2", "color": "#333" },
+            { "key": "test3", "label": "test3", "color": "#333" }
+          ]
         },
         {
           "name": "boolean",
