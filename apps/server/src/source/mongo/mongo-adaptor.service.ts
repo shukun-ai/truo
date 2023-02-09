@@ -16,18 +16,22 @@ import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../../app.constant';
 import { SourceServiceCreateDto } from '../../app.type';
 
 import { DatabaseAdaptor } from '../adaptor/database-adaptor.interface';
+import { SourceFieldFilterService } from '../source-field-filter.service';
 
 import { MongoQueryConvertorService } from './mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongoose-connection.service';
+import { MongoExceptionHandlerService } from './monogo-exception-handler.service';
 
 @Injectable()
 export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   constructor(
     private readonly mongooseConnectionService: MongooseConnectionService,
     private readonly mongoQueryConvertorService: MongoQueryConvertorService,
+    private readonly sourceFieldFilterService: SourceFieldFilterService,
+    private readonly mongoExceptionHandlerService: MongoExceptionHandlerService,
   ) {}
 
-  async getAtomModel(
+  private async getAtomModel(
     orgName: string,
     metadata: MetadataSchema,
   ): Promise<MongooseModel<Model & Document>> {
@@ -39,9 +43,12 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return atomModel;
   }
 
-  sourceToJSON(value: Model & Document): { _id: IDString } & Model {
+  private sourceToJSON(
+    value: Model & Document,
+    metadata: MetadataSchema,
+  ): { _id: IDString } & Model {
     const json = JSON.parse(JSON.stringify(value.toJSON()));
-    return json;
+    return this.sourceFieldFilterService.filter(json, metadata);
   }
 
   async createOne(
@@ -49,14 +56,19 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     orgName: string,
     metadata: MetadataSchema,
     params: SourceServiceCreateDto,
+    ownerId: IDString | null,
   ): Promise<{ _id: IDString }> {
     const atomModel = await this.getAtomModel(orgName, metadata);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const entity = new atomModel(params as any);
-    // TODO remove checkKeys
-    await entity.save({ checkKeys: false }); // forbid error when example: 'email.$'
-    const result = this.sourceToJSON(entity);
-    return result;
+    const paramsWithOwner: any = { ...params, owner: ownerId };
+    const entity = new atomModel(paramsWithOwner);
+
+    try {
+      await entity.save();
+      return this.sourceToJSON(entity, metadata);
+    } catch (error) {
+      throw this.mongoExceptionHandlerService.handle(error, metadata);
+    }
   }
 
   async updateOne(
@@ -98,7 +110,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
       );
     }
 
-    const result = this.sourceToJSON(value);
+    const result = this.sourceToJSON(value, metadata);
 
     return result;
   }
@@ -119,7 +131,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
       .sort(mongoQuery.sort)
       .exec();
 
-    const result = value.map((value) => this.sourceToJSON(value));
+    const result = value.map((value) => this.sourceToJSON(value, metadata));
 
     return result;
   }

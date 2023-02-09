@@ -1,11 +1,11 @@
 import { createStore } from '@datorama/akita';
+import { SystemPublicOrgModel } from '@shukun/schema';
 import { produce } from 'immer';
 
-import { OrgModel } from '../../models/org/model';
 import { StoreNames } from '../../utils/store-names';
 
 export interface GlobalState {
-  org: OrgModel | null;
+  org: SystemPublicOrgModel | null;
 }
 
 const initialState: GlobalState = {

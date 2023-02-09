@@ -1,8 +1,8 @@
 import { PostMessageCustomModeType } from '@shukun/api';
 import {
   MetadataSchema,
-  ViewV2Ribbon,
-  ViewV2LinkType,
+  ViewRibbon,
+  ViewLinkType,
   ViewSchema,
 } from '@shukun/schema';
 import React, {
@@ -24,7 +24,7 @@ import { DetailRefreshButton } from './ribbons/DetailRefreshButton';
 import { DetailRemoveButton } from './ribbons/DetailRemoveButton';
 
 export interface DetailRibbonProps {
-  viewRibbons: ViewV2Ribbon[];
+  viewRibbons: ViewRibbon[];
   view: ViewSchema;
   metadata: MetadataSchema;
 }
@@ -36,10 +36,10 @@ export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
 }) => {
   const { row } = useContext(FormContext);
 
-  const customRibbons = useCallback<(viewRibbon: ViewV2Ribbon) => ReactNode>(
+  const customRibbons = useCallback<(viewRibbon: ViewRibbon) => ReactNode>(
     (viewRibbon) => {
       switch (viewRibbon.type) {
-        case ViewV2LinkType.UpdateOne:
+        case ViewLinkType.UpdateOne:
           return (
             <DetailEditButton
               key={viewRibbon.name}
@@ -48,7 +48,7 @@ export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
               sources={row ? [row] : []}
             />
           );
-        case ViewV2LinkType.DeleteOne:
+        case ViewLinkType.DeleteOne:
           return (
             <DetailRemoveButton
               key={viewRibbon.name}
@@ -58,7 +58,7 @@ export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
               sources={row ? [row] : []}
             />
           );
-        case ViewV2LinkType.Print:
+        case ViewLinkType.Print:
           return (
             <DetailPrintButton
               key={viewRibbon.name}
@@ -67,7 +67,7 @@ export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
               sources={row ? [row] : []}
             />
           );
-        case ViewV2LinkType.CustomModal:
+        case ViewLinkType.CustomModal:
           return (
             <RibbonCustomModalButton
               key={viewRibbon.name}

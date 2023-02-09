@@ -1,14 +1,14 @@
 import { ElectronValueException } from '@shukun/exception';
-import { isDateTimeIso } from '@shukun/schema';
+import { isDateTimeIso } from '@shukun/validator';
 import { Schema } from 'mongoose';
 
 import {
   ElectronExceptions,
-  ElectronType,
   MongooseSchema,
 } from '../electron-field.interface';
+import { IElectronInterpreter } from '../electron-interpreter.interface';
 
-export class DateTimeField implements ElectronType {
+export class DateTimeField implements IElectronInterpreter {
   validateValue(value: unknown): ElectronExceptions {
     const errorMessage = [];
 

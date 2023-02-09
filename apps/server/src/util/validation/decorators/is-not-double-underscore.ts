@@ -1,4 +1,4 @@
-import { isNotDoubleUnderscore } from '@shukun/schema';
+import { isNotDoubleUnderscore } from '@shukun/validator';
 import { registerDecorator, ValidationOptions } from 'class-validator';
 
 export function IsNotDoubleUnderscore(validationOptions?: ValidationOptions) {

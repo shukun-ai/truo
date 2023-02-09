@@ -9,8 +9,10 @@
     "daily-build": "apps/daily-build",
     "editor": "apps/editor",
     "exception": "libs/exception",
+    "knex": "libs/knex",
     "schema": "libs/schema",
     "server": "apps/server",
+    "validator": "libs/validator",
     "web-engine": "apps/web-engine"
   }
 }

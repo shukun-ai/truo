@@ -1,11 +1,10 @@
-import { MetadataSchema, ViewV2Ribbon } from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel, ViewRibbon } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { useHistory, useParams } from 'react-router';
 
 import { RibbonButton } from '../../../../../components/ribbon/RibbonButton';
-import { UnknownSourceModel } from '../../../../../models/source';
 import {
   DetailMode,
   detailService,
@@ -15,7 +14,7 @@ import { RoutePath, useOrgPath } from '../../../../../utils/history-provider';
 import { runStringCode } from '../../ribbon/runStringCode';
 
 export interface DetailRemoveButtonProps {
-  viewRibbon: ViewV2Ribbon;
+  viewRibbon: ViewRibbon;
   metadata: MetadataSchema;
   source: UnknownSourceModel | null;
   sources: UnknownSourceModel[];

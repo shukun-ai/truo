@@ -6,6 +6,8 @@ import { getFieldInstance } from '../electron/fields-map';
 
 @Injectable()
 export class KnexElectronConvertorService<Model> {
+  private INTERNAL_FIELD_NAMES = ['_id', 'createdAt', 'updatedAt', 'owner'];
+
   convertAfterQuery(
     dataSourceConnection: DataSourceConnection,
     entities: Array<{ _id: IDString } & Model>,
@@ -21,18 +23,18 @@ export class KnexElectronConvertorService<Model> {
     entity: { _id: IDString } & Model,
     metadata: MetadataSchema,
   ): { _id: IDString } & Model {
-    const newEntity: any = { _id: entity._id };
+    const newEntity: any = {};
 
     for (const [key, value] of Object.entries(entity)) {
       const electron = metadata.electrons.find(
         (electron) => electron.name === key,
       );
       if (electron) {
-        const instance = getFieldInstance(electron.fieldType);
+        const instance = getFieldInstance(electron);
         newEntity[key] = instance.afterQuery
-          ? instance.afterQuery(value, electron, dataSourceConnection.type)
+          ? instance.afterQuery(value, dataSourceConnection.type)
           : value;
-      } else if (key === 'createdAt' || key === 'updatedAt') {
+      } else if (this.INTERNAL_FIELD_NAMES.includes(key)) {
         newEntity[key] = value;
       }
     }

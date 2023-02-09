@@ -1,10 +1,8 @@
 import { EntityState, createEntityStore, ActiveState } from '@datorama/akita';
-import { ViewSchema } from '@shukun/schema';
+import { UnknownSourceModel, ViewSchema } from '@shukun/schema';
 import { RowSelectionType } from 'antd/lib/table/interface';
 import { produce } from 'immer';
 
-import { UnknownMetadataModel } from '../../models/metadata';
-import { UnknownSourceModel } from '../../models/source';
 import { IDString } from '../../utils/model-helpers';
 import { StoreNames } from '../../utils/store-names';
 
@@ -25,7 +23,7 @@ export interface ReferenceState
   view: ViewSchema | null;
   excludedIds: IDString[];
   onFinish:
-    | ((selected: UnknownMetadataModel[]) => Promise<boolean | void>)
+    | ((selected: UnknownSourceModel[]) => Promise<boolean | void>)
     | null;
 }
 

@@ -1,15 +1,14 @@
-import { ViewV2Ribbon } from '@shukun/schema';
+import { UnknownSourceModel, ViewRibbon } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 import { AiOutlinePrinter } from 'react-icons/ai';
 
 import { RibbonButton } from '../../../../../components/ribbon/RibbonButton';
-import { UnknownSourceModel } from '../../../../../models/source';
 import { DetailMode, mode$ } from '../../../../../services/detail';
 import { runStringCode } from '../../ribbon/runStringCode';
 
 export interface DetailPrintButtonProps {
-  viewRibbon: ViewV2Ribbon;
+  viewRibbon: ViewRibbon;
   source: UnknownSourceModel | null;
   sources: UnknownSourceModel[];
 }

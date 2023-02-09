@@ -7,7 +7,8 @@
   "additionalProperties": false,
   "properties": {
     "filter": {
-      "$ref": "#/definitions/QueryFilter"
+      "type": "object",
+      "description": "The filter should be validate by custom program."
     },
     "select": {
       "type": "object",
@@ -35,122 +36,6 @@
     },
     "count": {
       "type": "boolean"
-    }
-  },
-  "definitions": {
-    "QueryFilterBasicValue": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "number"
-        },
-        {
-          "type": "boolean"
-        }
-      ]
-    },
-    "QueryFilter": {
-      "oneOf": [
-        {
-          "type": "object",
-          "patternProperties": {
-            "^(\\w)+$": {
-              "$ref": "#/definitions/QueryFilterExpression"
-            }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["$and"],
-          "properties": {
-            "$and": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QueryFilter"
-              }
-            }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["$or"],
-          "properties": {
-            "$or": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QueryFilter"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "QueryFilterExpression": {
-      "oneOf": [
-        {
-          "$ref": "#/definitions/QueryFilterBasicValue"
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "$eq": {
-              "$ref": "#/definitions/QueryFilterBasicValue"
-            },
-            "$ne": {
-              "$ref": "#/definitions/QueryFilterBasicValue"
-            },
-            "$gt": {
-              "$ref": "#/definitions/QueryFilterBasicValue"
-            },
-            "$gte": {
-              "$ref": "#/definitions/QueryFilterBasicValue"
-            },
-            "$lt": {
-              "$ref": "#/definitions/QueryFilterBasicValue"
-            },
-            "$lte": {
-              "$ref": "#/definitions/QueryFilterBasicValue"
-            },
-            "$in": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QueryFilterBasicValue"
-              }
-            },
-            "$nin": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QueryFilterBasicValue"
-              }
-            },
-            "$and": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QueryFilter"
-              }
-            },
-            "$or": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QueryFilter"
-              }
-            },
-            "$foreign": {
-              "$ref": "#/definitions/QueryFilter",
-              "description": "The results are in foreign ids."
-            },
-            "$like": {
-              "type": "string",
-              "description": "The results are like this value with no case sensitive."
-            }
-          }
-        }
-      ]
     }
   }
 }

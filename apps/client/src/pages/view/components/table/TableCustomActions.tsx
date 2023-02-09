@@ -1,8 +1,8 @@
 import {
   MetadataSchema,
   ViewSchema,
-  ViewV2CustomAction,
-  ViewV2CustomActionType,
+  ViewCustomAction,
+  ViewCustomActionType,
 } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
@@ -25,18 +25,18 @@ export const TableCustomActions: FunctionComponent<TableCustomActionsProps> = ({
 
   const tableActiveEntities = useObservableState(tableActiveEntities$, []);
 
-  const customActions = useMemo<ViewV2CustomAction[]>(() => {
-    if (!view?.configurations?.v2CustomActions) {
+  const tableCustomActions = useMemo<ViewCustomAction[]>(() => {
+    if (!view?.configurations?.tableCustomActions) {
       return [];
     }
-    return view.configurations.v2CustomActions.filter(
-      (custom) => custom.type === ViewV2CustomActionType.Column,
+    return view.configurations.tableCustomActions.filter(
+      (custom) => custom.type === ViewCustomActionType.Column,
     );
-  }, [view?.configurations?.v2CustomActions]);
+  }, [view?.configurations?.tableCustomActions]);
 
   return (
     <>
-      {customActions.map((customAction) => (
+      {tableCustomActions.map((customAction) => (
         <TableCustomAction
           key={customAction.name}
           search={search ?? null}

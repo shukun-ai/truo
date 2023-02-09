@@ -30,6 +30,7 @@ export class FlowCommand {
           output: '',
         },
       },
+      store: {},
     };
     this.store.add(flow);
   }

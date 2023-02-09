@@ -1,10 +1,10 @@
-import { findAllRoles } from '../../models/role';
+import { publicRequester } from '../../apis/requester';
 
 import { roleStore } from './store';
 
 class RoleService {
   async fetch() {
-    const response = await findAllRoles();
+    const response = await publicRequester.getRoles();
     roleStore.set(response.data.value);
   }
 

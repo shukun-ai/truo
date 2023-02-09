@@ -1,10 +1,6 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import {
-  createBaseAjv,
-  DataSourceEnvironments,
-  FlowSchema,
-  stringifyValidateErrors,
-} from '@shukun/schema';
+import { Injectable } from '@nestjs/common';
+import { DataSourceEnvironments, FlowSchema } from '@shukun/schema';
+import { commonSchemaValidator } from '@shukun/validator';
 
 import { EnvironmentService } from '../core/environment.service';
 
@@ -88,11 +84,7 @@ export class FlowService {
     inputOrOutput: unknown,
     jsonSchema: FlowSchema['input'] | FlowSchema['output'],
   ): void {
-    const validate = createBaseAjv().compile(jsonSchema);
-    const result = validate(inputOrOutput);
-
-    if (!result) {
-      throw new BadRequestException(stringifyValidateErrors(validate));
-    }
+    commonSchemaValidator.compile(jsonSchema);
+    commonSchemaValidator.validate(inputOrOutput);
   }
 }

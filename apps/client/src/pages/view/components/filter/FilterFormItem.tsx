@@ -1,26 +1,32 @@
-import { MetadataSchema, ViewV2Column } from '@shukun/schema';
+import {
+  MetadataAttachmentOptions,
+  MetadataCurrencyOptions,
+  MetadataOptions,
+  MetadataSchema,
+  ViewTableField,
+} from '@shukun/schema';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { FilterFieldFactory } from '../fields/FilterFieldFactory';
 
 export interface FilterFormItemProps {
   metadata: MetadataSchema;
-  viewColumn: ViewV2Column;
+  viewTableField: ViewTableField;
 }
 
 export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
   metadata,
-  viewColumn,
+  viewTableField,
 }) => {
   const electron = useMemo(() => {
     const electron = metadata.electrons.find(
-      (electron) => electron.name === viewColumn.electronName,
+      (electron) => electron.name === viewTableField.electronName,
     );
     return electron;
-  }, [metadata, viewColumn.electronName]);
+  }, [metadata, viewTableField.electronName]);
 
-  if (['createdAt', 'updatedAt'].includes(viewColumn.electronName)) {
-    return <InternalFilterFormItem viewColumn={viewColumn} />;
+  if (['createdAt', 'updatedAt'].includes(viewTableField.electronName)) {
+    return <InternalFilterFormItem viewTableField={viewTableField} />;
   }
 
   if (!electron) {
@@ -30,47 +36,49 @@ export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
 
   return (
     <FilterFieldFactory
-      key={viewColumn.name}
-      type={viewColumn.type}
-      name={viewColumn.name}
-      label={viewColumn.label}
+      key={viewTableField.name}
+      type={viewTableField.type}
+      name={viewTableField.name}
+      label={viewTableField.label}
       tip={undefined}
       electronName={electron.name}
-      electronForeignName={electron.foreignName}
-      electronReferenceTo={electron.referenceTo}
-      electronOptions={electron.options}
-      referenceViewName={viewColumn.referenceViewName}
-      currencyOptions={electron.currencyOptions}
-      attachmentOptions={electron.attachmentOptions}
-      filterOptions={viewColumn.filterOptions}
-      filterType={viewColumn.filterType}
+      electronForeignName={electron.foreignName as string | undefined}
+      electronReferenceTo={electron.referenceTo as string | undefined}
+      electronOptions={electron.options as MetadataOptions}
+      referenceViewName={viewTableField.referenceViewName}
+      currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+      attachmentOptions={
+        electron.attachmentOptions as MetadataAttachmentOptions
+      }
+      filterOptions={viewTableField.filterOptions}
+      filterType={viewTableField.filterType}
     />
   );
 };
 
 export interface InternalFilterFormItem {
-  viewColumn: ViewV2Column;
+  viewTableField: ViewTableField;
 }
 
 export const InternalFilterFormItem: FunctionComponent<
   InternalFilterFormItem
-> = ({ viewColumn }) => {
+> = ({ viewTableField }) => {
   return (
     <FilterFieldFactory
-      key={viewColumn.name}
-      type={viewColumn.type}
-      name={viewColumn.name}
-      label={viewColumn.label}
+      key={viewTableField.name}
+      type={viewTableField.type}
+      name={viewTableField.name}
+      label={viewTableField.label}
       tip={undefined}
-      electronName={viewColumn.name}
+      electronName={viewTableField.name}
       electronForeignName={undefined}
       electronReferenceTo={undefined}
       electronOptions={undefined}
       referenceViewName={undefined}
       currencyOptions={undefined}
       attachmentOptions={undefined}
-      filterOptions={viewColumn.filterOptions}
-      filterType={viewColumn.filterType}
+      filterOptions={viewTableField.filterOptions}
+      filterType={viewTableField.filterType}
     />
   );
 };

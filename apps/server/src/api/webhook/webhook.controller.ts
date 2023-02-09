@@ -10,7 +10,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { RoleResourceType, WorkflowSchema } from '@shukun/schema';
-import { validateWorkflowInput } from '@shukun/schema';
+import { workflowInputSchemaValidator } from '@shukun/validator';
 import { omit } from 'lodash';
 
 import { EXCEPTION_WEBHOOK_TEST_NAME } from '../../app.constant';
@@ -165,14 +165,6 @@ export class WebhookController {
       );
     }
 
-    const result = validateWorkflowInput(body);
-
-    if (!result) {
-      const message =
-        validateWorkflowInput?.errors
-          ?.map((error) => error.message)
-          ?.join(', ') || '';
-      throw new BadRequestException(`validation error: ${message}`);
-    }
+    workflowInputSchemaValidator.validate(body);
   }
 }

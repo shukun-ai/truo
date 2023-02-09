@@ -6,19 +6,122 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type MetadataElectron =
+  | MetadataElectronText
+  | MetadataElectronNameText
+  | MetadataElectronLargeText
+  | MetadataElectronSingleSelect
+  | MetadataElectronMultiSelect
+  | MetadataElectronBoolean
+  | MetadataElectronDateTime
+  | MetadataElectronInteger
+  | MetadataElectronFloat
+  | MetadataElectronCurrency
+  | MetadataElectronPassword
+  | MetadataElectronManyToMany
+  | MetadataElectronManyToOne
+  | MetadataElectronOwner
+  | MetadataElectronAttachment
+  | MetadataElectronMixed
+  | MetadataElectronRole;
+export type MetadataElectronText = MetadataElectronBasic & {
+  fieldType: 'Text';
+  [k: string]: unknown;
+};
+export type MetadataElectronNameText = MetadataElectronBasic & {
+  fieldType: 'NameText';
+  [k: string]: unknown;
+};
+export type MetadataElectronLargeText = MetadataElectronBasic & {
+  fieldType: 'LargeText';
+  [k: string]: unknown;
+};
+export type MetadataElectronSingleSelect = MetadataElectronBasic & {
+  fieldType: 'SingleSelect';
+  options: MetadataOptions;
+  [k: string]: unknown;
+};
 export type MetadataOptions = {
   key: string;
   label: string;
   color?: string;
 }[];
+export type MetadataElectronMultiSelect = MetadataElectronBasic & {
+  fieldType: 'MultiSelect';
+  options: MetadataOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronBoolean = MetadataElectronBasic & {
+  fieldType: 'Boolean';
+  [k: string]: unknown;
+};
+export type MetadataElectronDateTime = MetadataElectronBasic & {
+  fieldType: 'DateTime';
+  [k: string]: unknown;
+};
+export type MetadataElectronInteger = MetadataElectronBasic & {
+  fieldType: 'Integer';
+  [k: string]: unknown;
+};
+export type MetadataElectronFloat = MetadataElectronBasic & {
+  fieldType: 'Float';
+  /**
+   * It will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 8.
+   */
+  precision?: number;
+  /**
+   * I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2.
+   */
+  scale?: number;
+  [k: string]: unknown;
+};
+export type MetadataElectronCurrency = MetadataElectronBasic & {
+  fieldType: 'Currency';
+  currencyOptions?: MetadataCurrencyOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronPassword = MetadataElectronBasic & {
+  fieldType: 'Password';
+  passwordOptions?: MetadataPasswordOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronManyToMany = MetadataElectronBasic & {
+  fieldType: 'ManyToMany';
+  referenceTo: string;
+  foreignName: string;
+  [k: string]: unknown;
+};
+export type MetadataElectronManyToOne = MetadataElectronBasic & {
+  fieldType: 'ManyToOne';
+  referenceTo: string;
+  foreignName: string;
+  [k: string]: unknown;
+};
+export type MetadataElectronOwner = MetadataElectronBasic & {
+  fieldType: 'Owner';
+  [k: string]: unknown;
+};
+export type MetadataElectronAttachment = MetadataElectronBasic & {
+  fieldType: 'Attachment';
+  attachmentOptions?: MetadataAttachmentOptions;
+  [k: string]: unknown;
+};
+export type MetadataElectronMixed = MetadataElectronBasic & {
+  fieldType: 'Mixed';
+  [k: string]: unknown;
+};
+export type MetadataElectronRole = MetadataElectronBasic & {
+  fieldType: 'Role';
+  [k: string]: unknown;
+};
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
-export type ViewV2ColumnFilterOptions = string[];
+export type ViewTableFilterOptions = string[];
 /**
  * It only work on SingleSelect and MultipleSelect now.
  */
-export type ViewV2FieldFilterOptions = string[];
+export type ViewDetailFilterOptions = string[];
 export type WorkflowTaskState = {
   type: 'Task';
   comment?: string;
@@ -90,7 +193,6 @@ export type FlowEvent =
   | FlowEventStore
   | FlowEventFirstOrThrow
   | FlowEventLastOrThrow;
-export type RoleAttribute = string;
 
 /**
  * Describe a Shukun Application
@@ -117,13 +219,9 @@ export interface MetadataSchema {
   description?: string;
   electrons: MetadataElectron[];
 }
-export interface MetadataElectron {
+export interface MetadataElectronBasic {
   name: string;
   label: string;
-  fieldType: MetadataFieldType;
-  referenceTo?: string;
-  foreignName?: string;
-  description?: string;
   /**
    * It will be effect in Schema builder and Input Validate.
    */
@@ -136,26 +234,8 @@ export interface MetadataElectron {
    * It will be effect in Schema builder and Input Validate.
    */
   isIndexed?: boolean;
-  /**
-   * It will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 8.
-   */
-  precision?: number;
-  /**
-   * I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2.
-   */
-  scale?: number;
-  options?: MetadataOptions;
-  passwordOptions?: MetadataPasswordOptions;
-  currencyOptions?: MetadataCurrencyOptions;
-  attachmentOptions?: MetadataAttachmentOptions;
-}
-export interface MetadataPasswordOptions {
-  requireNumber?: number;
-  requireCharacter?: boolean;
-  requireUppercase?: boolean;
-  requireLowercase?: boolean;
-  minLength?: number;
-  maxLength?: number;
+  description?: string;
+  [k: string]: unknown;
 }
 /**
  * More Currency ISO Reference: https://en.wikipedia.org/wiki/ISO_4217, the data precision will be set as 15 and scale will be set as 4.
@@ -169,6 +249,14 @@ export interface MetadataCurrencyOptions {
    * This electron.currencyOptions.scale value is different with electron.scale, the scale is just used for Front-end format.
    */
   scale?: number;
+}
+export interface MetadataPasswordOptions {
+  requireNumber?: number;
+  requireCharacter?: boolean;
+  requireUppercase?: boolean;
+  requireLowercase?: boolean;
+  minLength?: number;
+  maxLength?: number;
 }
 export interface MetadataAttachmentOptions {
   allowedMime?: string[];
@@ -194,41 +282,33 @@ export interface ViewSchema {
   search?: ViewSearch;
 }
 export interface ViewConfigurations {
-  v2Columns?: ViewV2Column[];
-  v2ColumnRibbons?: ViewV2Ribbon[];
-  v2CustomActions?: ViewV2CustomAction[];
-  v2Fields?: ViewV2Field[];
-  v2FieldGroups?: ViewV2FieldGroup[];
-  v2FieldRibbons?: ViewV2Ribbon[];
-  columns?: ViewColumn[];
-  form?: {
-    [k: string]: ViewFormItem;
-  };
-  tree?: ViewTree;
-  detailCustomActions?: ViewDetailCustomAction[];
-  detailEditAction?: ViewDetailEditAction;
-  detailRemoveAction?: ViewDetailRemoveAction;
+  tableFields?: ViewTableField[];
+  tableRibbons?: ViewRibbon[];
+  tableCustomActions?: ViewCustomAction[];
+  detailFields?: ViewDetailField[];
+  detailGroups?: ViewDetailGroup[];
+  detailRibbons?: ViewRibbon[];
 }
-export interface ViewV2Column {
+export interface ViewTableField {
   name: string;
   label: string;
-  type: ViewV2FieldType;
+  type: ViewFieldType;
   electronName: string;
   referenceViewName?: string;
   computedCode?: string;
   link?: {
-    type: ViewV2LinkType;
+    type: ViewLinkType;
     value?: string;
     query?: string;
   };
   filterHidden?: boolean;
-  filterOptions?: ViewV2ColumnFilterOptions;
-  filterType?: ViewV2ColumnFilterType;
+  filterOptions?: ViewTableFilterOptions;
+  filterType?: ViewTableFilterType;
 }
-export interface ViewV2Ribbon {
+export interface ViewRibbon {
   name: string;
   label: string;
-  type: ViewV2LinkType;
+  type: ViewLinkType;
   value?: string;
   query?: string;
   disabledCode?: string;
@@ -236,16 +316,16 @@ export interface ViewV2Ribbon {
   confirmedTip?: string;
   color?: string;
 }
-export interface ViewV2CustomAction {
+export interface ViewCustomAction {
   name: string;
   label: string;
-  type: ViewV2CustomActionType;
+  type: ViewCustomActionType;
   value?: string;
 }
-export interface ViewV2Field {
+export interface ViewDetailField {
   name: string;
   label: string;
-  type: ViewV2FieldType;
+  type: ViewFieldType;
   electronName: string;
   referenceViewName?: string;
   tip?: string;
@@ -256,72 +336,13 @@ export interface ViewV2Field {
     foreignName?: string;
   };
   belongToGroup?: string;
-  filterOptions?: ViewV2FieldFilterOptions;
+  filterOptions?: ViewDetailFilterOptions;
 }
-export interface ViewV2FieldGroup {
+export interface ViewDetailGroup {
   name: string;
   label: string;
-  type: ViewV2FieldGroupType;
+  type: ViewDetailGroupType;
   value?: string;
-}
-export interface ViewColumn {
-  electronName: string;
-  allowSort?: boolean;
-  allowSearch?: boolean;
-  showColumn?: boolean;
-}
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export interface ViewFormItem {
-  hidden?: RuleEngineSet;
-  required?: RuleEngineSet;
-  disabled?: RuleEngineSet;
-  priority?: number;
-}
-/**
- * Describe Rule Engine
- */
-export interface RuleEngineSet {
-  globalCondition?: RuleEngineGlobalCondition;
-  conditions?: {
-    sourceMethod: RuleEngineSourceMethod;
-    sourceParam: unknown;
-    operator: RuleEngineOperator;
-    targetMethod?: RuleEngineTargetMethod;
-    targetParam?: unknown;
-  }[];
-}
-export interface ViewTree {
-  parentElectronName?: string;
-  labelElectronName?: string;
-}
-export interface ViewDetailCustomAction {
-  key: string;
-  label: string;
-  type: ViewDetailCustomActionType;
-  value?: string;
-  query?: string;
-  disabled?: RuleEngineSet;
-  disabledTip?: string;
-  confirmed?: boolean;
-  confirmedTip?: string;
-  hidden?: RuleEngineSet;
-}
-export interface ViewDetailEditAction {
-  disabled?: RuleEngineSet;
-  disabledTip?: string;
-  confirmed?: boolean;
-  confirmedTip?: string;
-  hidden?: RuleEngineSet;
-}
-export interface ViewDetailRemoveAction {
-  disabled?: RuleEngineSet;
-  disabledTip?: string;
-  confirmed?: boolean;
-  confirmedTip?: string;
-  hidden?: RuleEngineSet;
 }
 /**
  * Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.
@@ -696,6 +717,7 @@ export interface FlowSchema {
   };
   startEventName: string;
   events: FlowEvents;
+  store: FlowStore;
 }
 export interface FlowEvents {
   [k: string]: FlowEvent;
@@ -715,7 +737,12 @@ export interface FlowEventSourceQuery {
   next: string;
   atomName: string;
   query: {
-    filter?: FlowEventSourceQueryFilter;
+    /**
+     * The filter should be validate by custom program.
+     */
+    filter?: {
+      [k: string]: unknown;
+    };
     select?: {
       /**
        * The style is like MongoDB.
@@ -739,27 +766,6 @@ export interface FlowEventSourceQuery {
     count?: boolean;
   };
   [k: string]: unknown;
-}
-export interface FlowEventSourceQueryFilter {
-  [k: string]: FlowEventSourceQueryFilterExpression;
-}
-/**
- * This interface was referenced by `FlowEventSourceQueryFilter`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export interface FlowEventSourceQueryFilterExpression {
-  $eq?: string;
-  $ne?: string;
-  $gt?: string;
-  $gte?: string;
-  $lt?: string;
-  $lte?: string;
-  $in?: string;
-  $nin?: string;
-  $and?: FlowEventSourceQueryFilter[];
-  $or?: FlowEventSourceQueryFilter[];
-  $foreign?: FlowEventSourceQueryFilter;
-  $like?: string;
 }
 export interface FlowEventSourceCreate {
   type: 'SourceCreate';
@@ -861,6 +867,46 @@ export interface FlowEventLastOrThrow {
   next: string;
   [k: string]: unknown;
 }
+export interface FlowStore {
+  /**
+   * This interface was referenced by `FlowStore`'s JSON-Schema definition
+   * via the `patternProperty` "^(\w)+$".
+   */
+  [k: string]:
+    | FlowStoreStringType
+    | FlowStoreNumberType
+    | FlowStoreBooleanType
+    | FlowStoreObjectType
+    | FlowStoreAtomsType
+    | FlowStoreAtomType;
+}
+export interface FlowStoreStringType {
+  type: 'string';
+  [k: string]: unknown;
+}
+export interface FlowStoreNumberType {
+  type: 'number';
+  [k: string]: unknown;
+}
+export interface FlowStoreBooleanType {
+  type: 'boolean';
+  [k: string]: unknown;
+}
+export interface FlowStoreObjectType {
+  type: 'object';
+  validateObject: unknown;
+  [k: string]: unknown;
+}
+export interface FlowStoreAtomsType {
+  type: 'atoms';
+  atomName: string;
+  [k: string]: unknown;
+}
+export interface FlowStoreAtomType {
+  type: 'atom';
+  atomName: string;
+  [k: string]: unknown;
+}
 /**
  * Describe Role Schema
  */
@@ -869,14 +915,7 @@ export interface RoleSchema {
   name: string;
   label: string;
   description?: string;
-  isSystem?: boolean;
-  permissions: RolePermission[];
-}
-export interface RolePermission {
-  resourceType: RoleResourceType;
-  resourceName: string;
-  action: RoleAction;
-  attributes: RoleAttribute[];
+  permissions: string[];
 }
 /**
  * Describe Schedule Schema
@@ -919,25 +958,6 @@ export interface EnvironmentSchema {
   isPublic: boolean;
 }
 
-export enum MetadataFieldType {
-  Text = 'Text',
-  NameText = 'NameText',
-  LargeText = 'LargeText',
-  SingleSelect = 'SingleSelect',
-  MultiSelect = 'MultiSelect',
-  Boolean = 'Boolean',
-  DateTime = 'DateTime',
-  Integer = 'Integer',
-  Float = 'Float',
-  Currency = 'Currency',
-  Password = 'Password',
-  ManyToMany = 'ManyToMany',
-  ManyToOne = 'ManyToOne',
-  Owner = 'Owner',
-  Attachment = 'Attachment',
-  Mixed = 'Mixed',
-  Role = 'Role',
-}
 export enum ViewType {
   Simple = 'Simple',
   Tree = 'Tree',
@@ -948,7 +968,7 @@ export enum ViewType {
   Link = 'Link',
   Menu = 'Menu',
 }
-export enum ViewV2FieldType {
+export enum ViewFieldType {
   Text = 'Text',
   NameText = 'NameText',
   LargeText = 'LargeText',
@@ -972,7 +992,7 @@ export enum ViewV2FieldType {
 /**
  * Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.
  */
-export enum ViewV2LinkType {
+export enum ViewLinkType {
   None = 'None',
   View = 'View',
   Webhook = 'Webhook',
@@ -985,63 +1005,13 @@ export enum ViewV2LinkType {
   Csv = 'Csv',
   CustomModal = 'CustomModal',
 }
-export enum ViewV2ColumnFilterType {
+export enum ViewTableFilterType {
   SelectRadio = 'SelectRadio',
 }
-export enum ViewV2CustomActionType {
+export enum ViewCustomActionType {
   Column = 'Column',
 }
-export enum ViewV2FieldGroupType {
+export enum ViewDetailGroupType {
   None = 'None',
   CustomTab = 'CustomTab',
-}
-export enum RuleEngineGlobalCondition {
-  always = 'always',
-  none = 'none',
-  every = 'every',
-  some = 'some',
-}
-export enum RuleEngineSourceMethod {
-  getField = 'getField',
-  getFixed = 'getFixed',
-  getFieldOptions = 'getFieldOptions',
-}
-export enum RuleEngineOperator {
-  equal = 'equal',
-  notEqual = 'notEqual',
-  in = 'in',
-  notIn = 'notIn',
-  lessThan = 'lessThan',
-  lessThanInclusive = 'lessThanInclusive',
-  greaterThan = 'greaterThan',
-  greaterThanInclusive = 'greaterThanInclusive',
-  isTrue = 'isTrue',
-}
-export enum RuleEngineTargetMethod {
-  getField = 'getField',
-  getFixed = 'getFixed',
-  getFieldOptions = 'getFieldOptions',
-}
-export enum ViewDetailCustomActionType {
-  None = 'None',
-  View = 'View',
-  Webhook = 'Webhook',
-}
-export enum RoleResourceType {
-  Public = 'public',
-  Internal = 'internal',
-  Source = 'source',
-  View = 'view',
-  Webhook = 'webhook',
-  Developer = 'developer',
-  Tenant = 'tenant',
-}
-export enum RoleAction {
-  ReadAny = 'read:any',
-  CreateAny = 'create:any',
-  UpdateAny = 'update:any',
-  DeleteAny = 'delete:any',
-  ReadOwn = 'read:own',
-  UpdateOwn = 'update:own',
-  DeleteOwn = 'delete:own',
 }

@@ -1,13 +1,16 @@
 import { resetStores } from '@datorama/akita';
 import dayjs from 'dayjs';
 
-import { signIn, SignInData } from '../../models/session';
+import { publicRequester } from '../../apis/requester';
 
 import { sessionStore } from './store';
 
 class SessionService {
-  async signIn(data: SignInData) {
-    const response = await signIn(data);
+  async signIn(data: { orgName: string; username: string; password: string }) {
+    const response = await publicRequester.signIn(data.orgName, {
+      username: data.username,
+      password: data.password,
+    });
 
     const { userId, username, orgName, orgId, accessToken, expiresIn } =
       response.data.value;

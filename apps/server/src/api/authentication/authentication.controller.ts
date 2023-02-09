@@ -1,21 +1,19 @@
 import {
   Controller,
   UseInterceptors,
-  Inject,
   Param,
   Post,
   Body,
   BadRequestException,
 } from '@nestjs/common';
 
-import { RoleResourceType } from '@shukun/schema';
+import { AuthenticationToken, RoleResourceType } from '@shukun/schema';
 
 import { OrgService } from '../../core/org.service';
 
-import { SecurityService } from '../../identity/security.service';
+import { TokenGeneratorService } from '../../identity/token-generator.service';
 import { cryptoPassword } from '../../identity/utils/password.utils';
 import { SourceService } from '../../source/source.service';
-import { AuthJwt } from '../../util/passport/jwt/jwt.interface';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 import { RsaHelper } from '../../util/rsa/rsa-helper';
@@ -27,20 +25,19 @@ import { SignInDto } from './dto/sign-in.dto';
 @Controller(`${RoleResourceType.Public}/:orgName/authentication`)
 @UseInterceptors(QueryResponseInterceptor)
 export class AuthenticationController {
-  @Inject()
-  private readonly securityService!: SecurityService;
+  constructor(
+    private readonly tokenGeneratorService: TokenGeneratorService,
 
-  @Inject()
-  private readonly systemUserService!: SourceService<SystemUserModel>;
+    private readonly systemUserService: SourceService<SystemUserModel>,
 
-  @Inject()
-  private readonly orgService!: OrgService;
+    private readonly orgService: OrgService,
+  ) {}
 
   @Post('jwt')
   async signIn(
     @Param('orgName') orgName: string,
     @Body() signInDto: SignInDto,
-  ): Promise<QueryResponse<AuthJwt>> {
+  ): Promise<QueryResponse<AuthenticationToken>> {
     const atomName = 'system__users';
 
     const password = cryptoPassword(signInDto.password);
@@ -58,7 +55,7 @@ export class AuthenticationController {
       throw new Error('缺少用户的 ID 值');
     }
 
-    const output = await this.securityService.generateJwt(
+    const output = await this.tokenGeneratorService.generate(
       user._id,
       user.username,
       orgId,
@@ -74,7 +71,7 @@ export class AuthenticationController {
   async signInWithEncrypt(
     @Param('orgName') orgName: string,
     @Body() signInWithEncryptDto: SignInWithEncryptDto,
-  ): Promise<QueryResponse<AuthJwt>> {
+  ): Promise<QueryResponse<AuthenticationToken>> {
     const rsaHelper = new RsaHelper();
 
     const password = rsaHelper.decrypt(signInWithEncryptDto.encryptPassword);

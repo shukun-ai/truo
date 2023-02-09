@@ -14,7 +14,6 @@ import { parseToken } from '../../identity/utils/security.utils';
 import { QueryResponse } from '../../util/query/interfaces';
 
 import { AuthorizationService } from './authorization.service';
-import { getResourceNodes } from './authorization.utils';
 
 @Controller(`${RoleResourceType.Public}/any/authorization`)
 @ApiBearerAuth()
@@ -48,11 +47,8 @@ export class AuthorizationController {
       };
     }
 
-    const authorization = req.headers.authorization;
-
-    const resourceNodes = getResourceNodes(method, uri);
-    const token = parseToken(authorization);
-    await this.authorizationService.validateResource(resourceNodes, token);
+    const token = parseToken(req.headers.authorization);
+    await this.authorizationService.validate(method, uri, token);
 
     return {
       value: true,

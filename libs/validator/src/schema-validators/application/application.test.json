@@ -1,0 +1,2495 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/application.schema.json",
+  "title": "Mock Application",
+  "description": "Mock Application for SKP",
+  "metadata": [
+    {
+      "name": "product_categories",
+      "label": "商品分类",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "label",
+          "label": "分类名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": true
+        },
+        {
+          "name": "priority",
+          "label": "排序",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": true
+        },
+        {
+          "name": "visible",
+          "label": "是否显示",
+          "fieldType": "Boolean",
+          "isRequired": true
+        },
+        {
+          "name": "menu",
+          "label": "上级分类",
+          "fieldType": "ManyToOne",
+          "isRequired": true,
+          "referenceTo": "menu_categories",
+          "foreignName": "label",
+          "isIndexed": true
+        },
+        {
+          "name": "cover",
+          "label": "封面图片",
+          "fieldType": "Attachment",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "system__roles",
+      "label": "角色",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "name",
+          "label": "角色 ID 名",
+          "fieldType": "NameText",
+          "isRequired": true,
+          "isUnique": true,
+          "isIndexed": true
+        },
+        {
+          "name": "label",
+          "label": "角色显示名",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false
+        },
+        {
+          "name": "permissions",
+          "label": "权限清单",
+          "fieldType": "Mixed",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "label": "订单",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "number",
+          "label": "订单编号",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": true
+        },
+        {
+          "name": "payStatus",
+          "label": "支付状态",
+          "fieldType": "SingleSelect",
+          "isRequired": true,
+          "options": [
+            {
+              "key": "unpaid",
+              "label": "未支付"
+            },
+            {
+              "key": "paid",
+              "label": "已支付"
+            }
+          ]
+        },
+        {
+          "name": "payment",
+          "label": "支付方式",
+          "fieldType": "SingleSelect",
+          "isRequired": false,
+          "options": [
+            {
+              "key": "pay",
+              "label": "支付"
+            }
+          ]
+        },
+        {
+          "name": "orderStatus",
+          "label": "订单状态",
+          "fieldType": "SingleSelect",
+          "isRequired": true,
+          "options": [
+            {
+              "key": "created",
+              "label": "已创建订单"
+            },
+            {
+              "key": "waitDelivered",
+              "label": "等待发货"
+            },
+            {
+              "key": "waitReceived",
+              "label": "等待收货"
+            },
+            {
+              "key": "waitFinished",
+              "label": "等待完成"
+            },
+            {
+              "key": "finished",
+              "label": "已完成"
+            },
+            {
+              "key": "canceled",
+              "label": "已取消"
+            }
+          ]
+        },
+        {
+          "name": "consignee",
+          "label": "收件人",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "phone",
+          "label": "联系号码",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "address",
+          "label": "详细地址",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "postcode",
+          "label": "邮编",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "comment",
+          "label": "备注",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "totalOriginAmount",
+          "label": "原总价",
+          "fieldType": "Currency",
+          "isRequired": true,
+          "currencyOptions": {
+            "code": "CNY",
+            "scale": 2
+          }
+        },
+        {
+          "name": "totalOffAmount",
+          "label": "优惠的总价",
+          "fieldType": "Currency",
+          "isRequired": true,
+          "currencyOptions": {
+            "code": "CNY",
+            "scale": 2
+          }
+        },
+        {
+          "name": "totalPaidAmount",
+          "label": "实付总价",
+          "fieldType": "Currency",
+          "isRequired": true,
+          "currencyOptions": {
+            "code": "CNY",
+            "scale": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "order_products",
+      "label": "订单商品",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "product",
+          "label": "关联商品",
+          "fieldType": "ManyToOne",
+          "isRequired": true,
+          "referenceTo": "products",
+          "foreignName": "label",
+          "isIndexed": false
+        },
+        {
+          "name": "order",
+          "label": "关联订单",
+          "fieldType": "ManyToOne",
+          "isRequired": true,
+          "referenceTo": "orders",
+          "foreignName": "number",
+          "isIndexed": true
+        },
+        {
+          "name": "label",
+          "label": "关联商品名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "stockSnapshot",
+          "label": "库存快照",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": false
+        },
+        {
+          "name": "priceSnapshot",
+          "label": "价格快照",
+          "fieldType": "Currency",
+          "isRequired": true,
+          "currencyOptions": {
+            "code": "CNY",
+            "scale": 2
+          }
+        },
+        {
+          "name": "quality",
+          "label": "购买数量",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "system__workflows",
+      "label": "工作流",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "name",
+          "label": "工作流 ID 名",
+          "fieldType": "NameText",
+          "isRequired": true,
+          "isUnique": true
+        },
+        {
+          "name": "description",
+          "label": "描述",
+          "fieldType": "Text",
+          "isRequired": false
+        },
+        {
+          "name": "configurations",
+          "label": "配置",
+          "fieldType": "Mixed",
+          "isRequired": false
+        },
+        {
+          "name": "validations",
+          "label": "请求验证条件",
+          "fieldType": "Mixed",
+          "isRequired": false
+        },
+        {
+          "name": "isEnabledWebhook",
+          "label": "允许接口访问",
+          "fieldType": "Boolean",
+          "isRequired": false
+        }
+      ]
+    },
+    {
+      "name": "stock_logs",
+      "label": "库存变更记录",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "summary",
+          "label": "描述",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "product",
+          "label": "所属产品",
+          "fieldType": "ManyToOne",
+          "isRequired": true,
+          "referenceTo": "products",
+          "foreignName": "label",
+          "isIndexed": false
+        },
+        {
+          "name": "stock",
+          "label": "库存变化量",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "label": "商品",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "label",
+          "label": "商品名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": true
+        },
+        {
+          "name": "categories",
+          "label": "分类",
+          "fieldType": "ManyToMany",
+          "isRequired": true,
+          "referenceTo": "product_categories",
+          "foreignName": "label"
+        },
+        {
+          "name": "visible",
+          "label": "是否可见",
+          "fieldType": "Boolean",
+          "isRequired": true
+        },
+        {
+          "name": "images",
+          "label": "图片",
+          "fieldType": "Attachment",
+          "isRequired": true,
+          "attachmentOptions": {
+            "limitUpload": 10
+          }
+        },
+        {
+          "name": "contents",
+          "label": "简介",
+          "fieldType": "Attachment",
+          "isRequired": false
+        },
+        {
+          "name": "published",
+          "label": "是否可购买",
+          "fieldType": "Boolean",
+          "isRequired": true
+        },
+        {
+          "name": "price",
+          "label": "价格",
+          "fieldType": "Currency",
+          "isRequired": true,
+          "currencyOptions": {
+            "code": "CNY",
+            "scale": 2
+          }
+        },
+        {
+          "name": "stock",
+          "label": "库存量",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": true
+        },
+        {
+          "name": "marketPrice",
+          "label": "市场价",
+          "fieldType": "Currency",
+          "isRequired": true,
+          "currencyOptions": {
+            "code": "CNY",
+            "scale": 2
+          }
+        },
+        {
+          "name": "recommended",
+          "label": "热门商品",
+          "fieldType": "Boolean",
+          "isRequired": false,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "system__trust_domains",
+      "label": "可信任域名",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "label",
+          "label": "描述",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "value",
+          "label": "域名",
+          "fieldType": "Text",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "system__positions",
+      "label": "角色组",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "name",
+          "label": "角色组 ID 名",
+          "fieldType": "NameText",
+          "isRequired": true,
+          "isUnique": true
+        },
+        {
+          "name": "label",
+          "label": "角色组名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
+        },
+        {
+          "name": "users",
+          "label": "用户",
+          "fieldType": "ManyToMany",
+          "isRequired": true,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "roles",
+          "label": "角色",
+          "fieldType": "Role",
+          "isRequired": true,
+          "referenceTo": "system__roles",
+          "foreignName": "label"
+        }
+      ]
+    },
+    {
+      "name": "system__groups",
+      "label": "部门",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "users",
+          "label": "用户",
+          "fieldType": "ManyToMany",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "label",
+          "label": "部门名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true
+        },
+        {
+          "name": "roles",
+          "label": "角色",
+          "fieldType": "Role",
+          "isRequired": true,
+          "referenceTo": "system__roles",
+          "foreignName": "label"
+        },
+        {
+          "name": "parent",
+          "label": "父级",
+          "fieldType": "ManyToOne",
+          "isRequired": false,
+          "referenceTo": "system__groups",
+          "foreignName": "label"
+        }
+      ]
+    },
+    {
+      "name": "system__views",
+      "label": "视图",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "name",
+          "label": "视图 ID 名",
+          "fieldType": "NameText",
+          "isRequired": true,
+          "isUnique": true,
+          "isIndexed": true
+        },
+        {
+          "name": "label",
+          "label": "视图显示名",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "type",
+          "label": "视图类型",
+          "fieldType": "SingleSelect",
+          "isRequired": true,
+          "options": [
+            {
+              "key": "Simple",
+              "label": "表格模式"
+            },
+            {
+              "key": "Tree",
+              "label": "层级模式"
+            },
+            {
+              "key": "Calendar",
+              "label": "日历模式"
+            },
+            {
+              "key": "Gallery",
+              "label": "卡片模式"
+            },
+            {
+              "key": "Custom",
+              "label": "自定义模式"
+            },
+            {
+              "key": "External",
+              "label": "外部网页"
+            },
+            {
+              "key": "Link",
+              "label": "外部链接"
+            },
+            {
+              "key": "Menu",
+              "label": "菜单项"
+            }
+          ]
+        },
+        {
+          "name": "atomName",
+          "label": "模型的名称",
+          "fieldType": "Text",
+          "isRequired": false
+        },
+        {
+          "name": "configurations",
+          "label": "配置",
+          "fieldType": "Mixed",
+          "isRequired": false
+        },
+        {
+          "name": "value",
+          "label": "值",
+          "fieldType": "Text",
+          "isRequired": false
+        },
+        {
+          "name": "parentName",
+          "label": "父级 ID 名",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isIndexed": true
+        },
+        {
+          "name": "isVisible",
+          "label": "是否显示",
+          "fieldType": "Boolean",
+          "isRequired": true
+        },
+        {
+          "name": "priority",
+          "label": "权重",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": true
+        }
+      ]
+    },
+    {
+      "name": "system__users",
+      "label": "用户表",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "username",
+          "label": "用户名",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true,
+          "isIndexed": true
+        },
+        {
+          "name": "displayName",
+          "label": "显示名",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "password",
+          "label": "密码",
+          "fieldType": "Password",
+          "isRequired": true
+        },
+        {
+          "name": "avatar",
+          "label": "用户头像",
+          "fieldType": "Attachment",
+          "isRequired": false
+        },
+        {
+          "name": "locale",
+          "label": "语言",
+          "fieldType": "Text",
+          "isRequired": false
+        },
+        {
+          "name": "timezone",
+          "label": "时区",
+          "fieldType": "Text",
+          "isRequired": false
+        },
+        {
+          "name": "companyName",
+          "label": "公司名称",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "employeeNumber",
+          "label": "员工编号",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "order_logs",
+      "label": "订单变更表",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "order",
+          "label": "变更订单",
+          "fieldType": "ManyToOne",
+          "isRequired": true,
+          "referenceTo": "orders",
+          "foreignName": "number",
+          "isIndexed": true
+        },
+        {
+          "name": "description",
+          "label": "描述",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "payStatus",
+          "label": "支付状态",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "orderStatus",
+          "label": "订单状态",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "order_deliveries",
+      "label": "订单物流",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "order",
+          "label": "关联订单",
+          "fieldType": "ManyToOne",
+          "isRequired": true,
+          "referenceTo": "orders",
+          "foreignName": "number",
+          "isIndexed": false
+        },
+        {
+          "name": "expressCode",
+          "label": "快递公司",
+          "fieldType": "SingleSelect",
+          "isRequired": true,
+          "options": [
+            {
+              "key": "shunfeng",
+              "label": "顺丰速运"
+            }
+          ]
+        },
+        {
+          "name": "expressNumber",
+          "label": "快递流水号",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": true
+        },
+        {
+          "name": "logs",
+          "label": "物流记录",
+          "fieldType": "Mixed",
+          "isRequired": false
+        },
+        {
+          "name": "savedAt",
+          "label": "最后保存时间",
+          "fieldType": "DateTime",
+          "isRequired": false
+        }
+      ]
+    },
+    {
+      "name": "addresses",
+      "label": "地址管理",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "consignee",
+          "label": "收件人",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "phone",
+          "label": "联系方式",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "address",
+          "label": "地址",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "postcode",
+          "label": "邮编",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "banners",
+      "label": "横幅图片",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "label",
+          "label": "横幅名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "priority",
+          "label": "排序",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": true
+        },
+        {
+          "name": "image",
+          "label": "图片",
+          "fieldType": "Attachment",
+          "isRequired": true
+        },
+        {
+          "name": "linkType",
+          "label": "连接类型",
+          "fieldType": "SingleSelect",
+          "isRequired": true,
+          "options": [
+            {
+              "key": "product",
+              "label": "商品 ID"
+            }
+          ]
+        },
+        {
+          "name": "linkValue",
+          "label": "链接参数",
+          "fieldType": "Text",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "menu_categories",
+      "label": "一级分类",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "label",
+          "label": "分类名称",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": true
+        },
+        {
+          "name": "priority",
+          "label": "排序",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": true
+        },
+        {
+          "name": "visible",
+          "label": "是否显示",
+          "fieldType": "Boolean",
+          "isRequired": true,
+          "isIndexed": false
+        },
+        {
+          "name": "cover",
+          "label": "封面图片",
+          "fieldType": "Attachment",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "carts",
+      "label": "购物车",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "product",
+          "label": "相关商品",
+          "fieldType": "ManyToOne",
+          "isRequired": true,
+          "referenceTo": "products",
+          "foreignName": "label",
+          "isIndexed": true
+        },
+        {
+          "name": "quality",
+          "label": "数量",
+          "fieldType": "Integer",
+          "isRequired": true,
+          "isIndexed": false
+        }
+      ]
+    },
+    {
+      "name": "verify_codes",
+      "label": "验证码记录表",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "displayName"
+        },
+        {
+          "name": "email",
+          "label": "电子邮件",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": false,
+          "isIndexed": false
+        },
+        {
+          "name": "code",
+          "label": "验证码",
+          "fieldType": "Text",
+          "isRequired": true,
+          "isUnique": true,
+          "isIndexed": false
+        },
+        {
+          "name": "usedAt",
+          "label": "使用时间",
+          "fieldType": "DateTime",
+          "isRequired": false
+        },
+        {
+          "name": "expiredAt",
+          "label": "过期时间",
+          "fieldType": "DateTime",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "notify_savers",
+      "label": "通知保存",
+      "electrons": [
+        {
+          "name": "owner",
+          "label": "创建人",
+          "fieldType": "Owner",
+          "isRequired": false,
+          "referenceTo": "system__users",
+          "foreignName": "username"
+        },
+        {
+          "name": "logs",
+          "label": "记录",
+          "fieldType": "Mixed",
+          "isRequired": false,
+          "isUnique": false,
+          "isIndexed": false
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "name": "system__menu",
+      "label": "系统菜单",
+      "type": "Menu",
+      "isVisible": true,
+      "isSystem": false,
+      "priority": 10000
+    },
+    {
+      "name": "system__users",
+      "label": "用户管理",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "search": {
+        "filter": {
+          "number": {
+            "$like": "he"
+          }
+        }
+      },
+      "configurations": {},
+      "parentName": "system__menu",
+      "priority": 1,
+      "atomName": "system__users"
+    },
+    {
+      "name": "system__positions",
+      "label": "角色组",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "system__menu",
+      "priority": 2,
+      "atomName": "system__positions"
+    },
+    {
+      "name": "system__groups",
+      "label": "部门",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "system__menu",
+      "priority": 3,
+      "atomName": "system__groups"
+    },
+    {
+      "name": "system__trust_domains",
+      "label": "可信任域名",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "system__menu",
+      "priority": 4,
+      "atomName": "system__trust_domains"
+    },
+    {
+      "name": "product_menu",
+      "label": "商品管理",
+      "type": "Menu",
+      "isVisible": true,
+      "isSystem": false,
+      "priority": 1000
+    },
+    {
+      "name": "menu_categories",
+      "label": "一级分类管理",
+      "type": "Simple",
+      "isVisible": true,
+      "parentName": "product_menu",
+      "priority": 10,
+      "atomName": "menu_categories"
+    },
+    {
+      "name": "product_categories",
+      "label": "二级分类管理",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "product_menu",
+      "priority": 20,
+      "atomName": "product_categories"
+    },
+    {
+      "name": "products",
+      "label": "商品管理",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "product_menu",
+      "priority": 30,
+      "atomName": "products"
+    },
+    {
+      "name": "stock_logs",
+      "label": "库存变更记录",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "product_menu",
+      "priority": 1000,
+      "atomName": "stock_logs"
+    },
+    {
+      "name": "order_menu",
+      "label": "订单管理",
+      "type": "Menu",
+      "isVisible": true,
+      "isSystem": false,
+      "priority": 1000
+    },
+    {
+      "name": "orders",
+      "label": "订单管理",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "order_menu",
+      "priority": 1000,
+      "atomName": "orders",
+      "configurations": {
+        "tableFields": [
+          {
+            "name": "code",
+            "label": "机场代码",
+            "type": "LinkText",
+            "electronName": "code",
+            "link": {
+              "type": "ReadOne"
+            }
+          },
+          {
+            "name": "title",
+            "label": "机场名称",
+            "type": "Text",
+            "electronName": "title"
+          },
+          {
+            "name": "region",
+            "label": "国家或地区代码",
+            "type": "Text",
+            "electronName": "region"
+          },
+          {
+            "name": "isHighRisk",
+            "label": "是否中高风险",
+            "type": "Boolean",
+            "electronName": "isHighRisk"
+          },
+          {
+            "name": "cityCode",
+            "label": "城市代码",
+            "type": "Text",
+            "electronName": "cityCode"
+          },
+          {
+            "name": "cityTitle",
+            "label": "城市名称",
+            "type": "Text",
+            "electronName": "cityTitle"
+          }
+        ],
+        "detailFields": [
+          {
+            "name": "code",
+            "label": "机场代码",
+            "type": "Text",
+            "electronName": "code",
+            "requiredCode": "return true;",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "title",
+            "label": "机场名称",
+            "type": "Text",
+            "electronName": "title",
+            "requiredCode": "return true;",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "region",
+            "label": "国家或地区代码",
+            "type": "Text",
+            "electronName": "region",
+            "requiredCode": "return true;",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "isHighRisk",
+            "label": "是否中高风险",
+            "type": "Boolean",
+            "electronName": "isHighRisk",
+            "requiredCode": "return true;"
+          },
+          {
+            "name": "cityCode",
+            "label": "城市代码",
+            "type": "Text",
+            "electronName": "cityCode",
+            "disabledCode": "return scope.mode === 'Edit'"
+          },
+          {
+            "name": "cityTitle",
+            "label": "城市名称",
+            "type": "Text",
+            "electronName": "cityTitle",
+            "disabledCode": "return scope.mode === 'Edit'"
+          }
+        ],
+        "detailRibbons": [
+          {
+            "name": "edit",
+            "label": "编辑",
+            "type": "UpdateOne"
+          },
+          {
+            "name": "delete",
+            "label": "删除",
+            "type": "DeleteOne"
+          }
+        ],
+        "tableRibbons": [
+          {
+            "name": "create",
+            "label": "新建",
+            "type": "CreateOne"
+          }
+        ]
+      }
+    },
+    {
+      "name": "order_detail",
+      "label": "订单详情",
+      "type": "Custom",
+      "isVisible": false,
+      "isSystem": false,
+      "parentName": "order_menu",
+      "priority": 1000,
+      "value": "https://external.website"
+    },
+    {
+      "name": "content_menu",
+      "label": "内容管理",
+      "type": "Menu",
+      "isVisible": true,
+      "isSystem": false,
+      "priority": 1000
+    },
+    {
+      "name": "banners",
+      "label": "横幅图片管理",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "content_menu",
+      "priority": 1000,
+      "atomName": "banners"
+    },
+    {
+      "name": "audit",
+      "label": "审计相关",
+      "type": "Menu",
+      "isVisible": true,
+      "isSystem": false,
+      "priority": 1000
+    },
+    {
+      "name": "verify_codes",
+      "label": "验证码审计",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "audit",
+      "priority": 1000,
+      "atomName": "verify_codes"
+    },
+    {
+      "name": "cart",
+      "label": "购物车",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "audit",
+      "priority": 1000,
+      "atomName": "carts"
+    },
+    {
+      "name": "order_products",
+      "label": "订单关联商品",
+      "type": "Simple",
+      "isVisible": true,
+      "isSystem": false,
+      "parentName": "audit",
+      "priority": 1000,
+      "atomName": "order_products"
+    },
+    {
+      "name": "order_deliveries",
+      "label": "订单物流",
+      "type": "Simple",
+      "isVisible": true,
+      "parentName": "audit",
+      "priority": 1000,
+      "atomName": "order_deliveries"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "sign_up",
+      "description": "小程序注册接口",
+      "configurations": {
+        "startAt": "findVerifyCode",
+        "states": {
+          "findVerifyCode": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "verify_codes",
+              "query": {
+                "filter": {
+                  "email.$": "$.body.email",
+                  "code.$": "$.body.verifyCode",
+                  "usedAt": null,
+                  "expiredAt": {
+                    "_$gt.$": "States.now()"
+                  }
+                }
+              }
+            },
+            "catch": [
+              {
+                "errorEquals": ["NotFoundException"],
+                "next": "showVerifyError"
+              }
+            ],
+            "resultPath": "$.verifyCode",
+            "next": "findPosition",
+            "x": 0,
+            "y": 20
+          },
+          "findPosition": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "system__positions",
+              "query": {
+                "filter": {
+                  "name": "registered"
+                }
+              }
+            },
+            "resultPath": "$.position",
+            "next": "saveUser",
+            "x": -200,
+            "y": 140
+          },
+          "saveUser": {
+            "type": "Task",
+            "resource": "source:createOne",
+            "parameters": {
+              "atomName": "system__users",
+              "data": {
+                "username.$": "$.body.email",
+                "password.$": "$.body.password",
+                "companyName.$": "$.body.companyName",
+                "employeeNumber.$": "$.body.employeeNumber",
+                "displayName.$": "$.body.userName"
+              }
+            },
+            "next": "saveUserPosition",
+            "resultPath": "$.user",
+            "x": -200,
+            "y": 220
+          },
+          "saveUserPosition": {
+            "type": "Task",
+            "resource": "source:addToMany",
+            "parameters": {
+              "atomName": "system__positions",
+              "id.$": "$.position._id",
+              "electronName": "users",
+              "foreignId.$": "$.user._id"
+            },
+            "next": "useVerifyCode",
+            "x": -200,
+            "y": 300
+          },
+          "useVerifyCode": {
+            "type": "Task",
+            "resource": "source:updateOne",
+            "parameters": {
+              "atomName": "verify_codes",
+              "id.$": "$.verifyCode._id",
+              "data": {
+                "usedAt.$": "States.now()"
+              }
+            },
+            "next": "filterOutput",
+            "x": -200,
+            "y": 380
+          },
+          "filterOutput": {
+            "type": "Pass",
+            "end": true,
+            "outputPath": "$.user",
+            "x": -200,
+            "y": 460
+          },
+          "showVerifyError": {
+            "type": "Fail",
+            "error": "BadRequest",
+            "cause": "您输入的验证码无效，请重新尝试。",
+            "x": 220,
+            "y": 320
+          }
+        },
+        "startX": 100,
+        "startY": -60,
+        "endX": 100,
+        "endY": 580
+      },
+      "validations": {
+        "type": "object",
+        "required": [
+          "companyName",
+          "userName",
+          "employeeNumber",
+          "email",
+          "verifyCode",
+          "password"
+        ],
+        "properties": {
+          "companyName": {
+            "type": "string"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "employeeNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "verifyCode": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "reset_password",
+      "description": "重置密码/忘记密码",
+      "configurations": {
+        "startAt": "findVerifyCode",
+        "states": {
+          "findVerifyCode": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "verify_codes",
+              "query": {
+                "filter": {
+                  "email.$": "$.body.email",
+                  "code.$": "$.body.verifyCode",
+                  "usedAt": null,
+                  "expiredAt": {
+                    "_$gt.$": "States.now()"
+                  }
+                }
+              }
+            },
+            "catch": [
+              {
+                "errorEquals": ["NotFoundException"],
+                "next": "showVerifyError"
+              }
+            ],
+            "resultPath": "$.verifyCode",
+            "next": "findUser",
+            "x": 0,
+            "y": 20
+          },
+          "findUser": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "system__users",
+              "query": {
+                "filter": {
+                  "username.$": "$.body.email"
+                }
+              }
+            },
+            "catch": [
+              {
+                "errorEquals": ["NotFoundException"],
+                "next": "showVerifyError"
+              }
+            ],
+            "next": "resetPassword",
+            "resultPath": "$.user",
+            "x": -200,
+            "y": 160
+          },
+          "resetPassword": {
+            "type": "Task",
+            "resource": "source:updateOne",
+            "parameters": {
+              "atomName": "system__users",
+              "data": {
+                "id.$": "$.user._id",
+                "password.$": "$.body.password"
+              }
+            },
+            "next": "useVerifyCode",
+            "x": -200,
+            "y": 300
+          },
+          "useVerifyCode": {
+            "type": "Task",
+            "resource": "source:updateOne",
+            "parameters": {
+              "atomName": "verify_codes",
+              "id.$": "$.verifyCode._id",
+              "data": {
+                "usedAt.$": "States.now()"
+              }
+            },
+            "next": "filterOutput",
+            "x": -200,
+            "y": 380
+          },
+          "filterOutput": {
+            "type": "Pass",
+            "end": true,
+            "resultPath": "$.output",
+            "outputPath": "$.output",
+            "x": -200,
+            "y": 460
+          },
+          "showVerifyError": {
+            "type": "Fail",
+            "error": "BadRequest",
+            "cause": "您输入的验证码无效或未找到该邮件的用户，请重新尝试。",
+            "x": 220,
+            "y": 320
+          }
+        },
+        "startX": 100,
+        "startY": -60,
+        "endX": 100,
+        "endY": 580
+      },
+      "validations": {
+        "type": "object",
+        "required": ["email", "password", "verifyCode"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          },
+          "verifyCode": {
+            "type": "string"
+          }
+        }
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "change_stock",
+      "description": "修改库存",
+      "isEnabledWebhook": false
+    },
+    {
+      "name": "create_order",
+      "description": "创建订单",
+      "configurations": {
+        "startAt": "createOrder",
+        "states": {
+          "createOrder": {
+            "type": "Task",
+            "resource": "source:createOne",
+            "parameters": {
+              "atomName": "orders",
+              "data": {
+                "number.$": "States.now('YYYYMMDDHHmmssSSS')",
+                "payStatus": "unpaid",
+                "payment.$": "$.body.payment",
+                "orderStatus": "created",
+                "consignee.$": "$.body.consignee",
+                "phone.$": "$.body.phone",
+                "address.$": "$.body.address",
+                "postcode.$": "$.body.postcode",
+                "comment.$": "$.body.comment",
+                "totalOriginAmount.$": "$.body.totalOriginAmount",
+                "totalOffAmount.$": "$.body.totalOffAmount",
+                "totalPaidAmount.$": "$.body.totalPaidAmount",
+                "products.$": "$.body.products"
+              }
+            },
+            "resultPath": "$.order",
+            "next": "createOrderProduct",
+            "x": -100,
+            "y": 280
+          },
+          "createOrderProduct": {
+            "type": "Task",
+            "resource": "workflow:map",
+            "parameters": {
+              "workflowName": "create_order_product",
+              "items.$": "$.body.products",
+              "orderId.$": "$.order._id"
+            },
+            "resultPath": "$.orderProducts",
+            "outputPath": "$.order",
+            "end": true,
+            "x": -100,
+            "y": 420
+          }
+        },
+        "startX": 0,
+        "startY": 180
+      },
+      "validations": {
+        "type": "object",
+        "required": [
+          "payment",
+          "consignee",
+          "phone",
+          "address",
+          "totalOriginAmount",
+          "totalOffAmount",
+          "totalPaidAmount",
+          "products"
+        ],
+        "properties": {
+          "payment": {
+            "type": "string"
+          },
+          "consignee": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "totalOriginAmount": {
+            "type": "number"
+          },
+          "totalOffAmount": {
+            "type": "number"
+          },
+          "totalPaidAmount": {
+            "type": "number"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string"
+                },
+                "quality": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "get_wechat_prepayid",
+      "description": "获得预付 ID",
+      "configurations": {
+        "startAt": "getSession",
+        "states": {
+          "mockPrepayid": {
+            "type": "Pass",
+            "result": {
+              "prepayId": "mockxxxxxx"
+            },
+            "resultPath": "$.mock",
+            "outputPath": "$.mock",
+            "end": true,
+            "x": 220,
+            "y": 400
+          },
+          "getSession": {
+            "type": "Task",
+            "resource": "http",
+            "parameters": {
+              "url": "https://api.service",
+              "method": "GET",
+              "query": {
+                "appid": "appid",
+                "secret": "secret"
+              }
+            },
+            "resultSelector": {
+              "data.$": "$.data"
+            },
+            "resultPath": "$.session",
+            "next": "getPrepayId",
+            "x": -100,
+            "y": 120
+          },
+          "getPrepayId": {
+            "type": "Task",
+            "resource": "http",
+            "parameters": {
+              "url": "https://test.service",
+              "method": "POST",
+              "data": {
+                "openId.$": "$.session.data.openid",
+                "orderId.$": "$.body.orderId",
+                "amount.$": "$.body.totalPaidAmount",
+                "description": "测试订单"
+              }
+            },
+            "resultPath": "$.prepay",
+            "next": "output",
+            "x": -100,
+            "y": 260
+          },
+          "output": {
+            "type": "Pass",
+            "result": {
+              "sign.$": "$.prepay.data"
+            },
+            "resultPath": "$.wechat",
+            "outputPath": "$.wechat",
+            "end": true,
+            "x": -100,
+            "y": 400
+          }
+        }
+      },
+      "validations": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "orderId": {
+            "type": "string"
+          },
+          "totalPaidAmount": {
+            "type": "number"
+          }
+        }
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "notify_wechat_prepayid",
+      "configurations": {
+        "startAt": "saveLogs",
+        "states": {
+          "saveLogs": {
+            "type": "Task",
+            "resource": "source:createOne",
+            "parameters": {
+              "atomName": "notify_savers",
+              "data": {
+                "logs": {
+                  "body.$": "$.body",
+                  "headers.$": "$.headers"
+                }
+              }
+            },
+            "resultPath": "$.logs",
+            "next": "decryptMessage",
+            "x": -100,
+            "y": 80
+          },
+          "decryptMessage": {
+            "type": "Task",
+            "resource": "http",
+            "parameters": {
+              "url": "https://test.service",
+              "method": "POST",
+              "data.$": "$.body"
+            },
+            "resultPath": "$.decrypted",
+            "next": "updateOrder",
+            "x": -100,
+            "y": 200
+          },
+          "updateOrder": {
+            "type": "Task",
+            "resource": "source:updateOne",
+            "parameters": {
+              "atomName": "orders",
+              "id.$": "$.decrypted.data.out_trade_no",
+              "data": {
+                "payStatus.$": "paid",
+                "orderStatus.$": "waitDelivered"
+              }
+            },
+            "next": "output",
+            "x": -100,
+            "y": 320
+          },
+          "output": {
+            "type": "Pass",
+            "result": {
+              "return_code": "SUCCESS",
+              "return_msg": "OK"
+            },
+            "resultPath": "$.output",
+            "outputPath": "$.output",
+            "end": true,
+            "x": -100,
+            "y": 440
+          }
+        }
+      },
+      "validations": {
+        "type": "object"
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "get_email_verify_code",
+      "configurations": {
+        "startAt": "checkIfCompanyEmail",
+        "states": {
+          "checkIfCompanyEmail": {
+            "type": "Pass",
+            "next": "checkExistVerifyCode",
+            "x": -100,
+            "y": 80
+          },
+          "checkExistVerifyCode": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "verify_codes",
+              "query": {
+                "filter": {
+                  "email.$": "$.body.email",
+                  "usedAt": null,
+                  "expiredAt": {
+                    "_$gt.$": "States.now()"
+                  }
+                }
+              }
+            },
+            "catch": [
+              {
+                "errorEquals": ["NotFoundException"],
+                "next": "createVerifyCode"
+              }
+            ],
+            "next": "sendEmail",
+            "resultPath": "$.verifyCode",
+            "x": -100,
+            "y": 180
+          },
+          "createVerifyCode": {
+            "type": "Task",
+            "resource": "source:createOne",
+            "parameters": {
+              "atomName": "verify_codes",
+              "data": {
+                "email.$": "$.body.email",
+                "code.$": "States.verifyCode(6)",
+                "expiredAt.$": "States.afterSeconds(600)"
+              }
+            },
+            "next": "findVerifyCode",
+            "resultPath": "$.createdVerifyCode",
+            "x": 220,
+            "y": 360
+          },
+          "findVerifyCode": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "verify_codes",
+              "query": {
+                "filter": {
+                  "_id.$": "$.createdVerifyCode._id"
+                }
+              }
+            },
+            "next": "sendEmail",
+            "resultPath": "$.verifyCode",
+            "x": 220,
+            "y": 460
+          },
+          "sendEmail": {
+            "type": "Task",
+            "resource": "http",
+            "parameters": {
+              "url": "https://test.service",
+              "method": "POST",
+              "data": {
+                "secret": "test",
+                "sender": "test",
+                "destination.$": "$.body.email",
+                "templateId": 19539,
+                "templateData": {
+                  "code.$": "$.verifyCode.code"
+                },
+                "subject": "test"
+              }
+            },
+            "next": "filterOutput",
+            "resultPath": "$.emailConfig",
+            "x": -100,
+            "y": 580
+          },
+          "filterOutput": {
+            "type": "Pass",
+            "resultPath": "$.output",
+            "outputPath": "$.output",
+            "end": true,
+            "x": -100,
+            "y": 680
+          }
+        },
+        "endX": 0,
+        "endY": 840
+      },
+      "validations": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "create_order_product",
+      "configurations": {
+        "startAt": "findProduct",
+        "states": {
+          "findProduct": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "products",
+              "query": {
+                "filter": {
+                  "_id.$": "$.body.productId"
+                }
+              }
+            },
+            "resultPath": "$.product",
+            "next": "createOrderProduct",
+            "x": -100,
+            "y": 80
+          },
+          "createOrderProduct": {
+            "type": "Task",
+            "resource": "source:createOne",
+            "parameters": {
+              "atomName": "order_products",
+              "data": {
+                "product.$": "$.body.productId",
+                "order.$": "$.parent.orderId",
+                "label.$": "$.product.label",
+                "stockSnapshot.$": "$.product.stock",
+                "priceSnapshot.$": "$.product.price",
+                "quality.$": "$.body.quality"
+              }
+            },
+            "next": "reduceProductStock",
+            "resultPath": "$.orderProduct",
+            "x": -100,
+            "y": 160
+          },
+          "reduceProductStock": {
+            "type": "Task",
+            "resource": "source:decrease",
+            "parameters": {
+              "atomName": "products",
+              "id.$": "$.product._id",
+              "electronName": "stock",
+              "increment.$": "$.body.quality"
+            },
+            "next": "output",
+            "x": -100,
+            "y": 240
+          },
+          "output": {
+            "type": "Pass",
+            "result": {
+              "orderProductId.$": "$.orderProduct._id",
+              "productId.$": "$.body.productId",
+              "orderId.$": "$.parent.orderId",
+              "quality.$": "$.body.quality"
+            },
+            "end": true,
+            "resultPath": "$.output",
+            "outputPath": "$.output",
+            "x": -100,
+            "y": 320
+          }
+        }
+      },
+      "validations": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "orderId": {
+            "type": "string"
+          },
+          "quality": {
+            "type": "number"
+          }
+        }
+      },
+      "isEnabledWebhook": false
+    },
+    {
+      "name": "get_wechat_jwt",
+      "configurations": {
+        "startAt": "checkUser",
+        "states": {
+          "checkUser": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "system__users",
+              "query": {
+                "filter": {
+                  "username.$": "$.body.email",
+                  "password.$": "States.cryptoPassword($.body.password)"
+                }
+              }
+            },
+            "resultPath": "$.user",
+            "next": "getJwt"
+          },
+          "getJwt": {
+            "type": "Task",
+            "resource": "passport:jwt",
+            "parameters": {
+              "userId.$": "$.user._id",
+              "expiresIn": 604800000
+            },
+            "resultPath": "$.jwt",
+            "outputPath": "$.jwt",
+            "end": true
+          }
+        }
+      },
+      "validations": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "get_order_deliveries",
+      "description": "获得物流信息",
+      "configurations": {
+        "startAt": "findOrderDelivery",
+        "states": {
+          "findOrderDelivery": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "order_deliveries",
+              "query": {
+                "filter": {
+                  "order.$": "$.body.orderId"
+                }
+              }
+            },
+            "resultPath": "$.orderDelivery",
+            "next": "setAfterSixHours",
+            "x": 0,
+            "y": -80
+          },
+          "setAfterSixHours": {
+            "type": "Pass",
+            "result": {
+              "beforeSixHours.$": "States.afterSeconds(-21600)"
+            },
+            "resultPath": "$.dateOptions",
+            "next": "checkSavedAt",
+            "x": 0,
+            "y": 20
+          },
+          "checkSavedAt": {
+            "type": "Choice",
+            "choices": [
+              {
+                "variable": "$.orderDelivery.savedAt",
+                "timestampGreaterThanPath": "$.dateOptions.beforeSixHours",
+                "next": "existExpress"
+              }
+            ],
+            "default": "findOrder",
+            "x": 0,
+            "y": 140
+          },
+          "findOrder": {
+            "type": "Task",
+            "resource": "source:findOne",
+            "parameters": {
+              "atomName": "orders",
+              "query": {
+                "filter": {
+                  "_id.$": "$.body.orderId"
+                }
+              }
+            },
+            "resultPath": "$.order",
+            "next": "searchExpress"
+          },
+          "searchExpress": {
+            "type": "Task",
+            "resource": "http",
+            "parameters": {
+              "url": "https://example.com",
+              "method": "POST",
+              "data": {
+                "expressCode.$": "$.orderDelivery.expressCode",
+                "expressNumber.$": "$.orderDelivery.expressNumber",
+                "phoneNumber.$": "$.order.phone"
+              }
+            },
+            "resultPath": "$.searched",
+            "next": "saveLogs",
+            "x": 380,
+            "y": 360
+          },
+          "checkSearched": {
+            "type": "Choice",
+            "choices": [
+              {
+                "variable": "$.searched.data.data.success",
+                "booleanEquals": true,
+                "next": "saveLogs"
+              }
+            ],
+            "x": 380,
+            "y": 460
+          },
+          "saveLogs": {
+            "type": "Task",
+            "resource": "source:updateOne",
+            "parameters": {
+              "atomName": "order_deliveries",
+              "id.$": "$.orderDelivery._id",
+              "data": {
+                "logs.$": "$.searched.data.data",
+                "savedAt.$": "States.now()"
+              }
+            },
+            "next": "outputLogs",
+            "x": 380,
+            "y": 560
+          },
+          "outputLogs": {
+            "type": "Pass",
+            "result": {
+              "logs.$": "$.searched.data.data"
+            },
+            "resultPath": "$.output",
+            "outputPath": "$.output",
+            "end": true,
+            "x": 380,
+            "y": 660
+          },
+          "existExpress": {
+            "type": "Pass",
+            "result": {
+              "logs.$": "$.orderDelivery.logs"
+            },
+            "resultPath": "$.output",
+            "outputPath": "$.output",
+            "end": true,
+            "x": -300,
+            "y": 520
+          }
+        },
+        "startX": 100,
+        "startY": -180,
+        "endX": 120,
+        "endY": 840
+      },
+      "validations": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string"
+          }
+        }
+      },
+      "isEnabledWebhook": true
+    },
+    {
+      "name": "test_code",
+      "description": "测试代码执行",
+      "configurations": {
+        "startAt": "testCode",
+        "states": {
+          "testCode": {
+            "type": "Task",
+            "resource": "code:js",
+            "parameters": {
+              "code": "return { hello: 'world' };"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "roles": [
+    {
+      "name": "owner",
+      "label": "所有者角色",
+      "permissions": []
+    },
+    {
+      "name": "anonymous",
+      "label": "未登录角色",
+      "permissions": [
+        "webhook:sign_up",
+        "webhook:reset_password",
+        "webhook:get_email_verify_code",
+        "webhook:signin",
+        "webhook:notify_wechat_prepayid",
+        "webhook:get_wechat_jwt"
+      ]
+    },
+    {
+      "name": "registered",
+      "label": "普通内购用户",
+      "permissions": [
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
+      ]
+    },
+    {
+      "name": "support",
+      "label": "客服角色",
+      "permissions": [
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
+      ]
+    },
+    {
+      "name": "operator",
+      "label": "运营角色",
+      "permissions": [
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
+      ]
+    },
+    {
+      "name": "auditor",
+      "label": "审计角色",
+      "permissions": [
+        "source:addresses:create",
+        "source:addresses:read:own",
+        "source:addresses:update:own",
+        "source:addresses:delete:own",
+        "source:banners:read",
+        "source:orders:create",
+        "source:orders:read:own",
+        "source:order_deliveries:read:own",
+        "source:order_products:read:own",
+        "source:products:read",
+        "source:product_categories:read",
+        "webhook:create_order",
+        "webhook:sign_up",
+        "webhook:signin"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "test",
+      "description": "测试",
+      "input": {
+        "type": "object",
+        "required": ["taskId", "vehicleId"],
+        "properties": {
+          "taskId": {
+            "type": "string"
+          },
+          "vehicleId": {
+            "type": "string"
+          }
+        }
+      },
+      "output": {},
+      "startEventName": "queryReceiveTask",
+      "events": {
+        "queryReceiveTask": {
+          "type": "SourceQuery",
+          "atomName": "receive_tasks",
+          "next": "",
+          "query": {
+            "filter": {
+              "_id": { "$eq": "$.input.taskId" },
+              "vehicle": { "$eq": "$.input.vehicleId" },
+              "status": { "$in": "['accepted']" }
+            },
+            "select": {
+              "_id": true
+            },
+            "limit": 1
+          }
+        }
+      },
+      "store": {}
+    }
+  ]
+}

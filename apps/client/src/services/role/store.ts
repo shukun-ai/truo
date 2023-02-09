@@ -1,10 +1,10 @@
 import { EntityState, createEntityStore } from '@datorama/akita';
-import { RoleSchema } from '@shukun/schema';
 import { produce } from 'immer';
 
 import { StoreNames } from '../../utils/store-names';
 
-export interface RoleState extends EntityState<RoleSchema, string> {}
+export interface RoleState
+  extends EntityState<{ name: string; label: string }, string> {}
 
 const initialState: RoleState = {};
 

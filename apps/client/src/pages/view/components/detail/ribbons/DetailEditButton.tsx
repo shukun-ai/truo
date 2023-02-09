@@ -1,10 +1,9 @@
-import { ViewV2Ribbon } from '@shukun/schema';
+import { UnknownSourceModel, ViewRibbon } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useContext } from 'react';
 import { AiOutlineEdit, AiOutlineSave, AiOutlineClose } from 'react-icons/ai';
 
 import { RibbonButton } from '../../../../../components/ribbon/RibbonButton';
-import { UnknownSourceModel } from '../../../../../models/source';
 import {
   DetailMode,
   detailService,
@@ -15,7 +14,7 @@ import { FormContext } from '../../form/FormContext';
 import { runStringCode } from '../../ribbon/runStringCode';
 
 export interface DetailEditButtonProps {
-  viewRibbon: ViewV2Ribbon;
+  viewRibbon: ViewRibbon;
   source: UnknownSourceModel | null;
   sources: UnknownSourceModel[];
 }

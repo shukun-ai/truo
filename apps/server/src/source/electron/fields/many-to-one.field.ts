@@ -1,8 +1,9 @@
 import { Schema } from 'mongoose';
 
-import { ElectronType, MongooseSchema } from '../electron-field.interface';
+import { MongooseSchema } from '../electron-field.interface';
+import { IElectronInterpreter } from '../electron-interpreter.interface';
 
-export class ManyToOneField implements ElectronType {
+export class ManyToOneField implements IElectronInterpreter {
   validateValue() {
     return [];
   }

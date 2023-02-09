@@ -1,20 +1,20 @@
-import { findGrantList, findGrantRoles } from '../../models/security';
+import { publicRequester } from '../../apis/requester';
 
 import { securityStore } from './store';
 
 export class SecurityService {
   async fetchGrantList() {
-    const response = await findGrantList();
-    securityStore.update((entity) => ({
-      ...entity,
+    const response = await publicRequester.getGrantList();
+
+    securityStore.update(() => ({
       grantList: response.data.value,
     }));
   }
 
   async fetchGrantRoles() {
-    const response = await findGrantRoles();
-    securityStore.update((entity) => ({
-      ...entity,
+    const response = await publicRequester.getGrantRoles();
+
+    securityStore.update(() => ({
       grantRoles: response.data.value,
     }));
   }

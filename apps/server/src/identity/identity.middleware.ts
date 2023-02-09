@@ -5,13 +5,15 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { AuthenticationToken } from '@shukun/schema';
 import { Request, Response, NextFunction } from 'express';
 import { set } from 'lodash';
 
-import { AuthJwt } from '../util/passport/jwt/jwt.interface';
-
 import { parseToken } from './utils/security.utils';
 
+/**
+ * @deprecated
+ */
 @Injectable()
 export class IdentityMiddleware implements NestMiddleware {
   @Inject()
@@ -29,10 +31,10 @@ export class IdentityMiddleware implements NestMiddleware {
   }
 
   getAuthJwt(token: string) {
-    let authJwt: AuthJwt;
+    let authJwt: AuthenticationToken;
 
     try {
-      authJwt = this.jwtService.verify<AuthJwt>(token);
+      authJwt = this.jwtService.verify<AuthenticationToken>(token);
     } catch {
       throw new BadRequestException(
         'Your token was not standard, we cannot parse it, when we was identifying you.',

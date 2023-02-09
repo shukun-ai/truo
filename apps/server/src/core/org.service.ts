@@ -5,6 +5,7 @@ import {
   FlowOrgCompiledCodes,
   DataSourceSchema,
   IDString,
+  MetadataSchema,
 } from '@shukun/schema';
 import { Model } from 'mongoose';
 
@@ -73,6 +74,11 @@ export class OrgService {
     const entity = new this.orgModel(createDto);
     const value = await entity.save();
     return value;
+  }
+
+  async deleteOne(orgName: string): Promise<null> {
+    await this.orgModel.deleteOne({ name: orgName });
+    return null;
   }
 
   async updateCodebase(orgName: string, codebase: ApplicationSchema) {
@@ -176,5 +182,32 @@ export class OrgService {
     }
 
     return org.dataSource;
+  }
+
+  async findMigrated(orgName: string): Promise<MetadataSchema[]> {
+    const org = await this.orgModel
+      .findOne({ name: orgName })
+      .select('migrated')
+      .exec();
+
+    if (!org?.migrated) {
+      return [];
+    }
+
+    return JSON.parse(org.migrated.toString());
+  }
+
+  async updateMigrated(
+    orgName: string,
+    metadata: MetadataSchema[],
+  ): Promise<void> {
+    const buffer = Buffer.from(JSON.stringify(metadata));
+
+    await this.orgModel.updateOne(
+      { name: orgName },
+      {
+        migrated: buffer,
+      },
+    );
   }
 }

@@ -48,6 +48,17 @@
         "passWithNoTests": true
       }
     },
+    "integration-test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/server-integration-testing"],
+      "options": {
+        "jestConfig": "apps/server/integration-testing/jest.config.js",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "debug": "watch"
+      }
+    },
     "package": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

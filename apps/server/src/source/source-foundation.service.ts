@@ -36,15 +36,10 @@ export class SourceFoundationService<Model> {
       atomName,
     );
 
-    const owner = ownerId ? { owner: ownerId } : null;
-
     const params = this.sourceParamUtilService.buildParams(
       dataSourceConnection,
       metadata,
-      {
-        ...dto,
-        ...owner,
-      },
+      dto,
     );
 
     this.sourceDtoConstraintService.validateCreateConstraint(metadata, params);
@@ -58,6 +53,7 @@ export class SourceFoundationService<Model> {
       orgName,
       metadata,
       params,
+      ownerId,
     );
   }
 
@@ -332,7 +328,11 @@ export class SourceFoundationService<Model> {
         electron.name === electronName && electron.fieldType === 'ManyToMany',
     );
 
-    if (!electron || !electron.referenceTo) {
+    if (
+      !electron ||
+      !electron.referenceTo ||
+      typeof electron.referenceTo !== 'string'
+    ) {
       throw new BadRequestException(
         'We did not find specified electron or the electron is not ManyToMany.',
       );

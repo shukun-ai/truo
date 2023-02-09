@@ -1,0 +1,9 @@
+export const TEXT_MAX_LENGTH = 1000;
+export const SINGLE_SELECT_MAX_LENGTH = 1000;
+export const PASSWORD_MAX_LENGTH = 1000;
+export const PASSWORD_DEFAULT_MIN_LENGTH = 6;
+export const PASSWORD_DEFAULT_MAX_LENGTH = 99;
+export const NAME_TEXT_MAX_LENGTH = 1000;
+export const MANY_TO_ONE_MAX_LENGTH = 255;
+export const FLOAT_MAX_SCALE = 15;
+export const CURRENCY_MAX_SCALE = 4;

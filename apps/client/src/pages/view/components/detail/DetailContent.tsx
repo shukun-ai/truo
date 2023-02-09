@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/styles';
 import {
   MetadataSchema,
   ViewSchema,
-  ViewV2FieldGroupType,
+  ViewDetailGroupType,
+  UnknownSourceModel,
 } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, FormInstance, FormProps, message, Tabs } from 'antd';
@@ -10,8 +11,6 @@ import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router';
 
-import { UnknownMetadataModel } from '../../../../models/metadata';
-import { UnknownSourceModel } from '../../../../models/source';
 import { DetailMode, detailService, mode$ } from '../../../../services/detail';
 import { sourceReferenceService } from '../../../../services/source';
 import { RoutePath, useOrgPath } from '../../../../utils/history-provider';
@@ -20,7 +19,7 @@ import { DETAIL_FORM_ID } from '../../constant';
 import { DEFAULT_GROUP_NAME, DetailGroup } from './DetailGroup';
 
 export interface DetailContentProps {
-  form: FormInstance<UnknownMetadataModel>;
+  form: FormInstance<UnknownSourceModel>;
   metadata: MetadataSchema;
   view: ViewSchema;
   source: UnknownSourceModel | null;
@@ -41,7 +40,7 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
   const viewDetailOrgPath = useOrgPath(RoutePath.ViewDetail);
 
   const viewFieldGroups = useMemo(() => {
-    const groups = view.configurations?.v2FieldGroups || [];
+    const groups = view.configurations?.detailGroups || [];
 
     if (groups.length > 0) {
       return groups;
@@ -50,11 +49,11 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
         {
           name: DEFAULT_GROUP_NAME,
           label: view.label,
-          type: ViewV2FieldGroupType.None,
+          type: ViewDetailGroupType.None,
         },
       ];
     }
-  }, [view.configurations?.v2FieldGroups, view.label]);
+  }, [view.configurations?.detailGroups, view.label]);
 
   const handleFinish = useCallback(
     async (values: UnknownSourceModel) => {

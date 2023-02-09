@@ -1,4 +1,10 @@
-import { MetadataSchema, ViewV2Field } from '@shukun/schema';
+import {
+  MetadataAttachmentOptions,
+  MetadataCurrencyOptions,
+  MetadataOptions,
+  MetadataSchema,
+  ViewDetailField,
+} from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -9,40 +15,40 @@ import { runStringCode } from '../ribbon/runStringCode';
 
 export interface DetailFieldProps {
   metadata: MetadataSchema;
-  viewField: ViewV2Field;
+  viewDetailField: ViewDetailField;
   detailMode: DetailMode;
 }
 
 export const DetailField: FunctionComponent<DetailFieldProps> = ({
   metadata,
-  viewField,
+  viewDetailField,
   detailMode,
 }) => {
   const electron = useMemo(() => {
     return metadata.electrons.find(
-      (electron) => electron.name === viewField.electronName,
+      (electron) => electron.name === viewDetailField.electronName,
     );
-  }, [metadata.electrons, viewField.electronName]);
+  }, [metadata.electrons, viewDetailField.electronName]);
 
   const source = useObservableState(source$);
 
   const disabled = useMemo(() => {
     return runStringCode(
-      viewField.disabledCode,
+      viewDetailField.disabledCode,
       source ?? undefined,
       source ? [source] : [],
       detailMode,
     );
-  }, [source, viewField.disabledCode, detailMode]);
+  }, [source, viewDetailField.disabledCode, detailMode]);
 
   const required = useMemo(() => {
     return runStringCode(
-      viewField.requiredCode,
+      viewDetailField.requiredCode,
       source ?? undefined,
       source ? [source] : [],
       detailMode,
     );
-  }, [source, viewField.requiredCode, detailMode]);
+  }, [source, viewDetailField.requiredCode, detailMode]);
 
   if (!electron) {
     return <>不存在该字段</>;
@@ -51,38 +57,42 @@ export const DetailField: FunctionComponent<DetailFieldProps> = ({
   if (detailMode === DetailMode.Show) {
     return (
       <ShowFieldFactory
-        type={viewField.type}
-        name={viewField.name}
-        label={viewField.label}
+        type={viewDetailField.type}
+        name={viewDetailField.name}
+        label={viewDetailField.label}
         viewLink={undefined}
-        electronName={viewField.electronName}
-        electronOptions={electron.options}
-        electronForeignName={electron.foreignName}
-        electronReferenceTo={electron.referenceTo}
-        referenceViewName={viewField.referenceViewName}
-        currencyOptions={electron.currencyOptions}
-        attachmentOptions={electron.attachmentOptions}
-        tip={viewField.tip}
+        electronName={viewDetailField.electronName}
+        electronOptions={electron.options as MetadataOptions}
+        electronForeignName={electron.foreignName as string}
+        electronReferenceTo={electron.referenceTo as string}
+        referenceViewName={viewDetailField.referenceViewName}
+        currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+        attachmentOptions={
+          electron.attachmentOptions as MetadataAttachmentOptions
+        }
+        tip={viewDetailField.tip}
         row={source ?? undefined}
       />
     );
   } else {
     return (
       <InputFieldFactory
-        type={viewField.type}
-        name={viewField.name}
-        label={viewField.label}
-        electronName={viewField.electronName}
-        electronOptions={electron.options}
-        electronForeignName={electron.foreignName}
-        electronReferenceTo={electron.referenceTo}
-        referenceViewName={viewField.referenceViewName}
-        currencyOptions={electron.currencyOptions}
-        attachmentOptions={electron.attachmentOptions}
-        tip={viewField.tip}
+        type={viewDetailField.type}
+        name={viewDetailField.name}
+        label={viewDetailField.label}
+        electronName={viewDetailField.electronName}
+        electronOptions={electron.options as MetadataOptions}
+        electronForeignName={electron.foreignName as string | undefined}
+        electronReferenceTo={electron.referenceTo as string | undefined}
+        referenceViewName={viewDetailField.referenceViewName}
+        currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+        attachmentOptions={
+          electron.attachmentOptions as MetadataAttachmentOptions
+        }
+        tip={viewDetailField.tip}
         required={required}
         disabled={disabled}
-        filterOptions={viewField.filterOptions}
+        filterOptions={viewDetailField.filterOptions}
       />
     );
   }

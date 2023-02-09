@@ -43,20 +43,19 @@ export const ViewFactory: FunctionComponent<ViewFactoryProps> = () => {
     };
   }, [view?.name]);
 
-  const grantList = useObservableState(grantList$, null);
+  const grantList = useObservableState(grantList$, []);
 
-  const grantRoles = useObservableState(grantRoles$, null);
+  const grantRoles = useObservableState(grantRoles$, []);
 
   const isGrantedView = useMemo<boolean | null>(() => {
     if (!view) {
       return null;
     }
-
     return isGranted({
       grantList,
       grantRoles,
-      resource: `${RoleResourceType.View}/${view.name}`,
-      action: 'read:any',
+      type: RoleResourceType.View,
+      name: view.name,
     });
   }, [grantList, grantRoles, view]);
 

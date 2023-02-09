@@ -1,8 +1,8 @@
+import { UnknownSourceModel } from '@shukun/schema';
 import { useCallback } from 'react';
 import { useHistory } from 'react-router';
 import format from 'string-format';
 
-import { UnknownSourceModel } from '../../../models/source';
 import { RoutePath, useOrgPath } from '../../../utils/history-provider';
 
 export function useViewLink(

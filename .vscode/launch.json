@@ -24,16 +24,25 @@
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9230
+      "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Launch client on Edge",
-      "type": "pwa-msedge",
+      "name": "Debug Integration testing",
+      "type": "node",
       "request": "launch",
-      "url": "http://localhost:9000",
-      "webRoot": "${workspaceFolder}",
-      "userDataDir": "${workspaceFolder}/.vscode/vscode-edge-debug-userdatadir"
+      "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx.js",
+      "args": [
+        "run",
+        "server:integration-test",
+        "--watchAll",
+        "--codeCoverage=false",
+        "--runInBand",
+        "--detectOpenHandles",
+        "--inspect-brk"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "name": "Launch client on Chrome",

@@ -20,8 +20,9 @@ export class SourceAccessControlService {
     metadata.electrons.forEach((electron) => {
       const value = dto[electron.name];
 
-      // @todo add attributes acl control later
-      // @todo get rid of FieldType.ManyToMany type.
+      // TODO add attributes acl control later
+      // TODO get rid of FieldType.ManyToMany value in source module.
+      // TODO remove below logic with removing Owner and IsSystem.
       if (
         typeof value !== 'undefined' &&
         !['Owner', 'IsSystem'].includes(electron.fieldType)

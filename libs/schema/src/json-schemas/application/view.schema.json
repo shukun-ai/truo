@@ -1,0 +1,431 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ViewSchema",
+  "description": "Describe View Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "label", "type", "isVisible", "priority"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "title": "ViewType",
+      "enum": [
+        "Simple",
+        "Tree",
+        "Calendar",
+        "Gallery",
+        "Custom",
+        "External",
+        "Link",
+        "Menu"
+      ],
+      "tsEnumNames": [
+        "Simple",
+        "Tree",
+        "Calendar",
+        "Gallery",
+        "Custom",
+        "External",
+        "Link",
+        "Menu"
+      ]
+    },
+    "isSystem": {
+      "type": "boolean"
+    },
+    "atomName": {
+      "type": "string"
+    },
+    "configurations": {
+      "title": "ViewConfigurations",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tableFields": {
+          "type": "array",
+          "items": {
+            "title": "ViewTableField",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "label", "type", "electronName"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "$ref": "#/definitions/ViewFieldType"
+              },
+              "electronName": {
+                "type": "string"
+              },
+              "referenceViewName": {
+                "type": "string"
+              },
+              "computedCode": {
+                "type": "string"
+              },
+              "link": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["type"],
+                "properties": {
+                  "type": { "$ref": "#/definitions/ViewLinkType" },
+                  "value": { "type": "string" },
+                  "query": { "type": "string" }
+                }
+              },
+              "filterHidden": {
+                "type": "boolean"
+              },
+              "filterOptions": {
+                "title": "ViewTableFilterOptions",
+                "type": "array",
+                "description": "It only work on SingleSelect and MultipleSelect now.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "filterType": {
+                "$ref": "#/definitions/ViewTableFilterType"
+              }
+            }
+          }
+        },
+        "tableRibbons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewRibbon"
+          }
+        },
+        "tableCustomActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewCustomAction"
+          }
+        },
+        "detailFields": {
+          "type": "array",
+          "items": {
+            "title": "ViewDetailField",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "label", "type", "electronName"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "$ref": "#/definitions/ViewFieldType"
+              },
+              "electronName": {
+                "type": "string"
+              },
+              "referenceViewName": {
+                "type": "string"
+              },
+              "tip": {
+                "type": "string"
+              },
+              "requiredCode": {
+                "type": "string"
+              },
+              "disabledCode": {
+                "type": "string"
+              },
+              "oneToMany": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "atomName": {
+                    "type": "string"
+                  },
+                  "foreignName": {
+                    "type": "string"
+                  }
+                }
+              },
+              "belongToGroup": {
+                "type": "string"
+              },
+              "filterOptions": {
+                "title": "ViewDetailFilterOptions",
+                "type": "array",
+                "description": "It only work on SingleSelect and MultipleSelect now.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "detailGroups": {
+          "type": "array",
+          "items": {
+            "title": "ViewDetailGroup",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "label", "type"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "type": {
+                "$ref": "#/definitions/ViewDetailGroupType"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "detailRibbons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewRibbon"
+          }
+        }
+      }
+    },
+    "value": {
+      "type": "string"
+    },
+    "parentName": {
+      "type": "string"
+    },
+    "isVisible": {
+      "type": "boolean"
+    },
+    "priority": {
+      "type": "integer"
+    },
+    "search": {
+      "$ref": "#/definitions/ViewSearch"
+    }
+  },
+  "definitions": {
+    "ViewBasicValue": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "ViewSearch": {
+      "title": "ViewSearch",
+      "description": "Support sub keywords: filter, sort. But didn't support totalCount, currentPage, pageSize.",
+      "type": "object",
+      "properties": {
+        "totalCount": { "type": "number" },
+        "currentPage": { "type": "number" },
+        "pageSize": { "type": "number" },
+        "filter": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "type": "object",
+              "properties": {
+                "$eq": { "$ref": "#/definitions/ViewBasicValue" },
+                "$ne": { "$ref": "#/definitions/ViewBasicValue" },
+                "$gt": { "$ref": "#/definitions/ViewBasicValue" },
+                "$gte": { "$ref": "#/definitions/ViewBasicValue" },
+                "$lt": { "$ref": "#/definitions/ViewBasicValue" },
+                "$lte": { "$ref": "#/definitions/ViewBasicValue" },
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ViewBasicValue"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ViewBasicValue"
+                  }
+                },
+                "$like": { "type": "string" }
+              }
+            }
+          }
+        },
+        "sort": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "enum": ["asc", "desc"]
+            }
+          }
+        }
+      }
+    },
+    "ViewFieldType": {
+      "title": "ViewFieldType",
+      "type": "string",
+      "enum": [
+        "Text",
+        "NameText",
+        "LargeText",
+        "SingleSelect",
+        "MultiSelect",
+        "Boolean",
+        "DateTime",
+        "Integer",
+        "Float",
+        "Currency",
+        "Password",
+        "ManyToMany",
+        "ManyToOne",
+        "Owner",
+        "Attachment",
+        "Mixed",
+        "Role",
+        "OneToMany",
+        "LinkText"
+      ],
+      "tsEnumNames": [
+        "Text",
+        "NameText",
+        "LargeText",
+        "SingleSelect",
+        "MultiSelect",
+        "Boolean",
+        "DateTime",
+        "Integer",
+        "Float",
+        "Currency",
+        "Password",
+        "ManyToMany",
+        "ManyToOne",
+        "Owner",
+        "Attachment",
+        "Mixed",
+        "Role",
+        "OneToMany",
+        "LinkText"
+      ]
+    },
+    "ViewRibbon": {
+      "title": "ViewRibbon",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "label", "type"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ViewLinkType"
+        },
+        "value": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "disabledCode": {
+          "type": "string"
+        },
+        "disabledTip": {
+          "type": "string"
+        },
+        "confirmedTip": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    },
+    "ViewLinkType": {
+      "type": "string",
+      "title": "ViewLinkType",
+      "description": "Support CreateOne, Excel, Csv, View, CustomModal in Table. Support UpdateOne, DeleteOne, Print, View in Detail.",
+      "enum": [
+        "None",
+        "View",
+        "Webhook",
+        "CreateOne",
+        "ReadOne",
+        "UpdateOne",
+        "DeleteOne",
+        "Print",
+        "Excel",
+        "Csv",
+        "CustomModal"
+      ],
+      "tsEnumNames": [
+        "None",
+        "View",
+        "Webhook",
+        "CreateOne",
+        "ReadOne",
+        "UpdateOne",
+        "DeleteOne",
+        "Print",
+        "Excel",
+        "Csv",
+        "CustomModal"
+      ]
+    },
+    "ViewDetailGroupType": {
+      "type": "string",
+      "title": "ViewDetailGroupType",
+      "enum": ["None", "CustomTab"],
+      "tsEnumNames": ["None", "CustomTab"]
+    },
+    "ViewCustomAction": {
+      "type": "object",
+      "title": "ViewCustomAction",
+      "additionalProperties": false,
+      "required": ["name", "label", "type"],
+      "properties": {
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "type": { "$ref": "#/definitions/ViewCustomActionType" },
+        "value": { "type": "string" }
+      }
+    },
+    "ViewCustomActionType": {
+      "type": "string",
+      "title": "ViewCustomActionType",
+      "enum": ["Column"],
+      "tsEnumNames": ["Column"]
+    },
+    "ViewTableFilterType": {
+      "type": "string",
+      "title": "ViewTableFilterType",
+      "enum": ["SelectRadio"],
+      "tsEnumNames": ["SelectRadio"]
+    }
+  }
+}
