@@ -1,6 +1,7 @@
 import { ExceptionNames } from '@shukun/schema';
 
-import { BaseException, InterpolationMap } from '../base-exception';
+import { BaseException } from '../base-exception';
+import { InterpolationMap } from '../base-exception.type';
 
 export class IsEmptyArrayException extends BaseException {
   constructor(

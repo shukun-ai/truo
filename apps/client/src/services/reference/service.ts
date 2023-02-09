@@ -1,7 +1,7 @@
-import { MetadataRequestService } from '@shukun/api';
 import { MetadataSchema, ViewSchema, ViewType } from '@shukun/schema';
 
-import { httpRequestService } from '../../utils/http-helper';
+import { createSourceRequester } from '../../apis/requester';
+
 import { sourceReferenceService } from '../source';
 import { viewsStore } from '../view/store';
 
@@ -80,8 +80,8 @@ class ReferenceService {
     referenceStore.setLoading(true);
     const { excludedIds } = referenceStore.getValue();
 
-    const request = new MetadataRequestService(httpRequestService, metadata);
-    const response = await request.findMany({
+    const requester = createSourceRequester(metadata.name);
+    const response = await requester.query({
       ...options,
       filter: { _id: { $nin: excludedIds } },
     });

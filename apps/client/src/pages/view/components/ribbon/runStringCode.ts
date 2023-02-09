@@ -1,4 +1,5 @@
-import { UnknownSourceModel } from '../../../../models/source';
+import { UnknownSourceModel } from '@shukun/schema';
+
 import { DetailMode } from '../../../../services/detail';
 import { log } from '../../../../utils/log';
 import { createStringFunction } from '../../../../utils/string-function/stringFunction';

@@ -18,43 +18,43 @@
     "metadata": {
       "type": "array",
       "items": {
-        "$ref": "metadata.schema.json"
+        "$ref": "application/metadata.schema.json"
       }
     },
     "views": {
       "type": "array",
       "items": {
-        "$ref": "view.schema.json"
+        "$ref": "application/view.schema.json"
       }
     },
     "workflows": {
       "type": "array",
       "items": {
-        "$ref": "workflow.schema.json"
+        "$ref": "application/workflow.schema.json"
       }
     },
     "flows": {
       "type": "array",
       "items": {
-        "$ref": "flow.schema.json"
+        "$ref": "application/flow.schema.json"
       }
     },
     "roles": {
       "type": "array",
       "items": {
-        "$ref": "role.schema.json"
+        "$ref": "application/role.schema.json"
       }
     },
     "schedules": {
       "type": "array",
       "items": {
-        "$ref": "schedule.schema.json"
+        "$ref": "application/schedule.schema.json"
       }
     },
     "environments": {
       "type": "array",
       "items": {
-        "$ref": "environment.schema.json"
+        "$ref": "application/environment.schema.json"
       }
     }
   }

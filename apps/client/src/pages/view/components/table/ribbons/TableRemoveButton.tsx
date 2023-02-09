@@ -1,16 +1,20 @@
-import { MetadataSchema, ViewSchema, ViewV2Ribbon } from '@shukun/schema';
+import {
+  MetadataSchema,
+  ViewSchema,
+  ViewRibbon,
+  UnknownSourceModel,
+} from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 import { RibbonButton } from '../../../../../components/ribbon/RibbonButton';
-import { UnknownSourceModel } from '../../../../../models/source';
 import { detailService, mode$ } from '../../../../../services/detail';
 import { tableService } from '../../../../../services/table';
 import { runStringCode } from '../../ribbon/runStringCode';
 
 export interface TableRemoveButtonProps {
-  viewRibbon: ViewV2Ribbon;
+  viewRibbon: ViewRibbon;
   view: ViewSchema;
   metadata: MetadataSchema;
   sources: UnknownSourceModel[];

@@ -1,11 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons';
+import { UnknownSourceModel } from '@shukun/schema';
 import { useMount } from 'ahooks';
 import { FormInstance, Input, Tag, Button, message } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import React, { FunctionComponent, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { UnknownMetadataModel } from '../../../../../models/metadata';
 import { SourceModel } from '../../../../../models/source';
 import { referenceService } from '../../../../../services/reference';
 import { ReferenceModalError } from '../../../../../services/reference/classes/ReferenceModalError';
@@ -14,8 +14,8 @@ import { BaseReferenceItem, InputFieldProps } from '../interfaces';
 
 export interface ManyToOneInputProps extends InputFieldProps {
   foreignSources: SourceModel[];
-  form: FormInstance<UnknownMetadataModel>;
-  row: UnknownMetadataModel | null;
+  form: FormInstance<UnknownSourceModel>;
+  row: UnknownSourceModel | null;
 }
 
 export const ManyToOneInput: FunctionComponent<ManyToOneInputProps> = ({
@@ -64,7 +64,7 @@ export const ManyToOneInput: FunctionComponent<ManyToOneInputProps> = ({
   }, [setItem, electronName, form]);
 
   const handleFinish = useCallback(
-    async (selectedRow: UnknownMetadataModel[]) => {
+    async (selectedRow: UnknownSourceModel[]) => {
       if (selectedRow.length === 0 || !electronForeignName) {
         return;
       }

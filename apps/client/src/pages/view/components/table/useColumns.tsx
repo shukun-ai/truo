@@ -1,9 +1,11 @@
 import { UnknownSourceModel } from '@shukun/api';
 import {
+  MetadataAttachmentOptions,
+  MetadataCurrencyOptions,
   MetadataElectron,
   MetadataSchema,
   ViewSchema,
-  ViewV2Column,
+  ViewTableField,
 } from '@shukun/schema';
 import { TableColumnsType, TableColumnType } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -28,9 +30,9 @@ export function useColumns(
   const columns = useMemo<TableColumnsType<UnknownSourceModel>>(() => {
     const antColumns: TableColumnsType<UnknownSourceModel> = [];
 
-    const viewColumns = view.configurations?.v2Columns || [];
+    const viewTableFields = view.configurations?.tableFields || [];
 
-    viewColumns.forEach((viewColumn) => {
+    viewTableFields.forEach((viewColumn) => {
       const electron = metadata.electrons.find(
         (electron) => electron.name === viewColumn.electronName,
       );
@@ -62,7 +64,7 @@ export function useColumns(
 
 function createElectronColumn(
   metadata: MetadataSchema,
-  viewColumn: ViewV2Column,
+  viewColumn: ViewTableField,
   electron: MetadataElectron,
   sort: SearchSort | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
 ): TableColumnType<UnknownSourceModel> {
@@ -83,12 +85,24 @@ function createElectronColumn(
         viewLink={viewColumn.link}
         tip={undefined}
         electronName={electron.name}
-        electronForeignName={electron.foreignName}
-        electronReferenceTo={electron.referenceTo}
-        electronOptions={electron.options}
+        electronForeignName={
+          typeof electron.foreignName === 'string'
+            ? electron.foreignName
+            : undefined
+        }
+        electronReferenceTo={
+          typeof electron.referenceTo === 'string'
+            ? electron.referenceTo
+            : undefined
+        }
+        electronOptions={
+          Array.isArray(electron.options) ? electron.options : undefined
+        }
         referenceViewName={viewColumn.referenceViewName}
-        currencyOptions={electron.currencyOptions}
-        attachmentOptions={electron.attachmentOptions}
+        currencyOptions={electron.currencyOptions as MetadataCurrencyOptions}
+        attachmentOptions={
+          electron.attachmentOptions as MetadataAttachmentOptions
+        }
         row={row}
       />,
     ],
@@ -99,7 +113,7 @@ function createElectronColumn(
 
 function createInternalColumn(
   metadata: MetadataSchema,
-  viewColumn: ViewV2Column,
+  viewColumn: ViewTableField,
   electronName: string,
   sort: SearchSort | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
 ): TableColumnType<UnknownSourceModel> {

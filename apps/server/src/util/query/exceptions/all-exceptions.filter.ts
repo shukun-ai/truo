@@ -6,10 +6,17 @@ import {
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { InternalServerCode } from '@shukun/api';
+import {
+  BaseException,
+  GatewayForbiddenException,
+  GatewayUnauthorizedException,
+  SourceDuplicateException,
+  SourceRequiredException,
+  SourceUnknownException,
+  SourceValidateException,
+} from '@shukun/exception';
 import { Response } from 'express';
 import { get, isObject } from 'lodash';
-import { MongoError } from 'mongodb';
-import { Error as MongooseError } from 'mongoose';
 
 import {
   EXCEPTION_STACK_NAME,
@@ -18,7 +25,7 @@ import {
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
-  override catch(exception: any, host: ArgumentsHost) {
+  override catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
@@ -26,25 +33,51 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       return this.handleHttpError(response, exception);
     }
 
-    if (
-      typeof exception?.message === 'string' &&
-      exception?.message.startsWith('E11000 duplicate key error collection')
-    ) {
-      return this.handleMongoDuplicateError(response, exception);
+    if (exception instanceof SourceRequiredException) {
+      return this.handlePlatformException(response, exception, 400);
     }
 
-    if (exception?.constructor?.name === MongoError.name) {
-      return this.handleMongoError(response, exception);
+    if (exception instanceof SourceDuplicateException) {
+      return this.handlePlatformException(response, exception, 400);
     }
 
-    if (exception?.constructor?.name === MongooseError.CastError.name) {
-      return this.handleCastError(response, exception);
+    if (exception instanceof SourceValidateException) {
+      return this.handlePlatformException(response, exception, 400);
+    }
+
+    if (exception instanceof GatewayForbiddenException) {
+      return this.handlePlatformException(response, exception, 403);
+    }
+
+    if (exception instanceof GatewayUnauthorizedException) {
+      return this.handlePlatformException(response, exception, 401);
+    }
+
+    if (exception instanceof SourceUnknownException) {
+      console.error(exception);
+      return this.handlePlatformException(response, exception, 500);
     }
 
     return this.handleUnknownError(response, exception);
   }
 
-  handleHttpError(response: Response, exception: HttpException) {
+  handlePlatformException(
+    response: Response,
+    exception: BaseException,
+    statusCode: number,
+  ) {
+    return response.status(statusCode).json({
+      statusCode: statusCode,
+      message: exception.message,
+      interpolationMap: exception.interpolationMap,
+      internalServerCode: exception.name,
+    });
+  }
+
+  /**
+   * @deprecated
+   */
+  private handleHttpError(response: Response, exception: HttpException) {
     const statusCode = exception.getStatus();
     const res = exception.getResponse();
     const message = isObject(res)
@@ -59,42 +92,9 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     );
   }
 
-  handleMongoDuplicateError(response: Response, exception: MongoError) {
-    const statusCode = HttpStatus.BAD_REQUEST;
-    const message = exception.message;
-    return this.sendResponse(
-      response,
-      exception,
-      message,
-      statusCode,
-      InternalServerCode.DuplicateValue,
-    );
-  }
-
-  handleMongoError(response: Response, exception: MongoError) {
-    const statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-    const message = exception.message;
-    return this.sendResponse(
-      response,
-      exception,
-      message,
-      statusCode,
-      InternalServerCode.Unknown,
-    );
-  }
-
-  handleCastError(response: Response, exception: MongooseError.CastError) {
-    const statusCode = HttpStatus.BAD_REQUEST;
-    const message = `The ObjectId '${exception.value}' is not a valid format.`;
-    return this.sendResponse(
-      response,
-      exception,
-      message,
-      statusCode,
-      InternalServerCode.ObjectIdErrorFormat,
-    );
-  }
-
+  /**
+   * @deprecated
+   */
   override handleUnknownError(response: Response, exception: unknown) {
     const statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     // @todo should use logger instead of returning message error directly for security and human-readable.
@@ -109,7 +109,10 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     );
   }
 
-  sendResponse(
+  /**
+   * @deprecated
+   */
+  private sendResponse(
     response: Response,
     exception: any,
     message: string,

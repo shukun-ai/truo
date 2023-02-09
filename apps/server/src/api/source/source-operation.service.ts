@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HttpQuerySchema, IDString, OperatorId } from '@shukun/schema';
 
 import { SourceServiceCreateDto } from '../../app.type';
-import { SecurityService } from '../../identity/security.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { SourceService } from '../../source/source.service';
 import { QueryResponse } from '../../util/query/interfaces';
@@ -10,17 +9,15 @@ import { QueryResponse } from '../../util/query/interfaces';
 import { AddToManyDto } from './dto/add-to-many.dto';
 import { IncreaseDto } from './dto/increase.dto';
 import { SourceAccessControlService } from './source-access-control.service';
+import { SourceQueryPermissionService } from './source-query-permission.service';
 
 @Injectable()
 export class SourceOperationService {
-  @Inject()
-  private readonly sourceService!: SourceService<unknown>;
-
-  @Inject()
-  private readonly sourceAccessControlService!: SourceAccessControlService;
-
-  @Inject()
-  private readonly securityService!: SecurityService;
+  constructor(
+    private readonly sourceService: SourceService<unknown>,
+    private readonly sourceAccessControlService: SourceAccessControlService,
+    private readonly sourceQueryPermissionService: SourceQueryPermissionService,
+  ) {}
 
   async getMetadata(orgName: string, atomName: string) {
     const value = await this.sourceService.getMetadata(orgName, atomName);
@@ -36,17 +33,12 @@ export class SourceOperationService {
     request: SecurityRequest,
   ): Promise<QueryResponse<unknown[]>> {
     if (request.userId) {
-      const isOwnRead = await this.securityService.isOwnRead(
+      query = await this.sourceQueryPermissionService.buildOwnQuery(
         orgName,
         atomName,
+        query,
         request.userId,
       );
-      if (isOwnRead) {
-        query = {
-          ...query,
-          filter: { $and: [{ owner: request.userId }, query.filter ?? {}] },
-        };
-      }
     }
 
     const { value, count } = await this.sourceService.queryWithCount(

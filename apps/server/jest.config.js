@@ -12,4 +12,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/server',
+  testPathIgnorePatterns: ['/node_modules/', 'integration-testing'],
 };

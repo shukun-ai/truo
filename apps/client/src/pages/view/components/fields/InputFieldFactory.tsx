@@ -1,4 +1,4 @@
-import { ViewV2FieldType } from '@shukun/schema';
+import { ViewFieldType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 
 import { FormContext } from '../form/FormContext';
@@ -25,7 +25,7 @@ import { TextForm } from './text/TextForm';
 export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
   props,
 ) => {
-  if (props.type === ViewV2FieldType.Text) {
+  if (props.type === ViewFieldType.Text) {
     return (
       <FormContext.Consumer>
         {({ form, row }) => form && <TextForm {...props} form={form} />}
@@ -33,15 +33,15 @@ export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
     );
   }
 
-  if (props.type === ViewV2FieldType.NameText) {
+  if (props.type === ViewFieldType.NameText) {
     return <NameTextForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.LargeText) {
+  if (props.type === ViewFieldType.LargeText) {
     return <LargeTextForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Mixed) {
+  if (props.type === ViewFieldType.Mixed) {
     return (
       <FormContext.Consumer>
         {({ form }) => form && <MixedForm form={form} {...props} />}
@@ -49,23 +49,23 @@ export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
     );
   }
 
-  if (props.type === ViewV2FieldType.Boolean) {
+  if (props.type === ViewFieldType.Boolean) {
     return <BooleanForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Integer) {
+  if (props.type === ViewFieldType.Integer) {
     return <IntegerForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Float) {
+  if (props.type === ViewFieldType.Float) {
     return <FloatForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Currency) {
+  if (props.type === ViewFieldType.Currency) {
     return <CurrencyForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Password) {
+  if (props.type === ViewFieldType.Password) {
     return (
       <FormContext.Consumer>
         {({ mode }) => <PasswordForm {...props} mode={mode} />}
@@ -73,27 +73,27 @@ export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
     );
   }
 
-  if (props.type === ViewV2FieldType.SingleSelect) {
+  if (props.type === ViewFieldType.SingleSelect) {
     return <SingleSelectForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.MultiSelect) {
+  if (props.type === ViewFieldType.MultiSelect) {
     return <MultiSelectForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.DateTime) {
+  if (props.type === ViewFieldType.DateTime) {
     return <DateTimeForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Attachment) {
+  if (props.type === ViewFieldType.Attachment) {
     return <AttachmentForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.Owner) {
+  if (props.type === ViewFieldType.Owner) {
     return <OwnerForm {...props} />;
   }
 
-  if (props.type === ViewV2FieldType.ManyToOne) {
+  if (props.type === ViewFieldType.ManyToOne) {
     return (
       <FormContext.Consumer>
         {({ form, row }) =>
@@ -103,7 +103,7 @@ export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
     );
   }
 
-  if (props.type === ViewV2FieldType.ManyToMany) {
+  if (props.type === ViewFieldType.ManyToMany) {
     return (
       <FormContext.Consumer>
         {({ form, row }) =>
@@ -113,7 +113,7 @@ export const InputFieldFactory: FunctionComponent<InputFieldProps> = (
     );
   }
 
-  if (props.type === ViewV2FieldType.Role) {
+  if (props.type === ViewFieldType.Role) {
     return <RoleForm {...props} />;
   }
 

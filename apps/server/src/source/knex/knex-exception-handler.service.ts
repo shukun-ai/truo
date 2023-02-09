@@ -1,25 +1,23 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { MetadataSchema } from '@shukun/schema';
+
+import { SourceExceptionService } from '../source-exception.service';
 
 @Injectable()
 export class KnexExceptionHandlerService {
-  handle(error: any): Error {
-    if (
-      typeof error === 'object' &&
-      error !== null &&
-      'severity' in error &&
-      error.severity === 'ERROR' &&
-      'code' in error &&
-      error.code === '23505'
-    ) {
-      return this.handlePostgresDuplicationException(error);
+  constructor(
+    private readonly sourceExceptionService: SourceExceptionService,
+  ) {}
+
+  handle(error: unknown, metadata: MetadataSchema): Error {
+    if (this.isDuplicateError(error)) {
+      return this.sourceExceptionService.prepareDuplicateException(metadata);
     }
 
-    return new InternalServerErrorException(
-      '发生未知错误，错误信息是' + error?.toString(),
-    );
+    return this.sourceExceptionService.prepareUnknownException(error);
   }
 
-  /* @example
+  /* @remark duplicate error detail
   {
     length: 213,
     severity: 'ERROR',
@@ -40,11 +38,14 @@ export class KnexExceptionHandlerService {
     routine: '_bt_check_unique'
   }
   */
-  handlePostgresDuplicationException(error: any): Error {
-    const message =
-      typeof error === 'object' && error !== null && 'detail' in error
-        ? error.detail
-        : '';
-    return new Error(`存在唯一字段重复值：${message}`);
+  private isDuplicateError(error: any): boolean {
+    const isDuplicateError =
+      typeof error === 'object' &&
+      error !== null &&
+      'severity' in error &&
+      error.severity === 'ERROR' &&
+      'code' in error &&
+      error.code === '23505';
+    return !!isDuplicateError;
   }
 }

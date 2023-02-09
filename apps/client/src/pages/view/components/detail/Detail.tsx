@@ -1,10 +1,9 @@
-import { MetadataSchema, ViewSchema } from '@shukun/schema';
+import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 import { Form, Spin } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { UnknownMetadataModel } from '../../../../models/metadata';
 import {
   DetailMode,
   detailService,
@@ -36,7 +35,7 @@ export const Detail: FunctionComponent<DetailProps> = ({ view, metadata }) => {
     }
   }, [sourceId, metadata]);
 
-  const [form] = Form.useForm<UnknownMetadataModel>();
+  const [form] = Form.useForm<UnknownSourceModel>();
 
   const mode = useObservableState(mode$, DetailMode.Show);
 
@@ -48,7 +47,7 @@ export const Detail: FunctionComponent<DetailProps> = ({ view, metadata }) => {
     <Spin spinning={loading}>
       <FormContext.Provider value={{ form, row: source ?? null, mode: mode }}>
         <DetailRibbon
-          viewRibbons={view.configurations?.v2FieldRibbons || []}
+          viewRibbons={view.configurations?.detailRibbons || []}
           view={view}
           metadata={metadata}
         />

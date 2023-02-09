@@ -1,5 +1,12 @@
 {
   "editor.formatOnSave": true,
   "javascript.preferences.importModuleSpecifier": "project-relative",
-  "typescript.preferences.importModuleSpecifier": "project-relative"
+  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "conventionalCommits.scopes": [
+    "schema",
+    "validator",
+    "client",
+    "server",
+    "api"
+  ]
 }

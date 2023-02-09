@@ -7,7 +7,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import {
-  initialApplication,
+  applicationSeedData,
   RoleResourceType,
   SystemPositionModel,
   SystemUserModel,
@@ -21,6 +21,9 @@ import { QueryResponse } from '../../util/query/interfaces';
 
 import { SeedCreateDto } from './seed.dto';
 
+/**
+ * @deprecated
+ */
 @Controller(`/${RoleResourceType.Tenant}/any/seeds`)
 @UseInterceptors(QueryResponseInterceptor)
 export class SeedController {
@@ -41,7 +44,7 @@ export class SeedController {
     const org = await this.createOrg(createDto);
 
     // upload codebase
-    await this.orgService.updateCodebase(org.name, initialApplication);
+    await this.orgService.updateCodebase(org.name, applicationSeedData);
 
     // create user
     const rootUser = await this.systemUserService.createOne(
@@ -90,5 +93,16 @@ export class SeedController {
     }
 
     return org;
+  }
+
+  @Post('destroy')
+  async destroyOrg(
+    @Body() dto: { orgName: string },
+  ): Promise<QueryResponse<null>> {
+    // TODO destroy all collections.
+    await this.orgService.deleteOne(dto.orgName);
+    return {
+      value: null,
+    };
   }
 }

@@ -1,12 +1,12 @@
+import { UnknownSourceModel } from '@shukun/schema';
 import { FormInstance } from 'antd';
 import { createContext } from 'react';
 
-import { UnknownMetadataModel } from '../../../../models/metadata';
 import { DetailMode } from '../../../../services/detail';
 
 export interface FormContextProps {
-  form: FormInstance<UnknownMetadataModel> | null;
-  row: UnknownMetadataModel | null;
+  form: FormInstance<UnknownSourceModel> | null;
+  row: UnknownSourceModel | null;
   mode: DetailMode;
 }
 

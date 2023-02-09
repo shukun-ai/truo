@@ -1,4 +1,4 @@
-import { ViewV2LinkType } from '@shukun/schema';
+import { ViewLinkType } from '@shukun/schema';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { useParams } from 'react-router';
 
@@ -25,9 +25,9 @@ export const LinkTextField: FunctionComponent<ColumnFieldProps> = ({
   }, [electronName, row]);
 
   const handleClick = useCallback(() => {
-    if (viewLink?.type === ViewV2LinkType.View) {
+    if (viewLink?.type === ViewLinkType.View) {
       handleViewLink();
-    } else if (viewLink?.type === ViewV2LinkType.ReadOne) {
+    } else if (viewLink?.type === ViewLinkType.ReadOne) {
       handleShowRowLink();
     }
   }, [viewLink?.type, handleViewLink, handleShowRowLink]);

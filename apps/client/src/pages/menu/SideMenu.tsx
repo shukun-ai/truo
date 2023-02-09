@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { ViewSchema, ViewType } from '@shukun/schema';
+import { RoleResourceType, ViewSchema, ViewType } from '@shukun/schema';
 import { Menu, MenuProps } from 'antd';
 import { MenuItemType, SubMenuType } from 'antd/lib/menu/hooks/useItems';
 import { useObservableState } from 'observable-hooks';
@@ -25,9 +25,9 @@ export const SideMenu: FunctionComponent<SideMenuProps> = () => {
 
   const views = useObservableState(activeViews$, []);
 
-  const grantList = useObservableState(grantList$, null);
+  const grantList = useObservableState(grantList$, []);
 
-  const grantRoles = useObservableState(grantRoles$, null);
+  const grantRoles = useObservableState(grantRoles$, []);
 
   const grantedViews = useMemo(() => {
     return views.filter(
@@ -35,8 +35,8 @@ export const SideMenu: FunctionComponent<SideMenuProps> = () => {
         isGranted({
           grantList,
           grantRoles,
-          resource: `view/${view.name}`,
-          action: 'read:any',
+          type: RoleResourceType.View,
+          name: view.name,
         }) || view.type === ViewType.Menu,
     );
   }, [grantList, grantRoles, views]);

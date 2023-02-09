@@ -7,11 +7,8 @@ import {
   Body,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import {
-  RoleResourceType,
-  DataSourceSchema,
-  validateDataSourceSchema,
-} from '@shukun/schema';
+import { RoleResourceType, DataSourceSchema } from '@shukun/schema';
+import { dataSourceSchemaValidator } from '@shukun/validator';
 
 import { OrgService } from '../../core/org.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
@@ -29,14 +26,7 @@ export class DataSourceController {
     // The body did not show in Swagger, because we did not add Swagger Decorator.
     @Body() dataSource: DataSourceSchema,
   ): Promise<QueryResponse<null>> {
-    const result = validateDataSourceSchema(dataSource);
-
-    if (!result) {
-      const errorMessage = JSON.stringify(validateDataSourceSchema.errors);
-      throw new BadRequestException(
-        `The file is not validated by application JSON Schema: ${errorMessage}`,
-      );
-    }
+    dataSourceSchemaValidator.validate(dataSource);
 
     // @remark to avoid MongoDB throw error.
     delete dataSource.$schema;

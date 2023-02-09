@@ -1,4 +1,6 @@
-import { findOneMetadata } from '../../models/metadata';
+import { SourceRequester } from '@shukun/api';
+
+import { axiosAdaptor } from '../../apis/requester';
 
 import { metadataStore } from './store';
 
@@ -7,7 +9,8 @@ class MetadataService {
     const { entities } = metadataStore.getValue();
 
     if (!entities || !entities[atomName]) {
-      const response = await findOneMetadata(atomName);
+      const sourceRequester = new SourceRequester(axiosAdaptor, atomName);
+      const response = await sourceRequester.metadata();
       metadataStore.upsert(response.data.value.name, response.data.value);
     }
   }

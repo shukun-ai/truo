@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "RoleSchema",
+  "description": "Describe Role Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "label", "permissions"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "rolePermission",
+        "description": "Rule: type:name:action:recordMode:attributeMode:attributes, Sample: source:orders:read:own:deny:time."
+      }
+    }
+  },
+  "definitions": {
+    "RoleResourceType": {
+      "title": "RoleResourceType",
+      "type": "string",
+      "enum": [
+        "public",
+        "internal",
+        "source",
+        "view",
+        "webhook",
+        "developer",
+        "tenant"
+      ],
+      "tsEnumNames": [
+        "Public",
+        "Internal",
+        "Source",
+        "View",
+        "Webhook",
+        "Developer",
+        "Tenant"
+      ]
+    },
+    "RoleAction": {
+      "title": "RoleAction",
+      "type": "string",
+      "enum": [
+        "read:any",
+        "create:any",
+        "update:any",
+        "delete:any",
+        "read:own",
+        "update:own",
+        "delete:own"
+      ],
+      "tsEnumNames": [
+        "ReadAny",
+        "CreateAny",
+        "UpdateAny",
+        "DeleteAny",
+        "ReadOwn",
+        "UpdateOwn",
+        "DeleteOwn"
+      ]
+    }
+  }
+}

@@ -4,7 +4,8 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillFileCodeFill } from 'react-icons/bs';
 
-import { uploadCodebase } from '../../models/developer';
+import { developerRequester } from '../../apis/requester';
+
 import { FluidLayout } from '../layout/FluidLayout';
 
 export interface UploadProps {}
@@ -14,13 +15,14 @@ export const Upload: FunctionComponent<UploadProps> = () => {
 
   const [loading, setLoading] = useState(false);
 
+  // TODO if we want to extract more functions, we must create a new store to save loading.
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       setLoading(true);
       const formData = new FormData();
       formData.append('file', acceptedFiles[0]);
       try {
-        await uploadCodebase(formData);
+        await developerRequester.updateCodebase(formData);
       } finally {
         setLoading(false);
       }

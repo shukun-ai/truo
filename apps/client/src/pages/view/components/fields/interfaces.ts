@@ -2,14 +2,14 @@ import {
   MetadataAttachmentOptions,
   MetadataCurrencyOptions,
   MetadataOptions,
-  ViewV2Column,
-  ViewV2ColumnFilterOptions,
-  ViewV2ColumnFilterType,
-  ViewV2FieldFilterOptions,
-  ViewV2FieldType,
+  ViewTableField,
+  ViewTableFilterOptions,
+  ViewTableFilterType,
+  ViewDetailFilterOptions,
+  ViewFieldType,
+  UnknownSourceModel,
 } from '@shukun/schema';
 
-import { UnknownSourceModel } from '../../../../models/source';
 import { IDString } from '../../../../utils/model-helpers';
 
 export interface BaseReferenceItem {
@@ -18,7 +18,7 @@ export interface BaseReferenceItem {
 }
 
 export interface ColumnFieldProps {
-  type: ViewV2FieldType;
+  type: ViewFieldType;
   name: string;
   label: string;
   electronName: string;
@@ -28,13 +28,13 @@ export interface ColumnFieldProps {
   referenceViewName: string | undefined;
   currencyOptions: MetadataCurrencyOptions | undefined;
   attachmentOptions: MetadataAttachmentOptions | undefined;
-  viewLink: NonNullable<ViewV2Column['link']> | undefined;
+  viewLink: NonNullable<ViewTableField['link']> | undefined;
   tip: string | undefined;
   row: UnknownSourceModel | undefined;
 }
 
 export interface InputFieldProps {
-  type: ViewV2FieldType;
+  type: ViewFieldType;
   name: string;
   label: string;
   electronName: string;
@@ -47,11 +47,11 @@ export interface InputFieldProps {
   required: boolean;
   disabled: boolean;
   tip: string | undefined;
-  filterOptions: ViewV2FieldFilterOptions | undefined;
+  filterOptions: ViewDetailFilterOptions | undefined;
 }
 
 export interface FilterFieldProps {
-  type: ViewV2FieldType;
+  type: ViewFieldType;
   name: string;
   label: string;
   electronName: string;
@@ -62,6 +62,6 @@ export interface FilterFieldProps {
   currencyOptions: MetadataCurrencyOptions | undefined;
   attachmentOptions: MetadataAttachmentOptions | undefined;
   tip: string | undefined;
-  filterOptions: ViewV2ColumnFilterOptions | undefined;
-  filterType: ViewV2ColumnFilterType | undefined;
+  filterOptions: ViewTableFilterOptions | undefined;
+  filterType: ViewTableFilterType | undefined;
 }

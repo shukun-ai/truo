@@ -1,3 +1,4 @@
+import { SeedCreateDto as BaseSeedCreateDto } from '@shukun/api';
 import { IsNotEmpty, MinLength, MaxLength, IsString } from 'class-validator';
 
 import {
@@ -14,22 +15,22 @@ export class SeedCreateDto {
   @IsNotDoubleUnderscore()
   @MinLength(2)
   @MaxLength(30)
-  readonly name!: string;
+  readonly name!: BaseSeedCreateDto['name'];
 
   @IsNotEmpty()
   @IsString()
-  readonly label!: string;
+  readonly label!: BaseSeedCreateDto['label'];
 
   @IsNotEmpty()
   @IsString()
   @IsEngineName()
   @MinLength(2)
   @MaxLength(30)
-  readonly username!: string;
+  readonly username!: BaseSeedCreateDto['username'];
 
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
   @MaxLength(24)
-  readonly password!: string;
+  readonly password!: BaseSeedCreateDto['password'];
 }

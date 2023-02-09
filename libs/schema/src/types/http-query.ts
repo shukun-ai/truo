@@ -6,58 +6,16 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type QueryFilter =
-  | {
-      [k: string]: QueryFilterExpression;
-    }
-  | {
-      $and: QueryFilter[];
-    }
-  | {
-      $or: QueryFilter[];
-    };
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export type QueryFilterExpression =
-  | QueryFilterBasicValue
-  | {
-      $eq?: QueryFilterBasicValue;
-      $ne?: QueryFilterBasicValue;
-      $gt?: QueryFilterBasicValue;
-      $gte?: QueryFilterBasicValue;
-      $lt?: QueryFilterBasicValue;
-      $lte?: QueryFilterBasicValue;
-      $in?: QueryFilterBasicValue[];
-      $nin?: QueryFilterBasicValue[];
-      $and?: QueryFilter[];
-      $or?: QueryFilter[];
-      /**
-       * The results are in foreign ids.
-       */
-      $foreign?:
-        | {
-            [k: string]: QueryFilterExpression;
-          }
-        | {
-            $and: QueryFilter[];
-          }
-        | {
-            $or: QueryFilter[];
-          };
-      /**
-       * The results are like this value with no case sensitive.
-       */
-      $like?: string;
-    };
-export type QueryFilterBasicValue = string | number | boolean;
-
 /**
  * Describe HTTP Request Incoming Payload
  */
 export interface HttpQuerySchema {
-  filter?: QueryFilter;
+  /**
+   * The filter should be validate by custom program.
+   */
+  filter?: {
+    [k: string]: unknown;
+  };
   select?: {
     /**
      * The style is like MongoDB.

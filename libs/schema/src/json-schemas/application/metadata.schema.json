@@ -1,0 +1,523 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "MetadataSchema",
+  "description": "Metadata management",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "label", "electrons"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "format": "apiName"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "electrons": {
+      "type": "array",
+      "items": {
+        "title": "MetadataElectron",
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/definitions/MetadataElectronText"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronNameText"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronLargeText"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronSingleSelect"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronMultiSelect"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronBoolean"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronDateTime"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronInteger"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronFloat"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronCurrency"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronPassword"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronManyToMany"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronManyToOne"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronOwner"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronAttachment"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronMixed"
+          },
+          {
+            "$ref": "#/definitions/MetadataElectronRole"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "MetadataElectronText": {
+      "title": "MetadataElectronText",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Text" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronNameText": {
+      "title": "MetadataElectronNameText",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "NameText" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronLargeText": {
+      "title": "MetadataElectronLargeText",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "LargeText" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronSingleSelect": {
+      "title": "MetadataElectronSingleSelect",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType", "options"],
+          "properties": {
+            "fieldType": { "const": "SingleSelect" },
+            "options": { "$ref": "#/definitions/options" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronMultiSelect": {
+      "title": "MetadataElectronMultiSelect",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType", "options"],
+          "properties": {
+            "fieldType": { "const": "MultiSelect" },
+            "options": { "$ref": "#/definitions/options" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronBoolean": {
+      "title": "MetadataElectronBoolean",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Boolean" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronDateTime": {
+      "title": "MetadataElectronDateTime",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "DateTime" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronInteger": {
+      "title": "MetadataElectronInteger",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Integer" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronFloat": {
+      "title": "MetadataElectronFloat",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Float" },
+            "precision": { "$ref": "#/definitions/precision" },
+            "scale": { "$ref": "#/definitions/scale" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronCurrency": {
+      "title": "MetadataElectronCurrency",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Currency" },
+            "currencyOptions": { "$ref": "#/definitions/currencyOptions" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronPassword": {
+      "title": "MetadataElectronPassword",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Password" },
+            "passwordOptions": { "$ref": "#/definitions/passwordOptions" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronManyToMany": {
+      "title": "MetadataElectronManyToMany",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType", "referenceTo", "foreignName"],
+          "properties": {
+            "fieldType": { "const": "ManyToMany" },
+            "referenceTo": { "$ref": "#/definitions/referenceTo" },
+            "foreignName": { "$ref": "#/definitions/foreignName" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronManyToOne": {
+      "title": "MetadataElectronManyToOne",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType", "referenceTo", "foreignName"],
+          "properties": {
+            "fieldType": { "const": "ManyToOne" },
+            "referenceTo": { "$ref": "#/definitions/referenceTo" },
+            "foreignName": { "$ref": "#/definitions/foreignName" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronOwner": {
+      "title": "MetadataElectronOwner",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Owner" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronAttachment": {
+      "title": "MetadataElectronAttachment",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Attachment" },
+            "attachmentOptions": { "$ref": "#/definitions/attachmentOptions" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronMixed": {
+      "title": "MetadataElectronMixed",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Mixed" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronRole": {
+      "title": "MetadataElectronRole",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/MetadataElectronBasic" },
+        {
+          "type": "object",
+          "required": ["fieldType"],
+          "properties": {
+            "fieldType": { "const": "Role" }
+          }
+        }
+      ]
+    },
+
+    "MetadataElectronBasic": {
+      "title": "MetadataElectronBasic",
+      "type": "object",
+      "required": ["name", "label", "isRequired"],
+      "properties": {
+        "name": { "$ref": "#/definitions/name" },
+        "label": { "$ref": "#/definitions/label" },
+        "isRequired": { "$ref": "#/definitions/isRequired" },
+        "isUnique": { "$ref": "#/definitions/isUnique" },
+        "isIndexed": { "$ref": "#/definitions/isIndexed" },
+        "description": { "$ref": "#/definitions/description" }
+      }
+    },
+
+    "name": {
+      "type": "string",
+      "format": "electronName"
+    },
+    "label": {
+      "type": "string"
+    },
+    "fieldType": {
+      "type": "string",
+      "title": "MetadataFieldType",
+      "enum": [
+        "Text",
+        "NameText",
+        "LargeText",
+        "SingleSelect",
+        "MultiSelect",
+        "Boolean",
+        "DateTime",
+        "Integer",
+        "Float",
+        "Currency",
+        "Password",
+        "ManyToMany",
+        "ManyToOne",
+        "Owner",
+        "Attachment",
+        "Mixed",
+        "Role"
+      ],
+      "tsEnumNames": [
+        "Text",
+        "NameText",
+        "LargeText",
+        "SingleSelect",
+        "MultiSelect",
+        "Boolean",
+        "DateTime",
+        "Integer",
+        "Float",
+        "Currency",
+        "Password",
+        "ManyToMany",
+        "ManyToOne",
+        "Owner",
+        "Attachment",
+        "Mixed",
+        "Role"
+      ]
+    },
+    "referenceTo": {
+      "type": "string"
+    },
+    "foreignName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "isRequired": {
+      "type": "boolean",
+      "description": "It will be effect in Schema builder and Input Validate."
+    },
+    "isUnique": {
+      "type": "boolean",
+      "description": "It will be effect in Schema builder and Input Validate. If the isUnique is set as true, the electron should be set as isRequired and isIndex."
+    },
+    "isIndexed": {
+      "type": "boolean",
+      "description": "It will be effect in Schema builder and Input Validate."
+    },
+    "precision": {
+      "type": "number",
+      "description": "It will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 8."
+    },
+    "scale": {
+      "type": "number",
+      "description": "I will be effect in Schema builder and Input Validate. This field is only apply for Float type, and the float default is 2."
+    },
+    "options": {
+      "title": "MetadataOptions",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "passwordOptions": {
+      "title": "MetadataPasswordOptions",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requireNumber": {
+          "type": "number"
+        },
+        "requireCharacter": {
+          "type": "boolean"
+        },
+        "requireUppercase": {
+          "type": "boolean"
+        },
+        "requireLowercase": {
+          "type": "boolean"
+        },
+        "minLength": {
+          "type": "number"
+        },
+        "maxLength": {
+          "type": "number"
+        }
+      }
+    },
+    "currencyOptions": {
+      "title": "MetadataCurrencyOptions",
+      "description": "More Currency ISO Reference: https://en.wikipedia.org/wiki/ISO_4217, the data precision will be set as 15 and scale will be set as 4.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The code is from ISO 4217."
+        },
+        "scale": {
+          "type": "number",
+          "description": "This electron.currencyOptions.scale value is different with electron.scale, the scale is just used for Front-end format."
+        }
+      }
+    },
+    "attachmentOptions": {
+      "title": "MetadataAttachmentOptions",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedMime": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limitSize": {
+          "type": "number"
+        },
+        "limitUpload": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

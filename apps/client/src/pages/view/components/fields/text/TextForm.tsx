@@ -1,14 +1,13 @@
+import { UnknownSourceModel } from '@shukun/schema';
 import { Form, FormInstance, Input } from 'antd';
 import React, { FunctionComponent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { UnknownMetadataModel } from '../../../../../models/metadata';
 
 import { LABEL_ALIGN, LABEL_SPAN } from '../constant';
 import { InputFieldProps } from '../interfaces';
 
 export interface TextFormProps extends InputFieldProps {
-  form: FormInstance<UnknownMetadataModel>;
+  form: FormInstance<UnknownSourceModel>;
 }
 
 export const TextForm: FunctionComponent<TextFormProps> = ({

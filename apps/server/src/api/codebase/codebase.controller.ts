@@ -8,14 +8,12 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApplicationSchema, RoleResourceType } from '@shukun/schema';
 import {
-  ApplicationSchema,
-  mergeDependencies,
-  RoleResourceType,
+  SystemDataCombination,
   SystemDataValidator,
-  validateApplicationSchema,
-} from '@shukun/schema';
-import { Express } from 'express';
+  applicationSchemaValidator,
+} from '@shukun/validator';
 
 import { CompilerService } from '../../compiler/compiler.service';
 import { FlowService } from '../../core/flow.service';
@@ -53,7 +51,7 @@ export class CodebaseController {
     @Param('orgName') orgName: string,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: { buffer: Buffer }, // Express.Multer.File
   ): Promise<QueryResponse<null>> {
     const fileString = file.buffer.toString();
 
@@ -71,16 +69,11 @@ export class CodebaseController {
       throw new BadRequestException('The file is not a standard format.');
     }
 
-    const result = validateApplicationSchema(plugin);
+    applicationSchemaValidator.validate(plugin);
 
-    if (!result) {
-      const errorMessage = JSON.stringify(validateApplicationSchema.errors);
-      throw new BadRequestException(
-        `The file is not validated by application JSON Schema: ${errorMessage}`,
-      );
-    }
-
-    const merged = mergeDependencies(plugin);
+    const merged = new SystemDataCombination().combineApplicationLowCode(
+      plugin,
+    );
 
     const systemDataValidator = new SystemDataValidator();
     const check = systemDataValidator.check(merged);
