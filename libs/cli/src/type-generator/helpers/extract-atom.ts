@@ -1,7 +1,6 @@
 import {
   MetadataElectron,
   MetadataElectronSelect,
-  MetadataFieldType,
   MetadataSchema,
 } from '@shukun/schema';
 import { toPascalCase } from 'js-convert-case';
@@ -15,15 +14,15 @@ import {
 export function extractAtom(atom: MetadataSchema): string {
   let text = '';
 
-  text += `export type ${toPascalCase(atom.name)}Model = {`;
+  text += `export type ${toPascalCase(atom.name)}Model = {\n`;
 
-  text += `_id: IDString; owner?: IDString; createdAt?: DateTimeIsoString; updatedAt?: DateTimeIsoString; `;
+  text += `_id: IDString;\n owner?: IDString;\n createdAt?: DateTimeIsoString;\n updatedAt?: DateTimeIsoString;\n`;
 
   atom.electrons.forEach((electron) => {
     text += extractElectron(electron);
   });
 
-  text += `};`;
+  text += `};\n`;
 
   return text;
 }
@@ -33,7 +32,7 @@ function extractElectron(electron: MetadataElectron): string {
 
   const equalMark = electron.isRequired ? ':' : '?:';
 
-  text += `${electron.name}${equalMark} ${parseElectronFieldType(electron)}; `;
+  text += `${electron.name}${equalMark} ${parseElectronFieldType(electron)};\n`;
 
   return text;
 }
@@ -42,41 +41,41 @@ function parseElectronFieldType(electron: MetadataElectron): string {
   let text = '';
 
   switch (electron.fieldType) {
-    case MetadataFieldType.Text:
-    case MetadataFieldType.NameText:
-    case MetadataFieldType.LargeText:
-    case MetadataFieldType.Password:
+    case 'Text':
+    case 'NameText':
+    case 'LargeText':
+    case 'Password':
       text = 'string';
       break;
-    case MetadataFieldType.DateTime:
+    case 'DateTime':
       text = `${DateTimeIsoString}`;
       break;
-    case MetadataFieldType.ManyToOne:
-    case MetadataFieldType.Owner:
+    case 'ManyToOne':
+    case 'Owner':
       text = `${IDString}`;
       break;
-    case MetadataFieldType.ManyToMany:
-    case MetadataFieldType.Role:
+    case 'ManyToMany':
+    case 'Role':
       text = `${IDString}[]`;
       break;
-    case MetadataFieldType.Integer:
-    case MetadataFieldType.Float:
-    case MetadataFieldType.Currency:
+    case 'Integer':
+    case 'Float':
+    case 'Currency':
       text = 'number';
       break;
-    case MetadataFieldType.Boolean:
+    case 'Boolean':
       text = 'boolean';
       break;
-    case MetadataFieldType.Attachment:
+    case 'Attachment':
       text = `${AttachmentSchema}[]`;
       break;
-    case MetadataFieldType.SingleSelect:
+    case 'SingleSelect':
       text = `${listElectronOptionKey(electron)}`;
       break;
-    case MetadataFieldType.MultiSelect:
+    case 'MultiSelect':
       text = `(${listElectronOptionKey(electron)})[]`;
       break;
-    case MetadataFieldType.Mixed:
+    case 'Mixed':
       text = 'unknown';
       break;
     default:
@@ -93,5 +92,5 @@ export function listElectronOptionKey(
     return 'undefined';
   }
 
-  return electron.options.map((option) => `"${option.key}"`).join('|');
+  return electron.options.map((option) => `"${option.key}"`).join(' | ');
 }

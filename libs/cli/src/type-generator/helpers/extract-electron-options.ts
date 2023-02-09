@@ -23,13 +23,13 @@ function extractElectronOption(
 
   text += `export const ${toPascalCase(atom.name)}${toPascalCase(
     electron.name,
-  )}Options = {`;
+  )}Options = {\n`;
 
   text += electron.options
-    .map((option) => `${option.key}: "${option.label}", `)
+    .map((option) => `${option.key}: "${option.label}",\n`)
     .join('');
 
-  text += `};`;
+  text += `};\n`;
 
   return text;
 }
