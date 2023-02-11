@@ -1,0 +1,9 @@
+{
+  "name": "time-counter",
+  "class": "TimeCounter",
+  "attributes": {
+    "total-seconds": {
+      "type": "number"
+    }
+  }
+}
