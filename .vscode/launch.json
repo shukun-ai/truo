@@ -59,6 +59,14 @@
       "url": "http://localhost:8080",
       "webRoot": "${workspaceFolder}",
       "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
+    },
+    {
+      "name": "Launch player on Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8090",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
     }
   ]
 }
