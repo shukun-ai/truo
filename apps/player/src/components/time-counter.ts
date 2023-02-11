@@ -19,7 +19,7 @@ export class TimeCounter extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: unknown, newValue: unknown) {
-    console.log('hi', name, oldValue, newValue);
+    // console.log('hi', name, oldValue, newValue);
     this.dispatchEvent(this.titleChanged);
     this.render();
   }
