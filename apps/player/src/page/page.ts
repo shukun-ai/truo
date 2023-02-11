@@ -12,7 +12,7 @@ export class Page {
     this.createSubscriptions(definition);
 
     this.ref.addEventListener('title-changed', (event: any) => {
-      console.log(event, this.ref.title);
+      // console.log(event, this.ref.title);
     });
 
     return this.ref;

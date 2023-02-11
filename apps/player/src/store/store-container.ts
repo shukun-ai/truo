@@ -1,8 +1,7 @@
 import { get } from 'lodash';
 import { BehaviorSubject, map, distinctUntilChanged, Observable } from 'rxjs';
 
-import { IStoreContainer } from '../interface/store-container.interface';
-export class StoreContainer implements IStoreContainer {
+export class StoreContainer {
   store = new BehaviorSubject<any>({});
 
   storeMap!: Record<string, Store>;
@@ -23,7 +22,7 @@ export class StoreContainer implements IStoreContainer {
   createObservable(path: string): Observable<any> {
     return this.store.pipe(
       map((state) => {
-        console.log('state', state);
+        // console.log('state', state);
         return get(state, path);
       }, distinctUntilChanged()),
     );
