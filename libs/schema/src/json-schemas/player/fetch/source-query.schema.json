@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PlayerFetchSourceQuery",
+  "type": "object",
+  "properties": {
+    "type": { "const": "SourceQuery" },
+    "atomName": { "type": "string", "skEditorType": "AtomName" },
+    "query": {
+      "type": "object",
+      "skEditorType": "SourceQuery",
+      "additionalProperties": false,
+      "properties": {
+        "filter": {
+          "type": "object",
+          "description": "The filter should be validate by custom program."
+        },
+        "select": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "type": "boolean",
+              "description": "The style is like MongoDB."
+            }
+          }
+        },
+        "sort": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "enum": ["asc", "desc"],
+              "description": "The style is like MongoDB."
+            }
+          }
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "skip": {
+          "type": "integer"
+        },
+        "count": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -36,7 +36,12 @@ import workflowRetriesSchemaJson from './json-schemas/application/workflows/retr
 import workflowTaskStateSchemaJson from './json-schemas/application/workflows/task-state.schema.json';
 import attachmentsSchemaJson from './json-schemas/attachments.schema.json';
 import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
+import elementSchemaJson from './json-schemas/element.schema.json';
 import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
+import playerSchemaJson from './json-schemas/player.schema.json';
+import playerFetchSourceQuerySchemaJson from './json-schemas/player/fetch/source-query.schema.json';
+import playerFetchSchemaJson from './json-schemas/player/fetches.schema.json';
+import playerPageSchemaJson from './json-schemas/player/pages.schema.json';
 
 export const applicationSchema = applicationSchemaJson;
 export const metadataSchema = metadataSchemaJson;
@@ -79,3 +84,8 @@ export const workflowInputSchema = workflowInputSchemaJson;
 export const attachmentsSchema = attachmentsSchemaJson;
 export const httpQuerySchema = httpQuerySchemaJson;
 export const dataSourceSchema = dataSourceSchemaJson;
+export const elementSchema = elementSchemaJson;
+export const playerSchema = playerSchemaJson;
+export const playerFetchSourceQuerySchema = playerFetchSourceQuerySchemaJson;
+export const playerFetchSchema = playerFetchSchemaJson;
+export const playerPageSchema = playerPageSchemaJson;

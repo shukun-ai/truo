@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ElementSchema",
+  "description": "Define the UI Element",
+  "type": "object",
+  "required": ["name", "vendor", "sections", "input", "output"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "extends": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "label"],
+        "properties": {
+          "name": { "type": "string" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "input": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["input", "type", "name", "label", "section"],
+        "properties": {
+          "schema": {
+            "description": "The data described by New JSON Schema is injected into UiElement."
+          },
+          "type": {
+            "const": ["code", "switch", "select"]
+          },
+          "name": { "type": "string" },
+          "label": { "type": "string" },
+          "configureTip": { "type": "string" },
+          "section": { "type": "string" }
+        }
+      }
+    },
+    "output": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["output", "type", "name", "label", "section"],
+        "properties": {
+          "schema": {
+            "description": "The UiElement emit data described by JSON Schema."
+          },
+          "type": {
+            "const": ["code"]
+          },
+          "name": { "type": "string" },
+          "label": { "type": "string" },
+          "configureTip": { "type": "string" },
+          "section": { "type": "string" }
+        }
+      }
+    }
+  }
+}

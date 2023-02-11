@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PlayerPages",
+  "type": "object",
+  "patternProperties": {
+    "^(\\w)+$": {
+      "title": "PlayerPage",
+      "type": "object",
+      "properties": {
+        "elements": {},
+        "tree": {},
+        "lifecycle": {}
+      }
+    }
+  }
+}

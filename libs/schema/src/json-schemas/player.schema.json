@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PlayerSchema",
+  "description": "Define the player contained Stores and UI Elements",
+  "type": "object",
+  "required": ["fetches", "pages"],
+  "additionalProperties": false,
+  "properties": {
+    "localStorage": {},
+    "theme": {},
+    "router": {},
+    "fetches": {
+      "$ref": "player/fetches.schema.json"
+    },
+    "pages": {
+      "$ref": "player/pages.schema.json"
+    }
+  }
+}
