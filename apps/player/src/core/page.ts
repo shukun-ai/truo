@@ -50,5 +50,7 @@ export class Page {
     return new UiElement(elementName, playerPageElement);
   }
 
-  unmount() {}
+  unmount() {
+    //
+  }
 }
