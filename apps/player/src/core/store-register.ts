@@ -29,10 +29,10 @@ export class StoreRegister {
     this.update(store);
   }
 
-  public createSelector(path: string): Observable<any> {
+  public createSelector(paths: string[]): Observable<any[]> {
     return this.stores.pipe(
       map((state) => {
-        return get(state, path);
+        return paths.map((path) => get(state, path));
       }, distinctUntilChanged()),
     );
   }
