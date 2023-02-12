@@ -13,6 +13,10 @@ class Main {
     const storeRegister = new StoreRegister(lowCodeRegister, elementRegister);
     const pageRegister = new PageRegister(storeRegister, lowCodeRegister);
     pageRegister.initialize();
+
+    setTimeout(() => {
+      storeRegister.updateState('e2.value', 'World!');
+    }, 3000);
   }
 }
 
