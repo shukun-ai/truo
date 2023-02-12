@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "title": "PlayerFetches",
+  "title": "PlayerRequests",
   "type": "object",
   "patternProperties": {
     "^(\\w)+$": {
       "type": "object",
-      "title": "PlayerFetch",
+      "title": "PlayerRequest",
       "oneOf": [
         {
-          "$ref": "fetch/source-query.schema.json"
+          "$ref": "request/source-query.schema.json"
         }
       ]
     }

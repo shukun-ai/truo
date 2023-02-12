@@ -1,26 +1,18 @@
-import { StaticFileLoader } from './loader/static-file-loader';
-import { PageContainer } from './page/page-container';
-import { StoreContainer } from './store/store-container';
+import { ElementRegister } from './core/element-register';
+import { LowCodeRegister } from './core/low-code-register';
+import { PageRegister } from './core/page-register';
+import { StoreRegister } from './core/store-register';
 
 class Main {
   async initialize() {
-    await this.loadFiles();
-    this.mount();
-  }
+    const lowCodeRegister = new LowCodeRegister();
+    await lowCodeRegister.initialize();
+    const elementRegister = new ElementRegister();
+    await elementRegister.initialize();
 
-  async loadFiles() {
-    const staticFileLoader = new StaticFileLoader();
-    await staticFileLoader.load();
-  }
-
-  mount() {
-    const storeContainer = new StoreContainer();
-    const pageContainer = new PageContainer(storeContainer);
-    pageContainer.initialize();
-
-    setTimeout(() => {
-      storeContainer.dispatch();
-    }, 3000);
+    const storeRegister = new StoreRegister(lowCodeRegister, elementRegister);
+    const pageRegister = new PageRegister(storeRegister, lowCodeRegister);
+    pageRegister.initialize();
   }
 }
 

@@ -14,11 +14,6 @@ export interface ElementSchema {
   vendor: string;
   extends?: string;
   description?: string;
-  sections: {
-    name: string;
-    label: string;
-    [k: string]: unknown;
-  }[];
   input: {
     /**
      * The data described by New JSON Schema is injected into UiElement.
@@ -26,11 +21,12 @@ export interface ElementSchema {
     schema?: {
       [k: string]: unknown;
     };
-    type: ['code', 'switch', 'select'];
+    type: 'code' | 'expression' | 'switch' | 'select';
+    defaultBinding?: string;
     name: string;
     label: string;
     configureTip?: string;
-    section: string;
+    section: 'general';
     [k: string]: unknown;
   }[];
   output: {
@@ -40,11 +36,12 @@ export interface ElementSchema {
     schema?: {
       [k: string]: unknown;
     };
-    type: ['code'];
+    type: 'code';
+    defaultBinding?: string;
     name: string;
     label: string;
     configureTip?: string;
-    section: string;
+    section: 'general';
     [k: string]: unknown;
   }[];
 }

@@ -7,23 +7,37 @@
  */
 
 /**
- * This interface was referenced by `PlayerFetches`'s JSON-Schema definition
+ * This interface was referenced by `PlayerRequests`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export type PlayerFetch = PlayerFetchSourceQuery;
+export type PlayerRequest = PlayerFetchSourceQuery;
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export type PlayerPageTree = string[];
 
 /**
  * Define the player contained Stores and UI Elements
  */
 export interface PlayerSchema {
-  localStorage?: unknown;
-  theme?: unknown;
-  router?: unknown;
-  fetches: PlayerFetches;
+  shares: PlayerShares;
+  requests: PlayerRequests;
   pages: PlayerPages;
 }
-export interface PlayerFetches {
-  [k: string]: PlayerFetch;
+export interface PlayerShares {
+  [k: string]: PlayerShare;
+}
+/**
+ * This interface was referenced by `PlayerShares`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export interface PlayerShare {
+  persist?: ['localStorage', 'sessionStorage'];
+  [k: string]: unknown;
+}
+export interface PlayerRequests {
+  [k: string]: PlayerRequest;
 }
 export interface PlayerFetchSourceQuery {
   type?: 'SourceQuery';
@@ -67,8 +81,33 @@ export interface PlayerPages {
  * via the `patternProperty` "^(\w)+$".
  */
 export interface PlayerPage {
-  elements?: unknown;
-  tree?: unknown;
-  lifecycle?: unknown;
-  [k: string]: unknown;
+  elements: PlayerPageElements;
+  root?: string[];
+  tree: {
+    [k: string]: PlayerPageTree;
+  };
+}
+export interface PlayerPageElements {
+  [k: string]: PlayerPageElement;
+}
+/**
+ * This interface was referenced by `PlayerPageElements`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export interface PlayerPageElement {
+  element: string;
+  inputs?: {
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(\w)+$".
+     */
+    [k: string]: string;
+  };
+  outputs?: {
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(\w)+$".
+     */
+    [k: string]: string;
+  };
 }

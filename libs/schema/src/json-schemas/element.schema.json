@@ -18,17 +18,6 @@
     "description": {
       "type": "string"
     },
-    "sections": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name", "label"],
-        "properties": {
-          "name": { "type": "string" },
-          "label": { "type": "string" }
-        }
-      }
-    },
     "input": {
       "type": "array",
       "items": {
@@ -39,12 +28,13 @@
             "description": "The data described by New JSON Schema is injected into UiElement."
           },
           "type": {
-            "const": ["code", "switch", "select"]
+            "enum": ["code", "expression", "switch", "select"]
           },
+          "defaultBinding": { "type": "string" },
           "name": { "type": "string" },
           "label": { "type": "string" },
           "configureTip": { "type": "string" },
-          "section": { "type": "string" }
+          "section": { "enum": ["general"] }
         }
       }
     },
@@ -58,12 +48,13 @@
             "description": "The UiElement emit data described by JSON Schema."
           },
           "type": {
-            "const": ["code"]
+            "enum": ["code"]
           },
+          "defaultBinding": { "type": "string" },
           "name": { "type": "string" },
           "label": { "type": "string" },
           "configureTip": { "type": "string" },
-          "section": { "type": "string" }
+          "section": { "enum": ["general"] }
         }
       }
     }
