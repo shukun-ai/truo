@@ -39,9 +39,9 @@ import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
 import elementSchemaJson from './json-schemas/element.schema.json';
 import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
 import playerSchemaJson from './json-schemas/player.schema.json';
-import playerFetchSourceQuerySchemaJson from './json-schemas/player/fetch/source-query.schema.json';
-import playerFetchSchemaJson from './json-schemas/player/fetches.schema.json';
 import playerPageSchemaJson from './json-schemas/player/pages.schema.json';
+import playerRequestSourceQuerySchemaJson from './json-schemas/player/request/source-query.schema.json';
+import playerRequestSchemaJson from './json-schemas/player/requests.schema.json';
 
 export const applicationSchema = applicationSchemaJson;
 export const metadataSchema = metadataSchemaJson;
@@ -86,6 +86,7 @@ export const httpQuerySchema = httpQuerySchemaJson;
 export const dataSourceSchema = dataSourceSchemaJson;
 export const elementSchema = elementSchemaJson;
 export const playerSchema = playerSchemaJson;
-export const playerFetchSourceQuerySchema = playerFetchSourceQuerySchemaJson;
-export const playerFetchSchema = playerFetchSchemaJson;
+export const playerRequestSourceQuerySchema =
+  playerRequestSourceQuerySchemaJson;
+export const playerRequestSchema = playerRequestSchemaJson;
 export const playerPageSchema = playerPageSchemaJson;

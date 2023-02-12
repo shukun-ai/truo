@@ -3,14 +3,26 @@
   "title": "PlayerSchema",
   "description": "Define the player contained Stores and UI Elements",
   "type": "object",
-  "required": ["fetches", "pages"],
+  "required": ["shares", "requests", "pages"],
   "additionalProperties": false,
   "properties": {
-    "localStorage": {},
-    "theme": {},
-    "router": {},
-    "fetches": {
-      "$ref": "player/fetches.schema.json"
+    "shares": {
+      "title": "PlayerShares",
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "title": "PlayerShare",
+          "type": "object",
+          "properties": {
+            "persist": {
+              "const": ["localStorage", "sessionStorage"]
+            }
+          }
+        }
+      }
+    },
+    "requests": {
+      "$ref": "player/requests.schema.json"
     },
     "pages": {
       "$ref": "player/pages.schema.json"
