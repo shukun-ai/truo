@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, set } from 'lodash';
 import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { ElementRegister } from './element-register';
@@ -35,6 +35,12 @@ export class StoreRegister {
         return paths.map((path) => get(state, path));
       }, distinctUntilChanged()),
     );
+  }
+
+  public updateState(statePath: string, value: unknown) {
+    const states = this.stores.getValue();
+    set(states, statePath, value);
+    this.stores.next(states);
   }
 
   private update(newValue: any) {
