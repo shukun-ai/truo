@@ -21,7 +21,7 @@ export class Page {
   }
 
   private createPageElement() {
-    return new UiElement('sk-page', { element: 'sk-page' });
+    return new UiElement('sk-page', { element: 'sk-page' }, this.storeRegister);
   }
 
   mount() {
@@ -47,7 +47,7 @@ export class Page {
     if (!playerPageElement) {
       throw new Error();
     }
-    return new UiElement(elementName, playerPageElement);
+    return new UiElement(elementName, playerPageElement, this.storeRegister);
   }
 
   unmount() {
