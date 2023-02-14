@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WidgetSchema",
+  "description": "Define the player contained Stores and UI Elements",
+  "type": "object",
+  "required": ["tag", "states", "events"],
+  "additionalProperties": false,
+  "properties": {
+    "tag": { "type": "string" },
+    "states": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "object",
+          "required": ["name", "editLabel", "editType"],
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string" },
+            "editLabel": { "type": "string" },
+            "editType": { "enum": ["template"] }
+          }
+        }
+      }
+    },
+    "events": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "object",
+          "required": ["name", "editLabel"],
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string" },
+            "editLabel": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

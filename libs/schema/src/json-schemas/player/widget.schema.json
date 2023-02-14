@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PlayerWidget",
+  "type": "object",
+  "required": ["tag", "states", "events"],
+  "additionalProperties": false,
+  "properties": {
+    "tag": { "type": "string" },
+    "states": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "string"
+        }
+      }
+    },
+    "events": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
