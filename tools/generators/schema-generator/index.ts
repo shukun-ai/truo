@@ -34,8 +34,8 @@ async function generate(treeRoot: string, projectRoot: string) {
     'flow-compiled-codes',
     'exception',
     'data-source',
-    'element',
     'player',
+    'widget',
   ];
 
   const queue = list.map(async (fileName: string) => {

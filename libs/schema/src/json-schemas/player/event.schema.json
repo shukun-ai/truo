@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PlayerEvent",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/definitions/PlayerEventSetRepository" },
+    { "$ref": "#/definitions/PlayerEventTriggerRepository" }
+  ],
+  "definitions": {
+    "PlayerEventSetRepository": {
+      "title": "PlayerEventSetRepository",
+      "type": "object",
+      "required": ["action", "target", "path", "value"],
+      "properties": {
+        "action": { "const": "setRepository" },
+        "target": { "type": "string" },
+        "path": { "type": "array", "items": { "type": "string" } },
+        "value": { "type": "string" }
+      }
+    },
+    "PlayerEventTriggerRepository": {
+      "title": "PlayerEventTriggerRepository",
+      "type": "object",
+      "required": ["action", "target"],
+      "properties": {
+        "action": { "const": "triggerRepository" },
+        "target": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PlayerRepository",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/PlayerRepositoryForm"
+    },
+    {
+      "$ref": "#/definitions/PlayerRepositorySourceQuery"
+    },
+    {
+      "$ref": "#/definitions/PlayerRepositoryTransformer"
+    }
+  ],
+  "definitions": {
+    "PlayerRepositoryForm": {
+      "title": "PlayerRepositoryForm",
+      "type": "object",
+      "required": ["type", "states"],
+      "properties": {
+        "type": { "const": "Form" },
+        "states": {
+          "type": "object",
+          "patternProperties": {
+            "^(\\w)+$": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "PlayerRepositorySourceQuery": {
+      "title": "PlayerRepositorySourceQuery",
+      "type": "object",
+      "required": ["type", "atomName", "query"],
+      "properties": {
+        "type": { "const": "SourceQuery" },
+        "atomName": { "type": "string" },
+        "query": { "type": "object" }
+      }
+    },
+    "PlayerRepositoryTransformer": {
+      "title": "PlayerRepositoryTransformer",
+      "type": "object",
+      "required": ["type", "func"],
+      "properties": {
+        "type": { "const": "Transformer" },
+        "func": { "type": "string" }
+      }
+    }
+  }
+}

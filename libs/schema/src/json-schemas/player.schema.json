@@ -3,29 +3,56 @@
   "title": "PlayerSchema",
   "description": "Define the player contained Stores and UI Elements",
   "type": "object",
-  "required": ["shares", "requests", "pages"],
+  "required": ["title", "entry", "containers"],
   "additionalProperties": false,
   "properties": {
-    "shares": {
-      "title": "PlayerShares",
+    "title": { "type": "string" },
+    "entry": { "type": "string" },
+    "containers": {
       "type": "object",
       "patternProperties": {
         "^(\\w)+$": {
-          "title": "PlayerShare",
           "type": "object",
+          "additionalProperties": false,
+          "required": ["repositories", "events", "widgets", "root", "tree"],
           "properties": {
-            "persist": {
-              "const": ["localStorage", "sessionStorage"]
+            "repositories": {
+              "type": "object",
+              "patternProperties": {
+                "^(\\w)+$": {
+                  "$ref": "player/repository.schema.json"
+                }
+              }
+            },
+            "events": {
+              "type": "object",
+              "patternProperties": {
+                "^(\\w)+$": {
+                  "$ref": "player/event.schema.json"
+                }
+              }
+            },
+            "widgets": {
+              "type": "object",
+              "patternProperties": {
+                "^(\\w)+$": {
+                  "$ref": "player/widget.schema.json"
+                }
+              }
+            },
+            "root": { "type": "array", "items": { "type": "string" } },
+            "tree": {
+              "type": "object",
+              "patternProperties": {
+                "^(\\w)+$": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
             }
           }
         }
       }
-    },
-    "requests": {
-      "$ref": "player/requests.schema.json"
-    },
-    "pages": {
-      "$ref": "player/pages.schema.json"
     }
   }
 }

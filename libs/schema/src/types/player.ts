@@ -7,107 +7,109 @@
  */
 
 /**
- * This interface was referenced by `PlayerRequests`'s JSON-Schema definition
+ * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export type PlayerRequest = PlayerFetchSourceQuery;
+export type PlayerRepository =
+  | PlayerRepositoryForm
+  | PlayerRepositorySourceQuery
+  | PlayerRepositoryTransformer;
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export type PlayerPageTree = string[];
+export type PlayerEvent =
+  | PlayerEventSetRepository
+  | PlayerEventTriggerRepository;
 
 /**
  * Define the player contained Stores and UI Elements
  */
 export interface PlayerSchema {
-  shares: PlayerShares;
-  requests: PlayerRequests;
-  pages: PlayerPages;
-}
-export interface PlayerShares {
-  [k: string]: PlayerShare;
-}
-/**
- * This interface was referenced by `PlayerShares`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export interface PlayerShare {
-  persist?: ['localStorage', 'sessionStorage'];
-  [k: string]: unknown;
-}
-export interface PlayerRequests {
-  [k: string]: PlayerRequest;
-}
-export interface PlayerFetchSourceQuery {
-  type?: 'SourceQuery';
-  atomName?: string;
-  query?: {
+  title: string;
+  entry: string;
+  containers: {
     /**
-     * The filter should be validate by custom program.
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(\w)+$".
      */
-    filter?: {
+    [k: string]: {
+      repositories: {
+        [k: string]: PlayerRepository;
+      };
+      events: {
+        [k: string]: PlayerEvent;
+      };
+      widgets: {
+        [k: string]: PlayerWidget;
+      };
+      root: string[];
+      tree: {
+        /**
+         * This interface was referenced by `undefined`'s JSON-Schema definition
+         * via the `patternProperty` "^(\w)+$".
+         */
+        [k: string]: string[];
+      };
+    };
+  };
+}
+export interface PlayerRepositoryForm {
+  type: 'Form';
+  states: {
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(\w)+$".
+     */
+    [k: string]: {
       [k: string]: unknown;
     };
-    select?: {
-      /**
-       * The style is like MongoDB.
-       *
-       * This interface was referenced by `undefined`'s JSON-Schema definition
-       * via the `patternProperty` "^(\w)+$".
-       */
-      [k: string]: boolean;
-    };
-    sort?: {
-      /**
-       * The style is like MongoDB.
-       *
-       * This interface was referenced by `undefined`'s JSON-Schema definition
-       * via the `patternProperty` "^(\w)+$".
-       */
-      [k: string]: 'asc' | 'desc';
-    };
-    limit?: number;
-    skip?: number;
-    count?: boolean;
   };
   [k: string]: unknown;
 }
-export interface PlayerPages {
-  [k: string]: PlayerPage;
-}
-/**
- * This interface was referenced by `PlayerPages`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export interface PlayerPage {
-  elements: PlayerPageElements;
-  root?: string[];
-  tree: {
-    [k: string]: PlayerPageTree;
+export interface PlayerRepositorySourceQuery {
+  type: 'SourceQuery';
+  atomName: string;
+  query: {
+    [k: string]: unknown;
   };
+  [k: string]: unknown;
 }
-export interface PlayerPageElements {
-  [k: string]: PlayerPageElement;
+export interface PlayerRepositoryTransformer {
+  type: 'Transformer';
+  func: string;
+  [k: string]: unknown;
+}
+export interface PlayerEventSetRepository {
+  action: 'setRepository';
+  target: string;
+  path: string[];
+  value: string;
+  [k: string]: unknown;
+}
+export interface PlayerEventTriggerRepository {
+  action: 'triggerRepository';
+  target: string;
+  [k: string]: unknown;
 }
 /**
- * This interface was referenced by `PlayerPageElements`'s JSON-Schema definition
+ * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export interface PlayerPageElement {
-  element: string;
-  inputs?: {
+export interface PlayerWidget {
+  tag: string;
+  states: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: string;
   };
-  outputs?: {
+  events: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
      */
-    [k: string]: string;
+    [k: string]: string[];
   };
 }
