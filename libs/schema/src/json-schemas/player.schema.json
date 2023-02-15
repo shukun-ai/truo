@@ -12,10 +12,21 @@
       "type": "object",
       "patternProperties": {
         "^(\\w)+$": {
+          "title": "PlayerContainer",
           "type": "object",
           "additionalProperties": false,
-          "required": ["repositories", "events", "widgets", "root", "tree"],
+          "required": [
+            "type",
+            "repositories",
+            "events",
+            "widgets",
+            "root",
+            "tree"
+          ],
           "properties": {
+            "type": {
+              "enum": ["page"]
+            },
             "repositories": {
               "type": "object",
               "patternProperties": {

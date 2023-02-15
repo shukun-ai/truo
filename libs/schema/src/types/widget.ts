@@ -17,7 +17,6 @@ export interface WidgetSchema {
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: {
-      name: string;
       editLabel: string;
       editType: 'template';
     };
@@ -28,7 +27,6 @@ export interface WidgetSchema {
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: {
-      name: string;
       editLabel: string;
     };
   };
