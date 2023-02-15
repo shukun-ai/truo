@@ -12,10 +12,9 @@
       "patternProperties": {
         "^(\\w)+$": {
           "type": "object",
-          "required": ["name", "editLabel", "editType"],
+          "required": ["editLabel", "editType"],
           "additionalProperties": false,
           "properties": {
-            "name": { "type": "string" },
             "editLabel": { "type": "string" },
             "editType": { "enum": ["template"] }
           }
@@ -27,10 +26,9 @@
       "patternProperties": {
         "^(\\w)+$": {
           "type": "object",
-          "required": ["name", "editLabel"],
+          "required": ["editLabel"],
           "additionalProperties": false,
           "properties": {
-            "name": { "type": "string" },
             "editLabel": { "type": "string" }
           }
         }

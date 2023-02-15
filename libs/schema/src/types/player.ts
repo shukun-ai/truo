@@ -29,29 +29,31 @@ export interface PlayerSchema {
   title: string;
   entry: string;
   containers: {
+    [k: string]: PlayerContainer;
+  };
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export interface PlayerContainer {
+  type: 'page';
+  repositories: {
+    [k: string]: PlayerRepository;
+  };
+  events: {
+    [k: string]: PlayerEvent;
+  };
+  widgets: {
+    [k: string]: PlayerWidget;
+  };
+  root: string[];
+  tree: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
      */
-    [k: string]: {
-      repositories: {
-        [k: string]: PlayerRepository;
-      };
-      events: {
-        [k: string]: PlayerEvent;
-      };
-      widgets: {
-        [k: string]: PlayerWidget;
-      };
-      root: string[];
-      tree: {
-        /**
-         * This interface was referenced by `undefined`'s JSON-Schema definition
-         * via the `patternProperty` "^(\w)+$".
-         */
-        [k: string]: string[];
-      };
-    };
+    [k: string]: string[];
   };
 }
 export interface PlayerRepositoryForm {
