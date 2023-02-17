@@ -11,6 +11,7 @@
  * via the `patternProperty` "^(\w)+$".
  */
 export type PlayerRepository =
+  | PlayerRepositorySimple
   | PlayerRepositoryForm
   | PlayerRepositorySourceQuery
   | PlayerRepositoryTransformer;
@@ -55,6 +56,10 @@ export interface PlayerContainer {
      */
     [k: string]: string[];
   };
+}
+export interface PlayerRepositorySimple {
+  type: 'Simple';
+  [k: string]: unknown;
 }
 export interface PlayerRepositoryForm {
   type: 'Form';

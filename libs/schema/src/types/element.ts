@@ -14,7 +14,7 @@ export interface ElementSchema {
   vendor: string;
   extends?: string;
   description?: string;
-  input: {
+  inputs?: {
     /**
      * The data described by New JSON Schema is injected into UiElement.
      */
@@ -29,7 +29,7 @@ export interface ElementSchema {
     section: 'general';
     [k: string]: unknown;
   }[];
-  output: {
+  outputs?: {
     /**
      * The UiElement emit data described by JSON Schema.
      */
@@ -44,4 +44,5 @@ export interface ElementSchema {
     section: 'general';
     [k: string]: unknown;
   }[];
+  events?: unknown;
 }

@@ -4,6 +4,9 @@
   "type": "object",
   "oneOf": [
     {
+      "$ref": "#/definitions/PlayerRepositorySimple"
+    },
+    {
       "$ref": "#/definitions/PlayerRepositoryForm"
     },
     {
@@ -14,6 +17,14 @@
     }
   ],
   "definitions": {
+    "PlayerRepositorySimple": {
+      "title": "PlayerRepositorySimple",
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "Simple" }
+      }
+    },
     "PlayerRepositoryForm": {
       "title": "PlayerRepositoryForm",
       "type": "object",
