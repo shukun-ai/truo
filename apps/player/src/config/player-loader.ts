@@ -10,10 +10,7 @@ export class PlayerLoader {
           type: 'page',
           repositories: {
             form1: {
-              type: 'Form',
-              states: {
-                deviceNumber: { type: 'string' },
-              },
+              type: 'Simple',
             },
             sourceQuery1: {
               type: 'SourceQuery',
@@ -50,7 +47,7 @@ export class PlayerLoader {
             w2: {
               tag: 'sk-text',
               states: {
-                title: '{{`设备查询 - 查询 ${form1.deviceNumber}`}}',
+                title: '设备查询 - 查询 {{form1.deviceNumber}}',
               },
               events: {},
             },

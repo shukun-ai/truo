@@ -1,5 +1,7 @@
 import { WidgetSchema } from '@shukun/schema';
 
+import { Input } from '../components/input';
+
 import { Layout } from '../components/layout';
 import { Page } from '../components/page';
 import { Text } from '../components/text';
@@ -53,7 +55,7 @@ export class WidgetLoader {
   > {
     return {
       'sk-text': Text,
-      // 'sk-input': Input,
+      'sk-input': Input,
       'sk-layout': Layout,
       'sk-page': Page,
     };
