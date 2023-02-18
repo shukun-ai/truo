@@ -1,5 +1,5 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
-import { map, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, Subscription } from 'rxjs';
 
 import { ConfigManager } from '../config/config-manager';
 import { RepositoryManager } from '../repository/repository-manager';
@@ -82,17 +82,7 @@ export class PageController {
     const widget = document.createElement(schema.tag);
     // subscribe repository
     for (const [state, template] of Object.entries(schema.states)) {
-      const literal = this.templateService.parse(template);
-      const subscription = this.repositoryManager
-        .subscribe(literal.dependencies)
-        .pipe(
-          map((dependencies) => {
-            // eslint-disable-next-line no-console
-            console.log('dependencies changed', dependencies);
-          }),
-        )
-        .subscribe();
-
+      const subscription = this.createSubscription(widget, state, template);
       this.subscriptions.set(`${schema.tag}:${state}`, subscription);
     }
 
@@ -104,5 +94,36 @@ export class PageController {
 
   private unmountWidget() {
     // TODO
+  }
+
+  private createSubscription(
+    widget: HTMLElement,
+    state: string,
+    template: string,
+  ) {
+    const literal = this.templateService.parse(template);
+    const identifiers = new Set<string>();
+    literal.codes.forEach((code) =>
+      code.identifiers.forEach((identifier) => identifiers.add(identifier)),
+    );
+
+    return this.repositoryManager
+      .subscribe([...identifiers])
+      .pipe(
+        map((dependencies) => {
+          const executedCodes = literal.codes.map((code) => {
+            return this.templateService.execute(
+              code,
+              dependencies as unknown[],
+            );
+          });
+          const result = this.templateService.evaluate(literal, executedCodes);
+          return result;
+        }),
+        distinctUntilChanged(),
+      )
+      .subscribe((value) => {
+        widget.setAttribute(state, value as any);
+      });
   }
 }

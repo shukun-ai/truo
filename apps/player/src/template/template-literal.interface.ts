@@ -5,6 +5,8 @@ export interface ITemplateLiteral {
 
 export type Literal = {
   texts: string[];
-  codes: string[];
-  dependencies: string[];
+  codes: {
+    code: string;
+    identifiers: string[];
+  }[];
 };

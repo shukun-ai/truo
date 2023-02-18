@@ -25,24 +25,26 @@ export class TemplateParser {
     const tokens = lexer.tokens();
 
     const texts: string[] = [];
-    const codes: string[] = [];
+    const codes: Literal['codes'] = [];
 
     for (const token of tokens) {
       if (token.type === this.TEXT) {
         texts.push(token.text);
       }
       if (token.type === this.CODE) {
-        const code = token.text;
-        codes.push(this.getCode(code));
+        const text = token.text;
+        const code = this.getCode(text);
+        const identifiers = this.getIdentifiers(code);
+        codes.push({
+          code,
+          identifiers,
+        });
       }
     }
-
-    const dependencies = this.getDependencies(codes);
 
     return {
       texts,
       codes,
-      dependencies,
     };
   }
 
@@ -61,14 +63,8 @@ export class TemplateParser {
     return newTemplate;
   }
 
-  private getDependencies(codes: string[]) {
-    const dependencies = new Set<string>();
-
-    codes.forEach((code) => {
-      const identifiers = new EsIdentifier().parse(code);
-      identifiers.forEach((identifier) => dependencies.add(identifier));
-    });
-
-    return [...dependencies];
+  private getIdentifiers(code: string): string[] {
+    const identifiers = new EsIdentifier().parse(code);
+    return identifiers;
   }
 }

@@ -1,5 +1,7 @@
+import { TemplateEvaluator } from './template-evaluator';
 import { Literal } from './template-literal.interface';
 import { TemplateParser } from './template-parser';
+import { TemplateSandbox } from './template-sandbox';
 import { ITemplateService } from './template.interface';
 
 export class TemplateService implements ITemplateService {
@@ -7,7 +9,11 @@ export class TemplateService implements ITemplateService {
     return new TemplateParser().parse(template);
   }
 
-  evaluate(literal: Literal, dependencies: Record<string, unknown>): unknown {
-    throw new Error('Method not implemented.');
+  evaluate(literal: Literal, executedCodes: unknown[]): unknown {
+    return new TemplateEvaluator().evaluate(literal, executedCodes);
+  }
+
+  execute(code: Literal['codes'][number], imports: unknown[]): unknown {
+    return new TemplateSandbox().execute(code, imports);
   }
 }
