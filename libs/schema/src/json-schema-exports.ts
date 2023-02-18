@@ -38,7 +38,6 @@ import attachmentsSchemaJson from './json-schemas/attachments.schema.json';
 import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
 import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
 import playerSchemaJson from './json-schemas/player.schema.json';
-import playerRequestSourceQuerySchemaJson from './json-schemas/player/request/source-query.schema.json';
 
 export const applicationSchema = applicationSchemaJson;
 export const metadataSchema = metadataSchemaJson;
@@ -82,5 +81,3 @@ export const attachmentsSchema = attachmentsSchemaJson;
 export const httpQuerySchema = httpQuerySchemaJson;
 export const dataSourceSchema = dataSourceSchemaJson;
 export const playerSchema = playerSchemaJson;
-export const playerRequestSourceQuerySchema =
-  playerRequestSourceQuerySchemaJson;

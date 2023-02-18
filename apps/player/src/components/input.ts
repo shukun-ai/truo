@@ -1,6 +1,8 @@
 export class Input extends HTMLElement {
   rendered = false;
 
+  input?: HTMLInputElement;
+
   static get observedAttributes() {
     return ['value'];
   }
@@ -17,8 +19,11 @@ export class Input extends HTMLElement {
   }
 
   render() {
-    const input = document.createElement('input');
-    input.type = 'input';
-    this.append(input);
+    if (!this.input) {
+      this.input = document.createElement('input');
+      this.input.type = 'input';
+      this.append(this.input);
+    }
+    this.input.value = this.getAttribute('value') ?? '';
   }
 }
