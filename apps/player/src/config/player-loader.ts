@@ -29,7 +29,7 @@ export class PlayerLoader {
               action: 'setRepository',
               target: 'form1',
               path: ['deviceNumber'],
-              value: '{{ event.detail.value }}',
+              value: '{{ $event.value }}',
             },
             w4Click1: {
               action: 'triggerRepository',

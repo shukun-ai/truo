@@ -141,9 +141,31 @@ export class PageController {
   ) {
     widget.addEventListener(eventName, (event) => {
       behaviors.forEach((behavior) => {
-        const event = container.events[behavior];
-        this.eventQueue.emit(event);
+        const eventBehavior = container.events[behavior];
+        const result = this.evaluateEvent(
+          eventBehavior.value as string,
+          (event as any).detail ?? {},
+        );
+
+        this.eventQueue.emit({ ...eventBehavior, value: result as any });
       });
     });
+  }
+
+  private evaluateEvent(template: string, detailPayload: unknown) {
+    const literal = this.templateService.parse(template);
+    const identifiers = new Set<string>();
+    literal.codes.forEach((code) =>
+      code.identifiers.forEach((identifier) => identifiers.add(identifier)),
+    );
+
+    const dependencies = this.repositoryManager.getValues([...identifiers]);
+    const dependenciesWithPayload = [...dependencies, detailPayload];
+    const executedCodes = literal.codes.map((code) => {
+      return this.templateService.execute(code, dependenciesWithPayload);
+    });
+
+    const result = this.templateService.evaluate(literal, executedCodes);
+    return result;
   }
 }
