@@ -58,7 +58,7 @@ export class PlayerLoader {
                 value: '{{ form1.deviceNumber }}',
               },
               events: {
-                change: ['w3Change1'],
+                'value-changed': ['w3Change1'],
               },
             },
             w4: {

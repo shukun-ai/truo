@@ -24,6 +24,13 @@ export class RepositoryManager implements IRepositoryManager {
     this.customRepositories.clear();
   }
 
+  getValues(customRepositories: string[]): unknown[] {
+    return customRepositories.reduce((values, name) => {
+      const repository = this.customRepositories.get(name);
+      return repository ? [...values, repository.getValue()] : values;
+    }, [] as unknown[]);
+  }
+
   subscribe(customRepositories: string[]): Observable<unknown> {
     const childObservables = customRepositories.reduce((observables, name) => {
       const repository = this.customRepositories.get(name);

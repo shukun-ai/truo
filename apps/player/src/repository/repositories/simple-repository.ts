@@ -18,6 +18,10 @@ export class SimpleRepository implements IRepository {
     return this.fields;
   }
 
+  getValue(): unknown {
+    return this.fields.getValue();
+  }
+
   set(path: (string | number)[], value: unknown): void {
     const target = cloneDeep(this.fields.getValue());
     set(target, path, value);

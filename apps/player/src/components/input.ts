@@ -1,3 +1,5 @@
+import { html, render } from 'lit-html';
+
 export class Input extends HTMLElement {
   rendered = false;
 
@@ -19,11 +21,21 @@ export class Input extends HTMLElement {
   }
 
   render() {
-    if (!this.input) {
-      this.input = document.createElement('input');
-      this.input.type = 'input';
-      this.append(this.input);
-    }
-    this.input.value = this.getAttribute('value') ?? '';
+    const template = html`
+      <input
+        type="text"
+        value=${this.getAttribute('value') ?? ''}
+        @change=${this.emitChange.bind(this)}
+      />
+    `;
+    render(template, this);
+  }
+
+  emitChange(event: { target: { value: string } }) {
+    this.dispatchEvent(
+      new CustomEvent('value-changed', {
+        detail: { value: event.target.value },
+      }),
+    );
   }
 }
