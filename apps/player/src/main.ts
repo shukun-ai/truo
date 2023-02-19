@@ -12,7 +12,7 @@ class Main {
 
     const templateService = new TemplateService();
     const repositoryManager = new RepositoryManager();
-    const eventQueue = new EventQueue(repositoryManager, templateService);
+    const eventQueue = new EventQueue(repositoryManager);
 
     const pageController = new PageController(
       configManager,
