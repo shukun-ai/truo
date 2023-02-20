@@ -1,5 +1,5 @@
 import { PlayerRepository } from '@shukun/schema';
-import { combineLatest, debounceTime, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 
 import { SimpleRepository } from './repositories/simple-repository';
 
@@ -7,47 +7,51 @@ import { IRepositoryManager } from './repository-manager.interface';
 import { IRepository } from './repository.interface';
 
 export class RepositoryManager implements IRepositoryManager {
-  customRepositories: Map<string, IRepository> = new Map();
+  private repositories: Map<string, IRepository> = new Map();
 
-  register(repositorySchemas: Record<string, PlayerRepository>): void {
+  public register(repositorySchemas: Record<string, PlayerRepository>): void {
     for (const [key, schema] of Object.entries(repositorySchemas)) {
       switch (schema.type) {
         case 'Simple':
-          this.customRepositories.set(key, new SimpleRepository(schema));
+          this.repositories.set(key, new SimpleRepository(schema));
           break;
       }
     }
   }
 
-  unregister(): void {
-    this.customRepositories.forEach((repository) => repository.destroy());
-    this.customRepositories.clear();
+  public unregister(): void {
+    this.repositories.forEach((repository) => repository.destroy());
+    this.repositories.clear();
   }
 
-  getValues(customRepositories: string[]): unknown[] {
-    return customRepositories.reduce((values, name) => {
-      const repository = this.customRepositories.get(name);
+  public getValues(repositoryNames: string[]): unknown[] {
+    return repositoryNames.reduce((values, name) => {
+      const repository = this.repositories.get(name);
       return repository ? [...values, repository.getValue()] : values;
     }, [] as unknown[]);
   }
 
-  subscribe(customRepositories: string[]): Observable<unknown> {
-    const childObservables = customRepositories.reduce((observables, name) => {
-      const repository = this.customRepositories.get(name);
-      return repository ? [...observables, repository.get()] : observables;
+  public setValue(
+    repositoryName: string,
+    path: (string | number)[],
+    value: unknown,
+  ): void {
+    this.repositories.get(repositoryName)?.setValue(path, value);
+  }
+
+  public resetValue(repositoryName: string): void {
+    this.repositories.get(repositoryName)?.resetValue();
+  }
+
+  public combineQueries(repositoryNames: string[]): Observable<unknown> {
+    const childObservables = repositoryNames.reduce((observables, name) => {
+      const repository = this.repositories.get(name);
+      return repository ? [...observables, repository.query()] : observables;
     }, [] as Observable<unknown>[]);
     return combineLatest(childObservables);
   }
 
-  set(repository: string, path: (string | number)[], value: unknown): void {
-    this.customRepositories.get(repository)?.set(path, value);
-  }
-
-  reset(repository: string): void {
-    this.customRepositories.get(repository)?.reset();
-  }
-
-  trigger(repository: string): void {
-    this.customRepositories.get(repository)?.trigger();
+  public trigger(repositoryName: string): void {
+    this.repositories.get(repositoryName)?.trigger();
   }
 }

@@ -14,7 +14,7 @@ export class SimpleRepository implements IRepository {
     this.fields = new BehaviorSubject({});
   }
 
-  get(): Observable<unknown> {
+  query(): Observable<unknown> {
     return this.fields;
   }
 
@@ -22,13 +22,13 @@ export class SimpleRepository implements IRepository {
     return this.fields.getValue();
   }
 
-  set(path: (string | number)[], value: unknown): void {
+  setValue(path: (string | number)[], value: unknown): void {
     const target = cloneDeep(this.fields.getValue());
     set(target, path, value);
     this.fields.next(target);
   }
 
-  reset(): void {
+  resetValue(): void {
     this.fields.next({});
   }
 
