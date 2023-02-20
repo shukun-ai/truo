@@ -3,8 +3,13 @@ import { Observable } from 'rxjs';
 
 export interface IRepositoryManager {
   register(repositorySchemas: Record<string, PlayerRepository>): void;
-  subscribe(repositories: string[]): Observable<unknown>;
-  set(repository: string, path: (string | number)[], value: unknown): void;
-  reset(repository: string): void;
-  trigger(repository: string): void;
+  getValues(repositoryNames: string[]): unknown[];
+  setValue(
+    repositoryName: string,
+    path: (string | number)[],
+    value: unknown,
+  ): void;
+  resetValue(repositoryName: string): void;
+  combineQueries(repositoryNames: string[]): Observable<unknown>;
+  trigger(repositoryName: string): void;
 }
