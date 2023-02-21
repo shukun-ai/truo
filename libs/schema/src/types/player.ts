@@ -91,7 +91,6 @@ export interface PlayerEventSetRepository {
   action: 'setRepository';
   target: string;
   path: string[];
-  value: string;
   [k: string]: unknown;
 }
 export interface PlayerEventTriggerRepository {
