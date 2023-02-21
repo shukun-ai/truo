@@ -1,3 +1,4 @@
+import { TemplateEvaluator } from './implements/template-evaluator';
 import { TemplateParser } from './implements/template-parser';
 
 import {
@@ -16,6 +17,6 @@ export class TemplateService implements ITemplateService {
     templateLiteral: TemplateLiteral,
     imports: TemplateDependencies,
   ): TemplateBasicOutput {
-    throw new Error('Method not implemented.');
+    return new TemplateEvaluator().evaluate(templateLiteral, imports);
   }
 }
