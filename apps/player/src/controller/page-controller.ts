@@ -1,7 +1,11 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
 import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
+import { ShukunWidget } from '../components/component.interface';
+import { MainContainerWidget } from '../components/main-container-widget';
+
 import { IConfigManager } from '../config/config-manager.interface';
+import { ShukunWidgetConstructor } from '../config/implements/widget-loader';
 import { IEventQueue } from '../event/event-queue.interface';
 import { IRepositoryManager } from '../repository/repository-manager.interface';
 import { ITemplateService } from '../template/template-service.interface';
@@ -21,12 +25,11 @@ export class PageController {
   mountApp() {
     // emit app start
     // create ref
-    const main = document.createElement('div');
-    main.id = 'main-container';
     const root = document.getElementById('root');
-    root?.append(main);
     // listen router changed
-    this.mountPage('home');
+    const widget = this.mountPage('home');
+
+    root?.append(widget.getRef());
     // emit app ready
   }
 
@@ -37,7 +40,7 @@ export class PageController {
   }
 
   private mountPage(containerName: string) {
-    this.mountContainer(containerName);
+    return this.mountContainer(containerName);
     // emit page mount
   }
 
@@ -50,11 +53,9 @@ export class PageController {
     // register repositories
     this.repositoryManager.register(container.repositories);
     // assemble widget tree
-    const mainContainer = document.getElementById('main-container');
-    if (!mainContainer) {
-      throw new Error();
-    }
-    this.assembleWidgetTree(container.root, mainContainer, container);
+    const mainContainerWidget = new MainContainerWidget();
+    this.assembleWidgetTree(container.root, mainContainerWidget, container);
+    return mainContainerWidget;
   }
 
   private unmountContainer() {
@@ -66,12 +67,15 @@ export class PageController {
 
   private assembleWidgetTree(
     widgetNames: string[],
-    parentWidget: HTMLElement,
+    parentWidget: ShukunWidget,
     container: PlayerContainer,
   ) {
     widgetNames.forEach((name) => {
       const schema = container.widgets[name];
-      const widget = this.mountWidget(container, schema);
+      const widgetConstructor = this.configManager.getWidgetConstructor(
+        schema.tag,
+      );
+      const widget = this.mountWidget(container, schema, widgetConstructor);
       parentWidget.append(widget);
 
       const nextWidgetNames = container.tree[name] ?? [];
@@ -82,8 +86,12 @@ export class PageController {
     });
   }
 
-  private mountWidget(container: PlayerContainer, schema: PlayerWidget) {
-    const widget = document.createElement(schema.tag);
+  private mountWidget(
+    container: PlayerContainer,
+    schema: PlayerWidget,
+    widgetConstructor: ShukunWidgetConstructor,
+  ): ShukunWidget {
+    const widget = new widgetConstructor();
     // subscribe repository
     for (const [state, template] of Object.entries(schema.states)) {
       const subscription = this.createSubscription(widget, state, template);
@@ -103,7 +111,7 @@ export class PageController {
   }
 
   private createSubscription(
-    widget: HTMLElement,
+    widget: ShukunWidget,
     state: string,
     template: string,
   ) {
@@ -124,7 +132,7 @@ export class PageController {
     );
 
     const subscription = observable.subscribe((value) => {
-      widget.setAttribute(state, value as any);
+      widget.update(state, value);
     });
 
     return subscription;
@@ -132,14 +140,14 @@ export class PageController {
 
   private listenCustomEvent(
     container: PlayerContainer,
-    widget: HTMLElement,
+    widget: ShukunWidget,
     eventName: string,
     behaviors: string[],
   ) {
-    widget.addEventListener(eventName, (event) => {
+    widget.addEventListener(eventName, (payload) => {
       behaviors.forEach((behavior) => {
         const eventBehavior = container.events[behavior];
-        this.eventQueue.emit(eventBehavior, (event as any)?.detail);
+        this.eventQueue.emit(eventBehavior, payload);
       });
     });
   }

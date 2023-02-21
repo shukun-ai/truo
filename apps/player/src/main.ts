@@ -22,6 +22,11 @@ class Main {
     );
 
     pageController.mountApp();
+
+    setTimeout(() => {
+      repositoryManager.setValue('form1', ['deviceNumber'], 2);
+      // repositoryManager.setValue('form1', ['value'], { name: 'Bob' });
+    }, 3000);
   }
 }
 

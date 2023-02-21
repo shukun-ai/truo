@@ -1,10 +1,13 @@
 import { WidgetSchema } from '@shukun/schema';
 
-import { Input } from '../../components/input';
+import { ButtonWidget } from '../../components/button-widget';
 
-import { Layout } from '../../components/layout';
-import { Page } from '../../components/page';
-import { Text } from '../../components/text';
+import { ShukunWidget } from '../../components/component.interface';
+
+import { InputWidget } from '../../components/input-widget';
+
+import { LayoutWidget } from '../../components/layout-widget';
+import { TextWidget } from '../../components/text-widget';
 
 export class WidgetLoader {
   public async loadSchemas(): Promise<Record<string, WidgetSchema>> {
@@ -51,13 +54,17 @@ export class WidgetLoader {
   }
 
   public async loadWidgets(): Promise<
-    Record<string, CustomElementConstructor>
+    Record<string, AConstructorTypeOf<ShukunWidget>>
   > {
     return {
-      'sk-text': Text,
-      'sk-input': Input,
-      'sk-layout': Layout,
-      'sk-page': Page,
+      'sk-text': TextWidget,
+      'sk-input': InputWidget,
+      'sk-layout': LayoutWidget,
+      'sk-button': ButtonWidget,
     };
   }
 }
+
+export type AConstructorTypeOf<T> = new (...args: any[]) => T;
+
+export type ShukunWidgetConstructor = AConstructorTypeOf<ShukunWidget>;
