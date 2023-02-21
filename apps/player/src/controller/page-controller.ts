@@ -1,17 +1,17 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
-import { distinctUntilChanged, map, Subscription } from 'rxjs';
+import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
-import { ConfigManager } from '../config/config-manager';
-import { EventQueue } from '../event/event-queue';
-import { RepositoryManager } from '../repository/repository-manager';
-import { TemplateService } from '../template/template.service';
+import { IConfigManager } from '../config/config-manager.interface';
+import { IEventQueue } from '../event/event-queue.interface';
+import { IRepositoryManager } from '../repository/repository-manager.interface';
+import { ITemplateService } from '../template/template-service.interface';
 
 export class PageController {
   constructor(
-    private readonly configManager: ConfigManager,
-    private readonly repositoryManager: RepositoryManager,
-    private readonly eventQueue: EventQueue,
-    private readonly templateService: TemplateService,
+    private readonly configManager: IConfigManager,
+    private readonly repositoryManager: IRepositoryManager,
+    private readonly eventQueue: IEventQueue,
+    private readonly templateService: ITemplateService,
   ) {}
 
   private subscriptions = new Map<string, Subscription>();
@@ -108,29 +108,26 @@ export class PageController {
     template: string,
   ) {
     const literal = this.templateService.parse(template);
-    const identifiers = new Set<string>();
-    literal.codes.forEach((code) =>
-      code.identifiers.forEach((identifier) => identifiers.add(identifier)),
+
+    const allRepositories = literal.codes.map((code) => {
+      return this.repositoryManager.combineQueries(code.repositories);
+    });
+
+    const observable = combineLatest(allRepositories).pipe(
+      map((allRepositories) => {
+        const imports = allRepositories.map((repository) => ({
+          repositories: repository,
+        }));
+        return this.templateService.evaluate(literal, imports);
+      }),
+      distinctUntilChanged(),
     );
 
-    return this.repositoryManager
-      .subscribe([...identifiers])
-      .pipe(
-        map((dependencies) => {
-          const executedCodes = literal.codes.map((code) => {
-            return this.templateService.execute(
-              code,
-              dependencies as unknown[],
-            );
-          });
-          const result = this.templateService.evaluate(literal, executedCodes);
-          return result;
-        }),
-        distinctUntilChanged(),
-      )
-      .subscribe((value) => {
-        widget.setAttribute(state, value as any);
-      });
+    const subscription = observable.subscribe((value) => {
+      widget.setAttribute(state, value as any);
+    });
+
+    return subscription;
   }
 
   private listenCustomEvent(
@@ -142,30 +139,8 @@ export class PageController {
     widget.addEventListener(eventName, (event) => {
       behaviors.forEach((behavior) => {
         const eventBehavior = container.events[behavior];
-        const result = this.evaluateEvent(
-          eventBehavior.value as string,
-          (event as any).detail ?? {},
-        );
-
-        this.eventQueue.emit({ ...eventBehavior, value: result as any });
+        this.eventQueue.emit(eventBehavior, (event as any)?.detail);
       });
     });
-  }
-
-  private evaluateEvent(template: string, detailPayload: unknown) {
-    const literal = this.templateService.parse(template);
-    const identifiers = new Set<string>();
-    literal.codes.forEach((code) =>
-      code.identifiers.forEach((identifier) => identifiers.add(identifier)),
-    );
-
-    const dependencies = this.repositoryManager.getValues([...identifiers]);
-    const dependenciesWithPayload = [...dependencies, detailPayload];
-    const executedCodes = literal.codes.map((code) => {
-      return this.templateService.execute(code, dependenciesWithPayload);
-    });
-
-    const result = this.templateService.evaluate(literal, executedCodes);
-    return result;
   }
 }

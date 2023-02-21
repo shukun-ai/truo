@@ -2,7 +2,7 @@ import { ConfigManager } from './config/config-manager';
 import { PageController } from './controller/page-controller';
 import { EventQueue } from './event/event-queue';
 import { RepositoryManager } from './repository/repository-manager';
-import { TemplateService } from './template/template.service';
+import { TemplateService } from './template/template-service';
 
 class Main {
   async start() {

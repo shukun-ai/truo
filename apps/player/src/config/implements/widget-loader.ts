@@ -1,10 +1,10 @@
 import { WidgetSchema } from '@shukun/schema';
 
-import { Input } from '../components/input';
+import { Input } from '../../components/input';
 
-import { Layout } from '../components/layout';
-import { Page } from '../components/page';
-import { Text } from '../components/text';
+import { Layout } from '../../components/layout';
+import { Page } from '../../components/page';
+import { Text } from '../../components/text';
 
 export class WidgetLoader {
   public async loadSchemas(): Promise<Record<string, WidgetSchema>> {
