@@ -21,22 +21,9 @@ export type TemplateDependencies = {
   helpers?: { [keyName: string]: TemplateEvaluateMethod };
 }[];
 
-export type TemplateEvaluateState =
-  | string
-  | number
-  | boolean
-  | undefined
-  | null
-  | object
-  | Array<unknown>;
+export type TemplateEvaluateState = unknown;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TemplateEvaluateMethod = (...args: any) => any;
 
-export type TemplateBasicOutput =
-  | string
-  | number
-  | boolean
-  | undefined
-  | null
-  | object
-  | Array<unknown>;
+export type TemplateBasicOutput = unknown;

@@ -16,7 +16,7 @@ export class PlayerLoader {
               type: 'SourceQuery',
               atomName: 'devices',
               query: {
-                number: '{{ form1.deviceNumber }}',
+                number: '{{ $.form1.deviceNumber }}',
               },
             },
             transformer1: {
@@ -29,7 +29,6 @@ export class PlayerLoader {
               action: 'setRepository',
               target: 'form1',
               path: ['deviceNumber'],
-              value: '{{ $event.value }}',
             },
             w4Click1: {
               action: 'triggerRepository',
@@ -47,7 +46,7 @@ export class PlayerLoader {
             w2: {
               tag: 'sk-text',
               states: {
-                title: '设备查询 - 查询 {{form1.deviceNumber}}',
+                title: '{{ $.form1.deviceNumber }}',
               },
               events: {},
             },
@@ -55,7 +54,7 @@ export class PlayerLoader {
               tag: 'sk-input',
               states: {
                 label: '设备号',
-                value: '{{ form1.deviceNumber }}',
+                'data-value': '{{ $.form1.deviceNumber }}',
               },
               events: {
                 'value-changed': ['w3Change1'],

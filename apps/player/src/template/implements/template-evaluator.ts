@@ -1,4 +1,5 @@
 import {
+  TemplateBasicOutput,
   TemplateDependencies,
   TemplateEvaluateState,
   TemplateLiteral,
@@ -8,7 +9,7 @@ export class TemplateEvaluator {
   evaluate(
     templateLiteral: TemplateLiteral,
     imports: TemplateDependencies,
-  ): TemplateEvaluateState {
+  ): TemplateBasicOutput {
     const set: unknown[] = [];
     templateLiteral.texts.forEach((text, index) => {
       if (index > 0) {

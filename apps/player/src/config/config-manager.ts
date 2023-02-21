@@ -7,8 +7,8 @@ import {
 } from '@shukun/schema';
 
 import { IConfigManager } from './config-manager.interface';
-import { PlayerLoader } from './player-loader';
-import { WidgetLoader } from './widget-loader';
+import { PlayerLoader } from './implements/player-loader';
+import { WidgetLoader } from './implements/widget-loader';
 
 export class ConfigManager implements IConfigManager {
   containers: Record<string, PlayerContainer> = {};
@@ -16,10 +16,6 @@ export class ConfigManager implements IConfigManager {
   widgetSchemas: Record<string, WidgetSchema> = {};
 
   widgetConstructors: Record<string, CustomElementConstructor> = {};
-
-  constructor() {
-    // TODO
-  }
 
   async load(): Promise<void> {
     const widgetLoader = new WidgetLoader();
