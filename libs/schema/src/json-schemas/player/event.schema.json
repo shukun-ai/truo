@@ -14,8 +14,7 @@
       "properties": {
         "action": { "const": "setRepository" },
         "target": { "type": "string" },
-        "path": { "type": "array", "items": { "type": "string" } },
-        "value": { "type": "string" }
+        "path": { "type": "array", "items": { "type": "string" } }
       }
     },
     "PlayerEventTriggerRepository": {
