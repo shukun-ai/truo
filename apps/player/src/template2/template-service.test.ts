@@ -71,4 +71,93 @@ describe('TemplateService', () => {
       });
     });
   });
+
+  describe('evaluate', () => {
+    it('two codes.', () => {
+      const output = new TemplateService().evaluate(
+        {
+          raw: false,
+          texts: ['', ' is ', ''],
+          codes: [
+            {
+              code: '$.currentUser.name',
+              repositories: ['currentUser'],
+              helpers: [],
+            },
+            {
+              code: '$.role.name',
+              repositories: ['role'],
+              helpers: [],
+            },
+          ],
+        },
+        [
+          {
+            repositories: {
+              currentUser: { name: 'Bob' },
+            },
+          },
+          {
+            repositories: {
+              role: { name: 'admin' },
+            },
+          },
+        ],
+      );
+      expect(output).toEqual('Bob is admin');
+    });
+
+    it('one repository and one helper.', () => {
+      const output = new TemplateService().evaluate(
+        {
+          raw: true,
+          texts: ['', ''],
+          codes: [
+            {
+              code: '$$.get($.currentUser, "name")',
+              repositories: ['currentUser'],
+              helpers: ['get'],
+            },
+          ],
+        },
+        [
+          {
+            repositories: {
+              currentUser: { name: 'Bob' },
+            },
+            helpers: {
+              get: (target: Record<string, string>, path: string) => {
+                return target[path];
+              },
+            },
+          },
+        ],
+      );
+      expect(output).toEqual('Bob');
+    });
+
+    it('return number, if raw.', () => {
+      const output = new TemplateService().evaluate(
+        {
+          raw: true,
+          texts: ['', ''],
+          codes: [
+            {
+              code: '$.currentUser.latitude',
+              repositories: ['currentUser'],
+              helpers: [],
+            },
+          ],
+        },
+        [
+          {
+            repositories: {
+              currentUser: { latitude: 22.3085407 },
+            },
+          },
+        ],
+      );
+      expect(output).toEqual(22.3085407);
+    });
+  });
 });

@@ -17,8 +17,8 @@ export type TemplateLiteral = {
 };
 
 export type TemplateDependencies = {
-  repositories: { [keyName: string]: TemplateEvaluateState };
-  helpers: { [keyName: string]: TemplateEvaluateMethod };
+  repositories?: { [keyName: string]: TemplateEvaluateState };
+  helpers?: { [keyName: string]: TemplateEvaluateMethod };
 }[];
 
 export type TemplateEvaluateState =
@@ -30,7 +30,7 @@ export type TemplateEvaluateState =
   | object
   | Array<unknown>;
 
-export type TemplateEvaluateMethod = FunctionConstructor;
+export type TemplateEvaluateMethod = (...args: any) => any;
 
 export type TemplateBasicOutput =
   | string
