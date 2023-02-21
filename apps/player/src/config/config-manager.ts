@@ -6,16 +6,26 @@ import {
   WidgetSchema,
 } from '@shukun/schema';
 
+import { ShukunWidget } from '../components/component.interface';
+
 import { IConfigManager } from './config-manager.interface';
 import { PlayerLoader } from './implements/player-loader';
-import { WidgetLoader } from './implements/widget-loader';
+import { AConstructorTypeOf, WidgetLoader } from './implements/widget-loader';
 
 export class ConfigManager implements IConfigManager {
   containers: Record<string, PlayerContainer> = {};
 
   widgetSchemas: Record<string, WidgetSchema> = {};
 
-  widgetConstructors: Record<string, CustomElementConstructor> = {};
+  widgetConstructors: Record<string, AConstructorTypeOf<ShukunWidget>> = {};
+
+  getWidgetConstructor(tag: string) {
+    const widgetConstructor = this.widgetConstructors[tag];
+    if (!widgetConstructor) {
+      throw new Error();
+    }
+    return widgetConstructor;
+  }
 
   async load(): Promise<void> {
     const widgetLoader = new WidgetLoader();
@@ -31,9 +41,9 @@ export class ConfigManager implements IConfigManager {
   }
 
   registerWidgets(): void {
-    for (const [tag, widget] of Object.entries(this.widgetConstructors)) {
-      customElements.define(tag, widget);
-    }
+    // for (const [tag, widget] of Object.entries(this.widgetConstructors)) {
+    //   customElements.define(tag, widget);
+    // }
   }
 
   getContainer(containerName: string): PlayerContainer {
