@@ -17,6 +17,10 @@ export abstract class AbstractWidget implements ShukunWidget {
     this.element.append(widget.getHTMLElement());
   }
 
+  setIdentifier(identifier: string): void {
+    this.element.setAttribute('data-qa', identifier);
+  }
+
   created() {
     this.element = document.createElement('div');
   }

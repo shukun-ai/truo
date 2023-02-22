@@ -4,6 +4,7 @@ export interface ShukunWidget {
   // REFERENCE
   getHTMLElement(): HTMLElement;
   append(widget: ShukunWidget): void;
+  setIdentifier(identifier: string): void;
   // LIFE CYCLE
   created(): void;
   mounted(): void;
