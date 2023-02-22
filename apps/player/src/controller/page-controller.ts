@@ -7,7 +7,9 @@ import { IEventQueue } from '../event/event-queue.interface';
 import { IRepositoryManager } from '../repository/repository-manager.interface';
 import { ITemplateService } from '../template/template-service.interface';
 
-export class PageController {
+import { IPageController } from './page-controller.interface';
+
+export class PageController implements IPageController {
   constructor(
     private readonly configManager: IConfigManager,
     private readonly repositoryManager: IRepositoryManager,
@@ -19,21 +21,41 @@ export class PageController {
 
   private listeners = new Set<string>();
 
-  mountApp() {
+  private widgets = new Map<string, ShukunWidget>();
+
+  mountApp(root: HTMLElement) {
     // emit app start
     // create ref
-    const root = document.getElementById('root');
+    // const root = document.getElementById('root');
     // listen router changed
     const widget = this.mountPage('home');
-
-    root?.append(widget.getHTMLElement());
+    root.append(widget.getHTMLElement());
     // emit app ready
   }
 
-  unmountApp() {
-    // cancel listen router changed
-    // unmount page
-    // emit app unmount
+  // unmountApp() {
+  //   // cancel listen router changed
+  //   // unmount page
+  //   // emit app unmount
+  // }
+
+  getWidget(containerName: string, widgetInstanceName: string): ShukunWidget {
+    const widget = this.widgets.get(widgetInstanceName);
+    if (!widget) {
+      throw new Error();
+    }
+    return widget;
+  }
+
+  addWidget(
+    containerName: string,
+    widgetInstanceName: string,
+    widget: ShukunWidget,
+  ) {
+    if (this.widgets.has(widgetInstanceName)) {
+      throw new Error();
+    }
+    this.widgets.set(widgetInstanceName, widget);
   }
 
   private mountPage(containerName: string) {
@@ -52,7 +74,12 @@ export class PageController {
     // assemble widget tree
     const ContainerWidget = this.configManager.getWidgetClass('sk-container');
     const mainContainerWidget = new ContainerWidget();
-    this.assembleWidgetTree(container.root, mainContainerWidget, container);
+    this.assembleWidgetTree(
+      containerName,
+      container.root,
+      mainContainerWidget,
+      container,
+    );
     return mainContainerWidget;
   }
 
@@ -64,6 +91,7 @@ export class PageController {
   }
 
   private assembleWidgetTree(
+    containerName: string,
     widgetNames: string[],
     parentWidget: ShukunWidget,
     container: PlayerContainer,
@@ -72,13 +100,20 @@ export class PageController {
       const schema = container.widgets[name];
       const WidgetClass = this.configManager.getWidgetClass(schema.tag);
       const widget = this.mountWidget(container, schema, WidgetClass);
+      widget.setIdentifier(name);
       parentWidget.append(widget);
+      this.addWidget(containerName, name, widget);
 
       const nextWidgetNames = container.tree[name] ?? [];
       if (nextWidgetNames.length === 0) {
         return;
       }
-      this.assembleWidgetTree(nextWidgetNames, widget, container);
+      this.assembleWidgetTree(
+        containerName,
+        nextWidgetNames,
+        widget,
+        container,
+      );
     });
   }
 

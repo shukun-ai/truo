@@ -21,7 +21,11 @@ class Main {
       templateService,
     );
 
-    pageController.mountApp();
+    const root = document.getElementById('root');
+    if (!root) {
+      throw new Error();
+    }
+    pageController.mountApp(root);
 
     setTimeout(() => {
       repositoryManager.setValue('form1', ['deviceNumber'], 2);
