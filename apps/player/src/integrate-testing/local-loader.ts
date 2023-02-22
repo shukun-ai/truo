@@ -1,6 +1,7 @@
 import { ConfigDefinitions } from '../config/config-manager.interface';
 
-import { ILoader } from './loader.interface';
+import { ILoader } from '../loader/loader.interface';
+
 import { getLocalPlayer } from './local-loader/local-player';
 import { getLocalWidgetClasses } from './local-loader/local-widget';
 

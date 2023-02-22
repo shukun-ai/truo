@@ -1,7 +1,7 @@
 import { ConfigManager } from './config/config-manager';
 import { PageController } from './controller/page-controller';
 import { EventQueue } from './event/event-queue';
-import { LocalLoader } from './loader/local-loader';
+import { LocalLoader } from './integrate-testing/local-loader';
 import { RepositoryManager } from './repository/repository-manager';
 import { TemplateService } from './template/template-service';
 
