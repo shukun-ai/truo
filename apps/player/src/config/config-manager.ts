@@ -5,21 +5,20 @@ import {
   PlayerWidget,
   WidgetSchema,
 } from '@shukun/schema';
-
-import { ShukunWidget } from '../components/component.interface';
+import { ShukunWidgetClass } from '@shukun/widget';
 
 import { IConfigManager } from './config-manager.interface';
 import { PlayerLoader } from './implements/player-loader';
-import { AConstructorTypeOf, WidgetLoader } from './implements/widget-loader';
+import { WidgetLoader } from './implements/widget-loader';
 
 export class ConfigManager implements IConfigManager {
   containers: Record<string, PlayerContainer> = {};
 
   widgetSchemas: Record<string, WidgetSchema> = {};
 
-  widgetConstructors: Record<string, AConstructorTypeOf<ShukunWidget>> = {};
+  widgetConstructors: Record<string, ShukunWidgetClass> = {};
 
-  getWidgetConstructor(tag: string) {
+  getWidgetClass(tag: string) {
     const widgetConstructor = this.widgetConstructors[tag];
     if (!widgetConstructor) {
       throw new Error();

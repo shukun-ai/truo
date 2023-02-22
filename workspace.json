@@ -14,6 +14,7 @@
     "schema": "libs/schema",
     "server": "apps/server",
     "validator": "libs/validator",
-    "web-engine": "apps/web-engine"
+    "web-engine": "apps/web-engine",
+    "widget": "libs/widget"
   }
 }

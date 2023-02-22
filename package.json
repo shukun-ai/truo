@@ -171,6 +171,7 @@
     "tslib": "^2.0.0",
     "uglify-js": "^3.15.0",
     "url-parse": "^1.5.4",
+    "utility-types": "^3.10.0",
     "vm2": "^3.9.5",
     "winston": "^3.4.0",
     "write": "^2.0.0"

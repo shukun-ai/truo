@@ -1,8 +1,7 @@
 import { WidgetSchema } from '@shukun/schema';
+import { ShukunWidgetClass } from '@shukun/widget';
 
 import { ButtonWidget } from '../../components/button-widget';
-
-import { ShukunWidget } from '../../components/component.interface';
 
 import { InputWidget } from '../../components/input-widget';
 
@@ -53,9 +52,7 @@ export class WidgetLoader {
     };
   }
 
-  public async loadWidgets(): Promise<
-    Record<string, AConstructorTypeOf<ShukunWidget>>
-  > {
+  public async loadWidgets(): Promise<Record<string, ShukunWidgetClass>> {
     return {
       'sk-text': TextWidget,
       'sk-input': InputWidget,
@@ -64,7 +61,3 @@ export class WidgetLoader {
     };
   }
 }
-
-export type AConstructorTypeOf<T> = new (...args: any[]) => T;
-
-export type ShukunWidgetConstructor = AConstructorTypeOf<ShukunWidget>;

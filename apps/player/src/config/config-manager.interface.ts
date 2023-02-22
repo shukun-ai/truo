@@ -5,8 +5,7 @@ import {
   PlayerWidget,
   WidgetSchema,
 } from '@shukun/schema';
-
-import { ShukunWidgetConstructor } from './implements/widget-loader';
+import { ShukunWidgetClass } from '@shukun/widget';
 
 export interface IConfigManager {
   load(): Promise<void>;
@@ -19,5 +18,5 @@ export interface IConfigManager {
   getEvent(containerName: string, eventName: string): PlayerEvent;
   getWidget(containerName: string, widgetName: string): PlayerWidget;
   getWidgetSchema(widgetTag: string): WidgetSchema;
-  getWidgetConstructor(tag: string): ShukunWidgetConstructor;
+  getWidgetClass(tag: string): ShukunWidgetClass;
 }
