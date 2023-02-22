@@ -1,10 +1,4 @@
-import {
-  PlayerContainer,
-  PlayerRepository,
-  PlayerEvent,
-  PlayerWidget,
-  WidgetSchema,
-} from '@shukun/schema';
+import { PlayerContainer } from '@shukun/schema';
 import { ShukunWidgetClass } from '@shukun/widget';
 
 import { IConfigManager } from './config-manager.interface';
@@ -12,59 +6,34 @@ import { PlayerLoader } from './implements/player-loader';
 import { WidgetLoader } from './implements/widget-loader';
 
 export class ConfigManager implements IConfigManager {
-  containers: Record<string, PlayerContainer> = {};
+  private containers: Record<string, PlayerContainer> = {};
 
-  widgetSchemas: Record<string, WidgetSchema> = {};
-
-  widgetConstructors: Record<string, ShukunWidgetClass> = {};
-
-  getWidgetClass(tag: string) {
-    const widgetConstructor = this.widgetConstructors[tag];
-    if (!widgetConstructor) {
-      throw new Error();
-    }
-    return widgetConstructor;
-  }
+  private widgetClasses: Record<string, ShukunWidgetClass> = {};
 
   async load(): Promise<void> {
     const widgetLoader = new WidgetLoader();
     const playerLoader = new PlayerLoader();
-    const [schemas, widgets, player] = await Promise.all([
-      widgetLoader.loadSchemas(),
+    const [widgetClasses, player] = await Promise.all([
       widgetLoader.loadWidgets(),
       playerLoader.load(),
     ]);
-    this.widgetSchemas = schemas;
-    this.widgetConstructors = widgets;
+    this.widgetClasses = widgetClasses;
     this.containers = player.containers;
   }
 
   registerWidgets(): void {
-    // for (const [tag, widget] of Object.entries(this.widgetConstructors)) {
-    //   customElements.define(tag, widget);
-    // }
+    // Just a hook
   }
 
   getContainer(containerName: string): PlayerContainer {
     return this.containers[containerName];
   }
 
-  getRepository(
-    containerName: string,
-    repositoryName: string,
-  ): PlayerRepository {
-    return this.getContainer(containerName).repositories[repositoryName];
-  }
-
-  getEvent(containerName: string, eventName: string): PlayerEvent {
-    return this.getContainer(containerName).events[eventName];
-  }
-
-  getWidget(containerName: string, widgetName: string): PlayerWidget {
-    return this.getContainer(containerName).widgets[widgetName];
-  }
-
-  getWidgetSchema(widgetTag: string): WidgetSchema {
-    return this.widgetSchemas[widgetTag];
+  getWidgetClass(tag: string) {
+    const widgetConstructor = this.widgetClasses[tag];
+    if (!widgetConstructor) {
+      throw new Error();
+    }
+    return widgetConstructor;
   }
 }
