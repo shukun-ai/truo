@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "es2020",
+    "lib": ["es2020", "DOM", "DOM.Iterable"]
+  },
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
