@@ -2,8 +2,6 @@ import { PlayerContainer, PlayerWidget } from '@shukun/schema';
 import { ShukunWidget, ShukunWidgetClass } from '@shukun/widget';
 import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
-import { ContainerWidget } from '../components/container-widget';
-
 import { IConfigManager } from '../config/config-manager.interface';
 import { IEventQueue } from '../event/event-queue.interface';
 import { IRepositoryManager } from '../repository/repository-manager.interface';
@@ -52,6 +50,7 @@ export class PageController {
     // register repositories
     this.repositoryManager.register(container.repositories);
     // assemble widget tree
+    const ContainerWidget = this.configManager.getWidgetClass('sk-container');
     const mainContainerWidget = new ContainerWidget();
     this.assembleWidgetTree(container.root, mainContainerWidget, container);
     return mainContainerWidget;

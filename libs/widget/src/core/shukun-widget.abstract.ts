@@ -1,9 +1,9 @@
 import { ShukunWidget } from './shukun-widget.interface';
 
 export abstract class AbstractWidget implements ShukunWidget {
-  element!: HTMLDivElement;
+  protected element!: HTMLDivElement;
 
-  events = new Map<string, (payload: unknown) => void>();
+  protected events = new Map<string, (payload: unknown) => void>();
 
   constructor() {
     this.created();
