@@ -1,11 +1,10 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
+import { ShukunWidget, ShukunWidgetClass } from '@shukun/widget';
 import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
-import { ShukunWidget } from '../components/component.interface';
-import { MainContainerWidget } from '../components/main-container-widget';
+import { ContainerWidget } from '../components/container-widget';
 
 import { IConfigManager } from '../config/config-manager.interface';
-import { ShukunWidgetConstructor } from '../config/implements/widget-loader';
 import { IEventQueue } from '../event/event-queue.interface';
 import { IRepositoryManager } from '../repository/repository-manager.interface';
 import { ITemplateService } from '../template/template-service.interface';
@@ -29,7 +28,7 @@ export class PageController {
     // listen router changed
     const widget = this.mountPage('home');
 
-    root?.append(widget.getRef());
+    root?.append(widget.getHTMLElement());
     // emit app ready
   }
 
@@ -53,7 +52,7 @@ export class PageController {
     // register repositories
     this.repositoryManager.register(container.repositories);
     // assemble widget tree
-    const mainContainerWidget = new MainContainerWidget();
+    const mainContainerWidget = new ContainerWidget();
     this.assembleWidgetTree(container.root, mainContainerWidget, container);
     return mainContainerWidget;
   }
@@ -72,10 +71,8 @@ export class PageController {
   ) {
     widgetNames.forEach((name) => {
       const schema = container.widgets[name];
-      const widgetConstructor = this.configManager.getWidgetConstructor(
-        schema.tag,
-      );
-      const widget = this.mountWidget(container, schema, widgetConstructor);
+      const WidgetClass = this.configManager.getWidgetClass(schema.tag);
+      const widget = this.mountWidget(container, schema, WidgetClass);
       parentWidget.append(widget);
 
       const nextWidgetNames = container.tree[name] ?? [];
@@ -89,9 +86,9 @@ export class PageController {
   private mountWidget(
     container: PlayerContainer,
     schema: PlayerWidget,
-    widgetConstructor: ShukunWidgetConstructor,
+    WidgetClass: ShukunWidgetClass,
   ): ShukunWidget {
-    const widget = new widgetConstructor();
+    const widget = new WidgetClass();
     // subscribe repository
     for (const [state, template] of Object.entries(schema.states)) {
       const subscription = this.createSubscription(widget, state, template);
@@ -144,7 +141,7 @@ export class PageController {
     eventName: string,
     behaviors: string[],
   ) {
-    widget.addEventListener(eventName, (payload) => {
+    widget.listen(eventName, (payload) => {
       behaviors.forEach((behavior) => {
         const eventBehavior = container.events[behavior];
         this.eventQueue.emit(eventBehavior, payload);

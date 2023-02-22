@@ -1,6 +1,5 @@
+import { AbstractWidget } from '@shukun/widget';
 import { html, render } from 'lit-html';
-
-import { AbstractWidget } from './abstract-widget';
 
 export class InputWidget extends AbstractWidget {
   override update(name: string, payload: any): void {
@@ -11,7 +10,7 @@ export class InputWidget extends AbstractWidget {
         @change=${this.emitChange.bind(this)}
       />
     `;
-    render(template, this.getRef());
+    render(template, this.getHTMLElement());
   }
 
   emitChange(event: any) {

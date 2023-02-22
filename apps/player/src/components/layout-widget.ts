@@ -1,4 +1,4 @@
-import { AbstractWidget } from './abstract-widget';
+import { AbstractWidget } from '@shukun/widget';
 
 export class LayoutWidget extends AbstractWidget {
   override update(name: string, payload: unknown): void {
