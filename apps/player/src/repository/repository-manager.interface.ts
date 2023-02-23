@@ -1,6 +1,8 @@
 import { PlayerRepository } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
+import { RouterRepository } from './repositories/router-repository';
+
 export interface IRepositoryManager {
   initialize(): void;
   register(repositorySchemas: Record<string, PlayerRepository>): void;
@@ -15,5 +17,6 @@ export interface IRepositoryManager {
   combineQueries(
     repositoryNames: string[],
   ): Observable<Record<string, unknown>>;
-  trigger(repositoryName: string): void;
+  trigger(repositoryName: string, payload: unknown): void;
+  getRouterRepository(): RouterRepository;
 }
