@@ -6,5 +6,5 @@ export interface IRepository {
   getValue(): unknown;
   resetValue(): void;
   query(): Observable<unknown>;
-  trigger(): void;
+  trigger(payload: unknown): void;
 }
