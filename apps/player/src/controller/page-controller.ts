@@ -1,3 +1,4 @@
+import { TypeException } from '@shukun/exception';
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
 import { ShukunWidget, ShukunWidgetClass } from '@shukun/widget';
 import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
@@ -9,16 +10,22 @@ import { IRepositoryManager } from '../repository/repository-manager.interface';
 import { IRepository } from '../repository/repository.interface';
 import { ITemplateService } from '../template/template-service.interface';
 
+import { CurrentContainer } from './current-container';
+
 import { CustomRepositoryService } from './custom-repository-service';
 
 import { IPageController } from './page-controller.interface';
 import { RouterRepository } from './repositories/router-repository';
 
 export class PageController implements IPageController {
-  CURRENT_USER_REPOSITORY_KEY = 'currentUser';
-  ROUTER_REPOSITORY_KEY = 'router';
+  private CURRENT_USER_REPOSITORY_KEY = 'currentUser';
+  private ROUTER_REPOSITORY_KEY = 'router';
 
   private customRepositoryService: CustomRepositoryService;
+  private subscriptions = new Map<string, Subscription>();
+  private listeners = new Set<string>();
+  private currentWidgets = new Map<string, ShukunWidget>();
+  private currentContainer: CurrentContainer;
 
   constructor(
     private readonly configManager: IConfigManager,
@@ -29,17 +36,8 @@ export class PageController implements IPageController {
     this.customRepositoryService = new CustomRepositoryService(
       this.repositoryManager,
     );
+    this.currentContainer = new CurrentContainer();
   }
-
-  private subscriptions = new Map<string, Subscription>();
-
-  private listeners = new Set<string>();
-
-  private widgets = new Map<string, ShukunWidget>();
-
-  private containerWidget?: ShukunWidget;
-
-  private currentPage?: string;
 
   mountApp(root: HTMLElement) {
     // emit app start
@@ -49,20 +47,21 @@ export class PageController implements IPageController {
     // const widget = this.mountPage('home');
     // root.append(widget.getHTMLElement());
     // emit app ready
-    this.listenRouterChanges();
+    this.listenRouterChanges(root);
   }
 
-  changeContainer(page: string) {
-    if (page === this.currentPage) {
-      return;
+  changeContainer(page: string, root: HTMLElement) {
+    if (this.currentContainer.exits()) {
+      this.unmountContainer(
+        root,
+        this.currentContainer.getPageName(),
+        this.currentContainer.getContainer(),
+      );
     }
 
-    if (this.currentPage) {
-      // this.unmountContainer(this.currentPage);
-    }
-
-    this.currentPage = page;
-    this.mountContainer(page);
+    const ContainerWidget = this.configManager.getWidgetClass('sk-container');
+    const containerWidget = new ContainerWidget();
+    this.mountContainer(root, page, containerWidget);
   }
 
   public registerRouterRepository(repository: IRepository) {
@@ -73,26 +72,20 @@ export class PageController implements IPageController {
     this.repositoryManager.add(this.CURRENT_USER_REPOSITORY_KEY, repository);
   }
 
-  private listenRouterChanges() {
+  private listenRouterChanges(root: HTMLElement) {
     const routerRepository = this.repositoryManager.get(
       this.ROUTER_REPOSITORY_KEY,
     ) as RouterRepository;
     routerRepository.query().subscribe((router) => {
-      this.changeContainer(router.page);
+      this.changeContainer(router.page, root);
     });
   }
-
-  // unmountApp() {
-  //   // cancel listen router changed
-  //   // unmount page
-  //   // emit app unmount
-  // }
 
   public getWidget(
     containerName: string,
     widgetInstanceName: string,
   ): ShukunWidget {
-    const widget = this.widgets.get(widgetInstanceName);
+    const widget = this.currentWidgets.get(widgetInstanceName);
     if (!widget) {
       throw new Error();
     }
@@ -104,33 +97,51 @@ export class PageController implements IPageController {
     widgetInstanceName: string,
     widget: ShukunWidget,
   ) {
-    if (this.widgets.has(widgetInstanceName)) {
-      throw new Error();
+    if (this.currentWidgets.has(widgetInstanceName)) {
+      throw new TypeException('The widget is added: {{widgetInstanceName}}', {
+        widgetInstanceName,
+      });
     }
-    this.widgets.set(widgetInstanceName, widget);
+    this.currentWidgets.set(widgetInstanceName, widget);
   }
 
-  private mountContainer(containerName: string) {
-    const container = this.configManager.getContainer(containerName);
+  private mountContainer(
+    root: HTMLElement,
+    pageName: string,
+    container: ShukunWidget,
+  ): void {
+    const containerDefinition = this.configManager.getContainer(pageName);
     // register repositories
-    this.customRepositoryService.register(container.repositories);
+    this.customRepositoryService.register(containerDefinition.repositories);
     // assemble widget tree
-    const ContainerWidget = this.configManager.getWidgetClass('sk-container');
-    const mainContainerWidget = new ContainerWidget();
     this.assembleWidgetTree(
-      containerName,
-      container.root,
-      mainContainerWidget,
+      pageName,
+      containerDefinition.root,
       container,
+      containerDefinition,
     );
-    return mainContainerWidget;
+    root.append(container.getHTMLElement());
+    console.log(pageName, root.innerHTML);
+    this.currentContainer.set(pageName, container);
   }
 
-  private unmountContainer() {
+  // private mountNotFound() {
+  //   const ContainerWidget = this.configManager.getWidgetClass('sk-container');
+  //   const notFoundWidget = new ContainerWidget();
+  //   notFoundWidget.getHTMLElement().innerHTML = '404';
+  //   return notFoundWidget;
+  // }
+
+  private unmountContainer(
+    root: HTMLElement,
+    pageName: string,
+    container: ShukunWidget,
+  ) {
     // cancel listen
     // unsubscribe
     // unregister
     // destroy tree
+    root.removeChild(container.getHTMLElement());
   }
 
   private assembleWidgetTree(

@@ -40,6 +40,22 @@ export function getLocalPlayer(): PlayerSchema {
         root: ['w1', 'w2'],
         tree: {},
       },
+      about: {
+        type: 'page',
+        repositories: {},
+        events: {},
+        widgets: {
+          w1: {
+            tag: 'sk-text',
+            states: {
+              value: 'It is about page.',
+            },
+            events: {},
+          },
+        },
+        root: ['w1'],
+        tree: {},
+      },
     },
   };
 }
