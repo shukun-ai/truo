@@ -1,28 +1,35 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
 import { ShukunWidget, ShukunWidgetClass } from '@shukun/widget';
-import { History } from 'history';
 import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
 import { IConfigManager } from '../config/config-manager.interface';
 import { IEventQueue } from '../event/event-queue.interface';
-import { CurrentUserRepository } from '../repository/repositories/current-user-repository';
-import { RouterRepository } from '../repository/repositories/router-repository';
+
 import { IRepositoryManager } from '../repository/repository-manager.interface';
 import { IRepository } from '../repository/repository.interface';
 import { ITemplateService } from '../template/template-service.interface';
 
+import { CustomRepositoryService } from './custom-repository-service';
+
 import { IPageController } from './page-controller.interface';
+import { RouterRepository } from './repositories/router-repository';
 
 export class PageController implements IPageController {
   CURRENT_USER_REPOSITORY_KEY = 'currentUser';
   ROUTER_REPOSITORY_KEY = 'router';
+
+  private customRepositoryService: CustomRepositoryService;
 
   constructor(
     private readonly configManager: IConfigManager,
     private readonly repositoryManager: IRepositoryManager,
     private readonly eventQueue: IEventQueue,
     private readonly templateService: ITemplateService,
-  ) {}
+  ) {
+    this.customRepositoryService = new CustomRepositoryService(
+      this.repositoryManager,
+    );
+  }
 
   private subscriptions = new Map<string, Subscription>();
 
@@ -106,7 +113,7 @@ export class PageController implements IPageController {
   private mountContainer(containerName: string) {
     const container = this.configManager.getContainer(containerName);
     // register repositories
-    this.repositoryManager.register(container.repositories);
+    this.customRepositoryService.register(container.repositories);
     // assemble widget tree
     const ContainerWidget = this.configManager.getWidgetClass('sk-container');
     const mainContainerWidget = new ContainerWidget();
