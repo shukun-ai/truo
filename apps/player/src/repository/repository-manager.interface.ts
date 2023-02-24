@@ -1,12 +1,15 @@
 import { PlayerRepository } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
-import { RouterRepository } from './repositories/router-repository';
+import { IRepository } from './repository.interface';
 
 export interface IRepositoryManager {
-  initialize(): void;
   register(repositorySchemas: Record<string, PlayerRepository>): void;
   unregister(repositorySchemas: Record<string, PlayerRepository>): void;
+  add(repositoryName: string, repository: IRepository): void;
+  remove(repositoryName: string): void;
+  get(repositoryName: string): IRepository;
+  has(repositoryName: string): boolean;
   getValues(repositoryNames: string[]): Record<string, unknown>;
   setValue(
     repositoryName: string,
@@ -18,5 +21,4 @@ export interface IRepositoryManager {
     repositoryNames: string[],
   ): Observable<Record<string, unknown>>;
   trigger(repositoryName: string, payload: unknown): void;
-  getRouterRepository(): RouterRepository;
 }

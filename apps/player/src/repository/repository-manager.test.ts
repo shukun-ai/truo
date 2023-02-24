@@ -1,28 +1,24 @@
+import { TypeException } from '@shukun/exception';
 import { PlayerRepository } from '@shukun/schema';
 import { skip } from 'rxjs';
+
+import { SimpleRepository } from './repositories/simple-repository';
 
 import { RepositoryManager } from './repository-manager';
 
 describe('RepositoryManager', () => {
+  const RouterRepository = jest.fn();
+
   describe('register', () => {
-    it('initialize', () => {
-      const repositoryManager = new RepositoryManager();
-      repositoryManager.initialize();
-
-      expect([...(repositoryManager as any).repositories.keys()]).toEqual([
-        'currentUser',
-      ]);
-    });
-
     it('register', () => {
       const repositoryManager = new RepositoryManager();
       repositoryManager.register({
         textDisplay: { type: 'Simple' },
       });
 
-      expect([...(repositoryManager as any).repositories.keys()]).toEqual([
-        'textDisplay',
-      ]);
+      expect(repositoryManager.get('textDisplay')).toBeInstanceOf(
+        SimpleRepository,
+      );
     });
 
     it('unregister', () => {
@@ -30,18 +26,16 @@ describe('RepositoryManager', () => {
         textDisplay: { type: 'Simple' },
       };
       const repositoryManager = new RepositoryManager();
-      repositoryManager.initialize();
       repositoryManager.register(playerRepositories);
       repositoryManager.unregister(playerRepositories);
 
-      expect([...(repositoryManager as any).repositories.keys()]).toEqual([
-        'currentUser',
-      ]);
+      expect(() => repositoryManager.get('textDisplay')).toThrow(
+        new TypeException('Did not defined repository'),
+      );
     });
 
     it('set and get values', () => {
       const repositoryManager = new RepositoryManager();
-      repositoryManager.initialize();
       repositoryManager.register({
         textDisplay: { type: 'Simple' },
         group: { type: 'Simple' },
@@ -67,7 +61,6 @@ describe('RepositoryManager', () => {
 
     it('observable and set values', (done) => {
       const repositoryManager = new RepositoryManager();
-      repositoryManager.initialize();
       repositoryManager.register({
         textDisplay: { type: 'Simple' },
         group: { type: 'Simple' },
