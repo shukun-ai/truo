@@ -1,7 +1,10 @@
+import { createMemoryHistory } from 'history';
+
 import { ConfigManager } from '../config/config-manager';
-import { ConfigDefinitions } from '../config/config-manager.interface';
 import { PageController } from '../controller/page-controller';
 import { EventQueue } from '../event/event-queue';
+import { CurrentUserRepository } from '../repository/repositories/current-user-repository';
+import { RouterRepository } from '../repository/repositories/router-repository';
 import { RepositoryManager } from '../repository/repository-manager';
 import { TemplateService } from '../template/template-service';
 
@@ -10,13 +13,15 @@ import { LocalLoader } from './local-loader';
 describe('PageController', () => {
   let repositoryManager: RepositoryManager;
   let pageController: PageController;
-  let definitions: ConfigDefinitions;
 
   beforeEach(async () => {
+    const history = createMemoryHistory();
     const loader = new LocalLoader();
-    definitions = await loader.load();
+    const definitions = await loader.load();
     const configManager = new ConfigManager(definitions);
     const templateService = new TemplateService();
+    const routerRepository = new RouterRepository(history);
+    const currentUserRepository = new CurrentUserRepository();
     repositoryManager = new RepositoryManager();
     const eventQueue = new EventQueue(repositoryManager);
     pageController = new PageController(
@@ -25,6 +30,8 @@ describe('PageController', () => {
       eventQueue,
       templateService,
     );
+    pageController.registerRouterRepository(routerRepository);
+    pageController.registerCurrentUserRepository(currentUserRepository);
   });
 
   describe('mountApp', () => {
@@ -55,6 +62,14 @@ describe('PageController', () => {
   });
 
   describe('Listen router changed.', () => {
-    //
+    it('mount the home and if the router is changed, should unmount home and mount the new page.', () => {
+      // repositoryManager.
+    });
+  });
+
+  describe('Listen router changed.', () => {
+    it('If the new container is not defined, should return 404 page.', () => {
+      //
+    });
   });
 });

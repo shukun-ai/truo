@@ -1,15 +1,22 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
 import { ShukunWidget, ShukunWidgetClass } from '@shukun/widget';
+import { History } from 'history';
 import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
 import { IConfigManager } from '../config/config-manager.interface';
 import { IEventQueue } from '../event/event-queue.interface';
+import { CurrentUserRepository } from '../repository/repositories/current-user-repository';
+import { RouterRepository } from '../repository/repositories/router-repository';
 import { IRepositoryManager } from '../repository/repository-manager.interface';
+import { IRepository } from '../repository/repository.interface';
 import { ITemplateService } from '../template/template-service.interface';
 
 import { IPageController } from './page-controller.interface';
 
 export class PageController implements IPageController {
+  CURRENT_USER_REPOSITORY_KEY = 'currentUser';
+  ROUTER_REPOSITORY_KEY = 'router';
+
   constructor(
     private readonly configManager: IConfigManager,
     private readonly repositoryManager: IRepositoryManager,
@@ -23,14 +30,49 @@ export class PageController implements IPageController {
 
   private widgets = new Map<string, ShukunWidget>();
 
+  private containerWidget?: ShukunWidget;
+
+  private currentPage?: string;
+
   mountApp(root: HTMLElement) {
     // emit app start
     // create ref
     // const root = document.getElementById('root');
     // listen router changed
-    const widget = this.mountPage('home');
-    root.append(widget.getHTMLElement());
+    // const widget = this.mountPage('home');
+    // root.append(widget.getHTMLElement());
     // emit app ready
+    this.listenRouterChanges();
+  }
+
+  changeContainer(page: string) {
+    if (page === this.currentPage) {
+      return;
+    }
+
+    if (this.currentPage) {
+      // this.unmountContainer(this.currentPage);
+    }
+
+    this.currentPage = page;
+    this.mountContainer(page);
+  }
+
+  public registerRouterRepository(repository: IRepository) {
+    this.repositoryManager.add(this.ROUTER_REPOSITORY_KEY, repository);
+  }
+
+  public registerCurrentUserRepository(repository: IRepository) {
+    this.repositoryManager.add(this.CURRENT_USER_REPOSITORY_KEY, repository);
+  }
+
+  private listenRouterChanges() {
+    const routerRepository = this.repositoryManager.get(
+      this.ROUTER_REPOSITORY_KEY,
+    ) as RouterRepository;
+    routerRepository.query().subscribe((router) => {
+      this.changeContainer(router.page);
+    });
   }
 
   // unmountApp() {
@@ -39,7 +81,10 @@ export class PageController implements IPageController {
   //   // emit app unmount
   // }
 
-  getWidget(containerName: string, widgetInstanceName: string): ShukunWidget {
+  public getWidget(
+    containerName: string,
+    widgetInstanceName: string,
+  ): ShukunWidget {
     const widget = this.widgets.get(widgetInstanceName);
     if (!widget) {
       throw new Error();
@@ -47,7 +92,7 @@ export class PageController implements IPageController {
     return widget;
   }
 
-  addWidget(
+  public addWidget(
     containerName: string,
     widgetInstanceName: string,
     widget: ShukunWidget,
@@ -56,15 +101,6 @@ export class PageController implements IPageController {
       throw new Error();
     }
     this.widgets.set(widgetInstanceName, widget);
-  }
-
-  private mountPage(containerName: string) {
-    return this.mountContainer(containerName);
-    // emit page mount
-  }
-
-  private unmountPage() {
-    // emit page unmount
   }
 
   private mountContainer(containerName: string) {
