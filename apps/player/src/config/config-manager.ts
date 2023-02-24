@@ -1,27 +1,32 @@
+import { TypeException } from '@shukun/exception';
 import { PlayerContainer } from '@shukun/schema';
 import { ShukunWidgetClass } from '@shukun/widget';
 
 import { ConfigDefinitions, IConfigManager } from './config-manager.interface';
 
 export class ConfigManager implements IConfigManager {
-  private containers: Record<string, PlayerContainer> = {};
+  private containers: Map<string, PlayerContainer>;
 
-  private widgetClasses: Record<string, ShukunWidgetClass> = {};
+  private widgetClasses: Map<string, ShukunWidgetClass>;
 
   constructor(readonly definitions: ConfigDefinitions) {
-    this.widgetClasses = definitions.widgetClasses;
-    this.containers = definitions.player.containers;
+    this.widgetClasses = new Map(Object.entries(definitions.widgetClasses));
+    this.containers = new Map(Object.entries(definitions.player.containers));
   }
 
   getContainer(containerName: string): PlayerContainer {
-    return this.containers[containerName];
+    const container = this.containers.get(containerName);
+    if (!container) {
+      throw new TypeException('Did not find container');
+    }
+    return container;
   }
 
   getWidgetClass(tag: string) {
-    const widgetConstructor = this.widgetClasses[tag];
-    if (!widgetConstructor) {
-      throw new Error();
+    const widgetClass = this.widgetClasses.get(tag);
+    if (!widgetClass) {
+      throw new TypeException('Did not find widgetClass');
     }
-    return widgetConstructor;
+    return widgetClass;
   }
 }
