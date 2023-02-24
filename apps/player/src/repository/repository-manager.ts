@@ -1,38 +1,11 @@
 import { TypeException } from '@shukun/exception';
-import { PlayerRepository } from '@shukun/schema';
 import { combineLatest, map, Observable } from 'rxjs';
-
-import { SimpleRepository } from './repositories/simple-repository';
 
 import { IRepositoryManager } from './repository-manager.interface';
 import { IRepository } from './repository.interface';
 
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
-
-  constructor() {
-    // this.repositories.set(
-    //   CURRENT_USER_REPOSITORY_KEY,
-    //   new CurrentUserRepository(),
-    // );
-  }
-
-  public register(repositorySchemas: Record<string, PlayerRepository>): void {
-    for (const [key, schema] of Object.entries(repositorySchemas)) {
-      switch (schema.type) {
-        case 'Simple':
-          this.repositories.set(key, new SimpleRepository(schema));
-          break;
-      }
-    }
-  }
-
-  public unregister(repositorySchemas: Record<string, PlayerRepository>): void {
-    for (const name of Object.keys(repositorySchemas)) {
-      this.repositories.get(name)?.destroy();
-      this.repositories.delete(name);
-    }
-  }
 
   public add(repositoryName: string, repository: IRepository) {
     if (this.repositories.has(repositoryName)) {
