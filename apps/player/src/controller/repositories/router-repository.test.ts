@@ -44,7 +44,7 @@ describe('RouterRepository', () => {
   });
 
   describe('Listen changes', () => {
-    it('should return page home, when /', () => {
+    it('User can trigger routerRepository to change page.', () => {
       const history = createMemoryHistory({
         initialEntries: ['/'],
       });
@@ -103,6 +103,25 @@ describe('RouterRepository', () => {
       });
       routerRepository.trigger({ page: 'about', search: { id: 'mock' } });
       expect(history.location.pathname).toEqual('/shukun/about');
+      expect(history.location.search).toEqual(
+        `s=${encodeURIComponent(JSON.stringify({ id: 'mock' }))}`,
+      );
+      const value = routerRepository.getValue();
+      expect(value).toEqual({ page: 'about', search: { id: 'mock' } });
+    });
+  });
+
+  describe('Listen changes', () => {
+    it('When the browser change url.', () => {
+      const history = createMemoryHistory({
+        initialEntries: ['/'],
+      });
+      const routerRepository = new RouterRepository(history);
+      history.push({
+        pathname: '/about',
+        search: `s=${encodeURIComponent(JSON.stringify({ id: 'mock' }))}`,
+      });
+      expect(history.location.pathname).toEqual('/about');
       expect(history.location.search).toEqual(
         `s=${encodeURIComponent(JSON.stringify({ id: 'mock' }))}`,
       );

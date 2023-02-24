@@ -30,6 +30,7 @@ export class RouterRepository implements IRepository {
     this.internalStates = new BehaviorSubject<RouterField>(
       this.parseLocation(this.history.location),
     );
+    this.listenHistoryChanges();
   }
 
   query(): Observable<RouterField> {
@@ -73,8 +74,12 @@ export class RouterRepository implements IRepository {
         this.history.push({ pathname, search: historySearch });
         break;
     }
+  }
 
-    this.internalStates.next(this.parseLocation(this.history.location));
+  private listenHistoryChanges() {
+    this.history.listen(({ location }) => {
+      this.internalStates.next(this.parseLocation(location));
+    });
   }
 
   private parseLocation(location: Location): RouterField {
