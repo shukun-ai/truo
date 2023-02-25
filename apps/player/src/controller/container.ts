@@ -28,18 +28,17 @@ export class Container {
 
   public mount(containerName: string) {
     const ContainerWidget = this.configManager.getWidgetClass('sk-container');
-    const containerWidget = new ContainerWidget();
-    const containerDefinition = this.configManager.getContainer(containerName);
-    this.customRepositoryService.register(containerDefinition.repositories);
+    this.containerWidget = new ContainerWidget();
+    this.containerDefinition = this.configManager.getContainer(containerName);
+    this.customRepositoryService.register(
+      this.containerDefinition.repositories,
+    );
 
     this.assembleWidgetTree(
-      containerDefinition.root,
-      containerWidget,
-      containerDefinition,
+      this.containerDefinition.root,
+      this.containerWidget,
+      this.containerDefinition,
     );
-    console.log(this.currentWidgets);
-    this.containerWidget = containerWidget;
-    this.containerDefinition = containerDefinition;
   }
 
   public umount() {
@@ -95,7 +94,7 @@ export class Container {
       const widget = this.mountWidget(containerDefinition, schema, WidgetClass);
       widget.setIdentifier(name);
       parentWidget.append(widget);
-      // this.addWidget(name, widget);
+      this.addWidget(name, widget);
       this.currentWidgets.set(name, widget);
 
       const nextWidgetNames = containerDefinition.tree[name] ?? [];

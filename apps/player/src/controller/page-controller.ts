@@ -1,4 +1,3 @@
-import { TypeException } from '@shukun/exception';
 import { ShukunWidget } from '@shukun/widget';
 
 import { IConfigManager } from '../config/config-manager.interface';
@@ -20,12 +19,6 @@ export class PageController implements IPageController {
   private ROUTER_REPOSITORY_KEY = 'router';
 
   private customRepositoryService: CustomRepositoryService;
-  // private subscriptions = new Map<string, Subscription>();
-  // private listeners = new Set<string>();
-  // private currentWidgets = new Map<string, ShukunWidget>();
-  // private currentContainer: CurrentContainer;
-  // private containers = new Map<string, Container>();
-
   private currentContainer: Container | null = null;
 
   constructor(
@@ -38,19 +31,13 @@ export class PageController implements IPageController {
       this.repositoryManager,
     );
   }
-  getWidget(containerName: string, widgetInstanceName: string): ShukunWidget {
-    throw new Error('Method not implemented.');
-  }
 
   mountApp(root: HTMLElement) {
     // emit app start
     // create ref
-    // const root = document.getElementById('root');
     // listen router changed
-    // const widget = this.mountPage('home');
-    // root.append(widget.getHTMLElement());
-    // emit app ready
     this.listenRouterChanges(root);
+    // emit app ready
   }
 
   changeContainer(page: string, root: HTMLElement) {
@@ -58,8 +45,6 @@ export class PageController implements IPageController {
       this.unmountContainer(root, this.currentContainer);
     }
 
-    // const ContainerWidget = this.configManager.getWidgetClass('sk-container');
-    // const containerWidget = new ContainerWidget();
     this.mountContainer(root, page);
   }
 
@@ -92,7 +77,6 @@ export class PageController implements IPageController {
     container.mount(containerName);
     const containerWidget = container.getContainerWidget();
     root.appendChild(containerWidget.getHTMLElement());
-    console.log('root.innerHTML', root.innerHTML);
     this.currentContainer = container;
   }
 
