@@ -6,47 +6,37 @@ describe('PageController', () => {
 
   describe('mountApp', () => {
     it('should change when states binding or event trigger.', async () => {
-      const { pageController, repositoryManager } = await createApp();
+      const { root, repositoryManager } = await createApp();
 
       repositoryManager.setValue('form1', ['deviceNumber'], 'Bob');
 
-      // const textWidget = pageController.getWidget('w1');
-      // const inputWidget = pageController.getWidget('w2');
+      expect(root.innerHTML).toEqual(
+        '<div><div value="Bob" data-qa="w1"></div><input value="Bob" data-qa="w2"></div>',
+      );
 
-      // expect(textWidget.getHTMLElement().getAttribute('value')).toEqual('Bob');
-      // expect(inputWidget.getHTMLElement().getAttribute('value')).toEqual('Bob');
+      const input: HTMLInputElement = document.querySelector(
+        '[data-qa="w2"]',
+      ) as HTMLInputElement;
+      input.value = 'Alice';
+      input.click();
 
-      // const input: HTMLInputElement =
-      //   inputWidget.getHTMLElement() as HTMLInputElement;
-      // input.value = 'Alice';
-      // input.click();
-
-      // expect(textWidget.getHTMLElement().getAttribute('value')).toEqual(
-      //   'Alice',
-      // );
-      // expect(inputWidget.getHTMLElement().getAttribute('value')).toEqual(
-      //   'Alice',
-      // );
+      expect(root.innerHTML).toEqual(
+        '<div><div value="Alice" data-qa="w1"></div><input value="Alice" data-qa="w2"></div>',
+      );
     });
   });
 
   describe('Listen router changed.', () => {
-    it.only('mount the home and if the router is changed, should unmount home and mount the new page.', async () => {
-      const { history, root, pageController, repositoryManager } =
-        await createApp({
-          initial: '/about',
-        });
-      // history.push(
-      //   `/about?s=${encodeURIComponent(JSON.stringify({ name: 'Tom' }))}`,
-      // );
+    it('mount the home and if the router is changed, should unmount home and mount the new page.', async () => {
+      const { history, root, repositoryManager } = await createApp();
+      history.push(
+        `/about?s=${encodeURIComponent(JSON.stringify({ name: 'Tom' }))}`,
+      );
       await sleep(1000);
-
-      repositoryManager.setValue('form2', ['value'], 'nihao');
-      // const textWidget = pageController.getWidget('w1');
-      // console.log('rootss', root.innerHTML);
-      // expect(textWidget.getHTMLElement().innerText).toEqual(
-      //   'It is about page.',
-      // );
+      repositoryManager.setValue('form2', ['value'], '你好');
+      expect(root.innerHTML).toEqual(
+        '<div><div value="It is about page 你好." data-qa="w1"></div></div>',
+      );
     });
   });
 
