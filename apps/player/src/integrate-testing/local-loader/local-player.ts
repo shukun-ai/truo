@@ -42,13 +42,17 @@ export function getLocalPlayer(): PlayerSchema {
       },
       about: {
         type: 'page',
-        repositories: {},
+        repositories: {
+          form2: {
+            type: 'Simple',
+          },
+        },
         events: {},
         widgets: {
           w1: {
             tag: 'sk-text',
             states: {
-              value: 'It is about page.',
+              value: 'It is about page {{$.form2.value}}.',
             },
             events: {},
           },
