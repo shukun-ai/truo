@@ -1,7 +1,7 @@
 import { createMemoryHistory } from 'history';
 
 import { ConfigManager } from '../config/config-manager';
-import { PageController } from '../controller/page-controller';
+import { AppController } from '../controller/app-controller';
 import { CurrentUserRepository } from '../controller/repositories/current-user-repository';
 import { RouterRepository } from '../controller/repositories/router-repository';
 import { EventQueue } from '../event/event-queue';
@@ -24,7 +24,7 @@ export async function createApp(
   const currentUserRepository = new CurrentUserRepository();
   const repositoryManager = new RepositoryManager();
   const eventQueue = new EventQueue(repositoryManager);
-  const pageController = new PageController(
+  const pageController = new AppController(
     configManager,
     repositoryManager,
     eventQueue,
