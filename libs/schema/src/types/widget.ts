@@ -11,14 +11,16 @@
  */
 export interface WidgetSchema {
   tag: string;
-  states: {
+  properties: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: {
+      expectedType: 'string' | 'number' | 'boolean' | 'mixed';
       editLabel: string;
       editType: 'template';
+      editPlaceholder?: string;
     };
   };
   events: {
