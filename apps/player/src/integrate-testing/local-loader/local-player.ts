@@ -22,14 +22,14 @@ export function getLocalPlayer(): PlayerSchema {
         widgets: {
           w1: {
             tag: 'sk-text',
-            states: {
+            properties: {
               value: '{{$.form1.deviceNumber}}',
             },
             events: {},
           },
           w2: {
             tag: 'sk-input',
-            states: {
+            properties: {
               value: '{{$.form1.deviceNumber}}',
             },
             events: {
@@ -51,7 +51,7 @@ export function getLocalPlayer(): PlayerSchema {
         widgets: {
           w1: {
             tag: 'sk-text',
-            states: {
+            properties: {
               value: 'It is about page {{$.form2.value}}.',
             },
             events: {},

@@ -111,17 +111,17 @@ export class AppController implements IAppController {
     containerDefinition: PlayerContainer;
   }) {
     // subscribe repository
-    for (const [state, template] of Object.entries(
-      context.widgetDefinition.states,
+    for (const [property, template] of Object.entries(
+      context.widgetDefinition.properties,
     )) {
       const subscription = this.createSubscription(
         context.widgetId,
         context.containerId,
-        state,
+        property,
         template,
       );
       this.subscriptions.set(
-        this.getStateId(context.containerId, context.widgetId, state),
+        this.getStateId(context.containerId, context.widgetId, property),
         subscription,
       );
     }
@@ -135,7 +135,6 @@ export class AppController implements IAppController {
         event,
         behavior,
       );
-      // this.listeners.add(`${schema.tag}:${event}`);
     }
   }
 
@@ -217,8 +216,8 @@ export class AppController implements IAppController {
     for (const [widgetId, widgetDefinition] of Object.entries(
       definition.widgets,
     )) {
-      for (const [state] of Object.keys(widgetDefinition.states)) {
-        const key = this.getStateId(containerId, widgetId, state);
+      for (const [property] of Object.keys(widgetDefinition.properties)) {
+        const key = this.getStateId(containerId, widgetId, property);
         const subscription = this.subscriptions.get(key);
         if (subscription) {
           subscription.unsubscribe();

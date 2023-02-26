@@ -2,11 +2,11 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "PlayerWidget",
   "type": "object",
-  "required": ["tag", "states", "events"],
+  "required": ["tag", "properties", "events"],
   "additionalProperties": false,
   "properties": {
     "tag": { "type": "string" },
-    "states": {
+    "properties": {
       "type": "object",
       "patternProperties": {
         "^(\\w)+$": {

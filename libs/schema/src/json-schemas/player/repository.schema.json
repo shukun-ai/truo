@@ -7,9 +7,6 @@
       "$ref": "#/definitions/PlayerRepositorySimple"
     },
     {
-      "$ref": "#/definitions/PlayerRepositoryForm"
-    },
-    {
       "$ref": "#/definitions/PlayerRepositorySourceQuery"
     },
     {
@@ -23,23 +20,6 @@
       "required": ["type"],
       "properties": {
         "type": { "const": "Simple" }
-      }
-    },
-    "PlayerRepositoryForm": {
-      "title": "PlayerRepositoryForm",
-      "type": "object",
-      "required": ["type", "states"],
-      "properties": {
-        "type": { "const": "Form" },
-        "states": {
-          "type": "object",
-          "patternProperties": {
-            "^(\\w)+$": {
-              "type": "object",
-              "properties": {}
-            }
-          }
-        }
       }
     },
     "PlayerRepositorySourceQuery": {

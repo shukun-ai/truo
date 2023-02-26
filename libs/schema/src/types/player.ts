@@ -12,7 +12,6 @@
  */
 export type PlayerRepository =
   | PlayerRepositorySimple
-  | PlayerRepositoryForm
   | PlayerRepositorySourceQuery
   | PlayerRepositoryTransformer;
 /**
@@ -67,19 +66,6 @@ export interface PlayerRepositorySimple {
   type: 'Simple';
   [k: string]: unknown;
 }
-export interface PlayerRepositoryForm {
-  type: 'Form';
-  states: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(\w)+$".
-     */
-    [k: string]: {
-      [k: string]: unknown;
-    };
-  };
-  [k: string]: unknown;
-}
 export interface PlayerRepositorySourceQuery {
   type: 'SourceQuery';
   atomName: string;
@@ -110,7 +96,7 @@ export interface PlayerEventTriggerRepository {
  */
 export interface PlayerWidget {
   tag: string;
-  states: {
+  properties: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
