@@ -8,22 +8,21 @@ import { IRepositoryManager } from '../repository/repository-manager.interface';
 import { IRepository } from '../repository/repository.interface';
 import { ITemplateService } from '../template/template-service.interface';
 
-import { Container } from './container';
+import { IAppController } from './app-controller.interface';
 
 import { CustomRepositoryService } from './custom-repository-service';
 import { assembleWidgetTree } from './helpers/assemble-widget-tree';
 import { createCustomElement } from './helpers/create-custom-element';
 
-import { IPageController } from './page-controller.interface';
 import { RouterRepository } from './repositories/router-repository';
 
-export class AppController implements IPageController {
+export class AppController implements IAppController {
   private CURRENT_USER_REPOSITORY_KEY = 'currentUser';
   private ROUTER_REPOSITORY_KEY = 'router';
 
   private customRepositoryService: CustomRepositoryService;
-  private currentContainer: Container | null = null;
   private subscriptions = new Map<string, Subscription>();
+  private activePage: string | null = null;
 
   constructor(
     private readonly configManager: IConfigManager,
@@ -53,11 +52,13 @@ export class AppController implements IPageController {
   }
 
   private changeContainer(page: string, root: HTMLElement) {
-    if (this.currentContainer) {
-      this.unmountContainer(root, this.currentContainer);
+    if (this.activePage) {
+      this.unmountContainer(root, this.activePage);
+      this.activePage = null;
     }
 
     this.mountContainer(root, page);
+    this.activePage = page;
   }
 
   private listenRouterChanges(root: HTMLElement) {
@@ -87,12 +88,6 @@ export class AppController implements IPageController {
     });
 
     this.bindContainer(definition, containerId);
-  }
-
-  private unmountContainer(root: HTMLElement, container: Container) {
-    container.umount();
-    root.removeChild(container.getContainerWidget().getHTMLElement());
-    this.currentContainer = null;
   }
 
   private bindContainer(
@@ -126,7 +121,7 @@ export class AppController implements IPageController {
         template,
       );
       this.subscriptions.set(
-        `${context.containerId}-${context.widgetId}`,
+        this.getStateId(context.containerId, context.widgetId, state),
         subscription,
       );
     }
@@ -167,7 +162,9 @@ export class AppController implements IPageController {
     );
 
     const subscription = observable.subscribe((value) => {
-      const element = document.getElementById(`${containerId}-${widgetId}`);
+      const element = document.getElementById(
+        this.getCustomElementId(containerId, widgetId),
+      );
       if (element) {
         // element.setAttribute(state, value as any);
         (element as any)[state] = value;
@@ -185,7 +182,9 @@ export class AppController implements IPageController {
     eventName: string,
     behaviors: string[],
   ): void {
-    const element = document.getElementById(`${containerId}-${widgetId}`);
+    const element = document.getElementById(
+      this.getCustomElementId(containerId, widgetId),
+    );
     const definition = this.configManager.getContainer(containerId);
     if (element) {
       element.addEventListener(eventName, (event: any) => {
@@ -197,5 +196,47 @@ export class AppController implements IPageController {
     } else {
       console.error('Did not find element when listen.');
     }
+  }
+
+  private unmountContainer(root: HTMLElement, containerId: string) {
+    const definition = this.configManager.getContainer(containerId);
+    const container = document.getElementById(
+      this.getCustomElementId(containerId, 'main-container'),
+    );
+    if (container) {
+      this.unbindContainer(definition, containerId);
+      root.removeChild(container);
+    }
+    this.customRepositoryService.unregister(definition.repositories);
+  }
+
+  private unbindContainer(
+    definition: PlayerContainer,
+    containerId: string,
+  ): void {
+    for (const [widgetId, widgetDefinition] of Object.entries(
+      definition.widgets,
+    )) {
+      for (const [state] of Object.keys(widgetDefinition.states)) {
+        const key = this.getStateId(containerId, widgetId, state);
+        const subscription = this.subscriptions.get(key);
+        if (subscription) {
+          subscription.unsubscribe();
+          this.subscriptions.delete(key);
+        }
+      }
+    }
+  }
+
+  private getCustomElementId(containerId: string, widgetId: string) {
+    return `${containerId}-${widgetId}`;
+  }
+
+  private getStateId(containerId: string, widgetId: string, stateId: string) {
+    return `${containerId}-${widgetId}-${stateId}`;
+  }
+
+  private getEventId(containerId: string, widgetId: string, eventId: string) {
+    return `${containerId}-${widgetId}-${eventId}`;
   }
 }

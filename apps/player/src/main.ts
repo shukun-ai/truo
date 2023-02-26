@@ -2,7 +2,6 @@ import { createBrowserHistory } from 'history';
 
 import { ConfigManager } from './config/config-manager';
 import { AppController } from './controller/app-controller';
-import { PageController } from './controller/page-controller';
 import { CurrentUserRepository } from './controller/repositories/current-user-repository';
 import { RouterRepository } from './controller/repositories/router-repository';
 import { EventQueue } from './event/event-queue';
@@ -41,6 +40,8 @@ class Main {
     setTimeout(() => {
       repositoryManager.setValue('form1', ['deviceNumber'], 'Bob');
       // repositoryManager.setValue('form1', ['value'], { name: 'Bob' });
+      // repositoryManager.setValue('router', ['page'], 'about');
+      // repositoryManager.trigger('router', { page: 'about' });
     }, 3000);
   }
 }
