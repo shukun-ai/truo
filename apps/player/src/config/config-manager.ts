@@ -9,9 +9,16 @@ export class ConfigManager implements IConfigManager {
 
   private widgetClasses: Map<string, ShukunWidgetClass>;
 
+  private customElements: Map<string, CustomElementConstructor>;
+
   constructor(readonly definitions: ConfigDefinitions) {
+    this.customElements = new Map(Object.entries(definitions.customElements));
     this.widgetClasses = new Map(Object.entries(definitions.widgetClasses));
     this.containers = new Map(Object.entries(definitions.player.containers));
+
+    for (const [tag, customElement] of this.customElements) {
+      customElements.define(tag, customElement);
+    }
   }
 
   getContainer(containerName: string): PlayerContainer {
@@ -28,5 +35,13 @@ export class ConfigManager implements IConfigManager {
       throw new TypeException('Did not find widgetClass');
     }
     return widgetClass;
+  }
+
+  getCustomElement(tag: string) {
+    const customElement = this.customElements.get(tag);
+    if (!customElement) {
+      throw new TypeException('Did not find customElement');
+    }
+    return customElement;
   }
 }

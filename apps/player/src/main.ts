@@ -1,6 +1,7 @@
 import { createBrowserHistory } from 'history';
 
 import { ConfigManager } from './config/config-manager';
+import { AppController } from './controller/app-controller';
 import { PageController } from './controller/page-controller';
 import { CurrentUserRepository } from './controller/repositories/current-user-repository';
 import { RouterRepository } from './controller/repositories/router-repository';
@@ -21,7 +22,7 @@ class Main {
     const repositoryManager = new RepositoryManager();
     const eventQueue = new EventQueue(repositoryManager);
 
-    const pageController = new PageController(
+    const pageController = new AppController(
       configManager,
       repositoryManager,
       eventQueue,
