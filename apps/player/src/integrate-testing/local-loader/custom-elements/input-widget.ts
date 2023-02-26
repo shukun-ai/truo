@@ -9,17 +9,18 @@ export class InputWidget extends LitElement {
 
   constructor() {
     super();
-
     this.value = '';
   }
 
   override render() {
-    return html`<input
-      value=${this.value}
-      click=${(event: any) =>
-        this.dispatchEvent(
-          new CustomEvent('value-changed', event.target.detail),
-        )}
-    />`;
+    return html`<input value=${this.value} @change=${this.onChange} />`;
+  }
+
+  onChange(event: any) {
+    this.dispatchEvent(
+      new CustomEvent('value-changed', {
+        detail: event.target.value,
+      }),
+    );
   }
 }

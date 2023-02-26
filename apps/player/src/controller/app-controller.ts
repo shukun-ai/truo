@@ -36,7 +36,15 @@ export class AppController implements IPageController {
     );
   }
 
-  mountApp(root: HTMLElement) {
+  public registerRouterRepository(repository: IRepository) {
+    this.repositoryManager.add(this.ROUTER_REPOSITORY_KEY, repository);
+  }
+
+  public registerCurrentUserRepository(repository: IRepository) {
+    this.repositoryManager.add(this.CURRENT_USER_REPOSITORY_KEY, repository);
+  }
+
+  public mountApp(root: HTMLElement) {
     // emit app start
     // create ref
     // listen router changed
@@ -44,20 +52,12 @@ export class AppController implements IPageController {
     // emit app ready
   }
 
-  changeContainer(page: string, root: HTMLElement) {
+  private changeContainer(page: string, root: HTMLElement) {
     if (this.currentContainer) {
       this.unmountContainer(root, this.currentContainer);
     }
 
     this.mountContainer(root, page);
-  }
-
-  public registerRouterRepository(repository: IRepository) {
-    this.repositoryManager.add(this.ROUTER_REPOSITORY_KEY, repository);
-  }
-
-  public registerCurrentUserRepository(repository: IRepository) {
-    this.repositoryManager.add(this.CURRENT_USER_REPOSITORY_KEY, repository);
   }
 
   private listenRouterChanges(root: HTMLElement) {
@@ -95,13 +95,6 @@ export class AppController implements IPageController {
     this.currentContainer = null;
   }
 
-  // private mountNotFound() {
-  //   const ContainerWidget = this.configManager.getWidgetClass('sk-container');
-  //   const notFoundWidget = new ContainerWidget();
-  //   notFoundWidget.getHTMLElement().innerHTML = '404';
-  //   return notFoundWidget;
-  // }
-
   private bindContainer(
     definition: PlayerContainer,
     containerId: string,
@@ -114,17 +107,6 @@ export class AppController implements IPageController {
         containerDefinition: definition,
       });
     }
-
-    // // subscribe repository
-    // for (const [state, template] of Object.entries(context.definition.states)) {
-    //   const subscription = this.createSubscription(widget, state, template);
-    //   this.subscriptions.set(`${schema.tag}:${state}`, subscription);
-    // }
-    // // listen event emit
-    // for (const [event, behavior] of Object.entries(schema.events)) {
-    //   this.listenCustomEvent(container, widget, event, behavior);
-    //   this.listeners.add(`${schema.tag}:${event}`);
-    // }
   }
 
   private bindWidget(context: {
@@ -149,10 +131,17 @@ export class AppController implements IPageController {
       );
     }
     // listen event emit
-    // for (const [event, behavior] of Object.entries(schema.events)) {
-    //   this.listenCustomEvent(container, widget, event, behavior);
-    //   this.listeners.add(`${schema.tag}:${event}`);
-    // }
+    for (const [event, behavior] of Object.entries(
+      context.widgetDefinition.events,
+    )) {
+      this.listenCustomEvent(
+        context.widgetId,
+        context.containerId,
+        event,
+        behavior,
+      );
+      // this.listeners.add(`${schema.tag}:${event}`);
+    }
   }
 
   private createSubscription(
@@ -179,26 +168,34 @@ export class AppController implements IPageController {
 
     const subscription = observable.subscribe((value) => {
       const element = document.getElementById(`${containerId}-${widgetId}`);
-      console.log('element', element);
       if (element) {
-        element.setAttribute(state, value as any);
+        // element.setAttribute(state, value as any);
+        (element as any)[state] = value;
+      } else {
+        console.error('Did not find element when get states.');
       }
     });
 
     return subscription;
   }
 
-  // private listenCustomEvent(
-  //   container: PlayerContainer,
-  //   widget: ShukunWidget,
-  //   eventName: string,
-  //   behaviors: string[],
-  // ): void {
-  //   widget.listen(eventName, (payload) => {
-  //     behaviors.forEach((behavior) => {
-  //       const eventBehavior = container.events[behavior];
-  //       this.eventQueue.emit(eventBehavior, payload);
-  //     });
-  //   });
-  // }
+  private listenCustomEvent(
+    widgetId: string,
+    containerId: string,
+    eventName: string,
+    behaviors: string[],
+  ): void {
+    const element = document.getElementById(`${containerId}-${widgetId}`);
+    const definition = this.configManager.getContainer(containerId);
+    if (element) {
+      element.addEventListener(eventName, (event: any) => {
+        behaviors.forEach((behavior) => {
+          const eventBehavior = definition.events[behavior];
+          this.eventQueue.emit(eventBehavior, event.detail);
+        });
+      });
+    } else {
+      console.error('Did not find element when listen.');
+    }
+  }
 }
