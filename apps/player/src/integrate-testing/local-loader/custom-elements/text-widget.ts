@@ -2,7 +2,7 @@ import { html, LitElement } from 'lit';
 
 export class TextWidget extends LitElement {
   static override properties = {
-    value: { type: String },
+    value: { attribute: false },
   };
 
   value: string;

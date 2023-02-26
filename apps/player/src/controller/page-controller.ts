@@ -1,5 +1,3 @@
-import { ShukunWidget } from '@shukun/widget';
-
 import { IConfigManager } from '../config/config-manager.interface';
 import { IEventQueue } from '../event/event-queue.interface';
 
