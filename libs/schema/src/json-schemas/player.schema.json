@@ -51,19 +51,41 @@
                 }
               }
             },
-            "root": { "type": "array", "items": { "type": "string" } },
+            "root": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/PlayerTreeNode" }
+            },
             "tree": {
               "type": "object",
               "patternProperties": {
                 "^(\\w)+$": {
                   "type": "array",
-                  "items": { "type": "string" }
+                  "items": { "$ref": "#/definitions/PlayerTreeNode" }
                 }
               }
             }
           }
         }
       }
+    }
+  },
+  "definitions": {
+    "PlayerTreeNode": {
+      "title": "PlayerTreeNode",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "required": ["id"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string" },
+            "slot": { "type": "string" }
+          }
+        }
+      ]
     }
   }
 }
