@@ -9,4 +9,5 @@ export interface IConfigManager {
 export type ConfigDefinitions = {
   player: PlayerSchema;
   widgetClasses: Record<string, ShukunWidgetClass>;
+  customElements: Record<string, CustomElementConstructor>;
 };

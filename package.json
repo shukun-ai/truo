@@ -131,6 +131,7 @@
     "js-convert-case": "^4.2.0",
     "jsonpath-plus": "^6.0.1",
     "knex": "^2.4.2",
+    "lit": "^2.6.1",
     "lit-html": "^2.6.1",
     "lodash": "^4.17.21",
     "mockdate": "^3.0.5",
