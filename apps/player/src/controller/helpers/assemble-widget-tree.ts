@@ -1,27 +1,31 @@
-import { PlayerContainer } from '@shukun/schema';
+import { PlayerContainer, PlayerTreeNode } from '@shukun/schema';
 
 import { createCustomElement } from './create-custom-element';
 
 export function assembleWidgetTree(
   parentElement: HTMLElement,
-  childrenNames: string[],
+  childrenNodes: PlayerTreeNode[],
   context: {
     definition: PlayerContainer;
     containerName: string;
   },
 ) {
-  childrenNames.forEach((name) => {
-    const schema = context.definition.widgets[name];
+  childrenNodes.forEach((node) => {
+    const schema = context.definition.widgets[getNodeId(node)];
     const element = createCustomElement(
       context.containerName,
-      name,
+      getNodeId(node),
       schema.tag,
     );
     parentElement.appendChild(element);
 
-    const nextChildrenNames = context.definition.tree[name] ?? [];
-    if (nextChildrenNames.length > 0) {
-      assembleWidgetTree(element, nextChildrenNames, context);
+    const nextChildrenNodes = context.definition.tree[getNodeId(node)] ?? [];
+    if (nextChildrenNodes.length > 0) {
+      assembleWidgetTree(element, nextChildrenNodes, context);
     }
   });
+}
+
+function getNodeId(node: PlayerTreeNode) {
+  return typeof node === 'string' ? node : node.id;
 }

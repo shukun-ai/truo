@@ -22,6 +22,12 @@ export type PlayerRepository =
 export type PlayerEvent =
   | PlayerEventSetRepository
   | PlayerEventTriggerRepository;
+export type PlayerTreeNode =
+  | string
+  | {
+      id: string;
+      slot?: string;
+    };
 
 /**
  * Define the player contained Stores and UI Elements
@@ -48,13 +54,13 @@ export interface PlayerContainer {
   widgets: {
     [k: string]: PlayerWidget;
   };
-  root: string[];
+  root: PlayerTreeNode[];
   tree: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
      */
-    [k: string]: string[];
+    [k: string]: PlayerTreeNode[];
   };
 }
 export interface PlayerRepositorySimple {
