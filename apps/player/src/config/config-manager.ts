@@ -1,24 +1,33 @@
 import { TypeException } from '@shukun/exception';
-import { PlayerContainer } from '@shukun/schema';
-import { ShukunWidgetClass } from '@shukun/widget';
+import { PlayerContainer, WidgetSchema } from '@shukun/schema';
+import { WidgetElementClass } from '@shukun/widget';
 
 import { ConfigDefinitions, IConfigManager } from './config-manager.interface';
 
 export class ConfigManager implements IConfigManager {
   private containers: Map<string, PlayerContainer>;
 
-  private widgetClasses: Map<string, ShukunWidgetClass>;
-
-  private customElements: Map<string, CustomElementConstructor>;
+  private widgets = new Map<string, WidgetElementClass>();
 
   constructor(readonly definitions: ConfigDefinitions) {
-    this.customElements = new Map(Object.entries(definitions.customElements));
-    this.widgetClasses = new Map(Object.entries(definitions.widgetClasses));
     this.containers = new Map(Object.entries(definitions.player.containers));
 
-    for (const [tag, customElement] of this.customElements) {
-      customElements.define(tag, customElement);
+    definitions.widgets.forEach((widgetClass) => {
+      // @remark widgetClass should set any,
+      // because the Class that imported from 'utility-types' is not support static.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const schema = (widgetClass as any).schema as WidgetSchema;
+      this.widgets.set(schema.tag, widgetClass);
+      customElements.define(schema.tag, widgetClass);
+    });
+  }
+
+  getWidget(tag: string): WidgetElementClass {
+    const widget = this.widgets.get(tag);
+    if (!widget) {
+      throw new Error();
     }
+    return widget;
   }
 
   getContainer(containerName: string): PlayerContainer {
@@ -27,21 +36,5 @@ export class ConfigManager implements IConfigManager {
       throw new TypeException('Did not find container');
     }
     return container;
-  }
-
-  getWidgetClass(tag: string) {
-    const widgetClass = this.widgetClasses.get(tag);
-    if (!widgetClass) {
-      throw new TypeException('Did not find widgetClass');
-    }
-    return widgetClass;
-  }
-
-  getCustomElement(tag: string) {
-    const customElement = this.customElements.get(tag);
-    if (!customElement) {
-      throw new TypeException('Did not find customElement');
-    }
-    return customElement;
   }
 }

@@ -1,13 +1,12 @@
 import { PlayerContainer, PlayerSchema } from '@shukun/schema';
-import { ShukunWidgetClass } from '@shukun/widget';
+import { WidgetElementClass } from '@shukun/widget';
 
 export interface IConfigManager {
   getContainer(containerName: string): PlayerContainer;
-  getWidgetClass(tag: string): ShukunWidgetClass;
+  getWidget(tag: string): WidgetElementClass;
 }
 
 export type ConfigDefinitions = {
   player: PlayerSchema;
-  widgetClasses: Record<string, ShukunWidgetClass>;
-  customElements: Record<string, CustomElementConstructor>;
+  widgets: WidgetElementClass[];
 };
