@@ -8,8 +8,13 @@ module.exports = {
     },
   },
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
+    '^.+\\.js?$': 'jest-esm-transformer',
+    '^.+\\.ts$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/player',
+  testEnvironment: 'jest-environment-jsdom',
+  transformIgnorePatterns: [
+    '<rootDir>/../../node_modules/(?!(lit-html|lit|@lit|lit-element)/)',
+  ],
 };
