@@ -36,8 +36,15 @@ export function getLocalPlayer(): PlayerSchema {
               'value-changed': ['w2Click1'],
             },
           },
+          w3: {
+            tag: 'sk-code',
+            properties: {
+              value: '{{$.form1}}',
+            },
+            events: {},
+          },
         },
-        root: ['w1', 'w2'],
+        root: ['w1', 'w2', 'w3'],
         tree: {},
       },
       about: {

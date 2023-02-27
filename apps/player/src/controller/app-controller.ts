@@ -165,7 +165,6 @@ export class AppController implements IAppController {
         this.getCustomElementId(containerId, widgetId),
       );
       if (element) {
-        // element.setAttribute(state, value as any);
         (element as any)[state] = value;
       } else {
         console.error('Did not find element when get states.');

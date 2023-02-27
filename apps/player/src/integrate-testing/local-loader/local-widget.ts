@@ -1,13 +1,11 @@
-import { ShukunWidgetClass } from '@shukun/widget';
+import { WidgetElementClass } from '@shukun/widget';
 
-import { ContainerWidget } from './widget/container-widget';
-import { InputWidget } from './widget/input-widget';
-import { TextWidget } from './widget/text-widget';
-
-export function getLocalWidgetClasses(): Record<string, ShukunWidgetClass> {
-  return {
-    'sk-text': TextWidget,
-    'sk-input': InputWidget,
-    'sk-container': ContainerWidget,
-  };
+export async function getLocalWidgets(): Promise<WidgetElementClass[]> {
+  const module = await import('@shukun/widget');
+  return [
+    module.InputWidget,
+    module.ContainerWidget,
+    module.TextWidget,
+    module.CodeWidget,
+  ];
 }
