@@ -13,11 +13,14 @@ import { IAppController } from './app-controller.interface';
 import { CustomRepositoryService } from './custom-repository-service';
 import { assembleWidgetTree } from './helpers/assemble-widget-tree';
 import { createCustomElement } from './helpers/create-custom-element';
+import { registerReboot } from './internal-style-register';
 
 import { RouterRepository } from './repositories/router-repository';
+import { ThemeRepository } from './repositories/theme-repository';
 
 export class AppController implements IAppController {
   private CURRENT_USER_REPOSITORY_KEY = 'currentUser';
+  private THEME_REPOSITORY_KEY = 'theme';
   private ROUTER_REPOSITORY_KEY = 'router';
 
   private customRepositoryService: CustomRepositoryService;
@@ -41,9 +44,14 @@ export class AppController implements IAppController {
 
   public registerCurrentUserRepository(repository: IRepository) {
     this.repositoryManager.add(this.CURRENT_USER_REPOSITORY_KEY, repository);
+    this.repositoryManager.add(
+      this.THEME_REPOSITORY_KEY,
+      new ThemeRepository(),
+    );
   }
 
   public mountApp(root: HTMLElement) {
+    registerReboot();
     // emit app start
     // create ref
     // listen router changed
