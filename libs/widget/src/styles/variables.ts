@@ -55,5 +55,13 @@ export enum CustomVariables {
   breakpointLg = '--sk-breakpointLg',
   breakpointXl = '--sk-breakpointXl',
   breakpointXxl = '--sk-breakpointXxl',
+
+  spaceXs = '--sk-spaceXs',
+  spaceSm = '--sk-spaceSm',
+  spaceMd = '--sk-spaceMd',
+  spaceLg = '--sk-spaceLg',
+  spaceXl = '--sk-spaceXl',
+
+  radius = '--sk-radius',
 }
 

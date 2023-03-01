@@ -55,6 +55,14 @@ export const lightTheme: Record<CustomVariables, string> = {
   [CustomVariables.breakpointLg]: '992px',
   [CustomVariables.breakpointXl]: '1200px',
   [CustomVariables.breakpointXxl]: '1400px',
+  // Space
+  [CustomVariables.spaceXs]: '4px',
+  [CustomVariables.spaceSm]: '8px',
+  [CustomVariables.spaceMd]: '12px',
+  [CustomVariables.spaceLg]: '16px',
+  [CustomVariables.spaceXl]: '20px',
+  // Radius
+  [CustomVariables.radius]: '2px',
 };
 
 //   '--sk-blue': '#0d6efd',
