@@ -1,5 +1,6 @@
 import {
   AuthenticationToken,
+  PlayerSchema,
   RoleResourceType,
   RoleSchema,
   SystemPublicOrgModel,
@@ -103,6 +104,17 @@ export class PublicRequester {
     return await this.requestAdaptor.fetch<SystemPublicOrgModel>(
       'GET',
       this.buildUri('org', orgName),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/public/{orgName}/players/{playerName}
+   */
+  public async getPlayer(playerName: string, orgName?: string) {
+    return await this.requestAdaptor.fetch<PlayerSchema>(
+      'POST',
+      this.buildUri(`players/${playerName}`, orgName),
     );
   }
 

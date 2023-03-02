@@ -1,11 +1,15 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
 import { combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
+import { IApiRequester } from '../apis/requester.interface';
+
 import { IConfigManager } from '../config/config-manager.interface';
 import { IEventQueue } from '../event/event-queue.interface';
+import { ILoader } from '../loader/loader.interface';
 
 import { IRepositoryManager } from '../repository/repository-manager.interface';
 import { IRepository } from '../repository/repository.interface';
+import { IAuthStorage } from '../storages/auth-storage.interface';
 import { ITemplateService } from '../template/template-service.interface';
 
 import { IAppController } from './app-controller.interface';
@@ -28,6 +32,9 @@ export class AppController implements IAppController {
   private activePage: string | null = null;
 
   constructor(
+    private readonly authStorage: IAuthStorage,
+    private readonly apiRequester: IApiRequester,
+    private readonly loader: ILoader,
     private readonly configManager: IConfigManager,
     private readonly repositoryManager: IRepositoryManager,
     private readonly eventQueue: IEventQueue,
@@ -50,8 +57,16 @@ export class AppController implements IAppController {
     );
   }
 
-  public mountApp(root: HTMLElement) {
+  public async mountApp(root: HTMLElement) {
     registerReboot();
+    const routerRepository = this.repositoryManager.get(
+      this.ROUTER_REPOSITORY_KEY,
+    ) as RouterRepository;
+
+    const router = routerRepository.getValue();
+    const definitions = await this.loader.load(router.orgName, router.app);
+    await this.configManager.register(definitions);
+
     // emit app start
     // create ref
     // listen router changed

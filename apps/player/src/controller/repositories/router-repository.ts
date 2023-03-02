@@ -5,12 +5,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IRepository } from '../../repository/repository.interface';
 
 export type RouterField = {
+  app: string;
+  orgName: string;
   page: string;
   search: Record<string, unknown>;
-};
-
-export type RouterRepositoryOptions = {
-  baseUrl: string;
 };
 
 export class RouterRepository implements IRepository {
@@ -18,15 +16,7 @@ export class RouterRepository implements IRepository {
 
   private internalStates: BehaviorSubject<RouterField>;
 
-  private options: RouterRepositoryOptions = {
-    baseUrl: '',
-  };
-
-  constructor(
-    private readonly history: History,
-    readonly configOptions?: Partial<RouterRepositoryOptions>,
-  ) {
-    Object.assign(this.options, configOptions);
+  constructor(private readonly history: History) {
     this.internalStates = new BehaviorSubject<RouterField>(
       this.parseLocation(this.history.location),
     );
@@ -37,7 +27,7 @@ export class RouterRepository implements IRepository {
     return this.internalStates;
   }
 
-  getValue(): unknown {
+  getValue(): RouterField {
     return this.internalStates.getValue();
   }
 
@@ -83,26 +73,34 @@ export class RouterRepository implements IRepository {
   }
 
   private parseLocation(location: Location): RouterField {
+    const { appName, orgName, pageName } = this.parsePathname(
+      location.pathname,
+    );
     return {
-      page: this.parsePathname(location.pathname),
+      app: appName,
+      orgName: orgName,
+      page: pageName,
       search: this.parseHistorySearch(location.search),
     };
   }
 
   private parsePathname(pathname: string) {
-    if (pathname === `${this.options.baseUrl}/`) {
-      return this.HOME_PAGE;
+    if (!pathname.startsWith('/player/')) {
+      throw new TypeException('The pathname should be starts with /player/');
     }
-    if (pathname.startsWith(`${this.options.baseUrl}/`)) {
-      const end = pathname.endsWith('/')
-        ? pathname.length - 1
-        : pathname.length;
-      return pathname.substring(this.options.baseUrl.length + 1, end);
+    const [, , orgName, appName, pageName] = pathname.split('/');
+
+    if (!orgName || !appName) {
+      throw new TypeException('The orgName or appName is not includes in url.');
     }
-    throw new TypeException(
-      'Did not support this pathname to page: {{pathname}}',
-      { pathname },
-    );
+
+    const computedPageName = pageName ? pageName : 'home';
+
+    return {
+      orgName,
+      appName,
+      pageName: computedPageName,
+    };
   }
 
   private parseHistorySearch(search: string): Record<string, unknown> {
@@ -127,7 +125,8 @@ export class RouterRepository implements IRepository {
   }
 
   private buildPathname(page: string): string {
-    return `${this.options.baseUrl}/${page}`;
+    const value = this.getValue();
+    return `/player/${value.orgName}/${value.app}/${page}`;
   }
 
   private buildSearch(search: Record<string, unknown>): string {

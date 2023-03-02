@@ -27,5 +27,5 @@ export function assembleWidgetTree(
 }
 
 function getNodeId(node: PlayerTreeNode) {
-  return typeof node === 'string' ? node : node.id;
+  return node;
 }

@@ -72,20 +72,7 @@
   "definitions": {
     "PlayerTreeNode": {
       "title": "PlayerTreeNode",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "object",
-          "required": ["id"],
-          "additionalProperties": false,
-          "properties": {
-            "id": { "type": "string" },
-            "slot": { "type": "string" }
-          }
-        }
-      ]
+      "type": "string"
     }
   }
 }
