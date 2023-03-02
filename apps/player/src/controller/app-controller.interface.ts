@@ -1,3 +1,3 @@
 export interface IAppController {
-  mountApp(root: HTMLElement): void;
+  mountApp(root: HTMLElement): Promise<void>;
 }

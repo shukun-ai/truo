@@ -5,11 +5,11 @@ import { WidgetElementClass } from '@shukun/widget';
 import { ConfigDefinitions, IConfigManager } from './config-manager.interface';
 
 export class ConfigManager implements IConfigManager {
-  private containers: Map<string, PlayerContainer>;
+  private containers = new Map<string, PlayerContainer>();
 
   private widgets = new Map<string, WidgetElementClass>();
 
-  constructor(readonly definitions: ConfigDefinitions) {
+  public async register(definitions: ConfigDefinitions) {
     this.containers = new Map(Object.entries(definitions.player.containers));
 
     definitions.widgets.forEach((widgetClass) => {
@@ -22,7 +22,7 @@ export class ConfigManager implements IConfigManager {
     });
   }
 
-  getWidget(tag: string): WidgetElementClass {
+  public getWidget(tag: string): WidgetElementClass {
     const widget = this.widgets.get(tag);
     if (!widget) {
       throw new Error();
@@ -30,7 +30,7 @@ export class ConfigManager implements IConfigManager {
     return widget;
   }
 
-  getContainer(containerName: string): PlayerContainer {
+  public getContainer(containerName: string): PlayerContainer {
     const container = this.containers.get(containerName);
     if (!container) {
       throw new TypeException('Did not find container');
