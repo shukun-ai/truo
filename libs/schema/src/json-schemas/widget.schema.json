@@ -7,6 +7,7 @@
   "additionalProperties": false,
   "properties": {
     "tag": { "type": "string" },
+    "experimental": { "type": "boolean" },
     "properties": {
       "type": "object",
       "patternProperties": {

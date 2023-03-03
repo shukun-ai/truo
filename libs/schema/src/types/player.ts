@@ -27,6 +27,7 @@ export type PlayerTreeNode = string;
  * Define the player contained Stores and UI Elements
  */
 export interface PlayerSchema {
+  $schema?: string;
   title: string;
   entry: string;
   containers: {
