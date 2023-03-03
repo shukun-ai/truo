@@ -6,6 +6,7 @@ import {
   DataSourceSchema,
   IDString,
   MetadataSchema,
+  PlayerSchema,
 } from '@shukun/schema';
 import { Model } from 'mongoose';
 
@@ -209,5 +210,35 @@ export class OrgService {
         migrated: buffer,
       },
     );
+  }
+
+  async updatePlayers(
+    orgName: IDString,
+    players: Record<string, PlayerSchema>,
+  ) {
+    const buffer = Buffer.from(JSON.stringify(players));
+
+    await this.orgModel.updateOne(
+      { name: orgName },
+      {
+        players: buffer,
+      },
+    );
+  }
+
+  async findPlayers(orgName: string): Promise<Record<string, PlayerSchema>> {
+    const org = await this.orgModel
+      .findOne({ name: orgName })
+      .select('players')
+      .exec();
+
+    if (!org?.players) {
+      return {};
+    }
+
+    const players: Record<string, PlayerSchema> = JSON.parse(
+      org.players.toString(),
+    );
+    return players;
   }
 }
