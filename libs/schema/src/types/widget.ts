@@ -11,6 +11,7 @@
  */
 export interface WidgetSchema {
   tag: string;
+  experimental?: boolean;
   properties: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
