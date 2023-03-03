@@ -1,0 +1,20 @@
+{
+  "type": "page",
+  "repositories": {
+    "form2": {
+      "type": "Simple"
+    }
+  },
+  "events": {},
+  "widgets": {
+    "w1": {
+      "tag": "sk-text",
+      "properties": {
+        "value": "It is about page {{$.form2.value}}."
+      },
+      "events": {}
+    }
+  },
+  "root": ["w1"],
+  "tree": {}
+}

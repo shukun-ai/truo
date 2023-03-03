@@ -38,6 +38,10 @@ import attachmentsSchemaJson from './json-schemas/attachments.schema.json';
 import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
 import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
 import playerSchemaJson from './json-schemas/player.schema.json';
+import playerEventSchemaJson from './json-schemas/player/event.schema.json';
+import playerRepositorySchemaJson from './json-schemas/player/repository.schema.json';
+import playerWidgetSchemaJson from './json-schemas/player/widget.schema.json';
+import widgetSchemaJson from './json-schemas/widget.schema.json';
 
 export const applicationSchema = applicationSchemaJson;
 export const metadataSchema = metadataSchemaJson;
@@ -81,3 +85,7 @@ export const attachmentsSchema = attachmentsSchemaJson;
 export const httpQuerySchema = httpQuerySchemaJson;
 export const dataSourceSchema = dataSourceSchemaJson;
 export const playerSchema = playerSchemaJson;
+export const playerEventSchema = playerEventSchemaJson;
+export const playerRepositorySchema = playerRepositorySchemaJson;
+export const playerWidgetSchema = playerWidgetSchemaJson;
+export const widgetSchema = widgetSchemaJson;

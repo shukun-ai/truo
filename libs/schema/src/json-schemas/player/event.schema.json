@@ -10,7 +10,7 @@
     "PlayerEventSetRepository": {
       "title": "PlayerEventSetRepository",
       "type": "object",
-      "required": ["action", "target", "path", "value"],
+      "required": ["action", "target", "path"],
       "properties": {
         "action": { "const": "setRepository" },
         "target": { "type": "string" },
