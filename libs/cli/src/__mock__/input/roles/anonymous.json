@@ -1,0 +1,6 @@
+{
+  "$schema": "../../../../node_modules/@shukun/schema/src/json-schemas/application/role.schema.json",
+  "name": "anonymous",
+  "label": "匿名角色",
+  "permissions": ["source:vehicles:read"]
+}

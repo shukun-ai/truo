@@ -1,0 +1,32 @@
+{
+  "$schema": "../../../../node_modules/@shukun/schema/src/json-schemas/application/role.schema.json",
+  "name": "admin",
+  "label": "管理员角色",
+  "permissions": [
+    "view:areas",
+    "view:departure_menu",
+    "view:departure_tasks_assignment",
+    "view:departure_tasks_exception",
+    "view:departure_tasks_other",
+    "view:departure_tasks_packages",
+    "view:departure_tasks_revoke",
+    "view:departure_tasks_synced",
+    "view:devices",
+    "view:document_departure",
+    "view:document_menu",
+    "view:manage_menu",
+    "view:notifications",
+    "view:receive_menu",
+    "view:receive_tasks_assignment",
+    "view:receive_tasks_exception",
+    "view:receive_tasks_other",
+    "view:receive_tasks_packages",
+    "view:receive_tasks_revoke",
+    "view:receive_tasks_synced",
+    "view:storages",
+    "view:vehicles",
+    "view:airports",
+    "view:airport_stands",
+    "view:system__users"
+  ]
+}

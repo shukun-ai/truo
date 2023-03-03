@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../../node_modules/@shukun/schema/src/json-schemas/application/workflow.schema.json",
+  "name": "test",
+  "description": "测试",
+  "configurations": {
+    "startAt": "createOrder",
+    "states": {
+      "createOrder": {
+        "type": "Task",
+        "resource": "code:js",
+        "parameters": {
+          "code": "{{code:test}}",
+          "hello.$": "$.body.hello"
+        },
+        "end": true,
+        "resultPath": "$.test",
+        "outputPath": "$.test",
+        "x": -100,
+        "y": 280
+      }
+    },
+    "startX": 0,
+    "startY": 180
+  },
+  "validations": {
+    "type": "object",
+    "required": ["hello"],
+    "properties": {
+      "hello": {
+        "type": "string"
+      }
+    }
+  },
+  "isEnabledWebhook": true
+}
