@@ -1,10 +1,11 @@
 import { join } from 'path';
 
-import { generate } from './generate';
+import { SystemGenerator } from './system-generate';
 
 describe('Generate', () => {
   it('generate', async () => {
-    const output = await generate({
+    const systemGenerator = new SystemGenerator();
+    const output = await systemGenerator.generate({
       inputPath: join(__dirname, '../__mock__/input'),
     });
 
