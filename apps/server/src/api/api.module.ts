@@ -23,6 +23,7 @@ import { GrantRoleController } from './grant-role/grant-role.controller';
 import { InspectionController } from './inspection/inspection.controller';
 import { MigrationController } from './migration/migration.controller';
 import { OrgController } from './org/org.controller';
+import { PlayerCodeController } from './player-code/player-code.controller';
 import { PlayerController } from './player/player.controller';
 import { RoleController } from './role/role.controller';
 import { SeedController } from './seed/seed.controller';
@@ -62,6 +63,7 @@ import { WebhookController } from './webhook/webhook.controller';
     InspectionController,
     MigrationController,
     PlayerController,
+    PlayerCodeController,
   ],
   providers: [
     SourceAccessControlService,
