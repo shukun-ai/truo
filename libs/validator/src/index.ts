@@ -17,6 +17,7 @@ export * from './electron/electron-constant';
 export * from './permission-control';
 
 export * from './schema-validators/application/validate-application-schema';
+export * from './schema-validators/player/validate-player-schema';
 export * from './schema-validators/attachment/validate-attachments-schema';
 export * from './schema-validators/workflow-configurations/validate-workflow-configurations';
 export * from './schema-validators/workflow-input/validate-workflow-input';
