@@ -2,11 +2,11 @@ import { CodeResolver } from '@shukun/code-resolver';
 
 export default async function main(
   scope: CodeResolver,
-  parameters: { hello: string }
+  parameters: { hello: string },
 ) {
   const value = await scope.source.findAll<{ username: string }>(
     'system__users',
-    { select: { username: true }, filter: {} }
+    { select: { username: true }, filter: {} },
   );
 
   return {
