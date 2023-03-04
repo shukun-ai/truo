@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { expiresDateTime$, sessionService } from '../../../services/session';
 import { RoutePath, useOrgPath } from '../../../utils/history-provider';
@@ -18,7 +18,7 @@ export interface AuthExpiredAlertProps {}
 export const AuthExpiredAlert: FunctionComponent<
   AuthExpiredAlertProps
 > = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const signInOrgPath = useOrgPath(RoutePath.SignIn);
 
@@ -29,10 +29,10 @@ export const AuthExpiredAlert: FunctionComponent<
   );
 
   const handleReSignIn = useCallback(() => {
-    history.push(signInOrgPath);
+    navigate(signInOrgPath);
     sessionService.signOut();
     window.location.reload();
-  }, [history, signInOrgPath]);
+  }, [navigate, signInOrgPath]);
 
   useInterval(
     () => {

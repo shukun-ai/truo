@@ -1,13 +1,16 @@
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent } from 'react';
-import { Router, Switch, Route, Redirect, useParams } from 'react-router-dom';
+import {
+  Routes as ReactRoutes,
+  Route,
+  useParams,
+  BrowserRouter,
+  useNavigate,
+} from 'react-router-dom';
 
 import { authStatus$ } from '../../services/session';
-import {
-  history,
-  replaceOrgPath,
-  RoutePath,
-} from '../../utils/history-provider';
+import { replaceOrgPath, RoutePath } from '../../utils/history-provider';
+import { adaptNestedRoute } from '../../utils/history-provider/nested';
 import { Dashboard } from '../dashboard';
 import { Home } from '../home';
 import { Hub } from '../hub';
@@ -17,56 +20,67 @@ import { Upload } from '../upload';
 import { View } from '../view';
 
 import { PermissionLayout } from './components/PermissionLayout';
-import { NotFound } from './NotFound';
 
 export interface RoutesProps {}
 
 export const Routes: FunctionComponent<RoutesProps> = () => {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path={RoutePath.Hub} component={Hub} />
-        <Route path={RoutePath.SignIn} component={SignIn} />
-        <Route path={RoutePath.Dashboard} component={ProtectedRoutes} />
-        <Route path={RoutePath.HomePage} exact component={Home} />
-        <Route path="*" component={NotFound} />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <ReactRoutes>
+        <Route path={RoutePath.Hub} element={<Hub />} />
+        <Route path={RoutePath.SignIn} element={<SignIn />} />
+        <Route
+          path={RoutePath.Plugin}
+          element={
+            <ProtectedRoutes>
+              <Upload />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path={adaptNestedRoute(RoutePath.ViewPage)}
+          element={
+            <ProtectedRoutes>
+              <View />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path={RoutePath.Dashboard}
+          element={
+            <ProtectedRoutes>
+              <Dashboard />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path={RoutePath.HomePage} element={<Home />} />
+      </ReactRoutes>
+    </BrowserRouter>
   );
 };
 
-export const ProtectedRoutes: FunctionComponent<RoutesProps> = () => {
+export const ProtectedRoutes: FunctionComponent<RoutesProps> = ({
+  children,
+}) => {
+  const navigate = useNavigate();
+
   const authStatus = useObservableState(authStatus$);
 
   const { orgName } = useParams<{ orgName?: string }>();
 
   if (!authStatus) {
-    return <></>;
+    return null;
   }
 
   if (authStatus.expired) {
-    return orgName ? (
-      <Redirect to={replaceOrgPath(RoutePath.SignIn, orgName)} />
-    ) : (
-      <Redirect to={RoutePath.Hub} />
-    );
+    orgName
+      ? navigate(replaceOrgPath(RoutePath.SignIn, orgName), { replace: true })
+      : navigate(RoutePath.Hub, { replace: true });
   }
 
   return (
     <PermissionLayout>
-      <Router history={history}>
-        <Switch>
-          <Route path={RoutePath.Dashboard}>
-            <ViewLayout>
-              <Switch>
-                <Route path={RoutePath.Plugin} component={Upload} />
-                <Route path={RoutePath.ViewPage} component={View} />
-                <Route path={RoutePath.Dashboard} exact component={Dashboard} />
-              </Switch>
-            </ViewLayout>
-          </Route>
-        </Switch>
-      </Router>
+      <ViewLayout>{children}</ViewLayout>
     </PermissionLayout>
   );
 };

@@ -1,11 +1,12 @@
 import { ViewSchema } from '@shukun/schema';
 import { Skeleton } from 'antd';
 import React, { FunctionComponent } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { PageHeader } from '../../../../components/page';
 import { useMetadataByAtom } from '../../../../services/metadata';
 import { RoutePath } from '../../../../utils/history-provider';
+import { getNestedRoute } from '../../../../utils/history-provider/nested';
 import { FluidLayout } from '../../../layout/FluidLayout';
 import { FullLayout } from '../../../layout/FullLayout';
 import { Create } from '../detail/Create';
@@ -34,17 +35,20 @@ export const ListView: FunctionComponent<ListViewProps> = ({
   return (
     <FullLayout>
       <PageHeader label={view.label} />
-      <Switch>
-        <Route path={RoutePath.ViewDetail}>
-          <Detail view={view} metadata={metadata} />
-        </Route>
-        <Route path={RoutePath.ViewCreate}>
-          <Create view={view} metadata={metadata} />
-        </Route>
-        <Route path={RoutePath.ViewPage}>
-          <Table view={view} metadata={metadata} />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route
+          path={getNestedRoute(RoutePath.ViewPage, RoutePath.ViewDetail)}
+          element={<Detail view={view} metadata={metadata} />}
+        />
+        <Route
+          path={getNestedRoute(RoutePath.ViewPage, RoutePath.ViewCreate)}
+          element={<Create view={view} metadata={metadata} />}
+        />
+        <Route
+          path={getNestedRoute(RoutePath.ViewPage, RoutePath.ViewPage)}
+          element={<Table view={view} metadata={metadata} />}
+        />
+      </Routes>
     </FullLayout>
   );
 };
