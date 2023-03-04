@@ -18,6 +18,6 @@ export class TextWidget extends WidgetElement {
   value = '';
 
   override render() {
-    return html` Hello, ${this.value} `;
+    return html`${this.value}`;
   }
 }

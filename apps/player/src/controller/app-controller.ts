@@ -74,7 +74,16 @@ export class AppController implements IAppController {
     // emit app ready
   }
 
-  private changeContainer(page: string, root: HTMLElement) {
+  private listenRouterChanges(root: HTMLElement) {
+    const routerRepository = this.repositoryManager.get(
+      this.ROUTER_REPOSITORY_KEY,
+    ) as RouterRepository;
+    routerRepository.query().subscribe((router) => {
+      this.switchPage(router.page, root);
+    });
+  }
+
+  private switchPage(page: string, root: HTMLElement) {
     if (this.activePage) {
       this.unmountContainer(root, this.activePage);
       this.activePage = null;
@@ -82,15 +91,6 @@ export class AppController implements IAppController {
 
     this.mountContainer(root, page);
     this.activePage = page;
-  }
-
-  private listenRouterChanges(root: HTMLElement) {
-    const routerRepository = this.repositoryManager.get(
-      this.ROUTER_REPOSITORY_KEY,
-    ) as RouterRepository;
-    routerRepository.query().subscribe((router) => {
-      this.changeContainer(router.page, root);
-    });
   }
 
   private mountContainer(root: HTMLElement, containerId: string): void {
@@ -164,10 +164,20 @@ export class AppController implements IAppController {
   private createSubscription(
     widgetId: string,
     containerId: string,
-    state: string,
+    propertyName: string,
     template: string,
   ) {
     const literal = this.templateService.parse(template);
+
+    if (literal.codes.length === 0) {
+      const staticValue = this.templateService.evaluate(literal, []);
+      this.updateElementProperty(
+        containerId,
+        widgetId,
+        propertyName,
+        staticValue,
+      );
+    }
 
     const allRepositories = literal.codes.map((code) => {
       return this.repositoryManager.combineQueries(code.repositories);
@@ -184,17 +194,31 @@ export class AppController implements IAppController {
     );
 
     const subscription = observable.subscribe((value) => {
-      const element = document.getElementById(
-        this.getCustomElementId(containerId, widgetId),
-      );
-      if (element) {
-        (element as any)[state] = value;
-      } else {
-        console.error('Did not find element when get states.');
-      }
+      this.updateElementProperty(containerId, widgetId, propertyName, value);
     });
 
     return subscription;
+  }
+
+  private updateElementProperty(
+    containerId: string,
+    widgetId: string,
+    propertyName: string,
+    value: unknown,
+  ) {
+    const element = document.getElementById(
+      this.getCustomElementId(containerId, widgetId),
+    );
+    if (element) {
+      (element as any)[propertyName] = value;
+    } else {
+      console.error('Did not find element when get states', {
+        containerId,
+        widgetId,
+        propertyName,
+        value,
+      });
+    }
   }
 
   private listenCustomEvent(
@@ -215,7 +239,12 @@ export class AppController implements IAppController {
         });
       });
     } else {
-      console.error('Did not find element when listen.');
+      console.error('Did not find element when listen.', {
+        widgetId,
+        containerId,
+        eventName,
+        behaviors,
+      });
     }
   }
 
