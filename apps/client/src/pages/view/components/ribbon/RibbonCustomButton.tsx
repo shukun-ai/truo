@@ -1,7 +1,7 @@
 import { ViewRibbon, ViewLinkType, UnknownSourceModel } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import format from 'string-format';
 
 import { RibbonButton } from '../../../../components/ribbon/RibbonButton';
@@ -22,7 +22,7 @@ export const RibbonCustomButton: FunctionComponent<RibbonCustomButtonProps> = ({
   sources,
 }) => {
   const mode = useObservableState(mode$);
-  const history = useHistory();
+  const navigate = useNavigate();
   const viewPrefixOrgPath = useOrgPath(RoutePath.ViewPrefix);
 
   const handleClick = useCallback(() => {
@@ -31,13 +31,13 @@ export const RibbonCustomButton: FunctionComponent<RibbonCustomButtonProps> = ({
         ? format(viewRibbon.query, source || [])
         : undefined;
 
-      history.push({
+      navigate({
         pathname: `${viewPrefixOrgPath}/${viewRibbon.value}`,
         search,
       });
     }
   }, [
-    history,
+    navigate,
     source,
     viewPrefixOrgPath,
     viewRibbon.query,

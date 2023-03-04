@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 import { Helmet } from 'react-helmet';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { globalService, org$ } from '../../../services/global';
 import { sessionService } from '../../../services/session';
@@ -23,7 +23,7 @@ export interface UserFormModel {
 }
 
 export const UserForm: FunctionComponent<UserFormProps> = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { orgName } = useParams<{ orgName: string }>();
 
@@ -35,10 +35,13 @@ export const UserForm: FunctionComponent<UserFormProps> = () => {
     (values: UserFormModel) => Promise<boolean | void>
   >(
     async (values) => {
+      if (!orgName) {
+        throw new Error('Did not get orgName.');
+      }
       try {
         await sessionService.signIn({ ...values, orgName });
         message.success('登录成功');
-        history.push(replaceOrgPath(RoutePath.Dashboard, orgName));
+        navigate(replaceOrgPath(RoutePath.Dashboard, orgName));
       } catch (error: any) {
         const message = error?.response?.data?.message;
         if (typeof message === 'string') {
@@ -53,16 +56,16 @@ export const UserForm: FunctionComponent<UserFormProps> = () => {
         throw error;
       }
     },
-    [history, orgName],
+    [navigate, orgName],
   );
 
   useEffect(() => {
     if (orgName) {
       globalService.fetchOrg(orgName).catch((error) => {
-        history.replace(RoutePath.Hub);
+        navigate(RoutePath.Hub);
       });
     }
-  }, [orgName, history]);
+  }, [orgName, navigate]);
 
   return (
     <>
