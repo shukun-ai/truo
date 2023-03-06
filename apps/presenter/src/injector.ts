@@ -2,8 +2,8 @@ import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
 import { IApiRequester } from './apis/requester.interface';
-import { CurrentUserRepository } from './controller/repositories/current-user-repository';
-import { RouterRepository } from './controller/repositories/router-repository';
+import { CurrentUserRepository } from './repositories/current-user-repository';
+import { RouterRepository } from './repositories/router-repository';
 import { EventQueue } from './event/event-queue';
 import { IEventQueue } from './event/event-queue.interface';
 import { ConfigManager } from './loaders/config-manager';
