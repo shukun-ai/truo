@@ -7,5 +7,6 @@ export async function getLocalWidgets(): Promise<WidgetElementClass[]> {
     module.ContainerWidget,
     module.TextWidget,
     module.CodeWidget,
+    module.ButtonWidget,
   ];
 }
