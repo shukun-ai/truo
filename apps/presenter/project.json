@@ -44,7 +44,8 @@
       "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "presenter:build",
-        "hmr": true
+        "hmr": true,
+        "port": 9010
       },
       "configurations": {
         "production": {
