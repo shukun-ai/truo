@@ -1,6 +1,6 @@
 import { PlayerRepository } from '@shukun/schema';
 
-import { SimpleRepository } from '../controller/repositories/simple-repository';
+import { SimpleRepository } from '../repositories/simple-repository';
 
 import { IRepositoryManager } from '../repository/repository-manager.interface';
 

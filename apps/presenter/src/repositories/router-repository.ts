@@ -2,7 +2,7 @@ import { TypeException } from '@shukun/exception';
 import { History, Location } from 'history';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { IRepository } from '../../repository/repository.interface';
+import { IRepository } from '../repository/repository.interface';
 
 export type RouterField = {
   app: string;

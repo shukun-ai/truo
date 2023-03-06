@@ -1,17 +1,19 @@
-import { PlayerRepositorySimple } from '@shukun/schema';
 import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { IRepository } from '../../repository/repository.interface';
+import { IRepository } from '../repository/repository.interface';
 
-export class SimpleRepository implements IRepository {
-  private fields: BehaviorSubject<Record<string, unknown>>;
+export type CurrentUserField = {
+  username?: string;
+};
 
-  private schema: PlayerRepositorySimple;
+export class CurrentUserRepository implements IRepository {
+  private fields: BehaviorSubject<CurrentUserField>;
 
-  constructor(repository: PlayerRepositorySimple) {
-    this.schema = repository;
-    this.fields = new BehaviorSubject({});
+  constructor() {
+    this.fields = new BehaviorSubject({
+      username: 'mock test',
+    } as CurrentUserField);
   }
 
   query(): Observable<unknown> {

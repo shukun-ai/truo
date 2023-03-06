@@ -2,7 +2,7 @@ import { lightTheme } from '@shukun/widget';
 import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { IRepository } from '../../repository/repository.interface';
+import { IRepository } from '../repository/repository.interface';
 
 export type ThemeRepositoryState = Record<string, string>;
 
