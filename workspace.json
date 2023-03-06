@@ -11,6 +11,7 @@
     "exception": "libs/exception",
     "knex": "libs/knex",
     "player": "apps/player",
+    "presenter": "apps/presenter",
     "schema": "libs/schema",
     "server": "apps/server",
     "validator": "libs/validator",
