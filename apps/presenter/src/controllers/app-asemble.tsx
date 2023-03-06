@@ -2,13 +2,22 @@ import { PlayerContainer, PlayerSchema } from '@shukun/schema';
 import { ReactElement, useMemo } from 'react';
 
 import { ReactWidgets } from '../loaders/config-manager.interface';
+import { IRepositoryManager } from '../repository/repository-manager.interface';
+
+import { AppContextProvider } from './app-context-provider';
+
+import { ContainerWrapper } from './container-wrapper';
+
+import { WidgetWrapper } from './widget-wrapper';
 
 export function AssembledApp({
   player,
   widgets,
+  repositoryManager,
 }: {
   player: PlayerSchema;
   widgets: ReactWidgets;
+  repositoryManager: IRepositoryManager;
 }) {
   const states = useMemo(
     () => ({
@@ -20,38 +29,36 @@ export function AssembledApp({
   );
 
   const containers = useMemo(() => {
-    return assembleContainers(states, player, widgets);
-  }, [states, player, widgets]);
+    return assembleContainers(states, player, widgets, repositoryManager);
+  }, [states, player, widgets, repositoryManager]);
 
-  return <div id="app">{containers}</div>;
+  return (
+    <AppContextProvider>
+      <div id="app">{containers}</div>
+    </AppContextProvider>
+  );
 }
 
 export function assembleContainers(
   states: any,
   player: PlayerSchema,
   widgets: ReactWidgets,
+  repositoryManager: IRepositoryManager,
 ) {
   return Object.entries(player.containers)
     .filter(([containerName]) => containerName === states.router.page)
     .map(([containerName, definition]) => {
       return (
-        <div id={containerName}>
-          {assembleContainer(definition, containerName, widgets)}
-        </div>
+        <ContainerWrapper containerId={containerName} key={containerName}>
+          {assembleWidgets(definition.root, {
+            definition,
+            containerName,
+            widgets,
+            repositoryManager,
+          })}
+        </ContainerWrapper>
       );
     });
-}
-
-export function assembleContainer(
-  definition: PlayerContainer,
-  containerName: string,
-  widgets: ReactWidgets,
-) {
-  return assembleWidgets(definition.root, {
-    definition,
-    containerName,
-    widgets,
-  });
 }
 
 function assembleWidgets(
@@ -60,9 +67,10 @@ function assembleWidgets(
     definition: PlayerContainer;
     containerName: string;
     widgets: ReactWidgets;
+    repositoryManager: IRepositoryManager;
   },
 ): ReactElement[] {
-  const { definition, widgets } = context;
+  const { definition, widgets, containerName } = context;
 
   return widgetIds.map((widgetId) => {
     const widget = definition.widgets[widgetId];
@@ -73,7 +81,18 @@ function assembleWidgets(
       nextElements = assembleWidgets(nextChildrenNodes, context);
     }
 
-    const ReactWidget = widgets[widget.tag];
-    return <ReactWidget id={widget.tag}>{nextElements}</ReactWidget>;
+    const reactWidget = widgets[widget.tag];
+    // return <ReactWidget id={widget.tag}>{nextElements}</ReactWidget>;
+    return (
+      <WidgetWrapper
+        widgetIs={reactWidget}
+        containerId={containerName}
+        widgetId={widgetId}
+        widgetDefinition={widget}
+        key={widgetId}
+      >
+        {nextElements}
+      </WidgetWrapper>
+    );
   });
 }
