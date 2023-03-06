@@ -9,6 +9,8 @@ export class ConfigManager implements IConfigManager {
 
   private widgets = new Map<string, WidgetElementClass>();
 
+  private reactWidgets = new Map<string, (props: any) => JSX.Element>();
+
   public async register(definitions: ConfigDefinitions) {
     this.containers = new Map(Object.entries(definitions.player.containers));
 
@@ -20,6 +22,8 @@ export class ConfigManager implements IConfigManager {
       this.widgets.set(schema.tag, widgetClass);
       customElements.define(schema.tag, widgetClass);
     });
+
+    this.reactWidgets = new Map(Object.entries(definitions.reactWidgets));
   }
 
   public getWidget(tag: string): WidgetElementClass {
@@ -36,5 +40,13 @@ export class ConfigManager implements IConfigManager {
       throw new TypeException('Did not find container');
     }
     return container;
+  }
+
+  public getReactWidget(tag: string): (props: any) => JSX.Element {
+    const reactWidget = this.reactWidgets.get(tag);
+    if (!reactWidget) {
+      throw new TypeException('Did not find reactWidget');
+    }
+    return reactWidget;
   }
 }
