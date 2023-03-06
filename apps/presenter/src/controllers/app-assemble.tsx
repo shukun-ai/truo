@@ -4,8 +4,6 @@ import { ReactElement, useMemo } from 'react';
 import { ReactWidgets } from '../loaders/config-manager.interface';
 import { IRepositoryManager } from '../repository/repository-manager.interface';
 
-import { AppContextProvider } from './app-context-provider';
-
 import { ContainerWrapper } from './container-wrapper';
 
 import { WidgetWrapper } from './widget-wrapper';
@@ -32,11 +30,7 @@ export function AssembledApp({
     return assembleContainers(states, player, widgets, repositoryManager);
   }, [states, player, widgets, repositoryManager]);
 
-  return (
-    <AppContextProvider>
-      <div id="app">{containers}</div>
-    </AppContextProvider>
-  );
+  return <div id="app">{containers}</div>;
 }
 
 export function assembleContainers(
