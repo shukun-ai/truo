@@ -3,8 +3,7 @@ import { createElement } from 'react';
 import { Injector } from '../injector';
 import { ConfigDefinitions } from '../loaders/config-manager.interface';
 
-import { AssembledApp } from './app-asemble';
-import { CustomRepositoryService } from './custom-repository-service';
+import { AssembledApp } from './app-assemble';
 
 export class AppController {
   private CURRENT_USER_REPOSITORY_KEY = 'currentUser';
@@ -12,13 +11,7 @@ export class AppController {
 
   private definitions?: ConfigDefinitions;
 
-  private customRepositoryService: CustomRepositoryService;
-
-  constructor(private readonly injector: Injector) {
-    this.customRepositoryService = new CustomRepositoryService(
-      this.injector.repositoryManager,
-    );
-  }
+  constructor(private readonly injector: Injector) {}
 
   async registerRepositories() {
     this.definitions = await this.injector.loader.load('pactl', 'pda');
@@ -31,7 +24,7 @@ export class AppController {
       this.injector.currentUserRepository,
     );
 
-    this.customRepositoryService.register(
+    this.injector.customRepositoryService.register(
       this.definitions.player.containers['home'].repositories,
     );
   }
