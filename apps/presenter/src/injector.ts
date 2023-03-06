@@ -2,14 +2,15 @@ import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
 import { IApiRequester } from './apis/requester.interface';
-import { CurrentUserRepository } from './repositories/current-user-repository';
-import { RouterRepository } from './repositories/router-repository';
+import { CustomRepositoryService } from './controllers/custom-repository-service';
 import { EventQueue } from './event/event-queue';
 import { IEventQueue } from './event/event-queue.interface';
 import { ConfigManager } from './loaders/config-manager';
 import { IConfigManager } from './loaders/config-manager.interface';
 import { ILoader } from './loaders/loader.interface';
 import { ServerLoader } from './loaders/server-loader';
+import { CurrentUserRepository } from './repositories/current-user-repository';
+import { RouterRepository } from './repositories/router-repository';
 import { RepositoryManager } from './repository/repository-manager';
 import { IRepositoryManager } from './repository/repository-manager.interface';
 import { AuthStorage } from './storages/auth-storage';
@@ -26,6 +27,7 @@ const configManager = new ConfigManager();
 const templateService = new TemplateService();
 const currentUserRepository = new CurrentUserRepository();
 const repositoryManager = new RepositoryManager();
+const customRepositoryService = new CustomRepositoryService(repositoryManager);
 const eventQueue = new EventQueue(repositoryManager);
 
 export type Injector = {
@@ -34,6 +36,7 @@ export type Injector = {
   loader: ILoader;
   configManager: IConfigManager;
   repositoryManager: IRepositoryManager;
+  customRepositoryService: CustomRepositoryService;
   eventQueue: IEventQueue;
   templateService: ITemplateService;
   routerRepository: RouterRepository;
@@ -46,6 +49,7 @@ export const injector: Injector = {
   loader,
   configManager,
   repositoryManager,
+  customRepositoryService,
   eventQueue,
   templateService,
   routerRepository,
