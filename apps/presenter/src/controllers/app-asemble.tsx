@@ -82,11 +82,12 @@ function assembleWidgets(
     }
 
     const reactWidget = widgets[widget.tag];
-    // return <ReactWidget id={widget.tag}>{nextElements}</ReactWidget>;
+
     return (
       <WidgetWrapper
         widgetIs={reactWidget}
         containerId={containerName}
+        containerDefinition={definition}
         widgetId={widgetId}
         widgetDefinition={widget}
         key={widgetId}
