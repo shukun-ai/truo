@@ -2,7 +2,6 @@ import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
 import { IApiRequester } from './apis/requester.interface';
-import { CustomRepositoryService } from './controllers/custom-repository-service';
 import { EventQueue } from './event/event-queue';
 import { IEventQueue } from './event/event-queue.interface';
 import { ConfigManager } from './loaders/config-manager';
@@ -11,6 +10,7 @@ import { ILoader } from './loaders/loader.interface';
 import { ServerLoader } from './loaders/server-loader';
 import { CurrentUserRepository } from './repositories/current-user-repository';
 import { RouterRepository } from './repositories/router-repository';
+import { CustomRepositoryService } from './repository/custom-repository-service';
 import { RepositoryManager } from './repository/repository-manager';
 import { IRepositoryManager } from './repository/repository-manager.interface';
 import { AuthStorage } from './storages/auth-storage';
