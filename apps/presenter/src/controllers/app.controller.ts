@@ -22,7 +22,6 @@ export class AppController {
 
   async registerRepositories() {
     this.definitions = await this.injector.loader.load('pactl', 'pda');
-
     this.injector.repositoryManager.add(
       this.ROUTER_REPOSITORY_KEY,
       this.injector.routerRepository,

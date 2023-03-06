@@ -1,5 +1,7 @@
-import { PlayerWidget } from '@shukun/schema';
-import React, { ReactElement, useEffect, useState } from 'react';
+import { PlayerContainer, PlayerWidget } from '@shukun/schema';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+
+import { injector } from '../injector';
 
 import { ReactWidget } from '../loaders/config-manager.interface';
 
@@ -8,6 +10,7 @@ import { createSubscription } from './subscription';
 export type WidgetWrapperProps = {
   widgetIs: ReactWidget;
   containerId: string;
+  containerDefinition: PlayerContainer;
   widgetId: string;
   widgetDefinition: PlayerWidget;
   children: ReactElement[];
@@ -16,6 +19,7 @@ export type WidgetWrapperProps = {
 export const WidgetWrapper = ({
   widgetIs,
   containerId,
+  containerDefinition,
   widgetId,
   widgetDefinition,
   children,
@@ -32,10 +36,32 @@ export const WidgetWrapper = ({
         setProperties({ ...properties, [propertyName]: value });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [containerId, widgetId]);
+
+  const events = useMemo(() => {
+    const events: Record<string, (payload: unknown) => void> = {};
+    for (const [eventName, behaviors] of Object.entries(
+      widgetDefinition.events,
+    )) {
+      events[eventName] = (payload) => {
+        behaviors.forEach((behavior) => {
+          const eventBehavior = containerDefinition.events[behavior];
+          injector.eventQueue.emit(eventBehavior, payload);
+        });
+      };
+    }
+    return events;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [containerId, widgetId]);
 
   return (
-    <Widget containerId={containerId} widgetId={widgetId} {...properties}>
+    <Widget
+      containerId={containerId}
+      widgetId={widgetId}
+      {...properties}
+      {...events}
+    >
       {children}
     </Widget>
   );

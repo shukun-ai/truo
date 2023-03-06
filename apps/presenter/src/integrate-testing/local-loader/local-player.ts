@@ -33,7 +33,7 @@ export function getLocalPlayer(): PlayerSchema {
               value: '{{$.form1.deviceNumber}}',
             },
             events: {
-              'value-changed': ['w2Click1'],
+              onChange: ['w2Click1'],
             },
           },
           w3: {
