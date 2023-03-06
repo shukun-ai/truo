@@ -12,7 +12,7 @@
         "outputPath": "dist/apps/presenter",
         "index": "apps/presenter/src/index.html",
         "baseHref": "/",
-        "main": "apps/presenter/src/main.tsx",
+        "main": "apps/presenter/src/main.ts",
         "polyfills": "apps/presenter/src/polyfills.ts",
         "tsConfig": "apps/presenter/tsconfig.app.json",
         "assets": [
