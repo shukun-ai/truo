@@ -26,7 +26,7 @@ export class InputWidget extends WidgetElement {
     return html`<input value=${this.value} @change=${this.onChange} />`;
   }
 
-  private onChange(event: any) {
-    this.emit('value-changed', event.target.value);
+  private onChange(event: { target?: { value?: string } }) {
+    this.emit('value-changed', event?.target?.value);
   }
 }
