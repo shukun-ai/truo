@@ -14,7 +14,7 @@ export interface IRepositoryManager {
 }
 
 export type repositoryIdentifier = {
-  scope: 'app' | 'page';
+  scope: 'app' | 'container' | 'repository';
   containerId: string;
   repositoryId: string;
 };
