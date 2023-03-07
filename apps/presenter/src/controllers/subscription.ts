@@ -1,8 +1,9 @@
 import { combineLatest, distinctUntilChanged, map } from 'rxjs';
 
-import { injector } from '../injector';
+import { Injector } from '../injector';
 
 export const createSubscription = (
+  injector: Injector,
   template: string,
   callback: (value: unknown) => void,
 ) => {
