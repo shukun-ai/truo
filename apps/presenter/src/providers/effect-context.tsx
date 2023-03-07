@@ -8,9 +8,6 @@ import { App } from '../ui/app';
 
 import { AppProps } from '../ui/app.interface';
 
-import { createSubscription } from './create-subscription';
-import { createObservable } from './observable';
-
 export const createEffectApp =
   (injector: EffectInjector, observable: Observable<unknown>) => () => {
     // const [app, setApp] = useState<AppProps>(initializeAppProps(injector));

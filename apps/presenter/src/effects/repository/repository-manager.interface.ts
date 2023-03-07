@@ -3,20 +3,18 @@ import { Observable } from 'rxjs';
 import { IRepository } from './repository.interface';
 
 export interface IRepositoryManager {
-  add(repositoryName: string, repository: IRepository): void;
-  remove(repositoryName: string): void;
-  get(repositoryName: string): IRepository;
-  has(repositoryName: string): boolean;
-  getValues(repositoryNames: string[]): Record<string, unknown>;
+  register(identifier: repositoryIdentifier, repository: IRepository): void;
   setValue(
-    repositoryName: string,
+    identifier: repositoryIdentifier,
     path: (string | number)[],
     value: unknown,
   ): void;
-  resetValue(repositoryName: string): void;
-  combineQueries(
-    repositoryNames: string[],
-  ): Observable<Record<string, unknown>>;
   queryAll(): Observable<Record<string, unknown>>;
-  trigger(repositoryName: string, payload: unknown): void;
+  trigger(identifier: repositoryIdentifier, payload: unknown): void;
 }
+
+export type repositoryIdentifier = {
+  scope: 'app' | 'page';
+  containerId: string;
+  repositoryId: string;
+};

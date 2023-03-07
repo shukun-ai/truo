@@ -6,10 +6,13 @@ import { AppProps } from '../ui/app.interface';
 
 export const createObservable = (
   injector: EffectInjector,
-): Observable<AppProps> => {
+): Observable<AppProps | null> => {
   return injector.repositoryManager.queryAll().pipe(
     map((states: any) => {
-      const router = states.router as RouterField;
+      const containerStates = cleanData(states, states['_app:router'].page);
+      // return null;
+      const router = containerStates.router as RouterField;
+      console.log('states', states, containerStates);
       return {
         context: {
           appName: router.app,
@@ -29,4 +32,19 @@ export const createObservable = (
     }),
     distinctUntilChanged(),
   );
+};
+
+const cleanData = (states: any, containerId: string) => {
+  const newStates: any = {};
+  for (const [id, value] of Object.entries(states)) {
+    const idSet = id.split(':');
+    if (idSet.length === 2) {
+      if (idSet[0] === '_app') {
+        newStates[idSet[1]] = value;
+      } else if (idSet[0] === containerId) {
+        newStates[containerId] = value;
+      }
+    }
+  }
+  return newStates;
 };
