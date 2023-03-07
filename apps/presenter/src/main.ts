@@ -181,7 +181,11 @@ async function main() {
   setTimeout(() => {
     // (appProps as any).containers.home.w1.value = 'hello world222.';
     // render(createElement(App, appProps), document.getElementById('root'));
-    injector.repositoryManager.setValue('form1', ['deviceNumber'], 'Bob');
+    injector.repositoryManager.setValue(
+      { scope: 'page', containerId: 'home', repositoryId: 'form1' },
+      ['deviceNumber'],
+      'Bob',
+    );
   }, 3000);
 }
 
