@@ -56,6 +56,30 @@ export class RepositoryManager implements IRepositoryManager {
     this.repositories.get(repositoryName)?.resetValue();
   }
 
+  public queryAll(): Observable<Record<string, unknown>> {
+    const repositoryNames = [...this.repositories.keys()];
+    const repositories: IRepository[] = [];
+
+    repositoryNames.forEach((name) => {
+      const repository = this.repositories.get(name);
+      if (repository) {
+        repositories.push(repository);
+      }
+    });
+
+    const observables = repositories.map((repository) => repository.query());
+
+    return combineLatest(observables).pipe(
+      map((output) => {
+        const values: Record<string, unknown> = {};
+        repositoryNames.forEach((name, index) => {
+          values[name] = output[index] ? output[index] : {};
+        });
+        return values;
+      }),
+    );
+  }
+
   public combineQueries(
     repositoryNames: string[],
   ): Observable<Record<string, unknown>> {

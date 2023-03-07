@@ -17,5 +17,6 @@ export interface IRepositoryManager {
   combineQueries(
     repositoryNames: string[],
   ): Observable<Record<string, unknown>>;
+  queryAll(): Observable<Record<string, unknown>>;
   trigger(repositoryName: string, payload: unknown): void;
 }
