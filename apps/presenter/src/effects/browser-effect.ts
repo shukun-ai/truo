@@ -84,7 +84,7 @@ const registerContainer = (
     switch (definition.type) {
       case 'Simple':
         repositoryManager.register(
-          { scope: 'page', containerId, repositoryId },
+          { scope: 'repository', containerId, repositoryId },
           new SimpleRepository(definition),
         );
         break;

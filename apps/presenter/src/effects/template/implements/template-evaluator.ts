@@ -42,6 +42,7 @@ export class TemplateEvaluator {
     const run = new Function('$', '$$', this.wrapCode(code.code));
     const $ = dependencies.repositories ?? {};
     const $$ = dependencies.helpers ?? {};
+
     const value = run($, $$);
     return value;
   }

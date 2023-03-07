@@ -11,11 +11,14 @@ export class RepositoryManager implements IRepositoryManager {
 
   private getRepositoryKey(identifier: repositoryIdentifier) {
     const { scope, containerId, repositoryId } = identifier;
-    const repositoryKey =
-      scope === 'app'
-        ? `_app:${repositoryId}`
-        : `${containerId}:${repositoryId}`;
-    return repositoryKey;
+    switch (scope) {
+      case 'app':
+        return `_app:${repositoryId}`;
+      case 'container':
+        return `container:${containerId}:${repositoryId}`;
+      case 'repository':
+        return `repository:${containerId}:${repositoryId}`;
+    }
   }
 
   public register(

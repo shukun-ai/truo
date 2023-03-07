@@ -10,11 +10,7 @@ export type AppProps = {
     search: Record<string, unknown>;
   };
   containers: {
-    [containerId: string]: {
-      [widgetId: string]: {
-        [propertyId: string]: unknown;
-      };
-    };
+    [key: `${string}:${string}:${string}`]: unknown;
   };
   player: PlayerSchema;
   eventCallback: (behavior: unknown, payload: unknown) => void;

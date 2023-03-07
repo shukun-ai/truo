@@ -1,3 +1,4 @@
+import { PlayerSchema } from '@shukun/schema';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect.interface';
@@ -9,10 +10,19 @@ export const createObservable = (
 ): Observable<AppProps | null> => {
   return injector.repositoryManager.queryAll().pipe(
     map((states: any) => {
-      const containerStates = cleanData(states, states['_app:router'].page);
+      const containerId = states['_app:router'].page;
+
+      const containerStates = cleanData(states, containerId);
       // return null;
       const router = containerStates.router as RouterField;
-      console.log('states', states, containerStates);
+
+      const containers = calculateTemplate(
+        injector,
+        injector.definitions.player,
+        containerId,
+        containerStates,
+      );
+
       return {
         context: {
           appName: router.app,
@@ -22,7 +32,7 @@ export const createObservable = (
           page: router.page,
           search: router.search,
         },
-        containers: {},
+        containers,
         player: injector.definitions.player,
         eventCallback: () => {
           return;
@@ -38,13 +48,57 @@ const cleanData = (states: any, containerId: string) => {
   const newStates: any = {};
   for (const [id, value] of Object.entries(states)) {
     const idSet = id.split(':');
-    if (idSet.length === 2) {
-      if (idSet[0] === '_app') {
-        newStates[idSet[1]] = value;
-      } else if (idSet[0] === containerId) {
-        newStates[containerId] = value;
-      }
+
+    if (idSet[0] === '_app') {
+      newStates[idSet[1]] = value;
+    } else if (idSet[0] === 'container' && idSet[1] === containerId) {
+      newStates[idSet[2]] = value;
+    } else if (idSet[0] === 'repository' && idSet[1] === containerId) {
+      newStates[idSet[2]] = value;
     }
   }
   return newStates;
+};
+
+const calculateTemplate = (
+  injector: EffectInjector,
+  player: PlayerSchema,
+  containerId: string,
+  importStates: Record<string, unknown>,
+): Record<string, unknown> => {
+  const container = player.containers[containerId];
+
+  if (!container) {
+    return {};
+  }
+
+  const containerStates: Record<string, unknown> = {};
+
+  for (const [widgetId, widget] of Object.entries(container.widgets)) {
+    for (const [propertyId, template] of Object.entries(widget.properties)) {
+      containerStates[`${containerId}:${widgetId}:${propertyId}`] =
+        parseTemplate(injector, importStates, template);
+    }
+  }
+
+  return containerStates;
+};
+
+const parseTemplate = (
+  injector: EffectInjector,
+  importStates: Record<string, unknown>,
+  template: string,
+) => {
+  const literal = injector.templateService.parse(template);
+
+  if (literal.codes.length === 0) {
+    const staticValue = injector.templateService.evaluate(literal, []);
+    return staticValue;
+  } else {
+    const imports = new Array(literal.codes.length).fill(0).map(() => ({
+      repositories: importStates,
+    }));
+    const dynamicValue = injector.templateService.evaluate(literal, imports);
+    return dynamicValue;
+  }
 };

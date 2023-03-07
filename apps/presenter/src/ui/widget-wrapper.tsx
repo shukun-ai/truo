@@ -24,7 +24,7 @@ export const WidgetWrapper = ({
     const properties: Record<string, unknown> = {};
     for (const [propertyId] of Object.entries(widgetDefinition.properties)) {
       properties[propertyId] =
-        app.containers?.[app.router.page]?.[widgetId]?.[propertyId];
+        app.containers?.[`${app.router.page}:${widgetId}:${propertyId}`];
     }
     return properties;
   }, [app.containers, app.router.page, widgetDefinition.properties, widgetId]);

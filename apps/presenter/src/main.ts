@@ -28,11 +28,7 @@ async function main() {
       search: {},
     },
     containers: {
-      home: {
-        w1: {
-          value: 'hello world.',
-        },
-      },
+      'home:w1:value': 'hello world.',
     },
     player: {
       title: 'PDA',
@@ -182,7 +178,7 @@ async function main() {
     // (appProps as any).containers.home.w1.value = 'hello world222.';
     // render(createElement(App, appProps), document.getElementById('root'));
     injector.repositoryManager.setValue(
-      { scope: 'page', containerId: 'home', repositoryId: 'form1' },
+      { scope: 'repository', containerId: 'home', repositoryId: 'form1' },
       ['deviceNumber'],
       'Bob',
     );
