@@ -7,7 +7,7 @@ import {
 } from '@shukun/api';
 import { UnknownSourceModel } from '@shukun/schema';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { IAuthStorage } from '../storages/auth-storage.interface';
 
 import { IApiRequester } from './requester.interface';
