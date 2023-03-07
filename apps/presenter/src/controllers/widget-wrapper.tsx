@@ -1,13 +1,14 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 
-import { injector } from '../injector';
+import { Injector } from '../injector';
 
 import { ReactWidget } from '../loaders/config-manager.interface';
 
 import { createSubscription } from './subscription';
 
 export type WidgetWrapperProps = {
+  injector: Injector;
   widgetIs: ReactWidget;
   containerId: string;
   containerDefinition: PlayerContainer;
@@ -17,6 +18,7 @@ export type WidgetWrapperProps = {
 };
 
 export const WidgetWrapper = ({
+  injector,
   widgetIs,
   containerId,
   containerDefinition,
@@ -32,7 +34,7 @@ export const WidgetWrapper = ({
     for (const [propertyName, template] of Object.entries(
       widgetDefinition.properties,
     )) {
-      createSubscription(template, (value) => {
+      createSubscription(injector, template, (value) => {
         setProperties({ ...properties, [propertyName]: value });
       });
     }

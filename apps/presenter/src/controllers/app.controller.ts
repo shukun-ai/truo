@@ -28,16 +28,4 @@ export class AppController {
       this.definitions.player.containers['home'].repositories,
     );
   }
-
-  async assembleWidgets() {
-    if (!this.definitions?.player) {
-      throw new Error();
-    }
-
-    return createElement(AssembledApp, {
-      player: this.definitions.player,
-      widgets: this.definitions.reactWidgets,
-      repositoryManager: this.injector.repositoryManager,
-    });
-  }
 }

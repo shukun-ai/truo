@@ -1,54 +1,49 @@
-import { PlayerContainer, PlayerSchema } from '@shukun/schema';
+import { PlayerContainer } from '@shukun/schema';
 import { ReactElement, useMemo } from 'react';
 
-import { ReactWidgets } from '../loaders/config-manager.interface';
-import { IRepositoryManager } from '../repository/repository-manager.interface';
+import { Injector } from '../injector';
+
+import {
+  ConfigDefinitions,
+  ReactWidgets,
+} from '../loaders/config-manager.interface';
 
 import { ContainerWrapper } from './container-wrapper';
+import { usePlayerDefinition } from './contexts/player-definition.context';
 
 import { WidgetWrapper } from './widget-wrapper';
 
-export function AssembledApp({
-  player,
-  widgets,
-  repositoryManager,
-}: {
-  player: PlayerSchema;
-  widgets: ReactWidgets;
-  repositoryManager: IRepositoryManager;
-}) {
-  const states = useMemo(
-    () => ({
-      router: {
-        page: 'home',
-      },
-    }),
-    [],
-  );
+export function AssembledApp({ injector }: { injector: Injector }) {
+  const definitions = usePlayerDefinition();
 
-  const containers = useMemo(() => {
-    return assembleContainers(states, player, widgets, repositoryManager);
-  }, [states, player, widgets, repositoryManager]);
+  const containers = useMemo(
+    () =>
+      definitions && injector
+        ? assembleContainers(definitions, injector)
+        : null,
+    [definitions, injector],
+  );
 
   return <div id="app">{containers}</div>;
 }
 
 export function assembleContainers(
-  states: any,
-  player: PlayerSchema,
-  widgets: ReactWidgets,
-  repositoryManager: IRepositoryManager,
+  definitions: ConfigDefinitions,
+  injector: Injector,
 ) {
-  return Object.entries(player.containers)
-    .filter(([containerName]) => containerName === states.router.page)
+  return Object.entries(definitions.player.containers)
+    .filter(
+      ([containerName]) =>
+        containerName === injector.routerRepository.getValue().page,
+    )
     .map(([containerName, definition]) => {
       return (
         <ContainerWrapper containerId={containerName} key={containerName}>
           {assembleWidgets(definition.root, {
             definition,
             containerName,
-            widgets,
-            repositoryManager,
+            widgets: definitions.reactWidgets,
+            injector,
           })}
         </ContainerWrapper>
       );
@@ -61,7 +56,7 @@ function assembleWidgets(
     definition: PlayerContainer;
     containerName: string;
     widgets: ReactWidgets;
-    repositoryManager: IRepositoryManager;
+    injector: Injector;
   },
 ): ReactElement[] {
   const { definition, widgets, containerName } = context;
@@ -79,6 +74,7 @@ function assembleWidgets(
 
     return (
       <WidgetWrapper
+        injector={context.injector}
         widgetIs={reactWidget}
         containerId={containerName}
         containerDefinition={definition}

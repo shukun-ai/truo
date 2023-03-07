@@ -1,15 +1,19 @@
+import { createElement } from 'react';
 import { render } from 'react-dom';
 
-import { AppController } from './controllers/app.controller';
+import { createApp } from './controllers/entry';
+
 import { injector } from './injector';
 
 async function main() {
-  const appController = new AppController(injector);
+  // const appController = new AppController(injector);
+  // await appController.registerRepositories();
 
-  await appController.registerRepositories();
-  const AppElement = await appController.assembleWidgets();
+  render(createElement(createApp(injector)), document.getElementById('root'));
 
-  render(AppElement, document.getElementById('root'));
+  setTimeout(() => {
+    injector.repositoryManager.setValue('form1', ['deviceNumber'], 'Bob');
+  }, 3000);
 }
 
 main();
