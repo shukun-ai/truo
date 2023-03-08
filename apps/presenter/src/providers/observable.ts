@@ -23,7 +23,7 @@ export const createObservable = (
         containerStates,
       );
 
-      return {
+      const appProps: AppProps = {
         context: {
           appName: router.app,
           orgName: router.orgName,
@@ -34,11 +34,13 @@ export const createObservable = (
         },
         containers,
         player: injector.definitions.player,
-        eventCallback: () => {
-          return;
+        eventCallback: (behavior, payload) => {
+          injector.eventQueue.emit(containerId, behavior, payload);
         },
         reactWidgets: injector.definitions.reactWidgets,
       };
+
+      return appProps;
     }),
     distinctUntilChanged(),
   );

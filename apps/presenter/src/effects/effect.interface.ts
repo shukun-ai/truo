@@ -1,4 +1,5 @@
 import { IApiRequester } from './apis/requester.interface';
+import { IEventQueue } from './event/event-queue.interface';
 import { ConfigDefinitions } from './loaders/config-manager.interface';
 import { ILoader } from './loaders/loader.interface';
 import { CurrentUserRepository } from './repositories/current-user-repository';
@@ -12,6 +13,7 @@ export type EffectInjector = {
   apiRequester: IApiRequester;
   loader: ILoader;
   repositoryManager: IRepositoryManager;
+  eventQueue: IEventQueue;
   templateService: ITemplateService;
   routerRepository: RouterRepository;
   currentUserRepository: CurrentUserRepository;

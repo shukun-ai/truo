@@ -16,8 +16,6 @@ export class RepositoryManager implements IRepositoryManager {
         return `_app:${repositoryId}`;
       case 'container':
         return `container:${containerId}:${repositoryId}`;
-      case 'repository':
-        return `repository:${containerId}:${repositoryId}`;
     }
   }
 

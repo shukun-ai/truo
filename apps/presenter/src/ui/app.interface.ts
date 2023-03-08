@@ -1,4 +1,4 @@
-import { PlayerSchema } from '@shukun/schema';
+import { PlayerEvent, PlayerSchema } from '@shukun/schema';
 
 export type AppProps = {
   context: {
@@ -13,7 +13,7 @@ export type AppProps = {
     [key: `${string}:${string}:${string}`]: unknown;
   };
   player: PlayerSchema;
-  eventCallback: (behavior: unknown, payload: unknown) => void;
+  eventCallback: (behavior: PlayerEvent, payload: unknown) => void;
   reactWidgets: ReactWidgets;
 };
 
