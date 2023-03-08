@@ -1,13 +1,13 @@
 import { PlayerSchema } from '@shukun/schema';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
-import { EffectInjector } from '../effects/effect.interface';
+import { EffectInjector } from '../effects/effect-injector.interface';
 import { RouterField } from '../effects/repositories/router-repository';
 import { AppProps } from '../ui/app.interface';
 
 export const createObservable = (
   injector: EffectInjector,
-): Observable<AppProps | null> => {
+): Observable<AppProps> => {
   return injector.repositoryManager.queryAll().pipe(
     map((states: any) => {
       const containerId = states['_app:router'].page;

@@ -2,7 +2,7 @@ import { PlayerContainer } from '@shukun/schema';
 import { useMemo } from 'react';
 
 import { AppProps } from './app.interface';
-import { WidgetWrapper } from './widget-wrapper';
+import { WidgetWrapper } from './wrapper/widget-wrapper';
 
 export const App = (props: AppProps) => {
   const currentContainer = useMemo<PlayerContainer | null>(() => {

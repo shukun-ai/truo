@@ -1,7 +1,6 @@
 import { IApiRequester } from './apis/requester.interface';
 import { IEventQueue } from './event/event-queue.interface';
-import { ConfigDefinitions } from './loaders/config-manager.interface';
-import { ILoader } from './loaders/loader.interface';
+import { ConfigDefinitions, ILoader } from './loaders/loader.interface';
 import { CurrentUserRepository } from './repositories/current-user-repository';
 import { RouterRepository } from './repositories/router-repository';
 import { IRepositoryManager } from './repository/repository-manager.interface';

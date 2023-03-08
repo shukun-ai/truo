@@ -3,6 +3,5 @@ export type TextWidgetProps = {
 };
 
 export const TextWidget = ({ value }: TextWidgetProps) => {
-  console.log('text', value);
   return <div>HI {value}</div>;
 };

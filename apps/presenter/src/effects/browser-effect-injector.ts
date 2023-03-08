@@ -2,7 +2,7 @@ import { PlayerContainer, PlayerSchema } from '@shukun/schema';
 import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
-import { EffectInjector } from './effect.interface';
+import { EffectInjector } from './effect-injector.interface';
 import { EventQueue } from './event/event-queue';
 import { ServerLoader } from './loaders/server-loader';
 import { CurrentUserRepository } from './repositories/current-user-repository';
