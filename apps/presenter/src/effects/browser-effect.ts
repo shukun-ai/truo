@@ -3,6 +3,7 @@ import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
 import { EffectInjector } from './effect.interface';
+import { EventQueue } from './event/event-queue';
 import { ServerLoader } from './loaders/server-loader';
 import { CurrentUserRepository } from './repositories/current-user-repository';
 import { RouterRepository } from './repositories/router-repository';
@@ -21,6 +22,7 @@ export const createBrowserEffect = async () => {
   const templateService = new TemplateService();
   const currentUserRepository = new CurrentUserRepository();
   const repositoryManager = new RepositoryManager();
+  const eventQueue = new EventQueue(repositoryManager);
 
   const CURRENT_USER_REPOSITORY_KEY = 'currentUser';
   const ROUTER_REPOSITORY_KEY = 'router';
@@ -51,6 +53,7 @@ export const createBrowserEffect = async () => {
     apiRequester,
     loader,
     repositoryManager,
+    eventQueue,
     templateService,
     routerRepository,
     currentUserRepository,
@@ -84,7 +87,7 @@ const registerContainer = (
     switch (definition.type) {
       case 'Simple':
         repositoryManager.register(
-          { scope: 'repository', containerId, repositoryId },
+          { scope: 'container', containerId, repositoryId },
           new SimpleRepository(definition),
         );
         break;

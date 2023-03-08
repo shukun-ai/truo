@@ -178,7 +178,7 @@ async function main() {
     // (appProps as any).containers.home.w1.value = 'hello world222.';
     // render(createElement(App, appProps), document.getElementById('root'));
     injector.repositoryManager.setValue(
-      { scope: 'repository', containerId: 'home', repositoryId: 'form1' },
+      { scope: 'container', containerId: 'home', repositoryId: 'form1' },
       ['deviceNumber'],
       'Bob',
     );
