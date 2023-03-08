@@ -1,7 +1,7 @@
 import { PlayerContainer, PlayerWidget } from '@shukun/schema';
 import { ReactElement, useMemo } from 'react';
 
-import { AppProps } from './app.interface';
+import { AppProps } from '../app.interface';
 
 export type WidgetWrapperProps = {
   widgetId: string;
