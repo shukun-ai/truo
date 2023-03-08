@@ -37,7 +37,7 @@ export const createObservable = (
         eventCallback: () => {
           return;
         },
-        widgets: injector.definitions.reactWidgets,
+        reactWidgets: injector.definitions.reactWidgets,
       };
     }),
     distinctUntilChanged(),

@@ -157,7 +157,7 @@ async function main() {
     eventCallback: () => {
       return;
     },
-    widgets: {
+    reactWidgets: {
       'sk-input': InputWidget,
       'sk-text': TextWidget,
       'sk-code': CodeWidget,

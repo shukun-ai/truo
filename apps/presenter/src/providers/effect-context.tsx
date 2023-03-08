@@ -75,6 +75,6 @@ const initializeAppProps = (injector: EffectInjector): AppProps => {
     eventCallback: (behavior, payload) => {
       console.log(behavior, payload);
     },
-    widgets: injector.definitions.reactWidgets,
+    reactWidgets: injector.definitions.reactWidgets,
   };
 };
