@@ -14,7 +14,7 @@ export type AppProps = {
   };
   player: PlayerSchema;
   eventCallback: (behavior: unknown, payload: unknown) => void;
-  widgets: ReactWidgets;
+  reactWidgets: ReactWidgets;
 };
 
 export type ReactWidget = (...args: any) => JSX.Element;

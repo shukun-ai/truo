@@ -18,7 +18,7 @@ export const WidgetWrapper = ({
   app,
   children,
 }: WidgetWrapperProps) => {
-  const ReactWidget = app.widgets[widgetDefinition.tag];
+  const ReactWidget = app.reactWidgets[widgetDefinition.tag];
 
   const properties = useMemo(() => {
     const properties: Record<string, unknown> = {};
