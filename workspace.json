@@ -15,6 +15,7 @@
     "server": "apps/server",
     "validator": "libs/validator",
     "web-engine": "apps/web-engine",
-    "widget": "libs/widget"
+    "widget": "libs/widget",
+    "widget-react": "libs/widget-react"
   }
 }
