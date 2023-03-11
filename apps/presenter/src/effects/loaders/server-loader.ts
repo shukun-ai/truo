@@ -1,8 +1,9 @@
+import { TextWidget } from '@shukun/widget-react';
+
 import { IApiRequester } from '../apis/requester.interface';
 import { ButtonWidget } from '../integrate-testing/widgets/button.widget';
 import { CodeWidget } from '../integrate-testing/widgets/code.widget';
 import { InputWidget } from '../integrate-testing/widgets/input.widget';
-import { TextWidget } from '../integrate-testing/widgets/text.widget';
 
 import { ConfigDefinitions, ILoader } from './loader.interface';
 
@@ -19,7 +20,7 @@ export class ServerLoader implements ILoader {
       player: response.data.value,
       reactWidgets: {
         'sk-input': InputWidget,
-        'sk-text': TextWidget,
+        'sk-text': TextWidget.reactWidget,
         'sk-code': CodeWidget,
         'sk-button': ButtonWidget,
       },
