@@ -19,10 +19,11 @@ export interface WidgetSchema {
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: {
-      expectedType: 'string' | 'number' | 'boolean' | 'mixed';
+      expectedType: 'string' | 'number' | 'boolean' | 'array' | 'object';
       editLabel: string;
       editType: 'template';
       editPlaceholder?: string;
+      widgetDefaultValue?: string;
     };
   };
   events: {

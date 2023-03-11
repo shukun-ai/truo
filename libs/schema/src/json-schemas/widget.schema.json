@@ -20,11 +20,12 @@
           "additionalProperties": false,
           "properties": {
             "expectedType": {
-              "enum": ["string", "number", "boolean", "mixed"]
+              "enum": ["string", "number", "boolean", "array", "object"]
             },
             "editLabel": { "type": "string" },
             "editType": { "enum": ["template"] },
-            "editPlaceholder": { "type": "string" }
+            "editPlaceholder": { "type": "string" },
+            "widgetDefaultValue": { "type": "string" }
           }
         }
       }

@@ -11,7 +11,7 @@ export const lightTheme: Record<CustomVariables, string> = {
   [CustomVariables.fontWeight]: '400',
   [CustomVariables.lineHeight]: '1.5',
   [CustomVariables.bodyColor]: '#212529',
-  [CustomVariables.bodyTextAlign]: '#212529',
+  [CustomVariables.bodyTextAlign]: 'left',
   [CustomVariables.bodyBg]: '#fff',
   [CustomVariables.emphasisColor]: '#000',
   [CustomVariables.highlightBg]: '#fff3cd',
