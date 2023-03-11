@@ -12,7 +12,7 @@ export const TextWidget = createWidget(textDefinition, (props) => {
         textAlign: props.textAlign as any,
       }}
     >
-      ${props.value}
+      {props.value}
     </p>
   );
 });
