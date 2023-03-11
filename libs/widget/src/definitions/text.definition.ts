@@ -1,4 +1,5 @@
 import { FromDefinition } from '../core/from-definition';
+import { cssVar } from '../styles/utilities';
 import { CustomVariables } from '../styles/variables';
 
 /**
@@ -17,13 +18,13 @@ export const textDefinition = {
       expectedType: 'string',
       editLabel: 'Text Color',
       editType: 'template',
-      widgetDefaultValue: CustomVariables.bodyColor,
+      widgetDefaultValue: cssVar(CustomVariables.bodyColor),
     },
     fontSize: {
       expectedType: 'string',
       editLabel: 'Text Size',
       editType: 'template',
-      widgetDefaultValue: CustomVariables.fontSize,
+      widgetDefaultValue: cssVar(CustomVariables.fontSize),
     },
     fontStyle: {
       expectedType: 'string',
@@ -34,7 +35,7 @@ export const textDefinition = {
       expectedType: 'string',
       editLabel: 'Display Text',
       editType: 'template',
-      widgetDefaultValue: CustomVariables.bodyTextAlign,
+      widgetDefaultValue: cssVar(CustomVariables.bodyTextAlign),
     },
   },
   events: {},
