@@ -6,6 +6,9 @@
   "required": ["tag", "properties", "events"],
   "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "tag": { "type": "string" },
     "experimental": { "type": "boolean" },
     "properties": {

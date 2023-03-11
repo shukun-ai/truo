@@ -10,6 +10,7 @@
  * Define the player contained Stores and UI Elements
  */
 export interface WidgetSchema {
+  $schema?: string;
   tag: string;
   experimental?: boolean;
   properties: {
