@@ -135,7 +135,6 @@ class Generate {
         0,
         fileName.length - '.definition.json'.length,
       );
-      console.log('id', id);
       const importName = id + 'DefinitionJson';
       const outputName = id + 'Definition';
       imports += `import ${importName} from './${fileName}';`;

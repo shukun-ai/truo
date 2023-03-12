@@ -8,11 +8,14 @@ export const InputWidget = createWidget<InputDefinitionProps>(
     return (
       <div>
         <div>
-          <div>{props}</div>
-          <div>Caption</div>
+          <div>{props.label}</div>
+          <div>{props.labelCaption}</div>
         </div>
         <div>
-          <input value={props.value} />
+          <input
+            value={props.value}
+            onChange={(event) => props.change(event.target.value)}
+          />
         </div>
       </div>
     );
