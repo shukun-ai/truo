@@ -10,12 +10,7 @@ export type FromDefinition<P extends WidgetSchema> = M.Resolve<
   M.Object<{
     [key in keyof P['properties']]: ParseExpectedType<P['properties'][key]>;
   }>
-> &
-  M.Resolve<
-    M.Object<{
-      [key in keyof P['events']]: M.Primitive<string, true, () => void>;
-    }>
-  >;
+>;
 
 type ParseExpectedType<E extends ValuesType<WidgetSchema['properties']>> =
   E extends { expectedType: 'string' }
@@ -27,5 +22,5 @@ type ParseExpectedType<E extends ValuesType<WidgetSchema['properties']>> =
     : E extends { expectedType: 'array' }
     ? M.Array<M.Any>
     : E extends { expectedType: 'object' }
-    ? M.Object<M.Any>
+    ? M.Object<{ [k: string]: M.Any }>
     : M.Never;

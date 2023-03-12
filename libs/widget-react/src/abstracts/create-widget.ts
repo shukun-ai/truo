@@ -8,10 +8,11 @@ export const createWidget: CreateWidget = (definition, reactWidget) => {
     for (const [key, value] of Object.entries(definition.properties)) {
       const input = props[key];
       if (
-        value.widgetDefaultValue &&
+        value.defaultValue &&
+        value.type !== 'callback' &&
         (input === '' || input === undefined || input === null)
       ) {
-        newProps[key] = value.widgetDefaultValue;
+        newProps[key] = value.defaultValue;
       } else {
         newProps[key] = input;
       }

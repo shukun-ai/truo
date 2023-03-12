@@ -19,20 +19,9 @@ export interface WidgetSchema {
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: {
-      expectedType: 'string' | 'number' | 'boolean' | 'array' | 'object';
-      editLabel: string;
-      editType: 'template';
-      editPlaceholder?: string;
-      widgetDefaultValue?: string;
-    };
-  };
-  events: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(\w)+$".
-     */
-    [k: string]: {
-      editLabel: string;
+      type: 'string' | 'number' | 'boolean' | 'array' | 'object' | 'callback';
+      label: string;
+      defaultValue?: string;
     };
   };
 }
