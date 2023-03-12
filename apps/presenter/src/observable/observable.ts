@@ -38,6 +38,7 @@ export const createObservable = (
           injector.eventQueue.emit(containerId, behavior, payload);
         },
         reactWidgets: injector.definitions.reactWidgets,
+        widgetDefinitions: injector.definitions.widgetDefinitions,
       };
 
       return appProps;
