@@ -2,7 +2,8 @@ export * from './styles/reboot';
 export * from './styles/light-theme';
 export * from './styles/variables';
 
-export * from './definitions/text.definition';
-export * from './definitions/input.definition';
+export * from './definitions';
+
+export * from './types';
 
 export * from './core/from-definition';

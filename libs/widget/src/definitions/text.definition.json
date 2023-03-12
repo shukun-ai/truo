@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "text",
+  "properties": {
+    "value": {
+      "type": "string",
+      "label": "Display Text"
+    },
+    "color": {
+      "type": "string",
+      "label": "Text Color",
+      "defaultValue": "--sk-bodyColor"
+    },
+    "fontSize": {
+      "type": "string",
+      "label": "Text Size",
+      "defaultValue": "--sk-fontSize"
+    },
+    "fontStyle": {
+      "type": "string",
+      "label": "Display Text"
+    },
+    "textAlign": {
+      "type": "string",
+      "label": "Display Text",
+      "defaultValue": "--sk-bodyTextAlign"
+    }
+  }
+}
