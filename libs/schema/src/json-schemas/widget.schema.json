@@ -3,7 +3,7 @@
   "title": "WidgetSchema",
   "description": "Define the player contained Stores and UI Elements",
   "type": "object",
-  "required": ["tag", "properties", "events"],
+  "required": ["tag", "properties"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -16,29 +16,21 @@
       "patternProperties": {
         "^(\\w)+$": {
           "type": "object",
-          "required": ["expectedType", "editLabel", "editType"],
+          "required": ["type", "label"],
           "additionalProperties": false,
           "properties": {
-            "expectedType": {
-              "enum": ["string", "number", "boolean", "array", "object"]
+            "type": {
+              "enum": [
+                "string",
+                "number",
+                "boolean",
+                "array",
+                "object",
+                "callback"
+              ]
             },
-            "editLabel": { "type": "string" },
-            "editType": { "enum": ["template"] },
-            "editPlaceholder": { "type": "string" },
-            "widgetDefaultValue": { "type": "string" }
-          }
-        }
-      }
-    },
-    "events": {
-      "type": "object",
-      "patternProperties": {
-        "^(\\w)+$": {
-          "type": "object",
-          "required": ["editLabel"],
-          "additionalProperties": false,
-          "properties": {
-            "editLabel": { "type": "string" }
+            "label": { "type": "string" },
+            "defaultValue": { "type": "string" }
           }
         }
       }

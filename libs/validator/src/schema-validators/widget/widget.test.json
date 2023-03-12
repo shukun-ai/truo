@@ -3,33 +3,31 @@
   "tag": "text",
   "properties": {
     "value": {
-      "expectedType": "string",
-      "editLabel": "Display Text",
-      "editType": "template"
+      "type": "string",
+      "label": "Display Text"
     },
     "color": {
-      "expectedType": "string",
-      "editLabel": "Text Color",
-      "editType": "template",
-      "widgetDefaultValue": "#000"
+      "type": "string",
+      "label": "Text Color",
+      "defaultValue": "#000"
     },
     "fontSize": {
-      "expectedType": "string",
-      "editLabel": "Text Size",
-      "editType": "template",
-      "widgetDefaultValue": "1rem"
+      "type": "string",
+      "label": "Text Size",
+      "defaultValue": "1rem"
     },
     "fontStyle": {
-      "expectedType": "string",
-      "editLabel": "Display Text",
-      "editType": "template"
+      "type": "string",
+      "label": "Display Text"
     },
     "textAlign": {
-      "expectedType": "string",
-      "editLabel": "Display Text",
-      "editType": "template",
-      "widgetDefaultValue": "left"
+      "type": "string",
+      "label": "Display Text",
+      "defaultValue": "left"
+    },
+    "click": {
+      "type": "callback",
+      "label": "When click"
     }
-  },
-  "events": {}
+  }
 }
