@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "text",
+  "properties": {
+    "value": {
+      "expectedType": "string",
+      "editLabel": "Display Text",
+      "editType": "template"
+    },
+    "color": {
+      "expectedType": "string",
+      "editLabel": "Text Color",
+      "editType": "template",
+      "widgetDefaultValue": "#000"
+    },
+    "fontSize": {
+      "expectedType": "string",
+      "editLabel": "Text Size",
+      "editType": "template",
+      "widgetDefaultValue": "1rem"
+    },
+    "fontStyle": {
+      "expectedType": "string",
+      "editLabel": "Display Text",
+      "editType": "template"
+    },
+    "textAlign": {
+      "expectedType": "string",
+      "editLabel": "Display Text",
+      "editType": "template",
+      "widgetDefaultValue": "left"
+    }
+  },
+  "events": {}
+}

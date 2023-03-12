@@ -1,11 +1,6 @@
-import { FromDefinition } from '../core/from-definition';
 import { cssVar } from '../styles/utilities';
 import { CustomVariables } from '../styles/variables';
 
-/**
- * Why do we need to make duplication.
- * @see {@link https://github.com/ThomasAribart/json-schema-to-ts/blob/master/documentation/FAQs/does-json-schema-to-ts-work-on-json-file-schemas.md}
- */
 export const textDefinition = {
   tag: 'text',
   properties: {
@@ -40,5 +35,3 @@ export const textDefinition = {
   },
   events: {},
 } as const;
-
-export type TextDefinition = FromDefinition<typeof textDefinition>;
