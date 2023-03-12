@@ -1,5 +1,7 @@
 import { PlayerEvent, PlayerSchema } from '@shukun/schema';
 
+import { WidgetDefinitions } from '../effects/loaders/loader.interface';
+
 export type AppProps = {
   context: {
     appName: string;
@@ -15,6 +17,7 @@ export type AppProps = {
   player: PlayerSchema;
   eventCallback: (behavior: PlayerEvent, payload: unknown) => void;
   reactWidgets: ReactWidgets;
+  widgetDefinitions: WidgetDefinitions;
 };
 
 export type ReactWidget = (...args: any) => JSX.Element;

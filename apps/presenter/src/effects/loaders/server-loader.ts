@@ -20,6 +20,12 @@ export class ServerLoader implements ILoader {
 
     return {
       player: response.data.value,
+      widgetDefinitions: {
+        'sk-input': InputWidget.definition,
+        'sk-text': TextWidget.definition,
+        'sk-code': CodeWidget.definition,
+        'sk-button': ButtonWidget.definition,
+      },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
         'sk-text': TextWidget.reactWidget,
