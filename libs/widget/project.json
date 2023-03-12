@@ -3,33 +3,6 @@
   "sourceRoot": "libs/widget/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nrwl/node:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/widget",
-        "tsConfig": "libs/widget/tsconfig.lib.json",
-        "packageJson": "libs/widget/package.json",
-        "main": "libs/widget/src/index.ts",
-        "assets": [
-          {
-            "input": "libs/widget/src",
-            "glob": "**/*.json",
-            "output": "src"
-          },
-          "libs/widget/README.md"
-        ]
-      },
-      "dependsOn": [
-        {
-          "target": "generate",
-          "projects": "self"
-        }
-      ],
-      "configurations": {
-        "production": {}
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
