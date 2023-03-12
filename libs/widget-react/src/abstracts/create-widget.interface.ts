@@ -1,13 +1,9 @@
 import { WidgetSchema } from '@shukun/schema';
-import { FromDefinition } from '@shukun/widget';
 
-export type CreateWidget = <
-  D extends WidgetSchema,
-  T extends FromDefinition<D>,
->(
-  definition: D,
+export type CreateWidget = <T>(
+  definition: WidgetSchema,
   reactWidget: (props: T) => JSX.Element,
 ) => {
-  definition: D;
+  definition: WidgetSchema;
   reactWidget: (props: T) => JSX.Element;
 };

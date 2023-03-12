@@ -36,10 +36,18 @@ export const inputDefinition = {
     labelPosition: {
       type: 'enum',
       label: 'Position',
+      enumOptions: [
+        { label: 'Left', value: 'left' },
+        { label: 'Top', value: 'top' },
+      ],
     },
     labelAlignment: {
       type: 'enum',
       label: 'Alignment',
+      enumOptions: [
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' },
+      ],
     },
     labelWidth: {
       type: 'string',
