@@ -26,11 +26,24 @@
                 "boolean",
                 "array",
                 "object",
-                "callback"
+                "callback",
+                "enum"
               ]
             },
             "label": { "type": "string" },
-            "defaultValue": { "type": "string" }
+            "defaultValue": { "type": "string" },
+            "enumOptions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["label", "value"],
+                "additionalProperties": false,
+                "properties": {
+                  "label": { "type": "string" },
+                  "value": { "type": "string" }
+                }
+              }
+            }
           }
         }
       }

@@ -19,9 +19,20 @@ export interface WidgetSchema {
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: {
-      type: 'string' | 'number' | 'boolean' | 'array' | 'object' | 'callback';
+      type:
+        | 'string'
+        | 'number'
+        | 'boolean'
+        | 'array'
+        | 'object'
+        | 'callback'
+        | 'enum';
       label: string;
       defaultValue?: string;
+      enumOptions?: {
+        label: string;
+        value: string;
+      }[];
     };
   };
 }
