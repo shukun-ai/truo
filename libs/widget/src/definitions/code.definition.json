@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "code",
+  "properties": {
+    "value": {
+      "type": "string",
+      "label": "Display Code"
+    }
+  }
+}

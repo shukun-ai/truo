@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
   "tag": "input",
   "properties": {
     "value": {
