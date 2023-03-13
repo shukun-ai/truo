@@ -71,10 +71,6 @@ export const createBrowserEffect = async () => {
     routerRepository,
     currentUserRepository,
     definitions,
-    presenterContext: {
-      appName: router.app,
-      orgName: router.orgName,
-    },
   };
 
   return injector;

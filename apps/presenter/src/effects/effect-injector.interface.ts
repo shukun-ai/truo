@@ -17,8 +17,4 @@ export type EffectInjector = {
   routerRepository: RouterRepository;
   currentUserRepository: CurrentUserRepository;
   definitions: ConfigDefinitions;
-  presenterContext: {
-    orgName: string;
-    appName: string;
-  };
 };
