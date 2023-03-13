@@ -5,5 +5,3 @@ export * from './styles/variables';
 export * from './definitions';
 
 export * from './types';
-
-export * from './core/from-definition';
