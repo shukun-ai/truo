@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "title": "PlayerEvent",
+  "title": "PresenterEvent",
   "type": "object",
   "oneOf": [
-    { "$ref": "#/definitions/PlayerEventSetRepository" },
-    { "$ref": "#/definitions/PlayerEventTriggerRepository" }
+    { "$ref": "#/definitions/PresenterEventSetRepository" },
+    { "$ref": "#/definitions/PresenterEventTriggerRepository" }
   ],
   "definitions": {
-    "PlayerEventSetRepository": {
-      "title": "PlayerEventSetRepository",
+    "PresenterEventSetRepository": {
+      "title": "PresenterEventSetRepository",
       "type": "object",
       "required": ["action", "target", "path"],
       "properties": {
@@ -17,8 +17,8 @@
         "path": { "type": "array", "items": { "type": "string" } }
       }
     },
-    "PlayerEventTriggerRepository": {
-      "title": "PlayerEventTriggerRepository",
+    "PresenterEventTriggerRepository": {
+      "title": "PresenterEventTriggerRepository",
       "type": "object",
       "required": ["action", "target"],
       "properties": {

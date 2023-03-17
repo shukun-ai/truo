@@ -13,13 +13,13 @@ export class ServerLoader implements ILoader {
   constructor(private readonly apiRequester: IApiRequester) {}
 
   async load(orgName: string, appName: string): Promise<ConfigDefinitions> {
-    const response = await this.apiRequester.publicRequester.getPlayer(
+    const response = await this.apiRequester.publicRequester.getPresenter(
       appName,
       orgName,
     );
 
     return {
-      player: response.data.value,
+      presenter: response.data.value,
       widgetDefinitions: {
         'sk-input': InputWidget.definition,
         'sk-text': TextWidget.definition,

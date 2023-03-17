@@ -1,5 +1,5 @@
-import { PlayerEvent } from '@shukun/schema';
+import { PresenterEvent } from '@shukun/schema';
 
 export interface IEventQueue {
-  emit(containerId: string, event: PlayerEvent, payload: unknown): void;
+  emit(containerId: string, event: PresenterEvent, payload: unknown): void;
 }

@@ -1,43 +1,43 @@
 import { readdir, readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { PlayerContainer, PlayerSchema } from '@shukun/schema';
+import { PresenterContainer, PresenterSchema } from '@shukun/schema';
 
-import { playerSchemaValidator } from '@shukun/validator';
+import { presenterSchemaValidator } from '@shukun/validator';
 
-import { PlayerGeneratorOptions } from './player-generator.interface';
+import { PresenterGeneratorOptions } from './presenter-generator.interface';
 
-export class PlayerGenerator {
-  async generate(options: PlayerGeneratorOptions) {
+export class PresenterGenerator {
+  async generate(options: PresenterGeneratorOptions) {
     const { inputPath, disabledValidation } = options;
 
-    const players = await this.readEntry(inputPath, 'players');
+    const presenters = await this.readEntry(inputPath, 'presenters');
 
-    for (const [playerName, player] of Object.entries(players)) {
+    for (const [presenterName, presenter] of Object.entries(presenters)) {
       const containers = await this.readContainers(
         inputPath,
-        'players',
-        playerName,
+        'presenters',
+        presenterName,
       );
-      player.containers = containers;
+      presenter.containers = containers;
 
       if (!disabledValidation) {
-        playerSchemaValidator.validate(player);
+        presenterSchemaValidator.validate(presenter);
       }
     }
 
-    return this.stringify({ players });
+    return this.stringify({ presenters });
   }
 
   private async readEntry(
     inputPath: string,
     folderName: string,
-  ): Promise<Record<string, PlayerSchema>> {
+  ): Promise<Record<string, PresenterSchema>> {
     const path = join(inputPath, folderName);
     const files = await readdir(path);
     const jsonFiles = files.filter((file) => file.endsWith('.json'));
 
-    const players: Record<string, PlayerSchema> = {};
+    const presenters: Record<string, PresenterSchema> = {};
 
     for (const jsonFile of jsonFiles) {
       const string = await readFile(join(path, jsonFile), {
@@ -48,22 +48,22 @@ export class PlayerGenerator {
 
       delete json.$schema;
 
-      players[this.removeJsonExtension(jsonFile)] = json;
+      presenters[this.removeJsonExtension(jsonFile)] = json;
     }
 
-    return players;
+    return presenters;
   }
 
   private async readContainers(
     inputPath: string,
     folderName: string,
     entryName: string,
-  ): Promise<Record<string, PlayerContainer>> {
+  ): Promise<Record<string, PresenterContainer>> {
     const path = join(inputPath, folderName, entryName);
     const files = await readdir(path);
     const jsonFiles = files.filter((file) => file.endsWith('.json'));
 
-    const containers: Record<string, PlayerContainer> = {};
+    const containers: Record<string, PresenterContainer> = {};
 
     for (const jsonFile of jsonFiles) {
       const string = await readFile(join(path, jsonFile), {
@@ -81,7 +81,7 @@ export class PlayerGenerator {
   }
 
   private async stringify(lowCode: {
-    players: Record<string, PlayerSchema>;
+    presenters: Record<string, PresenterSchema>;
   }): Promise<string> {
     const text = JSON.stringify(lowCode, null, 4);
 

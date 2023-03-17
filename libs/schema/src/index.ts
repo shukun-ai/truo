@@ -10,7 +10,7 @@ export * from './types/system-models';
 export * from './types/system-resources';
 export * from './types/system-roles';
 export * from './types/utils';
-export * from './types/player';
+export * from './types/presenter';
 export * from './types/widget';
 
 export * from './json-schema-exports';

@@ -10,59 +10,59 @@
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export type PlayerRepository =
-  | PlayerRepositorySimple
-  | PlayerRepositorySourceQuery
-  | PlayerRepositoryTransformer;
+export type PresenterRepository =
+  | PresenterRepositorySimple
+  | PresenterRepositorySourceQuery
+  | PresenterRepositoryTransformer;
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export type PlayerEvent =
-  | PlayerEventSetRepository
-  | PlayerEventTriggerRepository;
-export type PlayerTreeNode = string;
+export type PresenterEvent =
+  | PresenterEventSetRepository
+  | PresenterEventTriggerRepository;
+export type PresenterTreeNode = string;
 
 /**
- * Define the player contained Stores and UI Elements
+ * Define the presenter contained Stores and UI Elements
  */
-export interface PlayerSchema {
+export interface PresenterSchema {
   $schema?: string;
   title: string;
   entry: string;
   containers: {
-    [k: string]: PlayerContainer;
+    [k: string]: PresenterContainer;
   };
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export interface PlayerContainer {
+export interface PresenterContainer {
   type: 'page';
   repositories: {
-    [k: string]: PlayerRepository;
+    [k: string]: PresenterRepository;
   };
   events: {
-    [k: string]: PlayerEvent;
+    [k: string]: PresenterEvent;
   };
   widgets: {
-    [k: string]: PlayerWidget;
+    [k: string]: PresenterWidget;
   };
-  root: PlayerTreeNode[];
+  root: PresenterTreeNode[];
   tree: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
      */
-    [k: string]: PlayerTreeNode[];
+    [k: string]: PresenterTreeNode[];
   };
 }
-export interface PlayerRepositorySimple {
+export interface PresenterRepositorySimple {
   type: 'Simple';
   [k: string]: unknown;
 }
-export interface PlayerRepositorySourceQuery {
+export interface PresenterRepositorySourceQuery {
   type: 'SourceQuery';
   atomName: string;
   query: {
@@ -70,18 +70,18 @@ export interface PlayerRepositorySourceQuery {
   };
   [k: string]: unknown;
 }
-export interface PlayerRepositoryTransformer {
+export interface PresenterRepositoryTransformer {
   type: 'Transformer';
   func: string;
   [k: string]: unknown;
 }
-export interface PlayerEventSetRepository {
+export interface PresenterEventSetRepository {
   action: 'setRepository';
   target: string;
   path: string[];
   [k: string]: unknown;
 }
-export interface PlayerEventTriggerRepository {
+export interface PresenterEventTriggerRepository {
   action: 'triggerRepository';
   target: string;
   [k: string]: unknown;
@@ -90,7 +90,7 @@ export interface PlayerEventTriggerRepository {
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
  */
-export interface PlayerWidget {
+export interface PresenterWidget {
   tag: string;
   parentSlot?: string;
   properties: {

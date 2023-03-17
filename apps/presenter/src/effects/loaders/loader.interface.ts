@@ -1,11 +1,11 @@
-import { PlayerSchema, WidgetSchema } from '@shukun/schema';
+import { PresenterSchema, WidgetSchema } from '@shukun/schema';
 
 export interface ILoader {
   load(orgName: string, appName: string): Promise<ConfigDefinitions>;
 }
 
 export type ConfigDefinitions = {
-  player: PlayerSchema;
+  presenter: PresenterSchema;
   widgetDefinitions: WidgetDefinitions;
   reactWidgets: ReactWidgets;
 };

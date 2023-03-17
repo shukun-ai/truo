@@ -1,16 +1,16 @@
 import { join } from 'path';
 
-import { PlayerGenerator } from './player-generator';
+import { PresenterGenerator } from './presenter-generator';
 
 describe('Generate', () => {
   it('generate', async () => {
-    const playerGenerator = new PlayerGenerator();
-    const output = await playerGenerator.generate({
+    const presenterGenerator = new PresenterGenerator();
+    const output = await presenterGenerator.generate({
       inputPath: join(__dirname, '../__mock__/input'),
     });
 
     expect(JSON.parse(output)).toEqual({
-      players: {
+      presenters: {
         pda: {
           title: 'PDA',
           entry: 'home',

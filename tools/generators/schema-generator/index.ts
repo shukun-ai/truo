@@ -34,7 +34,7 @@ async function generate(treeRoot: string, projectRoot: string) {
     'flow-compiled-codes',
     'exception',
     'data-source',
-    'player',
+    'presenter',
     'widget',
   ];
 

@@ -1,12 +1,12 @@
-import { PlayerContainer, PlayerWidget } from '@shukun/schema';
+import { PresenterContainer, PresenterWidget } from '@shukun/schema';
 import { ReactElement, useMemo } from 'react';
 
 import { AppProps } from '../app.interface';
 
 export type WidgetWrapperProps = {
   widgetId: string;
-  widget: PlayerWidget;
-  container: PlayerContainer;
+  widget: PresenterWidget;
+  container: PresenterContainer;
   app: AppProps;
   children: ReactElement[];
 };

@@ -1,4 +1,4 @@
-import { PlayerRepositorySimple } from '@shukun/schema';
+import { PresenterRepositorySimple } from '@shukun/schema';
 import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -7,9 +7,9 @@ import { IRepository } from '../repository/repository.interface';
 export class SimpleRepository implements IRepository {
   private fields: BehaviorSubject<Record<string, unknown>>;
 
-  private schema: PlayerRepositorySimple;
+  private schema: PresenterRepositorySimple;
 
-  constructor(repository: PlayerRepositorySimple) {
+  constructor(repository: PresenterRepositorySimple) {
     this.schema = repository;
     this.fields = new BehaviorSubject({});
   }

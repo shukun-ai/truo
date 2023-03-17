@@ -1,4 +1,4 @@
-import { PlayerSchema } from '@shukun/schema';
+import { PresenterSchema } from '@shukun/schema';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect-injector.interface';
@@ -18,7 +18,7 @@ export const createObservable = (
 
       const containers = calculateTemplate(
         injector,
-        injector.definitions.player,
+        injector.definitions.presenter,
         containerId,
         containerStates,
       );
@@ -33,7 +33,7 @@ export const createObservable = (
           search: router.search,
         },
         containers,
-        player: injector.definitions.player,
+        presenter: injector.definitions.presenter,
         eventCallback: (behavior, payload) => {
           injector.eventQueue.emit(containerId, behavior, payload);
         },
@@ -65,11 +65,11 @@ const cleanData = (states: any, containerId: string) => {
 
 const calculateTemplate = (
   injector: EffectInjector,
-  player: PlayerSchema,
+  presenter: PresenterSchema,
   containerId: string,
   importStates: Record<string, unknown>,
 ): Record<string, unknown> => {
-  const container = player.containers[containerId];
+  const container = presenter.containers[containerId];
 
   if (!container) {
     return {};

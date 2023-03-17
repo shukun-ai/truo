@@ -1,14 +1,14 @@
-import { PlayerContainer } from '@shukun/schema';
+import { PresenterContainer } from '@shukun/schema';
 import { useMemo } from 'react';
 
 import { AppProps } from './app.interface';
 import { WidgetWrapper } from './wrapper/widget-wrapper';
 
 export const App = (props: AppProps) => {
-  const currentContainer = useMemo<PlayerContainer | null>(() => {
-    const container = props.player.containers[props.router.page];
+  const currentContainer = useMemo<PresenterContainer | null>(() => {
+    const container = props.presenter.containers[props.router.page];
     return container ?? null;
-  }, [props.player.containers, props.router.page]);
+  }, [props.presenter.containers, props.router.page]);
 
   if (!currentContainer) {
     return <div>Did not found page.</div>;
@@ -21,7 +21,7 @@ const Container = ({
   container,
   app,
 }: {
-  container: PlayerContainer;
+  container: PresenterContainer;
   app: AppProps;
 }) => {
   return <div>{assembleWidgets(container.root, container, app)}</div>;
@@ -29,7 +29,7 @@ const Container = ({
 
 const assembleWidgets = (
   widgetIds: string[],
-  container: PlayerContainer,
+  container: PresenterContainer,
   app: AppProps,
 ): JSX.Element[] => {
   return widgetIds.map((widgetId) => {

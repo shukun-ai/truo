@@ -6,7 +6,7 @@ import {
   DataSourceSchema,
   IDString,
   MetadataSchema,
-  PlayerSchema,
+  PresenterSchema,
 } from '@shukun/schema';
 import { Model } from 'mongoose';
 
@@ -212,33 +212,35 @@ export class OrgService {
     );
   }
 
-  async updatePlayers(
+  async updatePresenters(
     orgName: IDString,
-    players: Record<string, PlayerSchema>,
+    presenters: Record<string, PresenterSchema>,
   ) {
-    const buffer = Buffer.from(JSON.stringify(players));
+    const buffer = Buffer.from(JSON.stringify(presenters));
 
     await this.orgModel.updateOne(
       { name: orgName },
       {
-        players: buffer,
+        presenters: buffer,
       },
     );
   }
 
-  async findPlayers(orgName: string): Promise<Record<string, PlayerSchema>> {
+  async findPresenters(
+    orgName: string,
+  ): Promise<Record<string, PresenterSchema>> {
     const org = await this.orgModel
       .findOne({ name: orgName })
-      .select('players')
+      .select('presenters')
       .exec();
 
-    if (!org?.players) {
+    if (!org?.presenters) {
       return {};
     }
 
-    const players: Record<string, PlayerSchema> = JSON.parse(
-      org.players.toString(),
+    const presenters: Record<string, PresenterSchema> = JSON.parse(
+      org.presenters.toString(),
     );
-    return players;
+    return presenters;
   }
 }

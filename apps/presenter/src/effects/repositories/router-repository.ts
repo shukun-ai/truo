@@ -85,8 +85,8 @@ export class RouterRepository implements IRepository {
   }
 
   private parsePathname(pathname: string) {
-    if (!pathname.startsWith('/player/')) {
-      throw new TypeException('The pathname should be starts with /player/');
+    if (!pathname.startsWith('/presenter/')) {
+      throw new TypeException('The pathname should be starts with /presenter/');
     }
     const [, , orgName, appName, pageName] = pathname.split('/');
 
@@ -126,7 +126,7 @@ export class RouterRepository implements IRepository {
 
   private buildPathname(page: string): string {
     const value = this.getValue();
-    return `/player/${value.orgName}/${value.app}/${page}`;
+    return `/presenter/${value.orgName}/${value.app}/${page}`;
   }
 
   private buildSearch(search: Record<string, unknown>): string {
