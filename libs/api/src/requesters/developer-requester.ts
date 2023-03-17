@@ -38,20 +38,20 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/developer/{orgName}/players-code
+   * POST /apis/v1/developer/{orgName}/presenters-code
    *
    * @example
    * const formData = new FormData();
    * formData.append('file', acceptedFiles[0]);
-   * updatePlayersCode(formData);
+   * updatePresentersCode(formData);
    */
-  public async updatePlayersCode(
+  public async updatePresentersCode(
     formData: FormData,
     headers?: Record<string, string>,
   ) {
     return await this.requestAdaptor.fetch<null>(
       'POST',
-      this.buildUri('players-code'),
+      this.buildUri('presenters-code'),
       {
         body: formData,
         headers: {

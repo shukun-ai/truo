@@ -4,7 +4,7 @@ import {
 } from './auth-storage.interface';
 
 export class AuthStorage implements IAuthStorage {
-  private STORAGE_KEY = 'SHUKUN_PLAYER_AUTH';
+  private STORAGE_KEY = 'SHUKUN_PRESENTER_AUTH';
 
   set(payload: requesterSessionPayload): void {
     const string = JSON.stringify(payload);

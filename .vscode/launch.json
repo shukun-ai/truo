@@ -45,13 +45,13 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Player Unit Test",
+      "name": "Presenter Unit Test",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx.js",
       "args": [
         "run",
-        "player:test",
+        "presenter:test",
         "--watchAll",
         "--codeCoverage=false",
         "--runInBand",
@@ -79,7 +79,7 @@
       "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
     },
     {
-      "name": "Launch player on Chrome",
+      "name": "Launch presenter on Chrome",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:8090",

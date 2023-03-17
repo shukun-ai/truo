@@ -6,10 +6,10 @@ import { BsFillFileCodeFill } from 'react-icons/bs';
 
 import { developerRequester } from '../../apis/requester';
 
-export interface UploadPlayersCodeProps {}
+export interface UploadPresentersCodeProps {}
 
-export const UploadPlayersCode: FunctionComponent<
-  UploadPlayersCodeProps
+export const UploadPresentersCode: FunctionComponent<
+  UploadPresentersCodeProps
 > = () => {
   const classes = useStyles();
 
@@ -22,7 +22,7 @@ export const UploadPlayersCode: FunctionComponent<
       const formData = new FormData();
       formData.append('file', acceptedFiles[0]);
       try {
-        await developerRequester.updatePlayersCode(formData);
+        await developerRequester.updatePresentersCode(formData);
       } finally {
         setLoading(false);
       }
@@ -32,7 +32,7 @@ export const UploadPlayersCode: FunctionComponent<
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <Card title="Upload your players JSON Schema" bordered={false}>
+    <Card title="Upload your presenters JSON Schema" bordered={false}>
       <Spin spinning={loading}>
         <div className={classes.box} {...getRootProps()}>
           <input {...getInputProps()} />

@@ -1,6 +1,6 @@
 import {
   AuthenticationToken,
-  PlayerSchema,
+  PresenterSchema,
   RoleResourceType,
   RoleSchema,
   SystemPublicOrgModel,
@@ -109,12 +109,12 @@ export class PublicRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/public/{orgName}/players/{playerName}
+   * POST /apis/v1/public/{orgName}/presenters/{presenterName}
    */
-  public async getPlayer(playerName: string, orgName?: string) {
-    return await this.requestAdaptor.fetch<PlayerSchema>(
+  public async getPresenter(presenterName: string, orgName?: string) {
+    return await this.requestAdaptor.fetch<PresenterSchema>(
       'POST',
-      this.buildUri(`players/${playerName}`, orgName),
+      this.buildUri(`presenters/${presenterName}`, orgName),
     );
   }
 

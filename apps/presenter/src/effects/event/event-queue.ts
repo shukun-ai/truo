@@ -1,5 +1,5 @@
 import { TypeException } from '@shukun/exception';
-import { PlayerEvent, PlayerEventSetRepository } from '@shukun/schema';
+import { PresenterEvent, PresenterEventSetRepository } from '@shukun/schema';
 import { BehaviorSubject } from 'rxjs';
 
 import { IRepositoryManager } from '../repository/repository-manager.interface';
@@ -9,7 +9,7 @@ import { IEventQueue } from './event-queue.interface';
 export class EventQueue implements IEventQueue {
   private queue = new BehaviorSubject<{
     containerId: string;
-    event: PlayerEvent;
+    event: PresenterEvent;
     payload: unknown;
   } | null>(null);
 
@@ -17,7 +17,7 @@ export class EventQueue implements IEventQueue {
     this.subscribeQueue();
   }
 
-  emit(containerId: string, event: PlayerEvent, payload: unknown) {
+  emit(containerId: string, event: PresenterEvent, payload: unknown) {
     this.queue.next({ containerId, event, payload });
   }
 
@@ -28,7 +28,7 @@ export class EventQueue implements IEventQueue {
   private handleEvent(
     params: {
       containerId: string;
-      event: PlayerEvent;
+      event: PresenterEvent;
       payload: unknown;
     } | null,
   ): void {
@@ -55,7 +55,7 @@ export class EventQueue implements IEventQueue {
 
   private handleSetRepository(
     containerId: string,
-    event: PlayerEventSetRepository,
+    event: PresenterEventSetRepository,
     payload: unknown,
   ) {
     const { target, path } = event;

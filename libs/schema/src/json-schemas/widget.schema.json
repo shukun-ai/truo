@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "WidgetSchema",
-  "description": "Define the player contained Stores and UI Elements",
+  "description": "Define the presenter contained Stores and UI Elements",
   "type": "object",
   "required": ["tag", "properties"],
   "additionalProperties": false,

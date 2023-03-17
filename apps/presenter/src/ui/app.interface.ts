@@ -1,4 +1,4 @@
-import { PlayerEvent, PlayerSchema } from '@shukun/schema';
+import { PresenterEvent, PresenterSchema } from '@shukun/schema';
 
 import { WidgetDefinitions } from '../effects/loaders/loader.interface';
 
@@ -14,8 +14,8 @@ export type AppProps = {
   containers: {
     [key: `${string}:${string}:${string}`]: unknown;
   };
-  player: PlayerSchema;
-  eventCallback: (behavior: PlayerEvent, payload: unknown) => void;
+  presenter: PresenterSchema;
+  eventCallback: (behavior: PresenterEvent, payload: unknown) => void;
   reactWidgets: ReactWidgets;
   widgetDefinitions: WidgetDefinitions;
 };

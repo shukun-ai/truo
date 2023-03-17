@@ -7,7 +7,7 @@
  */
 
 /**
- * Define the player contained Stores and UI Elements
+ * Define the presenter contained Stores and UI Elements
  */
 export interface WidgetSchema {
   $schema?: string;

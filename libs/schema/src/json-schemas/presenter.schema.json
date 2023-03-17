@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "title": "PlayerSchema",
-  "description": "Define the player contained Stores and UI Elements",
+  "title": "PresenterSchema",
+  "description": "Define the presenter contained Stores and UI Elements",
   "type": "object",
   "required": ["title", "entry", "containers"],
   "additionalProperties": false,
@@ -13,7 +13,7 @@
       "type": "object",
       "patternProperties": {
         "^(\\w)+$": {
-          "title": "PlayerContainer",
+          "title": "PresenterContainer",
           "type": "object",
           "additionalProperties": false,
           "required": [
@@ -32,7 +32,7 @@
               "type": "object",
               "patternProperties": {
                 "^(\\w)+$": {
-                  "$ref": "player/repository.schema.json"
+                  "$ref": "presenter/repository.schema.json"
                 }
               }
             },
@@ -40,7 +40,7 @@
               "type": "object",
               "patternProperties": {
                 "^(\\w)+$": {
-                  "$ref": "player/event.schema.json"
+                  "$ref": "presenter/event.schema.json"
                 }
               }
             },
@@ -48,20 +48,20 @@
               "type": "object",
               "patternProperties": {
                 "^(\\w)+$": {
-                  "$ref": "player/widget.schema.json"
+                  "$ref": "presenter/widget.schema.json"
                 }
               }
             },
             "root": {
               "type": "array",
-              "items": { "$ref": "#/definitions/PlayerTreeNode" }
+              "items": { "$ref": "#/definitions/PresenterTreeNode" }
             },
             "tree": {
               "type": "object",
               "patternProperties": {
                 "^(\\w)+$": {
                   "type": "array",
-                  "items": { "$ref": "#/definitions/PlayerTreeNode" }
+                  "items": { "$ref": "#/definitions/PresenterTreeNode" }
                 }
               }
             }
@@ -71,8 +71,8 @@
     }
   },
   "definitions": {
-    "PlayerTreeNode": {
-      "title": "PlayerTreeNode",
+    "PresenterTreeNode": {
+      "title": "PresenterTreeNode",
       "type": "string"
     }
   }

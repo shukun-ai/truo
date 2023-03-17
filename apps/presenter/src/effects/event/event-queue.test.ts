@@ -1,4 +1,4 @@
-import { PlayerEvent } from '@shukun/schema';
+import { PresenterEvent } from '@shukun/schema';
 
 import { EventQueue } from './event-queue';
 
@@ -12,7 +12,7 @@ describe('EventQueue', () => {
       };
 
       const eventQueue = new EventQueue(repositoryManager);
-      const event: PlayerEvent = {
+      const event: PresenterEvent = {
         action: 'setRepository',
         target: 'MockRepository',
         path: ['click'],

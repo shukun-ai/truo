@@ -8,18 +8,18 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { PlayerSchema, RoleResourceType } from '@shukun/schema';
-import { playerSchemaValidator } from '@shukun/validator';
+import { PresenterSchema, RoleResourceType } from '@shukun/schema';
+import { presenterSchemaValidator } from '@shukun/validator';
 
-import { PlayerService } from '../../core/player.service';
+import { PresenterService } from '../../core/presenter.service';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
-@Controller(`${RoleResourceType.Developer}/:orgName/players-code`)
+@Controller(`${RoleResourceType.Developer}/:orgName/presenters-code`)
 @UseInterceptors(QueryResponseInterceptor)
-export class PlayerCodeController {
-  constructor(private readonly playerService: PlayerService) {}
+export class PresenterCodeController {
+  constructor(private readonly presenterService: PresenterService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
@@ -41,25 +41,27 @@ export class PlayerCodeController {
   ): Promise<QueryResponse<null>> {
     const fileString = file.buffer.toString();
 
-    let playerLowCode: { players: Record<string, PlayerSchema> } | null = null;
+    let presenterLowCode: {
+      presenters: Record<string, PresenterSchema>;
+    } | null = null;
 
     try {
-      playerLowCode = JSON.parse(fileString);
+      presenterLowCode = JSON.parse(fileString);
     } catch (error) {
       throw new BadRequestException(
         'The file is not a JSON, please upload a JSON file.',
       );
     }
 
-    if (!playerLowCode) {
+    if (!presenterLowCode) {
       throw new BadRequestException('The file is not a standard format.');
     }
 
-    for (const player of Object.values(playerLowCode.players)) {
-      playerSchemaValidator.validate(player);
+    for (const presenter of Object.values(presenterLowCode.presenters)) {
+      presenterSchemaValidator.validate(presenter);
     }
 
-    await this.playerService.update(orgName, playerLowCode.players);
+    await this.presenterService.update(orgName, presenterLowCode.presenters);
 
     return {
       value: null,

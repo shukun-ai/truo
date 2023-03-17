@@ -4,7 +4,7 @@ import { FluidLayout } from '../layout/FluidLayout';
 
 import { UploadCodebase } from './UploadCodebase';
 import { UploadDataSource } from './UploadDataSource';
-import { UploadPlayersCode } from './UploadPlayersCode';
+import { UploadPresentersCode } from './UploadPresentersCode';
 
 export interface UploadProps {}
 
@@ -15,7 +15,7 @@ export const Upload: FunctionComponent<UploadProps> = () => {
         <UploadCodebase />
       </div>
       <div style={{ marginBottom: 12 }}>
-        <UploadPlayersCode />
+        <UploadPresentersCode />
       </div>
       <div>
         <UploadDataSource />

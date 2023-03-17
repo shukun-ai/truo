@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../../schema/src/json-schemas/player.schema.json",
+  "$schema": "../../../../schema/src/json-schemas/presenter.schema.json",
   "title": "PDA",
   "entry": "home",
   "containers": {

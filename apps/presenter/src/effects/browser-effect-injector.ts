@@ -1,4 +1,4 @@
-import { PlayerContainer, PlayerSchema } from '@shukun/schema';
+import { PresenterContainer, PresenterSchema } from '@shukun/schema';
 import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
@@ -59,7 +59,7 @@ export const createBrowserEffect = async () => {
     },
     routerRepository,
   );
-  registerContainers(repositoryManager, definitions.player);
+  registerContainers(repositoryManager, definitions.presenter);
 
   const injector: EffectInjector = {
     authStorage,
@@ -78,9 +78,9 @@ export const createBrowserEffect = async () => {
 
 const registerContainers = (
   repositoryManager: IRepositoryManager,
-  player: PlayerSchema,
+  presenter: PresenterSchema,
 ) => {
-  for (const [containerId, container] of Object.entries(player.containers)) {
+  for (const [containerId, container] of Object.entries(presenter.containers)) {
     registerContainer(repositoryManager, containerId, container);
   }
 };
@@ -88,7 +88,7 @@ const registerContainers = (
 const registerContainer = (
   repositoryManager: IRepositoryManager,
   containerId: string,
-  container: PlayerContainer,
+  container: PresenterContainer,
 ): void => {
   for (const [repositoryId, definition] of Object.entries(
     container.repositories,
