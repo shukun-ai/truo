@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PresenterContainer",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "repositories", "events", "widgets", "root", "tree"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "type": {
+      "enum": ["page"]
+    },
+    "repositories": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "$ref": "repository.schema.json"
+        }
+      }
+    },
+    "events": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "$ref": "event.schema.json"
+        }
+      }
+    },
+    "widgets": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "$ref": "widget.schema.json"
+        }
+      }
+    },
+    "root": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/PresenterTreeNode" }
+    },
+    "tree": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/PresenterTreeNode" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PresenterTreeNode": {
+      "title": "PresenterTreeNode",
+      "type": "string"
+    }
+  }
+}

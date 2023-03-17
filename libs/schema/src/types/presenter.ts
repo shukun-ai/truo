@@ -39,6 +39,7 @@ export interface PresenterSchema {
  * via the `patternProperty` "^(\w)+$".
  */
 export interface PresenterContainer {
+  $schema?: string;
   type: 'page';
   repositories: {
     [k: string]: PresenterRepository;
