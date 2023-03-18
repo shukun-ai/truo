@@ -14,7 +14,11 @@
       "properties": {
         "action": { "const": "setRepository" },
         "target": { "type": "string" },
-        "path": { "type": "array", "items": { "type": "string" } }
+        "path": { "type": "array", "items": { "type": "string" } },
+        "convertor": {
+          "type": "string",
+          "description": "Can add raw JS code, not template code."
+        }
       }
     },
     "PresenterEventTriggerRepository": {
@@ -23,7 +27,11 @@
       "required": ["action", "target"],
       "properties": {
         "action": { "const": "triggerRepository" },
-        "target": { "type": "string" }
+        "target": { "type": "string" },
+        "convertor": {
+          "type": "string",
+          "description": "Can add raw JS code, not template code."
+        }
       }
     }
   }

@@ -3,7 +3,7 @@
   "title": "PresenterContainer",
   "type": "object",
   "additionalProperties": false,
-  "required": ["type", "repositories", "events", "widgets", "root", "tree"],
+  "required": ["type", "repositories", "widgets", "root", "tree"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -16,14 +16,6 @@
       "patternProperties": {
         "^(\\w)+$": {
           "$ref": "repository.schema.json"
-        }
-      }
-    },
-    "events": {
-      "type": "object",
-      "patternProperties": {
-        "^(\\w)+$": {
-          "$ref": "event.schema.json"
         }
       }
     },

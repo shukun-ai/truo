@@ -14,10 +14,6 @@ export type PresenterRepository =
   | PresenterRepositorySimple
   | PresenterRepositorySourceQuery
   | PresenterRepositoryTransformer;
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
 export type PresenterEvent =
   | PresenterEventSetRepository
   | PresenterEventTriggerRepository;
@@ -43,9 +39,6 @@ export interface PresenterContainer {
   type: 'page';
   repositories: {
     [k: string]: PresenterRepository;
-  };
-  events: {
-    [k: string]: PresenterEvent;
   };
   widgets: {
     [k: string]: PresenterWidget;
@@ -76,17 +69,6 @@ export interface PresenterRepositoryTransformer {
   func: string;
   [k: string]: unknown;
 }
-export interface PresenterEventSetRepository {
-  action: 'setRepository';
-  target: string;
-  path: string[];
-  [k: string]: unknown;
-}
-export interface PresenterEventTriggerRepository {
-  action: 'triggerRepository';
-  target: string;
-  [k: string]: unknown;
-}
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(\w)+$".
@@ -106,6 +88,25 @@ export interface PresenterWidget {
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(\w)+$".
      */
-    [k: string]: string[];
+    [k: string]: PresenterEvent[];
   };
+}
+export interface PresenterEventSetRepository {
+  action: 'setRepository';
+  target: string;
+  path: string[];
+  /**
+   * Can add raw JS code, not template code.
+   */
+  convertor?: string;
+  [k: string]: unknown;
+}
+export interface PresenterEventTriggerRepository {
+  action: 'triggerRepository';
+  target: string;
+  /**
+   * Can add raw JS code, not template code.
+   */
+  convertor?: string;
+  [k: string]: unknown;
 }
