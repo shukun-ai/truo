@@ -2,6 +2,8 @@ import { ValuesType } from 'utility-types';
 import { WidgetSchema } from './widget';
 
 export class GenerateTypes {
+  RESERVED_KEYWORDS = ['item', 'index', 'key', 'children'];
+
   public convert(definition: WidgetSchema): string {
     return `
       import { ReactNode } from 'React';
@@ -31,6 +33,11 @@ export class GenerateTypes {
     propertyName: string,
     property: ValuesType<WidgetSchema['properties']>,
   ) {
+    if (this.RESERVED_KEYWORDS.includes(propertyName)) {
+      throw new Error(
+        `You have used reserved keywords: ${this.RESERVED_KEYWORDS.join(', ')}`,
+      );
+    }
     return `${this.getName(propertyName, property)} ${this.getType(property)};`;
   }
 

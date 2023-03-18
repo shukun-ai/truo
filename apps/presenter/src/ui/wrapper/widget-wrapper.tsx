@@ -1,5 +1,5 @@
 import { PresenterWidget } from '@shukun/schema';
-import { ReactElement, useMemo } from 'react';
+import { Children, cloneElement, ReactElement, useMemo } from 'react';
 
 import {
   ITemplateService,
@@ -14,6 +14,8 @@ export type WidgetWrapperProps = {
   widget: PresenterWidget;
   app: AppProps;
   children: ReactElement[];
+  item?: unknown;
+  index?: number;
 };
 
 export const WidgetWrapper = ({
@@ -22,6 +24,8 @@ export const WidgetWrapper = ({
   widget,
   app,
   children,
+  item,
+  index,
 }: WidgetWrapperProps) => {
   const ReactWidget = app.reactWidgets[widget.tag];
   const widgetDefinition = app.widgetDefinitions[widget.tag];
@@ -39,10 +43,11 @@ export const WidgetWrapper = ({
         const templateLiteral =
           app.templateLiterals?.[`${containerId}:${widgetId}:${propertyId}`];
         if (templateLiteral) {
+          const states = { ...app.states, item, index: index ?? 0 };
           properties[propertyId] = evaluateTemplate(
             app.templateService,
             templateLiteral,
-            app.states,
+            states,
           );
         }
       } else {
@@ -63,7 +68,7 @@ export const WidgetWrapper = ({
 
   return (
     <ReactWidget data-id={`${app.router.page}:${widgetId}`} {...properties}>
-      {children}
+      {Children.map(children, (child) => cloneElement(child, { item, index }))}
     </ReactWidget>
   );
 };

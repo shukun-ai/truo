@@ -28,6 +28,7 @@ export interface WidgetSchema {
         | 'callback'
         | 'enum';
       label: string;
+      description?: string;
       defaultValue?: string;
       enumOptions?: {
         label: string;
