@@ -4,6 +4,7 @@ import {
   InputWidget,
   TextWidget,
   GroupWidget,
+  ListWidget,
 } from '@shukun/widget-react';
 
 import { IApiRequester } from '../apis/requester.interface';
@@ -27,6 +28,7 @@ export class ServerLoader implements ILoader {
         'sk-code': CodeWidget.definition,
         'sk-button': ButtonWidget.definition,
         'sk-group': GroupWidget.definition,
+        'sk-list': ListWidget.definition,
       },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
@@ -34,6 +36,7 @@ export class ServerLoader implements ILoader {
         'sk-code': CodeWidget.reactWidget,
         'sk-button': ButtonWidget.reactWidget,
         'sk-group': GroupWidget.reactWidget,
+        'sk-list': ListWidget.reactWidget,
       },
     };
   }
