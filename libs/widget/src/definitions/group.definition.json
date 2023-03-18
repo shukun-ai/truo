@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "group",
+  "properties": {
+    "direction": {
+      "type": "string",
+      "label": "Direction",
+      "defaultValue": "vertical",
+      "enumOptions": [
+        {
+          "label": "Horizontal",
+          "value": "horizontal"
+        },
+        {
+          "label": "Vertical",
+          "value": "vertical"
+        }
+      ]
+    },
+    "padding": {
+      "type": "string",
+      "label": "Padding",
+      "description": "Top Right Bottom Left"
+    },
+    "margin": {
+      "type": "string",
+      "label": "Padding",
+      "description": "Top Right Bottom Left"
+    }
+  }
+}
