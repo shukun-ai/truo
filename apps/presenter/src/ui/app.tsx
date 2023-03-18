@@ -14,20 +14,31 @@ export const App = (props: AppProps) => {
     return <div>Did not found page.</div>;
   }
 
-  return <Container container={currentContainer} app={props}></Container>;
+  return (
+    <Container
+      containerId={props.router.page}
+      container={currentContainer}
+      app={props}
+    ></Container>
+  );
 };
 
 const Container = ({
+  containerId,
   container,
   app,
 }: {
+  containerId: string;
   container: PresenterContainer;
   app: AppProps;
 }) => {
-  return <div>{assembleWidgets(container.root, container, app)}</div>;
+  return (
+    <div>{assembleWidgets(containerId, container.root, container, app)}</div>
+  );
 };
 
 const assembleWidgets = (
+  containerId: string,
   widgetIds: string[],
   container: PresenterContainer,
   app: AppProps,
@@ -38,11 +49,17 @@ const assembleWidgets = (
     let nextElements: JSX.Element[] = [];
 
     if (nextChildrenNodes) {
-      nextElements = assembleWidgets(nextChildrenNodes, container, app);
+      nextElements = assembleWidgets(
+        containerId,
+        nextChildrenNodes,
+        container,
+        app,
+      );
     }
 
     return (
       <WidgetWrapper
+        containerId={containerId}
         widgetId={widgetId}
         widget={widget}
         app={app}
