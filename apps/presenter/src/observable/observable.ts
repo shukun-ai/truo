@@ -1,8 +1,8 @@
-import { PresenterSchema } from '@shukun/schema';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect-injector.interface';
 import { RouterField } from '../effects/repositories/router-repository';
+import { TemplateLiteral } from '../effects/template/template-service.interface';
 import { AppProps } from '../ui/app.interface';
 
 export const createObservable = (
@@ -11,17 +11,9 @@ export const createObservable = (
   return injector.repositoryManager.queryAll().pipe(
     map((states: any) => {
       const containerId = states['_app:router'].page;
-
       const containerStates = cleanData(states, containerId);
-      // return null;
       const router = containerStates.router as RouterField;
-
-      const containers = calculateTemplate(
-        injector,
-        injector.definitions.presenter,
-        containerId,
-        containerStates,
-      );
+      const templateLiterals = getTemplateLiterals(injector);
 
       const appProps: AppProps = {
         context: {
@@ -32,13 +24,15 @@ export const createObservable = (
           page: router.page,
           search: router.search,
         },
-        containers,
         presenter: injector.definitions.presenter,
         eventCallback: (behavior, payload) => {
           injector.eventQueue.emit(containerId, behavior, payload);
         },
         reactWidgets: injector.definitions.reactWidgets,
         widgetDefinitions: injector.definitions.widgetDefinitions,
+        states: containerStates,
+        templateLiterals,
+        templateService: injector.templateService,
       };
 
       return appProps;
@@ -63,45 +57,21 @@ const cleanData = (states: any, containerId: string) => {
   return newStates;
 };
 
-const calculateTemplate = (
+const getTemplateLiterals = (
   injector: EffectInjector,
-  presenter: PresenterSchema,
-  containerId: string,
-  importStates: Record<string, unknown>,
-): Record<string, unknown> => {
-  const container = presenter.containers[containerId];
-
-  if (!container) {
-    return {};
-  }
-
-  const containerStates: Record<string, unknown> = {};
-
-  for (const [widgetId, widget] of Object.entries(container.widgets)) {
-    for (const [propertyId, template] of Object.entries(widget.properties)) {
-      containerStates[`${containerId}:${widgetId}:${propertyId}`] =
-        parseTemplate(injector, importStates, template);
+): { [key: `${string}:${string}:${string}`]: TemplateLiteral } => {
+  const templateLiterals: {
+    [key: `${string}:${string}:${string}`]: TemplateLiteral;
+  } = {};
+  for (const [containerId, container] of Object.entries(
+    injector.definitions.presenter.containers,
+  )) {
+    for (const [widgetId, widget] of Object.entries(container.widgets)) {
+      for (const [propertyId, template] of Object.entries(widget.properties)) {
+        templateLiterals[`${containerId}:${widgetId}:${propertyId}`] =
+          injector.templateService.parse(template);
+      }
     }
   }
-
-  return containerStates;
-};
-
-const parseTemplate = (
-  injector: EffectInjector,
-  importStates: Record<string, unknown>,
-  template: string,
-) => {
-  const literal = injector.templateService.parse(template);
-
-  if (literal.codes.length === 0) {
-    const staticValue = injector.templateService.evaluate(literal, []);
-    return staticValue;
-  } else {
-    const imports = new Array(literal.codes.length).fill(0).map(() => ({
-      repositories: importStates,
-    }));
-    const dynamicValue = injector.templateService.evaluate(literal, imports);
-    return dynamicValue;
-  }
+  return templateLiterals;
 };
