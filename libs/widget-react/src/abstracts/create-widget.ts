@@ -17,8 +17,11 @@ export const createWidget: CreateWidget = (definition, reactWidget) => {
         newProps[key] = input;
       }
     }
+
+    const composedProps = { ...props, ...newProps };
+
     return reactWidget.apply(this, [
-      newProps,
+      composedProps,
       args.slice(1, args.length),
     ] as any);
   };
