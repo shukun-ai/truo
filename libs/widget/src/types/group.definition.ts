@@ -8,11 +8,9 @@
 
 import { ReactNode } from 'React';
 
-export type TextDefinitionProps = {
-  value?: string;
-  color: string;
-  fontSize: string;
-  fontStyle?: string;
-  textAlign: string;
+export type GroupDefinitionProps = {
+  direction: string;
+  padding?: string;
+  margin?: string;
   children?: ReactNode;
 };

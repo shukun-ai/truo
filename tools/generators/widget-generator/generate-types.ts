@@ -4,6 +4,8 @@ import { WidgetSchema } from './widget';
 export class GenerateTypes {
   public convert(definition: WidgetSchema): string {
     return `
+      import { ReactNode } from 'React';
+
       export type ${this.getDefinitionName(definition.tag)}DefinitionProps = {
         ${this.getProperties(definition.properties)}
       }
@@ -21,6 +23,7 @@ export class GenerateTypes {
     for (const [propertyName, property] of Object.entries(properties)) {
       text += this.getProperty(propertyName, property);
     }
+    text += 'children?: ReactNode;';
     return text;
   }
 
