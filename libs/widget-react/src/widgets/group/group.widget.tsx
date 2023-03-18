@@ -1,9 +1,9 @@
-import { buttonDefinition, GroupDefinitionProps } from '@shukun/widget';
+import { groupDefinition, GroupDefinitionProps } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';
 
 export const GroupWidget = createWidget<GroupDefinitionProps>(
-  buttonDefinition,
+  groupDefinition,
   (props) => {
     return (
       <div
