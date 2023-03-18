@@ -6,6 +6,8 @@
  * and run SHUKUN to regenerate this file.
  */
 
+import { ReactNode } from 'React';
+
 export type InputDefinitionProps = {
   value?: string;
   placeholder?: string;
@@ -24,4 +26,5 @@ export type InputDefinitionProps = {
   autofill?: boolean;
   change: (payload: unknown) => void;
   enter: (payload: unknown) => void;
+  children?: ReactNode;
 };

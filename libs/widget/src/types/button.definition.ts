@@ -6,6 +6,9 @@
  * and run SHUKUN to regenerate this file.
  */
 
+import { ReactNode } from 'React';
+
 export type ButtonDefinitionProps = {
   text?: string;
+  children?: ReactNode;
 };
