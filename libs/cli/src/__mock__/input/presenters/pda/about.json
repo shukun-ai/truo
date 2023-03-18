@@ -1,11 +1,11 @@
 {
+  "$schema": "../../../../../../schema/src/json-schemas/presenter/container.schema.json",
   "type": "page",
   "repositories": {
     "form2": {
       "type": "Simple"
     }
   },
-  "events": {},
   "widgets": {
     "w1": {
       "tag": "sk-text",

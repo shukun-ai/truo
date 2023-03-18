@@ -22,13 +22,6 @@ describe('Generate', () => {
                   type: 'Simple',
                 },
               },
-              events: {
-                w2Click1: {
-                  action: 'setRepository',
-                  target: 'form1',
-                  path: ['deviceNumber'],
-                },
-              },
               widgets: {
                 w1: {
                   tag: 'sk-text',
@@ -43,7 +36,13 @@ describe('Generate', () => {
                     value: '{{$.form1.deviceNumber}}',
                   },
                   events: {
-                    'value-changed': ['w2Click1'],
+                    'value-changed': [
+                      {
+                        action: 'setRepository',
+                        target: 'form1',
+                        path: ['deviceNumber'],
+                      },
+                    ],
                   },
                 },
                 w3: {
@@ -64,7 +63,6 @@ describe('Generate', () => {
                   type: 'Simple',
                 },
               },
-              events: {},
               widgets: {
                 w1: {
                   tag: 'sk-text',

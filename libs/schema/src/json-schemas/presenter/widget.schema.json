@@ -21,7 +21,7 @@
         "^(\\w)+$": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "event.schema.json"
           }
         }
       }

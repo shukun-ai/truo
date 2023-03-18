@@ -1,4 +1,4 @@
-import { PresenterContainer, PresenterWidget } from '@shukun/schema';
+import { PresenterWidget } from '@shukun/schema';
 import { ReactElement, useMemo } from 'react';
 
 import { AppProps } from '../app.interface';
@@ -6,7 +6,6 @@ import { AppProps } from '../app.interface';
 export type WidgetWrapperProps = {
   widgetId: string;
   widget: PresenterWidget;
-  container: PresenterContainer;
   app: AppProps;
   children: ReactElement[];
 };
@@ -14,7 +13,6 @@ export type WidgetWrapperProps = {
 export const WidgetWrapper = ({
   widgetId,
   widget,
-  container,
   app,
   children,
 }: WidgetWrapperProps) => {
@@ -33,20 +31,13 @@ export const WidgetWrapper = ({
         properties[propertyId] = (payload: unknown) => {
           const behaviors = widget.events[propertyId];
           behaviors?.forEach((behavior) => {
-            const eventBehavior = container.events[behavior];
-            app.eventCallback(eventBehavior, payload);
+            app.eventCallback(behavior, payload);
           });
         };
       }
     }
     return properties;
-  }, [
-    app,
-    container.events,
-    widget.events,
-    widgetDefinition.properties,
-    widgetId,
-  ]);
+  }, [app, widget.events, widgetDefinition.properties, widgetId]);
 
   if (!ReactWidget) {
     return <div data-error="NOT_FOUND_WIDGET">{children}</div>;

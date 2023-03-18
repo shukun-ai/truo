@@ -1,15 +1,9 @@
 {
+  "$schema": "../../../../../../schema/src/json-schemas/presenter/container.schema.json",
   "type": "page",
   "repositories": {
     "form1": {
       "type": "Simple"
-    }
-  },
-  "events": {
-    "w2Click1": {
-      "action": "setRepository",
-      "target": "form1",
-      "path": ["deviceNumber"]
     }
   },
   "widgets": {
@@ -26,7 +20,13 @@
         "value": "{{$.form1.deviceNumber}}"
       },
       "events": {
-        "value-changed": ["w2Click1"]
+        "value-changed": [
+          {
+            "action": "setRepository",
+            "target": "form1",
+            "path": ["deviceNumber"]
+          }
+        ]
       }
     },
     "w3": {

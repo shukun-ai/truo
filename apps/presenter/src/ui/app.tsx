@@ -45,7 +45,6 @@ const assembleWidgets = (
       <WidgetWrapper
         widgetId={widgetId}
         widget={widget}
-        container={container}
         app={app}
         key={widgetId}
       >
