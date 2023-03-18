@@ -1,4 +1,5 @@
 import {
+  presenterContainerSchema,
   presenterEventSchema,
   presenterRepositorySchema,
   presenterSchema,
@@ -11,7 +12,7 @@ import { createBaseAjv } from './base-ajv';
 export function createPresenterAjv(options?: Options) {
   const validate = createBaseAjv(options)
     .addSchema(presenterSchema, 'presenter.schema.json')
-    .addSchema(presenterEventSchema, 'presenter/container.schema.json')
+    .addSchema(presenterContainerSchema, 'presenter/container.schema.json')
     .addSchema(presenterEventSchema, 'presenter/event.schema.json')
     .addSchema(presenterRepositorySchema, 'presenter/repository.schema.json')
     .addSchema(presenterWidgetSchema, 'presenter/widget.schema.json');
