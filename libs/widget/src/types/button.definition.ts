@@ -10,5 +10,6 @@ import { ReactNode } from 'React';
 
 export type ButtonDefinitionProps = {
   text?: string;
+  click: (payload: unknown) => void;
   children?: ReactNode;
 };

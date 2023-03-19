@@ -2,8 +2,9 @@ export interface ITemplateService {
   parse(template: string): TemplateLiteral;
   evaluate(
     templateLiteral: TemplateLiteral,
-    imports: TemplateDependencies,
+    dependencies: TemplateDependencies,
   ): TemplateBasicOutput;
+  executeCode(code: string, dependency: TemplateDependencies[number]): unknown;
 }
 
 export type TemplateLiteral = {

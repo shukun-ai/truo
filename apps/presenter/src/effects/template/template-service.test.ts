@@ -160,4 +160,20 @@ describe('TemplateService', () => {
       expect(output).toEqual(22.3085407);
     });
   });
+
+  describe('analyzeCode', () => {
+    it('should return codeSubstances.', () => {
+      expect(
+        new TemplateService().executeCode(
+          // eslint-disable-next-line no-template-curly-in-string
+          'return `${$.currentUser.name} is ${$.currentUser.age}.`',
+          {
+            repositories: {
+              currentUser: { name: 'Bob', age: '26' },
+            },
+          },
+        ),
+      ).toEqual('Bob is 26.');
+    });
+  });
 });

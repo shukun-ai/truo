@@ -39,11 +39,12 @@ export const WidgetWrapper = ({
     for (const [propertyId, property] of Object.entries(
       widgetDefinition.properties,
     )) {
+      const states = { ...app.states, item, index: index ?? 0 };
+
       if (property.type !== 'callback') {
         const templateLiteral =
           app.templateLiterals?.[`${containerId}:${widgetId}:${propertyId}`];
         if (templateLiteral) {
-          const states = { ...app.states, item, index: index ?? 0 };
           properties[propertyId] = evaluateTemplate(
             app.templateService,
             templateLiteral,
@@ -54,13 +55,25 @@ export const WidgetWrapper = ({
         properties[propertyId] = (payload: unknown) => {
           const behaviors = widget.events[propertyId];
           behaviors?.forEach((behavior) => {
-            app.eventCallback(behavior, payload);
+            const value = executeEventCode(behavior.convertor, payload, {
+              templateService: app.templateService,
+              states,
+            });
+            app.eventCallback(behavior, value);
           });
         };
       }
     }
     return properties;
-  }, [app, containerId, widget.events, widgetDefinition.properties, widgetId]);
+  }, [
+    app,
+    containerId,
+    index,
+    item,
+    widget.events,
+    widgetDefinition.properties,
+    widgetId,
+  ]);
 
   if (!ReactWidget) {
     return <div data-error="NOT_FOUND_WIDGET">{children}</div>;
@@ -88,4 +101,21 @@ const evaluateTemplate = (
     const dynamicValue = templateService.evaluate(templateLiteral, imports);
     return dynamicValue;
   }
+};
+
+const executeEventCode = (
+  converter: string | undefined,
+  payload: unknown,
+  context: {
+    templateService: ITemplateService;
+    states: Record<string, unknown>;
+  },
+): unknown => {
+  if (!converter) {
+    return payload;
+  }
+
+  return context.templateService.executeCode(converter, {
+    repositories: { ...context.states, payload },
+  });
 };
