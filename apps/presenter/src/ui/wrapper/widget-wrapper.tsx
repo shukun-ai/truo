@@ -64,17 +64,8 @@ export const WidgetWrapper = ({
       }
     }
     return properties;
-  }, [
-    app.repositoryManager,
-    app.states,
-    app.templateService,
-    containerId,
-    index,
-    item,
-    widget.events,
-    widget.properties,
-    widgetDefinition.properties,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [app.states, containerId, index, item]);
 
   if (!ReactWidget) {
     return <div data-error="NOT_FOUND_WIDGET">{children}</div>;
