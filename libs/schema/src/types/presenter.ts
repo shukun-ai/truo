@@ -16,7 +16,8 @@ export type PresenterRepository =
   | PresenterRepositoryTransformer;
 export type PresenterEvent =
   | PresenterEventSetRepository
-  | PresenterEventTriggerRepository;
+  | PresenterEventTriggerRepository
+  | PresenterEventNavigation;
 export type PresenterTreeNode = string;
 
 /**
@@ -96,7 +97,7 @@ export interface PresenterEventSetRepository {
   target: string;
   path: string[];
   /**
-   * Can add raw JS code, not template code.
+   * template syntax
    */
   convertor?: string;
   [k: string]: unknown;
@@ -105,8 +106,23 @@ export interface PresenterEventTriggerRepository {
   action: 'triggerRepository';
   target: string;
   /**
-   * Can add raw JS code, not template code.
+   * template syntax
    */
   convertor?: string;
+  [k: string]: unknown;
+}
+/**
+ * Note: the navigation is only used inside app. If want to open external page, please add new event.
+ */
+export interface PresenterEventNavigation {
+  action: 'navigation';
+  /**
+   * template syntax
+   */
+  page: string;
+  /**
+   * template syntax
+   */
+  search?: string;
   [k: string]: unknown;
 }

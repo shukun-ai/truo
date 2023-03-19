@@ -25,14 +25,12 @@ export const createObservable = (
           search: router.search,
         },
         presenter: injector.definitions.presenter,
-        eventCallback: (behavior, payload) => {
-          injector.eventQueue.emit(containerId, behavior, payload);
-        },
         reactWidgets: injector.definitions.reactWidgets,
         widgetDefinitions: injector.definitions.widgetDefinitions,
         states: containerStates,
         templateLiterals,
         templateService: injector.templateService,
+        repositoryManager: injector.repositoryManager,
       };
 
       return appProps;

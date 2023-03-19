@@ -8,6 +8,8 @@ import {
 
 import { AppProps } from '../app.interface';
 
+import { handleEvent } from './event-handler';
+
 export type WidgetWrapperProps = {
   containerId: string;
   widgetId: string;
@@ -53,13 +55,14 @@ export const WidgetWrapper = ({
         }
       } else {
         properties[propertyId] = (payload: unknown) => {
-          const behaviors = widget.events[propertyId];
-          behaviors?.forEach((behavior) => {
-            const value = executeEventCode(behavior.convertor, payload, {
+          const events = widget.events[propertyId];
+          events?.forEach((event) => {
+            handleEvent(event, payload, {
+              repositoryManager: app.repositoryManager,
               templateService: app.templateService,
               states,
+              containerId,
             });
-            app.eventCallback(behavior, value);
           });
         };
       }
@@ -89,33 +92,11 @@ export const WidgetWrapper = ({
 const evaluateTemplate = (
   templateService: ITemplateService,
   templateLiteral: TemplateLiteral,
-  importStates: Record<string, unknown>,
+  states: Record<string, unknown>,
 ) => {
-  if (templateLiteral.codes.length === 0) {
-    const staticValue = templateService.evaluate(templateLiteral, []);
-    return staticValue;
-  } else {
-    const imports = new Array(templateLiteral.codes.length).fill(0).map(() => ({
-      repositories: importStates,
-    }));
-    const dynamicValue = templateService.evaluate(templateLiteral, imports);
-    return dynamicValue;
-  }
-};
-
-const executeEventCode = (
-  converter: string | undefined,
-  payload: unknown,
-  context: {
-    templateService: ITemplateService;
-    states: Record<string, unknown>;
-  },
-): unknown => {
-  if (!converter) {
-    return payload;
-  }
-
-  return context.templateService.executeCode(converter, {
-    repositories: { ...context.states, payload },
-  });
+  const dependencies = {
+    repositories: states,
+  };
+  const value = templateService.evaluate(templateLiteral, dependencies);
+  return value;
 };

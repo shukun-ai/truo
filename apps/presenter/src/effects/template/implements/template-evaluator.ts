@@ -8,14 +8,14 @@ import {
 export class TemplateEvaluator {
   evaluate(
     templateLiteral: TemplateLiteral,
-    imports: TemplateDependencies,
+    dependencies: TemplateDependencies,
   ): TemplateBasicOutput {
     const set: unknown[] = [];
     templateLiteral.texts.forEach((text, index) => {
       if (index > 0) {
         const executedCode = this.executeCode(
           templateLiteral.codes[index - 1],
-          imports[index - 1],
+          dependencies,
         );
         set.push(executedCode);
       }
@@ -37,7 +37,7 @@ export class TemplateEvaluator {
 
   private executeCode(
     code: TemplateLiteral['codes'][number],
-    dependencies: TemplateDependencies[number],
+    dependencies: TemplateDependencies,
   ): unknown {
     const run = new Function('$', '$$', this.wrapCode(code.code));
     const $ = dependencies.repositories ?? {};

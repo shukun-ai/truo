@@ -1,6 +1,7 @@
-import { PresenterEvent, PresenterSchema } from '@shukun/schema';
+import { PresenterSchema } from '@shukun/schema';
 
 import { WidgetDefinitions } from '../effects/loaders/loader.interface';
+import { IRepositoryManager } from '../effects/repository/repository-manager.interface';
 import {
   ITemplateService,
   TemplateLiteral,
@@ -16,7 +17,6 @@ export type AppProps = {
     search: Record<string, unknown>;
   };
   presenter: PresenterSchema;
-  eventCallback: (behavior: PresenterEvent, payload: unknown) => void;
   reactWidgets: ReactWidgets;
   widgetDefinitions: WidgetDefinitions;
   states: {
@@ -26,6 +26,7 @@ export type AppProps = {
     [key: `${string}:${string}:${string}`]: TemplateLiteral;
   };
   templateService: ITemplateService;
+  repositoryManager: IRepositoryManager;
 };
 
 export type ReactWidget = (...args: any) => JSX.Element;

@@ -1,17 +1,17 @@
 import { TemplateDependencies } from '../template-service.interface';
 
 export class CodeExecutor {
-  public run(code: string, dependency: TemplateDependencies[number]): unknown {
-    return this.executeCode(code, dependency);
+  public run(code: string, dependencies: TemplateDependencies): unknown {
+    return this.executeCode(code, dependencies);
   }
 
   private executeCode(
     code: string,
-    dependency: TemplateDependencies[number],
+    dependencies: TemplateDependencies,
   ): unknown {
     const run = new Function('$', '$$', this.wrapCode(code));
-    const $ = dependency.repositories ?? {};
-    const $$ = dependency.helpers ?? {};
+    const $ = dependencies.repositories ?? {};
+    const $$ = dependencies.helpers ?? {};
 
     const value = run($, $$);
     return value;
