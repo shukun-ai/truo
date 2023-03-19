@@ -37,10 +37,11 @@ const parseTemplate = (
   payload: unknown,
   context: EventHandlerContext,
 ): unknown => {
-  const literal = context.templateService.parse(template);
-  return context.templateService.evaluate(literal, {
-    repositories: { ...context.states, payload },
-  });
+  return context.templateService.run(
+    template,
+    { ...context.states, payload },
+    {},
+  );
 };
 
 const handleSetRepository = (
