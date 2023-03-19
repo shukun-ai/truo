@@ -1,10 +1,7 @@
 import { PresenterWidget } from '@shukun/schema';
 import { Children, cloneElement, ReactElement, useMemo } from 'react';
 
-import {
-  ITemplateService,
-  TemplateLiteral,
-} from '../../effects/template/template-service.interface';
+import { ITemplateService } from '../../effects/template/template-service.interface';
 
 import { AppProps } from '../app.interface';
 
@@ -44,12 +41,11 @@ export const WidgetWrapper = ({
       const states = { ...app.states, item, index: index ?? 0 };
 
       if (property.type !== 'callback') {
-        const templateLiteral =
-          app.templateLiterals?.[`${containerId}:${widgetId}:${propertyId}`];
-        if (templateLiteral) {
+        const template = widget.properties[propertyId];
+        if (template) {
           properties[propertyId] = evaluateTemplate(
+            template,
             app.templateService,
-            templateLiteral,
             states,
           );
         }
@@ -69,13 +65,15 @@ export const WidgetWrapper = ({
     }
     return properties;
   }, [
-    app,
+    app.repositoryManager,
+    app.states,
+    app.templateService,
     containerId,
     index,
     item,
     widget.events,
+    widget.properties,
     widgetDefinition.properties,
-    widgetId,
   ]);
 
   if (!ReactWidget) {
@@ -90,13 +88,10 @@ export const WidgetWrapper = ({
 };
 
 const evaluateTemplate = (
+  template: string,
   templateService: ITemplateService,
-  templateLiteral: TemplateLiteral,
   states: Record<string, unknown>,
 ) => {
-  const dependencies = {
-    repositories: states,
-  };
-  const value = templateService.evaluate(templateLiteral, dependencies);
+  const value = templateService.run(template, states, {});
   return value;
 };

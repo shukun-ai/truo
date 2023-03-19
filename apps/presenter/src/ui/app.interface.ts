@@ -2,10 +2,7 @@ import { PresenterSchema } from '@shukun/schema';
 
 import { WidgetDefinitions } from '../effects/loaders/loader.interface';
 import { IRepositoryManager } from '../effects/repository/repository-manager.interface';
-import {
-  ITemplateService,
-  TemplateLiteral,
-} from '../effects/template/template-service.interface';
+import { ITemplateService } from '../effects/template/template-service.interface';
 
 export type AppProps = {
   context: {
@@ -21,9 +18,6 @@ export type AppProps = {
   widgetDefinitions: WidgetDefinitions;
   states: {
     [repositoryId: string]: unknown;
-  };
-  templateLiterals: {
-    [key: `${string}:${string}:${string}`]: TemplateLiteral;
   };
   templateService: ITemplateService;
   repositoryManager: IRepositoryManager;
