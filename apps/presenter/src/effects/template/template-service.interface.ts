@@ -4,7 +4,6 @@ export interface ITemplateService {
     templateLiteral: TemplateLiteral,
     dependencies: TemplateDependencies,
   ): TemplateBasicOutput;
-  executeCode(code: string, dependencies: TemplateDependencies): unknown;
 }
 
 export type TemplateLiteral = {

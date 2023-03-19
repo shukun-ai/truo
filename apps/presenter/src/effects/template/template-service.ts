@@ -1,4 +1,3 @@
-import { CodeExecutor } from './implements/code-executor';
 import { TemplateEvaluator } from './implements/template-evaluator';
 import { TemplateParser } from './implements/template-parser';
 
@@ -19,9 +18,5 @@ export class TemplateService implements ITemplateService {
     dependencies: TemplateDependencies,
   ): TemplateBasicOutput {
     return new TemplateEvaluator().evaluate(templateLiteral, dependencies);
-  }
-
-  executeCode(code: string, dependencies: TemplateDependencies): unknown {
-    return new CodeExecutor().run(code, dependencies);
   }
 }
