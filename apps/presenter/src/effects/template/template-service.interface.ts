@@ -12,8 +12,6 @@ export type TemplateLiteral = {
   texts: string[];
   codes: {
     code: string;
-    repositories: string[];
-    helpers: string[];
   }[];
 };
 

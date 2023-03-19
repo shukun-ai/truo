@@ -2,8 +2,6 @@ import { Tokenizr } from 'ts-tokenizr';
 
 import { TemplateLiteral } from '../template-service.interface';
 
-import { CodeAst } from './code-ast';
-
 export class TemplateParser {
   CODE_START_TAG = 'CODE_START_TAG';
   CODE_END_TAG = 'CODE_END_TAG';
@@ -58,13 +56,8 @@ export class TemplateParser {
 
   private getCodes(codes: string[]): TemplateLiteral['codes'] {
     return codes.map((code) => {
-      const codeAst = new CodeAst();
-      const ast = codeAst.parse(code);
-      const { repositories, helpers } = codeAst.getDependencies(ast);
       return {
         code,
-        repositories,
-        helpers,
       };
     });
   }

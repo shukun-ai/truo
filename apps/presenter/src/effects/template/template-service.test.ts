@@ -9,8 +9,6 @@ describe('TemplateService', () => {
         codes: [
           {
             code: '$.currentUser.name',
-            repositories: ['currentUser'],
-            helpers: [],
           },
         ],
       });
@@ -25,8 +23,6 @@ describe('TemplateService', () => {
         codes: [
           {
             code: '$.currentUser.name + $.role.name',
-            repositories: ['currentUser', 'role'],
-            helpers: [],
           },
         ],
       });
@@ -43,13 +39,9 @@ describe('TemplateService', () => {
         codes: [
           {
             code: '$.currentUser.name',
-            repositories: ['currentUser'],
-            helpers: [],
           },
           {
             code: '$.role.name',
-            repositories: ['role'],
-            helpers: [],
           },
         ],
       });
@@ -64,8 +56,6 @@ describe('TemplateService', () => {
         codes: [
           {
             code: '$$.get($.currentUser, "name")',
-            repositories: ['currentUser'],
-            helpers: ['get'],
           },
         ],
       });
@@ -81,13 +71,9 @@ describe('TemplateService', () => {
           codes: [
             {
               code: '$.currentUser.name',
-              repositories: ['currentUser'],
-              helpers: [],
             },
             {
               code: '$.role.name',
-              repositories: ['role'],
-              helpers: [],
             },
           ],
         },
@@ -109,8 +95,6 @@ describe('TemplateService', () => {
           codes: [
             {
               code: '$$.get($.currentUser, "name")',
-              repositories: ['currentUser'],
-              helpers: ['get'],
             },
           ],
         },
@@ -136,8 +120,6 @@ describe('TemplateService', () => {
           codes: [
             {
               code: '$.currentUser.latitude',
-              repositories: ['currentUser'],
-              helpers: [],
             },
           ],
         },
