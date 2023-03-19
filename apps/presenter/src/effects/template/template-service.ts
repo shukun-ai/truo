@@ -16,12 +16,12 @@ export class TemplateService implements ITemplateService {
 
   evaluate(
     templateLiteral: TemplateLiteral,
-    imports: TemplateDependencies,
+    dependencies: TemplateDependencies,
   ): TemplateBasicOutput {
-    return new TemplateEvaluator().evaluate(templateLiteral, imports);
+    return new TemplateEvaluator().evaluate(templateLiteral, dependencies);
   }
 
-  executeCode(code: string, dependency: TemplateDependencies[number]): unknown {
-    return new CodeExecutor().run(code, dependency);
+  executeCode(code: string, dependencies: TemplateDependencies): unknown {
+    return new CodeExecutor().run(code, dependencies);
   }
 }

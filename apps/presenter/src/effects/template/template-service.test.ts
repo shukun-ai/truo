@@ -91,18 +91,12 @@ describe('TemplateService', () => {
             },
           ],
         },
-        [
-          {
-            repositories: {
-              currentUser: { name: 'Bob' },
-            },
+        {
+          repositories: {
+            currentUser: { name: 'Bob' },
+            role: { name: 'admin' },
           },
-          {
-            repositories: {
-              role: { name: 'admin' },
-            },
-          },
-        ],
+        },
       );
       expect(output).toEqual('Bob is admin');
     });
@@ -120,18 +114,16 @@ describe('TemplateService', () => {
             },
           ],
         },
-        [
-          {
-            repositories: {
-              currentUser: { name: 'Bob' },
-            },
-            helpers: {
-              get: (target: Record<string, string>, path: string) => {
-                return target[path];
-              },
+        {
+          repositories: {
+            currentUser: { name: 'Bob' },
+          },
+          helpers: {
+            get: (target: Record<string, string>, path: string) => {
+              return target[path];
             },
           },
-        ],
+        },
       );
       expect(output).toEqual('Bob');
     });
@@ -149,13 +141,11 @@ describe('TemplateService', () => {
             },
           ],
         },
-        [
-          {
-            repositories: {
-              currentUser: { latitude: 22.3085407 },
-            },
+        {
+          repositories: {
+            currentUser: { latitude: 22.3085407 },
           },
-        ],
+        },
       );
       expect(output).toEqual(22.3085407);
     });

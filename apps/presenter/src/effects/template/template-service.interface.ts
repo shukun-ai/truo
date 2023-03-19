@@ -4,7 +4,7 @@ export interface ITemplateService {
     templateLiteral: TemplateLiteral,
     dependencies: TemplateDependencies,
   ): TemplateBasicOutput;
-  executeCode(code: string, dependency: TemplateDependencies[number]): unknown;
+  executeCode(code: string, dependencies: TemplateDependencies): unknown;
 }
 
 export type TemplateLiteral = {
@@ -20,7 +20,7 @@ export type TemplateLiteral = {
 export type TemplateDependencies = {
   repositories?: { [keyName: string]: TemplateEvaluateState };
   helpers?: { [keyName: string]: TemplateEvaluateMethod };
-}[];
+};
 
 export type TemplateEvaluateState = unknown;
 
