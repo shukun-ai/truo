@@ -2,7 +2,18 @@ import { ValuesType } from 'utility-types';
 import { WidgetSchema } from './widget';
 
 export class GenerateTypes {
-  RESERVED_KEYWORDS = ['item', 'index', 'key', 'children'];
+  RESERVED_KEYWORDS = [
+    'item',
+    'index',
+    'key',
+    'children',
+    'parent',
+    'payload',
+    'event',
+    'property',
+    'events',
+    'properties',
+  ];
 
   public convert(definition: WidgetSchema): string {
     return `
@@ -45,7 +56,7 @@ export class GenerateTypes {
     propertyName: string,
     property: ValuesType<WidgetSchema['properties']>,
   ) {
-    if (property.defaultValue || property.type === 'callback') {
+    if (property.defaultValue) {
       return `${propertyName}:`;
     } else {
       return `${propertyName}?:`;

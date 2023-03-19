@@ -5,6 +5,10 @@
     "text": {
       "type": "string",
       "label": "Text"
+    },
+    "click": {
+      "type": "callback",
+      "label": "When the button clicked"
     }
   }
 }

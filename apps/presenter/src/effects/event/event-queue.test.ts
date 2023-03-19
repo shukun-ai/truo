@@ -18,7 +18,7 @@ describe('EventQueue', () => {
         path: ['click'],
       };
       const payload = { name: 'Bob' };
-      eventQueue.emit(event, payload);
+      eventQueue.emit('mockContainerId', event, payload);
     });
   });
 });
