@@ -8,13 +8,9 @@
 
 import { ReactNode } from 'React';
 
-export type ButtonDefinitionProps = {
-  text?: string;
-  variant: 'contained' | 'outlined' | 'text';
-  color: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
-  disabled?: boolean;
-  loading?: boolean;
-  fullWidth?: boolean;
-  click?: (payload: unknown) => void;
+export type StackDefinitionProps = {
+  direction: 'column-reverse' | 'column' | 'row-reverse' | 'row';
+  divider?: boolean;
+  spacing?: number;
   children?: ReactNode;
 };
