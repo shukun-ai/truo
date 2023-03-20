@@ -2,9 +2,32 @@
   "$schema": "../../../schema/src/json-schemas/widget.schema.json",
   "tag": "input",
   "properties": {
+    "type": {
+      "type": "enum",
+      "label": "类型",
+      "defaultValue": "text",
+      "enumOptions": [
+        { "label": "颜色", "value": "color" },
+        { "label": "日期", "value": "date" },
+        { "label": "日期时间", "value": "datetime-local" },
+        { "label": "邮箱地址", "value": "email" },
+        { "label": "月份", "value": "month" },
+        { "label": "数字", "value": "number" },
+        { "label": "密码", "value": "password" },
+        { "label": "电话号码", "value": "tel" },
+        { "label": "文本", "value": "text" },
+        { "label": "时间", "value": "time" },
+        { "label": "网址", "value": "url" },
+        { "label": "周", "value": "week" }
+      ]
+    },
     "value": {
       "type": "string",
       "label": "Value Binding"
+    },
+    "multiline": {
+      "type": "boolean",
+      "label": "多行文本"
     },
     "placeholder": {
       "type": "string",
@@ -14,7 +37,7 @@
       "type": "boolean",
       "label": "disabled"
     },
-    "readonly": {
+    "readOnly": {
       "type": "boolean",
       "label": "readonly"
     },

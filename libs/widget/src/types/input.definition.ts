@@ -9,10 +9,24 @@
 import { ReactNode } from 'React';
 
 export type InputDefinitionProps = {
+  type:
+    | 'color'
+    | 'date'
+    | 'datetime-local'
+    | 'email'
+    | 'month'
+    | 'number'
+    | 'password'
+    | 'tel'
+    | 'text'
+    | 'time'
+    | 'url'
+    | 'week';
   value?: string;
+  multiline?: boolean;
   placeholder?: string;
   disabled?: boolean;
-  readonly?: boolean;
+  readOnly?: boolean;
   hidden?: boolean;
   label?: string;
   labelCaption?: string;
