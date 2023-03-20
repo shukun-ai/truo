@@ -4,26 +4,50 @@
   "properties": {
     "value": {
       "type": "string",
-      "label": "Display Text"
+      "label": "显示文字"
     },
     "color": {
       "type": "string",
-      "label": "Text Color",
-      "defaultValue": "--sk-bodyColor"
+      "label": "字体颜色"
     },
-    "fontSize": {
-      "type": "string",
-      "label": "Text Size",
-      "defaultValue": "--sk-fontSize"
+    "align": {
+      "type": "enum",
+      "label": "对齐方式",
+      "defaultValue": "left",
+      "enumOptions": [
+        { "label": "居中对齐", "value": "center" },
+        { "label": "两端对齐", "value": "justify" },
+        { "label": "左对齐", "value": "left" },
+        { "label": "右对齐", "value": "right" }
+      ]
     },
-    "fontStyle": {
-      "type": "string",
-      "label": "Display Text"
+    "gutterBottom": {
+      "type": "boolean",
+      "label": "底部留白"
     },
-    "textAlign": {
-      "type": "string",
-      "label": "Display Text",
-      "defaultValue": "--sk-bodyTextAlign"
+    "noWrap": {
+      "type": "boolean",
+      "label": "自动换行"
+    },
+    "variant": {
+      "type": "enum",
+      "label": "样式",
+      "defaultValue": "body1",
+      "enumOptions": [
+        { "label": "body1", "value": "body1" },
+        { "label": "body2", "value": "body2" },
+        { "label": "button", "value": "button" },
+        { "label": "caption", "value": "caption" },
+        { "label": "h1", "value": "h1" },
+        { "label": "h2", "value": "h2" },
+        { "label": "h3", "value": "h3" },
+        { "label": "h4", "value": "h4" },
+        { "label": "h5", "value": "h5" },
+        { "label": "h6", "value": "h6" },
+        { "label": "overline", "value": "overline" },
+        { "label": "subtitle1", "value": "subtitle1" },
+        { "label": "subtitle2", "value": "subtitle2" }
+      ]
     }
   }
 }

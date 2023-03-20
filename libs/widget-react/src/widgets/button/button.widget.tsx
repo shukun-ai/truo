@@ -20,6 +20,7 @@ export const ButtonWidget = createWidget<ButtonDefinitionProps>(
       <Button
         variant={props.variant}
         color={props.color}
+        fullWidth={props.fullWidth}
         disabled={isDisabled}
         onClick={() => props.click && props.click(null)}
       >

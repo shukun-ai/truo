@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "stack",
+  "properties": {
+    "direction": {
+      "type": "enum",
+      "label": "方向",
+      "defaultValue": "row",
+      "enumOptions": [
+        { "label": "垂直反向", "value": "column-reverse" },
+        { "label": "垂直", "value": "column" },
+        { "label": "水平反向", "value": "row-reverse" },
+        { "label": "水平", "value": "row" }
+      ]
+    },
+    "divider": {
+      "type": "boolean",
+      "label": "是否有分割线"
+    },
+    "spacing": {
+      "type": "number",
+      "label": "留白"
+    }
+  }
+}
