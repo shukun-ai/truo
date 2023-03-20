@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "container",
+  "properties": {
+    "maxWidth": {
+      "type": "enum",
+      "label": "最大宽度",
+      "enumOptions": [
+        { "label": "xs", "value": "xs" },
+        { "label": "sm", "value": "sm" },
+        { "label": "md", "value": "md" },
+        { "label": "lg", "value": "lg" },
+        { "label": "xl", "value": "xl" }
+      ]
+    },
+    "fixed": {
+      "type": "boolean",
+      "label": "固定宽度"
+    },
+    "disableGutters": {
+      "type": "boolean",
+      "label": "两端留白"
+    }
+  }
+}
