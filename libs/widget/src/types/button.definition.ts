@@ -10,6 +10,10 @@ import { ReactNode } from 'React';
 
 export type ButtonDefinitionProps = {
   text?: string;
-  click: (payload: unknown) => void;
+  variant: 'contained' | 'outlined' | 'text';
+  color: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+  disabled?: boolean;
+  loading?: boolean;
+  click?: (payload: unknown) => void;
   children?: ReactNode;
 };
