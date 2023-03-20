@@ -4,7 +4,51 @@
   "properties": {
     "text": {
       "type": "string",
-      "label": "Text"
+      "label": "文本"
+    },
+    "variant": {
+      "type": "enum",
+      "label": "按钮样式",
+      "defaultValue": "contained",
+      "enumOptions": [
+        {
+          "label": "实体按钮",
+          "value": "contained"
+        },
+        {
+          "label": "轮廓按钮",
+          "value": "outlined"
+        },
+        {
+          "label": "文字按钮",
+          "value": "text"
+        }
+      ]
+    },
+    "color": {
+      "type": "enum",
+      "label": "颜色",
+      "defaultValue": "primary",
+      "enumOptions": [
+        { "label": "主按钮", "value": "primary" },
+        { "label": "次按钮", "value": "secondary" },
+        { "label": "成功", "value": "success" },
+        { "label": "错误", "value": "error" },
+        { "label": "提示信息", "value": "info" },
+        { "label": "警告", "value": "warning" }
+      ]
+    },
+    "disabled": {
+      "type": "boolean",
+      "label": "是否禁用"
+    },
+    "loading": {
+      "type": "boolean",
+      "label": "是否加载中"
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "label": "是否撑满"
     },
     "click": {
       "type": "callback",

@@ -14,7 +14,9 @@ export const InputWidget = createWidget<InputDefinitionProps>(
         <div>
           <input
             value={props.value}
-            onChange={(event) => props.change(event.target.value)}
+            onChange={(event) =>
+              props.change && props.change(event.target.value)
+            }
           />
         </div>
       </div>

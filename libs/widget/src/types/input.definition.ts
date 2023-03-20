@@ -24,7 +24,7 @@ export type InputDefinitionProps = {
   helper?: string;
   spellCheck?: boolean;
   autofill?: boolean;
-  change: (payload: unknown) => void;
-  enter: (payload: unknown) => void;
+  change?: (payload: unknown) => void;
+  enter?: (payload: unknown) => void;
   children?: ReactNode;
 };

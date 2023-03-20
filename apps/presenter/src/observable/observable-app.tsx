@@ -1,3 +1,4 @@
+import { CssBaseline } from '@mui/material';
 import { useObservableState } from 'observable-hooks';
 import { Observable } from 'rxjs';
 
@@ -11,5 +12,10 @@ export const createObservableApp = (observable: Observable<AppProps>) => () => {
     return <div>loading...</div>;
   }
 
-  return <App {...appProps} />;
+  return (
+    <>
+      <CssBaseline />
+      <App {...appProps} />
+    </>
+  );
 };

@@ -68,7 +68,10 @@
   "dependencies": {
     "@codemirror/lang-json": "^6.0.1",
     "@datorama/akita": "^6.2.4",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@material-ui/styles": "^4.11.4",
+    "@mui/material": "^5.11.13",
     "@nestjs/cli": "^8.2.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.1.6",
