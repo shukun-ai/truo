@@ -1,4 +1,4 @@
-import { FormControl, OutlinedInput, FormHelperText } from '@mui/material';
+import { FormControl, FormLabel, Input, FormHelperText } from '@mui/joy';
 import { inputDefinition, InputDefinitionProps } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';
@@ -7,18 +7,17 @@ export const InputWidget = createWidget<InputDefinitionProps>(
   inputDefinition,
   (props) => {
     return (
-      <FormControl fullWidth>
+      <FormControl>
         {!props.labelHidden && (
-          <label>
+          <FormLabel>
             {props.label}
             {props.labelCaption}
-          </label>
+          </FormLabel>
         )}
 
-        <OutlinedInput
+        <Input
           type={props.type}
           value={props.value}
-          multiline={props.multiline}
           placeholder={props.placeholder}
           disabled={props.disabled}
           readOnly={props.readOnly}
@@ -30,18 +29,3 @@ export const InputWidget = createWidget<InputDefinitionProps>(
     );
   },
 );
-
-// <div>
-//         <div>
-//           <div>{props.label}</div>
-//           <div>{props.labelCaption}</div>
-//         </div>
-//         <div>
-//           <input
-//             value={props.value}
-//             onChange={(event) =>
-//               props.change && props.change(event.target.value)
-//             }
-//           />
-//         </div>
-//       </div>

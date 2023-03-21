@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Typography } from '@mui/joy';
 import { textDefinition, TextDefinitionProps } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';
@@ -9,12 +9,11 @@ export const TextWidget = createWidget<TextDefinitionProps>(
     return (
       <Typography
         sx={{
-          color: props.color,
+          textAlign: props.textAlign,
         }}
-        align={props.align}
-        gutterBottom={props.gutterBottom}
+        textColor={props.textColor}
         noWrap={props.noWrap}
-        variant={props.variant}
+        level={props.level}
       >
         {props.value}
       </Typography>

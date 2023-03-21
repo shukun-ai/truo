@@ -10,23 +10,11 @@ import { ReactNode } from 'React';
 
 export type TextDefinitionProps = {
   value?: string;
-  color?: string;
-  align: 'center' | 'justify' | 'left' | 'right';
-  gutterBottom?: boolean;
+  variant: 'solid' | 'outlined' | 'plain' | 'soft';
+  color: 'primary' | 'neutral' | 'success' | 'danger' | 'info' | 'warning';
+  textColor?: string;
+  textAlign: 'center' | 'justify' | 'left' | 'right';
   noWrap?: boolean;
-  variant:
-    | 'body1'
-    | 'body2'
-    | 'button'
-    | 'caption'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'overline'
-    | 'subtitle1'
-    | 'subtitle2';
+  level: 'body1' | 'body2' | 'body3' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   children?: ReactNode;
 };

@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container } from '@mui/joy';
 import { containerDefinition, ContainerDefinitionProps } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';

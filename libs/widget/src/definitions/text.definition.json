@@ -6,11 +6,11 @@
       "type": "string",
       "label": "显示文字"
     },
-    "color": {
+    "textColor": {
       "type": "string",
-      "label": "字体颜色"
+      "label": "自定义颜色"
     },
-    "align": {
+    "textAlign": {
       "type": "enum",
       "label": "对齐方式",
       "defaultValue": "left",
@@ -21,32 +21,24 @@
         { "label": "右对齐", "value": "right" }
       ]
     },
-    "gutterBottom": {
-      "type": "boolean",
-      "label": "底部留白"
-    },
     "noWrap": {
       "type": "boolean",
       "label": "自动换行"
     },
-    "variant": {
+    "level": {
       "type": "enum",
       "label": "样式",
       "defaultValue": "body1",
       "enumOptions": [
         { "label": "body1", "value": "body1" },
         { "label": "body2", "value": "body2" },
-        { "label": "button", "value": "button" },
-        { "label": "caption", "value": "caption" },
+        { "label": "body3", "value": "body3" },
         { "label": "h1", "value": "h1" },
         { "label": "h2", "value": "h2" },
         { "label": "h3", "value": "h3" },
         { "label": "h4", "value": "h4" },
         { "label": "h5", "value": "h5" },
-        { "label": "h6", "value": "h6" },
-        { "label": "overline", "value": "overline" },
-        { "label": "subtitle1", "value": "subtitle1" },
-        { "label": "subtitle2", "value": "subtitle2" }
+        { "label": "h6", "value": "h6" }
       ]
     }
   }

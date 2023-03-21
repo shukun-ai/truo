@@ -23,7 +23,6 @@ export type InputDefinitionProps = {
     | 'url'
     | 'week';
   value?: string;
-  multiline?: boolean;
   placeholder?: string;
   disabled?: boolean;
   readOnly?: boolean;

@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "select",
+  "properties": {
+    "value": {
+      "type": "string",
+      "label": "Value Binding"
+    },
+    "change": {
+      "type": "callback",
+      "label": "Change Event Binding"
+    }
+  }
+}

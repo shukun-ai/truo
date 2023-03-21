@@ -1,30 +1,22 @@
-import { Button } from '@mui/material';
+import { Button } from '@mui/joy';
 import { buttonDefinition, ButtonDefinitionProps } from '@shukun/widget';
-import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
 
 export const ButtonWidget = createWidget<ButtonDefinitionProps>(
   buttonDefinition,
   (props) => {
-    const isDisabled = useMemo(() => {
-      return props.disabled || props.loading;
-    }, [props.disabled, props.loading]);
-
-    const text = useMemo(() => {
-      // TODO should use icon instead of language.
-      return props.loading ? '加载中' : props.text;
-    }, [props.loading, props.text]);
-
     return (
       <Button
         variant={props.variant}
         color={props.color}
+        size={props.size}
         fullWidth={props.fullWidth}
-        disabled={isDisabled}
+        disabled={props.disabled}
+        loading={props.loading}
         onClick={() => props.click && props.click(null)}
       >
-        {text}
+        {props.text}
       </Button>
     );
   },

@@ -25,10 +25,6 @@
       "type": "string",
       "label": "Value Binding"
     },
-    "multiline": {
-      "type": "boolean",
-      "label": "多行文本"
-    },
     "placeholder": {
       "type": "string",
       "label": "Placeholder"

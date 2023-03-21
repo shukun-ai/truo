@@ -1,4 +1,4 @@
-import { Stack, Divider } from '@mui/material';
+import { Stack, Divider } from '@mui/joy';
 import { stackDefinition, StackDefinitionProps } from '@shukun/widget';
 import { useMemo } from 'react';
 
@@ -16,7 +16,7 @@ export const StackWidget = createWidget<StackDefinitionProps>(
         ? 'vertical'
         : 'horizontal';
 
-      return <Divider orientation={orientation} flexItem />;
+      return <Divider orientation={orientation} />;
     }, [props.direction, props.divider]);
 
     return (
