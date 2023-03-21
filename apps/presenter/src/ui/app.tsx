@@ -1,9 +1,7 @@
-import { ThemeProvider } from '@mui/material';
 import { PresenterContainer } from '@shukun/schema';
 import { useMemo } from 'react';
 
 import { AppProps } from './app.interface';
-import { theme } from './theme/theme';
 import { WidgetWrapper } from './wrapper/widget-wrapper';
 
 export const App = (props: AppProps) => {
@@ -17,13 +15,11 @@ export const App = (props: AppProps) => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        containerId={props.router.page}
-        container={currentContainer}
-        app={props}
-      ></Container>
-    </ThemeProvider>
+    <Container
+      containerId={props.router.page}
+      container={currentContainer}
+      app={props}
+    ></Container>
   );
 };
 

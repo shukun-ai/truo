@@ -71,7 +71,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@material-ui/styles": "^4.11.4",
-    "@mui/material": "^5.11.13",
+    "@mui/joy": "^5.0.0-alpha.71",
     "@nestjs/cli": "^8.2.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.1.6",

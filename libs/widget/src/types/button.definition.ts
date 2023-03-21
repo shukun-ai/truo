@@ -10,8 +10,9 @@ import { ReactNode } from 'React';
 
 export type ButtonDefinitionProps = {
   text?: string;
-  variant: 'contained' | 'outlined' | 'text';
-  color: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+  variant: 'solid' | 'outlined' | 'plain' | 'soft';
+  color: 'primary' | 'neutral' | 'success' | 'danger' | 'info' | 'warning';
+  size: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   loading?: boolean;
   fullWidth?: boolean;

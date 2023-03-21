@@ -9,20 +9,12 @@
     "variant": {
       "type": "enum",
       "label": "按钮样式",
-      "defaultValue": "contained",
+      "defaultValue": "solid",
       "enumOptions": [
-        {
-          "label": "实体按钮",
-          "value": "contained"
-        },
-        {
-          "label": "轮廓按钮",
-          "value": "outlined"
-        },
-        {
-          "label": "文字按钮",
-          "value": "text"
-        }
+        { "label": "实体", "value": "solid" },
+        { "label": "轮廓", "value": "outlined" },
+        { "label": "扁平", "value": "plain" },
+        { "label": "软化", "value": "soft" }
       ]
     },
     "color": {
@@ -31,11 +23,21 @@
       "defaultValue": "primary",
       "enumOptions": [
         { "label": "主按钮", "value": "primary" },
-        { "label": "次按钮", "value": "secondary" },
+        { "label": "次按钮", "value": "neutral" },
         { "label": "成功", "value": "success" },
-        { "label": "错误", "value": "error" },
-        { "label": "提示信息", "value": "info" },
+        { "label": "危险", "value": "danger" },
+        { "label": "提示", "value": "info" },
         { "label": "警告", "value": "warning" }
+      ]
+    },
+    "size": {
+      "type": "enum",
+      "label": "尺寸",
+      "defaultValue": "md",
+      "enumOptions": [
+        { "label": "偏小", "value": "sm" },
+        { "label": "正常", "value": "md" },
+        { "label": "偏大", "value": "lg" }
       ]
     },
     "disabled": {

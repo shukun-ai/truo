@@ -1,3 +1,4 @@
+import { Box } from '@mui/joy';
 import { listDefinition, ListDefinitionProps } from '@shukun/widget';
 import { cloneElement } from 'react';
 
@@ -7,7 +8,7 @@ export const ListWidget = createWidget<ListDefinitionProps>(
   listDefinition,
   (props) => {
     return (
-      <div>
+      <Box>
         {props.value?.map((item, key) =>
           cloneElement((props.children as any)[0], {
             item,
@@ -15,7 +16,7 @@ export const ListWidget = createWidget<ListDefinitionProps>(
             key,
           }),
         )}
-      </div>
+      </Box>
     );
   },
 );
