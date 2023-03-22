@@ -23,79 +23,51 @@
     },
     "value": {
       "type": "string",
-      "label": "Value Binding"
+      "label": "值"
     },
     "placeholder": {
       "type": "string",
-      "label": "Placeholder"
+      "label": "占位提示"
     },
     "disabled": {
       "type": "boolean",
-      "label": "disabled"
-    },
-    "readOnly": {
-      "type": "boolean",
-      "label": "readonly"
+      "label": "禁用"
     },
     "hidden": {
       "type": "boolean",
-      "label": "hidden:"
+      "label": "隐藏"
     },
     "label": {
       "type": "string",
-      "label": "Label"
-    },
-    "labelCaption": {
-      "type": "string",
-      "label": "Caption"
+      "label": "标签"
     },
     "labelHidden": {
       "type": "boolean",
-      "label": "Hide Label"
+      "label": "标签隐藏"
     },
     "labelPosition": {
       "type": "enum",
-      "label": "Position",
+      "label": "标签位置",
       "enumOptions": [
-        { "label": "Left", "value": "left" },
-        { "label": "Top", "value": "top" }
-      ]
-    },
-    "labelAlignment": {
-      "type": "enum",
-      "label": "Alignment",
-      "enumOptions": [
-        { "label": "Left", "value": "left" },
-        { "label": "Right", "value": "right" }
+        { "label": "靠左", "value": "left" },
+        { "label": "靠上", "value": "top" }
       ]
     },
     "labelWidth": {
       "type": "string",
-      "label": "Width"
-    },
-    "tooltip": {
-      "type": "string",
-      "label": "Tooltip"
+      "label": "标签宽度"
     },
     "helper": {
       "type": "string",
-      "label": "Helper Text"
-    },
-    "spellCheck": {
-      "type": "boolean",
-      "label": "Enable Spell Check"
-    },
-    "autofill": {
-      "type": "boolean",
-      "label": "Enable Browser Autofill"
+      "label": "帮助信息"
     },
     "change": {
       "type": "callback",
-      "label": "Change Event Binding"
+      "label": "值改变事件"
     },
     "enter": {
       "type": "callback",
-      "label": "Enter Event Binding"
+      "label": "回车事件"
     }
   }
 }

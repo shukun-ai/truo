@@ -8,21 +8,10 @@
 
 import { ReactNode } from 'React';
 
-export type InputDefinitionProps = {
-  type:
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week';
+export type SelectDefinitionProps = {
   value?: string;
+  values?: unknown[];
+  labels?: unknown[];
   placeholder?: string;
   disabled?: boolean;
   hidden?: boolean;
@@ -32,6 +21,5 @@ export type InputDefinitionProps = {
   labelWidth?: string;
   helper?: string;
   change?: (payload: unknown) => void;
-  enter?: (payload: unknown) => void;
   children?: ReactNode;
 };

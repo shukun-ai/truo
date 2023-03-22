@@ -10,8 +10,6 @@ import { ReactNode } from 'React';
 
 export type TextDefinitionProps = {
   value?: string;
-  variant: 'solid' | 'outlined' | 'plain' | 'soft';
-  color: 'primary' | 'neutral' | 'success' | 'danger' | 'info' | 'warning';
   textColor?: string;
   textAlign: 'center' | 'justify' | 'left' | 'right';
   noWrap?: boolean;

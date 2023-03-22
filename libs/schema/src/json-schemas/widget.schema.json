@@ -31,6 +31,7 @@
               ]
             },
             "label": { "type": "string" },
+            "placeholder": { "type": "string" },
             "description": { "type": "string" },
             "defaultValue": { "type": "string" },
             "enumOptions": {
@@ -44,7 +45,8 @@
                   "value": { "type": "string" }
                 }
               }
-            }
+            },
+            "schema": {}
           }
         }
       }
