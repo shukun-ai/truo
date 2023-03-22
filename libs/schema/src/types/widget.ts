@@ -28,12 +28,14 @@ export interface WidgetSchema {
         | 'callback'
         | 'enum';
       label: string;
+      placeholder?: string;
       description?: string;
       defaultValue?: string;
       enumOptions?: {
         label: string;
         value: string;
       }[];
+      schema?: unknown;
     };
   };
 }

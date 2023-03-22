@@ -7,6 +7,7 @@ import {
   ListWidget,
   StackWidget,
   ContainerWidget,
+  SelectWidget,
 } from '@shukun/widget-react';
 
 import { IApiRequester } from '../apis/requester.interface';
@@ -33,6 +34,7 @@ export class ServerLoader implements ILoader {
         'sk-list': ListWidget.definition,
         'sk-stack': StackWidget.definition,
         'sk-container': ContainerWidget.definition,
+        'sk-select': SelectWidget.definition,
       },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
@@ -43,6 +45,7 @@ export class ServerLoader implements ILoader {
         'sk-list': ListWidget.reactWidget,
         'sk-stack': StackWidget.reactWidget,
         'sk-container': ContainerWidget.reactWidget,
+        'sk-select': SelectWidget.reactWidget,
       },
     };
   }
