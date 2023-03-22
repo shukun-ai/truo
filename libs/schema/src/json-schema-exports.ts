@@ -41,6 +41,7 @@ import presenterSchemaJson from './json-schemas/presenter.schema.json';
 import presenterContainerSchemaJson from './json-schemas/presenter/container.schema.json';
 import presenterEventSchemaJson from './json-schemas/presenter/event.schema.json';
 import presenterRepositorySchemaJson from './json-schemas/presenter/repository.schema.json';
+import presenterScreenSchemaJson from './json-schemas/presenter/screen.schema.json';
 import presenterWidgetSchemaJson from './json-schemas/presenter/widget.schema.json';
 import widgetSchemaJson from './json-schemas/widget.schema.json';
 
@@ -86,6 +87,7 @@ export const attachmentsSchema = attachmentsSchemaJson;
 export const httpQuerySchema = httpQuerySchemaJson;
 export const dataSourceSchema = dataSourceSchemaJson;
 export const presenterSchema = presenterSchemaJson;
+export const presenterScreenSchema = presenterScreenSchemaJson;
 export const presenterContainerSchema = presenterContainerSchemaJson;
 export const presenterEventSchema = presenterEventSchemaJson;
 export const presenterRepositorySchema = presenterRepositorySchemaJson;

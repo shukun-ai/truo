@@ -19,6 +19,11 @@ export type PresenterEvent =
   | PresenterEventTriggerRepository
   | PresenterEventNavigation;
 export type PresenterTreeNode = string;
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export type PresenterScreen = PresenterScreenDashboard;
 
 /**
  * Define the presenter contained Stores and UI Elements
@@ -26,14 +31,16 @@ export type PresenterTreeNode = string;
 export interface PresenterSchema {
   $schema?: string;
   title: string;
-  entry: string;
   containers: {
     [k: string]: PresenterContainer;
+  };
+  screens: {
+    [k: string]: PresenterScreen;
   };
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
+ * via the `patternProperty` "^(.)+$".
  */
 export interface PresenterContainer {
   $schema?: string;
@@ -125,4 +132,11 @@ export interface PresenterEventNavigation {
    */
   search?: string;
   [k: string]: unknown;
+}
+export interface PresenterScreenDashboard {
+  layout: 'Dashboard';
+  slots: {
+    main: string;
+    menu?: string;
+  };
 }
