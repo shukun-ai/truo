@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "box",
+  "properties": {
+    "orientation": {
+      "type": "enum",
+      "label": "方向",
+      "defaultValue": "vertical",
+      "enumOptions": [
+        { "label": "横向", "value": "horizontal" },
+        { "label": "垂直", "value": "vertical" }
+      ]
+    },
+    "paddingTop": {
+      "type": "number",
+      "label": "上内边距"
+    },
+    "paddingRight": {
+      "type": "number",
+      "label": "右内边距"
+    },
+    "paddingBottom": {
+      "type": "number",
+      "label": "下内边距"
+    },
+    "paddingLeft": {
+      "type": "number",
+      "label": "左内边距"
+    }
+  }
+}

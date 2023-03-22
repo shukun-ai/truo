@@ -7,3 +7,5 @@ export * from './widgets/list/list.widget';
 export * from './widgets/stack/stack.widget';
 export * from './widgets/container/container.widget';
 export * from './widgets/select/select.widget';
+export * from './widgets/box/box.widget';
+export * from './widgets/card/card.widget';
