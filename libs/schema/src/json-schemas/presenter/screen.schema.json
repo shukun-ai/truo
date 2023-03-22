@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PresenterScreen",
+  "type": "object",
+  "required": ["layout"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/definitions/PresenterScreenDashboard"
+    }
+  ],
+  "definitions": {
+    "PresenterScreenDashboard": {
+      "title": "PresenterScreenDashboard",
+      "type": "object",
+      "required": ["layout", "slots"],
+      "additionalProperties": false,
+      "properties": {
+        "layout": { "const": "Dashboard" },
+        "slots": {
+          "type": "object",
+          "required": ["main"],
+          "additionalProperties": false,
+          "properties": {
+            "main": { "type": "string" },
+            "menu": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

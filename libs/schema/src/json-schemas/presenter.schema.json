@@ -3,17 +3,24 @@
   "title": "PresenterSchema",
   "description": "Define the presenter contained Stores and UI Elements",
   "type": "object",
-  "required": ["title", "entry", "containers"],
+  "required": ["title", "containers", "screens"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "type": "string" },
     "title": { "type": "string" },
-    "entry": { "type": "string" },
     "containers": {
       "type": "object",
       "patternProperties": {
-        "^(\\w)+$": {
+        "^(.)+$": {
           "$ref": "presenter/container.schema.json"
+        }
+      }
+    },
+    "screens": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "$ref": "presenter/screen.schema.json"
         }
       }
     }

@@ -1,7 +1,20 @@
 {
   "$schema": "../../../../schema/src/json-schemas/presenter.schema.json",
   "title": "PDA",
-  "entry": "home",
+  "screens": {
+    "home": {
+      "layout": "Dashboard",
+      "slots": {
+        "main": "home"
+      }
+    },
+    "about": {
+      "layout": "Dashboard",
+      "slots": {
+        "main": "about"
+      }
+    }
+  },
   "containers": {
     "home": {
       "type": "page",
