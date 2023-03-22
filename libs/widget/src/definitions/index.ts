@@ -1,6 +1,8 @@
 import { WidgetSchema } from '@shukun/schema';
 
+import boxDefinitionJson from './box.definition.json';
 import buttonDefinitionJson from './button.definition.json';
+import cardDefinitionJson from './card.definition.json';
 import codeDefinitionJson from './code.definition.json';
 import containerDefinitionJson from './container.definition.json';
 import groupDefinitionJson from './group.definition.json';
@@ -10,7 +12,9 @@ import selectDefinitionJson from './select.definition.json';
 import stackDefinitionJson from './stack.definition.json';
 import textDefinitionJson from './text.definition.json';
 
+export const boxDefinition = boxDefinitionJson as WidgetSchema;
 export const buttonDefinition = buttonDefinitionJson as WidgetSchema;
+export const cardDefinition = cardDefinitionJson as WidgetSchema;
 export const codeDefinition = codeDefinitionJson as WidgetSchema;
 export const containerDefinition = containerDefinitionJson as WidgetSchema;
 export const groupDefinition = groupDefinitionJson as WidgetSchema;

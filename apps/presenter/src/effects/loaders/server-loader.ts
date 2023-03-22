@@ -8,6 +8,8 @@ import {
   StackWidget,
   ContainerWidget,
   SelectWidget,
+  BoxWidget,
+  CardWidget,
 } from '@shukun/widget-react';
 
 import { IApiRequester } from '../apis/requester.interface';
@@ -35,6 +37,8 @@ export class ServerLoader implements ILoader {
         'sk-stack': StackWidget.definition,
         'sk-container': ContainerWidget.definition,
         'sk-select': SelectWidget.definition,
+        'sk-box': BoxWidget.definition,
+        'sk-card': CardWidget.definition,
       },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
@@ -46,6 +50,8 @@ export class ServerLoader implements ILoader {
         'sk-stack': StackWidget.reactWidget,
         'sk-container': ContainerWidget.reactWidget,
         'sk-select': SelectWidget.reactWidget,
+        'sk-box': BoxWidget.reactWidget,
+        'sk-card': CardWidget.reactWidget,
       },
     };
   }
