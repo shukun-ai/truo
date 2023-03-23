@@ -1,5 +1,6 @@
 import { ValuesType } from 'utility-types';
 import { WidgetSchema } from './widget';
+import { toPascalCase } from 'js-convert-case';
 
 export class GenerateTypes {
   RESERVED_KEYWORDS = [
@@ -26,9 +27,7 @@ export class GenerateTypes {
   }
 
   private getDefinitionName(tag: string): string {
-    const name =
-      tag.substring(0, 1).toUpperCase() + tag.substring(1, tag.length);
-    return name;
+    return toPascalCase(tag);
   }
 
   private getProperties(properties: WidgetSchema['properties']): string {
