@@ -5,6 +5,7 @@ import { join } from 'path';
 import { format } from 'prettier';
 
 import { GenerateTypes } from './generate-types';
+import { toCamelCase } from 'js-convert-case';
 
 export default async function (tree: Tree, schema: any) {
   if (schema.name !== 'widget') {
@@ -135,8 +136,9 @@ class Generate {
         0,
         fileName.length - '.definition.json'.length,
       );
-      const importName = id + 'DefinitionJson';
-      const outputName = id + 'Definition';
+      const name = toCamelCase(id);
+      const importName = name + 'DefinitionJson';
+      const outputName = name + 'Definition';
       imports += `import ${importName} from './${fileName}';`;
       outputs += `export const ${outputName} = ${importName} as WidgetSchema;`;
     });
