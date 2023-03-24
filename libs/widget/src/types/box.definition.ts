@@ -6,13 +6,20 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type BoxDefinitionProps = {
-  orientation: 'horizontal' | 'vertical';
-  paddingTop?: number;
-  paddingRight?: number;
-  paddingBottom?: number;
-  paddingLeft?: number;
-  children?: ReactNode;
+  orientation: BoxDefinitionOrientation;
+  paddingTop: BoxDefinitionPaddingTop;
+  paddingRight: BoxDefinitionPaddingRight;
+  paddingBottom: BoxDefinitionPaddingBottom;
+  paddingLeft: BoxDefinitionPaddingLeft;
 };
+
+export type BoxDefinitionOrientation = 'horizontal' | 'vertical';
+
+export type BoxDefinitionPaddingTop = number;
+
+export type BoxDefinitionPaddingRight = number;
+
+export type BoxDefinitionPaddingBottom = number;
+
+export type BoxDefinitionPaddingLeft = number;

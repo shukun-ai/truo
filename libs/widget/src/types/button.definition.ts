@@ -6,16 +6,37 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type ButtonDefinitionProps = {
-  text?: string;
-  variant: 'solid' | 'outlined' | 'plain' | 'soft';
-  color: 'primary' | 'neutral' | 'success' | 'danger' | 'info' | 'warning';
-  size: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
-  loading?: boolean;
-  fullWidth?: boolean;
-  click?: (payload: unknown) => void;
-  children?: ReactNode;
+  text?: ButtonDefinitionText;
+  variant: ButtonDefinitionVariant;
+  color: ButtonDefinitionColor;
+  size: ButtonDefinitionSize;
+  disabled: ButtonDefinitionDisabled;
+  loading: ButtonDefinitionLoading;
+  fullWidth: ButtonDefinitionFullWidth;
+  click?: (payload: ButtonDefinitionClick) => void;
 };
+
+export type ButtonDefinitionText = string;
+
+export type ButtonDefinitionVariant = 'solid' | 'outlined' | 'plain' | 'soft';
+
+export type ButtonDefinitionColor =
+  | 'primary'
+  | 'neutral'
+  | 'success'
+  | 'danger'
+  | 'info'
+  | 'warning';
+
+export type ButtonDefinitionSize = 'sm' | 'md' | 'lg';
+
+export type ButtonDefinitionDisabled = boolean;
+
+export type ButtonDefinitionLoading = boolean;
+
+export type ButtonDefinitionFullWidth = boolean;
+
+export interface ButtonDefinitionClick {
+  [k: string]: unknown;
+}

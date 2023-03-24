@@ -6,6 +6,42 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type ReferenceDataSchema =
+  | boolean
+  | {
+      $id?: string;
+      $schema?: string;
+      $ref?: string;
+      $comment?: string;
+      title?: string;
+      description?: string;
+      items?:
+        | ReferenceDataSchema
+        | [ReferenceDataSchema, ...ReferenceDataSchema[]];
+      required?: string[];
+      additionalProperties?: ReferenceDataSchema;
+      definitions?: {
+        [k: string]: ReferenceDataSchema;
+      };
+      properties?: {
+        [k: string]: ReferenceDataSchema;
+      };
+      patternProperties?: {
+        [k: string]: ReferenceDataSchema;
+      };
+      const?: true;
+      enum?: [true, ...unknown[]];
+      type?:
+        | 'array'
+        | 'boolean'
+        | 'integer'
+        | 'null'
+        | 'number'
+        | 'object'
+        | 'string';
+      [k: string]: unknown;
+    };
+
 /**
  * Define the presenter contained Stores and UI Elements
  */
@@ -19,23 +55,12 @@ export interface WidgetSchema {
      * via the `patternProperty` "^(\w)+$".
      */
     [k: string]: {
-      type:
-        | 'string'
-        | 'number'
-        | 'boolean'
-        | 'array'
-        | 'object'
-        | 'callback'
-        | 'enum';
+      schema: ReferenceDataSchema;
+      defaultValue?: unknown;
+      isEvent?: boolean;
       label: string;
       placeholder?: string;
       description?: string;
-      defaultValue?: string;
-      enumOptions?: {
-        label: string;
-        value: string;
-      }[];
-      schema?: unknown;
     };
   };
 }

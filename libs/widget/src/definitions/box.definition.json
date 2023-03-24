@@ -3,29 +3,39 @@
   "tag": "box",
   "properties": {
     "orientation": {
-      "type": "enum",
       "label": "方向",
-      "defaultValue": "vertical",
-      "enumOptions": [
-        { "label": "横向", "value": "horizontal" },
-        { "label": "垂直", "value": "vertical" }
-      ]
+      "schema": {
+        "enum": ["horizontal", "vertical"]
+      },
+      "defaultValue": "vertical"
     },
     "paddingTop": {
-      "type": "number",
-      "label": "上内边距"
+      "label": "上内边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
     },
     "paddingRight": {
-      "type": "number",
-      "label": "右内边距"
+      "label": "右内边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
     },
     "paddingBottom": {
-      "type": "number",
-      "label": "下内边距"
+      "label": "下内边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
     },
     "paddingLeft": {
-      "type": "number",
-      "label": "左内边距"
+      "label": "左内边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
     }
   }
 }

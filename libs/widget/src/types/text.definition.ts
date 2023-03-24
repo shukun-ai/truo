@@ -6,13 +6,29 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type TextDefinitionProps = {
-  value?: string;
-  textColor?: string;
-  textAlign: 'center' | 'justify' | 'left' | 'right';
-  noWrap?: boolean;
-  level: 'body1' | 'body2' | 'body3' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  children?: ReactNode;
+  value?: TextDefinitionValue;
+  textColor?: TextDefinitionTextColor;
+  textAlign: TextDefinitionTextAlign;
+  noWrap?: TextDefinitionNoWrap;
+  level: TextDefinitionLevel;
 };
+
+export type TextDefinitionValue = string;
+
+export type TextDefinitionTextColor = string;
+
+export type TextDefinitionTextAlign = 'center' | 'justify' | 'left' | 'right';
+
+export type TextDefinitionNoWrap = boolean;
+
+export type TextDefinitionLevel =
+  | 'body1'
+  | 'body2'
+  | 'body3'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6';

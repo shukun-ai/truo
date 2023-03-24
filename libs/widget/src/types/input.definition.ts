@@ -6,32 +6,57 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type InputDefinitionProps = {
-  type:
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week';
-  value?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  hidden?: boolean;
-  label?: string;
-  labelHidden?: boolean;
-  labelPosition?: 'left' | 'top';
-  labelWidth?: string;
-  helper?: string;
-  change?: (payload: unknown) => void;
-  enter?: (payload: unknown) => void;
-  children?: ReactNode;
+  type: InputDefinitionType;
+  value?: InputDefinitionValue;
+  placeholder?: InputDefinitionPlaceholder;
+  disabled?: InputDefinitionDisabled;
+  hidden?: InputDefinitionHidden;
+  label?: InputDefinitionLabel;
+  labelHidden?: InputDefinitionLabelHidden;
+  labelPosition: InputDefinitionLabelPosition;
+  labelWidth?: InputDefinitionLabelWidth;
+  helper?: InputDefinitionHelper;
+  change?: (payload: InputDefinitionChange) => void;
+  enter?: (payload: InputDefinitionEnter) => void;
 };
+
+export type InputDefinitionType =
+  | 'color'
+  | 'date'
+  | 'datetime-local'
+  | 'email'
+  | 'month'
+  | 'number'
+  | 'password'
+  | 'tel'
+  | 'text'
+  | 'time'
+  | 'url'
+  | 'week';
+
+export type InputDefinitionValue = string;
+
+export type InputDefinitionPlaceholder = string;
+
+export type InputDefinitionDisabled = boolean;
+
+export type InputDefinitionHidden = boolean;
+
+export type InputDefinitionLabel = string;
+
+export type InputDefinitionLabelHidden = boolean;
+
+export type InputDefinitionLabelPosition = 'left' | 'top';
+
+export type InputDefinitionLabelWidth = string;
+
+export type InputDefinitionHelper = string;
+
+export interface InputDefinitionChange {
+  [k: string]: unknown;
+}
+
+export interface InputDefinitionEnter {
+  [k: string]: unknown;
+}

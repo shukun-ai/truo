@@ -6,11 +6,14 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type ContainerDefinitionProps = {
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  fixed?: boolean;
-  disableGutters?: boolean;
-  children?: ReactNode;
+  maxWidth: ContainerDefinitionMaxWidth;
+  fixed?: ContainerDefinitionFixed;
+  disableGutters?: ContainerDefinitionDisableGutters;
 };
+
+export type ContainerDefinitionMaxWidth = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export type ContainerDefinitionFixed = boolean;
+
+export type ContainerDefinitionDisableGutters = boolean;

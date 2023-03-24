@@ -16,37 +16,17 @@
       "patternProperties": {
         "^(\\w)+$": {
           "type": "object",
-          "required": ["type", "label"],
+          "required": ["label", "schema"],
           "additionalProperties": false,
           "properties": {
-            "type": {
-              "enum": [
-                "string",
-                "number",
-                "boolean",
-                "array",
-                "object",
-                "callback",
-                "enum"
-              ]
+            "schema": {
+              "$ref": "reference/reference-data.schema.json"
             },
+            "defaultValue": {},
+            "isEvent": { "type": "boolean" },
             "label": { "type": "string" },
             "placeholder": { "type": "string" },
-            "description": { "type": "string" },
-            "defaultValue": { "type": "string" },
-            "enumOptions": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": ["label", "value"],
-                "additionalProperties": false,
-                "properties": {
-                  "label": { "type": "string" },
-                  "value": { "type": "string" }
-                }
-              }
-            },
-            "schema": {}
+            "description": { "type": "string" }
           }
         }
       }
