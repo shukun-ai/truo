@@ -7,11 +7,7 @@ export const createWidget: CreateWidget = (definition, reactWidget) => {
 
     for (const [key, value] of Object.entries(definition.properties)) {
       const input = props[key];
-      if (
-        value.defaultValue &&
-        value.type !== 'callback' &&
-        (input === '' || input === undefined || input === null)
-      ) {
+      if (value.defaultValue && !value.isEvent && input === undefined) {
         newProps[key] = value.defaultValue;
       } else {
         newProps[key] = input;

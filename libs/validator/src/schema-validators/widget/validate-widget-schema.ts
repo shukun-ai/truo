@@ -1,8 +1,8 @@
 import { widgetSchema } from '@shukun/schema';
 
-import { createBaseAjv } from '../../schema-validator/internal/base-ajv';
+import { createWidgetAjv } from '../../schema-validator/internal/widget-ajv';
 import { SchemaValidator } from '../../schema-validator/schema-validator';
 
 export const widgetSchemaValidator = new SchemaValidator(
-  createBaseAjv(),
+  createWidgetAjv(),
 ).compile(widgetSchema);

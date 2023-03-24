@@ -3,31 +3,31 @@
   "tag": "text",
   "properties": {
     "value": {
-      "type": "string",
-      "label": "Display Text"
+      "label": "Display Text",
+      "schema": {
+        "type": "string"
+      }
     },
     "color": {
-      "type": "string",
       "label": "Text Color",
+      "schema": {
+        "type": "string"
+      },
       "defaultValue": "#000"
     },
     "fontSize": {
-      "type": "string",
       "label": "Text Size",
+      "schema": {
+        "type": "string"
+      },
       "defaultValue": "1rem"
     },
-    "fontStyle": {
-      "type": "string",
-      "label": "Display Text"
-    },
-    "textAlign": {
-      "type": "string",
-      "label": "Display Text",
-      "defaultValue": "left"
-    },
-    "click": {
-      "type": "callback",
-      "label": "When click"
+    "change": {
+      "label": "When change",
+      "isEvent": true,
+      "schema": {
+        "type": "string"
+      }
     }
   }
 }

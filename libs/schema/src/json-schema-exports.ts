@@ -43,6 +43,7 @@ import presenterEventSchemaJson from './json-schemas/presenter/event.schema.json
 import presenterRepositorySchemaJson from './json-schemas/presenter/repository.schema.json';
 import presenterScreenSchemaJson from './json-schemas/presenter/screen.schema.json';
 import presenterWidgetSchemaJson from './json-schemas/presenter/widget.schema.json';
+import ReferenceDataSchemaJson from './json-schemas/reference/reference-data.schema.json';
 import widgetSchemaJson from './json-schemas/widget.schema.json';
 
 export const applicationSchema = applicationSchemaJson;
@@ -93,3 +94,4 @@ export const presenterEventSchema = presenterEventSchemaJson;
 export const presenterRepositorySchema = presenterRepositorySchemaJson;
 export const presenterWidgetSchema = presenterWidgetSchemaJson;
 export const widgetSchema = widgetSchemaJson;
+export const referenceDataSchema = ReferenceDataSchemaJson;
