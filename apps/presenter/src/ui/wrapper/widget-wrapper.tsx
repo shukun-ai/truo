@@ -40,7 +40,7 @@ export const WidgetWrapper = ({
     )) {
       const states = { ...app.states, item, index: index ?? 0 };
 
-      if (property.type !== 'callback') {
+      if (!property.isEvent) {
         const template = widget.properties[propertyId];
         if (template) {
           properties[propertyId] = evaluateTemplate(

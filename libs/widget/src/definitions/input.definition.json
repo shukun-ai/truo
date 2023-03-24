@@ -80,12 +80,16 @@
     "change": {
       "label": "值改变事件",
       "isEvent": true,
-      "schema": {}
+      "schema": {
+        "type": "string"
+      }
     },
     "enter": {
       "label": "回车事件",
       "isEvent": true,
-      "schema": {}
+      "schema": {
+        "type": "null"
+      }
     }
   }
 }

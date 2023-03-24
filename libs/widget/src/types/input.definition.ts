@@ -53,10 +53,6 @@ export type InputDefinitionLabelWidth = string;
 
 export type InputDefinitionHelper = string;
 
-export interface InputDefinitionChange {
-  [k: string]: unknown;
-}
+export type InputDefinitionChange = string;
 
-export interface InputDefinitionEnter {
-  [k: string]: unknown;
-}
+export type InputDefinitionEnter = null;
