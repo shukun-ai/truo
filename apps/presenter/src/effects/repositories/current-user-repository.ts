@@ -1,7 +1,6 @@
+import { IRepository } from '@shukun/widget';
 import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-import { IRepository } from '../repository/repository.interface';
 
 export type CurrentUserField = {
   username?: string;

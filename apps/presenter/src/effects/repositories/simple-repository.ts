@@ -1,8 +1,7 @@
 import { PresenterRepositorySimple } from '@shukun/schema';
+import { IRepository } from '@shukun/widget';
 import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-import { IRepository } from '../repository/repository.interface';
 
 export class SimpleRepository implements IRepository {
   private fields: BehaviorSubject<Record<string, unknown>>;

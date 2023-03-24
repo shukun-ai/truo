@@ -1,10 +1,6 @@
+import { IRepository } from '@shukun/widget';
+import { IRepositoryManager, repositoryIdentifier } from '@shukun/widget';
 import { combineLatest, map, Observable } from 'rxjs';
-
-import {
-  IRepositoryManager,
-  repositoryIdentifier,
-} from './repository-manager.interface';
-import { IRepository } from './repository.interface';
 
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
