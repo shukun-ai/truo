@@ -1,6 +1,7 @@
 import { ValuesType } from 'utility-types';
 import { toPascalCase } from 'js-convert-case';
 import { compile, JSONSchema } from 'json-schema-to-typescript';
+import Ajv from 'ajv';
 
 export interface WidgetSchema {
   $schema?: string;
@@ -30,10 +31,14 @@ export class DefinitionGenerator {
     'properties',
   ];
 
+  constructor(private readonly ajv: Ajv) {}
+
   public async generate(definition: WidgetSchema): Promise<string> {
+    this.validateDefaultValues(definition);
+
     return `
       export type ${this.getDefinitionName(definition.tag)}DefinitionProps = {
-        ${await this.getProperties(
+        ${this.getProperties(
           definition.properties,
           this.getDefinitionName(definition.tag),
         )}
@@ -47,21 +52,21 @@ export class DefinitionGenerator {
     return toPascalCase(tag);
   }
 
-  private async getProperties(
+  private getProperties(
     properties: WidgetSchema['properties'],
     definitionId: string,
-  ): Promise<string> {
+  ): string {
     let text = '';
     let index = 0;
     for (const [propertyId, property] of Object.entries(properties)) {
       text += index === 0 ? '' : '\n';
-      text += `${await this.getProperty(property, propertyId, definitionId)}`;
+      text += `${this.getProperty(property, propertyId, definitionId)}`;
       index++;
     }
     return text;
   }
 
-  private async getProperty(
+  private getProperty(
     property: ValuesType<WidgetSchema['properties']>,
     propertyId: string,
     definitionId: string,
@@ -71,7 +76,7 @@ export class DefinitionGenerator {
         `You have used reserved keywords: ${this.RESERVED_KEYWORDS.join(', ')}`,
       );
     }
-    return `${this.getName(propertyId, property)} ${await this.getType(
+    return `${this.getName(propertyId, property)} ${this.getType(
       property,
       propertyId,
       definitionId,
@@ -89,7 +94,7 @@ export class DefinitionGenerator {
     }
   }
 
-  private async getType(
+  private getType(
     property: ValuesType<WidgetSchema['properties']>,
     propertyId: string,
     definitionId: string,
@@ -128,5 +133,23 @@ export class DefinitionGenerator {
       },
     );
     return ts;
+  }
+
+  private validateDefaultValues(definition: WidgetSchema) {
+    for (const property of Object.values(definition.properties)) {
+      if (property.defaultValue === undefined) {
+        return;
+      }
+
+      const validate = this.ajv.compile(property.schema);
+      const valid = validate(property.defaultValue);
+
+      if (!valid) {
+        const messages = JSON.stringify(validate.errors);
+        throw new Error(
+          'The defaultValue is not suitable for schema: ' + messages,
+        );
+      }
+    }
   }
 }
