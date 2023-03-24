@@ -32,16 +32,13 @@
   "type": ["boolean", "object"],
   "properties": {
     "$id": {
-      "type": "string",
-      "format": "uri-reference"
+      "type": "string"
     },
     "$schema": {
-      "type": "string",
-      "format": "uri"
+      "type": "string"
     },
     "$ref": {
-      "type": "string",
-      "format": "uri-reference"
+      "type": "string"
     },
     "$comment": {
       "type": "string"
@@ -88,9 +85,7 @@
       "additionalProperties": {
         "$ref": "#"
       },
-      "propertyNames": {
-        "format": "regex"
-      },
+      "propertyNames": {},
       "default": {}
     },
     "const": true,

@@ -141,7 +141,7 @@ class Generate {
       const importName = name + 'DefinitionJson';
       const outputName = name + 'Definition';
       imports += `import ${importName} from './${fileName}';`;
-      outputs += `export const ${outputName} = ${importName} as WidgetSchema;`;
+      outputs += `export const ${outputName} = ${importName} as any as WidgetSchema;`;
     });
 
     const indexText = imports + '\n' + '\n' + outputs;
