@@ -53,7 +53,9 @@
     "click": {
       "label": "点击事件",
       "isEvent": true,
-      "schema": {}
+      "schema": {
+        "type": "null"
+      }
     }
   }
 }

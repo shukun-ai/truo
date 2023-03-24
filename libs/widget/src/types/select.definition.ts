@@ -43,4 +43,4 @@ export type SelectDefinitionLabelWidth = string;
 
 export type SelectDefinitionHelper = string;
 
-export type SelectDefinitionChange = string;
+export type SelectDefinitionChange = string | null;

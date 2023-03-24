@@ -37,6 +37,4 @@ export type ButtonDefinitionLoading = boolean;
 
 export type ButtonDefinitionFullWidth = boolean;
 
-export interface ButtonDefinitionClick {
-  [k: string]: unknown;
-}
+export type ButtonDefinitionClick = null;

@@ -80,7 +80,7 @@
       "label": "值改变事件",
       "isEvent": true,
       "schema": {
-        "type": "string"
+        "type": ["string", "null"]
       }
     }
   }
