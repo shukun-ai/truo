@@ -6,6 +6,7 @@ import { format } from 'prettier';
 
 import { DefinitionGenerator } from './definition-generator';
 import { toCamelCase } from 'js-convert-case';
+import Ajv from 'ajv';
 
 export default async function (tree: Tree, schema: any) {
   if (schema.name !== 'widget') {
@@ -62,7 +63,9 @@ class Generate {
       );
 
       const input = this.parseJson(json);
-      const definitionGenerator = new DefinitionGenerator();
+      const definitionGenerator = new DefinitionGenerator(
+        new Ajv({ allowUnionTypes: true }),
+      );
       const output = await definitionGenerator.generate(input);
       const outputWithComments = this.comment + '\n' + output;
       const formatted = format(outputWithComments, {
