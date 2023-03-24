@@ -3,71 +3,89 @@
   "tag": "input",
   "properties": {
     "type": {
-      "type": "enum",
       "label": "类型",
-      "defaultValue": "text",
-      "enumOptions": [
-        { "label": "颜色", "value": "color" },
-        { "label": "日期", "value": "date" },
-        { "label": "日期时间", "value": "datetime-local" },
-        { "label": "邮箱地址", "value": "email" },
-        { "label": "月份", "value": "month" },
-        { "label": "数字", "value": "number" },
-        { "label": "密码", "value": "password" },
-        { "label": "电话号码", "value": "tel" },
-        { "label": "文本", "value": "text" },
-        { "label": "时间", "value": "time" },
-        { "label": "网址", "value": "url" },
-        { "label": "周", "value": "week" }
-      ]
+      "schema": {
+        "enum": [
+          "color",
+          "date",
+          "datetime-local",
+          "email",
+          "month",
+          "number",
+          "password",
+          "tel",
+          "text",
+          "time",
+          "url",
+          "week"
+        ]
+      },
+      "defaultValue": "text"
     },
     "value": {
-      "type": "string",
-      "label": "值"
+      "label": "值",
+      "schema": {
+        "type": "string"
+      }
     },
     "placeholder": {
-      "type": "string",
-      "label": "占位提示"
+      "label": "占位提示",
+      "schema": {
+        "type": "string"
+      }
     },
     "disabled": {
-      "type": "boolean",
-      "label": "禁用"
+      "label": "禁用",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "hidden": {
-      "type": "boolean",
-      "label": "隐藏"
+      "label": "隐藏",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "label": {
-      "type": "string",
-      "label": "标签"
+      "label": "标签",
+      "schema": {
+        "type": "string"
+      }
     },
     "labelHidden": {
-      "type": "boolean",
-      "label": "标签隐藏"
+      "label": "标签隐藏",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "labelPosition": {
-      "type": "enum",
       "label": "标签位置",
-      "enumOptions": [
-        { "label": "靠左", "value": "left" },
-        { "label": "靠上", "value": "top" }
-      ]
+      "schema": {
+        "enum": ["left", "top"]
+      },
+      "defaultValue": "left"
     },
     "labelWidth": {
-      "type": "string",
-      "label": "标签宽度"
+      "label": "标签宽度",
+      "schema": {
+        "type": "string"
+      }
     },
     "helper": {
-      "type": "string",
-      "label": "帮助信息"
+      "label": "帮助信息",
+      "schema": {
+        "type": "string"
+      }
     },
     "change": {
-      "type": "callback",
-      "label": "值改变事件"
+      "label": "值改变事件",
+      "isEvent": true,
+      "schema": {}
     },
     "enter": {
-      "type": "callback",
-      "label": "回车事件"
+      "label": "回车事件",
+      "isEvent": true,
+      "schema": {}
     }
   }
 }

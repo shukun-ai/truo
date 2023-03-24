@@ -3,58 +3,57 @@
   "tag": "button",
   "properties": {
     "text": {
-      "type": "string",
-      "label": "文本"
+      "label": "文本",
+      "schema": {
+        "type": "string"
+      }
     },
     "variant": {
-      "type": "enum",
       "label": "按钮样式",
-      "defaultValue": "solid",
-      "enumOptions": [
-        { "label": "实体", "value": "solid" },
-        { "label": "轮廓", "value": "outlined" },
-        { "label": "扁平", "value": "plain" },
-        { "label": "软化", "value": "soft" }
-      ]
+      "schema": {
+        "enum": ["solid", "outlined", "plain", "soft"]
+      },
+      "defaultValue": "solid"
     },
     "color": {
-      "type": "enum",
       "label": "颜色",
-      "defaultValue": "primary",
-      "enumOptions": [
-        { "label": "主按钮", "value": "primary" },
-        { "label": "次按钮", "value": "neutral" },
-        { "label": "成功", "value": "success" },
-        { "label": "危险", "value": "danger" },
-        { "label": "提示", "value": "info" },
-        { "label": "警告", "value": "warning" }
-      ]
+      "schema": {
+        "enum": ["primary", "neutral", "success", "danger", "info", "warning"]
+      },
+      "defaultValue": "primary"
     },
     "size": {
-      "type": "enum",
       "label": "尺寸",
-      "defaultValue": "md",
-      "enumOptions": [
-        { "label": "偏小", "value": "sm" },
-        { "label": "正常", "value": "md" },
-        { "label": "偏大", "value": "lg" }
-      ]
+      "schema": {
+        "enum": ["sm", "md", "lg"]
+      },
+      "defaultValue": "md"
     },
     "disabled": {
-      "type": "boolean",
-      "label": "是否禁用"
+      "label": "是否禁用",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
     },
     "loading": {
-      "type": "boolean",
-      "label": "是否加载中"
+      "label": "是否加载中",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
     },
     "fullWidth": {
-      "type": "boolean",
-      "label": "是否撑满"
+      "label": "是否撑满",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
     },
     "click": {
-      "type": "callback",
-      "label": "When the button clicked"
+      "label": "点击事件",
+      "isEvent": true,
+      "schema": {}
     }
   }
 }

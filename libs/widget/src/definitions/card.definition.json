@@ -3,15 +3,11 @@
   "tag": "card",
   "properties": {
     "variant": {
-      "type": "enum",
       "label": "样式",
-      "defaultValue": "outlined",
-      "enumOptions": [
-        { "label": "实体", "value": "solid" },
-        { "label": "轮廓", "value": "outlined" },
-        { "label": "扁平", "value": "plain" },
-        { "label": "软化", "value": "soft" }
-      ]
+      "schema": {
+        "enum": ["solid", "outlined", "plain", "soft"]
+      },
+      "defaultValue": "outlined"
     }
   }
 }

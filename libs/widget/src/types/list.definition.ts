@@ -6,9 +6,8 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type ListDefinitionProps = {
-  value?: unknown[];
-  children?: ReactNode;
+  value?: ListDefinitionValue;
 };
+
+export type ListDefinitionValue = unknown[];

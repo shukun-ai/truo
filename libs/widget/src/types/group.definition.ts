@@ -6,11 +6,14 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type GroupDefinitionProps = {
-  direction: string;
-  padding?: string;
-  margin?: string;
-  children?: ReactNode;
+  direction: GroupDefinitionDirection;
+  padding?: GroupDefinitionPadding;
+  margin?: GroupDefinitionMargin;
 };
+
+export type GroupDefinitionDirection = 'horizontal' | 'vertical';
+
+export type GroupDefinitionPadding = string;
+
+export type GroupDefinitionMargin = string;

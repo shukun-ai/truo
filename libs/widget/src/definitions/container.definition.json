@@ -3,23 +3,23 @@
   "tag": "container",
   "properties": {
     "maxWidth": {
-      "type": "enum",
       "label": "最大宽度",
-      "enumOptions": [
-        { "label": "xs", "value": "xs" },
-        { "label": "sm", "value": "sm" },
-        { "label": "md", "value": "md" },
-        { "label": "lg", "value": "lg" },
-        { "label": "xl", "value": "xl" }
-      ]
+      "schema": {
+        "enum": ["xs", "sm", "md", "lg", "xl"]
+      },
+      "defaultValue": "md"
     },
     "fixed": {
-      "type": "boolean",
-      "label": "固定宽度"
+      "label": "固定宽度",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "disableGutters": {
-      "type": "boolean",
-      "label": "两端留白"
+      "label": "两端留白",
+      "schema": {
+        "type": "boolean"
+      }
     }
   }
 }

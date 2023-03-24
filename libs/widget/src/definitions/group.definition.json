@@ -3,29 +3,25 @@
   "tag": "group",
   "properties": {
     "direction": {
-      "type": "string",
       "label": "Direction",
-      "defaultValue": "vertical",
-      "enumOptions": [
-        {
-          "label": "Horizontal",
-          "value": "horizontal"
-        },
-        {
-          "label": "Vertical",
-          "value": "vertical"
-        }
-      ]
+      "schema": {
+        "enum": ["horizontal", "vertical"]
+      },
+      "defaultValue": "vertical"
     },
     "padding": {
-      "type": "string",
       "label": "Padding",
-      "description": "Top Right Bottom Left"
+      "description": "Top Right Bottom Left",
+      "schema": {
+        "type": "string"
+      }
     },
     "margin": {
-      "type": "string",
       "label": "Padding",
-      "description": "Top Right Bottom Left"
+      "description": "Top Right Bottom Left",
+      "schema": {
+        "type": "string"
+      }
     }
   }
 }

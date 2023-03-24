@@ -3,70 +3,85 @@
   "tag": "select",
   "properties": {
     "value": {
-      "type": "string",
-      "label": "值"
+      "label": "值",
+      "schema": {
+        "type": "string"
+      }
     },
     "values": {
-      "type": "array",
       "label": "可选值",
-      "placeholder": "[1, 2, 3]",
       "schema": {
         "type": "array",
         "items": {
           "type": "string"
         }
-      }
+      },
+      "placeholder": "[1, 2, 3]"
     },
     "labels": {
-      "type": "array",
       "label": "标签值",
-      "placeholder": "['甲', '乙', '丙']",
       "schema": {
         "type": "array",
         "items": {
           "type": "string"
         }
-      }
+      },
+      "placeholder": "['甲', '乙', '丙']"
     },
     "placeholder": {
-      "type": "string",
-      "label": "占位提示"
+      "label": "占位提示",
+      "schema": {
+        "type": "string"
+      }
     },
     "disabled": {
-      "type": "boolean",
-      "label": "禁用"
+      "label": "禁用",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "hidden": {
-      "type": "boolean",
-      "label": "隐藏"
+      "label": "隐藏",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "label": {
-      "type": "string",
-      "label": "标签"
+      "label": "标签",
+      "schema": {
+        "type": "string"
+      }
     },
     "labelHidden": {
-      "type": "boolean",
-      "label": "标签隐藏"
+      "label": "标签隐藏",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "labelPosition": {
-      "type": "enum",
       "label": "标签位置",
-      "enumOptions": [
-        { "label": "靠左", "value": "left" },
-        { "label": "靠上", "value": "top" }
-      ]
+      "schema": {
+        "enum": ["left", "top"]
+      }
     },
     "labelWidth": {
-      "type": "string",
-      "label": "标签宽度"
+      "label": "标签宽度",
+      "schema": {
+        "type": "string"
+      }
     },
     "helper": {
-      "type": "string",
-      "label": "帮助信息"
+      "label": "帮助信息",
+      "schema": {
+        "type": "string"
+      }
     },
     "change": {
-      "type": "callback",
-      "label": "值改变事件"
+      "label": "值改变事件",
+      "isEvent": true,
+      "schema": {
+        "type": "string"
+      }
     }
   }
 }

@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { format } from 'prettier';
 
-import { GenerateTypes } from './generate-types';
+import { DefinitionGenerator } from './definition-generator';
 import { toCamelCase } from 'js-convert-case';
 
 export default async function (tree: Tree, schema: any) {
@@ -62,7 +62,8 @@ class Generate {
       );
 
       const input = this.parseJson(json);
-      const output = new GenerateTypes().convert(input);
+      const definitionGenerator = new DefinitionGenerator();
+      const output = await definitionGenerator.generate(input);
       const outputWithComments = this.comment + '\n' + output;
       const formatted = format(outputWithComments, {
         parser: 'typescript',

@@ -6,9 +6,8 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type CardDefinitionProps = {
-  variant: 'solid' | 'outlined' | 'plain' | 'soft';
-  children?: ReactNode;
+  variant: CardDefinitionVariant;
 };
+
+export type CardDefinitionVariant = 'solid' | 'outlined' | 'plain' | 'soft';

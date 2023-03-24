@@ -6,20 +6,41 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type SelectDefinitionProps = {
-  value?: string;
-  values?: unknown[];
-  labels?: unknown[];
-  placeholder?: string;
-  disabled?: boolean;
-  hidden?: boolean;
-  label?: string;
-  labelHidden?: boolean;
-  labelPosition?: 'left' | 'top';
-  labelWidth?: string;
-  helper?: string;
-  change?: (payload: unknown) => void;
-  children?: ReactNode;
+  value?: SelectDefinitionValue;
+  values?: SelectDefinitionValues;
+  labels?: SelectDefinitionLabels;
+  placeholder?: SelectDefinitionPlaceholder;
+  disabled?: SelectDefinitionDisabled;
+  hidden?: SelectDefinitionHidden;
+  label?: SelectDefinitionLabel;
+  labelHidden?: SelectDefinitionLabelHidden;
+  labelPosition?: SelectDefinitionLabelPosition;
+  labelWidth?: SelectDefinitionLabelWidth;
+  helper?: SelectDefinitionHelper;
+  change?: (payload: SelectDefinitionChange) => void;
 };
+
+export type SelectDefinitionValue = string;
+
+export type SelectDefinitionValues = string[];
+
+export type SelectDefinitionLabels = string[];
+
+export type SelectDefinitionPlaceholder = string;
+
+export type SelectDefinitionDisabled = boolean;
+
+export type SelectDefinitionHidden = boolean;
+
+export type SelectDefinitionLabel = string;
+
+export type SelectDefinitionLabelHidden = boolean;
+
+export type SelectDefinitionLabelPosition = 'left' | 'top';
+
+export type SelectDefinitionLabelWidth = string;
+
+export type SelectDefinitionHelper = string;
+
+export type SelectDefinitionChange = string;

@@ -6,11 +6,18 @@
  * and run SHUKUN to regenerate this file.
  */
 
-import { ReactNode } from 'React';
-
 export type StackDefinitionProps = {
-  direction: 'column-reverse' | 'column' | 'row-reverse' | 'row';
-  divider?: boolean;
-  spacing?: number;
-  children?: ReactNode;
+  direction: StackDefinitionDirection;
+  divider: StackDefinitionDivider;
+  spacing: StackDefinitionSpacing;
 };
+
+export type StackDefinitionDirection =
+  | 'column-reverse'
+  | 'column'
+  | 'row-reverse'
+  | 'row';
+
+export type StackDefinitionDivider = boolean;
+
+export type StackDefinitionSpacing = number;

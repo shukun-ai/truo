@@ -3,23 +3,25 @@
   "tag": "stack",
   "properties": {
     "direction": {
-      "type": "enum",
       "label": "方向",
-      "defaultValue": "row",
-      "enumOptions": [
-        { "label": "垂直反向", "value": "column-reverse" },
-        { "label": "垂直", "value": "column" },
-        { "label": "水平反向", "value": "row-reverse" },
-        { "label": "水平", "value": "row" }
-      ]
+      "schema": {
+        "enum": ["column-reverse", "column", "row-reverse", "row"]
+      },
+      "defaultValue": "row"
     },
     "divider": {
-      "type": "boolean",
-      "label": "是否有分割线"
+      "label": "是否有分割线",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
     },
     "spacing": {
-      "type": "number",
-      "label": "留白"
+      "label": "留白",
+      "schema": {
+        "type": "integer"
+      },
+      "defaultValue": 0
     }
   }
 }

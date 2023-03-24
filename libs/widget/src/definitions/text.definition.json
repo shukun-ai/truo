@@ -3,43 +3,36 @@
   "tag": "text",
   "properties": {
     "value": {
-      "type": "string",
-      "label": "显示文字"
+      "label": "显示文字",
+      "schema": {
+        "type": "string"
+      }
     },
     "textColor": {
-      "type": "string",
-      "label": "自定义颜色"
+      "label": "自定义颜色",
+      "schema": {
+        "type": "string"
+      }
     },
     "textAlign": {
-      "type": "enum",
       "label": "对齐方式",
-      "defaultValue": "left",
-      "enumOptions": [
-        { "label": "居中对齐", "value": "center" },
-        { "label": "两端对齐", "value": "justify" },
-        { "label": "左对齐", "value": "left" },
-        { "label": "右对齐", "value": "right" }
-      ]
+      "schema": {
+        "enum": ["center", "justify", "left", "right"]
+      },
+      "defaultValue": "left"
     },
     "noWrap": {
-      "type": "boolean",
-      "label": "自动换行"
+      "label": "自动换行",
+      "schema": {
+        "type": "boolean"
+      }
     },
     "level": {
-      "type": "enum",
       "label": "样式",
-      "defaultValue": "body1",
-      "enumOptions": [
-        { "label": "body1", "value": "body1" },
-        { "label": "body2", "value": "body2" },
-        { "label": "body3", "value": "body3" },
-        { "label": "h1", "value": "h1" },
-        { "label": "h2", "value": "h2" },
-        { "label": "h3", "value": "h3" },
-        { "label": "h4", "value": "h4" },
-        { "label": "h5", "value": "h5" },
-        { "label": "h6", "value": "h6" }
-      ]
+      "schema": {
+        "enum": ["body1", "body2", "body3", "h1", "h2", "h3", "h4", "h5", "h6"]
+      },
+      "defaultValue": "body1"
     }
   }
 }

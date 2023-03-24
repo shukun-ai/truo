@@ -3,8 +3,11 @@
   "tag": "list",
   "properties": {
     "value": {
-      "type": "array",
-      "label": "Data Value"
+      "label": "Data Value",
+      "schema": {
+        "type": "array",
+        "items": {}
+      }
     }
   }
 }

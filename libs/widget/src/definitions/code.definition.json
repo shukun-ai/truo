@@ -3,8 +3,10 @@
   "tag": "code",
   "properties": {
     "value": {
-      "type": "string",
-      "label": "Display Code"
+      "label": "Display Code",
+      "schema": {
+        "type": "string"
+      }
     }
   }
 }

@@ -6,8 +6,12 @@
  * and run SHUKUN to regenerate this file.
  */
 
-export type CodeDefinitionProps = {
-  value?: CodeDefinitionValue;
+export type NavLinkDefinitionProps = {
+  value?: NavLinkDefinitionValue;
 };
 
-export type CodeDefinitionValue = string;
+export type NavLinkDefinitionValue = {
+  label: string;
+  screen?: string;
+  children?: NavLinkDefinitionValue;
+}[];
