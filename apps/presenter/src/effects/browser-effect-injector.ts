@@ -1,4 +1,5 @@
 import { PresenterContainer, PresenterSchema } from '@shukun/schema';
+import { IRepositoryManager } from '@shukun/widget';
 import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
@@ -9,7 +10,6 @@ import { CurrentUserRepository } from './repositories/current-user-repository';
 import { RouterRepository } from './repositories/router-repository';
 import { SimpleRepository } from './repositories/simple-repository';
 import { RepositoryManager } from './repository/repository-manager';
-import { IRepositoryManager } from './repository/repository-manager.interface';
 import { AuthStorage } from './storages/auth-storage';
 import { TemplateService } from './template/template-service';
 

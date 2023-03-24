@@ -5,8 +5,9 @@ import {
   PresenterEventSetRepository,
 } from '@shukun/schema';
 
-import { IRepositoryManager } from '../../effects/repository/repository-manager.interface';
-import { ITemplateService } from '../../effects/template/template-service.interface';
+import { IRepositoryManager } from '@shukun/widget';
+
+import { ITemplateService } from '@shukun/widget';
 
 export type EventHandlerContext = {
   containerId: string;

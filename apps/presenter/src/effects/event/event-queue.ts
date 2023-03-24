@@ -1,8 +1,7 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterEvent, PresenterEventSetRepository } from '@shukun/schema';
+import { IRepositoryManager } from '@shukun/widget';
 import { BehaviorSubject } from 'rxjs';
-
-import { IRepositoryManager } from '../repository/repository-manager.interface';
 
 import { IEventQueue } from './event-queue.interface';
 

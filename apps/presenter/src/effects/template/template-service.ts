@@ -3,7 +3,7 @@ import {
   TemplateBasicOutput,
   TemplateEvaluateHelpers,
   TemplateEvaluateStates,
-} from './template-service.interface';
+} from '@shukun/widget';
 
 export class TemplateService implements ITemplateService {
   run(
