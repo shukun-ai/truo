@@ -1,4 +1,3 @@
-import { RouterRepositoryStates } from '@shukun/widget';
 import { AppProps } from '@shukun/widget-react';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
@@ -8,24 +7,22 @@ export const createObservable = (
   injector: EffectInjector,
 ): Observable<AppProps> => {
   return injector.repositoryManager.queryAll().pipe(
-    map((states: any) => {
-      const containerId = states['_app:router'].page;
-      const containerStates = cleanData(states, containerId);
-      const router = containerStates.router as RouterRepositoryStates;
+    map((rawStates: any) => {
+      const router = rawStates['_app:router'];
 
       const appProps: AppProps = {
         context: {
           appName: router.app,
           orgName: router.orgName,
-        },
-        router: {
-          page: router.page,
+          screen: router.page,
           search: router.search,
         },
         presenter: injector.definitions.presenter,
         reactWidgets: injector.definitions.reactWidgets,
         widgetDefinitions: injector.definitions.widgetDefinitions,
-        states: containerStates,
+        rawStates,
+        containerId: null,
+        states: {},
         templateService: injector.templateService,
         repositoryManager: injector.repositoryManager,
       };
@@ -34,20 +31,4 @@ export const createObservable = (
     }),
     distinctUntilChanged(),
   );
-};
-
-const cleanData = (states: any, containerId: string) => {
-  const newStates: any = {};
-  for (const [id, value] of Object.entries(states)) {
-    const idSet = id.split(':');
-
-    if (idSet[0] === '_app') {
-      newStates[idSet[1]] = value;
-    } else if (idSet[0] === 'container' && idSet[1] === containerId) {
-      newStates[idSet[2]] = value;
-    } else if (idSet[0] === 'repository' && idSet[1] === containerId) {
-      newStates[idSet[2]] = value;
-    }
-  }
-  return newStates;
 };
