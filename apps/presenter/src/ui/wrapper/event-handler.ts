@@ -33,6 +33,9 @@ export const handleEvent = (
   });
 };
 
+/**
+ * @deprecated
+ */
 const parseTemplate = (
   template: string,
   payload: unknown,
@@ -41,7 +44,7 @@ const parseTemplate = (
   return context.templateService.run(
     template,
     { ...context.states, payload },
-    {},
+    {}, // TODO the helper should be got from AppProps.
   );
 };
 
