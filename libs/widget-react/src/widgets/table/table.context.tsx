@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import { WidgetAppProps } from '../../abstracts/create-widget.interface';
+import { AppProps } from '../../abstracts/app.interface';
 
-export type TableContextProps = { app?: WidgetAppProps };
+export type TableContextProps = { app?: AppProps };
 
 export const TableContext = createContext<TableContextProps>({});
 

@@ -1,4 +1,4 @@
-import { NavLink, UnstyledButton } from '@mantine/core';
+import { NavLink } from '@mantine/core';
 import { Box } from '@mui/joy';
 import {
   navLinkDefinition,
@@ -9,8 +9,9 @@ import {
 import { IconPlus } from '@tabler/icons-react';
 import { useMemo } from 'react';
 
+import { AppProps } from '../../abstracts/app.interface';
 import { createWidget } from '../../abstracts/create-widget';
-import { WidgetAppProps } from '../../abstracts/create-widget.interface';
+
 export const NavLinkWidget = createWidget<NavLinkDefinitionProps>(
   navLinkDefinition,
   (props) => {
@@ -32,7 +33,7 @@ const AssembledNavLinks = ({
   level,
 }: {
   links: NavLinkDefinitionValue;
-  app: WidgetAppProps;
+  app: AppProps;
   level: number;
 }) => {
   return (
@@ -57,7 +58,7 @@ const AssembledNavLink = ({
   level,
 }: {
   link: NavLinkDefinitionValue[number];
-  app: WidgetAppProps;
+  app: AppProps;
   level: number;
 }) => {
   const hasChildren = useMemo(

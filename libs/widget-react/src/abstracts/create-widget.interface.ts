@@ -1,5 +1,6 @@
 import { WidgetSchema } from '@shukun/schema';
-import { IRepositoryManager, ITemplateService } from '@shukun/widget';
+
+import { AppProps } from './app.interface';
 
 export type CreateWidget = <T>(
   definition: WidgetSchema,
@@ -9,12 +10,7 @@ export type CreateWidget = <T>(
   reactWidget: (props: T & WidgetDefaultProps) => JSX.Element;
 };
 
-export type WidgetAppProps = {
-  repositoryManager: IRepositoryManager;
-  templateService: ITemplateService;
-};
-
 type WidgetDefaultProps = {
   children: JSX.Element;
-  app: WidgetAppProps;
+  app: AppProps;
 };
