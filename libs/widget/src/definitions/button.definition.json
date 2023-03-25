@@ -23,12 +23,6 @@
       },
       "defaultValue": "filled"
     },
-    "size": {
-      "label": "尺寸",
-      "schema": {
-        "enum": ["xs", "sm", "md", "lg", "xl"]
-      }
-    },
     "disabled": {
       "label": "是否禁用",
       "schema": {

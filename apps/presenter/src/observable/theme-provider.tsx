@@ -23,6 +23,25 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
             '#00153C',
           ],
         },
+        components: {
+          Text: {
+            defaultProps: {
+              size: 'sm',
+            },
+          },
+          Button: {
+            defaultProps: {
+              size: 'sm',
+            },
+          },
+          Table: {
+            defaultProps: {
+              horizontalSpacing: 'sm',
+              verticalSpacing: 'md',
+              fontSize: 'sm',
+            },
+          },
+        },
       }}
       withGlobalStyles
       withNormalizeCSS
