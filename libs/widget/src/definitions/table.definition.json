@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "table",
+  "properties": {
+    "columns": {
+      "label": "列定义",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["label", "type", "field"],
+          "properties": {
+            "label": { "type": "string" },
+            "type": { "enum": ["text"] },
+            "field": { "type": "string" },
+            "convertor": { "type": "string" },
+            "disabledSorting": { "type": "boolean" },
+            "hiddenColumn": { "type": "string", "description": "template" },
+            "backgroundColor": { "type": "string", "description": "template" }
+          }
+        }
+      },
+      "defaultValue": []
+    },
+    "value": {
+      "label": "值",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "defaultValue": []
+    }
+  }
+}

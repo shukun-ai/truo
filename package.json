@@ -83,6 +83,7 @@
     "@nestjs/platform-express": "^8.2.5",
     "@nestjs/swagger": "^5.1.5",
     "@tabler/icons-react": "^2.11.0",
+    "@tanstack/react-table": "^8.8.0",
     "@types/color": "^3.0.2",
     "@types/cron": "^2.0.0",
     "@types/dagre": "^0.7.48",
