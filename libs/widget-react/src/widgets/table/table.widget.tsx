@@ -31,7 +31,7 @@ export const TableWidget = createWidget<TableDefinitionProps>(
     return (
       <TableContextProvider value={{ app: props.app }}>
         <Paper>
-          <Table>
+          <Table highlightOnHover>
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>

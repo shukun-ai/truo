@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core';
+import { Button, Text, UnstyledButton } from '@mantine/core';
 import { TableDefinitionColumns } from '@shukun/widget';
 
 import { AppProps } from '../../../abstracts/app.interface';
@@ -13,14 +13,14 @@ export const LinkCell = ({
   const { app } = useTableContext();
 
   return (
-    <Button
+    <UnstyledButton
       variant="subtle"
       onClick={() =>
         app && handleClick(app, columnContext, row.original, row.index)
       }
     >
-      {getValue()}
-    </Button>
+      <Text td="underline">{getValue()}</Text>
+    </UnstyledButton>
   );
 };
 
