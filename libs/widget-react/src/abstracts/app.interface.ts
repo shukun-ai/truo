@@ -8,6 +8,7 @@ import { ReactWidgets, WidgetDefinitions } from './loader.interface';
 
 export type AppProps = {
   context: {
+    debug: boolean;
     appName: string;
     orgName: string;
     screen: string;

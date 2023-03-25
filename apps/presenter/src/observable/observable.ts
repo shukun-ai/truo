@@ -12,6 +12,7 @@ export const createObservable = (
 
       const appProps: AppProps = {
         context: {
+          debug: true,
           appName: router.app,
           orgName: router.orgName,
           screen: router.page,

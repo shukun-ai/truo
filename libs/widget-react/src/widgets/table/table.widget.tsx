@@ -25,7 +25,7 @@ export const TableWidget = createWidget<TableDefinitionProps>(
       data: elements,
       columns,
       getCoreRowModel: getCoreRowModel(),
-      debugTable: true,
+      debugTable: props.app.context.debug,
     });
 
     return (
