@@ -1,5 +1,5 @@
 import { WidgetSchema } from '@shukun/schema';
-import { IRepositoryManager } from '@shukun/widget';
+import { IRepositoryManager, ITemplateService } from '@shukun/widget';
 
 export type CreateWidget = <T>(
   definition: WidgetSchema,
@@ -11,6 +11,7 @@ export type CreateWidget = <T>(
 
 export type WidgetAppProps = {
   repositoryManager: IRepositoryManager;
+  templateService: ITemplateService;
 };
 
 type WidgetDefaultProps = {

@@ -13,9 +13,13 @@ export type TableDefinitionProps = {
 
 export type TableDefinitionColumns = {
   label: string;
-  type: 'text';
+  type: 'text' | 'link';
   field: string;
   convertor?: string;
+  link?: {
+    screen?: string;
+    search?: string;
+  };
   disabledSorting?: boolean;
   /**
    * template
