@@ -9,4 +9,5 @@ export * from './list.definition';
 export * from './nav-link.definition';
 export * from './select.definition';
 export * from './stack.definition';
+export * from './table.definition';
 export * from './text.definition';
