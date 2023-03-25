@@ -1,9 +1,9 @@
 import { CssVarsProvider, CssBaseline } from '@mui/joy';
+import { AppProps } from '@shukun/widget-react';
 import { useObservableState } from 'observable-hooks';
 import { Observable } from 'rxjs';
 
 import { App } from '../ui/app';
-import { AppProps } from '../ui/app.interface';
 
 import { defaultTheme } from './theme';
 

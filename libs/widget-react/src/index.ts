@@ -1,4 +1,5 @@
 export * from './abstracts/loader.interface';
+export * from './abstracts/app.interface';
 
 export * from './layouts/dashboard/dashboard.layout';
 

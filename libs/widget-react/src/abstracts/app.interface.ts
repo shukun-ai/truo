@@ -4,7 +4,7 @@ import { IRepositoryManager } from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
 
-import { WidgetDefinitions } from '@shukun/widget-react';
+import { ReactWidgets, WidgetDefinitions } from './loader.interface';
 
 export type AppProps = {
   context: {
@@ -24,7 +24,3 @@ export type AppProps = {
   templateService: ITemplateService;
   repositoryManager: IRepositoryManager;
 };
-
-export type ReactWidget = (...args: any) => JSX.Element;
-
-export type ReactWidgets = Record<string, ReactWidget>;

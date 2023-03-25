@@ -1,8 +1,8 @@
 import { PresenterScreen } from '@shukun/schema';
 import { DashboardLayout } from '@shukun/widget-react';
+import { AppProps } from '@shukun/widget-react';
 import { useMemo } from 'react';
 
-import { AppProps } from './app.interface';
 import { Container } from './container';
 
 export type ScreenProps = {

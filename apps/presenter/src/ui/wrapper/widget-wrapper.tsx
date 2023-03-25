@@ -1,8 +1,7 @@
 import { PresenterWidget } from '@shukun/schema';
 import { ITemplateService } from '@shukun/widget';
+import { AppProps } from '@shukun/widget-react';
 import { Children, cloneElement, ReactElement, useMemo } from 'react';
-
-import { AppProps } from '../app.interface';
 
 import { handleEvent } from './event-handler';
 
