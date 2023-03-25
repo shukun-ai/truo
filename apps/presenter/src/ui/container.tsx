@@ -1,6 +1,7 @@
 import { PresenterContainer } from '@shukun/schema';
 
-import { AppProps } from './app.interface';
+import { AppProps } from '@shukun/widget-react';
+
 import { WidgetWrapper } from './wrapper/widget-wrapper';
 
 export type ContainerProps = {

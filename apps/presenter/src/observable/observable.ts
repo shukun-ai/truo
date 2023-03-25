@@ -1,8 +1,8 @@
 import { RouterRepositoryStates } from '@shukun/widget';
+import { AppProps } from '@shukun/widget-react';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect-injector.interface';
-import { AppProps } from '../ui/app.interface';
 
 export const createObservable = (
   injector: EffectInjector,

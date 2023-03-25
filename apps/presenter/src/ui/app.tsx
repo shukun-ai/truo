@@ -1,7 +1,7 @@
 import { PresenterScreen } from '@shukun/schema';
+import { AppProps } from '@shukun/widget-react';
 import { useMemo } from 'react';
 
-import { AppProps } from './app.interface';
 import { Screen } from './screen';
 
 export const App = (props: AppProps) => {
