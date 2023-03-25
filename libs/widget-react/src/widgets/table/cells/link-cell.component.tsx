@@ -1,4 +1,4 @@
-import { Button, Text, UnstyledButton } from '@mantine/core';
+import { Text, UnstyledButton } from '@mantine/core';
 import { TableDefinitionColumns } from '@shukun/widget';
 
 import { AppProps } from '../../../abstracts/app.interface';
@@ -19,7 +19,9 @@ export const LinkCell = ({
         app && handleClick(app, columnContext, row.original, row.index)
       }
     >
-      <Text td="underline">{getValue()}</Text>
+      <Text td="underline" size="sm">
+        {getValue()}
+      </Text>
     </UnstyledButton>
   );
 };

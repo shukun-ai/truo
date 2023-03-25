@@ -1,5 +1,7 @@
+import { Text } from '@mantine/core';
+
 import { CellFactoryProps } from '../cell.interface';
 
 export const TextCell = ({ getValue }: CellFactoryProps) => {
-  return <div>{getValue()}</div>;
+  return <Text>{getValue()}</Text>;
 };
