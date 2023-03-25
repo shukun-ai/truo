@@ -9,7 +9,6 @@ export const ButtonWidget = createWidget<ButtonDefinitionProps>(
     return (
       <Button
         variant={props.variant}
-        size={props.size}
         fullWidth={props.fullWidth}
         disabled={props.disabled}
         loading={props.loading}

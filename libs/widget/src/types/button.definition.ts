@@ -9,7 +9,6 @@
 export type ButtonDefinitionProps = {
   text?: ButtonDefinitionText;
   variant: ButtonDefinitionVariant;
-  size?: ButtonDefinitionSize;
   disabled: ButtonDefinitionDisabled;
   loading: ButtonDefinitionLoading;
   fullWidth: ButtonDefinitionFullWidth;
@@ -26,8 +25,6 @@ export type ButtonDefinitionVariant =
   | 'filled'
   | 'gradient'
   | 'subtle';
-
-export type ButtonDefinitionSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type ButtonDefinitionDisabled = boolean;
 

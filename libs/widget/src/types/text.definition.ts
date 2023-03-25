@@ -10,7 +10,6 @@ export type TextDefinitionProps = {
   value?: TextDefinitionValue;
   textColor?: TextDefinitionTextColor;
   textAlign: TextDefinitionTextAlign;
-  noWrap?: TextDefinitionNoWrap;
   level: TextDefinitionLevel;
 };
 
@@ -19,8 +18,6 @@ export type TextDefinitionValue = string;
 export type TextDefinitionTextColor = string;
 
 export type TextDefinitionTextAlign = 'center' | 'justify' | 'left' | 'right';
-
-export type TextDefinitionNoWrap = boolean;
 
 export type TextDefinitionLevel =
   | 'body1'

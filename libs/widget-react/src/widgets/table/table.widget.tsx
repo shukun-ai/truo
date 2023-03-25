@@ -1,4 +1,4 @@
-import { Paper, Table } from '@mantine/core';
+import { Box, Pagination, Paper, Table } from '@mantine/core';
 import { tableDefinition, TableDefinitionProps } from '@shukun/widget';
 import { IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import {
@@ -87,6 +87,12 @@ export const TableWidget = createWidget<TableDefinitionProps>(
                 })}
             </tbody>
           </Table>
+          <Box
+            display="flex"
+            sx={{ paddingTop: '2rem', justifyContent: 'flex-end' }}
+          >
+            <Pagination total={10} />
+          </Box>
         </Paper>
       </TableContextProvider>
     );
