@@ -7,10 +7,14 @@ import {
 
 export class TemplateService implements ITemplateService {
   run(
-    template: string,
+    template: unknown,
     states: TemplateEvaluateStates,
     helpers: TemplateEvaluateHelpers,
   ): TemplateBasicOutput {
+    if (typeof template !== 'string') {
+      return template;
+    }
+
     // eslint-disable-next-line no-new-func
     const run = new Function(
       '$',

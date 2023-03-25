@@ -89,7 +89,14 @@ export interface PresenterWidget {
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(.)+$".
      */
-    [k: string]: string;
+    [k: string]:
+      | string
+      | unknown[]
+      | {
+          [k: string]: unknown;
+        }
+      | number
+      | boolean;
   };
   events: {
     /**

@@ -81,7 +81,7 @@ export const WidgetWrapper = ({
 };
 
 const evaluateTemplate = (
-  template: string,
+  template: unknown,
   templateService: ITemplateService,
   states: Record<string, unknown>,
 ) => {
