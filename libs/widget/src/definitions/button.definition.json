@@ -11,23 +11,23 @@
     "variant": {
       "label": "按钮样式",
       "schema": {
-        "enum": ["solid", "outlined", "plain", "soft"]
+        "enum": [
+          "outline",
+          "white",
+          "light",
+          "default",
+          "filled",
+          "gradient",
+          "subtle"
+        ]
       },
-      "defaultValue": "solid"
-    },
-    "color": {
-      "label": "颜色",
-      "schema": {
-        "enum": ["primary", "neutral", "success", "danger", "info", "warning"]
-      },
-      "defaultValue": "primary"
+      "defaultValue": "filled"
     },
     "size": {
       "label": "尺寸",
       "schema": {
-        "enum": ["sm", "md", "lg"]
-      },
-      "defaultValue": "md"
+        "enum": ["xs", "sm", "md", "lg", "xl"]
+      }
     },
     "disabled": {
       "label": "是否禁用",
