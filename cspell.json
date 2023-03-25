@@ -22,7 +22,8 @@
     "mockdate",
     "postmate",
     "untitle",
-    "buildable"
+    "buildable",
+    "mantine"
   ],
   "ignoreWords": [],
   "import": []

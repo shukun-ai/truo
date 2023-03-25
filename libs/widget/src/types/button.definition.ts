@@ -9,8 +9,7 @@
 export type ButtonDefinitionProps = {
   text?: ButtonDefinitionText;
   variant: ButtonDefinitionVariant;
-  color: ButtonDefinitionColor;
-  size: ButtonDefinitionSize;
+  size?: ButtonDefinitionSize;
   disabled: ButtonDefinitionDisabled;
   loading: ButtonDefinitionLoading;
   fullWidth: ButtonDefinitionFullWidth;
@@ -19,17 +18,16 @@ export type ButtonDefinitionProps = {
 
 export type ButtonDefinitionText = string;
 
-export type ButtonDefinitionVariant = 'solid' | 'outlined' | 'plain' | 'soft';
+export type ButtonDefinitionVariant =
+  | 'outline'
+  | 'white'
+  | 'light'
+  | 'default'
+  | 'filled'
+  | 'gradient'
+  | 'subtle';
 
-export type ButtonDefinitionColor =
-  | 'primary'
-  | 'neutral'
-  | 'success'
-  | 'danger'
-  | 'info'
-  | 'warning';
-
-export type ButtonDefinitionSize = 'sm' | 'md' | 'lg';
+export type ButtonDefinitionSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type ButtonDefinitionDisabled = boolean;
 
