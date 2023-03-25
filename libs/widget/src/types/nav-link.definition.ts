@@ -13,5 +13,8 @@ export type NavLinkDefinitionProps = {
 export type NavLinkDefinitionValue = {
   label: string;
   screen?: string;
+  search?: {
+    [k: string]: unknown;
+  };
   children?: NavLinkDefinitionValue;
 }[];

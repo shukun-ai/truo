@@ -13,6 +13,7 @@
           "properties": {
             "label": { "type": "string" },
             "screen": { "type": "string" },
+            "search": { "type": "object" },
             "children": { "$ref": "#" }
           }
         }
