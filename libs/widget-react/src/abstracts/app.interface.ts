@@ -10,17 +10,19 @@ export type AppProps = {
   context: {
     appName: string;
     orgName: string;
-  };
-  router: {
-    page: string;
+    screen: string;
     search: Record<string, unknown>;
+  };
+  rawStates: {
+    [repositoryId: string]: unknown;
+  };
+  containerId: string | null;
+  states: {
+    [stateId: string]: unknown;
   };
   presenter: PresenterSchema;
   reactWidgets: ReactWidgets;
   widgetDefinitions: WidgetDefinitions;
-  states: {
-    [repositoryId: string]: unknown;
-  };
   templateService: ITemplateService;
   repositoryManager: IRepositoryManager;
 };
