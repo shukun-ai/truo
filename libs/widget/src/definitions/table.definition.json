@@ -12,9 +12,17 @@
           "required": ["label", "type", "field"],
           "properties": {
             "label": { "type": "string" },
-            "type": { "enum": ["text"] },
+            "type": { "enum": ["text", "link"] },
             "field": { "type": "string" },
             "convertor": { "type": "string" },
+            "link": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "screen": { "type": "string" },
+                "search": { "type": "string" }
+              }
+            },
             "disabledSorting": { "type": "boolean" },
             "hiddenColumn": { "type": "string", "description": "template" },
             "backgroundColor": { "type": "string", "description": "template" }
