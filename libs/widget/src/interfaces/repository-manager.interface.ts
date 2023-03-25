@@ -1,5 +1,7 @@
-import { IRepository, IRouterRepository } from '@shukun/widget';
 import { Observable } from 'rxjs';
+
+import { IRepository } from './repository.interface';
+import { IRouterRepository } from './router-repository.interface';
 
 export interface IRepositoryManager {
   register(identifier: repositoryIdentifier, repository: IRepository): void;
