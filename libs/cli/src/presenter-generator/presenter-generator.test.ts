@@ -13,7 +13,6 @@ describe('Generate', () => {
       presenters: {
         pda: {
           title: 'PDA',
-          entry: 'home',
           containers: {
             home: {
               type: 'page',
@@ -76,6 +75,7 @@ describe('Generate', () => {
               tree: {},
             },
           },
+          screens: {},
         },
       },
     });
