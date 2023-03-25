@@ -21,12 +21,6 @@
       },
       "defaultValue": "left"
     },
-    "noWrap": {
-      "label": "自动换行",
-      "schema": {
-        "type": "boolean"
-      }
-    },
     "level": {
       "label": "样式",
       "schema": {

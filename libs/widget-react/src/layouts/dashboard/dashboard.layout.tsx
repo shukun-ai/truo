@@ -19,14 +19,6 @@ export const DashboardLayout = (props: DashboardLayoutProps) => {
   const [opened, setOpened] = useState(false);
   return (
     <AppShell
-      styles={{
-        main: {
-          background:
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[8]
-              : theme.colors.gray[0],
-        },
-      }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={
@@ -35,12 +27,24 @@ export const DashboardLayout = (props: DashboardLayoutProps) => {
           hiddenBreakpoint="sm"
           hidden={!opened}
           width={{ sm: 220, lg: 300 }}
+          sx={{
+            background:
+              theme.colorScheme === 'dark'
+                ? theme.colors.dark[8]
+                : theme.colors.gray[1],
+          }}
         >
           {props.menu}
         </Navbar>
       }
       header={
-        <Header height={{ base: 50, md: 70 }} p="md">
+        <Header
+          height={{ base: 50, md: 54 }}
+          p="md"
+          sx={{
+            background: 'rgb(14, 23, 38)',
+          }}
+        >
           <div
             style={{ display: 'flex', alignItems: 'center', height: '100%' }}
           >
@@ -49,12 +53,14 @@ export const DashboardLayout = (props: DashboardLayoutProps) => {
                 opened={opened}
                 onClick={() => setOpened((open) => !open)}
                 size="sm"
-                color={theme.colors.gray[6]}
+                color={theme.colors.dark[0]}
                 mr="xl"
               />
             </MediaQuery>
 
-            <Text>SHUKUN PLATFORM</Text>
+            <Text color="rgba(255,255,255,0.9)" fw={500}>
+              Shukun System
+            </Text>
           </div>
         </Header>
       }
