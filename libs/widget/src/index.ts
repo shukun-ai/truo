@@ -8,5 +8,6 @@ export * from './definitions';
 export * from './types';
 
 export * from './interfaces/repository.interface';
+export * from './interfaces/router-repository.interface';
 export * from './interfaces/repository-manager.interface';
 export * from './interfaces/template-service.interface';

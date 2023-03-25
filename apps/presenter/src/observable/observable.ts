@@ -1,7 +1,7 @@
+import { RouterRepositoryStates } from '@shukun/widget';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect-injector.interface';
-import { RouterField } from '../effects/repositories/router-repository';
 import { AppProps } from '../ui/app.interface';
 
 export const createObservable = (
@@ -11,7 +11,7 @@ export const createObservable = (
     map((states: any) => {
       const containerId = states['_app:router'].page;
       const containerStates = cleanData(states, containerId);
-      const router = containerStates.router as RouterField;
+      const router = containerStates.router as RouterRepositoryStates;
 
       const appProps: AppProps = {
         context: {

@@ -71,7 +71,11 @@ export const WidgetWrapper = ({
   }
 
   return (
-    <ReactWidget data-id={`${app.router.page}:${widgetId}`} {...properties}>
+    <ReactWidget
+      composeId={`${containerId}:${widgetId}`}
+      app={app}
+      {...properties}
+    >
       {Children.map(children, (child) => cloneElement(child, { item, index }))}
     </ReactWidget>
   );

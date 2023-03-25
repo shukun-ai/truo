@@ -1,19 +1,10 @@
-import { IRepository } from '@shukun/widget';
+import { TypeException } from '@shukun/exception';
+import { IRepository, IRouterRepository } from '@shukun/widget';
 import { IRepositoryManager, repositoryIdentifier } from '@shukun/widget';
 import { combineLatest, map, Observable } from 'rxjs';
 
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
-
-  private getRepositoryKey(identifier: repositoryIdentifier) {
-    const { scope, containerId, repositoryId } = identifier;
-    switch (scope) {
-      case 'app':
-        return `_app:${repositoryId}`;
-      case 'container':
-        return `container:${containerId}:${repositoryId}`;
-    }
-  }
 
   public register(
     identifier: repositoryIdentifier,
@@ -58,5 +49,38 @@ export class RepositoryManager implements IRepositoryManager {
 
   public trigger(identifier: repositoryIdentifier, payload: unknown): void {
     this.repositories.get(this.getRepositoryKey(identifier))?.trigger(payload);
+  }
+
+  public registerRouterRepository(routerRepository: IRouterRepository): void {
+    this.register(
+      { scope: 'app', containerId: 'app', repositoryId: 'router' },
+      routerRepository,
+    );
+  }
+
+  public getRouterRepository(): IRouterRepository {
+    const repository = this.repositories.get(
+      this.getRepositoryKey({
+        scope: 'app',
+        containerId: 'app',
+        repositoryId: 'router',
+      }),
+    );
+
+    if (!repository) {
+      throw new TypeException('The router repository did not registered.');
+    }
+
+    return repository as IRouterRepository;
+  }
+
+  private getRepositoryKey(identifier: repositoryIdentifier) {
+    const { scope, containerId, repositoryId } = identifier;
+    switch (scope) {
+      case 'app':
+        return `_app:${repositoryId}`;
+      case 'container':
+        return `container:${containerId}:${repositoryId}`;
+    }
   }
 }

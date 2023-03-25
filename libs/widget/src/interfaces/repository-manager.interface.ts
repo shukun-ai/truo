@@ -1,4 +1,4 @@
-import { IRepository } from '@shukun/widget';
+import { IRepository, IRouterRepository } from '@shukun/widget';
 import { Observable } from 'rxjs';
 
 export interface IRepositoryManager {
@@ -10,6 +10,9 @@ export interface IRepositoryManager {
   ): void;
   queryAll(): Observable<Record<string, unknown>>;
   trigger(identifier: repositoryIdentifier, payload: unknown): void;
+
+  registerRouterRepository(routerRepository: IRouterRepository): void;
+  getRouterRepository(): IRouterRepository;
 }
 
 export type repositoryIdentifier = {
