@@ -11,3 +11,4 @@ export * from './widgets/container/container.widget';
 export * from './widgets/select/select.widget';
 export * from './widgets/box/box.widget';
 export * from './widgets/card/card.widget';
+export * from './widgets/nav-link/nav-link.widget';

@@ -10,6 +10,7 @@ import {
   SelectWidget,
   BoxWidget,
   CardWidget,
+  NavLinkWidget,
 } from '@shukun/widget-react';
 
 import { IApiRequester } from '../apis/requester.interface';
@@ -39,6 +40,7 @@ export class ServerLoader implements ILoader {
         'sk-select': SelectWidget.definition,
         'sk-box': BoxWidget.definition,
         'sk-card': CardWidget.definition,
+        'sk-nav-link': NavLinkWidget.definition,
       },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
@@ -52,6 +54,7 @@ export class ServerLoader implements ILoader {
         'sk-select': SelectWidget.reactWidget,
         'sk-box': BoxWidget.reactWidget,
         'sk-card': CardWidget.reactWidget,
+        'sk-nav-link': NavLinkWidget.reactWidget,
       },
     };
   }
