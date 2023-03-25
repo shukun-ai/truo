@@ -1,6 +1,6 @@
 export interface ITemplateService {
   run(
-    template: string,
+    template: unknown,
     states: TemplateEvaluateStates,
     helpers: TemplateEvaluateHelpers,
   ): TemplateBasicOutput;

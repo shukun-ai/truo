@@ -11,7 +11,7 @@
       "type": "object",
       "patternProperties": {
         "^(.)+$": {
-          "type": "string"
+          "type": ["string", "array", "object", "number", "boolean"]
         }
       }
     },
