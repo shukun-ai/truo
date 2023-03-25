@@ -1,6 +1,6 @@
 import { PresenterSchema } from '@shukun/schema';
 
-import { IRepositoryManager } from '@shukun/widget';
+import { IRepositoryManager, TemplateEvaluateHelpers } from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
 
@@ -20,6 +20,7 @@ export type AppProps = {
   states: {
     [stateId: string]: unknown;
   };
+  helpers: TemplateEvaluateHelpers;
   presenter: PresenterSchema;
   reactWidgets: ReactWidgets;
   widgetDefinitions: WidgetDefinitions;

@@ -23,6 +23,7 @@ export const createObservable = (
         rawStates,
         containerId: null,
         states: {},
+        helpers: {},
         templateService: injector.templateService,
         repositoryManager: injector.repositoryManager,
       };

@@ -1,5 +1,5 @@
 import { PresenterWidget } from '@shukun/schema';
-import { ITemplateService } from '@shukun/widget';
+import { ITemplateService, TemplateEvaluateHelpers } from '@shukun/widget';
 import { AppProps } from '@shukun/widget-react';
 import { Children, cloneElement, ReactElement, useMemo } from 'react';
 
@@ -45,6 +45,7 @@ export const WidgetWrapper = ({
             template,
             app.templateService,
             states,
+            app.helpers,
           );
         }
       } else {
@@ -84,7 +85,8 @@ const evaluateTemplate = (
   template: unknown,
   templateService: ITemplateService,
   states: Record<string, unknown>,
+  helpers: TemplateEvaluateHelpers,
 ) => {
-  const value = templateService.run(template, states, {});
+  const value = templateService.run(template, states, helpers);
   return value;
 };
