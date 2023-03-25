@@ -38,14 +38,7 @@ export const createBrowserEffect = async () => {
     },
     currentUserRepository,
   );
-  repositoryManager.register(
-    {
-      scope: 'app',
-      containerId: 'app',
-      repositoryId: ROUTER_REPOSITORY_KEY,
-    },
-    routerRepository,
-  );
+  repositoryManager.registerRouterRepository(routerRepository);
   registerContainers(repositoryManager, definitions.presenter);
 
   const injector: EffectInjector = {

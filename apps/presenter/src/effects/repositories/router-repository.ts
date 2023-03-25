@@ -1,32 +1,23 @@
 import { TypeException } from '@shukun/exception';
-import { IRepository } from '@shukun/widget';
+import { IRouterRepository, RouterRepositoryStates } from '@shukun/widget';
 import { History, Location } from 'history';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export type RouterField = {
-  app: string;
-  orgName: string;
-  page: string;
-  search: Record<string, unknown>;
-};
-
-export class RouterRepository implements IRepository {
-  private HOME_PAGE = 'home';
-
-  private internalStates: BehaviorSubject<RouterField>;
+export class RouterRepository implements IRouterRepository {
+  private internalStates: BehaviorSubject<RouterRepositoryStates>;
 
   constructor(private readonly history: History) {
-    this.internalStates = new BehaviorSubject<RouterField>(
+    this.internalStates = new BehaviorSubject<RouterRepositoryStates>(
       this.parseLocation(this.history.location),
     );
     this.listenHistoryChanges();
   }
 
-  query(): Observable<RouterField> {
+  query(): Observable<RouterRepositoryStates> {
     return this.internalStates;
   }
 
-  getValue(): RouterField {
+  getValue(): RouterRepositoryStates {
     return this.internalStates.getValue();
   }
 
@@ -71,7 +62,7 @@ export class RouterRepository implements IRepository {
     });
   }
 
-  private parseLocation(location: Location): RouterField {
+  private parseLocation(location: Location): RouterRepositoryStates {
     const { appName, orgName, pageName } = this.parsePathname(
       location.pathname,
     );
