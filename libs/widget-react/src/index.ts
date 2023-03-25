@@ -1,3 +1,5 @@
+export * from './abstracts/loader.interface';
+
 export * from './layouts/dashboard/dashboard.layout';
 
 export * from './widgets/text/text.widget';

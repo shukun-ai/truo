@@ -4,7 +4,7 @@ import { IRepositoryManager } from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
 
-import { WidgetDefinitions } from '../effects/loaders/loader.interface';
+import { WidgetDefinitions } from '@shukun/widget-react';
 
 export type AppProps = {
   context: {
