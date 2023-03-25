@@ -14,7 +14,7 @@
     "repositories": {
       "type": "object",
       "patternProperties": {
-        "^(\\w)+$": {
+        "^(.)+$": {
           "$ref": "repository.schema.json"
         }
       }
@@ -22,7 +22,7 @@
     "widgets": {
       "type": "object",
       "patternProperties": {
-        "^(\\w)+$": {
+        "^(.)+$": {
           "$ref": "widget.schema.json"
         }
       }
@@ -34,7 +34,7 @@
     "tree": {
       "type": "object",
       "patternProperties": {
-        "^(\\w)+$": {
+        "^(.)+$": {
           "type": "array",
           "items": { "$ref": "#/definitions/PresenterTreeNode" }
         }

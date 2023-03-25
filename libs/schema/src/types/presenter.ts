@@ -8,7 +8,7 @@
 
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
+ * via the `patternProperty` "^(.)+$".
  */
 export type PresenterRepository =
   | PresenterRepositorySimple
@@ -21,7 +21,7 @@ export type PresenterEvent =
 export type PresenterTreeNode = string;
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
+ * via the `patternProperty` "^(.)+$".
  */
 export type PresenterScreen = PresenterScreenDashboard;
 
@@ -55,7 +55,7 @@ export interface PresenterContainer {
   tree: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(\w)+$".
+     * via the `patternProperty` "^(.)+$".
      */
     [k: string]: PresenterTreeNode[];
   };
@@ -79,7 +79,7 @@ export interface PresenterRepositoryTransformer {
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
+ * via the `patternProperty` "^(.)+$".
  */
 export interface PresenterWidget {
   tag: string;
@@ -87,14 +87,14 @@ export interface PresenterWidget {
   properties: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(\w)+$".
+     * via the `patternProperty` "^(.)+$".
      */
     [k: string]: string;
   };
   events: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(\w)+$".
+     * via the `patternProperty` "^(.)+$".
      */
     [k: string]: PresenterEvent[];
   };
