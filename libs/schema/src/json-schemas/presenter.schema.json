@@ -19,7 +19,7 @@
     "screens": {
       "type": "object",
       "patternProperties": {
-        "^(\\w)+$": {
+        "^(.)+$": {
           "$ref": "presenter/screen.schema.json"
         }
       }
