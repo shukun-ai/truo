@@ -14,9 +14,9 @@ import {
   TableWidget,
 } from '@shukun/widget-react';
 
-import { IApiRequester } from '../apis/requester.interface';
+import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
 
-import { ConfigDefinitions, ILoader } from './loader.interface';
+import { IApiRequester } from '../apis/requester.interface';
 
 export class ServerLoader implements ILoader {
   constructor(private readonly apiRequester: IApiRequester) {}
