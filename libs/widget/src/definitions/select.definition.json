@@ -40,6 +40,12 @@
         "type": "boolean"
       }
     },
+    "required": {
+      "label": "必填",
+      "schema": {
+        "type": "boolean"
+      }
+    },
     "hidden": {
       "label": "隐藏",
       "schema": {
@@ -48,24 +54,6 @@
     },
     "label": {
       "label": "标签",
-      "schema": {
-        "type": "string"
-      }
-    },
-    "labelHidden": {
-      "label": "标签隐藏",
-      "schema": {
-        "type": "boolean"
-      }
-    },
-    "labelPosition": {
-      "label": "标签位置",
-      "schema": {
-        "enum": ["left", "top"]
-      }
-    },
-    "labelWidth": {
-      "label": "标签宽度",
       "schema": {
         "type": "string"
       }

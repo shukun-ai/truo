@@ -12,11 +12,9 @@ export type SelectDefinitionProps = {
   labels?: SelectDefinitionLabels;
   placeholder?: SelectDefinitionPlaceholder;
   disabled?: SelectDefinitionDisabled;
+  required?: SelectDefinitionRequired;
   hidden?: SelectDefinitionHidden;
   label?: SelectDefinitionLabel;
-  labelHidden?: SelectDefinitionLabelHidden;
-  labelPosition?: SelectDefinitionLabelPosition;
-  labelWidth?: SelectDefinitionLabelWidth;
   helper?: SelectDefinitionHelper;
   change?: (payload: SelectDefinitionChange) => void;
 };
@@ -31,15 +29,11 @@ export type SelectDefinitionPlaceholder = string;
 
 export type SelectDefinitionDisabled = boolean;
 
+export type SelectDefinitionRequired = boolean;
+
 export type SelectDefinitionHidden = boolean;
 
 export type SelectDefinitionLabel = string;
-
-export type SelectDefinitionLabelHidden = boolean;
-
-export type SelectDefinitionLabelPosition = 'left' | 'top';
-
-export type SelectDefinitionLabelWidth = string;
 
 export type SelectDefinitionHelper = string;
 
