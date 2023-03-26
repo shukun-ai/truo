@@ -1,11 +1,9 @@
-import { CssVarsProvider } from '@mui/joy';
 import { AppProps } from '@shukun/widget-react';
 import { useObservableState } from 'observable-hooks';
 import { Observable } from 'rxjs';
 
 import { App } from '../ui/app';
 
-import { defaultTheme } from './theme';
 import { ThemeProvider } from './theme-provider';
 
 export const createObservableApp = (observable: Observable<AppProps>) => () => {
@@ -17,9 +15,7 @@ export const createObservableApp = (observable: Observable<AppProps>) => () => {
 
   return (
     <ThemeProvider>
-      <CssVarsProvider theme={defaultTheme}>
-        <App {...appProps} />
-      </CssVarsProvider>
+      <App {...appProps} />
     </ThemeProvider>
   );
 };
