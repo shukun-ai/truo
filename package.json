@@ -73,7 +73,6 @@
     "@mantine/core": "^6.0.4",
     "@mantine/hooks": "^6.0.4",
     "@material-ui/styles": "^4.11.4",
-    "@mui/joy": "^5.0.0-alpha.71",
     "@nestjs/cli": "^8.2.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.1.6",
