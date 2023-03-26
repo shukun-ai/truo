@@ -1,28 +1,22 @@
-import { Input } from '@mui/joy';
+import { TextInput } from '@mantine/core';
 import { inputDefinition, InputDefinitionProps } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';
-import { FormControl } from '../../shares/form-control';
 
 export const InputWidget = createWidget<InputDefinitionProps>(
   inputDefinition,
   (props) => {
     return (
-      <FormControl
+      <TextInput
         label={props.label}
-        labelHidden={props.labelHidden}
-        labelPosition={props.labelPosition}
-        labelWidth={props.labelWidth}
-        helper={props.helper}
-      >
-        <Input
-          type={props.type}
-          value={props.value}
-          placeholder={props.placeholder}
-          disabled={props.disabled}
-          onChange={(event) => props.change && props.change(event.target.value)}
-        />
-      </FormControl>
+        description={props.helper}
+        type={props.type}
+        value={props.value}
+        placeholder={props.placeholder}
+        disabled={props.disabled}
+        required={props.required}
+        onChange={(event) => props.change && props.change(event.target.value)}
+      />
     );
   },
 );
