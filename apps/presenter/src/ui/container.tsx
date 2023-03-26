@@ -1,3 +1,4 @@
+import { TypeException } from '@shukun/exception';
 import { PresenterContainer } from '@shukun/schema';
 
 import { AppProps } from '@shukun/widget-react';
@@ -26,6 +27,16 @@ const assembleWidgets = (
     const widget = container.widgets[widgetId];
     const nextChildrenNodes = container.tree[widgetId];
     let nextElements: JSX.Element[] = [];
+
+    if (!widget) {
+      // TODO mark LD level
+      throw new TypeException(
+        'The widget is mounted in tree, but did not defined in the widget: {{widgetId}}',
+        {
+          widgetId,
+        },
+      );
+    }
 
     if (nextChildrenNodes) {
       nextElements = assembleWidgets(
