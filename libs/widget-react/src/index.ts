@@ -17,3 +17,4 @@ export * from './widgets/card/card.widget';
 export * from './widgets/nav-link/nav-link.widget';
 export * from './widgets/table/table.widget';
 export * from './widgets/grid/grid.widget';
+export * from './widgets/form/form.widget';

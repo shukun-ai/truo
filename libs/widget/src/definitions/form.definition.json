@@ -1,0 +1,56 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "form",
+  "properties": {
+    "columns": {
+      "label": "列数",
+      "schema": {
+        "type": "integer"
+      },
+      "defaultValue": 3
+    },
+    "horizontalSpacing": {
+      "label": "水平留白",
+      "schema": {
+        "enum": ["xs", "sm", "md", "lg", "xl"]
+      }
+    },
+    "verticalSpacing": {
+      "label": "垂直留白",
+      "schema": {
+        "enum": ["xs", "sm", "md", "lg", "xl"]
+      }
+    },
+    "submitButtonText": {
+      "label": "提交按钮文字",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "hiddenSubmitButton": {
+      "label": "隐藏提交按钮",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    "resetButtonText": {
+      "label": "重置按钮文字",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "hiddenResetButton": {
+      "label": "隐藏重置按钮",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    "submit": {
+      "label": "提交事件",
+      "isEvent": true,
+      "schema": {
+        "type": "object"
+      }
+    }
+  }
+}
