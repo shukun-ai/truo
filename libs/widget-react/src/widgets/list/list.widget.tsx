@@ -1,4 +1,4 @@
-import { Box } from '@mui/joy';
+import { Box } from '@mantine/core';
 import { listDefinition, ListDefinitionProps } from '@shukun/widget';
 import { cloneElement } from 'react';
 

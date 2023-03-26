@@ -1,5 +1,4 @@
-import { NavLink } from '@mantine/core';
-import { Box } from '@mui/joy';
+import { NavLink, Box } from '@mantine/core';
 import {
   navLinkDefinition,
   NavLinkDefinitionProps,
