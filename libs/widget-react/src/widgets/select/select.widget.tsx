@@ -1,14 +1,13 @@
-import { Select, Option } from '@mui/joy';
+import { Select, SelectItem } from '@mantine/core';
 import { selectDefinition, SelectDefinitionProps } from '@shukun/widget';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
-import { FormControl } from '../../shares/form-control';
 
 export const SelectWidget = createWidget<SelectDefinitionProps>(
   selectDefinition,
   (props) => {
-    const options = useMemo<{ label: string; value: string | number }[]>(() => {
+    const options = useMemo<SelectItem[]>(() => {
       if (!props.values) {
         return [];
       }
@@ -16,32 +15,21 @@ export const SelectWidget = createWidget<SelectDefinitionProps>(
       return props.values.map((value, index) => ({
         label: props?.labels?.[index] ?? value,
         value,
-      })) as any;
-    }, [props?.labels, props?.values]);
+        selected: value === props.value,
+      }));
+    }, [props?.labels, props.value, props.values]);
 
     return (
-      <FormControl
+      <Select
+        data={options}
         label={props.label}
-        labelHidden={props.labelHidden}
-        labelPosition={props.labelPosition}
-        labelWidth={props.labelWidth}
-        helper={props.helper}
-      >
-        <Select
-          value={props.value}
-          placeholder={props.placeholder}
-          disabled={props.disabled}
-          onChange={(event, value) => {
-            props.change && props.change(value);
-          }}
-        >
-          {options.map((item) => (
-            <Option key={item.value} value={item.value}>
-              {item.label}
-            </Option>
-          ))}
-        </Select>
-      </FormControl>
+        description={props.helper}
+        value={props.value}
+        placeholder={props.placeholder}
+        disabled={props.disabled}
+        required={props.required}
+        onChange={(event) => props.change && props.change(event)}
+      />
     );
   },
 );
