@@ -11,11 +11,9 @@ export type InputDefinitionProps = {
   value?: InputDefinitionValue;
   placeholder?: InputDefinitionPlaceholder;
   disabled?: InputDefinitionDisabled;
+  required?: InputDefinitionRequired;
   hidden?: InputDefinitionHidden;
   label?: InputDefinitionLabel;
-  labelHidden?: InputDefinitionLabelHidden;
-  labelPosition: InputDefinitionLabelPosition;
-  labelWidth?: InputDefinitionLabelWidth;
   helper?: InputDefinitionHelper;
   change?: (payload: InputDefinitionChange) => void;
   enter?: (payload: InputDefinitionEnter) => void;
@@ -41,15 +39,11 @@ export type InputDefinitionPlaceholder = string;
 
 export type InputDefinitionDisabled = boolean;
 
+export type InputDefinitionRequired = boolean;
+
 export type InputDefinitionHidden = boolean;
 
 export type InputDefinitionLabel = string;
-
-export type InputDefinitionLabelHidden = boolean;
-
-export type InputDefinitionLabelPosition = 'left' | 'top';
-
-export type InputDefinitionLabelWidth = string;
 
 export type InputDefinitionHelper = string;
 
