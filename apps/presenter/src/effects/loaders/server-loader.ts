@@ -13,6 +13,7 @@ import {
   NavLinkWidget,
   TableWidget,
   GridWidget,
+  FormWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -45,6 +46,7 @@ export class ServerLoader implements ILoader {
         'sk-nav-link': NavLinkWidget.definition,
         'sk-table': TableWidget.definition,
         'sk-grid': GridWidget.definition,
+        'sk-form': FormWidget.definition,
       },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
@@ -61,6 +63,7 @@ export class ServerLoader implements ILoader {
         'sk-nav-link': NavLinkWidget.reactWidget,
         'sk-table': TableWidget.reactWidget,
         'sk-grid': GridWidget.reactWidget,
+        'sk-form': FormWidget.reactWidget,
       },
     };
   }

@@ -5,6 +5,7 @@ import buttonDefinitionJson from './button.definition.json';
 import cardDefinitionJson from './card.definition.json';
 import codeDefinitionJson from './code.definition.json';
 import containerDefinitionJson from './container.definition.json';
+import formDefinitionJson from './form.definition.json';
 import gridDefinitionJson from './grid.definition.json';
 import groupDefinitionJson from './group.definition.json';
 import inputDefinitionJson from './input.definition.json';
@@ -21,6 +22,7 @@ export const cardDefinition = cardDefinitionJson as any as WidgetSchema;
 export const codeDefinition = codeDefinitionJson as any as WidgetSchema;
 export const containerDefinition =
   containerDefinitionJson as any as WidgetSchema;
+export const formDefinition = formDefinitionJson as any as WidgetSchema;
 export const gridDefinition = gridDefinitionJson as any as WidgetSchema;
 export const groupDefinition = groupDefinitionJson as any as WidgetSchema;
 export const inputDefinition = inputDefinitionJson as any as WidgetSchema;
