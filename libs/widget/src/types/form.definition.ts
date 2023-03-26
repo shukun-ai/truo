@@ -7,21 +7,12 @@
  */
 
 export type FormDefinitionProps = {
-  columns: FormDefinitionColumns;
-  horizontalSpacing?: FormDefinitionHorizontalSpacing;
-  verticalSpacing?: FormDefinitionVerticalSpacing;
   submitButtonText?: FormDefinitionSubmitButtonText;
   hiddenSubmitButton?: FormDefinitionHiddenSubmitButton;
   resetButtonText?: FormDefinitionResetButtonText;
   hiddenResetButton?: FormDefinitionHiddenResetButton;
   submit?: (payload: FormDefinitionSubmit) => void;
 };
-
-export type FormDefinitionColumns = number;
-
-export type FormDefinitionHorizontalSpacing = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-export type FormDefinitionVerticalSpacing = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type FormDefinitionSubmitButtonText = string;
 

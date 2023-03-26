@@ -8,7 +8,6 @@ import {
   BoxWidget,
   NavLinkWidget,
   TableWidget,
-  GridWidget,
   FormWidget,
 } from '@shukun/widget-react';
 
@@ -37,7 +36,6 @@ export class ServerLoader implements ILoader {
         'sk-box': BoxWidget.definition,
         'sk-nav-link': NavLinkWidget.definition,
         'sk-table': TableWidget.definition,
-        'sk-grid': GridWidget.definition,
         'sk-form': FormWidget.definition,
       },
       reactWidgets: {
@@ -50,7 +48,6 @@ export class ServerLoader implements ILoader {
         'sk-box': BoxWidget.reactWidget,
         'sk-nav-link': NavLinkWidget.reactWidget,
         'sk-table': TableWidget.reactWidget,
-        'sk-grid': GridWidget.reactWidget,
         'sk-form': FormWidget.reactWidget,
       },
     };

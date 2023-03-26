@@ -9,14 +9,35 @@ export const FormWidget = createWidget<FormDefinitionProps>(
     return (
       <form>
         <SimpleGrid
-          cols={props.columns}
-          spacing={props.horizontalSpacing}
-          verticalSpacing={props.verticalSpacing}
+          breakpoints={[
+            {
+              minWidth: 'xs',
+              cols: 1,
+            },
+            {
+              minWidth: 'sm',
+              cols: 2,
+            },
+            {
+              minWidth: 'md',
+              cols: 3,
+            },
+            {
+              minWidth: 'lg',
+              cols: 4,
+            },
+            {
+              minWidth: 'xl',
+              cols: 6,
+            },
+          ]}
         >
           {props.children}
           <Group>
             <Button type="submit">{props.submitButtonText}</Button>
-            <Button type="reset">{props.resetButtonText}</Button>
+            <Button type="reset" variant="default">
+              {props.resetButtonText}
+            </Button>
           </Group>
         </SimpleGrid>
       </form>
