@@ -5,6 +5,7 @@ export * from './form.definition';
 export * from './input.definition';
 export * from './list.definition';
 export * from './nav-link.definition';
+export * from './search-form.definition';
 export * from './select.definition';
 export * from './table.definition';
 export * from './text.definition';

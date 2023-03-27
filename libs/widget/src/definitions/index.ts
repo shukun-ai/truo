@@ -7,6 +7,7 @@ import formDefinitionJson from './form.definition.json';
 import inputDefinitionJson from './input.definition.json';
 import listDefinitionJson from './list.definition.json';
 import navLinkDefinitionJson from './nav-link.definition.json';
+import searchFormDefinitionJson from './search-form.definition.json';
 import selectDefinitionJson from './select.definition.json';
 import tableDefinitionJson from './table.definition.json';
 import textDefinitionJson from './text.definition.json';
@@ -18,6 +19,8 @@ export const formDefinition = formDefinitionJson as any as WidgetSchema;
 export const inputDefinition = inputDefinitionJson as any as WidgetSchema;
 export const listDefinition = listDefinitionJson as any as WidgetSchema;
 export const navLinkDefinition = navLinkDefinitionJson as any as WidgetSchema;
+export const searchFormDefinition =
+  searchFormDefinitionJson as any as WidgetSchema;
 export const selectDefinition = selectDefinitionJson as any as WidgetSchema;
 export const tableDefinition = tableDefinitionJson as any as WidgetSchema;
 export const textDefinition = textDefinitionJson as any as WidgetSchema;

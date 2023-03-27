@@ -13,3 +13,4 @@ export * from './widgets/box/box.widget';
 export * from './widgets/nav-link/nav-link.widget';
 export * from './widgets/table/table.widget';
 export * from './widgets/form/form.widget';
+export * from './widgets/search-form/search-form.widget';

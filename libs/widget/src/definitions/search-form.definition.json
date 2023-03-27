@@ -1,6 +1,6 @@
 {
   "$schema": "../../../schema/src/json-schemas/widget.schema.json",
-  "tag": "form",
+  "tag": "search-form",
   "properties": {
     "submitButtonText": {
       "label": "提交按钮文字",
