@@ -14,6 +14,12 @@
         "type": "string"
       }
     },
+    "cancelButtonText": {
+      "label": "取消按钮文字",
+      "schema": {
+        "type": "string"
+      }
+    },
     "submit": {
       "label": "提交事件",
       "isEvent": true,
