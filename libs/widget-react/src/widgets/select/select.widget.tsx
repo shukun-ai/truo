@@ -3,6 +3,7 @@ import { selectDefinition, SelectDefinitionProps } from '@shukun/widget';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 
 export const SelectWidget = createWidget<SelectDefinitionProps>(
   selectDefinition,
@@ -21,6 +22,7 @@ export const SelectWidget = createWidget<SelectDefinitionProps>(
 
     return (
       <Select
+        {...extractBase(props)}
         data={options}
         label={props.label}
         description={props.helper}

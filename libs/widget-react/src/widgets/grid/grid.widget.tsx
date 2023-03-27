@@ -3,6 +3,7 @@ import { gridDefinition, GridDefinitionProps } from '@shukun/widget';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 
 export const GridWidget = createWidget<GridDefinitionProps>(
   gridDefinition,
@@ -19,7 +20,11 @@ export const GridWidget = createWidget<GridDefinitionProps>(
     }, [props.breakpoints]);
 
     return (
-      <SimpleGrid cols={props.columns} breakpoints={breakpoints}>
+      <SimpleGrid
+        {...extractBase(props)}
+        cols={props.columns}
+        breakpoints={breakpoints}
+      >
         {props.children}
       </SimpleGrid>
     );

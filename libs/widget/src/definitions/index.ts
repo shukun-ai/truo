@@ -1,6 +1,7 @@
 import { WidgetSchema } from '@shukun/schema';
 
 import alertDefinitionJson from './alert.definition.json';
+import baseDefinitionJson from './base.definition.json';
 import boxDefinitionJson from './box.definition.json';
 import buttonDefinitionJson from './button.definition.json';
 import cardDefinitionJson from './card.definition.json';
@@ -17,6 +18,7 @@ import tableDefinitionJson from './table.definition.json';
 import textDefinitionJson from './text.definition.json';
 
 export const alertDefinition = alertDefinitionJson as any as WidgetSchema;
+export const baseDefinition = baseDefinitionJson as any as WidgetSchema;
 export const boxDefinition = boxDefinitionJson as any as WidgetSchema;
 export const buttonDefinition = buttonDefinitionJson as any as WidgetSchema;
 export const cardDefinition = cardDefinitionJson as any as WidgetSchema;

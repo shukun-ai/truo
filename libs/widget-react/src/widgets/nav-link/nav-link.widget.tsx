@@ -10,12 +10,13 @@ import { useMemo } from 'react';
 
 import { AppProps } from '../../abstracts/app.interface';
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 
 export const NavLinkWidget = createWidget<NavLinkDefinitionProps>(
   navLinkDefinition,
   (props) => {
     return (
-      <Box>
+      <Box {...extractBase(props)}>
         <AssembledNavLinks
           links={props.value ?? []}
           app={props.app}

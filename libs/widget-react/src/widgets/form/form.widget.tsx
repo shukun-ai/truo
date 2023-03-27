@@ -2,13 +2,17 @@ import { Box, Button, Container, Group, SimpleGrid } from '@mantine/core';
 import { formDefinition, FormDefinitionProps } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 import { numberToRem } from '../../shares/rem';
 
 export const FormWidget = createWidget<FormDefinitionProps>(
   formDefinition,
   (props) => {
     return (
-      <form
+      <Box
+        {...extractBase(props)}
+        component="form"
+        sx={{ display: 'block' }}
         onSubmit={() => {
           props.submit && props.submit({});
         }}
@@ -28,7 +32,7 @@ export const FormWidget = createWidget<FormDefinitionProps>(
             <Button variant="default">{props.cancelButtonText}</Button>
           )}
         </Group>
-      </form>
+      </Box>
     );
   },
 );

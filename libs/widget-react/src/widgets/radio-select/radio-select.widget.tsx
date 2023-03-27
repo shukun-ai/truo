@@ -6,6 +6,7 @@ import {
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 
 export const RadioSelectWidget = createWidget<RadioSelectDefinitionProps>(
   radioSelectDefinition,
@@ -24,6 +25,7 @@ export const RadioSelectWidget = createWidget<RadioSelectDefinitionProps>(
 
     return (
       <Radio.Group
+        {...extractBase(props)}
         label={props.label}
         description={props.helper}
         value={props.value}

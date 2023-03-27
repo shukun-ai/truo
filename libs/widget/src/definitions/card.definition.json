@@ -8,13 +8,6 @@
         "type": "boolean"
       },
       "defaultValue": false
-    },
-    "marginBottom": {
-      "label": "下外边距",
-      "schema": {
-        "type": "number"
-      },
-      "defaultValue": 0
     }
   }
 }

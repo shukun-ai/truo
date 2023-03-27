@@ -1,4 +1,5 @@
-import { PresenterWidget } from '@shukun/schema';
+import { TypeException } from '@shukun/exception';
+import { PresenterWidget, WidgetSchema } from '@shukun/schema';
 import { ITemplateService, TemplateEvaluateHelpers } from '@shukun/widget';
 import { AppProps } from '@shukun/widget-react';
 import { Children, cloneElement, ReactElement, useMemo } from 'react';
@@ -33,11 +34,11 @@ export const WidgetWrapper = ({
 
   const properties = useMemo(() => {
     const properties: Record<string, unknown> = {};
-    for (const [propertyId, property] of Object.entries(
-      widgetDefinition.properties,
-    )) {
-      const states = { ...app.states, item, index: index ?? 0 };
+    const states = { ...app.states, item, index: index ?? 0 };
 
+    for (const [propertyId, property] of Object.entries(
+      getWidgetAndBoxProperties(widgetDefinition, app),
+    )) {
       if (!property.isEvent) {
         const template = widget.properties[propertyId];
         if (template) {
@@ -70,6 +71,10 @@ export const WidgetWrapper = ({
     return <div data-error="NOT_FOUND_WIDGET">{children}</div>;
   }
 
+  if (properties['hidden']) {
+    return null;
+  }
+
   return (
     <ReactWidget
       composeId={`${containerId}:${widgetId}`}
@@ -89,4 +94,20 @@ const evaluateTemplate = (
 ) => {
   const value = templateService.run(template, states, helpers);
   return value;
+};
+
+const getWidgetAndBoxProperties = (
+  widgetDefinition: WidgetSchema,
+  app: AppProps,
+) => {
+  const boxDefinition = app.widgetDefinitions['sk-base'];
+
+  if (!boxDefinition) {
+    throw new TypeException('The box is base widget, must be registered.');
+  }
+
+  return {
+    ...widgetDefinition.properties,
+    ...boxDefinition.properties,
+  };
 };

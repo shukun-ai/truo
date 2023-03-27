@@ -9,6 +9,7 @@ import {
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 
 import { TableContextProvider } from './table.context';
 
@@ -38,7 +39,7 @@ export const TableWidget = createWidget<TableDefinitionProps>(
 
     return (
       <TableContextProvider value={{ app: props.app }}>
-        <Paper>
+        <Paper {...extractBase(props)}>
           <Table highlightOnHover>
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
