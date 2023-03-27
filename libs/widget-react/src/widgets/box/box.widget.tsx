@@ -2,6 +2,7 @@ import { Box } from '@mantine/core';
 import { boxDefinition, BoxDefinitionProps } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 import { numberToRem } from '../../shares/rem';
 
 export const BoxWidget = createWidget<BoxDefinitionProps>(
@@ -9,6 +10,7 @@ export const BoxWidget = createWidget<BoxDefinitionProps>(
   (props) => {
     return (
       <Box
+        {...extractBase(props)}
         pt={numberToRem(props.paddingTop)}
         pr={numberToRem(props.paddingRight)}
         pb={numberToRem(props.paddingBottom)}

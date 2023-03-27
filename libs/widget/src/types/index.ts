@@ -1,4 +1,5 @@
 export * from './alert.definition';
+export * from './base.definition';
 export * from './box.definition';
 export * from './button.definition';
 export * from './card.definition';

@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "base",
+  "properties": {
+    "hidden": {
+      "label": "隐藏",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
+    },
+    "marginBottom": {
+      "label": "下外边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
+    }
+  }
+}

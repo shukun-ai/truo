@@ -3,6 +3,7 @@ export * from './abstracts/app.interface';
 
 export * from './layouts/dashboard/dashboard.layout';
 
+export * from './widgets/base/base.widget';
 export * from './widgets/text/text.widget';
 export * from './widgets/input/input.widget';
 export * from './widgets/code/code.widget';

@@ -1,16 +1,17 @@
-import { Button, Group, SimpleGrid } from '@mantine/core';
+import { Box, Button, Group, SimpleGrid } from '@mantine/core';
 import {
   searchFormDefinition,
   SearchFormDefinitionProps,
 } from '@shukun/widget';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { extractBase } from '../../shares/inheritance';
 
 export const searchFormWidget = createWidget<SearchFormDefinitionProps>(
   searchFormDefinition,
   (props) => {
     return (
-      <form>
+      <Box {...extractBase(props)} component="form" display="block">
         <SimpleGrid
           breakpoints={[
             {
@@ -47,7 +48,7 @@ export const searchFormWidget = createWidget<SearchFormDefinitionProps>(
             )}
           </Group>
         </SimpleGrid>
-      </form>
+      </Box>
     );
   },
 );

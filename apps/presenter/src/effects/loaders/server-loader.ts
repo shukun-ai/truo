@@ -14,6 +14,7 @@ import {
   AlertWidget,
   RadioSelectWidget,
   CardWidget,
+  BaseWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -32,6 +33,7 @@ export class ServerLoader implements ILoader {
     return {
       presenter: response.data.value,
       widgetDefinitions: {
+        'sk-base': BaseWidget.definition,
         'sk-input': InputWidget.definition,
         'sk-text': TextWidget.definition,
         'sk-code': CodeWidget.definition,
@@ -49,6 +51,7 @@ export class ServerLoader implements ILoader {
         'sk-card': CardWidget.definition,
       },
       reactWidgets: {
+        'sk-base': BaseWidget.reactWidget,
         'sk-input': InputWidget.reactWidget,
         'sk-text': TextWidget.reactWidget,
         'sk-code': CodeWidget.reactWidget,
