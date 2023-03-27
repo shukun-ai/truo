@@ -3,6 +3,7 @@ import { textDefinition, TextDefinitionProps } from '@shukun/widget';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
+import { numberToRem } from '../../shares/rem';
 
 export const TextWidget = createWidget<TextDefinitionProps>(
   textDefinition,
@@ -14,7 +15,12 @@ export const TextWidget = createWidget<TextDefinitionProps>(
     }, [props.level]);
 
     return (
-      <Box>
+      <Box
+        mt={numberToRem(props.marginTop)}
+        mr={numberToRem(props.marginRight)}
+        mb={numberToRem(props.marginBottom)}
+        ml={numberToRem(props.marginLeft)}
+      >
         <Component {...props} />
       </Box>
     );
