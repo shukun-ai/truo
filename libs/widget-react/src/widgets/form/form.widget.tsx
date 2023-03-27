@@ -20,6 +20,9 @@ export const FormWidget = createWidget<FormDefinitionProps>(
               {props.resetButtonText}
             </Button>
           )}
+          {props.cancelButtonText && (
+            <Button variant="default">{props.cancelButtonText}</Button>
+          )}
         </Group>
       </form>
     );

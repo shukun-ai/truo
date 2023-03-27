@@ -12,6 +12,8 @@ import {
   searchFormWidget,
   GridWidget,
   AlertWidget,
+  RadioSelectWidget,
+  CardWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -43,6 +45,8 @@ export class ServerLoader implements ILoader {
         'sk-search-form': searchFormWidget.definition,
         'sk-grid': GridWidget.definition,
         'sk-alert': AlertWidget.definition,
+        'sk-radio-select': RadioSelectWidget.definition,
+        'sk-card': CardWidget.definition,
       },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
@@ -58,6 +62,8 @@ export class ServerLoader implements ILoader {
         'sk-search-form': searchFormWidget.reactWidget,
         'sk-grid': GridWidget.reactWidget,
         'sk-alert': AlertWidget.reactWidget,
+        'sk-radio-select': RadioSelectWidget.reactWidget,
+        'sk-card': CardWidget.reactWidget,
       },
     };
   }

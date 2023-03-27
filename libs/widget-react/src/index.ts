@@ -16,3 +16,5 @@ export * from './widgets/form/form.widget';
 export * from './widgets/search-form/search-form.widget';
 export * from './widgets/grid/grid.widget';
 export * from './widgets/alert/alert.widget';
+export * from './widgets/radio-select/radio-select.widget';
+export * from './widgets/card/card.widget';
