@@ -141,7 +141,7 @@ export interface PresenterEventNavigation {
   [k: string]: unknown;
 }
 export interface PresenterScreenDashboard {
-  layout: 'Dashboard';
+  layout: 'Dashboard' | 'Workshop';
   slots: {
     main: string;
     menu?: string;

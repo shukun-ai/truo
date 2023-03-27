@@ -8,9 +8,6 @@
 
 export type CardDefinitionProps = {
   withBorder: CardDefinitionWithBorder;
-  marginBottom: CardDefinitionMarginBottom;
 };
 
 export type CardDefinitionWithBorder = boolean;
-
-export type CardDefinitionMarginBottom = number;

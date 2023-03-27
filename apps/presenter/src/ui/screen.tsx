@@ -1,5 +1,5 @@
 import { PresenterScreen } from '@shukun/schema';
-import { DashboardLayout } from '@shukun/widget-react';
+import { DashboardLayout, WorkshopLayout } from '@shukun/widget-react';
 import { AppProps } from '@shukun/widget-react';
 import { useMemo } from 'react';
 
@@ -36,6 +36,8 @@ const getScreenLayout = (screen: PresenterScreen) => {
   switch (screen.layout) {
     case 'Dashboard':
       return DashboardLayout;
+    case 'Workshop':
+      return WorkshopLayout;
   }
 };
 

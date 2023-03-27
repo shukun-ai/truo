@@ -15,6 +15,7 @@ import {
   RadioSelectWidget,
   CardWidget,
   BaseWidget,
+  BadgeWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -49,6 +50,7 @@ export class ServerLoader implements ILoader {
         'sk-alert': AlertWidget.definition,
         'sk-radio-select': RadioSelectWidget.definition,
         'sk-card': CardWidget.definition,
+        'sk-badge': BadgeWidget.definition,
       },
       reactWidgets: {
         'sk-base': BaseWidget.reactWidget,
@@ -67,6 +69,7 @@ export class ServerLoader implements ILoader {
         'sk-alert': AlertWidget.reactWidget,
         'sk-radio-select': RadioSelectWidget.reactWidget,
         'sk-card': CardWidget.reactWidget,
+        'sk-badge': BadgeWidget.reactWidget,
       },
     };
   }
