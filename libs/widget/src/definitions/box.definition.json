@@ -2,13 +2,6 @@
   "$schema": "../../../schema/src/json-schemas/widget.schema.json",
   "tag": "box",
   "properties": {
-    "orientation": {
-      "label": "方向",
-      "schema": {
-        "enum": ["horizontal", "vertical"]
-      },
-      "defaultValue": "vertical"
-    },
     "paddingTop": {
       "label": "上内边距",
       "schema": {
@@ -60,6 +53,13 @@
     },
     "marginLeft": {
       "label": "左外边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
+    },
+    "width": {
+      "label": "宽度",
       "schema": {
         "type": "number"
       },
