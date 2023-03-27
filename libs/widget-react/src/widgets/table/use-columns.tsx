@@ -3,10 +3,13 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 
 import { CellComponent } from './cell.component';
+import { useSelectionColumn } from './use-selection-column';
 
 export const useColumns = (columns: TableDefinitionColumns) => {
+  const selectionColumn = useSelectionColumn();
+
   const columnDefinition = useMemo<ColumnDef<unknown>[]>(() => {
-    return columns.map((column) => ({
+    const columnDefinition = columns.map((column) => ({
       accessorKey: column.field,
       header: column.label,
       cell: CellComponent,
@@ -14,7 +17,9 @@ export const useColumns = (columns: TableDefinitionColumns) => {
         columnContext: column,
       },
     }));
-  }, [columns]);
+
+    return [...selectionColumn, ...columnDefinition];
+  }, [columns, selectionColumn]);
 
   return columnDefinition;
 };
