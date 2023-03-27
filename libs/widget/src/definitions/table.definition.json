@@ -40,6 +40,12 @@
         }
       },
       "defaultValue": []
+    },
+    "totalCounts": {
+      "label": "总条数",
+      "schema": {
+        "type": "number"
+      }
     }
   }
 }

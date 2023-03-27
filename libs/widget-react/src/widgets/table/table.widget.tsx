@@ -28,6 +28,14 @@ export const TableWidget = createWidget<TableDefinitionProps>(
       debugTable: props.app.context.debug,
     });
 
+    const paginationTotal = useMemo(() => {
+      if (!props.totalCounts) {
+        return 1;
+      }
+
+      return Math.ceil(props.totalCounts / 10);
+    }, [props.totalCounts]);
+
     return (
       <TableContextProvider value={{ app: props.app }}>
         <Paper>
@@ -91,7 +99,7 @@ export const TableWidget = createWidget<TableDefinitionProps>(
             display="flex"
             sx={{ paddingTop: '2rem', justifyContent: 'flex-end' }}
           >
-            <Pagination total={10} />
+            <Pagination total={paginationTotal} />
           </Box>
         </Paper>
       </TableContextProvider>
