@@ -7,7 +7,6 @@
  */
 
 export type BoxDefinitionProps = {
-  orientation: BoxDefinitionOrientation;
   paddingTop: BoxDefinitionPaddingTop;
   paddingRight: BoxDefinitionPaddingRight;
   paddingBottom: BoxDefinitionPaddingBottom;
@@ -16,10 +15,9 @@ export type BoxDefinitionProps = {
   marginRight: BoxDefinitionMarginRight;
   marginBottom: BoxDefinitionMarginBottom;
   marginLeft: BoxDefinitionMarginLeft;
+  width: BoxDefinitionWidth;
   height: BoxDefinitionHeight;
 };
-
-export type BoxDefinitionOrientation = 'horizontal' | 'vertical';
 
 export type BoxDefinitionPaddingTop = number;
 
@@ -36,5 +34,7 @@ export type BoxDefinitionMarginRight = number;
 export type BoxDefinitionMarginBottom = number;
 
 export type BoxDefinitionMarginLeft = number;
+
+export type BoxDefinitionWidth = number;
 
 export type BoxDefinitionHeight = number;
