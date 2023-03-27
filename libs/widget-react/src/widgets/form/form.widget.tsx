@@ -8,7 +8,11 @@ export const FormWidget = createWidget<FormDefinitionProps>(
   formDefinition,
   (props) => {
     return (
-      <form>
+      <form
+        onSubmit={() => {
+          props.submit && props.submit({});
+        }}
+      >
         <Box>{props.children}</Box>
         <Box h={numberToRem(1)} />
         <Group>
