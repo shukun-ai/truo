@@ -11,6 +11,10 @@ export type TextDefinitionProps = {
   textColor?: TextDefinitionTextColor;
   textAlign: TextDefinitionTextAlign;
   level: TextDefinitionLevel;
+  marginTop: TextDefinitionMarginTop;
+  marginRight: TextDefinitionMarginRight;
+  marginBottom: TextDefinitionMarginBottom;
+  marginLeft: TextDefinitionMarginLeft;
 };
 
 export type TextDefinitionValue = string;
@@ -29,3 +33,11 @@ export type TextDefinitionLevel =
   | 'h4'
   | 'h5'
   | 'h6';
+
+export type TextDefinitionMarginTop = number;
+
+export type TextDefinitionMarginRight = number;
+
+export type TextDefinitionMarginBottom = number;
+
+export type TextDefinitionMarginLeft = number;

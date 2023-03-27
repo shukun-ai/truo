@@ -10,6 +10,7 @@ import {
   TableWidget,
   FormWidget,
   searchFormWidget,
+  GridWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -39,6 +40,7 @@ export class ServerLoader implements ILoader {
         'sk-table': TableWidget.definition,
         'sk-form': FormWidget.definition,
         'sk-search-form': searchFormWidget.definition,
+        'sk-grid': GridWidget.definition,
       },
       reactWidgets: {
         'sk-input': InputWidget.reactWidget,
@@ -52,6 +54,7 @@ export class ServerLoader implements ILoader {
         'sk-table': TableWidget.reactWidget,
         'sk-form': FormWidget.reactWidget,
         'sk-search-form': searchFormWidget.reactWidget,
+        'sk-grid': GridWidget.reactWidget,
       },
     };
   }
