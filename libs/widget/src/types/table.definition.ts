@@ -9,6 +9,7 @@
 export type TableDefinitionProps = {
   columns: TableDefinitionColumns;
   value: TableDefinitionValue;
+  totalCounts?: TableDefinitionTotalCounts;
 };
 
 export type TableDefinitionColumns = {
@@ -34,3 +35,5 @@ export type TableDefinitionColumns = {
 export type TableDefinitionValue = {
   [k: string]: unknown;
 }[];
+
+export type TableDefinitionTotalCounts = number;
