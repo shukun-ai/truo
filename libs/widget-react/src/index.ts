@@ -2,6 +2,7 @@ export * from './abstracts/loader.interface';
 export * from './abstracts/app.interface';
 
 export * from './layouts/dashboard/dashboard.layout';
+export * from './layouts/dashboard/workshop.layout';
 
 export * from './widgets/base/base.widget';
 export * from './widgets/text/text.widget';
@@ -19,3 +20,4 @@ export * from './widgets/grid/grid.widget';
 export * from './widgets/alert/alert.widget';
 export * from './widgets/radio-select/radio-select.widget';
 export * from './widgets/card/card.widget';
+export * from './widgets/badge/badge.widget';

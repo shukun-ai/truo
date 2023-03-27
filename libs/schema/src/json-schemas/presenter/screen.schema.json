@@ -20,7 +20,7 @@
       "required": ["layout", "slots"],
       "additionalProperties": false,
       "properties": {
-        "layout": { "const": "Dashboard" },
+        "layout": { "enum": ["Dashboard", "Workshop"] },
         "slots": {
           "type": "object",
           "required": ["main"],
