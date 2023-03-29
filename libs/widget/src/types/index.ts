@@ -4,6 +4,7 @@ export * from './base.definition';
 export * from './box.definition';
 export * from './button.definition';
 export * from './card.definition';
+export * from './checkbox-select.definition';
 export * from './code.definition';
 export * from './form.definition';
 export * from './grid.definition';
