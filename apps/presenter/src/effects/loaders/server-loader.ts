@@ -16,6 +16,7 @@ import {
   CardWidget,
   BaseWidget,
   BadgeWidget,
+  CheckboxSelectWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -49,6 +50,7 @@ export class ServerLoader implements ILoader {
         'sk-grid': GridWidget.definition,
         'sk-alert': AlertWidget.definition,
         'sk-radio-select': RadioSelectWidget.definition,
+        'sk-checkbox-select': CheckboxSelectWidget.definition,
         'sk-card': CardWidget.definition,
         'sk-badge': BadgeWidget.definition,
       },
@@ -68,6 +70,7 @@ export class ServerLoader implements ILoader {
         'sk-grid': GridWidget.reactWidget,
         'sk-alert': AlertWidget.reactWidget,
         'sk-radio-select': RadioSelectWidget.reactWidget,
+        'sk-checkbox-select': CheckboxSelectWidget.reactWidget,
         'sk-card': CardWidget.reactWidget,
         'sk-badge': BadgeWidget.reactWidget,
       },
