@@ -11,6 +11,7 @@ export * from './grid.definition';
 export * from './image-input.definition';
 export * from './input.definition';
 export * from './list.definition';
+export * from './multiple-input.definition';
 export * from './nav-link.definition';
 export * from './radio-select.definition';
 export * from './search-form.definition';
