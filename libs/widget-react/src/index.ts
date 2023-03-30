@@ -22,3 +22,4 @@ export * from './widgets/radio-select/radio-select.widget';
 export * from './widgets/checkbox-select/checkbox-select.widget';
 export * from './widgets/card/card.widget';
 export * from './widgets/badge/badge.widget';
+export * from './widgets/image-input/image-input.widget';
