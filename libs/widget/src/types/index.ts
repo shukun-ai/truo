@@ -8,6 +8,7 @@ export * from './checkbox-select.definition';
 export * from './code.definition';
 export * from './form.definition';
 export * from './grid.definition';
+export * from './image-input.definition';
 export * from './input.definition';
 export * from './list.definition';
 export * from './nav-link.definition';

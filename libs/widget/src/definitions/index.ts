@@ -10,6 +10,7 @@ import checkboxSelectDefinitionJson from './checkbox-select.definition.json';
 import codeDefinitionJson from './code.definition.json';
 import formDefinitionJson from './form.definition.json';
 import gridDefinitionJson from './grid.definition.json';
+import imageInputDefinitionJson from './image-input.definition.json';
 import inputDefinitionJson from './input.definition.json';
 import listDefinitionJson from './list.definition.json';
 import navLinkDefinitionJson from './nav-link.definition.json';
@@ -30,6 +31,8 @@ export const checkboxSelectDefinition =
 export const codeDefinition = codeDefinitionJson as any as WidgetSchema;
 export const formDefinition = formDefinitionJson as any as WidgetSchema;
 export const gridDefinition = gridDefinitionJson as any as WidgetSchema;
+export const imageInputDefinition =
+  imageInputDefinitionJson as any as WidgetSchema;
 export const inputDefinition = inputDefinitionJson as any as WidgetSchema;
 export const listDefinition = listDefinitionJson as any as WidgetSchema;
 export const navLinkDefinition = navLinkDefinitionJson as any as WidgetSchema;
