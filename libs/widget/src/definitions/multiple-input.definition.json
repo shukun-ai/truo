@@ -1,0 +1,55 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "multiple-input",
+  "properties": {
+    "value": {
+      "label": "值",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "placeholder": {
+      "label": "占位提示",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "disabled": {
+      "label": "禁用",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    "required": {
+      "label": "必填",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    "label": {
+      "label": "标签",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "helper": {
+      "label": "帮助信息",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "change": {
+      "label": "值改变事件",
+      "isEvent": true,
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

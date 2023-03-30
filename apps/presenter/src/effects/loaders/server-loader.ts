@@ -18,6 +18,7 @@ import {
   BadgeWidget,
   CheckboxSelectWidget,
   ImageInputWidget,
+  MultipleInputWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -39,6 +40,7 @@ export class ServerLoader implements ILoader {
         'sk-base': BaseWidget.definition,
         'sk-input': InputWidget.definition,
         'sk-image-input': ImageInputWidget.definition,
+        'sk-multiple-input': MultipleInputWidget.definition,
         'sk-text': TextWidget.definition,
         'sk-code': CodeWidget.definition,
         'sk-button': ButtonWidget.definition,
@@ -60,6 +62,7 @@ export class ServerLoader implements ILoader {
         'sk-base': BaseWidget.reactWidget,
         'sk-input': InputWidget.reactWidget,
         'sk-image-input': ImageInputWidget.reactWidget,
+        'sk-multiple-input': MultipleInputWidget.reactWidget,
         'sk-text': TextWidget.reactWidget,
         'sk-code': CodeWidget.reactWidget,
         'sk-button': ButtonWidget.reactWidget,

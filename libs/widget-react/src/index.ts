@@ -23,3 +23,4 @@ export * from './widgets/checkbox-select/checkbox-select.widget';
 export * from './widgets/card/card.widget';
 export * from './widgets/badge/badge.widget';
 export * from './widgets/image-input/image-input.widget';
+export * from './widgets/multiple-input/multiple-input.widget';

@@ -13,6 +13,7 @@ import gridDefinitionJson from './grid.definition.json';
 import imageInputDefinitionJson from './image-input.definition.json';
 import inputDefinitionJson from './input.definition.json';
 import listDefinitionJson from './list.definition.json';
+import multipleInputDefinitionJson from './multiple-input.definition.json';
 import navLinkDefinitionJson from './nav-link.definition.json';
 import radioSelectDefinitionJson from './radio-select.definition.json';
 import searchFormDefinitionJson from './search-form.definition.json';
@@ -35,6 +36,8 @@ export const imageInputDefinition =
   imageInputDefinitionJson as any as WidgetSchema;
 export const inputDefinition = inputDefinitionJson as any as WidgetSchema;
 export const listDefinition = listDefinitionJson as any as WidgetSchema;
+export const multipleInputDefinition =
+  multipleInputDefinitionJson as any as WidgetSchema;
 export const navLinkDefinition = navLinkDefinitionJson as any as WidgetSchema;
 export const radioSelectDefinition =
   radioSelectDefinitionJson as any as WidgetSchema;
