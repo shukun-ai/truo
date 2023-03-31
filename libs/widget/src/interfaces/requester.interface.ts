@@ -1,5 +1,4 @@
 import {
-  AxiosAdaptor,
   DeveloperRequester,
   PublicRequester,
   SourceRequester,
@@ -8,7 +7,6 @@ import {
 import { UnknownSourceModel } from '@shukun/schema';
 
 export interface IApiRequester {
-  readonly adaptor: AxiosAdaptor;
   readonly publicRequester: PublicRequester;
   readonly viewRequester: ViewRequester;
   readonly developerRequester: DeveloperRequester;

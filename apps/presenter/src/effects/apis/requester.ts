@@ -6,17 +6,17 @@ import {
   ViewRequester,
 } from '@shukun/api';
 import { UnknownSourceModel } from '@shukun/schema';
+import { IApiRequester } from '@shukun/widget';
 
 import { environment } from '../../environments/environment';
 import { IAuthStorage } from '../storages/auth-storage.interface';
 
-import { IApiRequester } from './requester.interface';
-
 export class ApiRequester implements IApiRequester {
-  readonly adaptor: AxiosAdaptor;
   readonly publicRequester: PublicRequester;
   readonly viewRequester: ViewRequester;
   readonly developerRequester: DeveloperRequester;
+
+  private readonly adaptor: AxiosAdaptor;
 
   constructor(private readonly authStorage: IAuthStorage) {
     this.adaptor = new AxiosAdaptor({

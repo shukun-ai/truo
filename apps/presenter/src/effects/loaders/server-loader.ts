@@ -1,3 +1,4 @@
+import { IApiRequester } from '@shukun/widget';
 import {
   ButtonWidget,
   CodeWidget,
@@ -22,8 +23,6 @@ import {
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
-
-import { IApiRequester } from '../apis/requester.interface';
 
 export class ServerLoader implements ILoader {
   constructor(private readonly apiRequester: IApiRequester) {}
