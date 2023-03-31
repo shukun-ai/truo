@@ -9,6 +9,7 @@ export const createObservable = (
   return injector.repositoryManager.queryAll().pipe(
     map((rawStates: any) => {
       const router = rawStates['_app:router'];
+      const showSignInScreen = !rawStates['_app:auth']?.current;
 
       const appProps: AppProps = {
         context: {
@@ -23,6 +24,7 @@ export const createObservable = (
         widgetDefinitions: injector.definitions.widgetDefinitions,
         rawStates,
         containerId: null,
+        showSignInScreen,
         states: {},
         helpers: {},
         templateService: injector.templateService,

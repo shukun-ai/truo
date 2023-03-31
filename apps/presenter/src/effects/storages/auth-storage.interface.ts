@@ -1,3 +1,5 @@
+import { AuthenticationToken } from '@shukun/schema';
+
 export interface IAuthStorage {
   set(payload: requesterSessionPayload): void;
   get(): requesterSessionPayload | null;
@@ -5,6 +7,5 @@ export interface IAuthStorage {
 }
 
 export type requesterSessionPayload = {
-  orgName: string;
-  accessToken: string;
+  current: AuthenticationToken;
 };
