@@ -1,6 +1,10 @@
 import { PresenterSchema } from '@shukun/schema';
 
-import { IRepositoryManager, TemplateEvaluateHelpers } from '@shukun/widget';
+import {
+  IApiRequester,
+  IRepositoryManager,
+  TemplateEvaluateHelpers,
+} from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
 
@@ -27,4 +31,5 @@ export type AppProps = {
   widgetDefinitions: WidgetDefinitions;
   templateService: ITemplateService;
   repositoryManager: IRepositoryManager;
+  api: IApiRequester;
 };

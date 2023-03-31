@@ -1,10 +1,9 @@
-import { IRepositoryManager } from '@shukun/widget';
+import { IApiRequester, IRepositoryManager } from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
 
-import { IApiRequester } from './apis/requester.interface';
 import { IEventQueue } from './event/event-queue.interface';
 import { CurrentUserRepository } from './repositories/current-user-repository';
 import { RouterRepository } from './repositories/router-repository';

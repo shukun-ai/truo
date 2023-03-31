@@ -27,6 +27,7 @@ export const createObservable = (
         helpers: {},
         templateService: injector.templateService,
         repositoryManager: injector.repositoryManager,
+        api: injector.apiRequester,
       };
 
       return appProps;
