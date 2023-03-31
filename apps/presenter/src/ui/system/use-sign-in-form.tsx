@@ -27,6 +27,8 @@ export const useSignInForm = (app: AppProps) => {
           password: values.password,
         },
       );
+
+      app.repositoryManager.getAuthRepository().signIn(response.data.value);
     } catch (error) {
       setErrorMessage(handleErrorMessage(error));
     } finally {

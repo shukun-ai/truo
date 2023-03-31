@@ -1,5 +1,9 @@
 import { TypeException } from '@shukun/exception';
-import { IRepository, IRouterRepository } from '@shukun/widget';
+import {
+  IAuthRepository,
+  IRepository,
+  IRouterRepository,
+} from '@shukun/widget';
 import { IRepositoryManager, repositoryIdentifier } from '@shukun/widget';
 import { combineLatest, map, Observable } from 'rxjs';
 
@@ -72,6 +76,29 @@ export class RepositoryManager implements IRepositoryManager {
     }
 
     return repository as IRouterRepository;
+  }
+
+  registerAuthRepository(authRepository: IAuthRepository): void {
+    this.register(
+      { scope: 'app', containerId: 'app', repositoryId: 'auth' },
+      authRepository,
+    );
+  }
+
+  getAuthRepository(): IAuthRepository {
+    const repository = this.repositories.get(
+      this.getRepositoryKey({
+        scope: 'app',
+        containerId: 'app',
+        repositoryId: 'auth',
+      }),
+    );
+
+    if (!repository) {
+      throw new TypeException('The auth repository did not registered.');
+    }
+
+    return repository as IAuthRepository;
   }
 
   private getRepositoryKey(identifier: repositoryIdentifier) {

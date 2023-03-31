@@ -5,7 +5,7 @@ import { ITemplateService } from '@shukun/widget';
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
 
 import { IEventQueue } from './event/event-queue.interface';
-import { CurrentUserRepository } from './repositories/current-user-repository';
+import { AuthRepository } from './repositories/auth-repository';
 import { RouterRepository } from './repositories/router-repository';
 import { IAuthStorage } from './storages/auth-storage.interface';
 
@@ -17,6 +17,6 @@ export type EffectInjector = {
   eventQueue: IEventQueue;
   templateService: ITemplateService;
   routerRepository: RouterRepository;
-  currentUserRepository: CurrentUserRepository;
+  authRepository: AuthRepository;
   definitions: ConfigDefinitions;
 };

@@ -6,10 +6,9 @@ import {
   ViewRequester,
 } from '@shukun/api';
 import { UnknownSourceModel } from '@shukun/schema';
-import { IApiRequester } from '@shukun/widget';
+import { IApiRequester, IAuthRepository } from '@shukun/widget';
 
 import { environment } from '../../environments/environment';
-import { IAuthStorage } from '../storages/auth-storage.interface';
 
 export class ApiRequester implements IApiRequester {
   readonly publicRequester: PublicRequester;
@@ -18,11 +17,11 @@ export class ApiRequester implements IApiRequester {
 
   private readonly adaptor: AxiosAdaptor;
 
-  constructor(private readonly authStorage: IAuthStorage) {
+  constructor(private readonly authRepository: IAuthRepository) {
     this.adaptor = new AxiosAdaptor({
       baseUrl: `${environment.serverDomain}/apis/v1`,
-      onOrgName: () => this.authStorage.get()?.orgName ?? null,
-      onAccessToken: () => this.authStorage.get()?.accessToken ?? null,
+      onOrgName: () => this.getOrgName(),
+      onAccessToken: () => this.getAccessToken(),
     });
     this.publicRequester = new PublicRequester(this.adaptor);
     this.viewRequester = new ViewRequester(this.adaptor);
@@ -31,5 +30,15 @@ export class ApiRequester implements IApiRequester {
 
   createSourceRequester<Model extends UnknownSourceModel>(atomName: string) {
     return new SourceRequester<Model>(this.adaptor, atomName);
+  }
+
+  private getOrgName(): string | null {
+    const { current } = this.authRepository.getValue();
+    return current?.orgName ?? null;
+  }
+
+  private getAccessToken(): string | null {
+    const { current } = this.authRepository.getValue();
+    return current?.accessToken ?? null;
   }
 }

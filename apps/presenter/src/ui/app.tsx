@@ -11,7 +11,7 @@ export const App = (props: AppProps) => {
     return screen ?? null;
   }, [props.presenter.screens, props.context.screen]);
 
-  if (props.context.screen === 'sign-in') {
+  if (props.showSignInScreen) {
     return <SignInScreen app={props} />;
   }
 

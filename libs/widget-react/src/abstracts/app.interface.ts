@@ -22,6 +22,7 @@ export type AppProps = {
     [repositoryId: string]: unknown;
   };
   containerId: string | null;
+  showSignInScreen: boolean;
   states: {
     [stateId: string]: unknown;
   };
