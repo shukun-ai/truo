@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "card",
+  "properties": {
+    "withBorder": {
+      "label": "展示边框",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
+    }
+  }
+}

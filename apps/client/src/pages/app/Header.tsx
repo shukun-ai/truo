@@ -2,7 +2,7 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Button, Space } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Flex } from '../../components/flex';
 import { org$ } from '../../services/global';
@@ -15,7 +15,7 @@ import { OrgBrand } from './OrgBrand';
 export interface HeaderProps {}
 
 export const Header: FunctionComponent<HeaderProps> = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const org = useObservableState(org$);
 
@@ -46,10 +46,7 @@ export const Header: FunctionComponent<HeaderProps> = () => {
       >
         <Flex style={{ flex: 1, alignItems: 'center' }}>
           <div style={{ width: 202, paddingLeft: 8 }}>
-            <OrgBrand
-              theme="dark"
-              onClick={() => history.push(dashboardOrgPath)}
-            />
+            <OrgBrand theme="dark" onClick={() => navigate(dashboardOrgPath)} />
           </div>
           {/* @todo hide it when you implement search. */}
           {/* <Search /> */}

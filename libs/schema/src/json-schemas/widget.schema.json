@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "WidgetSchema",
+  "description": "Define the presenter contained Stores and UI Elements",
+  "type": "object",
+  "required": ["tag", "properties"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "tag": { "type": "string" },
+    "experimental": { "type": "boolean" },
+    "properties": {
+      "type": "object",
+      "patternProperties": {
+        "^(\\w)+$": {
+          "type": "object",
+          "required": ["label", "schema"],
+          "additionalProperties": false,
+          "properties": {
+            "schema": {
+              "$ref": "reference/reference-data.schema.json"
+            },
+            "defaultValue": {},
+            "isEvent": { "type": "boolean" },
+            "label": { "type": "string" },
+            "placeholder": { "type": "string" },
+            "description": { "type": "string" }
+          },
+          "default": {
+            "label": "",
+            "schema": {},
+            "defaultValue": ""
+          }
+        }
+      }
+    }
+  }
+}

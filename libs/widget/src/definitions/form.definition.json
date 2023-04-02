@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "form",
+  "properties": {
+    "submitButtonText": {
+      "label": "提交按钮文字",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "resetButtonText": {
+      "label": "重置按钮文字",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "cancelButtonText": {
+      "label": "取消按钮文字",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "submit": {
+      "label": "提交事件",
+      "isEvent": true,
+      "schema": {
+        "type": "object"
+      }
+    }
+  }
+}

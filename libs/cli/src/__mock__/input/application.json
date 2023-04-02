@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/application.schema.json",
+  "title": "SHUKUN MOCK",
+  "environments": [
+    {
+      "name": "viewCustomActionSyncedReceiveTask",
+      "value": "synced-receive-task",
+      "isPublic": true
+    },
+    {
+      "name": "viewCustomModalAssignReceiveTask",
+      "value": "assign-receive-task",
+      "isPublic": false
+    }
+  ]
+}

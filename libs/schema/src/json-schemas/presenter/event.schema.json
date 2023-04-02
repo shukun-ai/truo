@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PresenterEvent",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/definitions/PresenterEventSetRepository" },
+    { "$ref": "#/definitions/PresenterEventTriggerRepository" },
+    { "$ref": "#/definitions/PresenterEventNavigation" }
+  ],
+  "definitions": {
+    "PresenterEventSetRepository": {
+      "title": "PresenterEventSetRepository",
+      "type": "object",
+      "required": ["action", "target", "path"],
+      "properties": {
+        "action": { "const": "setRepository" },
+        "target": { "type": "string" },
+        "path": { "type": "array", "items": { "type": "string" } },
+        "convertor": {
+          "type": "string",
+          "description": "template syntax"
+        }
+      }
+    },
+    "PresenterEventTriggerRepository": {
+      "title": "PresenterEventTriggerRepository",
+      "type": "object",
+      "required": ["action", "target"],
+      "properties": {
+        "action": { "const": "triggerRepository" },
+        "target": { "type": "string" },
+        "convertor": {
+          "type": "string",
+          "description": "template syntax"
+        }
+      }
+    },
+    "PresenterEventNavigation": {
+      "title": "PresenterEventNavigation",
+      "description": "Note: the navigation is only used inside app. If want to open external page, please add new event.",
+      "type": "object",
+      "required": ["action", "page"],
+      "properties": {
+        "action": { "const": "navigation" },
+        "page": { "type": "string", "description": "template syntax" },
+        "search": { "type": "string", "description": "template syntax" }
+      }
+    }
+  }
+}

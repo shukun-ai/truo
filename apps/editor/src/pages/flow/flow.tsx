@@ -15,6 +15,9 @@ export const Flow: FunctionComponent<FlowProps> = () => {
   const { flowName } = useParams<{ flowName: string }>();
 
   useEffect(() => {
+    if (!flowName) {
+      return;
+    }
     flowCommand.setActive(flowName);
     return () => {
       flowCommand.removeActive(flowName);

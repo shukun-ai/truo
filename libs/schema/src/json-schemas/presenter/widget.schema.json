@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PresenterWidget",
+  "type": "object",
+  "required": ["tag", "properties", "events"],
+  "additionalProperties": false,
+  "properties": {
+    "tag": { "type": "string" },
+    "parentSlot": { "type": "string" },
+    "properties": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "type": ["string", "array", "object", "number", "boolean"]
+        }
+      }
+    },
+    "events": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "type": "array",
+          "items": {
+            "$ref": "event.schema.json"
+          }
+        }
+      }
+    }
+  },
+  "default": {
+    "tag": "",
+    "properties": {},
+    "events": {}
+  }
+}

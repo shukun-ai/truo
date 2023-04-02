@@ -1,7 +1,7 @@
 import { Dropdown, MenuProps } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { FunctionComponent, useMemo } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { sessionService } from '../../../services/session';
 import { RoutePath, useOrgPath } from '../../../utils/history-provider';
@@ -9,7 +9,7 @@ import { RoutePath, useOrgPath } from '../../../utils/history-provider';
 export interface UserProfileProps {}
 
 export const UserProfile: FunctionComponent<UserProfileProps> = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const signInOrgPath = useOrgPath(RoutePath.SignIn);
 
@@ -21,13 +21,13 @@ export const UserProfile: FunctionComponent<UserProfileProps> = () => {
           key: 'SignOut',
           danger: true,
           onClick: () => {
-            history.push(signInOrgPath);
+            navigate(signInOrgPath);
             sessionService.signOut();
           },
         },
       ],
     };
-  }, [history, signInOrgPath]);
+  }, [navigate, signInOrgPath]);
 
   return (
     <Dropdown menu={menu}>

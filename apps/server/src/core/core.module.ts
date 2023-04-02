@@ -9,6 +9,7 @@ import { FlowService } from './flow.service';
 import { MetadataService } from './metadata.service';
 import { OrgService } from './org.service';
 import { OrgSchema, OrgDocumentName } from './org/org.schema';
+import { PresenterService } from './presenter.service';
 import { RoleService } from './role.service';
 import { ScheduleService } from './schedule.service';
 import { ViewService } from './view.service';
@@ -28,6 +29,7 @@ import { WorkflowService } from './workflow.service';
     ScheduleService,
     EnvironmentService,
     DataSourceService,
+    PresenterService,
   ],
   exports: [
     OrgService,
@@ -39,6 +41,7 @@ import { WorkflowService } from './workflow.service';
     ScheduleService,
     EnvironmentService,
     DataSourceService,
+    PresenterService,
   ],
 })
 export class CoreModule {}

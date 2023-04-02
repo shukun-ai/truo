@@ -15,7 +15,6 @@
     "randomstring",
     "jsonpath",
     "tokenizr",
-    "accesscontrol",
     "cssmodule",
     "antd",
     "immer",
@@ -23,7 +22,8 @@
     "mockdate",
     "postmate",
     "untitle",
-    "buildable"
+    "buildable",
+    "mantine"
   ],
   "ignoreWords": [],
   "import": []

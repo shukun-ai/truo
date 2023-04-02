@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "nav-link",
+  "properties": {
+    "value": {
+      "label": "导航菜单值",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["label"],
+          "additionalProperties": false,
+          "properties": {
+            "label": { "type": "string" },
+            "screen": { "type": "string" },
+            "search": { "type": "object" },
+            "children": { "$ref": "#" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "list",
+  "properties": {
+    "value": {
+      "label": "Data Value",
+      "schema": {
+        "type": "array",
+        "items": {}
+      }
+    }
+  }
+}

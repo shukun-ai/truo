@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../../../schema/src/json-schemas/presenter/container.schema.json",
+  "type": "page",
+  "repositories": {
+    "form2": {
+      "type": "Simple"
+    }
+  },
+  "widgets": {
+    "w1": {
+      "tag": "sk-text",
+      "properties": {
+        "value": "It is about page {{$.form2.value}}."
+      },
+      "events": {}
+    }
+  },
+  "root": ["w1"],
+  "tree": {}
+}

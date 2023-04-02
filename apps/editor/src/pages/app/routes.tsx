@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Router, Switch, Route, Redirect, useParams } from 'react-router-dom';
+import { Routes as ReactRoutes, Route, BrowserRouter } from 'react-router-dom';
 
-import { history, RoutePath } from '../../routes';
+import { RoutePath } from '../../routes';
 import { FlowList } from '../flow-list/flow-list';
 import { Flow } from '../flow/flow';
 import { Home } from '../home/home';
@@ -13,20 +13,19 @@ export interface RoutesProps {}
 
 export const Routes: FunctionComponent<RoutesProps> = () => {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path={RoutePath.Welcome} component={Welcome} />
-        <Route path={RoutePath.Workspace}>
-          <Workspace>
-            <Switch>
-              <Route path={RoutePath.FlowDetail} component={Flow} />
-              <Route path={RoutePath.FlowList} component={FlowList} />
-            </Switch>
-          </Workspace>
+    <BrowserRouter>
+      <ReactRoutes>
+        <Route path={RoutePath.Welcome} element={<Welcome />} />
+        <Route path={RoutePath.Workspace} element={<Workspace />}>
+          <Route path={RoutePath.FlowDetail} element={<Flow />} />
+          <Route path={RoutePath.FlowList} element={<FlowList />} />
         </Route>
-        <Route path={RoutePath.Home} exact component={Home} />
-        <Route path="*" component={NotFound} />
-      </Switch>
-    </Router>
+        <Route
+          path={RoutePath.Home}
+          element={<Home />}
+          errorElement={<NotFound />}
+        />
+      </ReactRoutes>
+    </BrowserRouter>
   );
 };

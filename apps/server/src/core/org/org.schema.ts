@@ -43,6 +43,9 @@ export class Org {
 
   @Prop({ type: 'Buffer' })
   migrated?: Buffer;
+
+  @Prop({ type: 'Buffer' })
+  presenters?: Buffer;
 }
 
 export const OrgSchema = SchemaFactory.createForClass(Org);
