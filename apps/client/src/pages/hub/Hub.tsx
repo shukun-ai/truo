@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Button, Form, Input } from 'antd';
 import React, { FunctionComponent, useCallback } from 'react';
 import { BiSupport } from 'react-icons/bi';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Flex } from '../../components/flex';
 import { designSystem } from '../../utils/design-system';
@@ -18,15 +18,15 @@ export interface HubFormModel {
 export const Hub: FunctionComponent<HubProps> = () => {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleFinish = useCallback<
     (values: HubFormModel) => Promise<boolean | void>
   >(
     async (values) => {
-      history.push(replaceOrgPath(RoutePath.SignIn, values.orgName));
+      navigate(replaceOrgPath(RoutePath.SignIn, values.orgName));
     },
-    [history],
+    [navigate],
   );
 
   return (

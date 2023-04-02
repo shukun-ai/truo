@@ -38,6 +38,32 @@ export class DeveloperRequester {
 
   /**
    * @remarks
+   * POST /apis/v1/developer/{orgName}/presenters-code
+   *
+   * @example
+   * const formData = new FormData();
+   * formData.append('file', acceptedFiles[0]);
+   * updatePresentersCode(formData);
+   */
+  public async updatePresentersCode(
+    formData: FormData,
+    headers?: Record<string, string>,
+  ) {
+    return await this.requestAdaptor.fetch<null>(
+      'POST',
+      this.buildUri('presenters-code'),
+      {
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          ...headers,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
    * POST /apis/v1/developer/{orgName}/data-source
    */
   public async updateDataSource(dataSource: DataSourceSchema) {

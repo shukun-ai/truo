@@ -30,7 +30,9 @@
       "@shukun/exception": ["libs/exception/src/index.ts"],
       "@shukun/knex": ["libs/knex/src/index.ts"],
       "@shukun/schema": ["libs/schema/src/index.ts"],
-      "@shukun/validator": ["libs/validator/src/index.ts"]
+      "@shukun/validator": ["libs/validator/src/index.ts"],
+      "@shukun/widget": ["libs/widget/src/index.ts"],
+      "@shukun/widget-react": ["libs/widget-react/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

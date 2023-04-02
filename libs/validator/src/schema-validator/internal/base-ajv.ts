@@ -7,7 +7,7 @@ import { isEngineName } from '../../base-validator/is-engine-name';
 import { isRolePermission } from '../../base-validator/is-role-permission';
 
 export function createBaseAjv(options?: Options) {
-  return new Ajv(options)
+  return new Ajv({ allowUnionTypes: true, ...options })
     .addKeyword('tsEnumNames')
     .addKeyword('skEditorType')
     .addFormat('email', {

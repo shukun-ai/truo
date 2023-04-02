@@ -1,0 +1,55 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "button",
+  "properties": {
+    "text": {
+      "label": "文本",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "variant": {
+      "label": "按钮样式",
+      "schema": {
+        "enum": [
+          "outline",
+          "white",
+          "light",
+          "default",
+          "filled",
+          "gradient",
+          "subtle"
+        ]
+      },
+      "defaultValue": "filled"
+    },
+    "disabled": {
+      "label": "是否禁用",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
+    },
+    "loading": {
+      "label": "是否加载中",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
+    },
+    "fullWidth": {
+      "label": "是否撑满",
+      "schema": {
+        "type": "boolean"
+      },
+      "defaultValue": false
+    },
+    "click": {
+      "label": "点击事件",
+      "isEvent": true,
+      "schema": {
+        "type": "null"
+      }
+    }
+  }
+}

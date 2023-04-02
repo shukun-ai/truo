@@ -1,0 +1,26 @@
+{
+  "$schema": "../../../../node_modules/@shukun/schema/src/json-schemas/application/metadata.schema.json",
+  "name": "airlines",
+  "label": "航空公司",
+  "electrons": [
+    {
+      "name": "code",
+      "label": "航空公司代码",
+      "fieldType": "Text",
+      "isRequired": true,
+      "isUnique": true
+    },
+    {
+      "name": "title",
+      "label": "航空公司名称",
+      "fieldType": "Text",
+      "isRequired": true
+    },
+    {
+      "name": "contact",
+      "label": "联系方式",
+      "fieldType": "Text",
+      "isRequired": true
+    }
+  ]
+}

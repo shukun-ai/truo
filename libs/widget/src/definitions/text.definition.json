@@ -1,0 +1,60 @@
+{
+  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "text",
+  "properties": {
+    "value": {
+      "label": "显示文字",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "textColor": {
+      "label": "自定义颜色",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "textAlign": {
+      "label": "对齐方式",
+      "schema": {
+        "enum": ["center", "justify", "left", "right"]
+      },
+      "defaultValue": "left"
+    },
+    "level": {
+      "label": "样式",
+      "schema": {
+        "enum": ["body1", "body2", "body3", "h1", "h2", "h3", "h4", "h5", "h6"]
+      },
+      "defaultValue": "body1"
+    },
+    "marginTop": {
+      "label": "上外边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
+    },
+    "marginRight": {
+      "label": "右外边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
+    },
+    "marginBottom": {
+      "label": "下外边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
+    },
+    "marginLeft": {
+      "label": "左外边距",
+      "schema": {
+        "type": "number"
+      },
+      "defaultValue": 0
+    }
+  }
+}

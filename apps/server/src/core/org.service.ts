@@ -6,6 +6,7 @@ import {
   DataSourceSchema,
   IDString,
   MetadataSchema,
+  PresenterSchema,
 } from '@shukun/schema';
 import { Model } from 'mongoose';
 
@@ -209,5 +210,37 @@ export class OrgService {
         migrated: buffer,
       },
     );
+  }
+
+  async updatePresenters(
+    orgName: IDString,
+    presenters: Record<string, PresenterSchema>,
+  ) {
+    const buffer = Buffer.from(JSON.stringify(presenters));
+
+    await this.orgModel.updateOne(
+      { name: orgName },
+      {
+        presenters: buffer,
+      },
+    );
+  }
+
+  async findPresenters(
+    orgName: string,
+  ): Promise<Record<string, PresenterSchema>> {
+    const org = await this.orgModel
+      .findOne({ name: orgName })
+      .select('presenters')
+      .exec();
+
+    if (!org?.presenters) {
+      return {};
+    }
+
+    const presenters: Record<string, PresenterSchema> = JSON.parse(
+      org.presenters.toString(),
+    );
+    return presenters;
   }
 }

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../../../node_modules/@shukun/schema/src/json-schemas/application/view.schema.json",
+  "name": "airlines",
+  "label": "航空公司",
+  "type": "Simple",
+  "parentName": "manage_menu",
+  "isVisible": true,
+  "priority": 0,
+  "atomName": "airlines",
+  "configurations": {
+    "tableFields": [
+      {
+        "name": "code",
+        "label": "代码前两位前缀",
+        "type": "LinkText",
+        "electronName": "code",
+        "link": {
+          "type": "ReadOne"
+        }
+      },
+      {
+        "name": "title",
+        "label": "航空公司名称",
+        "type": "Text",
+        "electronName": "title"
+      },
+      {
+        "name": "contact",
+        "label": "联系方式",
+        "type": "Text",
+        "electronName": "contact"
+      }
+    ],
+    "detailFields": [
+      {
+        "name": "code",
+        "label": "代码前两位前缀",
+        "type": "Text",
+        "electronName": "code",
+        "requiredCode": "return true;",
+        "disabledCode": "return scope.mode === 'Edit'"
+      },
+      {
+        "name": "title",
+        "label": "航空公司名称",
+        "type": "Text",
+        "electronName": "title",
+        "requiredCode": "return true;"
+      },
+      {
+        "name": "contact",
+        "label": "联系方式",
+        "type": "Text",
+        "electronName": "contact",
+        "requiredCode": "return true;"
+      }
+    ],
+    "detailRibbons": [
+      {
+        "name": "edit",
+        "label": "编辑",
+        "type": "UpdateOne"
+      },
+      {
+        "name": "delete",
+        "label": "删除",
+        "type": "DeleteOne"
+      }
+    ],
+    "tableRibbons": [
+      {
+        "name": "create",
+        "label": "新建",
+        "type": "CreateOne"
+      }
+    ]
+  }
+}

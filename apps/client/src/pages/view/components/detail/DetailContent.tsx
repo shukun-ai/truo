@@ -9,7 +9,7 @@ import { useDebounceEffect } from 'ahooks';
 import { Button, Form, FormInstance, FormProps, message, Tabs } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { DetailMode, detailService, mode$ } from '../../../../services/detail';
 import { sourceReferenceService } from '../../../../services/source';
@@ -35,7 +35,7 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
 
   const mode = useObservableState(mode$);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const viewDetailOrgPath = useOrgPath(RoutePath.ViewDetail);
 
@@ -63,7 +63,7 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
         message.success('已为您成功保存。');
 
         if (mode === DetailMode.Create) {
-          history.replace(
+          navigate(
             viewDetailOrgPath
               .replace(':viewName', view.name)
               .replace(':sourceId', result._id),
@@ -71,7 +71,7 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
         }
       }
     },
-    [metadata, source, form, mode, history, view.name, viewDetailOrgPath],
+    [metadata, source, form, mode, navigate, viewDetailOrgPath, view.name],
   );
 
   const handleFinishFailed = useCallback<

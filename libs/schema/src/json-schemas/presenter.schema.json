@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PresenterSchema",
+  "description": "Define the presenter contained Stores and UI Elements",
+  "type": "object",
+  "required": ["title", "containers", "screens"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "title": { "type": "string" },
+    "containers": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "$ref": "presenter/container.schema.json"
+        }
+      }
+    },
+    "screens": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "$ref": "presenter/screen.schema.json"
+        }
+      }
+    }
+  }
+}

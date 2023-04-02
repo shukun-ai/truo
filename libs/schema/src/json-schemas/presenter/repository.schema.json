@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "PresenterRepository",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/PresenterRepositorySimple"
+    },
+    {
+      "$ref": "#/definitions/PresenterRepositorySourceQuery"
+    },
+    {
+      "$ref": "#/definitions/PresenterRepositoryTransformer"
+    }
+  ],
+  "definitions": {
+    "PresenterRepositorySimple": {
+      "title": "PresenterRepositorySimple",
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "Simple" }
+      }
+    },
+    "PresenterRepositorySourceQuery": {
+      "title": "PresenterRepositorySourceQuery",
+      "type": "object",
+      "required": ["type", "atomName", "query"],
+      "properties": {
+        "type": { "const": "SourceQuery" },
+        "atomName": { "type": "string" },
+        "query": { "type": "object" }
+      }
+    },
+    "PresenterRepositoryTransformer": {
+      "title": "PresenterRepositoryTransformer",
+      "type": "object",
+      "required": ["type", "func"],
+      "properties": {
+        "type": { "const": "Transformer" },
+        "func": { "type": "string" }
+      }
+    }
+  }
+}

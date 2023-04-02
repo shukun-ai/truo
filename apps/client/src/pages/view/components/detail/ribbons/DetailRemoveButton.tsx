@@ -2,7 +2,7 @@ import { MetadataSchema, UnknownSourceModel, ViewRibbon } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import { RibbonButton } from '../../../../../components/ribbon/RibbonButton';
 import {
@@ -28,7 +28,7 @@ export const DetailRemoveButton: FunctionComponent<DetailRemoveButtonProps> = ({
 }) => {
   const mode = useObservableState(mode$);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { viewName } = useParams<{ viewName: string }>();
 
@@ -40,10 +40,10 @@ export const DetailRemoveButton: FunctionComponent<DetailRemoveButtonProps> = ({
     }
     const result = await detailService.removeOne(source._id, metadata);
 
-    if (result) {
-      history.push(viewPageOrgPath.replace(':viewName', viewName));
+    if (result && viewName) {
+      navigate(viewPageOrgPath.replace(':viewName', viewName));
     }
-  }, [source, metadata, history, viewPageOrgPath, viewName]);
+  }, [source, metadata, viewName, navigate, viewPageOrgPath]);
 
   return (
     <RibbonButton

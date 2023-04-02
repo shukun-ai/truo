@@ -2,7 +2,7 @@ import { RoleResourceType, ViewSchema } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { RibbonButton } from '../../../../../components/ribbon/RibbonButton';
 import {
@@ -19,13 +19,13 @@ export interface TableCreateButtonProps {
 export const TableCreateButton: FunctionComponent<TableCreateButtonProps> = ({
   view,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const viewCreateOrgPath = useOrgPath(RoutePath.ViewCreate);
 
   const handleClick = useCallback(() => {
-    history.push(viewCreateOrgPath.replace(':viewName', view.name));
-  }, [history, viewCreateOrgPath, view.name]);
+    navigate(viewCreateOrgPath.replace(':viewName', view.name));
+  }, [navigate, viewCreateOrgPath, view.name]);
 
   const grantList = useObservableState(grantList$, []);
 

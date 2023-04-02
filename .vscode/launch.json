@@ -45,6 +45,24 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
+      "name": "Presenter Unit Test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx.js",
+      "args": [
+        "run",
+        "presenter:test",
+        "--watchAll",
+        "--codeCoverage=false",
+        "--runInBand",
+        "--detectOpenHandles",
+        "--inspect-brk"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
       "name": "Launch client on Chrome",
       "type": "chrome",
       "request": "launch",
@@ -57,6 +75,14 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
+    },
+    {
+      "name": "Launch presenter on Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8090",
       "webRoot": "${workspaceFolder}",
       "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
     }
