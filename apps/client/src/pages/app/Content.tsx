@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { designSystem } from '../../utils/design-system';
@@ -7,7 +8,7 @@ export interface ContentProps {
   sideBarVisible?: boolean;
 }
 
-export const Content: FunctionComponent<ContentProps> = ({
+export const Content: LegacyFunctionComponent<ContentProps> = ({
   sideBarVisible,
   children,
 }) => {

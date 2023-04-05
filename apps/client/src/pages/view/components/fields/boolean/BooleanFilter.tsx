@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Select, SelectProps } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
@@ -11,7 +12,7 @@ export enum BooleanChoose {
 
 export type BooleanFilterInputValue = { $eq?: boolean; $ne?: boolean };
 
-export const BooleanFilter: FunctionComponent<FilterFieldProps> = ({
+export const BooleanFilter: LegacyFunctionComponent<FilterFieldProps> = ({
   label,
   electronName,
   tip,
@@ -27,7 +28,7 @@ export const BooleanFilter: FunctionComponent<FilterFieldProps> = ({
   );
 };
 
-export const BooleanFilterInput: FunctionComponent<
+export const BooleanFilterInput: LegacyFunctionComponent<
   ExtractFormItemProps<BooleanFilterInputValue>
 > = ({ id, value, onChange }) => {
   const parsedValue = useMemo(() => {

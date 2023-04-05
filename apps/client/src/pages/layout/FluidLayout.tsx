@@ -1,8 +1,9 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 export interface FluidLayoutProps {}
 
-export const FluidLayout: FunctionComponent<FluidLayoutProps> = ({
+export const FluidLayout: LegacyFunctionComponent<FluidLayoutProps> = ({
   children,
 }) => {
   return (

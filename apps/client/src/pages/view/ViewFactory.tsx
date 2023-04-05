@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { RoleResourceType, ViewType } from '@shukun/schema';
 import { useUpdateEffect } from 'ahooks';
 import { Skeleton } from 'antd';
@@ -18,7 +19,7 @@ import { ListView } from './components/list/ListView';
 
 export interface ViewFactoryProps {}
 
-export const ViewFactory: FunctionComponent<ViewFactoryProps> = () => {
+export const ViewFactory: LegacyFunctionComponent<ViewFactoryProps> = () => {
   const views = useObservableState(views$, []);
 
   const { viewName } = useParams<{ viewName: string }>();

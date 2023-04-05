@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataAttachmentOptions,
   MetadataCurrencyOptions,
@@ -19,7 +20,7 @@ export interface DetailFieldProps {
   detailMode: DetailMode;
 }
 
-export const DetailField: FunctionComponent<DetailFieldProps> = ({
+export const DetailField: LegacyFunctionComponent<DetailFieldProps> = ({
   metadata,
   viewDetailField,
   detailMode,

@@ -1,4 +1,5 @@
 import { UploadOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Button, FormInstance, Upload } from 'antd';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
@@ -24,13 +25,9 @@ export interface AttachmentUploadProps {
   limitUpload: number;
 }
 
-export const AttachmentUpload: FunctionComponent<AttachmentUploadProps> = ({
-  form,
-  name: formName,
-  disabled,
-  value,
-  limitUpload,
-}) => {
+export const AttachmentUpload: LegacyFunctionComponent<
+  AttachmentUploadProps
+> = ({ form, name: formName, disabled, value, limitUpload }) => {
   const [fileList, setFileList] = useState<UploadFile<StorageUploadResponse>[]>(
     [],
   );

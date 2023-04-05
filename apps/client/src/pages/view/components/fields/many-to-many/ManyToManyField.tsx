@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -5,7 +6,7 @@ import { sources$ } from '../../../../../services/source';
 import { ColumnFieldProps } from '../interfaces';
 import { Tag } from '../many-to-one/Tag';
 
-export const ManyToManyField: FunctionComponent<ColumnFieldProps> = ({
+export const ManyToManyField: LegacyFunctionComponent<ColumnFieldProps> = ({
   row,
   electronForeignName,
   electronName,

@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Checkbox } from 'antd';
 import React, { FunctionComponent, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -5,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { LABEL_ALIGN, LABEL_SPAN } from '../constant';
 import { InputFieldProps } from '../interfaces';
 
-export const MultiSelectForm: FunctionComponent<InputFieldProps> = ({
+export const MultiSelectForm: LegacyFunctionComponent<InputFieldProps> = ({
   label,
   electronName,
   electronOptions,

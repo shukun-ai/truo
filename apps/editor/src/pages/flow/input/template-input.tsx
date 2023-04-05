@@ -1,9 +1,10 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input } from 'antd';
 import React, { FunctionComponent } from 'react';
 
 import { InputProps } from '../interface/input';
 
-export const TemplateInput: FunctionComponent<InputProps> = ({
+export const TemplateInput: LegacyFunctionComponent<InputProps> = ({
   label,
   name,
   required,

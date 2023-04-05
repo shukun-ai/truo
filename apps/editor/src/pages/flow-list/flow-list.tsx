@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { FlowSchema } from '@shukun/schema';
 import { Button, message, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
@@ -12,7 +13,7 @@ import { flowCommand, flowQuery } from '../../services/flow';
 
 export interface FlowListProps {}
 
-export const FlowList: FunctionComponent<FlowListProps> = () => {
+export const FlowList: LegacyFunctionComponent<FlowListProps> = () => {
   const navigate = useNavigate();
 
   const allFlows = useObservableState(flowQuery.allFlows$);

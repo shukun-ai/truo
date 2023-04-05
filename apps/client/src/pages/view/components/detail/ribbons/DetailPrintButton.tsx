@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { UnknownSourceModel, ViewRibbon } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
@@ -13,11 +14,9 @@ export interface DetailPrintButtonProps {
   sources: UnknownSourceModel[];
 }
 
-export const DetailPrintButton: FunctionComponent<DetailPrintButtonProps> = ({
-  viewRibbon,
-  source,
-  sources,
-}) => {
+export const DetailPrintButton: LegacyFunctionComponent<
+  DetailPrintButtonProps
+> = ({ viewRibbon, source, sources }) => {
   const mode = useObservableState(mode$);
 
   const handleClick = useCallback(() => {

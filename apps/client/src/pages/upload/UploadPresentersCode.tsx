@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Card, Spin } from 'antd';
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -8,7 +9,7 @@ import { developerRequester } from '../../apis/requester';
 
 export interface UploadPresentersCodeProps {}
 
-export const UploadPresentersCode: FunctionComponent<
+export const UploadPresentersCode: LegacyFunctionComponent<
   UploadPresentersCodeProps
 > = () => {
   const classes = useStyles();

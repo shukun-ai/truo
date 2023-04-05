@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 import { AiOutlineFileExcel } from 'react-icons/ai';
@@ -8,9 +9,9 @@ export interface TableExcelButtonProps {
   view: ViewSchema;
 }
 
-export const TableExcelButton: FunctionComponent<TableExcelButtonProps> = ({
-  view,
-}) => {
+export const TableExcelButton: LegacyFunctionComponent<
+  TableExcelButtonProps
+> = ({ view }) => {
   return (
     <RibbonButton
       name="excel"

@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import clsx from 'clsx';
 import React, { cloneElement, FunctionComponent, useCallback } from 'react';
 
@@ -15,7 +16,7 @@ export interface RibbonButtonProps {
   onClick?: () => void | Promise<void>;
 }
 
-export const RibbonButton: FunctionComponent<RibbonButtonProps> = ({
+export const RibbonButton: LegacyFunctionComponent<RibbonButtonProps> = ({
   name,
   label,
   color,

@@ -1,10 +1,13 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { Flex } from '../../../../components/flex';
 
 export interface ViewBodyProps {}
 
-export const ViewBody: FunctionComponent<ViewBodyProps> = ({ children }) => {
+export const ViewBody: LegacyFunctionComponent<ViewBodyProps> = ({
+  children,
+}) => {
   return (
     <Flex
       data-component={ViewBody.name}

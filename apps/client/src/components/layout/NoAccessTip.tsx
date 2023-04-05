@@ -1,4 +1,5 @@
 import { StopOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Card, Result } from 'antd';
 import React, { FunctionComponent } from 'react';
 
@@ -8,7 +9,7 @@ export interface NoAccessTipProps {
   description: string;
 }
 
-export const NoAccessTip: FunctionComponent<NoAccessTipProps> = ({
+export const NoAccessTip: LegacyFunctionComponent<NoAccessTipProps> = ({
   title,
   message,
   description,

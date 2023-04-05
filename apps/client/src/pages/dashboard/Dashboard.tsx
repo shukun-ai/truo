@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { Flex } from '../../components/flex';
@@ -6,7 +7,7 @@ import { FluidLayout } from '../layout/FluidLayout';
 
 export interface DashboardProps {}
 
-export const Dashboard: FunctionComponent<DashboardProps> = () => {
+export const Dashboard: LegacyFunctionComponent<DashboardProps> = () => {
   return (
     <FluidLayout>
       <Flex style={{ flexDirection: 'column' }}>

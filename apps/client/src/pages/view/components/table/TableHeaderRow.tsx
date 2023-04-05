@@ -1,10 +1,11 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { TableHeaderCell } from './TableHeaderCell';
 
 export interface TableHeaderRowProps {}
 
-export const TableHeaderRow: FunctionComponent<TableHeaderRowProps> = ({
+export const TableHeaderRow: LegacyFunctionComponent<TableHeaderRowProps> = ({
   children,
 }) => {
   return (

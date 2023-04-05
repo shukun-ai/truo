@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Card, Spin } from 'antd';
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -10,7 +11,9 @@ import { FluidLayout } from '../layout/FluidLayout';
 
 export interface UploadCodebaseProps {}
 
-export const UploadCodebase: FunctionComponent<UploadCodebaseProps> = () => {
+export const UploadCodebase: LegacyFunctionComponent<
+  UploadCodebaseProps
+> = () => {
   const classes = useStyles();
 
   const [loading, setLoading] = useState(false);

@@ -1,5 +1,6 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Image } from 'antd';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -15,10 +16,9 @@ export interface AttachmentListItemProps {
   onClose: (attachment: AttachmentValue) => void;
 }
 
-export const AttachmentListItem: FunctionComponent<AttachmentListItemProps> = ({
-  attachment,
-  onClose,
-}) => {
+export const AttachmentListItem: LegacyFunctionComponent<
+  AttachmentListItemProps
+> = ({ attachment, onClose }) => {
   const classes = useStyles();
 
   const preview = useMemo(() => {

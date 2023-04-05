@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewSchema,
@@ -21,12 +22,9 @@ export interface TableRemoveButtonProps {
 }
 
 // TODO should let table remove support delete many.
-export const TableRemoveButton: FunctionComponent<TableRemoveButtonProps> = ({
-  viewRibbon,
-  view,
-  metadata,
-  sources,
-}) => {
+export const TableRemoveButton: LegacyFunctionComponent<
+  TableRemoveButtonProps
+> = ({ viewRibbon, view, metadata, sources }) => {
   const mode = useObservableState(mode$);
 
   const handleClick = useCallback(async () => {

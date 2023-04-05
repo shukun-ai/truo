@@ -1,10 +1,11 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { Flex } from '../../../components/flex';
 
 export interface StageProps {}
 
-export const Stage: FunctionComponent<StageProps> = ({ children }) => {
+export const Stage: LegacyFunctionComponent<StageProps> = ({ children }) => {
   return (
     <Flex
       data-component={Stage.name}

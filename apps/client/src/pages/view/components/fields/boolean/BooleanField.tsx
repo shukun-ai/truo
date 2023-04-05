@@ -1,9 +1,10 @@
 import { CheckOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { ColumnFieldProps } from '../interfaces';
 
-export const BooleanField: FunctionComponent<ColumnFieldProps> = ({
+export const BooleanField: LegacyFunctionComponent<ColumnFieldProps> = ({
   row,
   electronName,
 }) => {

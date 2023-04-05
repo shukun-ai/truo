@@ -1,12 +1,17 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input } from 'antd';
-import React, { FunctionComponent, useCallback } from 'react';
+import React, {
+  ChangeEventHandler,
+  FunctionComponent,
+  useCallback,
+} from 'react';
 
 import { InputProps } from '../interface/input';
 
 export type FormItemValue = string;
 
-export const DescriptionInput: FunctionComponent<InputProps> = ({
+export const DescriptionInput: LegacyFunctionComponent<InputProps> = ({
   label,
   name,
   required,
@@ -39,14 +44,10 @@ interface DescriptionFormInputProps
   editing: boolean;
 }
 
-const DescriptionFormInput: FunctionComponent<DescriptionFormInputProps> = ({
-  id,
-  value,
-  onChange,
-  label,
-  editing,
-}) => {
-  const handleChange = useCallback(
+const DescriptionFormInput: LegacyFunctionComponent<
+  DescriptionFormInputProps
+> = ({ id, value, onChange, label, editing }) => {
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
       onChange(event.target.value);
     },

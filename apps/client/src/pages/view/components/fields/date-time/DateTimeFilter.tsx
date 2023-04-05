@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { DatePicker, Form } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
@@ -7,7 +8,7 @@ import { FilterFieldProps } from '../interfaces';
 
 export type DateTimeFilterInputValue = { $lte?: string; $gte?: string };
 
-export const DateTimeFilter: FunctionComponent<FilterFieldProps> = ({
+export const DateTimeFilter: LegacyFunctionComponent<FilterFieldProps> = ({
   label,
   electronName,
   tip,
@@ -23,7 +24,7 @@ export const DateTimeFilter: FunctionComponent<FilterFieldProps> = ({
   );
 };
 
-export const DateTimeFilterInput: FunctionComponent<
+export const DateTimeFilterInput: LegacyFunctionComponent<
   ExtractFormItemProps<DateTimeFilterInputValue>
 > = ({ id, value, onChange }) => {
   const parsedValue = useMemo(() => {

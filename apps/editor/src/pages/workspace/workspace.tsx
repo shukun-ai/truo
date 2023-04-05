@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Button } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent } from 'react';
@@ -14,7 +15,9 @@ import { WorkspaceTabs } from './workspace-tabs';
 
 export interface WorkspaceProps {}
 
-export const Workspace: FunctionComponent<WorkspaceProps> = ({ children }) => {
+export const Workspace: LegacyFunctionComponent<WorkspaceProps> = ({
+  children,
+}) => {
   const existEntryHandle = useObservableState(fileCommand.exist$(), false);
 
   if (!existEntryHandle) {

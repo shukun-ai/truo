@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 export interface BrandProps {
@@ -5,7 +6,7 @@ export interface BrandProps {
   title?: string;
 }
 
-export const Brand: FunctionComponent<BrandProps> = ({
+export const Brand: LegacyFunctionComponent<BrandProps> = ({
   theme,
   title = 'SHUKUN SYSTEM',
 }) => {

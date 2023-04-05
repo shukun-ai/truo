@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewSchema,
@@ -21,7 +22,7 @@ export interface DetailGroupProps {
   viewFieldGroup: ViewDetailGroup;
 }
 
-export const DetailGroup: FunctionComponent<DetailGroupProps> = ({
+export const DetailGroup: LegacyFunctionComponent<DetailGroupProps> = ({
   metadata,
   view,
   viewFieldGroup,

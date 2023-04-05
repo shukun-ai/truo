@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Switch } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -5,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { LABEL_ALIGN, LABEL_SPAN } from '../constant';
 import { InputFieldProps } from '../interfaces';
 
-export const BooleanForm: FunctionComponent<InputFieldProps> = ({
+export const BooleanForm: LegacyFunctionComponent<InputFieldProps> = ({
   label,
   electronName,
   required,

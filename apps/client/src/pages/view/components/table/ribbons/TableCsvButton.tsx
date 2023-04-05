@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 import { AiOutlineCloudServer } from 'react-icons/ai';
@@ -8,7 +9,7 @@ export interface TableCsvButtonProps {
   view: ViewSchema;
 }
 
-export const TableCsvButton: FunctionComponent<TableCsvButtonProps> = ({
+export const TableCsvButton: LegacyFunctionComponent<TableCsvButtonProps> = ({
   view,
 }) => {
   return (

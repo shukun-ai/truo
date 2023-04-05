@@ -8,6 +8,7 @@ import {
   VideoCameraOutlined,
   FileTextOutlined,
 } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, CSSProperties } from 'react';
 
 export interface AttachmentIconProps {
@@ -15,7 +16,7 @@ export interface AttachmentIconProps {
   style?: CSSProperties;
 }
 
-export const AttachmentIcon: FunctionComponent<AttachmentIconProps> = ({
+export const AttachmentIcon: LegacyFunctionComponent<AttachmentIconProps> = ({
   mime,
   ...props
 }) => {

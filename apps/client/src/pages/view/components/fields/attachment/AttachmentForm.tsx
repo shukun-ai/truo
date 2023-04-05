@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +9,7 @@ import { InputFieldProps } from '../interfaces';
 import { AttachmentList } from './AttachmentList';
 import { AttachmentUpload } from './AttachmentUpload';
 
-export const AttachmentForm: FunctionComponent<InputFieldProps> = ({
+export const AttachmentForm: LegacyFunctionComponent<InputFieldProps> = ({
   label,
   electronName,
   attachmentOptions,

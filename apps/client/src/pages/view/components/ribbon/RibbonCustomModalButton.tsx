@@ -1,4 +1,5 @@
 import { PostMessageCustomModeType } from '@shukun/api';
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   ViewRibbon,
   ViewSchema,
@@ -24,7 +25,7 @@ export interface RibbonCustomModalButtonProps {
   sources: UnknownSourceModel[];
 }
 
-export const RibbonCustomModalButton: FunctionComponent<
+export const RibbonCustomModalButton: LegacyFunctionComponent<
   RibbonCustomModalButtonProps
 > = ({ customMode, view, viewRibbon, sources, metadata }) => {
   const mode = useObservableState(mode$);

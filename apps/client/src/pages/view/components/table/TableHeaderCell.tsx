@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import clsx from 'clsx';
 import React, { FunctionComponent, ReactNode } from 'react';
 
@@ -25,7 +26,7 @@ export interface TableHeaderCellProps {
   // rowType: "header"
 }
 
-export const TableHeaderCell: FunctionComponent<TableHeaderCellProps> = ({
+export const TableHeaderCell: LegacyFunctionComponent<TableHeaderCellProps> = ({
   name,
   children,
   className,

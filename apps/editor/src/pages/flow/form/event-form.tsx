@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { FlowEvent } from '@shukun/schema';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -11,7 +12,7 @@ export interface EventFormProps {
   event: FlowEvent;
 }
 
-export const EventForm: FunctionComponent<EventFormProps> = ({
+export const EventForm: LegacyFunctionComponent<EventFormProps> = ({
   eventName,
   event,
 }) => {

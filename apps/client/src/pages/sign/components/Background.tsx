@@ -1,8 +1,9 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 export interface BackgroundProps {}
 
-export const Background: FunctionComponent<BackgroundProps> = () => {
+export const Background: LegacyFunctionComponent<BackgroundProps> = () => {
   return (
     <div
       style={{

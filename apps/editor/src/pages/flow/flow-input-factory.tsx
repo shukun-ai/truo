@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 
 import { AtomNameInput } from './input/atom-name-input';
@@ -19,7 +20,7 @@ export interface InputFactoryProps {
   eventSchema: EventSchema;
 }
 
-export const InputFactory: FunctionComponent<InputFactoryProps> = ({
+export const InputFactory: LegacyFunctionComponent<InputFactoryProps> = ({
   name,
   field,
   eventSchema,

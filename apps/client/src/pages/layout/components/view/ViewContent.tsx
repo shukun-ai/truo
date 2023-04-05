@@ -1,8 +1,9 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 export interface ViewContentProps {}
 
-export const ViewContent: FunctionComponent<ViewContentProps> = ({
+export const ViewContent: LegacyFunctionComponent<ViewContentProps> = ({
   children,
 }) => {
   return (

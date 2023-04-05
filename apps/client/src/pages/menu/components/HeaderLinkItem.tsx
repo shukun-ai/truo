@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema, ViewType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,7 +11,7 @@ export interface HeaderLinkItemProps {
   view: ViewSchema;
 }
 
-export const HeaderLinkItem: FunctionComponent<HeaderLinkItemProps> = ({
+export const HeaderLinkItem: LegacyFunctionComponent<HeaderLinkItemProps> = ({
   view,
 }) => {
   const viewPrefixOrgPath = useOrgPath(RoutePath.ViewPrefix);

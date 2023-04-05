@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Button, Form, Input } from 'antd';
 import React, { FunctionComponent, useCallback } from 'react';
 import { BiSupport } from 'react-icons/bi';
@@ -15,7 +16,7 @@ export interface HubFormModel {
   orgName: string;
 }
 
-export const Hub: FunctionComponent<HubProps> = () => {
+export const Hub: LegacyFunctionComponent<HubProps> = () => {
   const classes = useStyles();
 
   const navigate = useNavigate();

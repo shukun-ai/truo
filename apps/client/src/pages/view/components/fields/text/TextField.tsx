@@ -1,8 +1,9 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { ColumnFieldProps } from '../interfaces';
 
-export const TextField: FunctionComponent<ColumnFieldProps> = ({
+export const TextField: LegacyFunctionComponent<ColumnFieldProps> = ({
   electronName,
   row,
 }) => {

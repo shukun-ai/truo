@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input, Select } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
@@ -9,7 +10,7 @@ import { InputProps } from '../interface/input';
 
 export type FormItemValue = string;
 
-export const NextInput: FunctionComponent<InputProps> = ({
+export const NextInput: LegacyFunctionComponent<InputProps> = ({
   label,
   name,
   required,
@@ -41,7 +42,7 @@ interface NextFormInputProps extends ExtractFormItemProps<FormItemValue> {
   editing: boolean;
 }
 
-const NextFormInput: FunctionComponent<NextFormInputProps> = ({
+const NextFormInput: LegacyFunctionComponent<NextFormInputProps> = ({
   id,
   value,
   onChange,
