@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/styles';
 import { LegacyFunctionComponent } from '@shukun/component';
 import clsx from 'clsx';
-import React, { cloneElement, FunctionComponent, useCallback } from 'react';
+import { cloneElement, useCallback } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { RibbonTooltip } from './RibbonTooltip';
 
@@ -66,7 +66,7 @@ export const RibbonButton: LegacyFunctionComponent<RibbonButtonProps> = ({
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   ribbonButton: {
     display: 'flex',
     alignItems: 'center',
