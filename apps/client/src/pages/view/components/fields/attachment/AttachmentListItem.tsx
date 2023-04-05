@@ -1,8 +1,8 @@
 import { CloseOutlined } from '@ant-design/icons';
-import { makeStyles } from '@material-ui/styles';
 import { LegacyFunctionComponent } from '@shukun/component';
 import { Image } from 'antd';
 import React, { FunctionComponent, useMemo } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import {
   AttachmentValue,
@@ -45,7 +45,7 @@ export const AttachmentListItem: LegacyFunctionComponent<
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   wrapper: {
     position: 'relative',
     marginRight: 4,

@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/styles';
 import { LegacyFunctionComponent } from '@shukun/component';
 import { Button, Form, Input } from 'antd';
 import React, { FunctionComponent, useCallback } from 'react';
 import { BiSupport } from 'react-icons/bi';
+import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router-dom';
 
 import { Flex } from '../../components/flex';
@@ -75,7 +75,7 @@ export const Hub: LegacyFunctionComponent<HubProps> = () => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   coreBox: {
     flex: 1,
     minHeight: '100%',

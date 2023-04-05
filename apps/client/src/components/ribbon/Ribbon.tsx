@@ -1,6 +1,5 @@
-import { makeStyles } from '@material-ui/styles';
 import { LegacyFunctionComponent } from '@shukun/component';
-import React, { FunctionComponent } from 'react';
+import { createUseStyles } from 'react-jss';
 
 export interface RibbonProps {}
 
@@ -10,7 +9,7 @@ export const Ribbon: LegacyFunctionComponent<RibbonProps> = ({ children }) => {
   return <div className={classes.ribbonGroup}>{children}</div>;
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   ribbonGroup: {
     display: 'flex',
     background: '#fff',
