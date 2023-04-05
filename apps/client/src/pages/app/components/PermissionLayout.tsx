@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
@@ -10,9 +11,9 @@ import { viewService } from '../../../services/view';
 
 export interface PermissionLayoutProps {}
 
-export const PermissionLayout: FunctionComponent<PermissionLayoutProps> = ({
-  children,
-}) => {
+export const PermissionLayout: LegacyFunctionComponent<
+  PermissionLayoutProps
+> = ({ children }) => {
   const org = useObservableState(org$);
 
   useEffect(() => {

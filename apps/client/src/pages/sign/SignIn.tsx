@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { Flex } from '../../components/flex';
@@ -9,7 +10,7 @@ import { UserForm } from './components/UserForm';
 
 export interface SignInProps {}
 
-export const SignIn: FunctionComponent<SignInProps> = () => {
+export const SignIn: LegacyFunctionComponent<SignInProps> = () => {
   const classes = useStyles();
 
   return (

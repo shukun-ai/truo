@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewSchema,
@@ -17,10 +18,9 @@ export interface TableCustomActionsProps {
   metadata: MetadataSchema;
 }
 
-export const TableCustomActions: FunctionComponent<TableCustomActionsProps> = ({
-  view,
-  metadata,
-}) => {
+export const TableCustomActions: LegacyFunctionComponent<
+  TableCustomActionsProps
+> = ({ view, metadata }) => {
   const search = useObservableState(searchQuery.activeSearch$);
 
   const tableActiveEntities = useObservableState(tableActiveEntities$, []);

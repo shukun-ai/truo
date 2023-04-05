@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, InputNumber, InputNumberProps, SelectProps } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
@@ -6,7 +7,7 @@ import { FilterFieldProps } from '../interfaces';
 
 export type IntegerFilterInputValue = { $eq?: number };
 
-export const IntegerFilter: FunctionComponent<FilterFieldProps> = ({
+export const IntegerFilter: LegacyFunctionComponent<FilterFieldProps> = ({
   label,
   electronName,
   tip,
@@ -22,7 +23,7 @@ export const IntegerFilter: FunctionComponent<FilterFieldProps> = ({
   );
 };
 
-export const IntegerFilterInput: FunctionComponent<
+export const IntegerFilterInput: LegacyFunctionComponent<
   ExtractFormItemProps<IntegerFilterInputValue>
 > = ({ id, value, onChange }) => {
   const parsedValue = useMemo(() => {

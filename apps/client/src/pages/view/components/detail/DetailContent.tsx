@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewSchema,
@@ -25,7 +26,7 @@ export interface DetailContentProps {
   source: UnknownSourceModel | null;
 }
 
-export const DetailContent: FunctionComponent<DetailContentProps> = ({
+export const DetailContent: LegacyFunctionComponent<DetailContentProps> = ({
   form,
   metadata,
   view,

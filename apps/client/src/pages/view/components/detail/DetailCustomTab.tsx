@@ -1,4 +1,5 @@
 import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, ViewSchema, ViewDetailGroup } from '@shukun/schema';
 import React, { FunctionComponent, useCallback, useContext } from 'react';
 
@@ -12,7 +13,7 @@ export interface CustomTabProps {
   viewFieldGroup: ViewDetailGroup;
 }
 
-export const CustomTab: FunctionComponent<CustomTabProps> = ({
+export const CustomTab: LegacyFunctionComponent<CustomTabProps> = ({
   metadata,
   viewFieldGroup,
 }) => {

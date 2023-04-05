@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
@@ -10,7 +11,7 @@ export interface HeaderLinkChildViewProps {
   view: ViewSchema;
 }
 
-export const HeaderLinkChildView: FunctionComponent<
+export const HeaderLinkChildView: LegacyFunctionComponent<
   HeaderLinkChildViewProps
 > = ({ view }) => {
   const viewPrefixOrgPath = useOrgPath(RoutePath.ViewPrefix);

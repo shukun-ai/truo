@@ -1,5 +1,6 @@
 import { json } from '@codemirror/lang-json';
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
 import { Button, Form, message } from 'antd';
@@ -13,7 +14,7 @@ import {
 
 export type FormItemValue = unknown;
 
-export const SourceQueryInput: FunctionComponent<InputProps> = ({
+export const SourceQueryInput: LegacyFunctionComponent<InputProps> = ({
   label,
   name,
   required,
@@ -46,13 +47,9 @@ interface SourceQueryFromInputProps
   editing: boolean;
 }
 
-const SourceQueryFromInput: FunctionComponent<SourceQueryFromInputProps> = ({
-  id,
-  value,
-  onChange,
-  label,
-  editing,
-}) => {
+const SourceQueryFromInput: LegacyFunctionComponent<
+  SourceQueryFromInputProps
+> = ({ id, value, onChange, label, editing }) => {
   const stringifyValue = useMemo(() => {
     return JSON.stringify(value, null, 2);
   }, [value]);

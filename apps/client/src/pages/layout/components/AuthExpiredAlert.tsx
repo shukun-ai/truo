@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useInterval } from 'ahooks';
 import { Button, Card } from 'antd';
 import dayjs from 'dayjs';
@@ -15,7 +16,7 @@ import { RoutePath, useOrgPath } from '../../../utils/history-provider';
 
 export interface AuthExpiredAlertProps {}
 
-export const AuthExpiredAlert: FunctionComponent<
+export const AuthExpiredAlert: LegacyFunctionComponent<
   AuthExpiredAlertProps
 > = () => {
   const navigate = useNavigate();

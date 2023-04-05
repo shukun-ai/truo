@@ -1,4 +1,5 @@
-import React, { FunctionComponent, CSSProperties } from 'react';
+import { LegacyFunctionComponent } from '@shukun/component';
+import React, { CSSProperties } from 'react';
 
 export interface FlexProps {
   className?: string;
@@ -11,7 +12,7 @@ export interface FlexProps {
   style?: CSSProperties;
 }
 
-export const Flex: FunctionComponent<FlexProps> = ({
+export const Flex: LegacyFunctionComponent<FlexProps> = ({
   flexDirection,
   flex,
   flexShrink,

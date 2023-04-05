@@ -1,6 +1,8 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { UnknownSourceModel } from '@shukun/schema';
 import { Button, Form, FormInstance, Input, Space } from 'antd';
 import React, {
+  ChangeEventHandler,
   FunctionComponent,
   useCallback,
   useEffect,
@@ -15,7 +17,7 @@ export interface MixedInputProps extends InputFieldProps {
   form: FormInstance<UnknownSourceModel>;
 }
 
-export const MixedForm: FunctionComponent<MixedInputProps> = ({
+export const MixedForm: LegacyFunctionComponent<MixedInputProps> = ({
   label,
   electronName,
   required,
@@ -51,10 +53,13 @@ export const MixedForm: FunctionComponent<MixedInputProps> = ({
     setEditable(false);
   }, [cache]);
 
-  const handleChange = useCallback((event) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-  }, []);
+  const handleChange = useCallback<ChangeEventHandler<HTMLTextAreaElement>>(
+    (event) => {
+      const newValue = event.target.value;
+      setValue(newValue);
+    },
+    [],
+  );
 
   useEffect(() => {
     const value = form.getFieldValue(electronName);

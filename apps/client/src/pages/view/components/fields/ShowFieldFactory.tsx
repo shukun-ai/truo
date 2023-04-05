@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form } from 'antd';
 import React, { FunctionComponent } from 'react';
 
@@ -5,7 +6,7 @@ import { ColumnFieldFactory } from './ColumnFieldFactory';
 import { LABEL_ALIGN, LABEL_SPAN } from './constant';
 import { ColumnFieldProps } from './interfaces';
 
-export const ShowFieldFactory: FunctionComponent<ColumnFieldProps> = (
+export const ShowFieldFactory: LegacyFunctionComponent<ColumnFieldProps> = (
   props,
 ) => {
   return (

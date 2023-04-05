@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema, ViewType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,7 +9,7 @@ export interface SideLinkItemProps {
   view: ViewSchema;
 }
 
-export const SideLinkItem: FunctionComponent<SideLinkItemProps> = ({
+export const SideLinkItem: LegacyFunctionComponent<SideLinkItemProps> = ({
   view,
 }) => {
   const viewPrefixOrgPath = useOrgPath(RoutePath.ViewPrefix);

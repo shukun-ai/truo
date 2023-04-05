@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent } from 'react';
 import {
@@ -23,7 +24,7 @@ import { PermissionLayout } from './components/PermissionLayout';
 
 export interface RoutesProps {}
 
-export const Routes: FunctionComponent<RoutesProps> = () => {
+export const Routes: LegacyFunctionComponent<RoutesProps> = () => {
   return (
     <BrowserRouter>
       <ReactRoutes>
@@ -59,7 +60,7 @@ export const Routes: FunctionComponent<RoutesProps> = () => {
   );
 };
 
-export const ProtectedRoutes: FunctionComponent<RoutesProps> = ({
+export const ProtectedRoutes: LegacyFunctionComponent<RoutesProps> = ({
   children,
 }) => {
   const navigate = useNavigate();

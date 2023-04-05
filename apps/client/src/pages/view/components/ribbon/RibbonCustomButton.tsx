@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewRibbon, ViewLinkType, UnknownSourceModel } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
@@ -16,11 +17,9 @@ export interface RibbonCustomButtonProps {
   sources: UnknownSourceModel[];
 }
 
-export const RibbonCustomButton: FunctionComponent<RibbonCustomButtonProps> = ({
-  viewRibbon,
-  source,
-  sources,
-}) => {
+export const RibbonCustomButton: LegacyFunctionComponent<
+  RibbonCustomButtonProps
+> = ({ viewRibbon, source, sources }) => {
   const mode = useObservableState(mode$);
   const navigate = useNavigate();
   const viewPrefixOrgPath = useOrgPath(RoutePath.ViewPrefix);

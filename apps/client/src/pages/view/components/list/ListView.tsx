@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema } from '@shukun/schema';
 import { Skeleton } from 'antd';
 import React, { FunctionComponent } from 'react';
@@ -18,7 +19,7 @@ export interface ListViewProps {
   atomName: string;
 }
 
-export const ListView: FunctionComponent<ListViewProps> = ({
+export const ListView: LegacyFunctionComponent<ListViewProps> = ({
   view,
   atomName,
 }) => {

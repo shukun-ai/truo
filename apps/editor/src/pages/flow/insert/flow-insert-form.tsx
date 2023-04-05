@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { FlowEvent } from '@shukun/schema';
 import { Button, Form, Input, Select } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
@@ -16,7 +17,9 @@ export interface FlowInsertFormDataValue {
 
 export interface FlowInsertFormProps {}
 
-export const FlowInsertForm: FunctionComponent<FlowInsertFormProps> = () => {
+export const FlowInsertForm: LegacyFunctionComponent<
+  FlowInsertFormProps
+> = () => {
   const options = useMemo<{ label: string; value: string }[]>(() => {
     return eventTypes.map((value) => ({ label: value, value }));
   }, []);

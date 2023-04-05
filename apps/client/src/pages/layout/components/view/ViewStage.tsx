@@ -1,10 +1,13 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { Flex } from '../../../../components/flex';
 
 export interface ViewStageProps {}
 
-export const ViewStage: FunctionComponent<ViewStageProps> = ({ children }) => {
+export const ViewStage: LegacyFunctionComponent<ViewStageProps> = ({
+  children,
+}) => {
   return (
     <Flex
       data-component={ViewStage.name}

@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate, useParams } from 'react-router';
@@ -7,7 +8,7 @@ import { RoutePath, useOrgPath } from '../../../../../utils/history-provider';
 
 export interface DetailBackButtonProps {}
 
-export const DetailBackButton: FunctionComponent<
+export const DetailBackButton: LegacyFunctionComponent<
   DetailBackButtonProps
 > = () => {
   const navigate = useNavigate();

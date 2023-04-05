@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewFieldType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 
@@ -21,7 +22,7 @@ import { RoleField } from './role/RoleField';
 import { SingleSelectField } from './single-select/SingleSelectField';
 import { TextField } from './text/TextField';
 
-export const ColumnFieldFactory: FunctionComponent<ColumnFieldProps> = (
+export const ColumnFieldFactory: LegacyFunctionComponent<ColumnFieldProps> = (
   props,
 ) => {
   if (props.type === ViewFieldType.Text) {

@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +11,7 @@ export interface PasswordFormProps extends InputFieldProps {
   mode: DetailMode;
 }
 
-export const PasswordForm: FunctionComponent<PasswordFormProps> = ({
+export const PasswordForm: LegacyFunctionComponent<PasswordFormProps> = ({
   label,
   electronName,
   required,

@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Checkbox } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
@@ -7,7 +8,7 @@ import { roles$ } from '../../../../../services/role/query';
 import { LABEL_ALIGN, LABEL_SPAN } from '../constant';
 import { InputFieldProps } from '../interfaces';
 
-export const RoleForm: FunctionComponent<InputFieldProps> = ({
+export const RoleForm: LegacyFunctionComponent<InputFieldProps> = ({
   label,
   electronName,
   required,

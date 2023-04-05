@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Avatar } from 'antd';
 import React, { FunctionComponent, useMemo, useCallback } from 'react';
 
@@ -7,7 +8,7 @@ import { ColumnFieldProps } from '../interfaces';
 
 import { AttachmentFieldItem } from './AttachmentFieldItem';
 
-export const AttachmentField: FunctionComponent<ColumnFieldProps> = ({
+export const AttachmentField: LegacyFunctionComponent<ColumnFieldProps> = ({
   row,
   electronName,
 }) => {

@@ -1,4 +1,5 @@
 import { SmileOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Card, Result } from 'antd';
 import React, { FunctionComponent } from 'react';
 
@@ -8,7 +9,7 @@ export interface BlankTipProps {
   description: string;
 }
 
-export const BlankTip: FunctionComponent<BlankTipProps> = ({
+export const BlankTip: LegacyFunctionComponent<BlankTipProps> = ({
   title,
   message,
   description,

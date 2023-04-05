@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { FlowEvent } from '@shukun/schema';
 import { Button, Form } from 'antd';
 import React, { FunctionComponent, useCallback, useState } from 'react';
@@ -14,7 +15,7 @@ export interface EventNodeFormProps {
   initialValues: FlowEvent;
 }
 
-export const EventNodeForm: FunctionComponent<EventNodeFormProps> = ({
+export const EventNodeForm: LegacyFunctionComponent<EventNodeFormProps> = ({
   eventName,
   initialValues,
   children,

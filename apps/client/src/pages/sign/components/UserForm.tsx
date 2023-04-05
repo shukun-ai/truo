@@ -1,4 +1,5 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Button, Input, message, Form, Alert } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, {
@@ -22,7 +23,7 @@ export interface UserFormModel {
   password: string;
 }
 
-export const UserForm: FunctionComponent<UserFormProps> = () => {
+export const UserForm: LegacyFunctionComponent<UserFormProps> = () => {
   const navigate = useNavigate();
 
   const { orgName } = useParams<{ orgName: string }>();

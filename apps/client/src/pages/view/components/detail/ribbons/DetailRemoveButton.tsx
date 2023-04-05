@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, UnknownSourceModel, ViewRibbon } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
@@ -20,12 +21,9 @@ export interface DetailRemoveButtonProps {
   sources: UnknownSourceModel[];
 }
 
-export const DetailRemoveButton: FunctionComponent<DetailRemoveButtonProps> = ({
-  viewRibbon,
-  metadata,
-  source,
-  sources,
-}) => {
+export const DetailRemoveButton: LegacyFunctionComponent<
+  DetailRemoveButtonProps
+> = ({ viewRibbon, metadata, source, sources }) => {
   const mode = useObservableState(mode$);
 
   const navigate = useNavigate();

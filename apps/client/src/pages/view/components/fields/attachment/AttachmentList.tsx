@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useCallback } from 'react';
 
 import { Flex } from '../../../../../components/flex';
@@ -10,7 +11,7 @@ export interface AttachmentListProps {
   onRemove: (value: AttachmentValue[]) => void;
 }
 
-export const AttachmentList: FunctionComponent<AttachmentListProps> = ({
+export const AttachmentList: LegacyFunctionComponent<AttachmentListProps> = ({
   value,
   onRemove,
 }) => {

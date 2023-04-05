@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useInterval } from 'ahooks';
 import dayjs from 'dayjs';
 import { useObservableState } from 'observable-hooks';
@@ -13,7 +14,7 @@ const SHOW_MINUTES = 5;
 
 export interface AuthExpiredContainerProps {}
 
-export const AuthExpiredContainer: FunctionComponent<
+export const AuthExpiredContainer: LegacyFunctionComponent<
   AuthExpiredContainerProps
 > = () => {
   const [show, setShow] = useState(false);

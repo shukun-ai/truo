@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, ViewSearch, ViewTableField } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Button, Form, Space } from 'antd';
@@ -20,7 +21,7 @@ export interface FilterProps {
   viewSearch: ViewSearch | undefined;
 }
 
-export const Filter: FunctionComponent<FilterProps> = ({
+export const Filter: LegacyFunctionComponent<FilterProps> = ({
   metadata,
   viewTableFields,
   viewSearch,

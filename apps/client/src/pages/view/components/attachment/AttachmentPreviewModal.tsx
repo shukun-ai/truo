@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo, useCallback } from 'react';
 import { PhotoSlider } from 'react-photo-view';
@@ -12,7 +13,7 @@ import {
 
 export interface AttachmentPreviewModalProps {}
 
-export const AttachmentPreviewModal: FunctionComponent<
+export const AttachmentPreviewModal: LegacyFunctionComponent<
   AttachmentPreviewModalProps
 > = () => {
   const attachmentPreviewState = useObservableState(

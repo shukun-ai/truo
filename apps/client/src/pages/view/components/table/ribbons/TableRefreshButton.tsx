@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
 import React, { FunctionComponent, useCallback } from 'react';
 import { AiOutlineReload } from 'react-icons/ai';
@@ -10,10 +11,9 @@ export interface TableRefreshButtonProps {
   metadata: MetadataSchema;
 }
 
-export const TableRefreshButton: FunctionComponent<TableRefreshButtonProps> = ({
-  view,
-  metadata,
-}) => {
+export const TableRefreshButton: LegacyFunctionComponent<
+  TableRefreshButtonProps
+> = ({ view, metadata }) => {
   const handleClick = useCallback(() => {
     tableService.findMany(view, metadata);
   }, [view, metadata]);

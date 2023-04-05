@@ -1,9 +1,10 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { log } from '../../../../../utils/log';
 import { ColumnFieldProps } from '../interfaces';
 
-export const CurrencyField: FunctionComponent<ColumnFieldProps> = ({
+export const CurrencyField: LegacyFunctionComponent<ColumnFieldProps> = ({
   row,
   electronName,
   currencyOptions,

@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { UnknownSourceModel } from '@shukun/schema';
 import { FormInstance } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -13,7 +14,7 @@ export interface ManyToManyFormProps extends InputFieldProps {
   row: UnknownSourceModel | null;
 }
 
-export const ManyToManyForm: FunctionComponent<ManyToManyFormProps> = (
+export const ManyToManyForm: LegacyFunctionComponent<ManyToManyFormProps> = (
   props,
 ) => {
   const sources = useObservableState(sources$, null);

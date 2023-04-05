@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { FluidLayout } from '../layout/FluidLayout';
@@ -8,7 +9,7 @@ import { UploadPresentersCode } from './UploadPresentersCode';
 
 export interface UploadProps {}
 
-export const Upload: FunctionComponent<UploadProps> = () => {
+export const Upload: LegacyFunctionComponent<UploadProps> = () => {
   return (
     <FluidLayout>
       <div style={{ marginBottom: 12 }}>

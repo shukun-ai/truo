@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -9,7 +10,7 @@ export interface OrgBrandProps {
   onClick?: () => void;
 }
 
-export const OrgBrand: FunctionComponent<OrgBrandProps> = ({
+export const OrgBrand: LegacyFunctionComponent<OrgBrandProps> = ({
   theme,
   onClick,
 }) => {

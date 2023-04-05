@@ -1,6 +1,11 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { UnknownSourceModel } from '@shukun/schema';
 import { Form, FormInstance, Input } from 'antd';
-import React, { FunctionComponent, useCallback } from 'react';
+import React, {
+  ChangeEventHandler,
+  FunctionComponent,
+  useCallback,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LABEL_ALIGN, LABEL_SPAN } from '../constant';
@@ -10,7 +15,7 @@ export interface TextFormProps extends InputFieldProps {
   form: FormInstance<UnknownSourceModel>;
 }
 
-export const TextForm: FunctionComponent<TextFormProps> = ({
+export const TextForm: LegacyFunctionComponent<TextFormProps> = ({
   label,
   electronName,
   required,
@@ -20,7 +25,7 @@ export const TextForm: FunctionComponent<TextFormProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const handleChange = useCallback(
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
       const value = event?.target?.value;
       form.setFieldsValue({ [electronName]: value ? value.trim() : null });

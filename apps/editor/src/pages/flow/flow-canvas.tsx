@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import Color from 'color';
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
 
@@ -19,7 +20,7 @@ import { useNodeTypes } from './use-node-types';
 
 export interface FlowCanvasProps {}
 
-export const FlowCanvas: FunctionComponent<FlowCanvasProps> = () => {
+export const FlowCanvas: LegacyFunctionComponent<FlowCanvasProps> = () => {
   const reactFlowInstance = useReactFlow();
 
   const elements = useGenerateElement();

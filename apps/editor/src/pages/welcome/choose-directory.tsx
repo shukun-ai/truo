@@ -1,9 +1,9 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { FlowSchema, MetadataSchema } from '@shukun/schema';
 import { Button } from 'antd';
 import React, { FunctionComponent, useCallback } from 'react';
 
 import { fileCommand } from '../../services/file';
-
 import { flowCommand } from '../../services/flow';
 
 import { metadataCommand } from '../../services/metadata';
@@ -12,7 +12,9 @@ import { readDirectoryJson, parseJsonContents } from '../../utils/file-system';
 
 export interface ChooseDirectoryProps {}
 
-export const ChooseDirectory: FunctionComponent<ChooseDirectoryProps> = () => {
+export const ChooseDirectory: LegacyFunctionComponent<
+  ChooseDirectoryProps
+> = () => {
   const handleClick = useCallback(async () => {
     const entryHandle = await fileCommand.openEntryHandle();
 

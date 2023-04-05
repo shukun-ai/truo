@@ -10,6 +10,7 @@ import {
   listenChild,
   PostMessageNotificationProps,
 } from '@shukun/api';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { UnknownSourceModel } from '@shukun/schema';
 import { useUnmount } from 'ahooks';
 import { message } from 'antd';
@@ -38,7 +39,7 @@ export interface CustomViewExperimentProps {
   defaultHeight?: string;
 }
 
-export const CustomViewExperiment: FunctionComponent<
+export const CustomViewExperiment: LegacyFunctionComponent<
   CustomViewExperimentProps
 > = ({
   customMode,
