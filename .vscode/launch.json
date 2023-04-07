@@ -82,7 +82,7 @@
       "name": "Launch presenter on Chrome",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:8090",
+      "url": "http://localhost:9010",
       "webRoot": "${workspaceFolder}",
       "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
     }
