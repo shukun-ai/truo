@@ -1,7 +1,7 @@
 // Must put polyfills first.
 import './polyfills';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 // Must put these two provider files before App.
 import './utils/locale-provider';
 import './utils/store-provider';
@@ -9,11 +9,13 @@ import './utils/store-provider';
 import { App } from './App';
 import { registerExceptionListeners } from './utils/exceptions/registerExceptionListeners';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root'),
 );
 
 // Catch all exception globally

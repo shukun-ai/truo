@@ -1,10 +1,11 @@
 {
-  "root": "apps/client",
+  "name": "client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/client/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -34,11 +35,17 @@
           "namedChunks": false,
           "extractLicenses": false,
           "vendorChunk": false
+        },
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
         }
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nrwl/webpack:dev-server",
       "options": {
         "buildTarget": "client:build",
         "hmr": true,
@@ -48,8 +55,12 @@
         "production": {
           "buildTarget": "client:build:production",
           "hmr": false
+        },
+        "development": {
+          "buildTarget": "client:build:development"
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -60,9 +71,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/client"],
+      "outputs": ["{workspaceRoot}/coverage/apps/client"],
       "options": {
-        "jestConfig": "apps/client/jest.config.js",
+        "jestConfig": "apps/client/jest.config.ts",
         "passWithNoTests": true
       }
     }
