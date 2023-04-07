@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { HttpQuerySchema, QueryFilter } from '@shukun/schema';
 
+import { DB_UNLIMITED_QUERY } from '../app.constant';
+
 import { SourceFoundationService } from './source-foundation.service';
 
 @Injectable()
@@ -43,6 +45,7 @@ export class SourceForeignQueryService<Model> {
       select: {
         _id: true,
       },
+      limit: DB_UNLIMITED_QUERY, // TODO should write integrated testing for this limit when the searched data is greater than 1000.
     };
 
     const foreignAtomName = await this.getForeignAtomName(
