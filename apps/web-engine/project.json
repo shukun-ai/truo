@@ -1,16 +1,19 @@
 {
-  "root": "apps/web-engine",
+  "name": "web-engine",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web-engine/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/web-engine",
         "main": "apps/web-engine/src/main.ts",
         "tsConfig": "apps/web-engine/tsconfig.app.json",
-        "assets": ["apps/web-engine/src/assets"]
+        "assets": ["apps/web-engine/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
@@ -27,7 +30,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "web-engine:build"
       }
@@ -41,9 +44,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/web-engine"],
+      "outputs": ["{workspaceRoot}/coverage/apps/web-engine"],
       "options": {
-        "jestConfig": "apps/web-engine/jest.config.js",
+        "jestConfig": "apps/web-engine/jest.config.ts",
         "passWithNoTests": true
       }
     }

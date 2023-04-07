@@ -1,10 +1,11 @@
 {
-  "root": "libs/schema",
+  "name": "schema",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/schema/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/schema",
@@ -39,14 +40,14 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/schema"],
+      "outputs": ["{workspaceRoot}/coverage/libs/schema"],
       "options": {
-        "jestConfig": "libs/schema/jest.config.js",
+        "jestConfig": "libs/schema/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "generate": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           {

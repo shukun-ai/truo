@@ -9,7 +9,7 @@
         "type": "Task",
         "resource": "code:js",
         "parameters": {
-          "code": "{{code:test}}",
+          "code": "{{code:mock}}",
           "hello.$": "$.body.hello"
         },
         "end": true,

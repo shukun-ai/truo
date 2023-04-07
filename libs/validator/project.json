@@ -1,10 +1,11 @@
 {
-  "root": "libs/validator",
+  "name": "validator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/validator/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/validator",
@@ -26,9 +27,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/validator"],
+      "outputs": ["{workspaceRoot}/coverage/libs/validator"],
       "options": {
-        "jestConfig": "libs/validator/jest.config.js",
+        "jestConfig": "libs/validator/jest.config.ts",
         "passWithNoTests": true
       }
     }
