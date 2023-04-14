@@ -80,7 +80,7 @@
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.1",
-    "@datorama/akita": "^8.0.1",
+    "@datorama/akita": "^6.2.4",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@mantine/core": "^6.0.4",
