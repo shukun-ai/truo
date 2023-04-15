@@ -1,6 +1,7 @@
 export * from './alert.definition';
 export * from './badge.definition';
 export * from './base.definition';
+export * from './boolean-select.definition';
 export * from './box.definition';
 export * from './button.definition';
 export * from './card.definition';
