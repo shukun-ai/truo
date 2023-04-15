@@ -65,7 +65,7 @@ async function generate(treeRoot: string, projectRoot: string) {
     );
   });
 
-  Promise.all(queue).then(() =>
+  return Promise.all(queue).then(() =>
     console.log('Generate type files successfully.'),
   );
 }
