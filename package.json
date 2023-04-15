@@ -80,7 +80,7 @@
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.1",
-    "@datorama/akita": "^6.2.4",
+    "@datorama/akita": "^8.0.1",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@mantine/core": "^6.0.4",
@@ -188,7 +188,7 @@
     "uglify-js": "^3.15.0",
     "url-parse": "^1.5.10",
     "utility-types": "^3.10.0",
-    "vm2": "3.9.15",
+    "vm2": "3.9.16",
     "winston": "^3.4.0",
     "write": "^2.0.0"
   }
