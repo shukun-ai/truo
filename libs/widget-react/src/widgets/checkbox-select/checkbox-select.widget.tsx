@@ -12,16 +12,12 @@ export const CheckboxSelectWidget = createWidget<CheckboxSelectDefinitionProps>(
   checkboxSelectDefinition,
   (props) => {
     const options = useMemo<SelectItem[]>(() => {
-      if (!props.values) {
-        return [];
-      }
-
-      return props.values.map((value, index) => ({
-        label: props?.labels?.[index] ?? value,
-        value,
-        selected: props.value ? props.value.includes(value) : false,
+      return props.options.map((value) => ({
+        label: value.label,
+        value: value.key,
+        selected: props.value ? props.value.includes(value.key) : false,
       }));
-    }, [props?.labels, props.value, props.values]);
+    }, [props.options, props.value]);
 
     return (
       <Checkbox.Group

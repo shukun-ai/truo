@@ -8,8 +8,7 @@
 
 export type CheckboxSelectDefinitionProps = {
   value?: CheckboxSelectDefinitionValue;
-  values?: CheckboxSelectDefinitionValues;
-  labels?: CheckboxSelectDefinitionLabels;
+  options: CheckboxSelectDefinitionOptions;
   disabled?: CheckboxSelectDefinitionDisabled;
   required?: CheckboxSelectDefinitionRequired;
   hidden?: CheckboxSelectDefinitionHidden;
@@ -20,9 +19,10 @@ export type CheckboxSelectDefinitionProps = {
 
 export type CheckboxSelectDefinitionValue = string[];
 
-export type CheckboxSelectDefinitionValues = string[];
-
-export type CheckboxSelectDefinitionLabels = string[];
+export type CheckboxSelectDefinitionOptions = {
+  key: string;
+  label: string;
+}[];
 
 export type CheckboxSelectDefinitionDisabled = boolean;
 
