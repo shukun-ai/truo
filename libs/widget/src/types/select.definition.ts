@@ -8,8 +8,7 @@
 
 export type SelectDefinitionProps = {
   value?: SelectDefinitionValue;
-  values?: SelectDefinitionValues;
-  labels?: SelectDefinitionLabels;
+  options: SelectDefinitionOptions;
   placeholder?: SelectDefinitionPlaceholder;
   disabled?: SelectDefinitionDisabled;
   required?: SelectDefinitionRequired;
@@ -21,9 +20,10 @@ export type SelectDefinitionProps = {
 
 export type SelectDefinitionValue = string;
 
-export type SelectDefinitionValues = string[];
-
-export type SelectDefinitionLabels = string[];
+export type SelectDefinitionOptions = {
+  key: string;
+  label: string;
+}[];
 
 export type SelectDefinitionPlaceholder = string;
 
