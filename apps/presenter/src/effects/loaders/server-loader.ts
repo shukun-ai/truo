@@ -20,6 +20,7 @@ import {
   CheckboxSelectWidget,
   ImageInputWidget,
   MultipleInputWidget,
+  BooleanSelectWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -56,6 +57,7 @@ export class ServerLoader implements ILoader {
         'sk-checkbox-select': CheckboxSelectWidget.definition,
         'sk-card': CardWidget.definition,
         'sk-badge': BadgeWidget.definition,
+        'sk-boolean-select': BooleanSelectWidget.definition,
       },
       reactWidgets: {
         'sk-base': BaseWidget.reactWidget,
@@ -78,6 +80,7 @@ export class ServerLoader implements ILoader {
         'sk-checkbox-select': CheckboxSelectWidget.reactWidget,
         'sk-card': CardWidget.reactWidget,
         'sk-badge': BadgeWidget.reactWidget,
+        'sk-boolean-select': BooleanSelectWidget.reactWidget,
       },
     };
   }
