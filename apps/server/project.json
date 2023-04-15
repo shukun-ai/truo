@@ -33,7 +33,8 @@
       "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "server:build",
-        "port": 9229
+        "port": 9229,
+        "inspect": true
       }
     },
     "lint": {
