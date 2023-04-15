@@ -9,16 +9,12 @@ export const SelectWidget = createWidget<SelectDefinitionProps>(
   selectDefinition,
   (props) => {
     const options = useMemo<SelectItem[]>(() => {
-      if (!props.values) {
-        return [];
-      }
-
-      return props.values.map((value, index) => ({
-        label: props?.labels?.[index] ?? value,
-        value,
-        selected: value === props.value,
+      return props.options.map((value, index) => ({
+        label: value.label,
+        value: value.key,
+        selected: value.key === props.value,
       }));
-    }, [props?.labels, props.value, props.values]);
+    }, [props.options, props.value]);
 
     return (
       <Select

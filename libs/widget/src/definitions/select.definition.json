@@ -8,25 +8,21 @@
         "type": "string"
       }
     },
-    "values": {
+    "options": {
       "label": "可选值",
       "schema": {
         "type": "array",
         "items": {
-          "type": "string"
+          "type": "object",
+          "required": ["key", "label"],
+          "additionalProperties": false,
+          "properties": {
+            "key": { "type": "string" },
+            "label": { "type": "string" }
+          }
         }
       },
-      "placeholder": "[1, 2, 3]"
-    },
-    "labels": {
-      "label": "标签值",
-      "schema": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "placeholder": "['甲', '乙', '丙']"
+      "defaultValue": []
     },
     "placeholder": {
       "label": "占位提示",
