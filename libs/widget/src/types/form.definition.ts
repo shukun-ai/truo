@@ -7,11 +7,16 @@
  */
 
 export type FormDefinitionProps = {
+  value?: FormDefinitionValue;
   submitButtonText?: FormDefinitionSubmitButtonText;
   resetButtonText?: FormDefinitionResetButtonText;
   cancelButtonText?: FormDefinitionCancelButtonText;
   submit?: (payload: FormDefinitionSubmit) => void;
 };
+
+export interface FormDefinitionValue {
+  [k: string]: unknown;
+}
 
 export type FormDefinitionSubmitButtonText = string;
 

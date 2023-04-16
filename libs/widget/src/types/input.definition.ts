@@ -8,15 +8,13 @@
 
 export type InputDefinitionProps = {
   type: InputDefinitionType;
-  value?: InputDefinitionValue;
+  name?: InputDefinitionName;
   placeholder?: InputDefinitionPlaceholder;
   disabled?: InputDefinitionDisabled;
   required?: InputDefinitionRequired;
   hidden?: InputDefinitionHidden;
   label?: InputDefinitionLabel;
   helper?: InputDefinitionHelper;
-  change?: (payload: InputDefinitionChange) => void;
-  enter?: (payload: InputDefinitionEnter) => void;
 };
 
 export type InputDefinitionType =
@@ -33,7 +31,7 @@ export type InputDefinitionType =
   | 'url'
   | 'week';
 
-export type InputDefinitionValue = string;
+export type InputDefinitionName = string;
 
 export type InputDefinitionPlaceholder = string;
 
@@ -46,7 +44,3 @@ export type InputDefinitionHidden = boolean;
 export type InputDefinitionLabel = string;
 
 export type InputDefinitionHelper = string;
-
-export type InputDefinitionChange = string;
-
-export type InputDefinitionEnter = null;

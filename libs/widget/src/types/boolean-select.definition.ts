@@ -7,15 +7,14 @@
  */
 
 export type BooleanSelectDefinitionProps = {
-  value?: BooleanSelectDefinitionValue;
+  name?: BooleanSelectDefinitionName;
   disabled?: BooleanSelectDefinitionDisabled;
   required?: BooleanSelectDefinitionRequired;
   label?: BooleanSelectDefinitionLabel;
   helper?: BooleanSelectDefinitionHelper;
-  change?: (payload: BooleanSelectDefinitionChange) => void;
 };
 
-export type BooleanSelectDefinitionValue = boolean;
+export type BooleanSelectDefinitionName = string;
 
 export type BooleanSelectDefinitionDisabled = boolean;
 
@@ -24,5 +23,3 @@ export type BooleanSelectDefinitionRequired = boolean;
 export type BooleanSelectDefinitionLabel = string;
 
 export type BooleanSelectDefinitionHelper = string;
-
-export type BooleanSelectDefinitionChange = boolean;
