@@ -6,27 +6,35 @@ import {
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
+import {
+  extractForm,
+  extractValue,
+  useFormContext,
+} from '../../shares/form-context';
 import { extractBase } from '../../shares/inheritance';
 
 export const CheckboxSelectWidget = createWidget<CheckboxSelectDefinitionProps>(
   checkboxSelectDefinition,
   (props) => {
+    const form = useFormContext();
+
     const options = useMemo<SelectItem[]>(() => {
-      return props.options.map((value) => ({
-        label: value.label,
-        value: value.key,
-        selected: props.value ? props.value.includes(value.key) : false,
+      const value = extractValue(props, form);
+      return props.options.map((option) => ({
+        label: option.label,
+        value: option.key,
+        selected:
+          value && Array.isArray(value) ? value.includes(option.key) : false,
       }));
-    }, [props.options, props.value]);
+    }, [form, props]);
 
     return (
       <Checkbox.Group
         {...extractBase(props)}
+        {...extractForm(props, form)}
         label={props.label}
         description={props.helper}
-        value={props.value}
         required={props.required}
-        onChange={(event) => props.change && props.change(event)}
       >
         <Group mt="xs">
           {options.map((option) => (
