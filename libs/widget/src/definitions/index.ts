@@ -16,6 +16,7 @@ import inputDefinitionJson from './input.definition.json';
 import listDefinitionJson from './list.definition.json';
 import multipleInputDefinitionJson from './multiple-input.definition.json';
 import navLinkDefinitionJson from './nav-link.definition.json';
+import numberInputDefinitionJson from './number-input.definition.json';
 import radioSelectDefinitionJson from './radio-select.definition.json';
 import searchFormDefinitionJson from './search-form.definition.json';
 import selectDefinitionJson from './select.definition.json';
@@ -42,6 +43,8 @@ export const listDefinition = listDefinitionJson as any as WidgetSchema;
 export const multipleInputDefinition =
   multipleInputDefinitionJson as any as WidgetSchema;
 export const navLinkDefinition = navLinkDefinitionJson as any as WidgetSchema;
+export const numberInputDefinition =
+  numberInputDefinitionJson as any as WidgetSchema;
 export const radioSelectDefinition =
   radioSelectDefinitionJson as any as WidgetSchema;
 export const searchFormDefinition =

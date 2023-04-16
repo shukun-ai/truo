@@ -21,6 +21,7 @@ import {
   ImageInputWidget,
   MultipleInputWidget,
   BooleanSelectWidget,
+  NumberInputWidget,
 } from '@shukun/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
@@ -58,6 +59,7 @@ export class ServerLoader implements ILoader {
         'sk-card': CardWidget.definition,
         'sk-badge': BadgeWidget.definition,
         'sk-boolean-select': BooleanSelectWidget.definition,
+        'sk-number-input': NumberInputWidget.definition,
       },
       reactWidgets: {
         'sk-base': BaseWidget.reactWidget,
@@ -81,6 +83,7 @@ export class ServerLoader implements ILoader {
         'sk-card': CardWidget.reactWidget,
         'sk-badge': BadgeWidget.reactWidget,
         'sk-boolean-select': BooleanSelectWidget.reactWidget,
+        'sk-number-input': NumberInputWidget.reactWidget,
       },
     };
   }
