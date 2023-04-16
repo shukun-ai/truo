@@ -11,6 +11,12 @@
         }
       }
     },
+    "name": {
+      "label": "表单绑定名称",
+      "schema": {
+        "type": "string"
+      }
+    },
     "placeholder": {
       "label": "占位提示",
       "schema": {
