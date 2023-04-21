@@ -6,6 +6,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IAuthStorage } from '../storages/auth-storage.interface';
 
 export class AuthRepository implements IAuthRepository {
+  readonly type = 'Auth';
+
   private states: BehaviorSubject<AuthRepositoryStates>;
 
   constructor(private readonly authStorage: IAuthStorage) {

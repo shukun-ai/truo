@@ -11,6 +11,9 @@
     },
     {
       "$ref": "#/definitions/PresenterRepositoryTransformer"
+    },
+    {
+      "$ref": "#/definitions/PresenterRepositoryFlow"
     }
   ],
   "definitions": {
@@ -39,6 +42,16 @@
       "properties": {
         "type": { "const": "Transformer" },
         "func": { "type": "string" }
+      }
+    },
+    "PresenterRepositoryFlow": {
+      "title": "PresenterRepositoryFlow",
+      "type": "object",
+      "required": ["type", "flowName", "flowInput"],
+      "properties": {
+        "type": { "const": "Flow" },
+        "flowName": { "type": "string" },
+        "flowInput": { "type": "string" }
       }
     }
   }

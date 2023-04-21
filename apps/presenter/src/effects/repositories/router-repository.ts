@@ -4,6 +4,8 @@ import { History, Location } from 'history';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export class RouterRepository implements IRouterRepository {
+  readonly type = 'Router';
+
   private internalStates: BehaviorSubject<RouterRepositoryStates>;
 
   constructor(private readonly history: History) {
