@@ -7,10 +7,15 @@
  */
 
 export type SearchFormDefinitionProps = {
+  value?: SearchFormDefinitionValue;
   submitButtonText?: SearchFormDefinitionSubmitButtonText;
   resetButtonText?: SearchFormDefinitionResetButtonText;
   submit?: (payload: SearchFormDefinitionSubmit) => void;
 };
+
+export interface SearchFormDefinitionValue {
+  [k: string]: unknown;
+}
 
 export type SearchFormDefinitionSubmitButtonText = string;
 
