@@ -4,6 +4,8 @@ import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export class SimpleRepository implements IRepository {
+  readonly type = 'Simple';
+
   private fields: BehaviorSubject<Record<string, unknown>>;
 
   private schema: PresenterRepositorySimple;

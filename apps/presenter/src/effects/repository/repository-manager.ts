@@ -1,6 +1,7 @@
 import { TypeException } from '@shukun/exception';
 import {
   IAuthRepository,
+  IFormRepository,
   IRepository,
   IRouterRepository,
 } from '@shukun/widget';
@@ -109,5 +110,9 @@ export class RepositoryManager implements IRepositoryManager {
       case 'container':
         return `container:${containerId}:${repositoryId}`;
     }
+  }
+
+  getFormRepository(): IFormRepository {
+    throw new Error('Method not implemented.');
   }
 }

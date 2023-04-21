@@ -20,7 +20,7 @@ export const FormWidget = createWidget<FormDefinitionProps>(
           component="form"
           sx={{ display: 'block' }}
           onSubmit={form.onSubmit((value) => {
-            console.log('form value', value);
+            props.submit && props.submit(value);
           })}
         >
           <Box>{props.children}</Box>
