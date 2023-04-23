@@ -59,7 +59,7 @@ export const DashboardLayout = (props: DashboardLayoutProps) => {
             </MediaQuery>
 
             <Text color="rgba(255,255,255,0.9)" fw={500}>
-              Shukun System
+              System
             </Text>
           </div>
         </Header>
