@@ -16,8 +16,6 @@ import { OrgBrand } from '@shukun/component';
 import { SystemPublicOrgModel } from '@shukun/schema';
 import { IconShieldQuestion } from '@tabler/icons-react';
 
-import { useObservableState } from 'observable-hooks';
-
 import { useAppContext } from '../../contexts/app-context';
 
 import { useRouteOrgName } from '../../hooks/use-route-org-name';
@@ -33,14 +31,9 @@ export const SignIn = () => {
 
   const app = useAppContext();
 
-  const currentOrg = useObservableState(
-    app.repositories.orgRepository.currentOrg$,
-    null,
-  );
-
   const theme = useMantineTheme();
 
-  const { classes } = useStyles({ org: currentOrg ?? undefined });
+  const { classes } = useStyles({ org: undefined });
 
   const { form, handleSubmit, errorMessage, loading } = useSignInForm(
     app,
@@ -58,11 +51,11 @@ export const SignIn = () => {
         pt={100}
       >
         <Box>
-          <OrgBrand theme={theme.colorScheme} org={currentOrg ?? undefined} />
+          <OrgBrand theme={theme.colorScheme} org={undefined} />
         </Box>
 
         <Text className={classes.title} mt="md" mb="md">
-          即将登录 {currentOrg?.label}
+          即将登录
         </Text>
 
         <Box pos="relative">
