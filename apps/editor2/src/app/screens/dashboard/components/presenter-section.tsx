@@ -1,25 +1,40 @@
 import { Table } from '@mantine/core';
+import { useObservableState } from 'observable-hooks';
+import { useDidMount } from 'rooks';
+
+import { useAppContext } from '../../../contexts/app-context';
 
 export type PresenterSectionProps = {
   //
 };
 
 export const PresenterSection = () => {
+  const app = useAppContext();
+
+  const presenters = useObservableState(
+    app.repositories.presenterRepository.entities$,
+    null,
+  );
+
+  useDidMount(() => {
+    app.repositories.presenterRepository.findAll();
+  });
+
   return (
     <Table>
       <thead>
         <tr>
           <th>应用标识</th>
           <th>应用名称</th>
-          <th>最后编辑时间</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>admin</td>
-          <td>管理后台</td>
-          <td>2023-03-03 08:00:00</td>
-        </tr>
+        {presenters?.map((presenter) => (
+          <tr>
+            <td>{presenter.name}</td>
+            <td>{presenter.definition.title}</td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );

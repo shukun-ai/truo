@@ -18,13 +18,14 @@ import { AuthorizationController } from './authorization/authorization.controlle
 import { AuthorizationService } from './authorization/authorization.service';
 import { CodebaseController } from './codebase/codebase.controller';
 import { DataSourceController } from './data-source/data-source.controller';
+import { EditorController } from './editor/editor.controller';
 import { GrantListController } from './grant-list/grant-list.controller';
 import { GrantRoleController } from './grant-role/grant-role.controller';
 import { InspectionController } from './inspection/inspection.controller';
 import { MigrationController } from './migration/migration.controller';
 import { OrgController } from './org/org.controller';
-import { PresenterCodeController } from './presenter-code/presenter-code.controller';
 import { PresenterController } from './presenter/presenter.controller';
+import { PresenterCodeController } from './presenter-code/presenter-code.controller';
 import { RoleController } from './role/role.controller';
 import { SeedController } from './seed/seed.controller';
 import { SourceAccessControlService } from './source/source-access-control.service';
@@ -64,6 +65,7 @@ import { WebhookController } from './webhook/webhook.controller';
     MigrationController,
     PresenterController,
     PresenterCodeController,
+    EditorController,
   ],
   providers: [
     SourceAccessControlService,

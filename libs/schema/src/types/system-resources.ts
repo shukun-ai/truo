@@ -6,4 +6,5 @@ export enum RoleResourceType {
   Webhook = 'webhook',
   Developer = 'developer',
   Tenant = 'tenant',
+  Editor = 'editor',
 }

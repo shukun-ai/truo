@@ -180,6 +180,7 @@
     "reactflow": "^11.3.3",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
+    "rooks": "^7.14.1",
     "rxjs": "^7.8.0",
     "source-map-explorer": "^2.5.2",
     "string-format": "^2.0.0",
