@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { routerMap } from '../../app/router-map';
+import { routerMap } from '../../router-map';
 
 export type HomeContainerProps = {
   //
