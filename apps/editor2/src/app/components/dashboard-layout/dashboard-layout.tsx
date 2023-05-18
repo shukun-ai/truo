@@ -1,11 +1,26 @@
 import { Box, Container, Header, Text, rem } from '@mantine/core';
 import { ShukunBrand } from '@shukun/component';
+import { useObservableState } from 'observable-hooks';
+
+import { useAppContext } from '../../contexts/app-context';
+import { SignIn } from '../sign-in/sign-in';
 
 export type DashboardLayoutProps = {
   children: JSX.Element[];
 };
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+  const app = useAppContext();
+
+  const currentUser = useObservableState(
+    app.repositories.authRepository.currentUser$,
+    null,
+  );
+
+  if (!currentUser) {
+    return <SignIn />;
+  }
+
   return (
     <Box>
       <Header height={50} mb={20}>

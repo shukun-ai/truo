@@ -1,13 +1,20 @@
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
+import { devTools } from '@ngneat/elf-devtools';
+import { createRoot } from 'react-dom/client';
 
 import { App } from './app/app';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+const start = () => {
+  devTools();
+
+  const element = document.getElementById('root');
+
+  if (!element) {
+    throw new Error('Did not find root element in html.');
+  }
+
+  const root = createRoot(element);
+
+  root.render(<App />);
+};
+
+start();
