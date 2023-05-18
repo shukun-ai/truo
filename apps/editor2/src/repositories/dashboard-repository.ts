@@ -1,15 +1,15 @@
-import { selectAllEntities, setEntities } from '@ngneat/elf-entities';
+import { select } from '@ngneat/elf';
 
 import { ApiRequester } from '../apis/requester';
 
-import { presenterStore } from './presenter-store';
+import { dashboardStore } from './dashboard-store';
 
-export class PresenterRepository {
-  entities$ = presenterStore.pipe(selectAllEntities());
+export class DashboardRepository {
+  presenters$ = dashboardStore.pipe(select((state) => state.presenters));
 
   constructor(private readonly apiRequester: ApiRequester) {}
 
-  async findAll() {
+  async fetchPresenters() {
     const response = await this.apiRequester.editorRequester.getPresenter();
     const presenters = Object.entries(response.data.value).map(
       ([name, definition]) => ({
@@ -18,6 +18,9 @@ export class PresenterRepository {
       }),
     );
 
-    presenterStore.update(setEntities(presenters));
+    dashboardStore.update((state) => ({
+      ...state,
+      presenters,
+    }));
   }
 }

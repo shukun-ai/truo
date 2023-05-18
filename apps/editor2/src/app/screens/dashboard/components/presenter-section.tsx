@@ -12,12 +12,12 @@ export const PresenterSection = () => {
   const app = useAppContext();
 
   const presenters = useObservableState(
-    app.repositories.presenterRepository.entities$,
+    app.repositories.dashboardRepository.presenters$,
     null,
   );
 
   useDidMount(() => {
-    app.repositories.presenterRepository.findAll();
+    app.repositories.dashboardRepository.fetchPresenters();
   });
 
   return (
