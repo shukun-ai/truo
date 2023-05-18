@@ -1,11 +1,9 @@
 export type RouterMap = {
   home: '/editor';
-  dashboard: '/editor/dashboard';
-  signIn: '/editor/sign-in';
+  dashboard: '/editor/:orgName/dashboard';
 };
 
 export const routerMap: RouterMap = {
   home: '/editor',
-  dashboard: '/editor/dashboard',
-  signIn: '/editor/sign-in',
+  dashboard: '/editor/:orgName/dashboard',
 };
