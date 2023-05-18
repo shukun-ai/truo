@@ -2,12 +2,15 @@ import { select } from '@ngneat/elf';
 
 import { ApiRequester } from '../apis/requester';
 
-import { dashboardStore } from './dashboard-store';
+import { GlobalStore } from './global-store';
 
-export class DashboardRepository {
-  presenters$ = dashboardStore.pipe(select((state) => state.presenters));
+export class GlobalRepository {
+  presenters$ = this.globalStore.pipe(select((state) => state.presenters));
 
-  constructor(private readonly apiRequester: ApiRequester) {}
+  constructor(
+    private readonly globalStore: GlobalStore,
+    private readonly apiRequester: ApiRequester,
+  ) {}
 
   async fetchPresenters() {
     const response = await this.apiRequester.editorRequester.getPresenter();
@@ -18,7 +21,7 @@ export class DashboardRepository {
       }),
     );
 
-    dashboardStore.update((state) => ({
+    this.globalStore.update((state) => ({
       ...state,
       presenters,
     }));
