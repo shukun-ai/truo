@@ -1,13 +1,11 @@
-import { createStore, withProps, Store, StoreDef } from '@ngneat/elf';
+import { createStore, withProps } from '@ngneat/elf';
 import { PresenterSchema } from '@shukun/schema';
 
 export type PresenterProps = {
   currentPresenter: PresenterSchema;
 };
 
-export type PresenterStore = Store<StoreDef<PresenterProps>, PresenterProps>;
-
-export const presenterStore: PresenterStore = createStore(
+export const presenterStore = createStore(
   { name: 'presenter' },
   withProps<PresenterProps>({
     currentPresenter: {
@@ -15,5 +13,16 @@ export const presenterStore: PresenterStore = createStore(
       containers: {},
       screens: {},
     },
+  }),
+);
+
+export type PresenterUIProps = {
+  selectedContainerName: string | null;
+};
+
+export const presenterUIStore = createStore(
+  { name: 'presenterUI' },
+  withProps<PresenterUIProps>({
+    selectedContainerName: null,
   }),
 );

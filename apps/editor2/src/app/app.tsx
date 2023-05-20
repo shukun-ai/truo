@@ -1,3 +1,4 @@
+import { ModalsProvider } from '@mantine/modals';
 import { StrictMode } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
@@ -11,7 +12,9 @@ export const App = () => {
     <StrictMode>
       <AppProvider>
         <ThemeProvider>
-          <RouterProvider router={router} />
+          <ModalsProvider>
+            <RouterProvider router={router} />
+          </ModalsProvider>
         </ThemeProvider>
       </AppProvider>
     </StrictMode>

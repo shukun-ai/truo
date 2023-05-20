@@ -4,9 +4,7 @@ import { ApiRequester } from '../../apis/requester';
 import { AuthRepository } from '../../repositories/auth-repository';
 import { authStore } from '../../repositories/auth-store';
 import { GlobalRepository } from '../../repositories/global-repository';
-import { globalStore } from '../../repositories/global-store';
 import { PresenterRepository } from '../../repositories/presenter-repository';
-import { presenterStore } from '../../repositories/presenter-store';
 
 export type AppContextProps = {
   repositories: {
@@ -18,12 +16,9 @@ export type AppContextProps = {
 
 export const initializeAppContextProps = (): AppContextProps => {
   const apiRequester = new ApiRequester(authStore);
-  const authRepository = new AuthRepository(authStore, apiRequester);
-  const globalRepository = new GlobalRepository(globalStore, apiRequester);
-  const presenterRepository = new PresenterRepository(
-    presenterStore,
-    apiRequester,
-  );
+  const authRepository = new AuthRepository(apiRequester);
+  const globalRepository = new GlobalRepository(apiRequester);
+  const presenterRepository = new PresenterRepository(apiRequester);
 
   return {
     repositories: {

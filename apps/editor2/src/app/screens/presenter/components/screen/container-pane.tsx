@@ -1,17 +1,19 @@
 import {
   ActionIcon,
   Box,
-  Button,
   Divider,
   Menu,
   ScrollArea,
   Text,
-  UnstyledButton,
   createStyles,
 } from '@mantine/core';
 import { PresenterSchema } from '@shukun/schema';
-import { IconDots, IconPlus, IconTrash } from '@tabler/icons-react';
-import { useState } from 'react';
+import { IconDots, IconTrash } from '@tabler/icons-react';
+import { useObservableState } from 'observable-hooks';
+
+import { useAppContext } from '../../../../contexts/app-context';
+
+import { ContainerCreateButton } from './container-create-button';
 
 export type ContainerPaneProps = {
   presenter: PresenterSchema;
@@ -20,7 +22,12 @@ export type ContainerPaneProps = {
 export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
   const { classes, cx } = useStyles();
 
-  const [active] = useState('cargo-edit');
+  const app = useAppContext();
+
+  const selectedContainerName = useObservableState(
+    app.repositories.presenterRepository.selectedContainerName$,
+    null,
+  );
 
   return (
     <Box
@@ -32,34 +39,39 @@ export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
       }}
     >
       <Box>
-        <Button
-          leftIcon={<IconPlus size="0.9rem" />}
-          variant="subtle"
-          size="sm"
-          fullWidth
-        >
-          新建
-        </Button>
+        <ContainerCreateButton
+          onSubmit={(values) => {
+            app.repositories.presenterRepository.createContainer(values.text);
+          }}
+        />
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
         {Object.entries(presenter.containers).map(([containerName]) => (
-          <UnstyledButton
+          <Box
+            key={containerName}
             className={cx(
               classes.button,
-              active === containerName && classes.active,
+              selectedContainerName === containerName && classes.active,
             )}
+            onClick={() => {
+              app.repositories.presenterRepository.chooseContainer(
+                containerName,
+              );
+            }}
           >
             <Text size="sm">{containerName}</Text>
-            <MoreButton />
-          </UnstyledButton>
+            <MoreButton containerName={containerName} />
+          </Box>
         ))}
       </ScrollArea>
     </Box>
   );
 };
 
-const MoreButton = () => {
+const MoreButton = ({ containerName }: { containerName: string }) => {
+  const app = useAppContext();
+
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
@@ -69,8 +81,14 @@ const MoreButton = () => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Item color="red" icon={<IconTrash size={14} />}>
-          Delete
+        <Menu.Item
+          color="red"
+          icon={<IconTrash size={14} />}
+          onClick={() => {
+            app.repositories.presenterRepository.removeContainer(containerName);
+          }}
+        >
+          删除
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
@@ -88,6 +106,7 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: theme.defaultRadius,
+    cursor: 'pointer',
     '&:hover': {
       background: theme.colors.blue[1],
     },
