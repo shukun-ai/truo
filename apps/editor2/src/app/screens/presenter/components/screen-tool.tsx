@@ -1,14 +1,19 @@
-import { Tabs } from '@mantine/core';
+import { Tabs, createStyles } from '@mantine/core';
+import { PresenterSchema } from '@shukun/schema';
 import { IconRoute, IconBoxPadding, IconBinaryTree } from '@tabler/icons-react';
 
+import { ContainerPane } from './screen/container-pane';
+
 export type ScreenToolProps = {
-  //
+  presenter: PresenterSchema;
 };
 
-export const ScreenTool = () => {
+export const ScreenTool = ({ presenter }: ScreenToolProps) => {
+  const { classes, cx } = useStyles();
+
   return (
-    <Tabs defaultValue="screens">
-      <Tabs.List>
+    <Tabs defaultValue="screens" className={cx(classes.wrapper)}>
+      <Tabs.List className={cx(classes.tabs)}>
         <Tabs.Tab value="screens" icon={<IconRoute size="0.8rem" />}>
           路由
         </Tabs.Tab>
@@ -20,17 +25,31 @@ export const ScreenTool = () => {
         </Tabs.Tab>
       </Tabs.List>
 
-      <Tabs.Panel value="screens" pt="xs">
+      <Tabs.Panel value="screens" className={cx(classes.panel)}>
         Gallery tab content
       </Tabs.Panel>
 
-      <Tabs.Panel value="containers" pt="xs">
-        Messages tab content
+      <Tabs.Panel value="containers" className={cx(classes.panel)}>
+        <ContainerPane presenter={presenter} />
       </Tabs.Panel>
 
-      <Tabs.Panel value="tree" pt="xs">
+      <Tabs.Panel value="tree" className={cx(classes.panel)}>
         Messages tab content
       </Tabs.Panel>
     </Tabs>
   );
 };
+
+const useStyles = createStyles((theme) => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
+    height: '100%',
+  },
+  tabs: {},
+  panel: {
+    flex: 1,
+    overflow: 'hidden',
+  },
+}));

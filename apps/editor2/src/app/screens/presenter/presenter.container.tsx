@@ -1,4 +1,10 @@
-import { Box, Divider } from '@mantine/core';
+import { Box, Divider, Skeleton } from '@mantine/core';
+
+import { useObservableState } from 'observable-hooks';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useAppContext } from '../../contexts/app-context';
 
 import { CodeTool } from './components/code-tool';
 import { DebugTool } from './components/debug-tool';
@@ -13,6 +19,30 @@ export type PresenterContainerProps = {
 };
 
 export const PresenterContainer = () => {
+  const app = useAppContext();
+
+  const { presenterName } = useParams();
+
+  const currentPresenter = useObservableState(
+    app.repositories.presenterRepository.currentPresenter$,
+  );
+
+  useEffect(() => {
+    if (presenterName) {
+      app.repositories.presenterRepository.fetchLatest(presenterName);
+    }
+  }, [app.repositories.presenterRepository, presenterName]);
+
+  if (!currentPresenter) {
+    return (
+      <>
+        <Skeleton height={8} radius="xl" />
+        <Skeleton height={8} mt={6} radius="xl" />
+        <Skeleton height={8} mt={6} width="70%" radius="xl" />
+      </>
+    );
+  }
+
   return (
     <Box
       sx={{
@@ -26,17 +56,17 @@ export const PresenterContainer = () => {
         <TopBar />
       </Box>
       <Box sx={{ flex: 1, display: 'flex' }}>
-        <Box sx={{ display: 'flex', width: 400, flexDirection: 'column' }}>
-          <Box sx={{ flex: 1 }}>
-            <ScreenTool />
+        <Box sx={{ display: 'flex', width: 320, flexDirection: 'column' }}>
+          <Box sx={{ flex: 1, overflow: 'hidden' }}>
+            <ScreenTool presenter={currentPresenter} />
           </Box>
           <Divider />
-          <Box sx={{ flex: 1 }}>
+          <Box sx={{ flex: 1, overflow: 'hidden' }}>
             <RepositoryTool />
           </Box>
         </Box>
         <Divider orientation="vertical" />
-        <Box sx={{ width: 400 }}>
+        <Box sx={{ width: 320 }}>
           <SettingTool />
         </Box>
         <Divider orientation="vertical" />
