@@ -2,15 +2,14 @@ import { select } from '@ngneat/elf';
 
 import { ApiRequester } from '../apis/requester';
 
-import { AuthStore } from './auth-store';
+import { authStore } from './auth-store';
 
 export class AuthRepository {
+  authStore = authStore;
+
   currentUser$ = this.authStore.pipe(select((state) => state.currentUser));
 
-  constructor(
-    private readonly authStore: AuthStore,
-    private readonly apiRequester: ApiRequester,
-  ) {}
+  constructor(private readonly apiRequester: ApiRequester) {}
 
   async signIn({
     orgName,

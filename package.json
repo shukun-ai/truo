@@ -86,6 +86,7 @@
     "@mantine/core": "^6.0.7",
     "@mantine/form": "^6.0.7",
     "@mantine/hooks": "^6.0.7",
+    "@mantine/modals": "^6.0.11",
     "@nestjs/cli": "9.3.0",
     "@nestjs/common": "9.4.0",
     "@nestjs/config": "2.3.1",
