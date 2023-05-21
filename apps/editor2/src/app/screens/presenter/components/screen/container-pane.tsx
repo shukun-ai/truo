@@ -30,14 +30,7 @@ export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
   );
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        height: '100%',
-      }}
-    >
+    <Box className={cx(classes.wrapper)}>
       <Box>
         <ContainerCreateButton
           onSubmit={(values) => {
@@ -96,6 +89,12 @@ const MoreButton = ({ containerName }: { containerName: string }) => {
 };
 
 const useStyles = createStyles((theme) => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
+    height: '100%',
+  },
   button: {
     display: 'flex',
     width: '100%',

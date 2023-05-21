@@ -2,10 +2,16 @@ import { select } from '@ngneat/elf';
 
 import { PresenterContainer } from '@shukun/schema';
 
+import { Observable, combineLatest, distinctUntilChanged, map } from 'rxjs';
+
 import { ApiRequester } from '../apis/requester';
 
 import { write } from './mutations';
-import { presenterStore, presenterUIStore } from './presenter-store';
+import {
+  PresenterContainerTree,
+  presenterStore,
+  presenterUIStore,
+} from './presenter-store';
 
 export class PresenterRepository {
   presenterStore = presenterStore;
@@ -18,6 +24,29 @@ export class PresenterRepository {
 
   selectedContainerName$ = this.presenterUIStore.pipe(
     select((state) => state.selectedContainerName),
+  );
+
+  selectedTree$: Observable<PresenterContainerTree> = combineLatest([
+    this.presenterStore,
+    this.presenterUIStore,
+  ]).pipe(
+    map(([presenterStore, presenterUIStore]) => {
+      const containerName = presenterUIStore.selectedContainerName;
+      if (!containerName) {
+        return [];
+      }
+      const container =
+        presenterStore.currentPresenter.containers[containerName];
+      if (!container) {
+        return [];
+      }
+      return Object.entries(container.widgets).map(([widgetId, widget]) => ({
+        widgetId,
+        widgetTitle: widget.title || '未命名组件',
+        parentWidgetId: widget.parent ?? null,
+      }));
+    }),
+    distinctUntilChanged(),
   );
 
   constructor(private readonly apiRequester: ApiRequester) {}
