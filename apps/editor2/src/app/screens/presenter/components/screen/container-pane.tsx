@@ -24,8 +24,8 @@ export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
 
   const app = useAppContext();
 
-  const selectedContainerName = useObservableState(
-    app.repositories.presenterRepository.selectedContainerName$,
+  const selectedContainerId = useObservableState(
+    app.repositories.presenterRepository.selectedContainerId$,
     null,
   );
 
@@ -40,21 +40,19 @@ export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {Object.entries(presenter.containers).map(([containerName]) => (
+        {Object.entries(presenter.containers).map(([containerId]) => (
           <Box
-            key={containerName}
+            key={containerId}
             className={cx(
               classes.button,
-              selectedContainerName === containerName && classes.active,
+              selectedContainerId === containerId && classes.active,
             )}
             onClick={() => {
-              app.repositories.presenterRepository.chooseContainer(
-                containerName,
-              );
+              app.repositories.presenterRepository.chooseContainer(containerId);
             }}
           >
-            <Text size="sm">{containerName}</Text>
-            <MoreButton containerName={containerName} />
+            <Text size="sm">{containerId}</Text>
+            <MoreButton containerId={containerId} />
           </Box>
         ))}
       </ScrollArea>
@@ -62,7 +60,7 @@ export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
   );
 };
 
-const MoreButton = ({ containerName }: { containerName: string }) => {
+const MoreButton = ({ containerId }: { containerId: string }) => {
   const app = useAppContext();
 
   return (
@@ -78,7 +76,7 @@ const MoreButton = ({ containerName }: { containerName: string }) => {
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            app.repositories.presenterRepository.removeContainer(containerName);
+            app.repositories.presenterRepository.removeContainer(containerId);
           }}
         >
           删除

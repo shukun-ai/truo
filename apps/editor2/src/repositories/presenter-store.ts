@@ -3,6 +3,7 @@ import { PresenterSchema } from '@shukun/schema';
 
 export type PresenterProps = {
   currentPresenter: PresenterSchema;
+  selectedContainerId: string | null;
 };
 
 export const presenterStore = createStore(
@@ -13,16 +14,6 @@ export const presenterStore = createStore(
       containers: {},
       screens: {},
     },
-  }),
-);
-
-export type PresenterUIProps = {
-  selectedContainerName: string | null;
-};
-
-export const presenterUIStore = createStore(
-  { name: 'presenterUI' },
-  withProps<PresenterUIProps>({
-    selectedContainerName: null,
+    selectedContainerId: null,
   }),
 );
