@@ -53,13 +53,7 @@ export interface PresenterContainer {
     [k: string]: PresenterWidget;
   };
   root: PresenterTreeNode[];
-  tree: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(.)+$".
-     */
-    [k: string]: PresenterTreeNode[];
-  };
+  tree: PresenterTreeNodes;
 }
 export interface PresenterRepositorySimple {
   type: 'Simple';
@@ -90,6 +84,7 @@ export interface PresenterRepositoryFlow {
  */
 export interface PresenterWidget {
   tag: string;
+  title?: string;
   parentSlot?: string;
   properties: {
     /**
@@ -146,6 +141,13 @@ export interface PresenterEventNavigation {
    */
   search?: string;
   [k: string]: unknown;
+}
+export interface PresenterTreeNodes {
+  /**
+   * This interface was referenced by `PresenterTreeNodes`'s JSON-Schema definition
+   * via the `patternProperty` "^(.)+$".
+   */
+  [k: string]: PresenterTreeNode[];
 }
 export interface PresenterScreenDashboard {
   layout: 'Dashboard' | 'Workshop';

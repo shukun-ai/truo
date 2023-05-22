@@ -33,6 +33,7 @@
     },
     "tree": {
       "type": "object",
+      "title": "PresenterTreeNodes",
       "patternProperties": {
         "^(.)+$": {
           "type": "array",
