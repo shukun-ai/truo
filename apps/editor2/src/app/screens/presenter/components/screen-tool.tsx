@@ -3,7 +3,7 @@ import { PresenterSchema } from '@shukun/schema';
 import { IconRoute, IconBoxPadding, IconBinaryTree } from '@tabler/icons-react';
 
 import { ContainerPane } from './screen/container-pane';
-import { MultipleTreePane } from './screen/multiple-tree-pane';
+import { TreePane } from './tree/tree-pane';
 
 export type ScreenToolProps = {
   presenter: PresenterSchema;
@@ -35,7 +35,7 @@ export const ScreenTool = ({ presenter }: ScreenToolProps) => {
       </Tabs.Panel>
 
       <Tabs.Panel value="tree" className={cx(classes.panel)}>
-        <MultipleTreePane />
+        <TreePane />
       </Tabs.Panel>
     </Tabs>
   );
