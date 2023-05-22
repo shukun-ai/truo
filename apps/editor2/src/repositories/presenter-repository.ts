@@ -1,44 +1,37 @@
-import { select } from '@ngneat/elf';
+import { select, setProps } from '@ngneat/elf';
 
 import { PresenterContainer, PresenterTreeNodes } from '@shukun/schema';
 
-import { Observable, combineLatest, distinctUntilChanged, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ApiRequester } from '../apis/requester';
 
 import { write } from './mutations';
-import { presenterStore, presenterUIStore } from './presenter-store';
+import { presenterStore } from './presenter-store';
 
 export class PresenterRepository {
   presenterStore = presenterStore;
-
-  presenterUIStore = presenterUIStore;
 
   currentPresenter$ = this.presenterStore.pipe(
     select((state) => state.currentPresenter),
   );
 
-  selectedContainerName$ = this.presenterUIStore.pipe(
-    select((state) => state.selectedContainerName),
+  selectedContainerId$ = this.presenterStore.pipe(
+    select((state) => state.selectedContainerId),
   );
 
-  selectedTree$: Observable<PresenterTreeNodes> = combineLatest([
-    this.presenterStore,
-    this.presenterUIStore,
-  ]).pipe(
-    map(([presenterStore, presenterUIStore]) => {
-      const containerName = presenterUIStore.selectedContainerName;
-      if (!containerName) {
+  selectedTreeNodes$: Observable<PresenterTreeNodes> = this.presenterStore.pipe(
+    select((state) => {
+      const selectedContainerId = state.selectedContainerId;
+      if (!selectedContainerId) {
         return {};
       }
-      const container =
-        presenterStore.currentPresenter.containers[containerName];
+      const container = state.currentPresenter.containers[selectedContainerId];
       if (!container) {
         return {};
       }
       return container.tree;
     }),
-    distinctUntilChanged(),
   );
 
   constructor(private readonly apiRequester: ApiRequester) {}
@@ -49,10 +42,11 @@ export class PresenterRepository {
     if (!presenter) {
       throw new Error('Did not find presenter.');
     }
-    this.presenterStore.update((state) => ({
-      ...state,
-      currentPresenter: presenter,
-    }));
+    this.presenterStore.update(
+      setProps({
+        currentPresenter: presenter,
+      }),
+    );
   }
 
   isUniqueContainerName(containerName: string) {
@@ -61,9 +55,9 @@ export class PresenterRepository {
     return !container;
   }
 
-  chooseContainer(containerName: string) {
-    this.presenterUIStore.update(
-      write((state) => (state.selectedContainerName = containerName)),
+  chooseContainer(containerId: string) {
+    this.presenterStore.update(
+      write((state) => (state.selectedContainerId = containerId)),
     );
   }
 

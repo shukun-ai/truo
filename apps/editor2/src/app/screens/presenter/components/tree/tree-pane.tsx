@@ -17,7 +17,7 @@ export const TreePane = () => {
   const { classes, cx } = useStyles();
   const app = useAppContext();
   const treeNodes = useObservableState(
-    app.repositories.presenterRepository.selectedTree$,
+    app.repositories.presenterRepository.selectedTreeNodes$,
     {},
   );
   const collapseStore = useObservableState(collapseStore$);
