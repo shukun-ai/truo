@@ -6,6 +6,7 @@
   "additionalProperties": false,
   "properties": {
     "tag": { "type": "string" },
+    "title": { "type": "string" },
     "parentSlot": { "type": "string" },
     "properties": {
       "type": "object",

@@ -1,25 +1,21 @@
 import { Box, Text, createStyles, useMantineTheme } from '@mantine/core';
+import { PresenterTreeNodes } from '@shukun/schema';
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useCallback, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
-import {
-  CollapseConfig,
-  LEFT_INDENT_WIDTH,
-  TreeConfig,
-  collapseStore$,
-} from './store';
+import { CollapseConfig, LEFT_INDENT_WIDTH, collapseStore$ } from './store';
 import { TreeDroppableDivider } from './tree-droppable-divider';
 
 export const TreeDraggableNode = ({
-  treeConfig,
+  treeNodes,
   collapseStore,
   currentNodeName,
   level,
   index,
   activeNodeName,
 }: {
-  treeConfig: TreeConfig;
+  treeNodes: PresenterTreeNodes;
   collapseStore: CollapseConfig;
   currentNodeName: string;
   level: number;
@@ -30,7 +26,7 @@ export const TreeDraggableNode = ({
 
   const [collected, drag, dragPreview] = useDrag(() => ({
     type: 'ITEM',
-    item: { currentNodeName, treeConfig, level },
+    item: { currentNodeName, treeNodes, level },
   }));
 
   const isOpen = useMemo(() => {
@@ -79,9 +75,10 @@ export const TreeDraggableNode = ({
       </div>
       {isOpen && (
         <List>
-          {treeConfig[currentNodeName]?.map((childNode, index) => (
+          {treeNodes[currentNodeName]?.map((childNode, index) => (
             <TreeDraggableNode
-              treeConfig={treeConfig}
+              key={childNode}
+              treeNodes={treeNodes}
               collapseStore={collapseStore}
               activeNodeName={activeNodeName}
               currentNodeName={childNode}
