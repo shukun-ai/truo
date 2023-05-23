@@ -57,6 +57,27 @@ export const moveToBeside = (
   return cloneTree;
 };
 
+export const removeNode = (
+  tree: PresenterTreeNodes,
+  sourceNodeId: string,
+): PresenterTreeNodes => {
+  let cloneTree = cloneDeep(tree);
+
+  const sourceNode = cloneTree[sourceNodeId];
+
+  // Remove children
+  if (sourceNode) {
+    cloneTree = sourceNode.reduce((previousTree, childNodeId) => {
+      return removeNode(previousTree, childNodeId);
+    }, cloneTree);
+  }
+
+  delete cloneTree[sourceNodeId];
+  const [, sourceParentNode] = getParentNode(cloneTree, sourceNodeId);
+  sourceParentNode.splice(sourceParentNode.indexOf(sourceNodeId), 1);
+  return cloneTree;
+};
+
 const getParentNode = (
   tree: PresenterTreeNodes,
   childNodeId: string,
