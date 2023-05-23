@@ -58,7 +58,7 @@ export const TreeDroppableDivider = ({
         flex: 1,
         height: ACTIVE_DROPPABLE_HEIGHT,
         borderRadius: theme.defaultRadius,
-        background: theme.colors.blue[1],
+        background: theme.colors.blue[8],
       };
     }
     if (canDrop) {

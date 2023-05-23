@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { ApiRequester } from '../apis/requester';
 
 import { write } from './mutations';
-import { moveToBeside, moveToInside } from './presenter/move-node';
+import { moveToBeside, moveToInside, removeNode } from './presenter/move-node';
 import { PresenterProps, presenterStore } from './presenter-store';
 
 export class PresenterRepository {
@@ -111,6 +111,16 @@ export class PresenterRepository {
       write((state) => {
         const container = this.getSelectedContainer(state);
         const tree = moveToInside(container.tree, sourceNodeId, targetNodeId);
+        container.tree = tree;
+      }),
+    );
+  }
+
+  removeTreeNode(sourceNodeId: string) {
+    this.presenterStore.update(
+      write((state) => {
+        const container = this.getSelectedContainer(state);
+        const tree = removeNode(container.tree, sourceNodeId);
         container.tree = tree;
       }),
     );

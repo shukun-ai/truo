@@ -51,12 +51,13 @@ export const TreeDroppableLabel = ({
   const style = useMemo(() => {
     if (isOver && canDrop) {
       return {
-        background: theme.colors.blue[1],
+        background: theme.colors.blue[8],
+        color: theme.white,
         borderRadius: theme.defaultRadius,
       };
     }
     return {};
-  }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius]);
+  }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius, theme.white]);
 
   return (
     <Box ref={drop} sx={{ ...style }}>

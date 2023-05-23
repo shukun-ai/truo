@@ -8,6 +8,7 @@ import { TreeArrow } from './tree-arrow';
 import { TreeDroppableDivider } from './tree-droppable-divider';
 import { TreeDroppableLabel } from './tree-droppable-label';
 import { TreeDroppableItem } from './tree-droppable-type';
+import { TreeMoreButton } from './tree-more-button';
 
 export const TreeDraggableNode = ({
   treeNodes,
@@ -36,8 +37,10 @@ export const TreeDraggableNode = ({
     return collapse === false ? false : true;
   }, [collapseStore, currentNodeName]);
 
+  const { classes } = useStyles();
+
   return (
-    <Box ref={drag}>
+    <Box ref={drag} className={classes.draggableItem}>
       {index === 0 && (
         <TreeDroppableDivider
           targetNodeId={currentNodeName}
@@ -45,26 +48,21 @@ export const TreeDraggableNode = ({
           level={level}
         />
       )}
-      <Box>
-        <Box
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            color: theme.colors.blue[8],
-          }}
-        >
-          <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
-          <TreeArrow
-            isOpen={isOpen}
-            sourceNodeId={currentNodeName}
-            treeNodes={treeNodes}
+      <Box className={classes.nodeItem}>
+        <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
+        <TreeArrow
+          isOpen={isOpen}
+          sourceNodeId={currentNodeName}
+          treeNodes={treeNodes}
+        />
+        <Box style={{ flex: 1 }}>
+          <TreeDroppableLabel
+            targetNodeId={currentNodeName}
+            title={currentNodeName}
           />
-          <Box style={{ flex: 1 }}>
-            <TreeDroppableLabel
-              targetNodeId={currentNodeName}
-              title={currentNodeName}
-            />
-          </Box>
+        </Box>
+        <Box sx={{ paddingRight: 6 }}>
+          <TreeMoreButton sourceNodeId={currentNodeName} />
         </Box>
       </Box>
       {isOpen && (
@@ -99,5 +97,18 @@ const useStyles = createStyles((theme) => ({
   selected: {
     background: theme.colors.blue[8],
     color: theme.white,
+  },
+  draggableItem: {
+    cursor: 'pointer',
+  },
+  nodeItem: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: theme.colors.blue[8],
+
+    '&:hover': {
+      background: theme.colors.blue[1],
+    },
   },
 }));
