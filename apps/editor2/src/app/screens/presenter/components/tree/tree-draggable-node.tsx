@@ -1,4 +1,4 @@
-import { Box, Text, createStyles, useMantineTheme } from '@mantine/core';
+import { Box, createStyles, useMantineTheme } from '@mantine/core';
 import { PresenterTreeNodes } from '@shukun/schema';
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useCallback, useMemo } from 'react';
@@ -6,6 +6,7 @@ import { useDrag } from 'react-dnd';
 
 import { CollapseConfig, LEFT_INDENT_WIDTH, collapseStore$ } from './store';
 import { TreeDroppableDivider } from './tree-droppable-divider';
+import { TreeDroppableLabel } from './tree-droppable-label';
 import { TreeDroppableItem } from './tree-droppable-type';
 
 export const TreeDraggableNode = ({
@@ -70,7 +71,10 @@ export const TreeDraggableNode = ({
             )}
           </div>
           <div style={{ flex: 1 }}>
-            <Text size="sm">{currentNodeName}</Text>
+            <TreeDroppableLabel
+              targetNodeId={currentNodeName}
+              title={currentNodeName}
+            />
           </div>
         </div>
       </div>
