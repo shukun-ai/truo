@@ -1,15 +1,10 @@
 import { Box, createStyles, useMantineTheme } from '@mantine/core';
 import { PresenterTreeNodes } from '@shukun/schema';
-import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
-import {
-  CollapseConfig,
-  LEFT_INDENT_WIDTH,
-  TREE_NODE_TYPE,
-  collapseStore$,
-} from './store';
+import { CollapseConfig, LEFT_INDENT_WIDTH, TREE_NODE_TYPE } from './store';
+import { TreeArrow } from './tree-arrow';
 import { TreeDroppableDivider } from './tree-droppable-divider';
 import { TreeDroppableLabel } from './tree-droppable-label';
 import { TreeDroppableItem } from './tree-droppable-type';
@@ -41,15 +36,6 @@ export const TreeDraggableNode = ({
     return collapse === false ? false : true;
   }, [collapseStore, currentNodeName]);
 
-  const toggleCollapse = useCallback(() => {
-    const collapseStore = collapseStore$.getValue();
-    const open = collapseStore[currentNodeName];
-    collapseStore$.next({
-      ...collapseStore$.getValue(),
-      [currentNodeName]: open === false ? true : false,
-    });
-  }, [currentNodeName]);
-
   return (
     <Box ref={drag}>
       {index === 0 && (
@@ -59,30 +45,28 @@ export const TreeDraggableNode = ({
           level={level}
         />
       )}
-      <div>
-        <div
+      <Box>
+        <Box
           style={{
             display: 'flex',
             justifyContent: 'center',
             color: theme.colors.blue[8],
           }}
         >
-          <div style={{ width: LEFT_INDENT_WIDTH * level }}></div>
-          <div onClick={toggleCollapse}>
-            {isOpen ? (
-              <IconChevronDown size="0.9rem" />
-            ) : (
-              <IconChevronRight size="0.9rem" />
-            )}
-          </div>
-          <div style={{ flex: 1 }}>
+          <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
+          <TreeArrow
+            isOpen={isOpen}
+            sourceNodeId={currentNodeName}
+            treeNodes={treeNodes}
+          />
+          <Box style={{ flex: 1 }}>
             <TreeDroppableLabel
               targetNodeId={currentNodeName}
               title={currentNodeName}
             />
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
       {isOpen && (
         <List>
           {treeNodes[currentNodeName]?.map((childNode, index) => (
