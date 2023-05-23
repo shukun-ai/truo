@@ -59,9 +59,13 @@ describe('move-after-node', () => {
       b: ['b1', 'b2'],
     };
 
-    expect(() => moveToBeside(tree, 'a1', 'a1', 'after')).toThrow(
-      new TypeException('Did not support move source to same target.'),
-    );
+    const newTree: PresenterTreeNodes = {
+      root: ['a', 'b', 'c'],
+      a: ['a1', 'a2'],
+      b: ['b1', 'b2'],
+    };
+
+    expect(moveToBeside(tree, 'a1', 'a1', 'after')).toEqual(newTree);
   });
 
   it('When move a node into other node, return new tree.', () => {

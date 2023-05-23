@@ -18,10 +18,10 @@ export const TreeDroppableLabel = ({
 }: TreeDroppableLabelProps) => {
   const app = useAppContext();
 
-  const [{ isOver, canDrop }, drop] = useDrop<
+  const [{ isOver, canDrop, sourceItem }, drop] = useDrop<
     TreeDroppableItem,
     unknown,
-    { isOver: boolean; canDrop: boolean }
+    { isOver: boolean; canDrop: boolean; sourceItem: TreeDroppableItem | null }
   >(() => ({
     accept: 'ITEM',
     drop: (item) => {
@@ -35,20 +35,31 @@ export const TreeDroppableLabel = ({
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
+      sourceItem: monitor.getItem(),
     }),
   }));
 
   const theme = useMantineTheme();
 
   const style = useMemo(() => {
-    if (isOver && canDrop) {
+    if (!sourceItem) {
+      return {};
+    }
+    if (isOver && canDrop && sourceItem.sourceNodeId !== targetNodeId) {
       return {
         background: theme.colors.blue[1],
         borderRadius: theme.defaultRadius,
       };
     }
     return {};
-  }, [canDrop, isOver, theme]);
+  }, [
+    canDrop,
+    isOver,
+    sourceItem,
+    targetNodeId,
+    theme.colors.blue,
+    theme.defaultRadius,
+  ]);
 
   return (
     <Box ref={drop} sx={{ ...style }}>

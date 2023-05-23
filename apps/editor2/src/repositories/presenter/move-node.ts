@@ -35,7 +35,7 @@ export const moveToBeside = (
   position: 'before' | 'after',
 ) => {
   if (sourceNodeId === targetNodeId) {
-    throw new TypeException('Did not support move source to same target.');
+    return tree;
   }
 
   const cloneTree = cloneDeep(tree);
