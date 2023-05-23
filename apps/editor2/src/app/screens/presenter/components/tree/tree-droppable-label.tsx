@@ -3,8 +3,10 @@ import { Box, Text, useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
+import { ROOT_NODE_ID } from '../../../../../repositories/presenter-store';
 import { useAppContext } from '../../../../contexts/app-context';
 
+import { TREE_NODE_TYPE } from './store';
 import { TreeDroppableItem } from './tree-droppable-type';
 
 export type TreeDroppableLabelProps = {
@@ -18,12 +20,17 @@ export const TreeDroppableLabel = ({
 }: TreeDroppableLabelProps) => {
   const app = useAppContext();
 
-  const [{ isOver, canDrop, sourceItem }, drop] = useDrop<
+  const [{ isOver, canDrop }, drop] = useDrop<
     TreeDroppableItem,
     unknown,
-    { isOver: boolean; canDrop: boolean; sourceItem: TreeDroppableItem | null }
+    { isOver: boolean; canDrop: boolean }
   >(() => ({
-    accept: 'ITEM',
+    accept: TREE_NODE_TYPE,
+    canDrop: (item) => {
+      return (
+        item.sourceNodeId !== targetNodeId && targetNodeId !== ROOT_NODE_ID
+      );
+    },
     drop: (item) => {
       const { sourceNodeId } = item;
 
@@ -42,24 +49,14 @@ export const TreeDroppableLabel = ({
   const theme = useMantineTheme();
 
   const style = useMemo(() => {
-    if (!sourceItem) {
-      return {};
-    }
-    if (isOver && canDrop && sourceItem.sourceNodeId !== targetNodeId) {
+    if (isOver && canDrop) {
       return {
         background: theme.colors.blue[1],
         borderRadius: theme.defaultRadius,
       };
     }
     return {};
-  }, [
-    canDrop,
-    isOver,
-    sourceItem,
-    targetNodeId,
-    theme.colors.blue,
-    theme.defaultRadius,
-  ]);
+  }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius]);
 
   return (
     <Box ref={drop} sx={{ ...style }}>

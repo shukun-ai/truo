@@ -4,7 +4,12 @@ import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useCallback, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
-import { CollapseConfig, LEFT_INDENT_WIDTH, collapseStore$ } from './store';
+import {
+  CollapseConfig,
+  LEFT_INDENT_WIDTH,
+  TREE_NODE_TYPE,
+  collapseStore$,
+} from './store';
 import { TreeDroppableDivider } from './tree-droppable-divider';
 import { TreeDroppableLabel } from './tree-droppable-label';
 import { TreeDroppableItem } from './tree-droppable-type';
@@ -27,7 +32,7 @@ export const TreeDraggableNode = ({
   const theme = useMantineTheme();
 
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
-    type: 'ITEM',
+    type: TREE_NODE_TYPE,
     item: { sourceNodeId: currentNodeName },
   }));
 
