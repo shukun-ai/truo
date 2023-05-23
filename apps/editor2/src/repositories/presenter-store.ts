@@ -6,6 +6,8 @@ export type PresenterProps = {
   selectedContainerId: string | null;
 };
 
+export const ROOT_NODE_ID = 'root';
+
 export const presenterStore = createStore(
   { name: 'presenter' },
   withProps<PresenterProps>({
