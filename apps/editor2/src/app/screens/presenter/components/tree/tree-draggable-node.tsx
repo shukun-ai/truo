@@ -6,6 +6,7 @@ import { useDrag } from 'react-dnd';
 
 import { CollapseConfig, LEFT_INDENT_WIDTH, collapseStore$ } from './store';
 import { TreeDroppableDivider } from './tree-droppable-divider';
+import { TreeDroppableItem } from './tree-droppable-type';
 
 export const TreeDraggableNode = ({
   treeNodes,
@@ -24,9 +25,9 @@ export const TreeDraggableNode = ({
 }) => {
   const theme = useMantineTheme();
 
-  const [collected, drag, dragPreview] = useDrag(() => ({
+  const [, drag] = useDrag<TreeDroppableItem>(() => ({
     type: 'ITEM',
-    item: { currentNodeName, treeNodes, level },
+    item: { sourceNodeId: currentNodeName },
   }));
 
   const isOpen = useMemo(() => {
@@ -47,8 +48,8 @@ export const TreeDraggableNode = ({
     <Box ref={drag}>
       {index === 0 && (
         <TreeDroppableDivider
-          widgetId={currentNodeName}
-          position="top"
+          targetNodeId={currentNodeName}
+          position="before"
           level={level}
         />
       )}
@@ -89,8 +90,8 @@ export const TreeDraggableNode = ({
         </List>
       )}
       <TreeDroppableDivider
-        widgetId={currentNodeName}
-        position="bottom"
+        targetNodeId={currentNodeName}
+        position="after"
         level={level}
       />
     </Box>
