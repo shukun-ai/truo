@@ -78,6 +78,22 @@ export const removeNode = (
   return cloneTree;
 };
 
+export const addSiblingNode = (
+  tree: PresenterTreeNodes,
+  newNodeId: string,
+  targetNodeId: string,
+) => {
+  const cloneTree = cloneDeep(tree);
+  cloneTree[newNodeId] = [];
+  const [, targetParentNode] = getParentNode(cloneTree, targetNodeId);
+  targetParentNode.splice(
+    targetParentNode.indexOf(targetNodeId) + 1,
+    0,
+    newNodeId,
+  );
+  return cloneTree;
+};
+
 const getParentNode = (
   tree: PresenterTreeNodes,
   childNodeId: string,

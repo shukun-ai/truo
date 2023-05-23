@@ -156,6 +156,7 @@
     "mongodb": "5.2.0",
     "mongoose": "7.0.3",
     "mongoose-query-parser": "^1.2.1",
+    "nanoid": "^4.0.2",
     "nest-router": "^1.0.9",
     "nest-winston": "1.9.1",
     "npm": "^9.6.3",
