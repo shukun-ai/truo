@@ -1,4 +1,4 @@
-import { Box, ScrollArea, createStyles } from '@mantine/core';
+import { Box, ScrollArea, Text, createStyles } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { DndProvider } from 'react-dnd';
@@ -20,10 +20,22 @@ export const TreePane = () => {
     app.repositories.presenterRepository.selectedTreeNodes$,
     {},
   );
+  const selectedContainerId = useObservableState(
+    app.repositories.presenterRepository.selectedContainerId$,
+    null,
+  );
   const collapseStore = useObservableState(collapseStore$);
   const activeNodeName = useObservableState(activeNodeName$);
 
   const DndProvider2 = DndProvider as any;
+
+  if (!selectedContainerId) {
+    return (
+      <Box className={cx(classes.wrapper)}>
+        <Text>请先选择容器</Text>
+      </Box>
+    );
+  }
 
   return (
     <Box className={cx(classes.wrapper)}>
