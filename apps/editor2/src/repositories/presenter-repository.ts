@@ -1,5 +1,4 @@
 import { select, setProps } from '@ngneat/elf';
-
 import { TypeException } from '@shukun/exception';
 import { PresenterContainer, PresenterTreeNodes } from '@shukun/schema';
 
@@ -8,7 +7,13 @@ import { Observable } from 'rxjs';
 import { ApiRequester } from '../apis/requester';
 
 import { write } from './mutations';
-import { moveToBeside, moveToInside, removeNode } from './presenter/move-node';
+import {
+  addSiblingNode,
+  moveToBeside,
+  moveToInside,
+  removeNode,
+} from './presenter/move-node';
+import { createRandomWidgetId } from './presenter/random-widget-id';
 import { PresenterProps, presenterStore } from './presenter-store';
 
 export class PresenterRepository {
@@ -122,6 +127,35 @@ export class PresenterRepository {
         const container = this.getSelectedContainer(state);
         const tree = removeNode(container.tree, sourceNodeId);
         container.tree = tree;
+      }),
+    );
+  }
+
+  addWidgetIntoSiblingNode(newWidgetTag: string, targetNodeId: string) {
+    const newNodeId = createRandomWidgetId();
+    this.addSiblingNode(newNodeId, targetNodeId);
+    this.addWidget(newWidgetTag, newWidgetTag);
+  }
+
+  private addSiblingNode(newNodeId: string, targetNodeId: string) {
+    this.presenterStore.update(
+      write((state) => {
+        const container = this.getSelectedContainer(state);
+        const tree = addSiblingNode(container.tree, newNodeId, targetNodeId);
+        container.tree = tree;
+      }),
+    );
+  }
+
+  private addWidget(newNodeId: string, newWidgetTag: string) {
+    this.presenterStore.update(
+      write((state) => {
+        const container = this.getSelectedContainer(state);
+        container.widgets[newNodeId] = {
+          tag: newWidgetTag,
+          properties: {},
+          events: {},
+        };
       }),
     );
   }
