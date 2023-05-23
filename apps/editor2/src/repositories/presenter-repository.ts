@@ -1,5 +1,6 @@
 import { select, setProps } from '@ngneat/elf';
 
+import { TypeException } from '@shukun/exception';
 import { PresenterContainer, PresenterTreeNodes } from '@shukun/schema';
 
 import { Observable } from 'rxjs';
@@ -7,7 +8,8 @@ import { Observable } from 'rxjs';
 import { ApiRequester } from '../apis/requester';
 
 import { write } from './mutations';
-import { presenterStore } from './presenter-store';
+import { moveToBeside, moveToInside } from './presenter/move-node';
+import { PresenterProps, presenterStore } from './presenter-store';
 
 export class PresenterRepository {
   presenterStore = presenterStore;
@@ -83,5 +85,50 @@ export class PresenterRepository {
         delete state.currentPresenter.containers[containerName];
       }),
     );
+  }
+
+  moveToBeside(
+    sourceNodeId: string,
+    targetNodeId: string,
+    position: 'before' | 'after',
+  ) {
+    this.presenterStore.update(
+      write((state) => {
+        const container = this.getSelectedContainer(state);
+        const tree = moveToBeside(
+          container.tree,
+          sourceNodeId,
+          targetNodeId,
+          position,
+        );
+        container.tree = tree;
+      }),
+    );
+  }
+
+  moveToInside(sourceNodeId: string, targetNodeId: string) {
+    this.presenterStore.update(
+      write((state) => {
+        const container = this.getSelectedContainer(state);
+        const tree = moveToInside(container.tree, sourceNodeId, targetNodeId);
+        container.tree = tree;
+      }),
+    );
+  }
+
+  private getSelectedContainer(state: PresenterProps): PresenterContainer {
+    const containerId = state.selectedContainerId;
+    if (!containerId) {
+      throw new TypeException('Did not find containerId: {{containerId}}', {
+        containerId,
+      });
+    }
+    const container = state.currentPresenter.containers[containerId];
+    if (!container) {
+      throw new TypeException('Did not find container: {{containerId}}', {
+        containerId,
+      });
+    }
+    return container;
   }
 }

@@ -2,25 +2,40 @@ import { useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
+import { useAppContext } from '../../../../contexts/app-context';
+
 import {
   ACTIVE_DROPPABLE_HEIGHT,
   INACTIVE_DROPPABLE_HEIGHT,
   LEFT_INDENT_WIDTH,
 } from './store';
+import { TreeDroppableItem } from './tree-droppable-type';
 
 export const TreeDroppableDivider = ({
-  widgetId,
+  targetNodeId,
   position,
   level,
 }: {
-  widgetId: string;
-  position: 'top' | 'bottom';
+  targetNodeId: string;
+  position: 'before' | 'after';
   level: number;
 }) => {
-  const [{ isOver, canDrop }, drop] = useDrop(() => ({
+  const app = useAppContext();
+
+  const [{ isOver, canDrop }, drop] = useDrop<
+    TreeDroppableItem,
+    unknown,
+    { isOver: boolean; canDrop: boolean }
+  >(() => ({
     accept: 'ITEM',
-    drop: (item, monitor) => {
-      //   console.log('dropped', item, widgetId, position);
+    drop: (item) => {
+      const { sourceNodeId } = item;
+
+      app.repositories.presenterRepository.moveToBeside(
+        sourceNodeId,
+        targetNodeId,
+        position,
+      );
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
