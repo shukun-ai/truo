@@ -3,7 +3,7 @@ import { PresenterTreeNodes } from '@shukun/schema';
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
-import { collapseStore$ } from './store';
+import { useAppContext } from '../../../../contexts/app-context';
 
 export type TreeArrowProps = {
   isOpen: boolean;
@@ -16,21 +16,27 @@ export const TreeArrow = ({
   sourceNodeId,
   treeNodes,
 }: TreeArrowProps) => {
-  const toggleCollapse = useCallback(() => {
-    const collapseStore = collapseStore$.getValue();
-    const open = collapseStore[sourceNodeId];
-    collapseStore$.next({
-      ...collapseStore$.getValue(),
-      [sourceNodeId]: open === false ? true : false,
-    });
-  }, [sourceNodeId]);
+  const app = useAppContext();
+
+  const closeCollapse = useCallback(() => {
+    app.repositories.presenterRepository.closeTreeCollapse(sourceNodeId);
+  }, [app.repositories.presenterRepository, sourceNodeId]);
+
+  const openCollapse = useCallback(() => {
+    app.repositories.presenterRepository.openTreeCollapse(sourceNodeId);
+  }, [app.repositories.presenterRepository, sourceNodeId]);
 
   if (!treeNodes[sourceNodeId] || treeNodes[sourceNodeId].length === 0) {
     return <Box sx={{ width: 16 }}></Box>;
   }
 
   return (
-    <Box onClick={toggleCollapse} sx={{ width: 16, cursor: 'pointer' }}>
+    <Box
+      onClick={() => {
+        isOpen ? closeCollapse() : openCollapse();
+      }}
+      sx={{ width: 16, cursor: 'pointer' }}
+    >
       {isOpen ? (
         <IconChevronDown size="0.9rem" />
       ) : (
