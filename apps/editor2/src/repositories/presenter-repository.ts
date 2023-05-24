@@ -128,29 +128,21 @@ export class PresenterRepository {
         const tree = removeNode(container.tree, sourceNodeId);
         container.tree = tree;
       }),
-    );
-  }
-
-  addWidgetIntoSiblingNode(newWidgetTag: string, targetNodeId: string) {
-    const newNodeId = createRandomWidgetId();
-    this.addSiblingNode(newNodeId, targetNodeId);
-    this.addWidget(newWidgetTag, newWidgetTag);
-  }
-
-  private addSiblingNode(newNodeId: string, targetNodeId: string) {
-    this.presenterStore.update(
       write((state) => {
         const container = this.getSelectedContainer(state);
-        const tree = addSiblingNode(container.tree, newNodeId, targetNodeId);
-        container.tree = tree;
+        delete container.widgets[sourceNodeId];
       }),
     );
   }
 
-  private addWidget(newNodeId: string, newWidgetTag: string) {
+  addWidgetIntoSiblingNode(newWidgetTag: string, targetNodeId: string) {
     this.presenterStore.update(
       write((state) => {
         const container = this.getSelectedContainer(state);
+        const existWidgetIds = Object.keys(container.widgets);
+        const newNodeId = createRandomWidgetId(existWidgetIds);
+        const tree = addSiblingNode(container.tree, newNodeId, targetNodeId);
+        container.tree = tree;
         container.widgets[newNodeId] = {
           tag: newWidgetTag,
           properties: {},
