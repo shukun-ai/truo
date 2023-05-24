@@ -50,7 +50,7 @@ export const TreePane = () => {
             widgets={selectedWidgets}
             collapseStore={collapseStore}
             activeNodeName={activeNodeName}
-            currentNodeName="root"
+            sourceNodeId="root"
             level={0}
             index={0}
           />

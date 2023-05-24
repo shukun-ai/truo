@@ -14,7 +14,7 @@ export const TreeDraggableNode = ({
   treeNodes,
   widgets,
   collapseStore,
-  currentNodeName,
+  sourceNodeId,
   level,
   index,
   activeNodeName,
@@ -22,32 +22,32 @@ export const TreeDraggableNode = ({
   treeNodes: PresenterTreeNodes;
   widgets: PresenterWidgets;
   collapseStore: CollapseConfig;
-  currentNodeName: string;
+  sourceNodeId: string;
   level: number;
   index: number;
   activeNodeName?: string;
 }) => {
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
     type: TREE_NODE_TYPE,
-    item: { sourceNodeId: currentNodeName },
+    item: { sourceNodeId: sourceNodeId },
   }));
 
   const isOpen = useMemo(() => {
-    const collapse = collapseStore[currentNodeName];
+    const collapse = collapseStore[sourceNodeId];
     return collapse === false ? false : true;
-  }, [collapseStore, currentNodeName]);
+  }, [collapseStore, sourceNodeId]);
 
   const { classes } = useStyles();
 
   const widget = useMemo(() => {
-    return widgets[currentNodeName];
-  }, [currentNodeName, widgets]);
+    return widgets[sourceNodeId];
+  }, [sourceNodeId, widgets]);
 
   return (
     <Box ref={drag} className={classes.draggableItem}>
       {index === 0 && (
         <TreeDroppableDivider
-          targetNodeId={currentNodeName}
+          targetNodeId={sourceNodeId}
           position="before"
           level={level}
         />
@@ -56,30 +56,30 @@ export const TreeDraggableNode = ({
         <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
         <TreeArrow
           isOpen={isOpen}
-          sourceNodeId={currentNodeName}
+          sourceNodeId={sourceNodeId}
           treeNodes={treeNodes}
         />
         <Box style={{ flex: 1 }}>
           <TreeDroppableLabel
-            targetNodeId={currentNodeName}
+            targetNodeId={sourceNodeId}
             title={widget?.title}
             tag={widget?.tag}
           />
         </Box>
         <Box sx={{ paddingRight: 6 }}>
-          <TreeMoreButton sourceNodeId={currentNodeName} />
+          <TreeMoreButton sourceNodeId={sourceNodeId} />
         </Box>
       </Box>
       {isOpen && (
         <List>
-          {treeNodes[currentNodeName]?.map((childNode, index) => (
+          {treeNodes[sourceNodeId]?.map((childNode, index) => (
             <TreeDraggableNode
               key={childNode}
               treeNodes={treeNodes}
               widgets={widgets}
               collapseStore={collapseStore}
               activeNodeName={activeNodeName}
-              currentNodeName={childNode}
+              sourceNodeId={childNode}
               level={level + 1}
               index={index}
             />
@@ -87,7 +87,7 @@ export const TreeDraggableNode = ({
         </List>
       )}
       <TreeDroppableDivider
-        targetNodeId={currentNodeName}
+        targetNodeId={sourceNodeId}
         position="after"
         level={level}
       />
