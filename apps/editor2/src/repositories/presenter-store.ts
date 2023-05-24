@@ -1,6 +1,8 @@
 import { createStore, withProps } from '@ngneat/elf';
 import { PresenterSchema } from '@shukun/schema';
 
+import { withTreeCollapse } from './presenter/tree-ui-ref';
+
 export type PresenterProps = {
   currentPresenter: PresenterSchema;
   selectedContainerId: string | null;
@@ -18,4 +20,5 @@ export const presenterStore = createStore(
     },
     selectedContainerId: null,
   }),
+  withTreeCollapse(),
 );

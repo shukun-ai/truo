@@ -3,7 +3,9 @@ import { PresenterTreeNodes, PresenterWidgets } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
-import { CollapseConfig, LEFT_INDENT_WIDTH, TREE_NODE_TYPE } from './store';
+import { PresenterTreeCollapse } from '../../../../../repositories/presenter/tree-ui-ref';
+
+import { LEFT_INDENT_WIDTH, TREE_NODE_TYPE } from './store';
 import { TreeArrow } from './tree-arrow';
 import { TreeDroppableDivider } from './tree-droppable-divider';
 import { TreeDroppableLabel } from './tree-droppable-label';
@@ -13,7 +15,7 @@ import { TreeMoreButton } from './tree-more-button';
 export const TreeDraggableNode = ({
   treeNodes,
   widgets,
-  collapseStore,
+  treeCollapses,
   sourceNodeId,
   level,
   index,
@@ -21,7 +23,7 @@ export const TreeDraggableNode = ({
 }: {
   treeNodes: PresenterTreeNodes;
   widgets: PresenterWidgets;
-  collapseStore: CollapseConfig;
+  treeCollapses: Record<string, PresenterTreeCollapse>;
   sourceNodeId: string;
   level: number;
   index: number;
@@ -33,9 +35,9 @@ export const TreeDraggableNode = ({
   }));
 
   const isOpen = useMemo(() => {
-    const collapse = collapseStore[sourceNodeId];
-    return collapse === false ? false : true;
-  }, [collapseStore, sourceNodeId]);
+    const collapse = treeCollapses[sourceNodeId];
+    return !collapse;
+  }, [treeCollapses, sourceNodeId]);
 
   const { classes } = useStyles();
 
@@ -77,7 +79,7 @@ export const TreeDraggableNode = ({
               key={childNode}
               treeNodes={treeNodes}
               widgets={widgets}
-              collapseStore={collapseStore}
+              treeCollapses={treeCollapses}
               activeNodeName={activeNodeName}
               sourceNodeId={childNode}
               level={level + 1}

@@ -1,4 +1,9 @@
 import { select, setProps } from '@ngneat/elf';
+import {
+  deleteEntities,
+  selectAllEntities,
+  upsertEntities,
+} from '@ngneat/elf-entities';
 import { TypeException } from '@shukun/exception';
 import {
   PresenterContainer,
@@ -6,7 +11,7 @@ import {
   PresenterWidgets,
 } from '@shukun/schema';
 
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { ApiRequester } from '../apis/requester';
 
@@ -18,6 +23,10 @@ import {
   removeNode,
 } from './presenter/move-node';
 import { createRandomWidgetId } from './presenter/random-widget-id';
+import {
+  PresenterTreeCollapse,
+  treeCollapseRef,
+} from './presenter/tree-ui-ref';
 import { PresenterProps, presenterStore } from './presenter-store';
 
 export class PresenterRepository {
@@ -44,6 +53,30 @@ export class PresenterRepository {
       return container.tree;
     }),
   );
+
+  selectedTreeCollapses$: Observable<Record<string, PresenterTreeCollapse>> =
+    this.presenterStore
+      .combine({
+        selectedContainerId: this.presenterStore.pipe(
+          select((state) => state.selectedContainerId),
+        ),
+        treeCollapse: this.presenterStore.pipe(
+          selectAllEntities({ ref: treeCollapseRef }),
+        ),
+      })
+      .pipe(
+        map((state) => {
+          const selectedContainerId = state.selectedContainerId;
+          if (!selectedContainerId) {
+            return {};
+          }
+          const treeCollapses: Record<string, PresenterTreeCollapse> = {};
+          state.treeCollapse.forEach((node) => {
+            treeCollapses[node.nodeId] = node;
+          });
+          return treeCollapses;
+        }),
+      );
 
   selectedWidgets$: Observable<PresenterWidgets> = this.presenterStore.pipe(
     select((state) => {
@@ -149,6 +182,40 @@ export class PresenterRepository {
       write((state) => {
         const container = this.getSelectedContainer(state);
         delete container.widgets[sourceNodeId];
+      }),
+    );
+  }
+
+  closeTreeCollapse(sourceNodeId: string) {
+    const { selectedContainerId } = this.presenterStore.getValue();
+
+    if (!selectedContainerId) {
+      throw new TypeException('Did not find selectedContainerId.');
+    }
+
+    this.presenterStore.update(
+      upsertEntities(
+        {
+          id: `${selectedContainerId}:${sourceNodeId}`,
+          containerId: selectedContainerId,
+          nodeId: sourceNodeId,
+          collapse: true,
+        },
+        { ref: treeCollapseRef },
+      ),
+    );
+  }
+
+  openTreeCollapse(sourceNodeId: string) {
+    const { selectedContainerId } = this.presenterStore.getValue();
+
+    if (!selectedContainerId) {
+      throw new TypeException('Did not find selectedContainerId.');
+    }
+
+    this.presenterStore.update(
+      deleteEntities(`${selectedContainerId}:${sourceNodeId}`, {
+        ref: treeCollapseRef,
       }),
     );
   }

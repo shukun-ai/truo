@@ -6,7 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { activeNodeName$, collapseStore$ } from './store';
+import { activeNodeName$ } from './store';
 import { TreeDraggableNode } from './tree-draggable-node';
 
 export type TreePaneProps = {
@@ -28,7 +28,10 @@ export const TreePane = () => {
     app.repositories.presenterRepository.selectedContainerId$,
     null,
   );
-  const collapseStore = useObservableState(collapseStore$);
+  const treeCollapses = useObservableState(
+    app.repositories.presenterRepository.selectedTreeCollapses$,
+    {},
+  );
   const activeNodeName = useObservableState(activeNodeName$);
 
   const DndProvider2 = DndProvider as any;
@@ -48,7 +51,7 @@ export const TreePane = () => {
           <TreeDraggableNode
             treeNodes={treeNodes}
             widgets={selectedWidgets}
-            collapseStore={collapseStore}
+            treeCollapses={treeCollapses}
             activeNodeName={activeNodeName}
             sourceNodeId="root"
             level={0}
