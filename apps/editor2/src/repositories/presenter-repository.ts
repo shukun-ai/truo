@@ -1,6 +1,10 @@
 import { select, setProps } from '@ngneat/elf';
 import { TypeException } from '@shukun/exception';
-import { PresenterContainer, PresenterTreeNodes } from '@shukun/schema';
+import {
+  PresenterContainer,
+  PresenterTreeNodes,
+  PresenterWidgets,
+} from '@shukun/schema';
 
 import { Observable } from 'rxjs';
 
@@ -38,6 +42,20 @@ export class PresenterRepository {
         return {};
       }
       return container.tree;
+    }),
+  );
+
+  selectedWidgets$: Observable<PresenterWidgets> = this.presenterStore.pipe(
+    select((state) => {
+      const selectedContainerId = state.selectedContainerId;
+      if (!selectedContainerId) {
+        return {};
+      }
+      const container = state.currentPresenter.containers[selectedContainerId];
+      if (!container) {
+        return {};
+      }
+      return container.widgets;
     }),
   );
 
@@ -135,7 +153,11 @@ export class PresenterRepository {
     );
   }
 
-  addWidgetIntoSiblingNode(newWidgetTag: string, targetNodeId: string) {
+  addWidgetIntoSiblingNode(
+    newWidgetTag: string,
+    newWidgetTitle: string,
+    targetNodeId: string,
+  ) {
     this.presenterStore.update(
       write((state) => {
         const container = this.getSelectedContainer(state);
@@ -145,6 +167,7 @@ export class PresenterRepository {
         container.tree = tree;
         container.widgets[newNodeId] = {
           tag: newWidgetTag,
+          title: newWidgetTitle,
           properties: {},
           events: {},
         };

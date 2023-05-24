@@ -21,6 +21,7 @@
     },
     "widgets": {
       "type": "object",
+      "title": "PresenterWidgets",
       "patternProperties": {
         "^(.)+$": {
           "$ref": "widget.schema.json"

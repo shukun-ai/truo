@@ -1,3 +1,4 @@
+import { WidgetSchema } from '@shukun/schema';
 import { createContext, useContext } from 'react';
 
 import { ApiRequester } from '../../apis/requester';
@@ -5,6 +6,7 @@ import { AuthRepository } from '../../repositories/auth-repository';
 import { authStore } from '../../repositories/auth-store';
 import { GlobalRepository } from '../../repositories/global-repository';
 import { PresenterRepository } from '../../repositories/presenter-repository';
+import { widgetDefinitions as baseWidgetDefinitions } from '../../widgets/widget-loader';
 
 export type AppContextProps = {
   repositories: {
@@ -12,6 +14,7 @@ export type AppContextProps = {
     globalRepository: GlobalRepository;
     presenterRepository: PresenterRepository;
   };
+  widgetDefinitions: Record<string, WidgetSchema>;
 };
 
 export const initializeAppContextProps = (): AppContextProps => {
@@ -19,6 +22,7 @@ export const initializeAppContextProps = (): AppContextProps => {
   const authRepository = new AuthRepository(apiRequester);
   const globalRepository = new GlobalRepository(apiRequester);
   const presenterRepository = new PresenterRepository(apiRequester);
+  const widgetDefinitions = baseWidgetDefinitions;
 
   return {
     repositories: {
@@ -26,6 +30,7 @@ export const initializeAppContextProps = (): AppContextProps => {
       globalRepository,
       presenterRepository,
     },
+    widgetDefinitions,
   };
 };
 

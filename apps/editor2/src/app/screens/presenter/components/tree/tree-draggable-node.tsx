@@ -1,5 +1,5 @@
-import { Box, createStyles, useMantineTheme } from '@mantine/core';
-import { PresenterTreeNodes } from '@shukun/schema';
+import { Box, createStyles } from '@mantine/core';
+import { PresenterTreeNodes, PresenterWidgets } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
@@ -12,6 +12,7 @@ import { TreeMoreButton } from './tree-more-button';
 
 export const TreeDraggableNode = ({
   treeNodes,
+  widgets,
   collapseStore,
   currentNodeName,
   level,
@@ -19,14 +20,13 @@ export const TreeDraggableNode = ({
   activeNodeName,
 }: {
   treeNodes: PresenterTreeNodes;
+  widgets: PresenterWidgets;
   collapseStore: CollapseConfig;
   currentNodeName: string;
   level: number;
   index: number;
   activeNodeName?: string;
 }) => {
-  const theme = useMantineTheme();
-
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
     type: TREE_NODE_TYPE,
     item: { sourceNodeId: currentNodeName },
@@ -38,6 +38,10 @@ export const TreeDraggableNode = ({
   }, [collapseStore, currentNodeName]);
 
   const { classes } = useStyles();
+
+  const widget = useMemo(() => {
+    return widgets[currentNodeName];
+  }, [currentNodeName, widgets]);
 
   return (
     <Box ref={drag} className={classes.draggableItem}>
@@ -58,7 +62,8 @@ export const TreeDraggableNode = ({
         <Box style={{ flex: 1 }}>
           <TreeDroppableLabel
             targetNodeId={currentNodeName}
-            title={currentNodeName}
+            title={widget?.title}
+            tag={widget?.tag}
           />
         </Box>
         <Box sx={{ paddingRight: 6 }}>
@@ -71,6 +76,7 @@ export const TreeDraggableNode = ({
             <TreeDraggableNode
               key={childNode}
               treeNodes={treeNodes}
+              widgets={widgets}
               collapseStore={collapseStore}
               activeNodeName={activeNodeName}
               currentNodeName={childNode}

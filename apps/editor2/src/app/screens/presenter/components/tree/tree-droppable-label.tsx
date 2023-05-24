@@ -1,4 +1,4 @@
-import { Box, Text, useMantineTheme } from '@mantine/core';
+import { Badge, Box, Group, Text, useMantineTheme } from '@mantine/core';
 
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
@@ -11,12 +11,14 @@ import { TreeDroppableItem } from './tree-droppable-type';
 
 export type TreeDroppableLabelProps = {
   targetNodeId: string;
-  title: string;
+  title?: string;
+  tag?: string;
 };
 
 export const TreeDroppableLabel = ({
   targetNodeId,
   title,
+  tag,
 }: TreeDroppableLabelProps) => {
   const app = useAppContext();
 
@@ -59,9 +61,28 @@ export const TreeDroppableLabel = ({
     return {};
   }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius, theme.white]);
 
+  const labelComponent = useMemo(() => {
+    if (targetNodeId === 'root') {
+      return <Text size="sm">组件树</Text>;
+    }
+    if (!title && !tag) {
+      return <Text size="sm">异常组件</Text>;
+    }
+    return (
+      <Group>
+        {title && <Text size="sm">{title}</Text>}
+        {tag && (
+          <Badge size="sm" sx={{ textTransform: 'lowercase' }}>
+            {tag}
+          </Badge>
+        )}
+      </Group>
+    );
+  }, [tag, targetNodeId, title]);
+
   return (
     <Box ref={drop} sx={{ ...style }}>
-      <Text size="sm">{title}</Text>
+      {labelComponent}
     </Box>
   );
 };
