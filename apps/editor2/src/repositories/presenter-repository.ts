@@ -40,6 +40,10 @@ export class PresenterRepository {
     select((state) => state.selectedContainerId),
   );
 
+  selectedWidgetId$ = this.presenterStore.pipe(
+    select((state) => state.selectedWidgetId),
+  );
+
   selectedTreeNodes$: Observable<PresenterTreeNodes> = this.presenterStore.pipe(
     select((state) => {
       const selectedContainerId = state.selectedContainerId;
@@ -113,9 +117,18 @@ export class PresenterRepository {
     return !container;
   }
 
-  chooseContainer(containerId: string) {
+  selectContainer(containerId: string) {
     this.presenterStore.update(
-      write((state) => (state.selectedContainerId = containerId)),
+      write((state) => {
+        state.selectedContainerId = containerId;
+        state.selectedWidgetId = null;
+      }),
+    );
+  }
+
+  selectedWidget(widgetId: string) {
+    this.presenterStore.update(
+      write((state) => (state.selectedWidgetId = widgetId)),
     );
   }
 

@@ -48,7 +48,7 @@ export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
               selectedContainerId === containerId && classes.active,
             )}
             onClick={() => {
-              app.repositories.presenterRepository.chooseContainer(containerId);
+              app.repositories.presenterRepository.selectContainer(containerId);
             }}
           >
             <Text size="sm">{containerId}</Text>

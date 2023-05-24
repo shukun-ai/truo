@@ -5,6 +5,8 @@ import { useDrag } from 'react-dnd';
 
 import { PresenterTreeCollapse } from '../../../../../repositories/presenter/tree-ui-ref';
 
+import { useAppContext } from '../../../../contexts/app-context';
+
 import { LEFT_INDENT_WIDTH, TREE_NODE_TYPE } from './store';
 import { TreeArrow } from './tree-arrow';
 import { TreeDroppableDivider } from './tree-droppable-divider';
@@ -19,7 +21,7 @@ export const TreeDraggableNode = ({
   sourceNodeId,
   level,
   index,
-  activeNodeName,
+  selectedWidgetId,
 }: {
   treeNodes: PresenterTreeNodes;
   widgets: PresenterWidgets;
@@ -27,8 +29,10 @@ export const TreeDraggableNode = ({
   sourceNodeId: string;
   level: number;
   index: number;
-  activeNodeName?: string;
+  selectedWidgetId?: string;
 }) => {
+  const app = useAppContext();
+
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
     type: TREE_NODE_TYPE,
     item: { sourceNodeId: sourceNodeId },
@@ -39,7 +43,7 @@ export const TreeDraggableNode = ({
     return !collapse;
   }, [treeCollapses, sourceNodeId]);
 
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   const widget = useMemo(() => {
     return widgets[sourceNodeId];
@@ -54,7 +58,15 @@ export const TreeDraggableNode = ({
           level={level}
         />
       )}
-      <Box className={classes.nodeItem}>
+      <Box
+        className={cx(
+          classes.nodeItem,
+          sourceNodeId === selectedWidgetId ? classes.nodeItemActive : null,
+        )}
+        onClick={() => {
+          app.repositories.presenterRepository.selectedWidget(sourceNodeId);
+        }}
+      >
         <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
         <TreeArrow
           isOpen={isOpen}
@@ -80,7 +92,7 @@ export const TreeDraggableNode = ({
               treeNodes={treeNodes}
               widgets={widgets}
               treeCollapses={treeCollapses}
-              activeNodeName={activeNodeName}
+              selectedWidgetId={selectedWidgetId}
               sourceNodeId={childNode}
               level={level + 1}
               index={index}
@@ -117,6 +129,14 @@ const useStyles = createStyles((theme) => ({
 
     '&:hover': {
       background: theme.colors.blue[1],
+    },
+  },
+  nodeItemActive: {
+    color: theme.white,
+    background: theme.colors.blue[8],
+
+    '&:hover': {
+      background: theme.colors.blue[8],
     },
   },
 }));
