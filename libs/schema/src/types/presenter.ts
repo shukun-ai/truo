@@ -49,9 +49,7 @@ export interface PresenterContainer {
   repositories: {
     [k: string]: PresenterRepository;
   };
-  widgets: {
-    [k: string]: PresenterWidget;
-  };
+  widgets: PresenterWidgets;
   root: PresenterTreeNode[];
   tree: PresenterTreeNodes;
 }
@@ -78,8 +76,11 @@ export interface PresenterRepositoryFlow {
   flowInput: string;
   [k: string]: unknown;
 }
+export interface PresenterWidgets {
+  [k: string]: PresenterWidget;
+}
 /**
- * This interface was referenced by `undefined`'s JSON-Schema definition
+ * This interface was referenced by `PresenterWidgets`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
  */
 export interface PresenterWidget {

@@ -3,14 +3,13 @@ import {
   Button,
   Menu,
   NativeSelect,
-  Select,
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
 import { IconDots, IconPlus, IconTrash } from '@tabler/icons-react';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useAppContext } from '../../../../contexts/app-context';
 
@@ -23,9 +22,9 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
 
   const onSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      console.log('values', values);
       app.repositories.presenterRepository.addWidgetIntoSiblingNode(
         values.widgetTag,
+        values.widgetTitle,
         sourceNodeId,
       );
     },
@@ -66,13 +65,14 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
 };
 
 export type NodeCreateFormProps = {
-  onSubmit: (values: { widgetTag: string }) => void;
+  onSubmit: (values: { widgetTag: string; widgetTitle: string }) => void;
 };
 
 const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
   const form = useForm({
     initialValues: {
       widgetTag: '',
+      widgetTitle: '',
     },
     validate: {
       widgetTag: (value) => {
@@ -82,8 +82,19 @@ const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
           return null;
         }
       },
+      widgetTitle: (value) => (value ? null : '请输入组件显示名'),
     },
   });
+
+  const app = useAppContext();
+
+  const options = useMemo(() => {
+    const options = Object.entries(app.widgetDefinitions).map(([id]) => ({
+      value: id,
+      label: id,
+    }));
+    return [{ value: '', label: '请选择组件' }, ...options];
+  }, [app.widgetDefinitions]);
 
   return (
     <form
@@ -95,14 +106,15 @@ const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
       <NativeSelect
         label="选择组件"
         placeholder="选择组件"
-        data={[
-          { value: 'react', label: 'React' },
-          { value: 'ng', label: 'Angular' },
-          { value: 'svelte', label: 'Svelte' },
-          { value: 'vue', label: 'Vue' },
-        ]}
+        data={options}
         withAsterisk
         {...form.getInputProps('widgetTag')}
+      />
+      <TextInput
+        label="组件显示名"
+        placeholder="Widget title"
+        withAsterisk
+        {...form.getInputProps('widgetTitle')}
       />
       <Button type="submit" fullWidth mt="md">
         新建
