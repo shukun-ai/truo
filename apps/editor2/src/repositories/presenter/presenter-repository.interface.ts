@@ -6,7 +6,7 @@ import {
 } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
-import { PresenterTreeCollapse } from './presenter/tree-ui-ref';
+import { PresenterTreeCollapse } from './tree-ui-ref';
 
 export interface IPresenterRepository {
   currentPresenter$: Observable<PresenterSchema>;

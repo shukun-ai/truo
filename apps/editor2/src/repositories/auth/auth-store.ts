@@ -2,7 +2,7 @@ import { createStore, withProps, Store, StoreDef } from '@ngneat/elf';
 import { persistState, localStorageStrategy } from '@ngneat/elf-persist-state';
 import { AuthenticationToken } from '@shukun/schema';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 export type AuthProps = {
   currentUser: AuthenticationToken | null;

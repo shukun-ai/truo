@@ -3,7 +3,7 @@ import { Badge, Box, Group, Text, useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
-import { ROOT_NODE_ID } from '../../../../../repositories/presenter-store';
+import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { TREE_NODE_TYPE } from './store';

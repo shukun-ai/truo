@@ -1,6 +1,6 @@
 import { select } from '@ngneat/elf';
 
-import { ApiRequester } from '../apis/requester';
+import { ApiRequester } from '../../apis/requester';
 
 import { IGlobalRepository } from './global-repository.interface';
 import { globalStore } from './global-store';
