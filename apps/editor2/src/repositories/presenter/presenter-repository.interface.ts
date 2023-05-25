@@ -7,8 +7,11 @@ import {
 import { Observable } from 'rxjs';
 
 import { PresenterTreeCollapse } from './tree-ui-ref';
+import { IWidgetRepository } from './widget-repository.interface';
 
 export interface IPresenterRepository {
+  widgetRepository: IWidgetRepository;
+
   currentPresenter$: Observable<PresenterSchema>;
   widgetDefinitions$: Observable<Record<string, WidgetSchema>>;
   selectedContainerId$: Observable<string | null>;
