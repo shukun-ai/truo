@@ -4,6 +4,7 @@ import { PresenterSchema, WidgetSchema } from '@shukun/schema';
 import { widgetDefinitions } from '../../widgets/widget-loader';
 
 import { withTreeCollapse } from './tree-ui-ref';
+import { withWidget } from './widget-ref';
 
 export type PresenterProps = {
   currentPresenter: PresenterSchema;
@@ -27,4 +28,5 @@ export const presenterStore = createStore(
     selectedWidgetId: null,
   }),
   withTreeCollapse(),
+  withWidget(),
 );

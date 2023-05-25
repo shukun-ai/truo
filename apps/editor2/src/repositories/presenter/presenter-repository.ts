@@ -28,9 +28,12 @@ import { IPresenterRepository } from './presenter-repository.interface';
 import { PresenterProps, presenterStore } from './presenter-store';
 import { createRandomWidgetId } from './random-widget-id';
 import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
+import { WidgetRepository } from './widget-repository';
 
 export class PresenterRepository implements IPresenterRepository {
   private readonly presenterStore = presenterStore;
+
+  widgetRepository = new WidgetRepository();
 
   currentPresenter$ = this.presenterStore.pipe(
     select((state) => state.currentPresenter),
@@ -136,6 +139,8 @@ export class PresenterRepository implements IPresenterRepository {
         currentPresenter: presenter,
       }),
     );
+
+    this.widgetRepository.upsertByContainer(presenter);
   }
 
   isUniqueContainerName(containerName: string) {
