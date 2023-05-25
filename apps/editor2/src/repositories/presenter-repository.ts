@@ -28,10 +28,11 @@ import {
   PresenterTreeCollapse,
   treeCollapseRef,
 } from './presenter/tree-ui-ref';
+import { IPresenterRepository } from './presenter-repository.interface';
 import { PresenterProps, presenterStore } from './presenter-store';
 
-export class PresenterRepository {
-  presenterStore = presenterStore;
+export class PresenterRepository implements IPresenterRepository {
+  private readonly presenterStore = presenterStore;
 
   currentPresenter$ = this.presenterStore.pipe(
     select((state) => state.currentPresenter),
