@@ -16,6 +16,7 @@
       "patternProperties": {
         "^(\\w)+$": {
           "type": "object",
+          "title": "WidgetProperty",
           "required": ["label", "schema"],
           "additionalProperties": false,
           "properties": {

@@ -50,17 +50,18 @@ export interface WidgetSchema {
   tag: string;
   experimental?: boolean;
   properties: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(\w)+$".
-     */
-    [k: string]: {
-      schema: ReferenceDataSchema;
-      defaultValue?: unknown;
-      isEvent?: boolean;
-      label: string;
-      placeholder?: string;
-      description?: string;
-    };
+    [k: string]: WidgetProperty;
   };
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(\w)+$".
+ */
+export interface WidgetProperty {
+  schema: ReferenceDataSchema;
+  defaultValue?: unknown;
+  isEvent?: boolean;
+  label: string;
+  placeholder?: string;
+  description?: string;
 }

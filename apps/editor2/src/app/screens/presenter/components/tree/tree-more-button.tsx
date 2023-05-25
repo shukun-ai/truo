@@ -9,6 +9,7 @@ import { useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
 import { IconDots, IconPlus, IconTrash } from '@tabler/icons-react';
 
+import { useObservableState } from 'observable-hooks';
 import { useCallback, useMemo } from 'react';
 
 import { useAppContext } from '../../../../contexts/app-context';
@@ -88,13 +89,18 @@ const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
 
   const app = useAppContext();
 
+  const widgetDefinitions = useObservableState(
+    app.repositories.presenterRepository.widgetDefinitions$,
+    {},
+  );
+
   const options = useMemo(() => {
-    const options = Object.entries(app.widgetDefinitions).map(([id]) => ({
+    const options = Object.entries(widgetDefinitions).map(([id]) => ({
       value: id,
       label: id,
     }));
     return [{ value: '', label: '请选择组件' }, ...options];
-  }, [app.widgetDefinitions]);
+  }, [widgetDefinitions]);
 
   return (
     <form
