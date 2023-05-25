@@ -9,6 +9,7 @@ import {
   PresenterContainer,
   PresenterTreeNodes,
   PresenterWidgets,
+  WidgetSchema,
 } from '@shukun/schema';
 
 import { Observable, map } from 'rxjs';
@@ -34,6 +35,10 @@ export class PresenterRepository {
 
   currentPresenter$ = this.presenterStore.pipe(
     select((state) => state.currentPresenter),
+  );
+
+  widgetDefinitions$ = this.presenterStore.pipe(
+    select((state) => state.widgetDefinitions),
   );
 
   selectedContainerId$ = this.presenterStore.pipe(
@@ -95,6 +100,29 @@ export class PresenterRepository {
       return container.widgets;
     }),
   );
+
+  selectedDefinition$: Observable<WidgetSchema | null> =
+    this.presenterStore.pipe(
+      select((state) => {
+        const selectedContainerId = state.selectedContainerId;
+        const selectedWidgetId = state.selectedWidgetId;
+        if (!selectedContainerId || !selectedWidgetId) {
+          return null;
+        }
+        const widget =
+          state.currentPresenter.containers[selectedContainerId].widgets[
+            selectedWidgetId
+          ];
+        if (!widget) {
+          return null;
+        }
+        const definition = state.widgetDefinitions[widget.tag];
+        if (!definition) {
+          return null;
+        }
+        return definition;
+      }),
+    );
 
   constructor(private readonly apiRequester: ApiRequester) {}
 

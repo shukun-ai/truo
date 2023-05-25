@@ -1,10 +1,13 @@
 import { createStore, withProps } from '@ngneat/elf';
-import { PresenterSchema } from '@shukun/schema';
+import { PresenterSchema, WidgetSchema } from '@shukun/schema';
+
+import { widgetDefinitions } from '../widgets/widget-loader';
 
 import { withTreeCollapse } from './presenter/tree-ui-ref';
 
 export type PresenterProps = {
   currentPresenter: PresenterSchema;
+  widgetDefinitions: Record<string, WidgetSchema>;
   selectedContainerId: string | null;
   selectedWidgetId: string | null;
 };
@@ -19,6 +22,7 @@ export const presenterStore = createStore(
       containers: {},
       screens: {},
     },
+    widgetDefinitions,
     selectedContainerId: null,
     selectedWidgetId: null,
   }),
