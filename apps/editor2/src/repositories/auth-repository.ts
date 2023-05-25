@@ -2,9 +2,10 @@ import { select } from '@ngneat/elf';
 
 import { ApiRequester } from '../apis/requester';
 
+import { IAuthRepository } from './auth-repository.interface';
 import { authStore } from './auth-store';
 
-export class AuthRepository {
+export class AuthRepository implements IAuthRepository {
   authStore = authStore;
 
   currentUser$ = this.authStore.pipe(select((state) => state.currentUser));

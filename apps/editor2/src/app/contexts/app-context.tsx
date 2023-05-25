@@ -2,15 +2,18 @@ import { createContext, useContext } from 'react';
 
 import { ApiRequester } from '../../apis/requester';
 import { AuthRepository } from '../../repositories/auth-repository';
+import { IAuthRepository } from '../../repositories/auth-repository.interface';
 import { authStore } from '../../repositories/auth-store';
 import { GlobalRepository } from '../../repositories/global-repository';
+import { IGlobalRepository } from '../../repositories/global-repository.interface';
 import { PresenterRepository } from '../../repositories/presenter-repository';
+import { IPresenterRepository } from '../../repositories/presenter-repository.interface';
 
 export type AppContextProps = {
   repositories: {
-    authRepository: AuthRepository;
-    globalRepository: GlobalRepository;
-    presenterRepository: PresenterRepository;
+    authRepository: IAuthRepository;
+    globalRepository: IGlobalRepository;
+    presenterRepository: IPresenterRepository;
   };
 };
 
