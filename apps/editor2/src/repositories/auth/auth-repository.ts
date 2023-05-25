@@ -1,6 +1,6 @@
 import { select } from '@ngneat/elf';
 
-import { ApiRequester } from '../apis/requester';
+import { ApiRequester } from '../../apis/requester';
 
 import { IAuthRepository } from './auth-repository.interface';
 import { authStore } from './auth-store';

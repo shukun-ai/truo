@@ -1,9 +1,9 @@
 import { createStore, withProps } from '@ngneat/elf';
 import { PresenterSchema, WidgetSchema } from '@shukun/schema';
 
-import { widgetDefinitions } from '../widgets/widget-loader';
+import { widgetDefinitions } from '../../widgets/widget-loader';
 
-import { withTreeCollapse } from './presenter/tree-ui-ref';
+import { withTreeCollapse } from './tree-ui-ref';
 
 export type PresenterProps = {
   currentPresenter: PresenterSchema;

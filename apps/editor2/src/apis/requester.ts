@@ -9,7 +9,7 @@ import {
 import { UnknownSourceModel } from '@shukun/schema';
 
 import { environment } from '../environments/environment';
-import { AuthStore } from '../repositories/auth-store';
+import { AuthStore } from '../repositories/auth/auth-store';
 
 import { IApiRequester } from './requester.interface';
 

@@ -14,22 +14,20 @@ import {
 
 import { Observable, map } from 'rxjs';
 
-import { ApiRequester } from '../apis/requester';
+import { ApiRequester } from '../../apis/requester';
 
-import { write } from './mutations';
+import { write } from '../mutations';
+
 import {
   addSiblingNode,
   moveToBeside,
   moveToInside,
   removeNode,
-} from './presenter/move-node';
-import { createRandomWidgetId } from './presenter/random-widget-id';
-import {
-  PresenterTreeCollapse,
-  treeCollapseRef,
-} from './presenter/tree-ui-ref';
+} from './move-node';
 import { IPresenterRepository } from './presenter-repository.interface';
 import { PresenterProps, presenterStore } from './presenter-store';
+import { createRandomWidgetId } from './random-widget-id';
+import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
 
 export class PresenterRepository implements IPresenterRepository {
   private readonly presenterStore = presenterStore;
