@@ -6,11 +6,13 @@ import {
 } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
+import { ITabRepository } from './tab-repository.interface';
 import { PresenterTreeCollapse } from './tree-ui-ref';
 import { IWidgetRepository } from './widget-repository.interface';
 
 export interface IPresenterRepository {
   widgetRepository: IWidgetRepository;
+  tabRepository: ITabRepository;
 
   currentPresenter$: Observable<PresenterSchema>;
   widgetDefinitions$: Observable<Record<string, WidgetSchema>>;

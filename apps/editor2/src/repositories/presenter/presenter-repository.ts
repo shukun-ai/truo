@@ -27,6 +27,7 @@ import {
 import { IPresenterRepository } from './presenter-repository.interface';
 import { PresenterProps, presenterStore } from './presenter-store';
 import { createRandomWidgetId } from './random-widget-id';
+import { TabRepository } from './tab-repository';
 import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
 import { WidgetRepository } from './widget-repository';
 
@@ -34,6 +35,8 @@ export class PresenterRepository implements IPresenterRepository {
   private readonly presenterStore = presenterStore;
 
   widgetRepository = new WidgetRepository();
+
+  tabRepository = new TabRepository();
 
   currentPresenter$ = this.presenterStore.pipe(
     select((state) => state.currentPresenter),

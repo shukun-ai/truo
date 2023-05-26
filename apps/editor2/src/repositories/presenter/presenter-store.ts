@@ -3,6 +3,7 @@ import { PresenterSchema, WidgetSchema } from '@shukun/schema';
 
 import { widgetDefinitions } from '../../widgets/widget-loader';
 
+import { withTab } from './tab-ref';
 import { withTreeCollapse } from './tree-ui-ref';
 import { withWidget } from './widget-ref';
 
@@ -29,4 +30,5 @@ export const presenterStore = createStore(
   }),
   withTreeCollapse(),
   withWidget(),
+  withTab(),
 );
