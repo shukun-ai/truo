@@ -65,6 +65,9 @@ export const TreeDraggableNode = ({
         )}
         onClick={() => {
           app.repositories.presenterRepository.selectedWidget(sourceNodeId);
+          app.repositories.presenterRepository.tabRepository.previewWidgetTab(
+            sourceNodeId,
+          );
         }}
       >
         <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
