@@ -1,9 +1,12 @@
-import { ActionIcon, Box, Group, Tabs, Text } from '@mantine/core';
+import { Box, Tabs } from '@mantine/core';
 
-import { IconX } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
 import { useAppContext } from '../../../../contexts/app-context';
+
+import { SettingDetail } from './setting-detail';
+import { SettingTabActions } from './setting-tab-actions';
+import { SettingTabLabel } from './setting-tab-label';
 
 export type SettingPaneProps = {
   //
@@ -22,27 +25,30 @@ export const SettingPane = () => {
 
   return (
     <Box>
-      <Tabs value={selectedTabId}>
+      <Tabs
+        value={selectedTabId}
+        onTabChange={(tabId) => {
+          if (tabId) {
+            app.repositories.presenterRepository.tabRepository.chooseTab(tabId);
+          }
+        }}
+      >
         <Tabs.List>
           {allTabs.map((tab) => (
-            <Tabs.Tab value={tab.id}>
-              <Group spacing={2}>
-                <Text fs={tab.isPreview ? 'italic' : undefined}>
-                  {tab.widgetId}
-                </Text>
-                <ActionIcon
-                  onClick={() => {
-                    app.repositories.presenterRepository.tabRepository.closeTab(
-                      tab.id,
-                    );
-                  }}
-                >
-                  <IconX size="0.75rem" />
-                </ActionIcon>
-              </Group>
+            <Tabs.Tab
+              key={tab.id}
+              value={tab.id}
+              rightSection={<SettingTabActions tab={tab} />}
+            >
+              <SettingTabLabel tab={tab} />
             </Tabs.Tab>
           ))}
         </Tabs.List>
+        {allTabs.map((tab) => (
+          <Tabs.Panel key={tab.id} value={tab.id}>
+            <SettingDetail tab={tab} />
+          </Tabs.Panel>
+        ))}
       </Tabs>
     </Box>
   );

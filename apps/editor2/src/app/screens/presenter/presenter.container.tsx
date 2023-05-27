@@ -66,10 +66,10 @@ export const PresenterContainer = () => {
           </Box>
         </Box>
         <Divider orientation="vertical" />
-        <Box sx={{ width: 320 }}>
+        <Box sx={{ flex: 1 }}>
           <SettingTool />
         </Box>
-        <Divider orientation="vertical" />
+        {/* <Divider orientation="vertical" />
         <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
           <Box sx={{ flex: 1 }}>
             <CodeTool />
@@ -78,7 +78,7 @@ export const PresenterContainer = () => {
           <Box sx={{ flex: 1 }}>
             <DebugTool />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
       <Divider />
       <Box>

@@ -15,19 +15,20 @@ import { presenterStore } from './presenter-store';
 import { PresenterTabEntity, tabRef } from './tab-ref';
 
 import { ITabRepository } from './tab-repository.interface';
+import { getWidgetEntityId } from './widget-ref';
 
 export class TabRepository implements ITabRepository {
   private readonly presenterStore = presenterStore;
-
-  selectedTabId$: Observable<string | null> = this.presenterStore.pipe(
-    select((state) => state.selectedTabId),
-  );
 
   allTabs$: Observable<PresenterTabEntity[]> = this.presenterStore.pipe(
     selectAllEntities({ ref: tabRef }),
   );
 
-  previewWidgetTab(widgetId: string): void {
+  selectedTabId$: Observable<string | null> = this.presenterStore.pipe(
+    select((state) => state.selectedTabId),
+  );
+
+  previewWidgetTab(containerId: string, widgetId: string): void {
     const previewTabs = this.presenterStore.query(
       getAllEntitiesApply({
         filterEntity: (entity) => entity.isPreview,
@@ -42,7 +43,7 @@ export class TabRepository implements ITabRepository {
         {
           id: tabId,
           tabType: 'widget',
-          widgetId,
+          widgetId: getWidgetEntityId(containerId, widgetId),
           isPreview: true,
           isEdit: false,
           hasError: false,

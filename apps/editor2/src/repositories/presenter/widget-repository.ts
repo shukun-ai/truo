@@ -1,6 +1,8 @@
-import { upsertEntities } from '@ngneat/elf-entities';
+import { selectAllEntities, upsertEntities } from '@ngneat/elf-entities';
 
 import { PresenterSchema } from '@shukun/schema';
+
+import { Observable } from 'rxjs';
 
 import { presenterStore } from './presenter-store';
 import {
@@ -12,6 +14,10 @@ import { IWidgetRepository } from './widget-repository.interface';
 
 export class WidgetRepository implements IWidgetRepository {
   private readonly presenterStore = presenterStore;
+
+  allWidgets$: Observable<PresenterWidgetEntity[]> = this.presenterStore.pipe(
+    selectAllEntities({ ref: widgetRef }),
+  );
 
   upsertByContainer(presenter: PresenterSchema): void {
     const widgetEntities: PresenterWidgetEntity[] = [];
