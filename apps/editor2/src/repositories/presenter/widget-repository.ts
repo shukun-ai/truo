@@ -1,6 +1,10 @@
-import { selectAllEntities, upsertEntities } from '@ngneat/elf-entities';
+import {
+  selectAllEntities,
+  updateEntities,
+  upsertEntities,
+} from '@ngneat/elf-entities';
 
-import { PresenterSchema } from '@shukun/schema';
+import { PresenterSchema, PresenterWidget } from '@shukun/schema';
 
 import { Observable } from 'rxjs';
 
@@ -37,6 +41,15 @@ export class WidgetRepository implements IWidgetRepository {
 
     this.presenterStore.update(
       upsertEntities(widgetEntities, { ref: widgetRef }),
+    );
+  }
+
+  updateProperties(
+    entityId: string,
+    properties: PresenterWidget['properties'],
+  ): void {
+    this.presenterStore.update(
+      updateEntities(entityId, { properties }, { ref: widgetRef }),
     );
   }
 }

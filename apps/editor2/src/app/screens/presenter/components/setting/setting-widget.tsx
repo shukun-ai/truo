@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { SettingWidgetField } from './setting-widget-field';
+import { WidgetForm } from '../widget/widget-form';
 
 export type SettingWidgetProps = {
   tab: PresenterTabEntity;
@@ -48,17 +48,5 @@ export const SettingWidget = ({ tab }: SettingWidgetProps) => {
     return <Box>未找到相关组件</Box>;
   }
 
-  return (
-    <Box>
-      <form>
-        {Object.entries(definition.properties).map(([propertyId, property]) => (
-          <SettingWidgetField
-            key={propertyId}
-            propertyId={propertyId}
-            property={property}
-          />
-        ))}
-      </form>
-    </Box>
-  );
+  return <WidgetForm tab={tab} widget={widget} definition={definition} />;
 };
