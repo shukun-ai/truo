@@ -12,6 +12,7 @@ export type PresenterProps = {
   widgetDefinitions: Record<string, WidgetSchema>;
   selectedContainerId: string | null;
   selectedWidgetId: string | null;
+  selectedTabId: string | null;
 };
 
 export const ROOT_NODE_ID = 'root';
@@ -27,6 +28,7 @@ export const presenterStore = createStore(
     widgetDefinitions,
     selectedContainerId: null,
     selectedWidgetId: null,
+    selectedTabId: null,
   }),
   withTreeCollapse(),
   withWidget(),

@@ -11,6 +11,10 @@ export type SettingPaneProps = {
 
 export const SettingPane = () => {
   const app = useAppContext();
+  const selectedTabId = useObservableState(
+    app.repositories.presenterRepository.tabRepository.selectedTabId$,
+    null,
+  );
   const allTabs = useObservableState(
     app.repositories.presenterRepository.tabRepository.allTabs$,
     [],
@@ -18,7 +22,7 @@ export const SettingPane = () => {
 
   return (
     <Box>
-      <Tabs>
+      <Tabs value={selectedTabId}>
         <Tabs.List>
           {allTabs.map((tab) => (
             <Tabs.Tab value={tab.id}>
@@ -26,7 +30,13 @@ export const SettingPane = () => {
                 <Text fs={tab.isPreview ? 'italic' : undefined}>
                   {tab.widgetId}
                 </Text>
-                <ActionIcon>
+                <ActionIcon
+                  onClick={() => {
+                    app.repositories.presenterRepository.tabRepository.closeTab(
+                      tab.id,
+                    );
+                  }}
+                >
                   <IconX size="0.75rem" />
                 </ActionIcon>
               </Group>
