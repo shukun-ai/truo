@@ -55,6 +55,7 @@ export const TreePane = () => {
             treeCollapses={treeCollapses}
             selectedWidgetId={selectedWidgetId ?? undefined}
             sourceNodeId="root"
+            selectedContainerId={selectedContainerId}
             level={0}
             index={0}
           />

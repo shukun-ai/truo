@@ -22,6 +22,7 @@ export const TreeDraggableNode = ({
   level,
   index,
   selectedWidgetId,
+  selectedContainerId,
 }: {
   treeNodes: PresenterTreeNodes;
   widgets: PresenterWidgets;
@@ -30,6 +31,7 @@ export const TreeDraggableNode = ({
   level: number;
   index: number;
   selectedWidgetId?: string;
+  selectedContainerId: string;
 }) => {
   const app = useAppContext();
 
@@ -66,6 +68,7 @@ export const TreeDraggableNode = ({
         onClick={() => {
           app.repositories.presenterRepository.selectedWidget(sourceNodeId);
           app.repositories.presenterRepository.tabRepository.previewWidgetTab(
+            selectedContainerId,
             sourceNodeId,
           );
         }}
@@ -99,6 +102,7 @@ export const TreeDraggableNode = ({
               sourceNodeId={childNode}
               level={level + 1}
               index={index}
+              selectedContainerId={selectedContainerId}
             />
           ))}
         </List>

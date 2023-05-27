@@ -1,0 +1,64 @@
+import { Box } from '@mantine/core';
+import { useObservableState } from 'observable-hooks';
+
+import { useMemo } from 'react';
+
+import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { useAppContext } from '../../../../contexts/app-context';
+
+import { SettingWidgetField } from './setting-widget-field';
+
+export type SettingWidgetProps = {
+  tab: PresenterTabEntity;
+};
+
+export const SettingWidget = ({ tab }: SettingWidgetProps) => {
+  const app = useAppContext();
+
+  const allWidgets = useObservableState(
+    app.repositories.presenterRepository.widgetRepository.allWidgets$,
+    [],
+  );
+  const widgetDefinitions = useObservableState(
+    app.repositories.presenterRepository.widgetDefinitions$,
+    {},
+  );
+
+  const widget = useMemo(() => {
+    const { widgetId } = tab;
+    if (!widgetId) {
+      return null;
+    }
+    return allWidgets.find((widget) => widget.id === tab.widgetId);
+  }, [allWidgets, tab]);
+
+  const definition = useMemo(() => {
+    const { tag } = widget ?? {};
+    if (!tag) {
+      return null;
+    }
+    const definition = widgetDefinitions[tag];
+    if (!definition) {
+      return null;
+    }
+    return definition;
+  }, [widget, widgetDefinitions]);
+
+  if (!widget || !definition) {
+    return <Box>未找到相关组件</Box>;
+  }
+
+  return (
+    <Box>
+      <form>
+        {Object.entries(definition.properties).map(([propertyId, property]) => (
+          <SettingWidgetField
+            key={propertyId}
+            propertyId={propertyId}
+            property={property}
+          />
+        ))}
+      </form>
+    </Box>
+  );
+};
