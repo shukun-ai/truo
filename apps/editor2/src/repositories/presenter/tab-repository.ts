@@ -1,8 +1,10 @@
+import { select, setProps } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
   getAllEntitiesApply,
   selectAllEntities,
+  updateEntities,
 } from '@ngneat/elf-entities';
 
 import { nanoid } from 'nanoid';
@@ -17,6 +19,10 @@ import { ITabRepository } from './tab-repository.interface';
 export class TabRepository implements ITabRepository {
   private readonly presenterStore = presenterStore;
 
+  selectedTabId$: Observable<string | null> = this.presenterStore.pipe(
+    select((state) => state.selectedTabId),
+  );
+
   allTabs$: Observable<PresenterTabEntity[]> = this.presenterStore.pipe(
     selectAllEntities({ ref: tabRef }),
   );
@@ -29,11 +35,12 @@ export class TabRepository implements ITabRepository {
       }),
     );
     const previewTabIds = previewTabs.map((tab) => tab.id);
+    const tabId = nanoid();
     this.presenterStore.update(
       deleteEntities(previewTabIds, { ref: tabRef }),
       addEntities(
         {
-          id: nanoid(),
+          id: tabId,
           tabType: 'widget',
           widgetId,
           isPreview: true,
@@ -42,12 +49,45 @@ export class TabRepository implements ITabRepository {
         },
         { ref: tabRef },
       ),
+      setProps({
+        selectedTabId: tabId,
+      }),
     );
   }
 
-  openWidgetTab(widgetId: string): void {}
+  fixTab(tabId: string): void {
+    this.presenterStore.update(
+      updateEntities(
+        tabId,
+        {
+          isPreview: false,
+        },
+        { ref: tabRef },
+      ),
+      setProps({
+        selectedTabId: tabId,
+      }),
+    );
+  }
 
-  chooseTab(tabId: string): void {}
+  chooseTab(tabId: string): void {
+    this.presenterStore.update(
+      setProps({
+        selectedTabId: tabId,
+      }),
+    );
+  }
 
-  closeTab(tabId: string): void {}
+  closeTab(tabId: string): void {
+    this.presenterStore.update(
+      deleteEntities(tabId, { ref: tabRef }),
+      setProps((state) => {
+        const entities = Object.values(state.presenterTabEntities);
+
+        return {
+          selectedTabId: entities.length > 0 ? entities[0].id : null,
+        };
+      }),
+    );
+  }
 }
