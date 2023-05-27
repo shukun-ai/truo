@@ -1,6 +1,8 @@
 import { Box, Button, NumberInput, TextInput } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
+import { useWidgetFormContext } from './widget-context';
+
 export type WidgetFieldProps = {
   propertyId: string;
   property: WidgetProperty;
@@ -9,20 +11,37 @@ export type WidgetFieldProps = {
 export const WidgetField = ({ propertyId, property }: WidgetFieldProps) => {
   const schema = property.schema;
 
+  const form = useWidgetFormContext();
+
   if (typeof schema !== 'object') {
     return <Box>组件定义文件格式不正确</Box>;
   }
 
   if (schema.type === 'string') {
-    return <TextInput label={`${property.label} (${propertyId})`} />;
+    return (
+      <TextInput
+        label={`${property.label} (${propertyId})`}
+        {...form.getInputProps(propertyId)}
+      />
+    );
   }
 
   if (schema.type === 'integer') {
-    return <NumberInput label={`${property.label} (${propertyId})`} />;
+    return (
+      <NumberInput
+        label={`${property.label} (${propertyId})`}
+        {...form.getInputProps(propertyId)}
+      />
+    );
   }
 
   if (schema.type === 'number') {
-    return <NumberInput label={`${property.label} (${propertyId})`} />;
+    return (
+      <NumberInput
+        label={`${property.label} (${propertyId})`}
+        {...form.getInputProps(propertyId)}
+      />
+    );
   }
 
   if (schema.type === 'boolean') {
