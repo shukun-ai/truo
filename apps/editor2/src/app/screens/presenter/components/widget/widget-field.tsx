@@ -1,7 +1,8 @@
-import { Box, Button, NumberInput, TextInput } from '@mantine/core';
+import { Box, Button, NumberInput } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
 import { useWidgetFormContext } from './widget-context';
+import { WidgetStringInput } from './widget-string-input';
 
 export type WidgetFieldProps = {
   propertyId: string;
@@ -18,12 +19,7 @@ export const WidgetField = ({ propertyId, property }: WidgetFieldProps) => {
   }
 
   if (schema.type === 'string') {
-    return (
-      <TextInput
-        label={`${property.label} (${propertyId})`}
-        {...form.getInputProps(propertyId)}
-      />
-    );
+    return <WidgetStringInput propertyId={propertyId} property={property} />;
   }
 
   if (schema.type === 'integer') {
