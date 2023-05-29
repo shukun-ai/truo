@@ -79,6 +79,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.1.8",
     "@codemirror/lang-json": "^6.0.1",
     "@datorama/akita": "^8.0.1",
     "@emotion/react": "11.10.5",
@@ -121,8 +122,6 @@
     "@types/webpack-env": "^1.16.3",
     "@types/wicg-file-system-access": "^2020.9.5",
     "@types/write": "^2.0.1",
-    "@uiw/codemirror-theme-github": "^4.19.4",
-    "@uiw/react-codemirror": "^4.19.4",
     "@vercel/ncc": "^0.36.0",
     "acorn": "^8.8.2",
     "acorn-walk": "^8.2.0",
@@ -135,6 +134,7 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.14.0",
     "clsx": "^1.1.1",
+    "codemirror": "^6.0.1",
     "color": "^3.2.1",
     "core-js": "^3.6.5",
     "cron": "^2.1.0",
