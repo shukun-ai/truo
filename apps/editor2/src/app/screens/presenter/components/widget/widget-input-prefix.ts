@@ -1,1 +1,1 @@
-export const JS_PREFIX = 'js:';
+export const JS_PREFIX = '$$_js:';
