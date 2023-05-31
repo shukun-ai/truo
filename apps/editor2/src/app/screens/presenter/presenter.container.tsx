@@ -6,9 +6,6 @@ import { useParams } from 'react-router-dom';
 
 import { useAppContext } from '../../contexts/app-context';
 
-import { CodeTool } from './components/code-tool';
-import { DebugTool } from './components/debug-tool';
-import { RepositoryTool } from './components/repository-tool';
 import { ScreenTool } from './components/screen-tool';
 import { SettingTool } from './components/setting-tool';
 import { StatusBar } from './components/status-bar';
@@ -55,18 +52,43 @@ export const PresenterContainer = () => {
       <Box>
         <TopBar />
       </Box>
-      <Box sx={{ flex: 1, display: 'flex' }}>
-        <Box sx={{ display: 'flex', width: 320, flexDirection: 'column' }}>
-          <Box sx={{ flex: 1, overflow: 'hidden' }}>
+      <Box
+        sx={{
+          flex: 1,
+          minWidth: 0,
+          minHeight: 0,
+          flexShrink: 0,
+          display: 'flex',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            minWidth: 0,
+            minHeight: 0,
+            flexShrink: 0,
+            width: 320,
+            flexDirection: 'column',
+          }}
+        >
+          <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
             <ScreenTool presenter={currentPresenter} />
           </Box>
-          <Divider />
-          <Box sx={{ flex: 1, overflow: 'hidden' }}>
+          {/* <Divider />
+          <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
             <RepositoryTool />
-          </Box>
+          </Box> */}
         </Box>
         <Divider orientation="vertical" />
-        <Box sx={{ flex: 1 }}>
+        <Box
+          sx={{
+            flex: 1,
+            minWidth: 0,
+            minHeight: 0,
+            flexShrink: 0,
+            overflow: 'hidden',
+          }}
+        >
           <SettingTool />
         </Box>
         {/* <Divider orientation="vertical" />

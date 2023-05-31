@@ -24,8 +24,15 @@ export const SettingPane = () => {
   );
 
   return (
-    <Box>
+    <Box sx={{ height: '100%', overflow: 'hidden' }}>
       <Tabs
+        sx={{
+          overflow: 'hidden',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
+        }}
         value={selectedTabId}
         onTabChange={(tabId) => {
           if (tabId) {
@@ -45,7 +52,11 @@ export const SettingPane = () => {
           ))}
         </Tabs.List>
         {allTabs.map((tab) => (
-          <Tabs.Panel key={tab.id} value={tab.id}>
+          <Tabs.Panel
+            key={tab.id}
+            value={tab.id}
+            sx={{ flex: 1, overflow: 'hidden' }}
+          >
             <SettingDetail tab={tab} />
           </Tabs.Panel>
         ))}

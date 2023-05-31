@@ -8,7 +8,7 @@ export type SettingToolProps = {
 
 export const SettingTool = () => {
   return (
-    <Box>
+    <Box sx={{ height: '100%', overflow: 'hidden' }}>
       <SettingPane />
     </Box>
   );

@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core';
+import { Box, Container, ScrollArea } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -48,5 +48,12 @@ export const SettingWidget = ({ tab }: SettingWidgetProps) => {
     return <Box>未找到相关组件</Box>;
   }
 
-  return <WidgetForm tab={tab} widget={widget} definition={definition} />;
+  return (
+    <ScrollArea sx={{ width: '100%', height: '100%' }}>
+      <Container fluid>
+        <Box sx={{ height: '1rem' }}></Box>
+        <WidgetForm tab={tab} widget={widget} definition={definition} />
+      </Container>
+    </ScrollArea>
+  );
 };
