@@ -5,6 +5,7 @@ import { useCallback, useMemo } from 'react';
 
 import { useWidgetFormContext } from './widget-context';
 import { JS_PREFIX } from './widget-input-prefix';
+import { WidgetJsInput } from './widget-js-input';
 
 export type WidgetInputWrapperProps = {
   propertyId: string;
@@ -26,7 +27,13 @@ export const WidgetInputWrapper = ({
   const formProps = form.getInputProps(propertyId);
 
   const mode = useMemo(() => {
-    if (!formProps.value) {
+    if (
+      formProps.value === null ||
+      formProps.value === undefined ||
+      typeof formProps.value === 'number' ||
+      typeof formProps.value === 'boolean' ||
+      typeof formProps.value === 'object'
+    ) {
       return 'simple';
     } else if (formProps.value.startsWith(JS_PREFIX)) {
       return 'js';
@@ -47,8 +54,8 @@ export const WidgetInputWrapper = ({
   );
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ marginBottom: 16 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
         <Box sx={{ marginRight: 6 }}>
           {property.label} ({propertyId})
         </Box>
@@ -70,6 +77,7 @@ export const WidgetInputWrapper = ({
               <Tooltip label="使用 JS 模式进行简单编码">
                 <ActionIcon
                   onClick={() => switchMode('js')}
+                  color="blue"
                   variant={mode === 'js' ? 'filled' : undefined}
                   size="sm"
                 >
@@ -80,7 +88,13 @@ export const WidgetInputWrapper = ({
           </Group>
         </Box>
       </Box>
-      <Box>{children}</Box>
+      <Box>
+        {mode === 'js' ? (
+          <WidgetJsInput propertyId={propertyId} property={property} />
+        ) : (
+          children
+        )}
+      </Box>
     </Box>
   );
 };
