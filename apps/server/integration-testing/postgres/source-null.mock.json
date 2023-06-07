@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../../libs/schema/src/json-schemas/application.schema.json",
+  "title": "Fields",
+  "metadata": [
+    {
+      "name": "atom_a",
+      "label": "Atom A Entity",
+      "electrons": [
+        {
+          "name": "key",
+          "label": "Key",
+          "fieldType": "Text",
+          "isRequired": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "fieldType": "Text",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}

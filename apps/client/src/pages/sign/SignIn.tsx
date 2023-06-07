@@ -1,5 +1,6 @@
-import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { Flex } from '../../components/flex';
 import { designSystem } from '../../utils/design-system';
@@ -9,7 +10,7 @@ import { UserForm } from './components/UserForm';
 
 export interface SignInProps {}
 
-export const SignIn: FunctionComponent<SignInProps> = () => {
+export const SignIn: LegacyFunctionComponent<SignInProps> = () => {
   const classes = useStyles();
 
   return (
@@ -35,7 +36,7 @@ export const SignIn: FunctionComponent<SignInProps> = () => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   coreBox: {
     flex: 1,
     minHeight: '100%',

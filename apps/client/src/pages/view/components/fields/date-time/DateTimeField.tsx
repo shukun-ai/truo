@@ -1,10 +1,11 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import dayjs from 'dayjs';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { log } from '../../../../../utils/log';
 import { ColumnFieldProps } from '../interfaces';
 
-export const DateTimeField: FunctionComponent<ColumnFieldProps> = ({
+export const DateTimeField: LegacyFunctionComponent<ColumnFieldProps> = ({
   row,
   electronName,
 }) => {

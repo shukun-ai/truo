@@ -1,4 +1,5 @@
 import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewSchema,
@@ -19,13 +20,9 @@ export interface TableCustomActionProps {
   sources: UnknownSourceModel[];
 }
 
-export const TableCustomAction: FunctionComponent<TableCustomActionProps> = ({
-  customAction,
-  view,
-  metadata,
-  search,
-  sources,
-}) => {
+export const TableCustomAction: LegacyFunctionComponent<
+  TableCustomActionProps
+> = ({ customAction, view, metadata, search, sources }) => {
   const handleRefresh = useCallback(() => {
     if (view && metadata) {
       tableService.findMany(view, metadata);

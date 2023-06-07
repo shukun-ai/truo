@@ -13,7 +13,7 @@ export default async function (tree: Tree, schema: any) {
   }
 
   const projectConfiguration = readProjectConfiguration(tree, schema.name);
-  generate(tree.root, projectConfiguration.root);
+  await generate(tree.root, projectConfiguration.root);
 }
 
 async function generate(treeRoot: string, projectRoot: string) {
@@ -65,7 +65,7 @@ async function generate(treeRoot: string, projectRoot: string) {
     );
   });
 
-  Promise.all(queue).then(() =>
+  return Promise.all(queue).then(() =>
     console.log('Generate type files successfully.'),
   );
 }

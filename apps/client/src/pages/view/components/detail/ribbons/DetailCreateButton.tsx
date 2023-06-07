@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useContext } from 'react';
 import { AiOutlineSave } from 'react-icons/ai';
 
@@ -7,7 +8,7 @@ import { FormContext } from '../../form/FormContext';
 
 export interface DetailCreateButtonProps {}
 
-export const DetailCreateButton: FunctionComponent<
+export const DetailCreateButton: LegacyFunctionComponent<
   DetailCreateButtonProps
 > = () => {
   const { form } = useContext(FormContext);

@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewSchema,
@@ -9,6 +9,7 @@ import { useDebounceEffect } from 'ahooks';
 import { Button, Form, FormInstance, FormProps, message, Tabs } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
+import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router';
 
 import { DetailMode, detailService, mode$ } from '../../../../services/detail';
@@ -25,7 +26,7 @@ export interface DetailContentProps {
   source: UnknownSourceModel | null;
 }
 
-export const DetailContent: FunctionComponent<DetailContentProps> = ({
+export const DetailContent: LegacyFunctionComponent<DetailContentProps> = ({
   form,
   metadata,
   view,
@@ -130,7 +131,7 @@ export const DetailContent: FunctionComponent<DetailContentProps> = ({
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   tabs: {
     background: '#fff',
     '& .ant-tabs-nav': {

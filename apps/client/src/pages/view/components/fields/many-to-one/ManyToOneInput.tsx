@@ -1,4 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { UnknownSourceModel } from '@shukun/schema';
 import { useMount } from 'ahooks';
 import { FormInstance, Input, Tag, Button, message } from 'antd';
@@ -18,7 +19,7 @@ export interface ManyToOneInputProps extends InputFieldProps {
   row: UnknownSourceModel | null;
 }
 
-export const ManyToOneInput: FunctionComponent<ManyToOneInputProps> = ({
+export const ManyToOneInput: LegacyFunctionComponent<ManyToOneInputProps> = ({
   foreignSources,
   form,
   row,

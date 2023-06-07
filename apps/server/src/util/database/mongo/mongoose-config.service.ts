@@ -14,8 +14,6 @@ export class MongooseConfigService implements MongooseOptionsFactory {
     return {
       uri: this.configService.get('mongo.uri'),
       autoCreate: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
     };
   }
 }

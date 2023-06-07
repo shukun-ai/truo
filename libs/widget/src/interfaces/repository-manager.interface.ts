@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 
 import { IAuthRepository } from './auth-repository.interface';
+import { IFormRepository } from './form-repository.interface';
 
 import { IRepository } from './repository.interface';
 import { IRouterRepository } from './router-repository.interface';
@@ -20,6 +21,8 @@ export interface IRepositoryManager {
 
   registerAuthRepository(authRepository: IAuthRepository): void;
   getAuthRepository(): IAuthRepository;
+
+  getFormRepository(): IFormRepository;
 }
 
 export type repositoryIdentifier = {

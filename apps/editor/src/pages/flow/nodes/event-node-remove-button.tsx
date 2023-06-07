@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Button, Popconfirm } from 'antd';
 import React, { FunctionComponent } from 'react';
 
@@ -5,7 +6,7 @@ export interface EventNodeRemoveButtonProps {
   onClick: () => void;
 }
 
-export const EventNodeRemoveButton: FunctionComponent<
+export const EventNodeRemoveButton: LegacyFunctionComponent<
   EventNodeRemoveButtonProps
 > = ({ onClick, children }) => {
   return (

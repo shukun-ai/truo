@@ -2,11 +2,21 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Node App",
+      "name": "Attach Server",
       "type": "node",
       "request": "attach",
       "sourceMaps": true,
-      "port": 9229
+      "port": 9229,
+      "restart": true,
+      "cwd": "${workspaceFolder}/apps/server"
+    },
+    {
+      "name": "Launch Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:9000",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
     },
     {
       "name": "Debug Unit test",
@@ -45,7 +55,7 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Presenter Unit Test",
+      "name": "Debug Presenter Unit Test",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx.js",
@@ -61,30 +71,6 @@
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "name": "Launch client on Chrome",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:9000",
-      "webRoot": "${workspaceFolder}",
-      "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
-    },
-    {
-      "name": "Launch editor on Chrome",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:8080",
-      "webRoot": "${workspaceFolder}",
-      "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
-    },
-    {
-      "name": "Launch presenter on Chrome",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:8090",
-      "webRoot": "${workspaceFolder}",
-      "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
     }
   ]
 }

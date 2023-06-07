@@ -1,6 +1,20 @@
 # Shukun Low-code platform
 
-This project uses Nx.dev to manage multiple applications in a repo.
+## How to Develop and Debug
+
+1. Start the Backend and Frontend project.
+
+```shell
+npm start
+```
+
+2. Start VSCode attach
+   1. Attach Server
+   2. Launch Chrome
+
+## Introduction
+
+This project uses Nx to manage multiple applications in a repo.
 
 - JSON Schema and Validation Tools: libs/schema
 - Runtime Server: apps/server

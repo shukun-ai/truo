@@ -1,9 +1,10 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useMemo } from 'react';
 
 import { ColumnFieldProps } from '../interfaces';
 import { TagSelect } from '../single-select/TagSelect';
 
-export const MultiSelectField: FunctionComponent<ColumnFieldProps> = ({
+export const MultiSelectField: LegacyFunctionComponent<ColumnFieldProps> = ({
   row,
   electronName,
   electronOptions,

@@ -1,8 +1,7 @@
-const getWebpackConfig = require('@nrwl/react/plugins/webpack');
+const { composePlugins } = require('@nrwl/webpack');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
-module.exports = (config, context) => {
-  getWebpackConfig(config);
+module.exports = composePlugins((config) => {
   return {
     ...config,
     module: {
@@ -44,4 +43,4 @@ module.exports = (config, context) => {
     },
     plugins: [...config.plugins, new AntdDayjsWebpackPlugin()],
   };
-};
+});

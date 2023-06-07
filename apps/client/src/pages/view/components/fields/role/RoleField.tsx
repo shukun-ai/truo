@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useMemo } from 'react';
 
@@ -5,7 +6,7 @@ import { roles$ } from '../../../../../services/role/query';
 import { ColumnFieldProps } from '../interfaces';
 import { TagSelect } from '../single-select/TagSelect';
 
-export const RoleField: FunctionComponent<ColumnFieldProps> = ({
+export const RoleField: LegacyFunctionComponent<ColumnFieldProps> = ({
   row,
   electronName,
 }) => {

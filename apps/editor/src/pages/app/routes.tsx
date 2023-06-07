@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 import { Routes as ReactRoutes, Route, BrowserRouter } from 'react-router-dom';
 
@@ -11,7 +12,7 @@ import { Workspace } from '../workspace/workspace';
 
 export interface RoutesProps {}
 
-export const Routes: FunctionComponent<RoutesProps> = () => {
+export const Routes: LegacyFunctionComponent<RoutesProps> = () => {
   return (
     <BrowserRouter>
       <ReactRoutes>

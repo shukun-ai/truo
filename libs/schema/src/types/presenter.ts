@@ -13,7 +13,8 @@
 export type PresenterRepository =
   | PresenterRepositorySimple
   | PresenterRepositorySourceQuery
-  | PresenterRepositoryTransformer;
+  | PresenterRepositoryTransformer
+  | PresenterRepositoryFlow;
 export type PresenterEvent =
   | PresenterEventSetRepository
   | PresenterEventTriggerRepository
@@ -75,6 +76,12 @@ export interface PresenterRepositorySourceQuery {
 export interface PresenterRepositoryTransformer {
   type: 'Transformer';
   func: string;
+  [k: string]: unknown;
+}
+export interface PresenterRepositoryFlow {
+  type: 'Flow';
+  flowName: string;
+  flowInput: string;
   [k: string]: unknown;
 }
 /**

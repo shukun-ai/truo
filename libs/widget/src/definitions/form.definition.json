@@ -2,6 +2,12 @@
   "$schema": "../../../schema/src/json-schemas/widget.schema.json",
   "tag": "form",
   "properties": {
+    "value": {
+      "label": "值",
+      "schema": {
+        "type": "object"
+      }
+    },
     "submitButtonText": {
       "label": "提交按钮文字",
       "schema": {

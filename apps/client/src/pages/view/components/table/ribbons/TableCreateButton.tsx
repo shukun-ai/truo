@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { RoleResourceType, ViewSchema } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
@@ -16,9 +17,9 @@ export interface TableCreateButtonProps {
   view: ViewSchema;
 }
 
-export const TableCreateButton: FunctionComponent<TableCreateButtonProps> = ({
-  view,
-}) => {
+export const TableCreateButton: LegacyFunctionComponent<
+  TableCreateButtonProps
+> = ({ view }) => {
   const navigate = useNavigate();
 
   const viewCreateOrgPath = useOrgPath(RoutePath.ViewCreate);

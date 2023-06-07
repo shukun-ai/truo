@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Dropdown, MenuProps } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { FunctionComponent, useMemo } from 'react';
@@ -8,7 +9,7 @@ import { RoutePath, useOrgPath } from '../../../utils/history-provider';
 
 export interface UserProfileProps {}
 
-export const UserProfile: FunctionComponent<UserProfileProps> = () => {
+export const UserProfile: LegacyFunctionComponent<UserProfileProps> = () => {
   const navigate = useNavigate();
 
   const signInOrgPath = useOrgPath(RoutePath.SignIn);

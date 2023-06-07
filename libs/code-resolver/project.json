@@ -1,10 +1,11 @@
 {
-  "root": "libs/code-resolver",
+  "name": "code-resolver",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/code-resolver/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/code-resolver",
@@ -33,9 +34,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/code-resolver"],
+      "outputs": ["{workspaceRoot}/coverage/libs/code-resolver"],
       "options": {
-        "jestConfig": "libs/code-resolver/jest.config.js",
+        "jestConfig": "libs/code-resolver/jest.config.ts",
         "passWithNoTests": true
       }
     }

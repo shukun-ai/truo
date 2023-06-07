@@ -7,22 +7,21 @@
  */
 
 export type CheckboxSelectDefinitionProps = {
-  value?: CheckboxSelectDefinitionValue;
-  values?: CheckboxSelectDefinitionValues;
-  labels?: CheckboxSelectDefinitionLabels;
+  name?: CheckboxSelectDefinitionName;
+  options: CheckboxSelectDefinitionOptions;
   disabled?: CheckboxSelectDefinitionDisabled;
   required?: CheckboxSelectDefinitionRequired;
   hidden?: CheckboxSelectDefinitionHidden;
   label?: CheckboxSelectDefinitionLabel;
   helper?: CheckboxSelectDefinitionHelper;
-  change?: (payload: CheckboxSelectDefinitionChange) => void;
 };
 
-export type CheckboxSelectDefinitionValue = string[];
+export type CheckboxSelectDefinitionName = string;
 
-export type CheckboxSelectDefinitionValues = string[];
-
-export type CheckboxSelectDefinitionLabels = string[];
+export type CheckboxSelectDefinitionOptions = {
+  key: string;
+  label: string;
+}[];
 
 export type CheckboxSelectDefinitionDisabled = boolean;
 
@@ -33,5 +32,3 @@ export type CheckboxSelectDefinitionHidden = boolean;
 export type CheckboxSelectDefinitionLabel = string;
 
 export type CheckboxSelectDefinitionHelper = string;
-
-export type CheckboxSelectDefinitionChange = string[];

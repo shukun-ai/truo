@@ -1,4 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema, ViewType } from '@shukun/schema';
 import { AutoComplete, Input } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -13,7 +14,7 @@ import { views$ } from '../../services/view';
 
 export interface SearchProps {}
 
-export const Search: FunctionComponent<SearchProps> = () => {
+export const Search: LegacyFunctionComponent<SearchProps> = () => {
   const [keyword, setKeyword] = useState<string | undefined>();
 
   const views = useObservableState(views$, []);

@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { createBrowserEffect } from './effects/browser-effect-injector';
 
@@ -10,10 +10,15 @@ async function main() {
   const injector = await createBrowserEffect();
   const observable = createObservable(injector);
 
-  render(
-    createElement(createObservableApp(observable)),
-    document.getElementById('root'),
-  );
+  const domNode = document.getElementById('root');
+
+  if (!domNode) {
+    throw new Error('Did not find root domNode.');
+  }
+
+  const root = createRoot(domNode);
+
+  root.render(createElement(createObservableApp(observable)));
 }
 
 main();

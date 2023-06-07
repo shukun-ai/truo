@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { UnknownSourceModel, ViewRibbon } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useContext } from 'react';
@@ -12,18 +13,15 @@ import {
 import { designSystem } from '../../../../../utils/design-system';
 import { FormContext } from '../../form/FormContext';
 import { runStringCode } from '../../ribbon/runStringCode';
-
 export interface DetailEditButtonProps {
   viewRibbon: ViewRibbon;
   source: UnknownSourceModel | null;
   sources: UnknownSourceModel[];
 }
 
-export const DetailEditButton: FunctionComponent<DetailEditButtonProps> = ({
-  viewRibbon,
-  source,
-  sources,
-}) => {
+export const DetailEditButton: LegacyFunctionComponent<
+  DetailEditButtonProps
+> = ({ viewRibbon, source, sources }) => {
   const mode = useObservableState(mode$);
 
   const { form } = useContext(FormContext);

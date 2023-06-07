@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Select } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
@@ -6,7 +7,7 @@ import { flowCommand, flowQuery } from '../../../services/flow';
 
 export interface EventActionProps {}
 
-export const EventAction: FunctionComponent<EventActionProps> = () => {
+export const EventAction: LegacyFunctionComponent<EventActionProps> = () => {
   const flow = useObservableState(flowQuery.activeFlow$);
 
   const options = useMemo(() => {
@@ -19,7 +20,7 @@ export const EventAction: FunctionComponent<EventActionProps> = () => {
     }));
   }, [flow]);
 
-  const onChange = useCallback((startEventName) => {
+  const onChange = useCallback((startEventName: string) => {
     const flow = flowQuery.getCloneActiveFlow();
     flowCommand.updateStartEventName(flow, startEventName);
   }, []);

@@ -1,6 +1,7 @@
-import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import clsx from 'clsx';
-import React, { cloneElement, FunctionComponent, useCallback } from 'react';
+import { cloneElement, useCallback } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { RibbonTooltip } from './RibbonTooltip';
 
@@ -15,7 +16,7 @@ export interface RibbonButtonProps {
   onClick?: () => void | Promise<void>;
 }
 
-export const RibbonButton: FunctionComponent<RibbonButtonProps> = ({
+export const RibbonButton: LegacyFunctionComponent<RibbonButtonProps> = ({
   name,
   label,
   color,
@@ -65,7 +66,7 @@ export const RibbonButton: FunctionComponent<RibbonButtonProps> = ({
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   ribbonButton: {
     display: 'flex',
     alignItems: 'center',

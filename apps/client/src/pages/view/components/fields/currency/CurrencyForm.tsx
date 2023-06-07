@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, InputNumber } from 'antd';
 import React, { FunctionComponent, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -5,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { LABEL_ALIGN, LABEL_SPAN } from '../constant';
 import { InputFieldProps } from '../interfaces';
 
-export const CurrencyForm: FunctionComponent<InputFieldProps> = ({
+export const CurrencyForm: LegacyFunctionComponent<InputFieldProps> = ({
   label,
   electronName,
   currencyOptions,

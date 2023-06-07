@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 import { Form, Spin } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -19,7 +20,10 @@ export interface CreateProps {
   metadata: MetadataSchema;
 }
 
-export const Create: FunctionComponent<CreateProps> = ({ view, metadata }) => {
+export const Create: LegacyFunctionComponent<CreateProps> = ({
+  view,
+  metadata,
+}) => {
   const [form] = Form.useForm<UnknownSourceModel>();
 
   const mode = useObservableState(mode$, DetailMode.Show);

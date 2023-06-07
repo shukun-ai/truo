@@ -1,17 +1,19 @@
 {
-  "root": "apps/presenter",
+  "name": "presenter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/presenter/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
         "outputPath": "dist/apps/presenter",
         "index": "apps/presenter/src/index.html",
-        "baseHref": "/",
+        "baseHref": "/presenter/",
+        "deployUrl": "/presenter/",
         "main": "apps/presenter/src/main.ts",
         "polyfills": "apps/presenter/src/polyfills.ts",
         "tsConfig": "apps/presenter/tsconfig.app.json",
@@ -37,11 +39,17 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false
+        },
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
         }
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nrwl/webpack:dev-server",
       "options": {
         "buildTarget": "presenter:build",
         "hmr": true,
@@ -51,8 +59,12 @@
         "production": {
           "buildTarget": "presenter:build:production",
           "hmr": false
+        },
+        "development": {
+          "buildTarget": "presenter:build:development"
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -63,9 +75,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/presenter"],
+      "outputs": ["{workspaceRoot}/coverage/apps/presenter"],
       "options": {
-        "jestConfig": "apps/presenter/jest.config.js",
+        "jestConfig": "apps/presenter/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,4 +1,5 @@
-import { MetadataSchema, ViewSchema } from '@shukun/schema';
+import { LegacyFunctionComponent } from '@shukun/component';
+import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 import { useDebounceEffect, useUpdateEffect } from 'ahooks';
 import { Pagination, Table as BaseTable } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -22,7 +23,7 @@ export interface ReferenceTableProps {
   metadata: MetadataSchema;
 }
 
-export const ReferenceTable: FunctionComponent<ReferenceTableProps> = ({
+export const ReferenceTable: LegacyFunctionComponent<ReferenceTableProps> = ({
   view,
   metadata,
 }) => {
@@ -77,11 +78,14 @@ export const ReferenceTable: FunctionComponent<ReferenceTableProps> = ({
     return selectedRow.map((item) => item._id);
   }, [selectedRow]);
 
-  const handleSelectChange = useCallback((selectedRowKeys, selectedRow) => {
-    referenceService.set({
-      selectedRow,
-    });
-  }, []);
+  const handleSelectChange = useCallback(
+    (selectedRowKeys: React.Key[], selectedRow: UnknownSourceModel[]) => {
+      referenceService.set({
+        selectedRow,
+      });
+    },
+    [],
+  );
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>

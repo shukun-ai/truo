@@ -1,6 +1,5 @@
 import {
   AppShell,
-  Navbar,
   Header,
   Text,
   MediaQuery,
@@ -21,11 +20,6 @@ export const WorkshopLayout = (props: WorkshopLayoutProps) => {
     <AppShell
       navbarOffsetBreakpoint="xl"
       asideOffsetBreakpoint="xl"
-      navbar={
-        <Navbar p="md" hiddenBreakpoint="xl" hidden={!opened}>
-          {props.menu}
-        </Navbar>
-      }
       header={
         <Header
           height={{ base: 50, md: 54 }}
@@ -48,7 +42,7 @@ export const WorkshopLayout = (props: WorkshopLayoutProps) => {
             </MediaQuery>
 
             <Text color="rgba(255,255,255,0.9)" fw={500}>
-              Shukun System
+              System
             </Text>
           </div>
         </Header>

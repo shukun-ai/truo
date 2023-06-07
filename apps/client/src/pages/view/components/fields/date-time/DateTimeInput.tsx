@@ -1,8 +1,9 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { DatePicker, DatePickerProps } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { FunctionComponent, useMemo, useCallback } from 'react';
 
-export const DateTimeInput: FunctionComponent<DatePickerProps> = ({
+export const DateTimeInput: LegacyFunctionComponent<DatePickerProps> = ({
   value,
   onChange,
   ...props

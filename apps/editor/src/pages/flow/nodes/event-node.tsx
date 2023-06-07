@@ -1,8 +1,8 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 import { Handle, Position } from 'reactflow';
 
 import { PADDING, RADIUS } from '../flow-constant';
-
 import { FlowNode } from '../interface/element';
 
 import { EventNodeAction } from './event-node-action';
@@ -11,7 +11,7 @@ import { EventNodeDescription } from './event-node-description';
 import { EventNodeForm } from './event-node-form';
 import { EventNodeFormItem } from './event-node-form-item';
 
-export const EventNode: FunctionComponent<FlowNode> = ({ data }) => {
+export const EventNode: LegacyFunctionComponent<FlowNode> = ({ data }) => {
   const { eventName, event, eventSchema, eventUI } = data;
   const { width, height, backgroundColor, fontColor } = eventUI;
 

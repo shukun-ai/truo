@@ -48,10 +48,10 @@ export type QueryFilter =
 export type QueryFilterExpression =
   | QueryFilterBasicValue
   | {
-      $eq?: QueryFilterBasicValue;
+      $eq?: QueryFilterBasicValue | null;
     }
   | {
-      $ne?: QueryFilterBasicValue;
+      $ne?: QueryFilterBasicValue | null;
     }
   | {
       $gt?: QueryFilterBasicValue;

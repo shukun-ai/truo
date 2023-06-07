@@ -1,6 +1,6 @@
 {
   "name": "@shukun/exception",
-  "version": "1.26.0",
+  "version": "1.27.0",
   "files": [
     "package.json",
     "src/**/*"

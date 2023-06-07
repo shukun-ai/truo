@@ -8,6 +8,7 @@
 
 export type MultipleInputDefinitionProps = {
   value?: MultipleInputDefinitionValue;
+  name?: MultipleInputDefinitionName;
   placeholder?: MultipleInputDefinitionPlaceholder;
   disabled?: MultipleInputDefinitionDisabled;
   required?: MultipleInputDefinitionRequired;
@@ -17,6 +18,8 @@ export type MultipleInputDefinitionProps = {
 };
 
 export type MultipleInputDefinitionValue = string[];
+
+export type MultipleInputDefinitionName = string;
 
 export type MultipleInputDefinitionPlaceholder = string;
 

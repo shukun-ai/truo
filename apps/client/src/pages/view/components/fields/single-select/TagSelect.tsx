@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataOptions } from '@shukun/schema';
 import { Tag } from 'antd';
 import React, { FunctionComponent, useMemo } from 'react';
@@ -7,7 +8,7 @@ export interface TagSelectProps {
   options: MetadataOptions;
 }
 
-export const TagSelect: FunctionComponent<TagSelectProps> = ({
+export const TagSelect: LegacyFunctionComponent<TagSelectProps> = ({
   keyName,
   options,
 }) => {

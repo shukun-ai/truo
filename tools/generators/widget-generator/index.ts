@@ -14,9 +14,9 @@ export default async function (tree: Tree, schema: any) {
       'We only support use this command for @shukun/widget library.',
     );
   }
-
   const projectConfiguration = readProjectConfiguration(tree, schema.name);
-  new Generate(tree.root, projectConfiguration.root).generate();
+  const generator = new Generate(tree.root, projectConfiguration.root);
+  await generator.generate();
 }
 
 class Generate {

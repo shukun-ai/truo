@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, ViewSchema } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
 import { Pagination, Table as BaseTable, TablePaginationConfig } from 'antd';
@@ -34,7 +35,10 @@ export interface TableProps {
   metadata: MetadataSchema;
 }
 
-export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
+export const Table: LegacyFunctionComponent<TableProps> = ({
+  view,
+  metadata,
+}) => {
   const columns = useColumns(view, metadata);
   const tableEntities = useObservableState(tableEntities$);
   const tableLoading = useObservableState(tableLoading$);
@@ -95,9 +99,12 @@ export const Table: FunctionComponent<TableProps> = ({ view, metadata }) => {
 
   const selectedIds = useObservableState(tableActiveIds$);
 
-  const handleSelectedIdsChanged = useCallback((selectedRowKeys) => {
-    tableService.setSelectedIds(selectedRowKeys);
-  }, []);
+  const handleSelectedIdsChanged = useCallback(
+    (selectedRowKeys: React.Key[]) => {
+      tableService.setSelectedIds(selectedRowKeys as string[]);
+    },
+    [],
+  );
 
   useDebounceEffect(
     () => {

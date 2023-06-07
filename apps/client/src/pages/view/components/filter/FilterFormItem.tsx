@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataAttachmentOptions,
   MetadataCurrencyOptions,
@@ -14,7 +15,7 @@ export interface FilterFormItemProps {
   viewTableField: ViewTableField;
 }
 
-export const FilterFormItem: FunctionComponent<FilterFormItemProps> = ({
+export const FilterFormItem: LegacyFunctionComponent<FilterFormItemProps> = ({
   metadata,
   viewTableField,
 }) => {
@@ -60,7 +61,7 @@ export interface InternalFilterFormItem {
   viewTableField: ViewTableField;
 }
 
-export const InternalFilterFormItem: FunctionComponent<
+export const InternalFilterFormItem: LegacyFunctionComponent<
   InternalFilterFormItem
 > = ({ viewTableField }) => {
   return (

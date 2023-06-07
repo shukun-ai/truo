@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +7,7 @@ import { nameTextValidator } from '../../../../../utils/ant-design';
 import { LABEL_ALIGN, LABEL_SPAN } from '../constant';
 import { InputFieldProps } from '../interfaces';
 
-export const NameTextForm: FunctionComponent<InputFieldProps> = ({
+export const NameTextForm: LegacyFunctionComponent<InputFieldProps> = ({
   label,
   electronName,
   required,

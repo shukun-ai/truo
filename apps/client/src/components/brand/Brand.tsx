@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { Flex } from '../flex/Flex';
@@ -7,7 +8,7 @@ export interface BrandProps {
   title?: string;
 }
 
-export const Brand: FunctionComponent<BrandProps> = ({
+export const Brand: LegacyFunctionComponent<BrandProps> = ({
   theme,
   title = 'Shukun System',
 }) => {

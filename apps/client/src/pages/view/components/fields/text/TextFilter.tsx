@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Input } from 'antd';
 import FormItem from 'antd/es/form/FormItem';
 import React, {
@@ -12,7 +13,7 @@ import { FilterFieldProps } from '../interfaces';
 
 export type TextFilterInputValue = { $like: string };
 
-export const TextFilter: FunctionComponent<FilterFieldProps> = ({
+export const TextFilter: LegacyFunctionComponent<FilterFieldProps> = ({
   label,
   electronName,
   tip,
@@ -28,7 +29,7 @@ export const TextFilter: FunctionComponent<FilterFieldProps> = ({
   );
 };
 
-export const TextFilterInput: FunctionComponent<
+export const TextFilterInput: LegacyFunctionComponent<
   ExtractFormItemProps<TextFilterInputValue>
 > = ({ id, value, onChange }) => {
   const stringValue = useMemo(() => {

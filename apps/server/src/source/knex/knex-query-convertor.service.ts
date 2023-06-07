@@ -115,6 +115,9 @@ export class KnexQueryConvertorService {
           case '$eq':
             this.buildEqClause(queryBuilder, expressionKey, value as any);
             break;
+          case '$ne':
+            this.buildNeqClause(queryBuilder, expressionKey, value as any);
+            break;
           case '$gt':
             this.buildGtClause(queryBuilder, expressionKey, value as any);
             break;

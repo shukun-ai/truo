@@ -1,10 +1,11 @@
 {
-  "root": "libs/exception",
+  "name": "exception",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/exception/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/exception",
@@ -26,9 +27,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/exception"],
+      "outputs": ["{workspaceRoot}/coverage/libs/exception"],
       "options": {
-        "jestConfig": "libs/exception/jest.config.js",
+        "jestConfig": "libs/exception/jest.config.ts",
         "passWithNoTests": true
       }
     }
