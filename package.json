@@ -1,6 +1,6 @@
 {
   "name": "shukun",
-  "version": "1.26.0",
+  "version": "1.27.0",
   "private": true,
   "scripts": {
     "start": "nx run-many --target=serve --projects=server,client,presenter",
