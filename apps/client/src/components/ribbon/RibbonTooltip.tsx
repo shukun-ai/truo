@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Tooltip } from 'antd';
 import React, { FunctionComponent } from 'react';
 
@@ -7,7 +8,7 @@ export interface RibbonTooltipProps {
   disabledTip?: string;
 }
 
-export const RibbonTooltip: FunctionComponent<RibbonTooltipProps> = ({
+export const RibbonTooltip: LegacyFunctionComponent<RibbonTooltipProps> = ({
   className,
   disabled,
   disabledTip,

@@ -1,4 +1,5 @@
 import { json } from '@codemirror/lang-json';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { Button, Drawer } from 'antd';
@@ -14,10 +15,12 @@ import {
 
 export interface EventCodeModalProps {}
 
-export const EventCodeModal: FunctionComponent<EventCodeModalProps> = () => {
+export const EventCodeModal: LegacyFunctionComponent<
+  EventCodeModalProps
+> = () => {
   const store = useObservableState(eventCodeModalStoreQuery);
 
-  const handleChange = useCallback((newValue) => {
+  const handleChange = useCallback((newValue: string) => {
     updateValue(newValue);
   }, []);
 

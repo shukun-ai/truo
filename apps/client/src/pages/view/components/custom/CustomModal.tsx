@@ -1,4 +1,5 @@
 import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { message, Modal } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useState } from 'react';
@@ -16,7 +17,7 @@ import { CustomViewExperiment } from './CustomViewExperiment';
 
 export interface CustomModalProps {}
 
-export const CustomModal: FunctionComponent<CustomModalProps> = () => {
+export const CustomModal: LegacyFunctionComponent<CustomModalProps> = () => {
   const customMode = useObservableState(customModalQuery.customMode$, null);
 
   const label = useObservableState(customModalQuery.label$, null);

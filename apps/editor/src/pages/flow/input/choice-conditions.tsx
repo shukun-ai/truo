@@ -1,5 +1,6 @@
 import { json } from '@codemirror/lang-json';
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
 import { Button, Form, message } from 'antd';
@@ -13,7 +14,7 @@ import {
 
 export type FormItemValue = unknown;
 
-export const ChoiceConditionsInput: FunctionComponent<InputProps> = ({
+export const ChoiceConditionsInput: LegacyFunctionComponent<InputProps> = ({
   label,
   name,
   required,
@@ -48,7 +49,7 @@ interface ChoiceConditionsFromInputProps
   editing: boolean;
 }
 
-const ChoiceConditionsFromInput: FunctionComponent<
+const ChoiceConditionsFromInput: LegacyFunctionComponent<
   ChoiceConditionsFromInputProps
 > = ({ id, value, onChange, label, editing }) => {
   const stringifyValue = useMemo(() => {

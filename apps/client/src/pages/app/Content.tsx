@@ -1,5 +1,6 @@
-import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { designSystem } from '../../utils/design-system';
 
@@ -7,7 +8,7 @@ export interface ContentProps {
   sideBarVisible?: boolean;
 }
 
-export const Content: FunctionComponent<ContentProps> = ({
+export const Content: LegacyFunctionComponent<ContentProps> = ({
   sideBarVisible,
   children,
 }) => {
@@ -26,7 +27,7 @@ export const Content: FunctionComponent<ContentProps> = ({
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   contentWithSideBar: {
     maxWidth: 1400 + designSystem.sideBarWidth * 2,
     margin: '0 auto',

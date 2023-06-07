@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, ReactNode } from 'react';
 
 import { Header } from '../app/Header';
@@ -16,7 +17,7 @@ export interface ViewLayoutProps {
   sideBarVisible?: boolean;
 }
 
-export const ViewLayout: FunctionComponent<ViewLayoutProps> = ({
+export const ViewLayout: LegacyFunctionComponent<ViewLayoutProps> = ({
   breadcrumb,
   children,
 }) => {

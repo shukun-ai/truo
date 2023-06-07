@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewSchema } from '@shukun/schema';
 import Postmate, { ParentAPI } from 'postmate';
 import queryString from 'query-string';
@@ -16,7 +17,9 @@ export interface CustomViewProps {
   view: ViewSchema;
 }
 
-export const CustomView: FunctionComponent<CustomViewProps> = ({ view }) => {
+export const CustomView: LegacyFunctionComponent<CustomViewProps> = ({
+  view,
+}) => {
   const frameRef = useRef(null);
   const childRef = useRef<ParentAPI>();
   const location = useLocation();

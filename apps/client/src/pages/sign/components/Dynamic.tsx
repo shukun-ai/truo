@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { Flex } from '../../../components/flex';
@@ -5,7 +6,7 @@ import { designSystem } from '../../../utils/design-system';
 
 export interface DynamicProps {}
 
-export const Dynamic: FunctionComponent<DynamicProps> = () => {
+export const Dynamic: LegacyFunctionComponent<DynamicProps> = () => {
   return (
     <>
       <div

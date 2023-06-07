@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Typography } from 'antd';
 import React, { FunctionComponent } from 'react';
 
@@ -5,7 +6,9 @@ export interface PageHeaderProps {
   label: string;
 }
 
-export const PageHeader: FunctionComponent<PageHeaderProps> = ({ label }) => {
+export const PageHeader: LegacyFunctionComponent<PageHeaderProps> = ({
+  label,
+}) => {
   return (
     <div
       style={{

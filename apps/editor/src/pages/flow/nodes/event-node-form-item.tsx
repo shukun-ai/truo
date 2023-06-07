@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { InputFactory } from '../flow-input-factory';
@@ -7,9 +8,9 @@ export interface EventNodeFormItemProps {
   eventSchema: EventSchema;
 }
 
-export const EventNodeFormItem: FunctionComponent<EventNodeFormItemProps> = ({
-  eventSchema,
-}) => {
+export const EventNodeFormItem: LegacyFunctionComponent<
+  EventNodeFormItemProps
+> = ({ eventSchema }) => {
   return (
     <>
       {Object.entries(eventSchema.properties).map(([name, field]) => {

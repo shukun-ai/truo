@@ -1,14 +1,15 @@
-import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Card, message, Spin } from 'antd';
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillFileCodeFill } from 'react-icons/bs';
+import { createUseStyles } from 'react-jss';
 
 import { developerRequester } from '../../apis/requester';
 
 export interface UploadDataSourceProps {}
 
-export const UploadDataSource: FunctionComponent<
+export const UploadDataSource: LegacyFunctionComponent<
   UploadDataSourceProps
 > = () => {
   const classes = useStyles();
@@ -58,7 +59,7 @@ export const UploadDataSource: FunctionComponent<
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   box: {
     border: 'dashed 1px #ccc',
     background: '#f2f2f2',

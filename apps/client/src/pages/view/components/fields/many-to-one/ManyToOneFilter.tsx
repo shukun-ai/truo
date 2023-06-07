@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input } from 'antd';
 import React, {
   ChangeEventHandler,
@@ -13,7 +14,7 @@ export type ManyToOneFilterInputValue = {
   $foreign?: { [foreignName: string]: { $like: string } };
 };
 
-export const ManyToOneFilter: FunctionComponent<FilterFieldProps> = ({
+export const ManyToOneFilter: LegacyFunctionComponent<FilterFieldProps> = ({
   label,
   electronName,
   electronForeignName,
@@ -39,7 +40,7 @@ export const ManyToOneFilter: FunctionComponent<FilterFieldProps> = ({
   );
 };
 
-export const ManyToOneFilterInput: FunctionComponent<
+export const ManyToOneFilterInput: LegacyFunctionComponent<
   ExtractFormItemProps<ManyToOneFilterInputValue> & {
     electronForeignName: string;
   }

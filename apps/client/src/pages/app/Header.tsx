@@ -1,4 +1,5 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Button, Space } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent } from 'react';
@@ -14,7 +15,7 @@ import { OrgBrand } from './OrgBrand';
 
 export interface HeaderProps {}
 
-export const Header: FunctionComponent<HeaderProps> = () => {
+export const Header: LegacyFunctionComponent<HeaderProps> = () => {
   const navigate = useNavigate();
 
   const org = useObservableState(org$);

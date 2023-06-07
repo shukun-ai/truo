@@ -1,15 +1,18 @@
 {
-  "root": "apps/server",
+  "name": "server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/server/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/server",
         "main": "apps/server/src/main.ts",
-        "tsConfig": "apps/server/tsconfig.app.json"
+        "tsConfig": "apps/server/tsconfig.app.json",
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
@@ -27,10 +30,11 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "server:build",
-        "port": 9229
+        "port": 9229,
+        "inspect": true
       }
     },
     "lint": {
@@ -42,17 +46,17 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/server"],
+      "outputs": ["{workspaceRoot}/coverage/apps/server"],
       "options": {
-        "jestConfig": "apps/server/jest.config.js",
+        "jestConfig": "apps/server/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "integration-test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/server-integration-testing"],
+      "outputs": ["{workspaceRoot}/coverage/apps/server-integration-testing"],
       "options": {
-        "jestConfig": "apps/server/integration-testing/jest.config.js",
+        "jestConfig": "apps/server/integration-testing/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -60,7 +64,7 @@
       }
     },
     "package": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           {

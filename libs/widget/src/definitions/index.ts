@@ -3,6 +3,7 @@ import { WidgetSchema } from '@shukun/schema';
 import alertDefinitionJson from './alert.definition.json';
 import badgeDefinitionJson from './badge.definition.json';
 import baseDefinitionJson from './base.definition.json';
+import booleanSelectDefinitionJson from './boolean-select.definition.json';
 import boxDefinitionJson from './box.definition.json';
 import buttonDefinitionJson from './button.definition.json';
 import cardDefinitionJson from './card.definition.json';
@@ -15,6 +16,7 @@ import inputDefinitionJson from './input.definition.json';
 import listDefinitionJson from './list.definition.json';
 import multipleInputDefinitionJson from './multiple-input.definition.json';
 import navLinkDefinitionJson from './nav-link.definition.json';
+import numberInputDefinitionJson from './number-input.definition.json';
 import radioSelectDefinitionJson from './radio-select.definition.json';
 import searchFormDefinitionJson from './search-form.definition.json';
 import selectDefinitionJson from './select.definition.json';
@@ -24,6 +26,8 @@ import textDefinitionJson from './text.definition.json';
 export const alertDefinition = alertDefinitionJson as any as WidgetSchema;
 export const badgeDefinition = badgeDefinitionJson as any as WidgetSchema;
 export const baseDefinition = baseDefinitionJson as any as WidgetSchema;
+export const booleanSelectDefinition =
+  booleanSelectDefinitionJson as any as WidgetSchema;
 export const boxDefinition = boxDefinitionJson as any as WidgetSchema;
 export const buttonDefinition = buttonDefinitionJson as any as WidgetSchema;
 export const cardDefinition = cardDefinitionJson as any as WidgetSchema;
@@ -39,6 +43,8 @@ export const listDefinition = listDefinitionJson as any as WidgetSchema;
 export const multipleInputDefinition =
   multipleInputDefinitionJson as any as WidgetSchema;
 export const navLinkDefinition = navLinkDefinitionJson as any as WidgetSchema;
+export const numberInputDefinition =
+  numberInputDefinitionJson as any as WidgetSchema;
 export const radioSelectDefinition =
   radioSelectDefinitionJson as any as WidgetSchema;
 export const searchFormDefinition =

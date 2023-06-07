@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Modal } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback } from 'react';
@@ -8,7 +9,9 @@ import { FlowInsertForm } from './flow-insert-form';
 
 export interface FlowInsertModalProps {}
 
-export const FlowInsertModal: FunctionComponent<FlowInsertModalProps> = () => {
+export const FlowInsertModal: LegacyFunctionComponent<
+  FlowInsertModalProps
+> = () => {
   const insertModalVisible = useObservableState(
     flowUIQuery.insertModalVisible$,
     false,

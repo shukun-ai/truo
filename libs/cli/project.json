@@ -1,10 +1,11 @@
 {
-  "root": "libs/cli",
+  "name": "cli",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/cli/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/cli",
@@ -26,9 +27,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/cli"],
+      "outputs": ["{workspaceRoot}/coverage/libs/cli"],
       "options": {
-        "jestConfig": "libs/cli/jest.config.js",
+        "jestConfig": "libs/cli/jest.config.ts",
         "passWithNoTests": true
       }
     }

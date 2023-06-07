@@ -1,4 +1,5 @@
 import { PostMessageCustomModeType } from '@shukun/api';
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewRibbon,
@@ -29,7 +30,7 @@ export interface DetailRibbonProps {
   metadata: MetadataSchema;
 }
 
-export const DetailRibbon: FunctionComponent<DetailRibbonProps> = ({
+export const DetailRibbon: LegacyFunctionComponent<DetailRibbonProps> = ({
   viewRibbons,
   view,
   metadata,

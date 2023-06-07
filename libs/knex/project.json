@@ -1,10 +1,11 @@
 {
-  "root": "libs/knex",
+  "name": "knex",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/knex/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/knex",
@@ -26,9 +27,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/knex"],
+      "outputs": ["{workspaceRoot}/coverage/libs/knex"],
       "options": {
-        "jestConfig": "libs/knex/jest.config.js",
+        "jestConfig": "libs/knex/jest.config.ts",
         "passWithNoTests": true
       }
     }

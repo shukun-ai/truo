@@ -1,9 +1,9 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Button, message } from 'antd';
 import React, { FunctionComponent, useCallback } from 'react';
 
 import { fileCommand } from '../../services/file';
 import { flowQuery } from '../../services/flow';
-
 import { flowUICommand } from '../../services/flow-ui';
 
 import { EventAction } from './action/event-action';
@@ -13,7 +13,7 @@ import { EventCodeModal } from './modal/event-code-modal';
 
 export interface FlowActionProps {}
 
-export const FlowAction: FunctionComponent<FlowActionProps> = () => {
+export const FlowAction: LegacyFunctionComponent<FlowActionProps> = () => {
   const handleClick = useCallback(() => {
     flowUICommand.openInsertModal();
   }, []);

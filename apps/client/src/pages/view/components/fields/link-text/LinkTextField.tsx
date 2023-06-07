@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewLinkType } from '@shukun/schema';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { useParams } from 'react-router';
@@ -5,7 +6,7 @@ import { useParams } from 'react-router';
 import { useShowRowLink, useViewLink } from '../../../hooks/viewLinkHooks';
 import { ColumnFieldProps } from '../interfaces';
 
-export const LinkTextField: FunctionComponent<ColumnFieldProps> = ({
+export const LinkTextField: LegacyFunctionComponent<ColumnFieldProps> = ({
   electronName,
   row,
   viewLink,

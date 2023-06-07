@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Avatar } from 'antd';
 import React, { FunctionComponent } from 'react';
 
@@ -12,7 +13,7 @@ export interface AttachmentFieldItemProps {
   attachment: AttachmentValue;
 }
 
-export const AttachmentFieldItem: FunctionComponent<
+export const AttachmentFieldItem: LegacyFunctionComponent<
   AttachmentFieldItemProps
 > = ({ attachment }) => {
   if (attachment.mime.startsWith('image/')) {

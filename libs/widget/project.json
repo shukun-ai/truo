@@ -1,5 +1,6 @@
 {
-  "root": "libs/widget",
+  "name": "widget",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/widget/src",
   "projectType": "library",
   "targets": {
@@ -12,14 +13,14 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/widget"],
+      "outputs": ["{workspaceRoot}/coverage/libs/widget"],
       "options": {
-        "jestConfig": "libs/widget/jest.config.js",
+        "jestConfig": "libs/widget/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "generate": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           {

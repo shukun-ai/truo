@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewFieldType } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 
@@ -9,7 +10,7 @@ import { ManyToOneFilter } from './many-to-one/ManyToOneFilter';
 import { SingleSelectFilter } from './single-select/SingleSelectFilter';
 import { TextFilter } from './text/TextFilter';
 
-export const FilterFieldFactory: FunctionComponent<FilterFieldProps> = (
+export const FilterFieldFactory: LegacyFunctionComponent<FilterFieldProps> = (
   props,
 ) => {
   if (

@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 
 import { SideMenu } from '../menu';
@@ -9,7 +10,7 @@ export interface DashboardLayoutProps {
   sideBarVisible?: boolean;
 }
 
-export const DashboardLayout: FunctionComponent<DashboardLayoutProps> = ({
+export const DashboardLayout: LegacyFunctionComponent<DashboardLayoutProps> = ({
   children,
   sideBarVisible,
 }) => {

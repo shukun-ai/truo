@@ -1,9 +1,10 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent } from 'react';
 import { Handle, Position } from 'reactflow';
 
 import { FlowNode } from '../interface/element';
 
-export const FunctionalNode: FunctionComponent<FlowNode> = ({ data }) => {
+export const FunctionalNode: LegacyFunctionComponent<FlowNode> = ({ data }) => {
   const { eventName, event, eventSchema, eventUI } = data;
   const { width, height, backgroundColor, fontColor } = eventUI;
 

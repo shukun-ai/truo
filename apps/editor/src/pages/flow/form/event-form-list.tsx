@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent } from 'react';
 
@@ -7,7 +8,9 @@ import { EventForm } from './event-form';
 
 export interface EventFormListProps {}
 
-export const EventFormList: FunctionComponent<EventFormListProps> = () => {
+export const EventFormList: LegacyFunctionComponent<
+  EventFormListProps
+> = () => {
   const flow = useObservableState(flowQuery.activeFlow$);
 
   return (

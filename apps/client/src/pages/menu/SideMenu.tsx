@@ -1,9 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { RoleResourceType, ViewSchema, ViewType } from '@shukun/schema';
 import { Menu, MenuProps } from 'antd';
 import { MenuItemType, SubMenuType } from 'antd/lib/menu/hooks/useItems';
 import { useObservableState } from 'observable-hooks';
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Flex } from '../../components/flex';
@@ -18,7 +19,7 @@ const HOMEPAGE_KEY = '$$homepage';
 
 export interface SideMenuProps {}
 
-export const SideMenu: FunctionComponent<SideMenuProps> = () => {
+export const SideMenu: LegacyFunctionComponent<SideMenuProps> = () => {
   const location = useLocation();
 
   const dashboardOrgPath = useOrgPath(RoutePath.Dashboard);

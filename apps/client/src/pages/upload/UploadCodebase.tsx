@@ -1,8 +1,9 @@
-import { makeStyles } from '@material-ui/styles';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Card, Spin } from 'antd';
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillFileCodeFill } from 'react-icons/bs';
+import { createUseStyles } from 'react-jss';
 
 import { developerRequester } from '../../apis/requester';
 
@@ -10,7 +11,9 @@ import { FluidLayout } from '../layout/FluidLayout';
 
 export interface UploadCodebaseProps {}
 
-export const UploadCodebase: FunctionComponent<UploadCodebaseProps> = () => {
+export const UploadCodebase: LegacyFunctionComponent<
+  UploadCodebaseProps
+> = () => {
   const classes = useStyles();
 
   const [loading, setLoading] = useState(false);
@@ -46,7 +49,7 @@ export const UploadCodebase: FunctionComponent<UploadCodebaseProps> = () => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   box: {
     border: 'dashed 1px #ccc',
     background: '#f2f2f2',

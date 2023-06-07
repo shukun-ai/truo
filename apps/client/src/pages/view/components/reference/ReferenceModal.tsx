@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Modal } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useEffect } from 'react';
@@ -22,7 +23,9 @@ import { ReferenceTable } from './ReferenceTable';
 
 export interface ReferenceModalProps {}
 
-export const ReferenceModal: FunctionComponent<ReferenceModalProps> = () => {
+export const ReferenceModal: LegacyFunctionComponent<
+  ReferenceModalProps
+> = () => {
   const modalVisible = useObservableState(
     modalVisible$,
     initialState.modalVisible,

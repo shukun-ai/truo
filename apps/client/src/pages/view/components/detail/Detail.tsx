@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 import { Form, Spin } from 'antd';
 import { useObservableState } from 'observable-hooks';
@@ -22,7 +23,10 @@ export interface DetailProps {
   metadata: MetadataSchema;
 }
 
-export const Detail: FunctionComponent<DetailProps> = ({ view, metadata }) => {
+export const Detail: LegacyFunctionComponent<DetailProps> = ({
+  view,
+  metadata,
+}) => {
   const source = useObservableState(source$);
 
   const loading = useObservableState(loading$);

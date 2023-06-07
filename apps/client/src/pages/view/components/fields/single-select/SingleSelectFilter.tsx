@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataOptions } from '@shukun/schema';
 import { Form, Select, SelectProps } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
@@ -7,7 +8,7 @@ import { FilterFieldProps } from '../interfaces';
 
 export type SingleSelectFilterInputValue = { $in?: string[] };
 
-export const SingleSelectFilter: FunctionComponent<FilterFieldProps> = ({
+export const SingleSelectFilter: LegacyFunctionComponent<FilterFieldProps> = ({
   label,
   electronName,
   electronOptions,
@@ -36,7 +37,7 @@ export const SingleSelectFilter: FunctionComponent<FilterFieldProps> = ({
   );
 };
 
-export const SingleSelectFilterInput: FunctionComponent<
+export const SingleSelectFilterInput: LegacyFunctionComponent<
   ExtractFormItemProps<SingleSelectFilterInputValue> & {
     options: MetadataOptions;
   }

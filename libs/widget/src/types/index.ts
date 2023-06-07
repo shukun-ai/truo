@@ -1,6 +1,7 @@
 export * from './alert.definition';
 export * from './badge.definition';
 export * from './base.definition';
+export * from './boolean-select.definition';
 export * from './box.definition';
 export * from './button.definition';
 export * from './card.definition';
@@ -13,6 +14,7 @@ export * from './input.definition';
 export * from './list.definition';
 export * from './multiple-input.definition';
 export * from './nav-link.definition';
+export * from './number-input.definition';
 export * from './radio-select.definition';
 export * from './search-form.definition';
 export * from './select.definition';

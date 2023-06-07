@@ -7,22 +7,21 @@
  */
 
 export type RadioSelectDefinitionProps = {
-  value?: RadioSelectDefinitionValue;
-  values?: RadioSelectDefinitionValues;
-  labels?: RadioSelectDefinitionLabels;
+  name?: RadioSelectDefinitionName;
+  options: RadioSelectDefinitionOptions;
   disabled?: RadioSelectDefinitionDisabled;
   required?: RadioSelectDefinitionRequired;
   hidden?: RadioSelectDefinitionHidden;
   label?: RadioSelectDefinitionLabel;
   helper?: RadioSelectDefinitionHelper;
-  change?: (payload: RadioSelectDefinitionChange) => void;
 };
 
-export type RadioSelectDefinitionValue = string;
+export type RadioSelectDefinitionName = string;
 
-export type RadioSelectDefinitionValues = string[];
-
-export type RadioSelectDefinitionLabels = string[];
+export type RadioSelectDefinitionOptions = {
+  key: string;
+  label: string;
+}[];
 
 export type RadioSelectDefinitionDisabled = boolean;
 
@@ -33,5 +32,3 @@ export type RadioSelectDefinitionHidden = boolean;
 export type RadioSelectDefinitionLabel = string;
 
 export type RadioSelectDefinitionHelper = string;
-
-export type RadioSelectDefinitionChange = string | null;

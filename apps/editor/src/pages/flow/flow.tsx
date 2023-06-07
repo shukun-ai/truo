@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import React, { FunctionComponent, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReactFlowProvider } from 'reactflow';
@@ -11,7 +12,7 @@ import { EventFormList } from './form/event-form-list';
 
 export interface FlowProps {}
 
-export const Flow: FunctionComponent<FlowProps> = () => {
+export const Flow: LegacyFunctionComponent<FlowProps> = () => {
   const { flowName } = useParams<{ flowName: string }>();
 
   useEffect(() => {

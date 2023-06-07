@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, ViewRibbon } from '@shukun/schema';
 import React, { FunctionComponent } from 'react';
 
@@ -11,7 +12,7 @@ export interface CreateRibbonProps {
   metadata: MetadataSchema;
 }
 
-export const CreateRibbon: FunctionComponent<CreateRibbonProps> = () => {
+export const CreateRibbon: LegacyFunctionComponent<CreateRibbonProps> = () => {
   return (
     <Ribbon>
       <DetailBackButton />

@@ -24,3 +24,5 @@ export * from './widgets/card/card.widget';
 export * from './widgets/badge/badge.widget';
 export * from './widgets/image-input/image-input.widget';
 export * from './widgets/multiple-input/multiple-input.widget';
+export * from './widgets/boolean-select/boolean-select.widget';
+export * from './widgets/number-input/number-input.widget';

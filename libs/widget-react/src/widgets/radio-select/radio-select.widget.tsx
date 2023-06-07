@@ -6,31 +6,34 @@ import {
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
+import {
+  extractForm,
+  extractValue,
+  useFormContext,
+} from '../../shares/form-context';
 import { extractBase } from '../../shares/inheritance';
 
 export const RadioSelectWidget = createWidget<RadioSelectDefinitionProps>(
   radioSelectDefinition,
   (props) => {
-    const options = useMemo<SelectItem[]>(() => {
-      if (!props.values) {
-        return [];
-      }
+    const form = useFormContext();
 
-      return props.values.map((value, index) => ({
-        label: props?.labels?.[index] ?? value,
-        value,
-        selected: value === props.value,
+    const options = useMemo<SelectItem[]>(() => {
+      const value = extractValue(props, form);
+      return props.options.map((option) => ({
+        label: option.label,
+        value: option.key,
+        selected: option.key === value,
       }));
-    }, [props?.labels, props.value, props.values]);
+    }, [form, props]);
 
     return (
       <Radio.Group
         {...extractBase(props)}
+        {...extractForm(props, form)}
         label={props.label}
         description={props.helper}
-        value={props.value}
         required={props.required}
-        onChange={(event) => props.change && props.change(event)}
       >
         <Group mt="xs">
           {options.map((option) => (

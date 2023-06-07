@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { MetadataSchema, UnknownSourceModel } from '@shukun/schema';
 import React, { FunctionComponent, useCallback } from 'react';
 import { AiOutlineReload } from 'react-icons/ai';
@@ -10,7 +11,7 @@ export interface DetailRefreshButtonProps {
   source: UnknownSourceModel | null;
 }
 
-export const DetailRefreshButton: FunctionComponent<
+export const DetailRefreshButton: LegacyFunctionComponent<
   DetailRefreshButtonProps
 > = ({ metadata, source }) => {
   const handleClick = useCallback(() => {

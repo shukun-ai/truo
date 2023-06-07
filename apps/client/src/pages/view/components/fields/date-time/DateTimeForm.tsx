@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form } from 'antd';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +8,7 @@ import { InputFieldProps } from '../interfaces';
 
 import { DateTimeInput } from './DateTimeInput';
 
-export const DateTimeForm: FunctionComponent<InputFieldProps> = ({
+export const DateTimeForm: LegacyFunctionComponent<InputFieldProps> = ({
   label,
   electronName,
   required,

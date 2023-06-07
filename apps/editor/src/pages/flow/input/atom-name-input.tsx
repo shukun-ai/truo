@@ -1,4 +1,5 @@
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
+import { LegacyFunctionComponent } from '@shukun/component';
 import { Form, Input, Select } from 'antd';
 import { flow } from 'lodash';
 import { useObservableState } from 'observable-hooks';
@@ -10,7 +11,7 @@ import { InputProps } from '../interface/input';
 
 export type FormItemValue = string;
 
-export const AtomNameInput: FunctionComponent<InputProps> = ({
+export const AtomNameInput: LegacyFunctionComponent<InputProps> = ({
   label,
   name,
   required,
@@ -42,7 +43,7 @@ interface AtomNameFormInputProps extends ExtractFormItemProps<FormItemValue> {
   editing: boolean;
 }
 
-const AtomNameFormInput: FunctionComponent<AtomNameFormInputProps> = ({
+const AtomNameFormInput: LegacyFunctionComponent<AtomNameFormInputProps> = ({
   id,
   value,
   onChange,

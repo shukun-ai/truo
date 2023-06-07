@@ -7,23 +7,22 @@
  */
 
 export type SelectDefinitionProps = {
-  value?: SelectDefinitionValue;
-  values?: SelectDefinitionValues;
-  labels?: SelectDefinitionLabels;
+  name?: SelectDefinitionName;
+  options: SelectDefinitionOptions;
   placeholder?: SelectDefinitionPlaceholder;
   disabled?: SelectDefinitionDisabled;
   required?: SelectDefinitionRequired;
   hidden?: SelectDefinitionHidden;
   label?: SelectDefinitionLabel;
   helper?: SelectDefinitionHelper;
-  change?: (payload: SelectDefinitionChange) => void;
 };
 
-export type SelectDefinitionValue = string;
+export type SelectDefinitionName = string;
 
-export type SelectDefinitionValues = string[];
-
-export type SelectDefinitionLabels = string[];
+export type SelectDefinitionOptions = {
+  key: string;
+  label: string;
+}[];
 
 export type SelectDefinitionPlaceholder = string;
 
@@ -36,5 +35,3 @@ export type SelectDefinitionHidden = boolean;
 export type SelectDefinitionLabel = string;
 
 export type SelectDefinitionHelper = string;
-
-export type SelectDefinitionChange = string | null;
