@@ -20,7 +20,7 @@ export const TreePane = () => {
     {},
   );
   const selectedWidgets = useObservableState(
-    app.repositories.presenterRepository.selectedWidgets$,
+    app.repositories.presenterRepository.widgetRepository.selectedWidgets$,
     {},
   );
   const selectedContainerId = useObservableState(
@@ -34,6 +34,7 @@ export const TreePane = () => {
   );
   const selectedWidgetId = useObservableState(
     app.repositories.presenterRepository.selectedWidgetId$,
+    null,
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

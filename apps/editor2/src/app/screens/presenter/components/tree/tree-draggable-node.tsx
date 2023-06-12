@@ -66,7 +66,6 @@ export const TreeDraggableNode = ({
           sourceNodeId === selectedWidgetId ? classes.nodeItemActive : null,
         )}
         onClick={() => {
-          app.repositories.presenterRepository.selectedWidget(sourceNodeId);
           app.repositories.presenterRepository.tabRepository.previewWidgetTab(
             selectedContainerId,
             sourceNodeId,

@@ -13,7 +13,6 @@ export interface IPresenterRepository {
   widgetDefinitions$: Observable<Record<string, WidgetSchema>>;
   selectedContainerId$: Observable<string | null>;
   selectedWidgetId$: Observable<string | null>;
-  selectedWidgets$: Observable<PresenterWidgets>;
+
   fetchLatest(presenterName: string): Promise<void>;
-  selectedWidget(widgetId: string): void;
 }

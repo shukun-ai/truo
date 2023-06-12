@@ -99,7 +99,6 @@ export class ContainerRepository implements IContainerRepository {
     this.presenterStore.update(
       write((state) => {
         state.selectedContainerId = containerId;
-        state.selectedWidgetId = null;
       }),
     );
   }
