@@ -4,7 +4,6 @@ import { useObservableState } from 'observable-hooks';
 import { useMemo } from 'react';
 
 import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
-import { getWidgetEntityId } from '../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { WidgetForm } from '../widget/widget-form';
@@ -33,10 +32,7 @@ export const SettingWidget = ({ tab }: SettingWidgetProps) => {
     if (!widgetId) {
       return null;
     }
-    return allWidgets.find(
-      (widget) =>
-        widget.id === getWidgetEntityId(tab.containerId, tab.widgetId),
-    );
+    return allWidgets.find((widget) => widget.id === tab.widgetId);
   }, [allWidgets, tab]);
 
   const definition = useMemo(() => {

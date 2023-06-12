@@ -1,9 +1,7 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
 
 export type PresenterTreeCollapse = {
-  id: string; // containerId:nodeId
-  containerId: string;
-  nodeId: string;
+  id: string;
   collapse: true;
 };
 

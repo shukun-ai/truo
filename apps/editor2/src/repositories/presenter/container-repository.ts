@@ -15,11 +15,7 @@ import { Observable, map } from 'rxjs';
 
 import { write } from '../mutations';
 
-import {
-  PresenterContainerEntity,
-  containerRef,
-  getContainerEntityId,
-} from './container-ref';
+import { PresenterContainerEntity, containerRef } from './container-ref';
 import { IContainerRepository } from './container-repository.interface';
 import {
   addSiblingNode,
@@ -30,11 +26,7 @@ import {
 import { presenterStore } from './presenter-store';
 import { createRandomWidgetId } from './random-widget-id';
 import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
-import {
-  PresenterWidgetEntity,
-  getWidgetEntityId,
-  widgetRef,
-} from './widget-ref';
+import { PresenterWidgetEntity, widgetRef } from './widget-ref';
 
 export class ContainerRepository implements IContainerRepository {
   private readonly presenterStore = presenterStore;
@@ -74,7 +66,7 @@ export class ContainerRepository implements IContainerRepository {
           }
           const treeCollapses: Record<string, PresenterTreeCollapse> = {};
           state.treeCollapse.forEach((node) => {
-            treeCollapses[node.nodeId] = node;
+            treeCollapses[node.id] = node;
           });
           return treeCollapses;
         }),
@@ -87,8 +79,7 @@ export class ContainerRepository implements IContainerRepository {
       presenter.containers,
     )) {
       containerEntities.push({
-        id: getContainerEntityId(containerId),
-        containerId,
+        id: containerId,
         ...container,
       });
     }
@@ -116,7 +107,6 @@ export class ContainerRepository implements IContainerRepository {
   createContainer(containerId: string) {
     const newContainer: PresenterContainerEntity = {
       id: containerId,
-      containerId,
       type: 'page',
       tree: {},
     };
@@ -146,7 +136,7 @@ export class ContainerRepository implements IContainerRepository {
     );
 
     this.presenterStore.update(
-      updateEntities(container.containerId, { tree }, { ref: containerRef }),
+      updateEntities(container.id, { tree }, { ref: containerRef }),
     );
   }
 
@@ -155,7 +145,7 @@ export class ContainerRepository implements IContainerRepository {
     const tree = moveToInside(container.tree, sourceNodeId, targetNodeId);
 
     this.presenterStore.update(
-      updateEntities(container.containerId, { tree }, { ref: containerRef }),
+      updateEntities(container.id, { tree }, { ref: containerRef }),
     );
   }
 
@@ -164,8 +154,8 @@ export class ContainerRepository implements IContainerRepository {
     const tree = removeNode(container.tree, sourceNodeId);
 
     this.presenterStore.update(
-      updateEntities(container.containerId, { tree }, { ref: containerRef }),
-      deleteEntities(getWidgetEntityId(container.containerId, sourceNodeId), {
+      updateEntities(container.id, { tree }, { ref: containerRef }),
+      deleteEntities(sourceNodeId, {
         ref: widgetRef,
       }),
     );
@@ -181,9 +171,7 @@ export class ContainerRepository implements IContainerRepository {
     this.presenterStore.update(
       upsertEntities(
         {
-          id: `${selectedContainerId}:${sourceNodeId}`,
-          containerId: selectedContainerId,
-          nodeId: sourceNodeId,
+          id: sourceNodeId,
           collapse: true,
         },
         { ref: treeCollapseRef },
@@ -199,7 +187,7 @@ export class ContainerRepository implements IContainerRepository {
     }
 
     this.presenterStore.update(
-      deleteEntities(`${selectedContainerId}:${sourceNodeId}`, {
+      deleteEntities(sourceNodeId, {
         ref: treeCollapseRef,
       }),
     );
@@ -217,16 +205,15 @@ export class ContainerRepository implements IContainerRepository {
     const newNodeId = createRandomWidgetId(existWidgetIds);
     const tree = addSiblingNode(container.tree, newNodeId, targetNodeId);
     const newWidget: PresenterWidgetEntity = {
-      id: getWidgetEntityId(container.containerId, newNodeId),
-      containerId: container.containerId,
-      widgetId: newNodeId,
+      id: newNodeId,
+      containerId: container.id,
       tag: newWidgetTag,
       title: newWidgetTitle,
       properties: {},
       events: {},
     };
     this.presenterStore.update(
-      updateEntities(container.containerId, { tree }, { ref: containerRef }),
+      updateEntities(container.id, { tree }, { ref: containerRef }),
       addEntities(newWidget, { ref: widgetRef }),
     );
   }

@@ -47,16 +47,16 @@ export const ContainerPane = () => {
             key={container.id}
             className={cx(
               classes.button,
-              selectedContainerId === container.containerId && classes.active,
+              selectedContainerId === container.id && classes.active,
             )}
             onClick={() => {
               app.repositories.presenterRepository.containerRepository.selectContainer(
-                container.containerId,
+                container.id,
               );
             }}
           >
-            <Text size="sm">{container.containerId}</Text>
-            <MoreButton containerId={container.containerId} />
+            <Text size="sm">{container.id}</Text>
+            <MoreButton containerId={container.id} />
           </Box>
         ))}
       </ScrollArea>

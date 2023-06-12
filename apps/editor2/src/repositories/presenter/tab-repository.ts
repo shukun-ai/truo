@@ -15,7 +15,6 @@ import { presenterStore } from './presenter-store';
 import { PresenterTabEntity, tabRef } from './tab-ref';
 
 import { ITabRepository } from './tab-repository.interface';
-import { getWidgetEntityId } from './widget-ref';
 
 export class TabRepository implements ITabRepository {
   private readonly presenterStore = presenterStore;
