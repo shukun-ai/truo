@@ -45,7 +45,9 @@ const ContainerCreateForm = ({ onSubmit }: ContainerCreateButtonProps) => {
         if (!value) {
           return '请输入容器名称后新建';
         } else if (
-          !app.repositories.presenterRepository.isUniqueContainerName(value)
+          !app.repositories.presenterRepository.containerRepository.isUniqueContainerName(
+            value,
+          )
         ) {
           return '您输入的容器名称已经存在';
         } else {

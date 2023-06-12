@@ -38,7 +38,7 @@ export const TreeDroppableDivider = ({
     drop: (item) => {
       const { sourceNodeId } = item;
 
-      app.repositories.presenterRepository.moveToBeside(
+      app.repositories.presenterRepository.containerRepository.moveToBeside(
         sourceNodeId,
         targetNodeId,
         position,

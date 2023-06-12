@@ -5,11 +5,7 @@ import { IconRoute, IconBoxPadding, IconBinaryTree } from '@tabler/icons-react';
 import { ContainerPane } from './screen/container-pane';
 import { TreePane } from './tree/tree-pane';
 
-export type ScreenToolProps = {
-  presenter: PresenterSchema;
-};
-
-export const ScreenTool = ({ presenter }: ScreenToolProps) => {
+export const ScreenTool = () => {
   const { classes, cx } = useStyles();
 
   return (
@@ -31,7 +27,7 @@ export const ScreenTool = ({ presenter }: ScreenToolProps) => {
       </Tabs.Panel>
 
       <Tabs.Panel value="containers" className={cx(classes.panel)}>
-        <ContainerPane presenter={presenter} />
+        <ContainerPane />
       </Tabs.Panel>
 
       <Tabs.Panel value="tree" className={cx(classes.panel)}>

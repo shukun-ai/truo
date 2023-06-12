@@ -16,7 +16,7 @@ export const TreePane = () => {
   const { classes, cx } = useStyles();
   const app = useAppContext();
   const treeNodes = useObservableState(
-    app.repositories.presenterRepository.selectedTreeNodes$,
+    app.repositories.presenterRepository.containerRepository.selectedTreeNodes$,
     {},
   );
   const selectedWidgets = useObservableState(
@@ -28,13 +28,15 @@ export const TreePane = () => {
     null,
   );
   const treeCollapses = useObservableState(
-    app.repositories.presenterRepository.selectedTreeCollapses$,
+    app.repositories.presenterRepository.containerRepository
+      .selectedTreeCollapses$,
     {},
   );
   const selectedWidgetId = useObservableState(
     app.repositories.presenterRepository.selectedWidgetId$,
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const DndProvider2 = DndProvider as any;
 
   if (!selectedContainerId) {
