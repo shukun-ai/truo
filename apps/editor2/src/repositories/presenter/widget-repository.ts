@@ -9,11 +9,7 @@ import { PresenterSchema, PresenterWidget } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
 import { presenterStore } from './presenter-store';
-import {
-  PresenterWidgetEntity,
-  getWidgetEntityId,
-  widgetRef,
-} from './widget-ref';
+import { PresenterWidgetEntity, widgetRef } from './widget-ref';
 import { IWidgetRepository } from './widget-repository.interface';
 
 export class WidgetRepository implements IWidgetRepository {
@@ -32,9 +28,8 @@ export class WidgetRepository implements IWidgetRepository {
       for (const [widgetId, widget] of Object.entries(container.widgets)) {
         widgetEntities.push({
           ...widget,
-          id: getWidgetEntityId(containerId, widgetId),
+          id: widgetId,
           containerId,
-          widgetId,
         });
       }
     }

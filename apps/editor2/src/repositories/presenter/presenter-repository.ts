@@ -12,7 +12,7 @@ import { ContainerRepository } from './container-repository';
 import { IPresenterRepository } from './presenter-repository.interface';
 import { presenterStore } from './presenter-store';
 import { TabRepository } from './tab-repository';
-import { getWidget, widgetRef } from './widget-ref';
+import { widgetRef } from './widget-ref';
 import { WidgetRepository } from './widget-repository';
 
 export class PresenterRepository implements IPresenterRepository {
@@ -56,7 +56,7 @@ export class PresenterRepository implements IPresenterRepository {
       map((widgets) => {
         const selectedWidgets: PresenterWidgets = {};
         widgets.forEach((widget) => {
-          selectedWidgets[widget.widgetId] = getWidget(widget);
+          selectedWidgets[widget.id] = widget;
         });
         return selectedWidgets;
       }),

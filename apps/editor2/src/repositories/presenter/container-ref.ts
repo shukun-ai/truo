@@ -2,8 +2,7 @@ import { entitiesPropsFactory } from '@ngneat/elf-entities';
 import { PresenterTreeNodes } from '@shukun/schema';
 
 export type PresenterContainerEntity = {
-  id: string; // containerId
-  containerId: string;
+  id: string;
   type: 'page';
   tree: PresenterTreeNodes;
 };
@@ -16,7 +15,3 @@ export const withContainer = () => {
 };
 
 export const containerRef = presenterContainerEntitiesRef;
-
-export const getContainerEntityId = (containerId: string) => {
-  return `${containerId}`;
-};
