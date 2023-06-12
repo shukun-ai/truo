@@ -7,7 +7,6 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
-import { PresenterSchema } from '@shukun/schema';
 import { IconDots, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
@@ -15,11 +14,7 @@ import { useAppContext } from '../../../../contexts/app-context';
 
 import { ContainerCreateButton } from './container-create-button';
 
-export type ContainerPaneProps = {
-  presenter: PresenterSchema;
-};
-
-export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
+export const ContainerPane = () => {
   const { classes, cx } = useStyles();
 
   const app = useAppContext();
@@ -29,30 +24,39 @@ export const ContainerPane = ({ presenter }: ContainerPaneProps) => {
     null,
   );
 
+  const allContainers = useObservableState(
+    app.repositories.presenterRepository.containerRepository.allContainers$,
+    [],
+  );
+
   return (
     <Box className={cx(classes.wrapper)}>
       <Box>
         <ContainerCreateButton
           onSubmit={(values) => {
-            app.repositories.presenterRepository.createContainer(values.text);
+            app.repositories.presenterRepository.containerRepository.createContainer(
+              values.text,
+            );
           }}
         />
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {Object.entries(presenter.containers).map(([containerId]) => (
+        {allContainers.map((container) => (
           <Box
-            key={containerId}
+            key={container.id}
             className={cx(
               classes.button,
-              selectedContainerId === containerId && classes.active,
+              selectedContainerId === container.containerId && classes.active,
             )}
             onClick={() => {
-              app.repositories.presenterRepository.selectContainer(containerId);
+              app.repositories.presenterRepository.containerRepository.selectContainer(
+                container.containerId,
+              );
             }}
           >
-            <Text size="sm">{containerId}</Text>
-            <MoreButton containerId={containerId} />
+            <Text size="sm">{container.containerId}</Text>
+            <MoreButton containerId={container.containerId} />
           </Box>
         ))}
       </ScrollArea>
@@ -76,7 +80,9 @@ const MoreButton = ({ containerId }: { containerId: string }) => {
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            app.repositories.presenterRepository.removeContainer(containerId);
+            app.repositories.presenterRepository.containerRepository.removeContainer(
+              containerId,
+            );
           }}
         >
           删除

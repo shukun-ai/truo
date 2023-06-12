@@ -23,7 +23,7 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
 
   const onSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      app.repositories.presenterRepository.addWidgetIntoSiblingNode(
+      app.repositories.presenterRepository.containerRepository.addWidgetIntoSiblingNode(
         values.widgetTag,
         values.widgetTitle,
         sourceNodeId,
@@ -55,7 +55,9 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            app.repositories.presenterRepository.removeTreeNode(sourceNodeId);
+            app.repositories.presenterRepository.containerRepository.removeTreeNode(
+              sourceNodeId,
+            );
           }}
         >
           删除

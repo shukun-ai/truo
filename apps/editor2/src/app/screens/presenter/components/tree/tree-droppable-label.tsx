@@ -36,7 +36,7 @@ export const TreeDroppableLabel = ({
     drop: (item) => {
       const { sourceNodeId } = item;
 
-      app.repositories.presenterRepository.moveToInside(
+      app.repositories.presenterRepository.containerRepository.moveToInside(
         sourceNodeId,
         targetNodeId,
       );

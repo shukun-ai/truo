@@ -1,6 +1,5 @@
-import { Box, Divider, Skeleton } from '@mantine/core';
+import { Box, Divider } from '@mantine/core';
 
-import { useObservableState } from 'observable-hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -20,25 +19,11 @@ export const PresenterContainer = () => {
 
   const { presenterName } = useParams();
 
-  const currentPresenter = useObservableState(
-    app.repositories.presenterRepository.currentPresenter$,
-  );
-
   useEffect(() => {
     if (presenterName) {
       app.repositories.presenterRepository.fetchLatest(presenterName);
     }
   }, [app.repositories.presenterRepository, presenterName]);
-
-  if (!currentPresenter) {
-    return (
-      <>
-        <Skeleton height={8} radius="xl" />
-        <Skeleton height={8} mt={6} radius="xl" />
-        <Skeleton height={8} mt={6} width="70%" radius="xl" />
-      </>
-    );
-  }
 
   return (
     <Box
@@ -72,7 +57,7 @@ export const PresenterContainer = () => {
           }}
         >
           <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
-            <ScreenTool presenter={currentPresenter} />
+            <ScreenTool />
           </Box>
           {/* <Divider />
           <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
