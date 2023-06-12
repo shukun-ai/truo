@@ -1,12 +1,18 @@
+import { select } from '@ngneat/elf';
 import {
+  getAllEntitiesApply,
   selectAllEntities,
   updateEntities,
   upsertEntities,
 } from '@ngneat/elf-entities';
 
-import { PresenterSchema, PresenterWidget } from '@shukun/schema';
+import {
+  PresenterSchema,
+  PresenterWidget,
+  PresenterWidgets,
+} from '@shukun/schema';
 
-import { Observable } from 'rxjs';
+import { Observable, distinctUntilChanged, map } from 'rxjs';
 
 import { presenterStore } from './presenter-store';
 import { PresenterWidgetEntity, widgetRef } from './widget-ref';
@@ -18,6 +24,33 @@ export class WidgetRepository implements IWidgetRepository {
   allWidgets$: Observable<PresenterWidgetEntity[]> = this.presenterStore.pipe(
     selectAllEntities({ ref: widgetRef }),
   );
+
+  selectedWidgets$: Observable<PresenterWidgets> = this.presenterStore
+    .combine({
+      selectedContainerId: this.presenterStore.pipe(
+        select((state) => state.selectedContainerId),
+      ),
+      widgets: this.presenterStore.pipe(selectAllEntities({ ref: widgetRef })),
+    })
+    .pipe(
+      map(({ selectedContainerId }) => {
+        return this.presenterStore.query(
+          getAllEntitiesApply({
+            filterEntity: (entity) =>
+              entity.containerId === selectedContainerId,
+            ref: widgetRef,
+          }),
+        );
+      }),
+      map((widgets) => {
+        const selectedWidgets: PresenterWidgets = {};
+        widgets.forEach((widget) => {
+          selectedWidgets[widget.id] = widget;
+        });
+        return selectedWidgets;
+      }),
+      distinctUntilChanged(),
+    );
 
   upsertByContainer(presenter: PresenterSchema): void {
     const widgetEntities: PresenterWidgetEntity[] = [];

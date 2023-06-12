@@ -1,18 +1,11 @@
 import { select } from '@ngneat/elf';
-import { getAllEntitiesApply, selectAllEntities } from '@ngneat/elf-entities';
-import { PresenterWidgets } from '@shukun/schema';
-
-import { Observable, distinctUntilChanged, map } from 'rxjs';
 
 import { ApiRequester } from '../../apis/requester';
-
-import { write } from '../mutations';
 
 import { ContainerRepository } from './container-repository';
 import { IPresenterRepository } from './presenter-repository.interface';
 import { presenterStore } from './presenter-store';
 import { TabRepository } from './tab-repository';
-import { widgetRef } from './widget-ref';
 import { WidgetRepository } from './widget-repository';
 
 export class PresenterRepository implements IPresenterRepository {
@@ -33,35 +26,18 @@ export class PresenterRepository implements IPresenterRepository {
   );
 
   selectedWidgetId$ = this.presenterStore.pipe(
-    select((state) => state.selectedWidgetId),
+    select((state) => {
+      const tabId = state.selectedTabId;
+      if (!tabId) {
+        return null;
+      }
+      const tabEntity = state.presenterTabEntities[tabId];
+      if (tabEntity.tabType !== 'widget') {
+        return null;
+      }
+      return tabEntity.widgetId;
+    }),
   );
-
-  selectedWidgets$: Observable<PresenterWidgets> = this.presenterStore
-    .combine({
-      selectedContainerId: this.presenterStore.pipe(
-        select((state) => state.selectedContainerId),
-      ),
-      widgets: this.presenterStore.pipe(selectAllEntities({ ref: widgetRef })),
-    })
-    .pipe(
-      map(({ selectedContainerId }) => {
-        return this.presenterStore.query(
-          getAllEntitiesApply({
-            filterEntity: (entity) =>
-              entity.containerId === selectedContainerId,
-            ref: widgetRef,
-          }),
-        );
-      }),
-      map((widgets) => {
-        const selectedWidgets: PresenterWidgets = {};
-        widgets.forEach((widget) => {
-          selectedWidgets[widget.id] = widget;
-        });
-        return selectedWidgets;
-      }),
-      distinctUntilChanged(),
-    );
 
   constructor(private readonly apiRequester: ApiRequester) {}
 
@@ -73,11 +49,5 @@ export class PresenterRepository implements IPresenterRepository {
     }
     this.containerRepository.initialize(presenter);
     this.widgetRepository.upsertByContainer(presenter);
-  }
-
-  selectedWidget(widgetId: string) {
-    this.presenterStore.update(
-      write((state) => (state.selectedWidgetId = widgetId)),
-    );
   }
 }
