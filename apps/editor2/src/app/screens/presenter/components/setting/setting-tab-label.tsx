@@ -7,5 +7,9 @@ export type SettingTabLabelProps = {
 };
 
 export const SettingTabLabel = ({ tab }: SettingTabLabelProps) => {
-  return <Text fs={tab.isPreview ? 'italic' : undefined}>{tab.widgetId}</Text>;
+  return (
+    <Text fs={tab.isPreview ? 'italic' : undefined}>
+      {tab.tabType === 'widget' ? tab.widgetId : 'other'}
+    </Text>
+  );
 };

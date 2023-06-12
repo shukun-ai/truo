@@ -43,7 +43,8 @@ export class TabRepository implements ITabRepository {
         {
           id: tabId,
           tabType: 'widget',
-          widgetId: getWidgetEntityId(containerId, widgetId),
+          containerId,
+          widgetId,
           isPreview: true,
           isEdit: false,
           hasError: false,
