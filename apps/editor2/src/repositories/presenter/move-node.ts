@@ -94,6 +94,30 @@ export const addSiblingNode = (
   return cloneTree;
 };
 
+export const insertNode = (
+  tree: PresenterTreeNodes,
+  newNodeId: string,
+  targetNodeId: string,
+) => {
+  const cloneTree = cloneDeep(tree);
+  const targetNode = getNodeOrCreate(cloneTree, targetNodeId);
+  cloneTree[newNodeId] = [];
+  targetNode.push(newNodeId);
+  return cloneTree;
+};
+
+const getNodeOrCreate = (
+  tree: PresenterTreeNodes,
+  nodeId: string,
+): string[] => {
+  const node = tree[nodeId];
+  if (node) {
+    return node;
+  }
+  tree[nodeId] = [];
+  return tree[nodeId];
+};
+
 const getParentNode = (
   tree: PresenterTreeNodes,
   childNodeId: string,
