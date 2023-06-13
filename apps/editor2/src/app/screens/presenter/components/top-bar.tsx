@@ -2,6 +2,8 @@ import { Header, Button, Container, Group, Popover, Text } from '@mantine/core';
 import { ShukunBrand } from '@shukun/component';
 import { IconExternalLink } from '@tabler/icons-react';
 
+import { SavePresenterButton } from './common/save-presenter-button';
+
 export type TopBarProps = {
   //
 };
@@ -41,7 +43,7 @@ export const TopBar = () => {
             </Popover.Dropdown>
           </Popover>
 
-          <Button>保存</Button>
+          <SavePresenterButton />
         </Group>
       </Container>
     </Header>
