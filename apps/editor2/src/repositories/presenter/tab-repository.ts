@@ -69,6 +69,30 @@ export class TabRepository implements ITabRepository {
     );
   }
 
+  activeEditTab(tabId: string): void {
+    this.presenterStore.update(
+      updateEntities(
+        tabId,
+        {
+          isEdit: true,
+        },
+        { ref: tabRef },
+      ),
+    );
+  }
+
+  inactiveEditTab(tabId: string): void {
+    this.presenterStore.update(
+      updateEntities(
+        tabId,
+        {
+          isEdit: false,
+        },
+        { ref: tabRef },
+      ),
+    );
+  }
+
   chooseTab(tabId: string): void {
     const tab = this.presenterStore.query(getEntity(tabId, { ref: tabRef }));
     if (!tab) {
