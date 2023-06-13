@@ -1,6 +1,8 @@
 import { Button } from '@mantine/core';
 import { useCallback, useState } from 'react';
 
+import { useParams } from 'react-router-dom';
+
 import { useAppContext } from '../../../../contexts/app-context';
 
 export type SavePresenterButtonProps = {
@@ -12,12 +14,18 @@ export const SavePresenterButton = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const { presenterName } = useParams();
+
   const handleSave = useCallback(async () => {
+    if (!presenterName) {
+      return;
+    }
     setLoading(true);
     try {
       const presenter =
         app.repositories.presenterRepository.deserializationService.build();
-      await app.repositories.presenterRepository.synchronizeService.save(
+      app.repositories.presenterRepository.synchronizeService.update(
+        presenterName,
         presenter,
       );
     } finally {
@@ -26,6 +34,7 @@ export const SavePresenterButton = () => {
   }, [
     app.repositories.presenterRepository.deserializationService,
     app.repositories.presenterRepository.synchronizeService,
+    presenterName,
   ]);
 
   return (

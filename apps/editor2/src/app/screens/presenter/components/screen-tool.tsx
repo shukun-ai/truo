@@ -1,6 +1,12 @@
-import { Tabs, createStyles } from '@mantine/core';
-import { PresenterSchema } from '@shukun/schema';
-import { IconRoute, IconBoxPadding, IconBinaryTree } from '@tabler/icons-react';
+import { Box, Divider, Tabs, Tooltip, createStyles } from '@mantine/core';
+import {
+  IconRoute,
+  IconBinaryTree,
+  IconBuildingWarehouse,
+  IconAtom2Filled,
+  IconGizmo,
+  IconShieldLock,
+} from '@tabler/icons-react';
 
 import { ContainerPane } from './screen/container-pane';
 import { TreePane } from './tree/tree-pane';
@@ -9,38 +15,69 @@ export const ScreenTool = () => {
   const { classes, cx } = useStyles();
 
   return (
-    <Tabs defaultValue="screens" className={cx(classes.wrapper)}>
+    <Tabs
+      defaultValue="widgets"
+      className={cx(classes.wrapper)}
+      orientation="vertical"
+    >
       <Tabs.List className={cx(classes.tabs)}>
-        <Tabs.Tab value="screens" icon={<IconRoute size="0.8rem" />}>
-          路由
-        </Tabs.Tab>
-        <Tabs.Tab value="containers" icon={<IconBoxPadding size="0.8rem" />}>
-          容器
-        </Tabs.Tab>
-        <Tabs.Tab value="tree" icon={<IconBinaryTree size="0.8rem" />}>
-          组件树
-        </Tabs.Tab>
+        <Tooltip label="路由" position="right">
+          <Tabs.Tab value="screens" icon={<IconRoute size="0.95rem" />} />
+        </Tooltip>
+        <Tooltip label="组件树" position="right">
+          <Tabs.Tab value="widgets" icon={<IconBinaryTree size="0.95rem" />} />
+        </Tooltip>
+        <Tooltip label="数据仓库" position="right">
+          <Tabs.Tab
+            value="repositories"
+            icon={<IconBuildingWarehouse size="0.95rem" />}
+          />
+        </Tooltip>
+        <Tooltip label="元数据" position="right">
+          <Tabs.Tab
+            value="metadata"
+            icon={<IconAtom2Filled size="0.95rem" />}
+          />
+        </Tooltip>
+        <Tooltip label="函数流" position="right">
+          <Tabs.Tab value="flows" icon={<IconGizmo size="0.95rem" />} />
+        </Tooltip>
+        <Tooltip label="权限" position="right">
+          <Tabs.Tab
+            value="permissions"
+            icon={<IconShieldLock size="0.95rem" />}
+          />
+        </Tooltip>
       </Tabs.List>
 
       <Tabs.Panel value="screens" className={cx(classes.panel)}>
         Gallery tab content
       </Tabs.Panel>
 
-      <Tabs.Panel value="containers" className={cx(classes.panel)}>
-        <ContainerPane />
-      </Tabs.Panel>
-
-      <Tabs.Panel value="tree" className={cx(classes.panel)}>
-        <TreePane />
+      <Tabs.Panel value="widgets" className={cx(classes.panel)}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexShrink: 0,
+            minHeight: 0,
+            height: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          <Box sx={{ height: 200 }}>
+            <ContainerPane />
+          </Box>
+          <Divider />
+          <TreePane />
+        </Box>
       </Tabs.Panel>
     </Tabs>
   );
 };
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   wrapper: {
-    display: 'flex',
-    flexDirection: 'column',
     overflow: 'hidden',
     height: '100%',
   },

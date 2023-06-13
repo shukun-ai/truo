@@ -49,8 +49,7 @@ export class PresenterRepository implements IPresenterRepository {
   constructor(private readonly apiRequester: ApiRequester) {}
 
   async fetchLatest(presenterName: string) {
-    const response = await this.apiRequester.editorRequester.getPresenter();
-    const presenter = response.data.value[presenterName];
+    const presenter = await this.synchronizeService.findOne(presenterName);
     if (!presenter) {
       throw new Error('Did not find presenter.');
     }

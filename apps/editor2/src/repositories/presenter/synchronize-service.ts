@@ -1,4 +1,4 @@
-import { PresenterSchema } from '@shukun/schema';
+import { IDString, PresenterSchema } from '@shukun/schema';
 
 import { ApiRequester } from '../../apis/requester';
 
@@ -7,12 +7,32 @@ import { ISynchronizeService } from './synchronize-service.interface';
 export class SynchronizeService implements ISynchronizeService {
   constructor(private readonly apiRequester: ApiRequester) {}
 
-  async save(presenter: PresenterSchema): Promise<void> {
-    const text = JSON.stringify(presenter);
-    // const blob = new Blob([text], { type: 'text/plain' });
-    // const file = new File([blob], 'foo.txt', { type: 'text/plain' });
-    const formData = new FormData();
-    formData.append('file', text);
-    this.apiRequester.developerRequester.updatePresentersCode(formData);
+  async create(presenterName: string): Promise<{ _id: IDString }> {
+    const response = await this.apiRequester.editorRequester.createPresenter(
+      presenterName,
+    );
+    return response.data.value;
+  }
+
+  async update(
+    presenterName: string,
+    definition: PresenterSchema,
+  ): Promise<void> {
+    await this.apiRequester.editorRequester.updatePresenter(
+      presenterName,
+      definition,
+    );
+  }
+
+  async findMany(): Promise<Record<string, PresenterSchema>> {
+    const response = await this.apiRequester.editorRequester.getPresenters();
+    return response.data.value;
+  }
+
+  async findOne(presenterName: string): Promise<PresenterSchema> {
+    const response = await this.apiRequester.editorRequester.getPresenter(
+      presenterName,
+    );
+    return response.data.value;
   }
 }
