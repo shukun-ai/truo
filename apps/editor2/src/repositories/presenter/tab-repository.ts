@@ -3,10 +3,12 @@ import {
   addEntities,
   deleteEntities,
   getAllEntitiesApply,
+  getEntity,
   selectAllEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
 
+import { TypeException } from '@shukun/exception';
 import { nanoid } from 'nanoid';
 
 import { Observable } from 'rxjs';
@@ -34,26 +36,22 @@ export class TabRepository implements ITabRepository {
         ref: tabRef,
       }),
     );
-    const previewTabIds = previewTabs.map((tab) => tab.id);
-    const tabId = nanoid();
-    this.presenterStore.update(
-      deleteEntities(previewTabIds, { ref: tabRef }),
-      addEntities(
-        {
-          id: tabId,
-          tabType: 'widget',
-          containerId,
-          widgetId,
-          isPreview: true,
-          isEdit: false,
-          hasError: false,
-        },
-        { ref: tabRef },
-      ),
-      setProps({
-        selectedTabId: tabId,
+    const existPreviewWidgetTab = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) =>
+          entity.tabType === 'widget' &&
+          entity.containerId === containerId &&
+          entity.widgetId === widgetId,
+        ref: tabRef,
       }),
     );
+
+    if (existPreviewWidgetTab.length === 1) {
+      this.selectPreviewWidgetTab(existPreviewWidgetTab[0].id);
+    } else if (existPreviewWidgetTab.length === 0) {
+      const previewTabIds = previewTabs.map((tab) => tab.id);
+      this.createPreviewWidgetTab(previewTabIds, containerId, widgetId);
+    }
   }
 
   fixTab(tabId: string): void {
@@ -72,9 +70,14 @@ export class TabRepository implements ITabRepository {
   }
 
   chooseTab(tabId: string): void {
+    const tab = this.presenterStore.query(getEntity(tabId, { ref: tabRef }));
+    if (!tab) {
+      throw new TypeException('Did not find tab: {{tabId}}', { tabId });
+    }
     this.presenterStore.update(
       setProps({
-        selectedTabId: tabId,
+        selectedTabId: tab.id,
+        selectedContainerId: tab.containerId,
       }),
     );
   }
@@ -88,6 +91,40 @@ export class TabRepository implements ITabRepository {
         return {
           selectedTabId: entities.length > 0 ? entities[0].id : null,
         };
+      }),
+    );
+  }
+
+  private selectPreviewWidgetTab(tabId: string) {
+    this.presenterStore.update(
+      setProps({
+        selectedTabId: tabId,
+      }),
+    );
+  }
+
+  private createPreviewWidgetTab(
+    currentPreviewTabIds: string[],
+    containerId: string,
+    widgetId: string,
+  ) {
+    const tabId = nanoid();
+    this.presenterStore.update(
+      deleteEntities(currentPreviewTabIds, { ref: tabRef }),
+      addEntities(
+        {
+          id: tabId,
+          tabType: 'widget',
+          containerId,
+          widgetId,
+          isPreview: true,
+          isEdit: false,
+          hasError: false,
+        },
+        { ref: tabRef },
+      ),
+      setProps({
+        selectedTabId: tabId,
       }),
     );
   }
