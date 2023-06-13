@@ -1,6 +1,11 @@
 import { PresenterTreeNodes } from '@shukun/schema';
 
-import { moveToBeside, moveToInside, removeNode } from './move-node';
+import {
+  insertNode,
+  moveToBeside,
+  moveToInside,
+  removeNode,
+} from './move-node';
 
 describe('move-after-node', () => {
   describe('moveToBeside', () => {
@@ -103,6 +108,34 @@ describe('move-after-node', () => {
       };
 
       expect(removeNode(tree, 'b')).toEqual(newTree);
+    });
+  });
+
+  describe('insertNode', () => {
+    it('When insert a node, return new tree.', () => {
+      const tree: PresenterTreeNodes = {
+        root: ['a'],
+        a: ['a1', 'a2'],
+      };
+
+      const newTree: PresenterTreeNodes = {
+        root: ['a', 'b'],
+        a: ['a1', 'a2'],
+        b: [],
+      };
+
+      expect(insertNode(tree, 'b', 'root')).toEqual(newTree);
+    });
+
+    it('When insert a empty node, return new tree.', () => {
+      const tree: PresenterTreeNodes = {};
+
+      const newTree: PresenterTreeNodes = {
+        root: ['b'],
+        b: [],
+      };
+
+      expect(insertNode(tree, 'b', 'root')).toEqual(newTree);
     });
   });
 });

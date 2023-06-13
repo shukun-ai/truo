@@ -12,6 +12,7 @@ import { IconDots, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 import { useCallback, useMemo } from 'react';
 
+import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
 import { useAppContext } from '../../../../contexts/app-context';
 
 export type TreeMoreButtonProps = {
@@ -21,9 +22,10 @@ export type TreeMoreButtonProps = {
 export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
   const app = useAppContext();
 
-  const onSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
+  const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      app.repositories.presenterRepository.containerRepository.addWidgetIntoSiblingNode(
+      app.repositories.presenterRepository.containerRepository.addWidget(
+        'sibling',
         values.widgetTag,
         values.widgetTitle,
         sourceNodeId,
@@ -32,12 +34,31 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
     [app.repositories.presenterRepository, sourceNodeId],
   );
 
-  const handleCreate = useCallback(() => {
+  const handleSiblingCreate = useCallback(() => {
     modals.open({
-      title: '新建组件',
-      children: <NodeCreateForm onSubmit={onSubmit} />,
+      title: '新建同级组件',
+      children: <NodeCreateForm onSubmit={onSiblingSubmit} />,
     });
-  }, [onSubmit]);
+  }, [onSiblingSubmit]);
+
+  const onChildSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
+    (values) => {
+      app.repositories.presenterRepository.containerRepository.addWidget(
+        'insert',
+        values.widgetTag,
+        values.widgetTitle,
+        sourceNodeId,
+      );
+    },
+    [app.repositories.presenterRepository.containerRepository, sourceNodeId],
+  );
+
+  const handleChildCreate = useCallback(() => {
+    modals.open({
+      title: '新建子级组件',
+      children: <NodeCreateForm onSubmit={onChildSubmit} />,
+    });
+  }, [onChildSubmit]);
 
   return (
     <Menu shadow="md" width={200}>
@@ -48,8 +69,16 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Item icon={<IconPlus size={14} />} onClick={handleCreate}>
-          新建同级组件
+        {sourceNodeId !== ROOT_NODE_ID && (
+          <Menu.Item
+            icon={<IconPlus size={14} />}
+            onClick={handleSiblingCreate}
+          >
+            新建同级组件
+          </Menu.Item>
+        )}
+        <Menu.Item icon={<IconPlus size={14} />} onClick={handleChildCreate}>
+          新建子级组件
         </Menu.Item>
         <Menu.Item
           color="red"

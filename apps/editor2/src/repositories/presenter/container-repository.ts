@@ -19,6 +19,7 @@ import { PresenterContainerEntity, containerRef } from './container-ref';
 import { IContainerRepository } from './container-repository.interface';
 import {
   addSiblingNode,
+  insertNode,
   moveToBeside,
   moveToInside,
   removeNode,
@@ -29,6 +30,13 @@ import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
 import { PresenterWidgetEntity, widgetRef } from './widget-ref';
 
 export class ContainerRepository implements IContainerRepository {
+  addWidgetIntoChildNode(
+    newWidgetTag: string,
+    newWidgetTitle: string,
+    targetNodeId: string,
+  ): void {
+    throw new Error('Method not implemented.');
+  }
   private readonly presenterStore = presenterStore;
 
   allContainers$: Observable<PresenterContainerEntity[]> =
@@ -192,17 +200,19 @@ export class ContainerRepository implements IContainerRepository {
     );
   }
 
-  addWidgetIntoSiblingNode(
+  addWidget(
+    type: 'sibling' | 'insert',
     newWidgetTag: string,
     newWidgetTitle: string,
     targetNodeId: string,
   ) {
+    const addIntoNode = type === 'sibling' ? addSiblingNode : insertNode;
     const container = this.getSelectedContainer();
     const existWidgetIds = this.presenterStore.query(
       getEntitiesIds({ ref: widgetRef }),
     );
     const newNodeId = createRandomWidgetId(existWidgetIds);
-    const tree = addSiblingNode(container.tree, newNodeId, targetNodeId);
+    const tree = addIntoNode(container.tree, newNodeId, targetNodeId);
     const newWidget: PresenterWidgetEntity = {
       id: newNodeId,
       containerId: container.id,

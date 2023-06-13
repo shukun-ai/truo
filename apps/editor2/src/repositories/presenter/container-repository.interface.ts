@@ -25,7 +25,8 @@ export interface IContainerRepository {
   removeTreeNode(sourceNodeId: string): void;
   closeTreeCollapse(sourceNodeId: string): void;
   openTreeCollapse(sourceNodeId: string): void;
-  addWidgetIntoSiblingNode(
+  addWidget(
+    type: 'sibling' | 'insert',
     newWidgetTag: string,
     newWidgetTitle: string,
     targetNodeId: string,
