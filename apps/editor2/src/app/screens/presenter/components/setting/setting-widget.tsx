@@ -54,7 +54,6 @@ export const SettingWidget = ({ tab }: SettingWidgetProps) => {
   return (
     <ScrollArea sx={{ width: '100%', height: '100%' }}>
       <Container fluid>
-        <Box sx={{ height: '1rem' }}></Box>
         <WidgetForm tab={tab} widget={widget} definition={definition} />
       </Container>
     </ScrollArea>

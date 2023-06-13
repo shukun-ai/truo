@@ -73,11 +73,11 @@ export class WidgetRepository implements IWidgetRepository {
   }
 
   updateProperties(
-    entityId: string,
+    widgetId: string,
     properties: PresenterWidget['properties'],
   ): void {
     this.presenterStore.update(
-      updateEntities(entityId, { properties }, { ref: widgetRef }),
+      updateEntities(widgetId, { properties }, { ref: widgetRef }),
     );
   }
 }
