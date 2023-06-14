@@ -24,7 +24,9 @@ export type PresenterTreeNode = string;
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
  */
-export type PresenterScreen = PresenterScreenDashboard;
+export type PresenterScreen =
+  | PresenterScreenDashboard
+  | PresenterScreenWorkshop;
 
 /**
  * Define the presenter contained Stores and UI Elements
@@ -151,7 +153,16 @@ export interface PresenterTreeNodes {
   [k: string]: PresenterTreeNode[];
 }
 export interface PresenterScreenDashboard {
-  layout: 'Dashboard' | 'Workshop';
+  layout: 'Dashboard';
+  title: string;
+  slots: {
+    main: string;
+    menu?: string;
+  };
+}
+export interface PresenterScreenWorkshop {
+  layout: 'Workshop';
+  title: string;
   slots: {
     main: string;
     menu?: string;
