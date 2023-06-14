@@ -8,7 +8,7 @@ import {
   IconShieldLock,
 } from '@tabler/icons-react';
 
-import { ContainerPane } from './screen/container-pane';
+import { ContainerPane } from './container/container-pane';
 import { TreePane } from './tree/tree-pane';
 
 export const ScreenTool = () => {
