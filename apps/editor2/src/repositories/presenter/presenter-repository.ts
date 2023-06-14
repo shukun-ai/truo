@@ -7,6 +7,7 @@ import { DeserializationService } from './deserialization-service';
 
 import { IPresenterRepository } from './presenter-repository.interface';
 import { presenterStore } from './presenter-store';
+import { SerializationService } from './serialization-service';
 import { SynchronizeService } from './synchronize-service';
 import { TabRepository } from './tab-repository';
 import { WidgetRepository } from './widget-repository';
@@ -19,6 +20,8 @@ export class PresenterRepository implements IPresenterRepository {
   widgetRepository = new WidgetRepository();
 
   tabRepository = new TabRepository();
+
+  serializationService = new SerializationService();
 
   deserializationService = new DeserializationService();
 
@@ -48,12 +51,11 @@ export class PresenterRepository implements IPresenterRepository {
 
   constructor(private readonly apiRequester: ApiRequester) {}
 
-  async fetchLatest(presenterName: string) {
+  async initialize(presenterName: string) {
     const presenter = await this.synchronizeService.findOne(presenterName);
     if (!presenter) {
       throw new Error('Did not find presenter.');
     }
-    this.containerRepository.initialize(presenter);
-    this.widgetRepository.upsertByContainer(presenter);
+    this.serializationService.parse(presenter);
   }
 }

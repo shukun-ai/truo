@@ -21,7 +21,7 @@ export const PresenterContainer = () => {
 
   useEffect(() => {
     if (presenterName) {
-      app.repositories.presenterRepository.fetchLatest(presenterName);
+      app.repositories.presenterRepository.initialize(presenterName);
     }
   }, [app.repositories.presenterRepository, presenterName]);
 
