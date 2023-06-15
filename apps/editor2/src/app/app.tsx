@@ -1,4 +1,5 @@
 import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
 import { StrictMode } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ export const App = () => {
       <AppProvider>
         <ThemeProvider>
           <ModalsProvider>
+            <Notifications position="top-center" />
             <RouterProvider router={router} />
           </ModalsProvider>
         </ThemeProvider>
