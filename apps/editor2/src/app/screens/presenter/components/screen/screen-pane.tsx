@@ -10,9 +10,11 @@ import {
 import { IconDots, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
+import { PresenterScreenEntity } from '../../../../../repositories/presenter/screen-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { ScreenCreateButton } from './screen-create-button';
+import { useScreenEditButton } from './use-screen-edit-button';
 
 export const ScreenPane = () => {
   const { classes, cx } = useStyles();
@@ -50,7 +52,7 @@ export const ScreenPane = () => {
             }}
           >
             <Text size="sm">{screen.id}</Text>
-            <MoreButton screenId={screen.id} />
+            <MoreButton screenId={screen.id} screen={screen} />
           </Box>
         ))}
       </ScrollArea>
@@ -58,8 +60,16 @@ export const ScreenPane = () => {
   );
 };
 
-const MoreButton = ({ screenId }: { screenId: string }) => {
+const MoreButton = ({
+  screenId,
+  screen,
+}: {
+  screenId: string;
+  screen: PresenterScreenEntity;
+}) => {
   const app = useAppContext();
+
+  const { open } = useScreenEditButton({ screenEntity: screen });
 
   return (
     <Menu shadow="md" width={200}>
@@ -70,6 +80,9 @@ const MoreButton = ({ screenId }: { screenId: string }) => {
       </Menu.Target>
 
       <Menu.Dropdown>
+        <Menu.Item icon={<IconTrash size={14} />} onClick={open}>
+          编辑
+        </Menu.Item>
         <Menu.Item
           color="red"
           icon={<IconTrash size={14} />}

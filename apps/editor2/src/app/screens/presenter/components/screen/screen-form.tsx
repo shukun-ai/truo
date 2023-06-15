@@ -2,19 +2,26 @@ import { Badge, Button, Select, SelectItem, TextInput } from '@mantine/core';
 import { isNotEmpty, matches, useForm } from '@mantine/form';
 import { PresenterScreen } from '@shukun/schema';
 
+import { cloneDeep, omit } from 'lodash';
 import { useObservableState } from 'observable-hooks';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
+import { PresenterScreenEntity } from '../../../../../repositories/presenter/screen-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 export type ScreenFormValues = { screenId: string } & PresenterScreen;
 
 export type ScreenFormProps = {
+  screenEntity: PresenterScreenEntity | null;
   presenterName: string | undefined;
   onSubmit: (values: ScreenFormValues) => void;
 };
 
-export const ScreenForm = ({ presenterName, onSubmit }: ScreenFormProps) => {
+export const ScreenForm = ({
+  presenterName,
+  screenEntity,
+  onSubmit,
+}: ScreenFormProps) => {
   const app = useAppContext();
 
   const currentUser = useObservableState(
@@ -68,6 +75,20 @@ export const ScreenForm = ({ presenterName, onSubmit }: ScreenFormProps) => {
     },
   });
 
+  useEffect(() => {
+    if (screenEntity) {
+      form.setValues(
+        cloneDeep({
+          ...omit(screenEntity, 'id'),
+          screenId: screenEntity.id,
+        }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screenEntity]);
+
+  const isEditMode = useMemo(() => !!screenEntity, [screenEntity]);
+
   return (
     <form
       onSubmit={form.onSubmit((values) => {
@@ -81,6 +102,7 @@ export const ScreenForm = ({ presenterName, onSubmit }: ScreenFormProps) => {
         withAsterisk
         description="路由标识符用于URL识别，请使用符合如下格式：字母 a-z、数字 0-9、下划线或连字符"
         {...form.getInputProps('screenId')}
+        disabled={isEditMode}
       />
       {form.values.screenId && (
         <Badge sx={{ textTransform: 'none' }}>
@@ -105,6 +127,7 @@ export const ScreenForm = ({ presenterName, onSubmit }: ScreenFormProps) => {
           withAsterisk={slot.required}
           {...form.getInputProps(`slots.${slot.name}`)}
           error={slot.required && form.getInputProps('slots').error}
+          clearable
         />
       ))}
       <Button type="submit" fullWidth mt="md">

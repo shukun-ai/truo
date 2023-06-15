@@ -42,7 +42,11 @@ export const ScreenCreateButton = () => {
     modals.open({
       title: '新建路由',
       children: (
-        <ScreenForm presenterName={presenterName} onSubmit={onSubmit} />
+        <ScreenForm
+          presenterName={presenterName}
+          screenEntity={null}
+          onSubmit={onSubmit}
+        />
       ),
     });
   }, [onSubmit, presenterName]);

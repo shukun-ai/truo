@@ -8,5 +8,6 @@ export interface IScreenRepository {
   isUniqueId(screenId: string): boolean;
   select(screenId: string): void;
   create(screenId: string, screen: Omit<PresenterScreenEntity, 'id'>): void;
+  update(screenId: string, screen: Omit<PresenterScreenEntity, 'id'>): void;
   remove(screenId: string): void;
 }

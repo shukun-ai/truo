@@ -4,6 +4,7 @@ import {
   deleteEntities,
   getEntitiesIds,
   selectAllEntities,
+  updateEntities,
 } from '@ngneat/elf-entities';
 
 import { Observable } from 'rxjs';
@@ -48,6 +49,12 @@ export class ScreenRepository implements IScreenRepository {
         },
         { ref: screenRef },
       ),
+    );
+  }
+
+  update(screenId: string, screen: Omit<PresenterScreenEntity, 'id'>): void {
+    this.presenterStore.update(
+      updateEntities(screenId, screen, { ref: screenRef }),
     );
   }
 
