@@ -3,9 +3,12 @@
   "title": "PresenterContainer",
   "type": "object",
   "additionalProperties": false,
-  "required": ["type", "repositories", "widgets", "root", "tree"],
+  "required": ["label", "type", "repositories", "widgets", "root", "tree"],
   "properties": {
     "$schema": {
+      "type": "string"
+    },
+    "label": {
       "type": "string"
     },
     "type": {

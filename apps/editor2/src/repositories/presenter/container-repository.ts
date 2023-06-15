@@ -2,8 +2,10 @@ import {
   addEntities,
   deleteEntities,
   selectAllEntities,
+  updateEntities,
 } from '@ngneat/elf-entities';
 
+import { nanoid } from 'nanoid';
 import { Observable } from 'rxjs';
 
 import { write } from '../mutations';
@@ -15,16 +17,11 @@ import { presenterStore } from './presenter-store';
 export class ContainerRepository implements IContainerRepository {
   private readonly presenterStore = presenterStore;
 
-  allContainers$: Observable<PresenterContainerEntity[]> =
-    this.presenterStore.pipe(selectAllEntities({ ref: containerRef }));
+  all$: Observable<PresenterContainerEntity[]> = this.presenterStore.pipe(
+    selectAllEntities({ ref: containerRef }),
+  );
 
-  isUniqueContainerName(containerName: string) {
-    const { presenterContainerEntities } = this.presenterStore.getValue();
-    const container = presenterContainerEntities[containerName];
-    return !container;
-  }
-
-  selectContainer(containerId: string) {
+  select(containerId: string) {
     this.presenterStore.update(
       write((state) => {
         state.selectedContainerId = containerId;
@@ -32,9 +29,10 @@ export class ContainerRepository implements IContainerRepository {
     );
   }
 
-  createContainer(containerId: string) {
+  createByLabel(containerLabel: string) {
     const newContainer: PresenterContainerEntity = {
-      id: containerId,
+      id: nanoid(),
+      label: containerLabel,
       type: 'page',
       tree: {},
     };
@@ -44,7 +42,16 @@ export class ContainerRepository implements IContainerRepository {
     );
   }
 
-  removeContainer(containerId: string) {
+  update(
+    containerId: string,
+    container: Omit<PresenterContainerEntity, 'id'>,
+  ): void {
+    this.presenterStore.update(
+      updateEntities(containerId, container, { ref: containerRef }),
+    );
+  }
+
+  remove(containerId: string) {
     this.presenterStore.update(
       deleteEntities(containerId, { ref: containerRef }),
     );

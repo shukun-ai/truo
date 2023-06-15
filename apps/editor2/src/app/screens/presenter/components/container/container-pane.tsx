@@ -25,20 +25,14 @@ export const ContainerPane = () => {
   );
 
   const allContainers = useObservableState(
-    app.repositories.presenterRepository.containerRepository.allContainers$,
+    app.repositories.presenterRepository.containerRepository.all$,
     [],
   );
 
   return (
     <Box className={cx(classes.wrapper)}>
       <Box>
-        <ContainerCreateButton
-          onSubmit={(values) => {
-            app.repositories.presenterRepository.containerRepository.createContainer(
-              values.text,
-            );
-          }}
-        />
+        <ContainerCreateButton />
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
@@ -50,12 +44,12 @@ export const ContainerPane = () => {
               selectedContainerId === container.id && classes.active,
             )}
             onClick={() => {
-              app.repositories.presenterRepository.containerRepository.selectContainer(
+              app.repositories.presenterRepository.containerRepository.select(
                 container.id,
               );
             }}
           >
-            <Text size="sm">{container.id}</Text>
+            <Text size="sm">{container.label}</Text>
             <MoreButton containerId={container.id} />
           </Box>
         ))}
@@ -80,7 +74,7 @@ const MoreButton = ({ containerId }: { containerId: string }) => {
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            app.repositories.presenterRepository.containerRepository.removeContainer(
+            app.repositories.presenterRepository.containerRepository.remove(
               containerId,
             );
           }}

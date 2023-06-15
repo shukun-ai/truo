@@ -1,11 +1,9 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
-import { PresenterTreeNodes } from '@shukun/schema';
+import { PresenterContainer } from '@shukun/schema';
 
 export type PresenterContainerEntity = {
   id: string;
-  type: 'page';
-  tree: PresenterTreeNodes;
-};
+} & Omit<PresenterContainer, 'repositories' | 'widgets'>;
 
 const { presenterContainerEntitiesRef, withPresenterContainerEntities } =
   entitiesPropsFactory('presenterContainer');

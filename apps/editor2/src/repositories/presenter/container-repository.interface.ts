@@ -3,10 +3,13 @@ import { Observable } from 'rxjs';
 import { PresenterContainerEntity } from './container-ref';
 
 export interface IContainerRepository {
-  allContainers$: Observable<PresenterContainerEntity[]>;
+  all$: Observable<PresenterContainerEntity[]>;
 
-  isUniqueContainerName(containerName: string): boolean;
-  selectContainer(containerId: string): void;
-  createContainer(containerName: string): void;
-  removeContainer(containerName: string): void;
+  select(containerId: string): void;
+  createByLabel(containerLabel: string): void;
+  update(
+    containerId: string,
+    container: Omit<PresenterContainerEntity, 'id'>,
+  ): void;
+  remove(containerId: string): void;
 }
