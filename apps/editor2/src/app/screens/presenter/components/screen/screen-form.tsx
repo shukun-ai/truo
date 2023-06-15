@@ -30,13 +30,13 @@ export const ScreenForm = ({
   );
 
   const allContainers = useObservableState(
-    app.repositories.presenterRepository.containerRepository.allContainers$,
+    app.repositories.presenterRepository.containerRepository.all$,
     [],
   );
 
   const containerOptions = useMemo<SelectItem[]>(() => {
     return allContainers.map((container) => ({
-      label: container.id,
+      label: container.label,
       value: container.id,
     }));
   }, [allContainers]);

@@ -45,7 +45,7 @@ export class PresenterService {
     await this.checkExist(createDto.orgName, createDto.name);
 
     const emptyPresenterDefinition: PresenterSchema = {
-      title: createDto.name,
+      label: createDto.name,
       containers: {},
       screens: {},
     };

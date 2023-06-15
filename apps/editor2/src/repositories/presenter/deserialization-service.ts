@@ -30,9 +30,9 @@ export class DeserializationService implements IDeserializationService {
     containerEntities.forEach((container) => {
       containers[container.id] = {
         type: container.type,
+        label: container.label,
         repositories: {},
         widgets: this.buildWidgets(container.id),
-        root: [],
         tree: container.tree,
       };
     });
