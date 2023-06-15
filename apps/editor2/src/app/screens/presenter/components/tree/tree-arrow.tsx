@@ -19,13 +19,13 @@ export const TreeArrow = ({
   const app = useAppContext();
 
   const closeCollapse = useCallback(() => {
-    app.repositories.presenterRepository.containerRepository.closeTreeCollapse(
+    app.repositories.presenterRepository.treeRepository.closeTreeCollapse(
       sourceNodeId,
     );
   }, [app.repositories.presenterRepository, sourceNodeId]);
 
   const openCollapse = useCallback(() => {
-    app.repositories.presenterRepository.containerRepository.openTreeCollapse(
+    app.repositories.presenterRepository.treeRepository.openTreeCollapse(
       sourceNodeId,
     );
   }, [app.repositories.presenterRepository, sourceNodeId]);

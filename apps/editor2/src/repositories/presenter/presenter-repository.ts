@@ -11,6 +11,7 @@ import { ScreenRepository } from './screen-repository';
 import { SerializationService } from './serialization-service';
 import { SynchronizeService } from './synchronize-service';
 import { TabRepository } from './tab-repository';
+import { TreeRepository } from './tree-repository';
 import { WidgetRepository } from './widget-repository';
 
 export class PresenterRepository implements IPresenterRepository {
@@ -21,6 +22,8 @@ export class PresenterRepository implements IPresenterRepository {
   containerRepository = new ContainerRepository();
 
   widgetRepository = new WidgetRepository();
+
+  treeRepository = new TreeRepository();
 
   tabRepository = new TabRepository();
 
