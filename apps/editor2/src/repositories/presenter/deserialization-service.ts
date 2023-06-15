@@ -12,10 +12,10 @@ export class DeserializationService implements IDeserializationService {
 
   build(): PresenterSchema {
     const presenterTitle = this.presenterStore.query(
-      (state) => state.presenterTitle,
+      (state) => state.presenterLabel,
     );
     const presenter: PresenterSchema = {
-      title: presenterTitle,
+      label: presenterTitle,
       containers: this.buildContainers(),
       screens: this.buildScreens(),
     };
@@ -64,7 +64,7 @@ export class DeserializationService implements IDeserializationService {
     widgetEntities.forEach((widget) => {
       widgets[widget.id] = {
         tag: widget.tag,
-        title: widget.title,
+        label: widget.label,
         parentSlot: widget.parentSlot,
         properties: widget.properties,
         events: widget.events,

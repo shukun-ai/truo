@@ -50,7 +50,7 @@ export const PresenterSection = () => {
           {presenters?.map((presenter) => (
             <tr>
               <td>{presenter.name}</td>
-              <td>{presenter.definition.title}</td>
+              <td>{presenter.definition.label}</td>
             </tr>
           ))}
         </tbody>
