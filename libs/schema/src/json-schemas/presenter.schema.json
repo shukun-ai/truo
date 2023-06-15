@@ -3,11 +3,11 @@
   "title": "PresenterSchema",
   "description": "Define the presenter contained Stores and UI Elements",
   "type": "object",
-  "required": ["title", "containers", "screens"],
+  "required": ["label", "containers", "screens"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "type": "string" },
-    "title": { "type": "string" },
+    "label": { "type": "string" },
     "containers": {
       "type": "object",
       "patternProperties": {

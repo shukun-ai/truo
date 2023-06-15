@@ -33,7 +33,7 @@ export type PresenterScreen =
  */
 export interface PresenterSchema {
   $schema?: string;
-  title: string;
+  label: string;
   containers: {
     [k: string]: PresenterContainer;
   };
@@ -87,7 +87,7 @@ export interface PresenterWidgets {
  */
 export interface PresenterWidget {
   tag: string;
-  title?: string;
+  label?: string;
   parentSlot?: string;
   properties: {
     /**

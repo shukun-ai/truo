@@ -217,7 +217,7 @@ export class ContainerRepository implements IContainerRepository {
       id: newNodeId,
       containerId: container.id,
       tag: newWidgetTag,
-      title: newWidgetTitle,
+      label: newWidgetTitle,
       properties: {},
       events: {},
     };

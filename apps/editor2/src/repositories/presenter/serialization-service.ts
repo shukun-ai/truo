@@ -13,7 +13,7 @@ export class SerializationService implements ISerializationService {
 
   parse(presenter: PresenterSchema): void {
     this.presenterStore.update(
-      setProps(() => ({ presenterTitle: presenter.title })),
+      setProps(() => ({ presenterLabel: presenter.label })),
       upsertEntities(this.getScreenEntities(presenter), { ref: screenRef }),
       upsertEntities(this.getContainerEntities(presenter), {
         ref: containerRef,
