@@ -7,6 +7,7 @@ import { DeserializationService } from './deserialization-service';
 
 import { IPresenterRepository } from './presenter-repository.interface';
 import { presenterStore } from './presenter-store';
+import { ScreenRepository } from './screen-repository';
 import { SerializationService } from './serialization-service';
 import { SynchronizeService } from './synchronize-service';
 import { TabRepository } from './tab-repository';
@@ -14,6 +15,8 @@ import { WidgetRepository } from './widget-repository';
 
 export class PresenterRepository implements IPresenterRepository {
   private readonly presenterStore = presenterStore;
+
+  screenRepository = new ScreenRepository();
 
   containerRepository = new ContainerRepository();
 

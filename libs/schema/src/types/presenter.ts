@@ -154,7 +154,6 @@ export interface PresenterTreeNodes {
 }
 export interface PresenterScreenDashboard {
   layout: 'Dashboard';
-  title: string;
   slots: {
     main: string;
     menu?: string;
@@ -162,7 +161,6 @@ export interface PresenterScreenDashboard {
 }
 export interface PresenterScreenWorkshop {
   layout: 'Workshop';
-  title: string;
   slots: {
     main: string;
     menu?: string;

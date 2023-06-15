@@ -20,11 +20,10 @@
     "PresenterScreenDashboard": {
       "title": "PresenterScreenDashboard",
       "type": "object",
-      "required": ["layout", "title", "slots"],
+      "required": ["layout", "slots"],
       "additionalProperties": false,
       "properties": {
         "layout": { "const": "Dashboard" },
-        "title": { "type": "string" },
         "slots": {
           "type": "object",
           "required": ["main"],
@@ -39,11 +38,10 @@
     "PresenterScreenWorkshop": {
       "title": "PresenterScreenWorkshop",
       "type": "object",
-      "required": ["layout", "title", "slots"],
+      "required": ["layout", "slots"],
       "additionalProperties": false,
       "properties": {
         "layout": { "const": "Workshop" },
-        "title": { "type": "string" },
         "slots": {
           "type": "object",
           "required": ["main"],
