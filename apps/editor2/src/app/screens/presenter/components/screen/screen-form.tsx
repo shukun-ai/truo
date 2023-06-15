@@ -97,7 +97,7 @@ export const ScreenForm = ({
     >
       <TextInput
         label="路由标识符"
-        placeholder="Container name"
+        placeholder="Screen Id"
         data-autofocus
         withAsterisk
         description="路由标识符用于URL识别，请使用符合如下格式：字母 a-z、数字 0-9、下划线或连字符"
@@ -111,7 +111,7 @@ export const ScreenForm = ({
       )}
       <Select
         label="选择排版结构"
-        placeholder="Container name"
+        placeholder="Screen Layout"
         data={[
           { value: 'Dashboard', label: 'Dashboard' },
           { value: 'Workshop', label: 'Workshop' },
@@ -122,7 +122,7 @@ export const ScreenForm = ({
       {slotMaps?.[form.values.layout]?.map((slot) => (
         <Select
           label={`插槽：${slot.name}`}
-          placeholder="Container name"
+          placeholder={slot.name}
           data={containerOptions}
           withAsterisk={slot.required}
           {...form.getInputProps(`slots.${slot.name}`)}

@@ -1,15 +1,18 @@
 import {
   ActionIcon,
+  Badge,
   Box,
   Divider,
+  Group,
   Menu,
   ScrollArea,
   Text,
   createStyles,
 } from '@mantine/core';
-import { IconDots, IconTrash } from '@tabler/icons-react';
+import { IconDots, IconEdit, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
+import { SCREEN_HOME_PAGE_ID } from '../../../../../repositories/presenter/presenter-store';
 import { PresenterScreenEntity } from '../../../../../repositories/presenter/screen-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
@@ -51,7 +54,10 @@ export const ScreenPane = () => {
               );
             }}
           >
-            <Text size="sm">{screen.id}</Text>
+            <Group>
+              <Text size="sm">{screen.id}</Text>
+              <Badge>{screen.id === SCREEN_HOME_PAGE_ID && '首页'}</Badge>
+            </Group>
             <MoreButton screenId={screen.id} screen={screen} />
           </Box>
         ))}
@@ -80,7 +86,7 @@ const MoreButton = ({
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Item icon={<IconTrash size={14} />} onClick={open}>
+        <Menu.Item icon={<IconEdit size={14} />} onClick={open}>
           编辑
         </Menu.Item>
         <Menu.Item
@@ -91,6 +97,7 @@ const MoreButton = ({
               screenId,
             );
           }}
+          disabled={screenId === SCREEN_HOME_PAGE_ID}
         >
           删除
         </Menu.Item>
