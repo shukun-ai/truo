@@ -47,7 +47,6 @@ export class DeserializationService implements IDeserializationService {
     screenEntities.forEach((screen) => {
       screens[screen.id] = {
         layout: screen.layout,
-        title: screen.title,
         slots: screen.slots,
       };
     });

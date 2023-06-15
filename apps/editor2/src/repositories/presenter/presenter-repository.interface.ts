@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 
 import { IContainerRepository } from './container-repository.interface';
 import { IDeserializationService } from './deserialization-service.interface';
+import { IScreenRepository } from './screen-repository.interface';
 import { ISerializationService } from './serialization-service.interface';
 import { ISynchronizeService } from './synchronize-service.interface';
 import { ITabRepository } from './tab-repository.interface';
 import { IWidgetRepository } from './widget-repository.interface';
 
 export interface IPresenterRepository {
+  screenRepository: IScreenRepository;
   containerRepository: IContainerRepository;
   widgetRepository: IWidgetRepository;
   tabRepository: ITabRepository;
