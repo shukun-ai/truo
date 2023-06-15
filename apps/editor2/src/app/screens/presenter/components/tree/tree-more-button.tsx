@@ -24,7 +24,7 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
 
   const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      app.repositories.presenterRepository.containerRepository.addWidget(
+      app.repositories.presenterRepository.treeRepository.addWidget(
         'sibling',
         values.widgetTag,
         values.widgetTitle,
@@ -43,14 +43,14 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
 
   const onChildSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      app.repositories.presenterRepository.containerRepository.addWidget(
+      app.repositories.presenterRepository.treeRepository.addWidget(
         'insert',
         values.widgetTag,
         values.widgetTitle,
         sourceNodeId,
       );
     },
-    [app.repositories.presenterRepository.containerRepository, sourceNodeId],
+    [app.repositories.presenterRepository.treeRepository, sourceNodeId],
   );
 
   const handleChildCreate = useCallback(() => {
@@ -84,7 +84,7 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            app.repositories.presenterRepository.containerRepository.removeTreeNode(
+            app.repositories.presenterRepository.treeRepository.removeTreeNode(
               sourceNodeId,
             );
           }}

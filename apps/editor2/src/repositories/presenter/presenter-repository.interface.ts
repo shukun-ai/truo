@@ -7,12 +7,14 @@ import { IScreenRepository } from './screen-repository.interface';
 import { ISerializationService } from './serialization-service.interface';
 import { ISynchronizeService } from './synchronize-service.interface';
 import { ITabRepository } from './tab-repository.interface';
+import { ITreeRepository } from './tree-repository.interface';
 import { IWidgetRepository } from './widget-repository.interface';
 
 export interface IPresenterRepository {
   screenRepository: IScreenRepository;
   containerRepository: IContainerRepository;
   widgetRepository: IWidgetRepository;
+  treeRepository: ITreeRepository;
   tabRepository: ITabRepository;
   serializationService: ISerializationService;
   deserializationService: IDeserializationService;

@@ -16,7 +16,7 @@ export const TreePane = () => {
   const { classes, cx } = useStyles();
   const app = useAppContext();
   const treeNodes = useObservableState(
-    app.repositories.presenterRepository.containerRepository.selectedTreeNodes$,
+    app.repositories.presenterRepository.treeRepository.selectedTreeNodes$,
     {},
   );
   const selectedWidgets = useObservableState(
@@ -28,8 +28,7 @@ export const TreePane = () => {
     null,
   );
   const treeCollapses = useObservableState(
-    app.repositories.presenterRepository.containerRepository
-      .selectedTreeCollapses$,
+    app.repositories.presenterRepository.treeRepository.selectedTreeCollapses$,
     {},
   );
   const selectedWidgetId = useObservableState(
