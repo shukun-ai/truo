@@ -18,6 +18,7 @@ export type PresenterProps = {
 };
 
 export const ROOT_NODE_ID = 'root';
+export const SCREEN_HOME_PAGE_ID = 'home';
 
 export const presenterStore = createStore(
   { name: 'presenter' },
