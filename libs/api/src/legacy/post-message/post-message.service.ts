@@ -3,6 +3,7 @@ import Postmate from 'postmate';
 import { BehaviorSubject } from 'rxjs';
 
 import {
+  IPostMessageService,
   PostMessageEvent,
   PostMessageNotificationProps,
 } from './post-message.interface';
@@ -16,35 +17,45 @@ import {
 } from './post-message.interface';
 import {} from './post-message.interface';
 
-export class PostMessageService {
+export class PostMessageService implements IPostMessageService {
   protected handshake: Promise<Postmate.ChildAPI>;
 
-  public auth$ = new BehaviorSubject<PostMessageAuth>(null);
+  protected _auth$ = new BehaviorSubject<PostMessageAuth>(null);
 
-  public sources$ = new BehaviorSubject<PostMessageSources>(null);
+  protected _sources$ = new BehaviorSubject<PostMessageSources>(null);
 
-  public search$ = new BehaviorSubject<PostMessageSearch>(null);
+  protected _search$ = new BehaviorSubject<PostMessageSearch>(null);
 
-  public customMode$ = new BehaviorSubject<PostMessageCustomMode>(null);
+  protected _customMode$ = new BehaviorSubject<PostMessageCustomMode>(null);
 
-  public environment$ = new BehaviorSubject<PostMessageEnvironment>(null);
+  protected _environment$ = new BehaviorSubject<PostMessageEnvironment>(null);
+
+  public auth$ = this._auth$.asObservable();
+
+  public sources$ = this._sources$.asObservable();
+
+  public search$ = this._search$.asObservable();
+
+  public customMode$ = this._customMode$.asObservable();
+
+  public environment$ = this._environment$.asObservable();
 
   constructor() {
     this.handshake = new Postmate.Model({
       [PostMessageEvent.ON_AUTH]: (value: PostMessageAuth) => {
-        this.auth$.next(value);
+        this._auth$.next(value);
       },
       [PostMessageEvent.ON_SOURCES]: (value: PostMessageSources) => {
-        this.sources$.next(value);
+        this._sources$.next(value);
       },
       [PostMessageEvent.ON_SEARCH]: (value: PostMessageSearch) => {
-        this.search$.next(value);
+        this._search$.next(value);
       },
       [PostMessageEvent.ON_CUSTOM_MODE]: (value: PostMessageCustomMode) => {
-        this.customMode$.next(value);
+        this._customMode$.next(value);
       },
       [PostMessageEvent.ON_ENVIRONMENT]: (value: PostMessageEnvironment) => {
-        this.environment$.next(value);
+        this._environment$.next(value);
       },
     });
   }

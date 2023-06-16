@@ -1,4 +1,5 @@
 import { HttpQuerySchema, IDString } from '@shukun/schema';
+import { Observable } from 'rxjs';
 
 // TODO: should be extract a shared lib
 interface AuthModel {
@@ -68,3 +69,24 @@ export type PostMessageNotificationProps = {
   type?: 'success' | 'error' | 'info' | 'warning';
   duration?: number;
 };
+
+export interface IPostMessageService {
+  auth$: Observable<PostMessageAuth>;
+  sources$: Observable<PostMessageSources>;
+  search$: Observable<PostMessageSearch>;
+  customMode$: Observable<PostMessageCustomMode>;
+  environment$: Observable<PostMessageEnvironment>;
+  emitFinish(): Promise<void>;
+  emitRefresh(): Promise<void>;
+  emitSearch(search: PostMessageSearch): Promise<void>;
+  /**
+   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
+   */
+  emitWidth(width: string | null): Promise<void>;
+  /**
+   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
+   */
+  emitHeight(height: string | null): Promise<void>;
+  emitNotification(props: PostMessageNotificationProps): Promise<void>;
+  emitLoading(loading: boolean): Promise<void>;
+}
