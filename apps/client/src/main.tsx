@@ -12,11 +12,7 @@ import { registerExceptionListeners } from './utils/exceptions/registerException
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+root.render(<App />);
 
 // Catch all exception globally
 registerExceptionListeners();
