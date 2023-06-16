@@ -15,12 +15,9 @@ export class SourceExceptionService {
       .map((electron) => electron.name)
       .join(', ');
 
-    return new SourceDuplicateException(
-      '{{electronNames}}: should be unique.',
-      {
-        electronNames,
-      },
-    );
+    return new SourceDuplicateException('{{electronNames}} should be unique', {
+      electronNames,
+    });
   }
 
   public prepareUnknownException(error: unknown): SourceUnknownException {

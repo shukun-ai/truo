@@ -113,7 +113,7 @@ describe('Source apis', () => {
         expect(error).toEqual(
           new ApiResponseException(
             400,
-            '{{electronNames}}: should be unique.',
+            '{{electronNames}} should be unique',
             { electronNames: 'number' },
             'SourceDuplicateException',
           ),
