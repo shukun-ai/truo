@@ -12,6 +12,11 @@ export class AuthRepository implements IAuthRepository {
 
   constructor(private readonly apiRequester: ApiRequester) {}
 
+  getOrgName(): string | null {
+    const { currentUser } = this.authStore.getValue();
+    return currentUser?.orgName ?? null;
+  }
+
   async signIn({
     orgName,
     username,

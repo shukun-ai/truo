@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface IAuthRepository {
   currentUser$: Observable<AuthenticationToken | null>;
+  getOrgName(): string | null;
   signIn(payload: {
     orgName: string;
     username: string;
