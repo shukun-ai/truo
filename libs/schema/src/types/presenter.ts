@@ -53,7 +53,6 @@ export interface PresenterContainer {
     [k: string]: PresenterRepository;
   };
   widgets: PresenterWidgets;
-  root: PresenterTreeNode[];
   tree: PresenterTreeNodes;
 }
 export interface PresenterRepositorySimple {

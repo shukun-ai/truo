@@ -33,7 +33,6 @@ export class DeserializationService implements IDeserializationService {
         label: container.label,
         repositories: {},
         widgets: this.buildWidgets(container.id),
-        root: [],
         tree: container.tree,
       };
     });
