@@ -1,9 +1,13 @@
 import { Box, Table } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useDidMount } from 'rooks';
 
 import { useAppContext } from '../../../contexts/app-context';
+
+import { useRouteOrgName } from '../../../hooks/use-route-org-name';
+import { routerMap } from '../../../router-map';
 
 import { PresenterCreateButton } from './presenter-create-button';
 
@@ -32,6 +36,8 @@ export const PresenterSection = () => {
     ],
   );
 
+  const routeOrgName = useRouteOrgName();
+
   useDidMount(() => {
     app.repositories.globalRepository.fetchPresenters();
   });
@@ -49,7 +55,15 @@ export const PresenterSection = () => {
         <tbody>
           {presenters?.map((presenter) => (
             <tr>
-              <td>{presenter.name}</td>
+              <td>
+                <Link
+                  to={routerMap.presenter
+                    .replace(':orgName', routeOrgName)
+                    .replace(':presenterName', presenter.name)}
+                >
+                  {presenter.name}
+                </Link>
+              </td>
               <td>{presenter.definition.label}</td>
             </tr>
           ))}
