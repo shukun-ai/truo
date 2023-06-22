@@ -31,10 +31,6 @@
         }
       }
     },
-    "root": {
-      "type": "array",
-      "items": { "$ref": "#/definitions/PresenterTreeNode" }
-    },
     "tree": {
       "type": "object",
       "title": "PresenterTreeNodes",

@@ -12,9 +12,9 @@ export type ContainerProps = {
 };
 
 export const Container = ({ containerId, container, app }: ContainerProps) => {
-  return (
-    <div>{assembleWidgets(containerId, container.root, container, app)}</div>
-  );
+  const root: string[] = container.tree?.['root'] ?? [];
+
+  return <div>{assembleWidgets(containerId, root, container, app)}</div>;
 };
 
 const assembleWidgets = (
