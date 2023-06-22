@@ -1,5 +1,6 @@
 import {
   ITemplateService,
+  CODE_MODE_JS_PREFIX,
   TemplateBasicOutput,
   TemplateEvaluateHelpers,
   TemplateEvaluateStates,
@@ -15,13 +16,15 @@ export class TemplateService implements ITemplateService {
       return template;
     }
 
+    if (!template.startsWith(CODE_MODE_JS_PREFIX)) {
+      return template;
+    }
+
+    const code = template.slice(CODE_MODE_JS_PREFIX.length, template.length);
+
     // eslint-disable-next-line no-new-func
-    const run = new Function(
-      '$',
-      '$$',
-      'literal',
-      'return literal`' + template + '`',
-    );
+    const run = new Function('$', '$$', 'literal', code);
+
     const literal = (texts: string[], ...expressions: string[]) => {
       return {
         texts,
@@ -31,28 +34,6 @@ export class TemplateService implements ITemplateService {
     const $ = states;
     const $$ = helpers;
     const value = run($, $$, literal);
-    return this.evaluate(value.texts, value.expressions);
-  }
-
-  private evaluate(texts: string[], expressions: unknown[]) {
-    const isRaw =
-      texts.length === 2 &&
-      texts.every((item) => item.trim() === '') &&
-      expressions.length === 1;
-
-    if (isRaw) {
-      return expressions[0];
-    }
-
-    const set: unknown[] = [];
-
-    texts.forEach((text, index) => {
-      if (index > 0) {
-        set.push(expressions[index - 1]);
-      }
-      set.push(text);
-    });
-
-    return set.join('');
+    return value;
   }
 }

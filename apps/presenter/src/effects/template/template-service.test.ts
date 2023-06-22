@@ -19,7 +19,7 @@ describe('TemplateService', () => {
     it('One parameter and it is a integer', () => {
       expect(
         new TemplateService().run(
-          '${$.currentUser.age}',
+          '$$_js:return $.currentUser.age;',
           {
             currentUser: {
               age: 26,
@@ -33,7 +33,7 @@ describe('TemplateService', () => {
     it('Two parameter', () => {
       expect(
         new TemplateService().run(
-          '${ $.currentUser.name + " is " + $.role.name }',
+          '$$_js:return $.currentUser.name + " is " + $.role.name;',
           {
             currentUser: {
               name: 'Bob',
@@ -50,7 +50,7 @@ describe('TemplateService', () => {
     it('Template literal.', () => {
       expect(
         new TemplateService().run(
-          '${ `${$.currentUser.name} is ${$.role.name}` }',
+          '$$_js:return `${$.currentUser.name} is ${$.role.name}`;',
           {
             currentUser: {
               name: 'Bob',
@@ -67,7 +67,7 @@ describe('TemplateService', () => {
     it('One parameter with string', () => {
       expect(
         new TemplateService().run(
-          'Name: ${$.currentUser.name}',
+          '$$_js:return "Name: " + $.currentUser.name;',
           {
             currentUser: {
               name: 'Bob',
@@ -81,7 +81,7 @@ describe('TemplateService', () => {
     it('Raw object.', () => {
       expect(
         new TemplateService().run(
-          '${{ key: $.currentUser.name }}',
+          '$$_js:return { key: $.currentUser.name }',
           {
             currentUser: {
               name: 'Bob',
@@ -95,7 +95,7 @@ describe('TemplateService', () => {
     it('Closure', () => {
       expect(
         new TemplateService().run(
-          '${ (() => { return $.currentUser.name })() }',
+          '$$_js:return (() => { return $.currentUser.name })();',
           {
             currentUser: {
               name: 'Bob',
@@ -109,7 +109,7 @@ describe('TemplateService', () => {
     it('Closure', () => {
       expect(
         new TemplateService().run(
-          '${ $$.get($.currentUser, "name") }',
+          '$$_js:return $$.get($.currentUser, "name");',
           {
             currentUser: {
               name: 'Bob',

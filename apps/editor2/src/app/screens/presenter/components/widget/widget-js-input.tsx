@@ -2,11 +2,11 @@ import { javascript } from '@codemirror/lang-javascript';
 import { ViewUpdate, EditorView } from '@codemirror/view';
 import { Box } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
+import { CODE_MODE_JS_PREFIX } from '@shukun/widget';
 import { useEffect, useMemo } from 'react';
 
 import { useCodeMirror } from './use-code-mirror';
 import { useWidgetFormContext } from './widget-context';
-import { JS_PREFIX } from './widget-input-prefix';
 
 export type WidgetJsInputProps = {
   propertyId: string;
@@ -19,11 +19,14 @@ export const WidgetJsInput = ({ propertyId }: WidgetJsInputProps) => {
 
   const { ref, view } = useCodeMirror([
     javascript(),
-    onUpdate((value) => formProps.onChange(`${JS_PREFIX}${value}`)),
+    onUpdate((value) => formProps.onChange(`${CODE_MODE_JS_PREFIX}${value}`)),
   ]);
 
   const value = useMemo(() => {
-    return formProps.value.substring(JS_PREFIX.length, formProps.value.length);
+    return formProps.value.substring(
+      CODE_MODE_JS_PREFIX.length,
+      formProps.value.length,
+    );
   }, [formProps.value]);
 
   useEffect(() => {

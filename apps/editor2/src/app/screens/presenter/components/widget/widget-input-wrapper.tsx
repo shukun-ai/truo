@@ -1,10 +1,10 @@
 import { ActionIcon, Box, Group, Tooltip } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
+import { CODE_MODE_JS_PREFIX } from '@shukun/widget';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { useCallback, useMemo } from 'react';
 
 import { useWidgetFormContext } from './widget-context';
-import { JS_PREFIX } from './widget-input-prefix';
 import { WidgetJsInput } from './widget-js-input';
 
 export type WidgetInputWrapperProps = {
@@ -35,7 +35,7 @@ export const WidgetInputWrapper = ({
       typeof formProps.value === 'object'
     ) {
       return 'simple';
-    } else if (formProps.value.startsWith(JS_PREFIX)) {
+    } else if (formProps.value.startsWith(CODE_MODE_JS_PREFIX)) {
       return 'js';
     } else {
       return 'simple';
@@ -47,7 +47,7 @@ export const WidgetInputWrapper = ({
       if (mode === 'simple') {
         formProps.onChange(undefined);
       } else if (mode === 'js') {
-        formProps.onChange(JS_PREFIX);
+        formProps.onChange(CODE_MODE_JS_PREFIX);
       }
     },
     [formProps],
