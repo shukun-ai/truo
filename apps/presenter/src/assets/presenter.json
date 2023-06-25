@@ -38,7 +38,8 @@
                 "scope": "container",
                 "target": "searchForm",
                 "action": "set",
-                "convertor": "$$_js:return { path: ['keyword'], value: $.payload.keyword }"
+                "path": [],
+                "convertor": "$$_js:return $.payload.keyword"
               }
             ]
           }
