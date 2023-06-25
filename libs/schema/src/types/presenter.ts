@@ -6,19 +6,6 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(.)+$".
- */
-export type PresenterRepository =
-  | PresenterRepositorySimple
-  | PresenterRepositorySourceQuery
-  | PresenterRepositoryTransformer
-  | PresenterRepositoryFlow;
-export type PresenterEvent =
-  | PresenterEventSetRepository
-  | PresenterEventTriggerRepository
-  | PresenterEventNavigation;
 export type PresenterTreeNode = string;
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
@@ -49,34 +36,19 @@ export interface PresenterContainer {
   $schema?: string;
   label: string;
   type: 'page';
-  repositories: {
-    [k: string]: PresenterRepository;
-  };
+  repositories: PresenterRepositories;
   widgets: PresenterWidgets;
   tree: PresenterTreeNodes;
 }
-export interface PresenterRepositorySimple {
-  type: 'Simple';
-  [k: string]: unknown;
+export interface PresenterRepositories {
+  [k: string]: PresenterRepository;
 }
-export interface PresenterRepositorySourceQuery {
-  type: 'SourceQuery';
-  atomName: string;
-  query: {
-    [k: string]: unknown;
-  };
-  [k: string]: unknown;
-}
-export interface PresenterRepositoryTransformer {
-  type: 'Transformer';
-  func: string;
-  [k: string]: unknown;
-}
-export interface PresenterRepositoryFlow {
-  type: 'Flow';
-  flowName: string;
-  flowInput: string;
-  [k: string]: unknown;
+/**
+ * This interface was referenced by `PresenterRepositories`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export interface PresenterRepository {
+  type: string;
 }
 export interface PresenterWidgets {
   [k: string]: PresenterWidget;
@@ -111,39 +83,20 @@ export interface PresenterWidget {
     [k: string]: PresenterEvent[];
   };
 }
-export interface PresenterEventSetRepository {
-  action: 'setRepository';
-  target: string;
-  path: string[];
+export interface PresenterEvent {
+  scope: 'app' | 'container';
   /**
-   * template syntax
+   * Target for repository
    */
-  convertor?: string;
-  [k: string]: unknown;
-}
-export interface PresenterEventTriggerRepository {
-  action: 'triggerRepository';
   target: string;
   /**
-   * template syntax
+   * The action from repository
    */
-  convertor?: string;
-  [k: string]: unknown;
-}
-/**
- * Note: the navigation is only used inside app. If want to open external page, please add new event.
- */
-export interface PresenterEventNavigation {
-  action: 'navigation';
+  action: string;
   /**
-   * template syntax
+   * convert the widget payload to repository input.
    */
-  page: string;
-  /**
-   * template syntax
-   */
-  search?: string;
-  [k: string]: unknown;
+  convertor: string;
 }
 export interface PresenterTreeNodes {
   /**

@@ -1,4 +1,3 @@
-import { PresenterRepositorySimple } from '@shukun/schema';
 import { FormRepositoryFields, IFormRepository } from '@shukun/widget';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -7,10 +6,7 @@ export class FormRepository implements IFormRepository {
 
   private fields: BehaviorSubject<Record<string, unknown>>;
 
-  private schema: PresenterRepositorySimple;
-
-  constructor(repository: PresenterRepositorySimple) {
-    this.schema = repository;
+  constructor() {
     this.fields = new BehaviorSubject({});
   }
   setFieldValue(path: string, value: unknown): void {

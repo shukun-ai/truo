@@ -1,0 +1,80 @@
+{
+  "label": "test",
+  "containers": {
+    "jNgZvOaZlgvIXYGXYAFVR": {
+      "type": "page",
+      "label": "操作台",
+      "repositories": {
+        "searchForm": {
+          "type": "simple",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "keyword": { "type": "string" }
+            }
+          },
+          "defaultValue": {
+            "keyword": "Discount"
+          }
+        }
+      },
+      "widgets": {
+        "huYq4i": {
+          "tag": "sk-text",
+          "label": "欢迎说明",
+          "properties": { "value": "欢迎使用操作台" },
+          "events": {}
+        },
+        "FW9ydN": {
+          "tag": "sk-form",
+          "label": "信息查询",
+          "properties": {
+            "submitButtonText": "搜索",
+            "resetButtonText": "重置"
+          },
+          "events": {
+            "submit": [
+              {
+                "scope": "container",
+                "target": "searchForm",
+                "action": "set",
+                "convertor": "$$_js:return { path: ['keyword'], value: $.payload.keyword }"
+              }
+            ]
+          }
+        },
+        "8hfgZV": {
+          "tag": "sk-input",
+          "label": "输入关键词",
+          "properties": {
+            "name": "keyword",
+            "placeholder": "",
+            "label": "查询关键词"
+          },
+          "events": {}
+        },
+        "BpLFZY": {
+          "tag": "sk-text",
+          "label": "查询内容",
+          "properties": {
+            "value": "$$_js:return `查询为：${$.searchForm.keyword}`;"
+          },
+          "events": {}
+        }
+      },
+      "tree": {
+        "root": ["huYq4i", "FW9ydN", "BpLFZY"],
+        "huYq4i": [],
+        "FW9ydN": ["8hfgZV"],
+        "8hfgZV": [],
+        "BpLFZY": []
+      }
+    }
+  },
+  "screens": {
+    "home": {
+      "layout": "Dashboard",
+      "slots": { "main": "jNgZvOaZlgvIXYGXYAFVR" }
+    }
+  }
+}
