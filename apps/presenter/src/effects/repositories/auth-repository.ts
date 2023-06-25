@@ -1,4 +1,3 @@
-import { TypeException } from '@shukun/exception';
 import { AuthenticationToken } from '@shukun/schema';
 import { IAuthRepository, AuthRepositoryStates } from '@shukun/widget';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -6,8 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IAuthStorage } from '../storages/auth-storage.interface';
 
 export class AuthRepository implements IAuthRepository {
-  readonly type = 'Auth';
-
   private states: BehaviorSubject<AuthRepositoryStates>;
 
   constructor(private readonly authStorage: IAuthStorage) {
@@ -25,26 +22,8 @@ export class AuthRepository implements IAuthRepository {
     return this.states.getValue();
   }
 
-  setValue(): void {
-    throw new TypeException(
-      'We did not support setValue for UserRepository for Security.',
-    );
-  }
-
-  resetValue(): void {
-    throw new TypeException(
-      'We did not support resetValue for UserRepository for Security.',
-    );
-  }
-
   destroy(): void {
     this.states.unsubscribe();
-  }
-
-  trigger(): void {
-    throw new TypeException(
-      'We did not support trigger for UserRepository for Security.',
-    );
   }
 
   signIn(token: AuthenticationToken): void {

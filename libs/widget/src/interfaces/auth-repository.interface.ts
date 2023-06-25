@@ -6,7 +6,6 @@ import { IRepository } from './repository.interface';
 export interface IAuthRepository extends IRepository {
   query(): Observable<AuthRepositoryStates>;
   getValue(): AuthRepositoryStates;
-  trigger(): void;
   signIn(auth: AuthenticationToken): void;
   signOut(): void;
 }
