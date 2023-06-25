@@ -53,11 +53,12 @@ export const WidgetWrapper = ({
         properties[propertyId] = (payload: unknown) => {
           const events = widget.events[propertyId];
           events?.forEach((event) => {
-            handleEvent(event, payload, {
+            handleEvent(event, {
               repositoryManager: app.repositoryManager,
               templateService: app.templateService,
-              states,
+              states: { payload, ...states },
               containerId,
+              helpers: app.helpers,
             });
           });
         };
@@ -91,7 +92,7 @@ const evaluateTemplate = (
   templateService: ITemplateService,
   states: Record<string, unknown>,
   helpers: TemplateEvaluateHelpers,
-) => {
+): unknown => {
   const value = templateService.run(template, states, helpers);
   return value;
 };

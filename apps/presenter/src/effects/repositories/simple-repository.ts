@@ -1,4 +1,3 @@
-import { PresenterRepositorySimple } from '@shukun/schema';
 import { IRepository } from '@shukun/widget';
 import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -8,10 +7,7 @@ export class SimpleRepository implements IRepository {
 
   private fields: BehaviorSubject<Record<string, unknown>>;
 
-  private schema: PresenterRepositorySimple;
-
-  constructor(repository: PresenterRepositorySimple) {
-    this.schema = repository;
+  constructor() {
     this.fields = new BehaviorSubject({});
   }
 

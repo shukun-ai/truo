@@ -9,6 +9,7 @@ import { isRolePermission } from '../../base-validator/is-role-permission';
 export function createBaseAjv(options?: Options) {
   return new Ajv({ allowUnionTypes: true, ...options })
     .addKeyword('tsEnumNames')
+    .addKeyword('tsType')
     .addKeyword('skEditorType')
     .addFormat('email', {
       type: 'string',
