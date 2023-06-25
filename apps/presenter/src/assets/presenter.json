@@ -16,6 +16,13 @@
           "defaultValue": {
             "keyword": "Discount"
           }
+        },
+        "airportSearch": {
+          "type": "sourceQuery",
+          "parameters": {
+            "atomName": "airport",
+            "query": "$$_js:return { filter: { code: $.searchForm.keyword }, limit: 20 };"
+          }
         }
       },
       "widgets": {
@@ -39,6 +46,11 @@
                 "scope": "container",
                 "target": "searchForm",
                 "action": "set"
+              },
+              {
+                "scope": "container",
+                "target": "airportSearch",
+                "action": "run"
               }
             ]
           }

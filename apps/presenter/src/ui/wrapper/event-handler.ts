@@ -1,8 +1,12 @@
+import { TypeException } from '@shukun/exception';
 import { PresenterEvent } from '@shukun/schema';
 
 import { IRepositoryManager, TemplateEvaluateHelpers } from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
+
+import { SimpleRepository } from '../../effects/repositories/simple-repository';
+import { SourceQueryRepository } from '../../effects/repositories/source-query-repository';
 
 export type EventHandlerContext = {
   containerId: string;
@@ -16,19 +20,55 @@ export const handleEvent = (
   event: PresenterEvent,
   context: EventHandlerContext,
 ): void => {
-  const { value, target, path } = event;
+  const repository = context.repositoryManager.get({
+    scope: event.scope,
+    containerId: context.containerId,
+    repositoryId: event.target,
+  });
+
+  if (repository instanceof SimpleRepository) {
+    return handleSimpleEvent(repository, event, context);
+  } else if (repository instanceof SourceQueryRepository) {
+    return handleSourceQueryEvent(repository, event, context);
+  }
+};
+
+const handleSimpleEvent = (
+  repository: SimpleRepository,
+  event: PresenterEvent,
+  context: EventHandlerContext,
+): void => {
+  const { value, path, action } = event;
+  if (action !== 'set') {
+    throw new TypeException(
+      'Did not support other action for SimpleRepository.: {{action}}',
+      {
+        action,
+      },
+    );
+  }
   const parsedValue = value
     ? parseTemplate(value, context)
     : getPayload(context);
+  repository.setValue(path ?? [], parsedValue);
+};
 
-  context.repositoryManager.setValue(
+const handleSourceQueryEvent = (
+  repository: SourceQueryRepository,
+  event: PresenterEvent,
+  context: EventHandlerContext,
+): void => {
+  const { action } = event;
+  if (action === 'run') {
+    repository.run();
+    return;
+  }
+  throw new TypeException(
+    'Did not support other action for SourceQueryRepository: {{action}}' +
+      action,
     {
-      scope: 'container',
-      containerId: context.containerId,
-      repositoryId: target,
+      action,
     },
-    path ?? [],
-    parsedValue,
   );
 };
 

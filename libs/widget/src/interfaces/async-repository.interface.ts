@@ -1,13 +1,12 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export type AsyncState = {
   loading: boolean;
   errorMessage: string | null;
-  data: unknown;
+  data: Record<string, unknown>;
 };
 
 export interface IAsyncRepository {
-  readonly state: BehaviorSubject<AsyncState>;
   destroy(): void;
   getValue(): AsyncState;
   resetValue(): void;
