@@ -15,6 +15,8 @@ export interface IRepositoryManager {
   queryAll(): Observable<Record<string, unknown>>;
   trigger(identifier: repositoryIdentifier, payload: unknown): void;
 
+  get(identifier: repositoryIdentifier): IRepository;
+
   registerRouterRepository(routerRepository: IRouterRepository): void;
   getRouterRepository(): IRouterRepository;
 

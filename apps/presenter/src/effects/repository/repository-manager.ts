@@ -12,13 +12,22 @@ import { SimpleRepository } from '../repositories/simple-repository';
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
 
-  public register(
-    identifier: repositoryIdentifier,
-    repository: IRepository,
-  ): void {
+  register(identifier: repositoryIdentifier, repository: IRepository): void {
     this.repositories.set(this.getRepositoryKey(identifier), repository);
   }
 
+  get(identifier: repositoryIdentifier): IRepository {
+    const key = this.getRepositoryKey(identifier);
+    const repository = this.repositories.get(key);
+    if (!repository) {
+      throw new TypeException('Did not find repository: {{key}}', { key });
+    }
+    return repository;
+  }
+
+  /**
+   * @deprecated
+   */
   public setValue(
     identifier: repositoryIdentifier,
     path: (string | number)[],
@@ -63,11 +72,17 @@ export class RepositoryManager implements IRepositoryManager {
     );
   }
 
+  /**
+   * @deprecated
+   */
   public trigger(identifier: repositoryIdentifier, payload: unknown): void {
     // TODO refactor
     // this.repositories.get(this.getRepositoryKey(identifier))?.trigger(payload);
   }
 
+  /**
+   * @deprecated
+   */
   public registerRouterRepository(routerRepository: IRouterRepository): void {
     this.register(
       { scope: 'app', containerId: 'app', repositoryId: 'router' },
@@ -75,6 +90,9 @@ export class RepositoryManager implements IRepositoryManager {
     );
   }
 
+  /**
+   * @deprecated
+   */
   public getRouterRepository(): IRouterRepository {
     const repository = this.repositories.get(
       this.getRepositoryKey({
@@ -91,6 +109,9 @@ export class RepositoryManager implements IRepositoryManager {
     return repository as IRouterRepository;
   }
 
+  /**
+   * @deprecated
+   */
   registerAuthRepository(authRepository: IAuthRepository): void {
     this.register(
       { scope: 'app', containerId: 'app', repositoryId: 'auth' },
@@ -98,6 +119,9 @@ export class RepositoryManager implements IRepositoryManager {
     );
   }
 
+  /**
+   * @deprecated
+   */
   getAuthRepository(): IAuthRepository {
     const repository = this.repositories.get(
       this.getRepositoryKey({

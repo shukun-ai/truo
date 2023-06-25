@@ -1,6 +1,6 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterContainer, PresenterSchema } from '@shukun/schema';
-import { IRepositoryManager } from '@shukun/widget';
+import { IApiRequester, IRepositoryManager } from '@shukun/widget';
 import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
@@ -9,6 +9,7 @@ import { ServerLoader } from './loaders/server-loader';
 import { AuthRepository } from './repositories/auth-repository';
 import { RouterRepository } from './repositories/router-repository';
 import { SimpleRepository } from './repositories/simple-repository';
+import { SourceQueryRepository } from './repositories/source-query-repository';
 import { RepositoryManager } from './repository/repository-manager';
 import { AuthStorage } from './storages/auth-storage';
 import { TemplateService } from './template/template-service';
@@ -28,7 +29,7 @@ export const createBrowserEffect = async () => {
 
   repositoryManager.registerAuthRepository(authRepository);
   repositoryManager.registerRouterRepository(routerRepository);
-  registerContainers(repositoryManager, definitions.presenter);
+  registerContainers(apiRequester, repositoryManager, definitions.presenter);
 
   const injector: EffectInjector = {
     authStorage,
@@ -45,15 +46,17 @@ export const createBrowserEffect = async () => {
 };
 
 const registerContainers = (
+  apiRequester: IApiRequester,
   repositoryManager: IRepositoryManager,
   presenter: PresenterSchema,
 ) => {
   for (const [containerId, container] of Object.entries(presenter.containers)) {
-    registerContainer(repositoryManager, containerId, container);
+    registerContainer(apiRequester, repositoryManager, containerId, container);
   }
 };
 
 const registerContainer = (
+  apiRequester: IApiRequester,
   repositoryManager: IRepositoryManager,
   containerId: string,
   container: PresenterContainer,
@@ -61,12 +64,21 @@ const registerContainer = (
   for (const [repositoryId, definition] of Object.entries(
     container.repositories,
   )) {
-    // TODO remove switch
     switch (definition.type) {
       case 'simple':
         repositoryManager.register(
           { scope: 'container', containerId, repositoryId },
           new SimpleRepository(definition.defaultValue),
+        );
+        break;
+      case 'sourceQuery':
+        repositoryManager.register(
+          { scope: 'container', containerId, repositoryId },
+          new SourceQueryRepository(apiRequester, {
+            // TODO get the parameters from presenter definition
+            atomName: 'airports',
+            query: {},
+          }),
         );
         break;
       default:
