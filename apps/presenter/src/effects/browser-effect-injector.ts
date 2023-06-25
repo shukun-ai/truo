@@ -66,7 +66,7 @@ const registerContainer = (
       case 'simple':
         repositoryManager.register(
           { scope: 'container', containerId, repositoryId },
-          new SimpleRepository(),
+          new SimpleRepository(definition.defaultValue),
         );
         break;
       default:

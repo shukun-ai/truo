@@ -5,6 +5,7 @@
   "required": ["type"],
   "additionalProperties": false,
   "properties": {
-    "type": { "type": "string" }
+    "type": { "type": "string" },
+    "defaultValue": { "tsType": "unknown" }
   }
 }
