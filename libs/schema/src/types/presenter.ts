@@ -93,10 +93,11 @@ export interface PresenterEvent {
    * The action from repository
    */
   action: string;
+  path?: string[];
   /**
    * convert the widget payload to repository input.
    */
-  convertor: string;
+  value?: string;
 }
 export interface PresenterTreeNodes {
   /**

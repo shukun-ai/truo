@@ -20,9 +20,14 @@ export class SimpleRepository implements IRepository {
   }
 
   setValue(path: (string | number)[], value: unknown): void {
-    const target = cloneDeep(this.fields.getValue());
-    set(target, path, value);
-    this.fields.next(target);
+    if (path.length === 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.fields.next(value as any);
+    } else {
+      const target = cloneDeep(this.fields.getValue());
+      set(target, path, value);
+      this.fields.next(target);
+    }
   }
 
   resetValue(): void {

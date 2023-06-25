@@ -16,10 +16,20 @@ export const handleEvent = (
   event: PresenterEvent,
   context: EventHandlerContext,
 ): void => {
-  const { convertor } = event;
-  const value = parseTemplate(convertor, context);
-  // eslint-disable-next-line no-console
-  console.log('changed value', value);
+  const { value, target, path } = event;
+  const parsedValue = value
+    ? parseTemplate(value, context)
+    : getPayload(context);
+
+  context.repositoryManager.setValue(
+    {
+      scope: 'container',
+      containerId: context.containerId,
+      repositoryId: target,
+    },
+    path ?? [],
+    parsedValue,
+  );
 };
 
 const parseTemplate = (
@@ -27,4 +37,8 @@ const parseTemplate = (
   context: EventHandlerContext,
 ): unknown => {
   return context.templateService.run(template, context.states, context.helpers);
+};
+
+const getPayload = (context: EventHandlerContext) => {
+  return context.states?.['payload'] ?? null;
 };

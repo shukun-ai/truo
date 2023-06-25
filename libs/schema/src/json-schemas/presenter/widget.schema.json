@@ -25,7 +25,7 @@
             "type": "object",
             "title": "PresenterEvent",
             "additionalProperties": false,
-            "required": ["scope", "target", "action", "convertor"],
+            "required": ["scope", "target", "action"],
             "properties": {
               "scope": {
                 "enum": ["app", "container"]
@@ -38,7 +38,14 @@
                 "description": "The action from repository",
                 "type": "string"
               },
-              "convertor": {
+              "path": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "value": {
                 "description": "convert the widget payload to repository input.",
                 "type": "string"
               }

@@ -1,3 +1,4 @@
+import { TypeException } from '@shukun/exception';
 import { PresenterContainer, PresenterSchema } from '@shukun/schema';
 import { IRepositoryManager } from '@shukun/widget';
 import { createBrowserHistory } from 'history';
@@ -68,6 +69,11 @@ const registerContainer = (
           new SimpleRepository(),
         );
         break;
+      default:
+        throw new TypeException(
+          'We did not support this repository type, {{type}}',
+          { type: definition.type },
+        );
     }
   }
 };

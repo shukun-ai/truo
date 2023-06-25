@@ -23,9 +23,12 @@ export class RepositoryManager implements IRepositoryManager {
     path: (string | number)[],
     value: unknown,
   ): void {
-    this.repositories
-      .get(this.getRepositoryKey(identifier))
-      ?.setValue(path, value);
+    const key = this.getRepositoryKey(identifier);
+    const repository = this.repositories.get(key);
+    if (!repository) {
+      throw new TypeException('Did not find repository: {{key}}', { key });
+    }
+    repository.setValue(path, value);
   }
 
   public queryAll(): Observable<Record<string, unknown>> {
