@@ -7,8 +7,11 @@ export class SimpleRepository implements IRepository {
 
   private fields: BehaviorSubject<Record<string, unknown>>;
 
-  constructor() {
-    this.fields = new BehaviorSubject({});
+  constructor(defaultValue: unknown) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const parseDefaultValue: any =
+      typeof defaultValue === 'undefined' ? {} : defaultValue;
+    this.fields = new BehaviorSubject(parseDefaultValue);
   }
 
   query(): Observable<unknown> {

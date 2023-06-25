@@ -49,6 +49,7 @@ export interface PresenterRepositories {
  */
 export interface PresenterRepository {
   type: string;
+  defaultValue?: unknown;
 }
 export interface PresenterWidgets {
   [k: string]: PresenterWidget;
