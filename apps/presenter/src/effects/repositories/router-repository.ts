@@ -4,8 +4,6 @@ import { History, Location } from 'history';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export class RouterRepository implements IRouterRepository {
-  readonly type = 'Router';
-
   private internalStates: BehaviorSubject<RouterRepositoryStates>;
 
   constructor(private readonly history: History) {
@@ -21,14 +19,6 @@ export class RouterRepository implements IRouterRepository {
 
   getValue(): RouterRepositoryStates {
     return this.internalStates.getValue();
-  }
-
-  setValue(): void {
-    throw new TypeException('Did not support update value');
-  }
-
-  resetValue(): void {
-    throw new TypeException('Did not support reset value');
   }
 
   destroy(): void {

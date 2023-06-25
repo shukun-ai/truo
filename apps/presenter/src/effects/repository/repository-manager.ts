@@ -1,12 +1,13 @@
 import { TypeException } from '@shukun/exception';
 import {
   IAuthRepository,
-  IFormRepository,
   IRepository,
   IRouterRepository,
 } from '@shukun/widget';
 import { IRepositoryManager, repositoryIdentifier } from '@shukun/widget';
 import { combineLatest, map, Observable } from 'rxjs';
+
+import { SimpleRepository } from '../repositories/simple-repository';
 
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
@@ -28,7 +29,14 @@ export class RepositoryManager implements IRepositoryManager {
     if (!repository) {
       throw new TypeException('Did not find repository: {{key}}', { key });
     }
-    repository.setValue(path, value);
+    if (repository instanceof SimpleRepository) {
+      repository.setValue(path, value);
+    } else {
+      throw new TypeException(
+        'The repository is not support setValue, repository type is: {{type}}',
+        { type: repository.constructor.name },
+      );
+    }
   }
 
   public queryAll(): Observable<Record<string, unknown>> {
@@ -56,7 +64,8 @@ export class RepositoryManager implements IRepositoryManager {
   }
 
   public trigger(identifier: repositoryIdentifier, payload: unknown): void {
-    this.repositories.get(this.getRepositoryKey(identifier))?.trigger(payload);
+    // TODO refactor
+    // this.repositories.get(this.getRepositoryKey(identifier))?.trigger(payload);
   }
 
   public registerRouterRepository(routerRepository: IRouterRepository): void {
@@ -113,9 +122,5 @@ export class RepositoryManager implements IRepositoryManager {
       case 'container':
         return `container:${containerId}:${repositoryId}`;
     }
-  }
-
-  getFormRepository(): IFormRepository {
-    throw new Error('Method not implemented.');
   }
 }

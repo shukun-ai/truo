@@ -1,47 +1,49 @@
-import { IRepository } from '@shukun/widget';
+import { TypeException } from '@shukun/exception';
+import { ISimpleRepository, SimpleState } from '@shukun/widget';
 import { cloneDeep, set } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export class SimpleRepository implements IRepository {
-  readonly type = 'Simple';
+export class SimpleRepository implements ISimpleRepository {
+  private readonly state: BehaviorSubject<SimpleState>;
 
-  private fields: BehaviorSubject<Record<string, unknown>>;
-
-  constructor(defaultValue: unknown) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const parseDefaultValue: any =
-      typeof defaultValue === 'undefined' ? {} : defaultValue;
-    this.fields = new BehaviorSubject(parseDefaultValue);
+  constructor(private readonly defaultValue: SimpleState) {
+    const parseDefaultValue: SimpleState =
+      typeof this.defaultValue === 'undefined' ? {} : this.defaultValue;
+    this.state = new BehaviorSubject(parseDefaultValue);
   }
 
-  query(): Observable<unknown> {
-    return this.fields;
+  query(): Observable<SimpleState> {
+    return this.state;
   }
 
-  getValue(): unknown {
-    return this.fields.getValue();
+  getValue(): SimpleState {
+    return this.state.getValue();
   }
 
-  setValue(path: (string | number)[], value: unknown): void {
+  setValue(path: (string | number)[], value: SimpleState): void {
     if (path.length === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.fields.next(value as any);
+      this.state.next(value);
     } else {
-      const target = cloneDeep(this.fields.getValue());
-      set(target, path, value);
-      this.fields.next(target);
+      const target = cloneDeep(this.state.getValue());
+
+      if (target === null) {
+        throw new TypeException('The target is null, so we cannot update it.');
+      } else if (typeof target === 'object') {
+        set(target, path, value);
+        this.state.next(target);
+      } else {
+        throw new TypeException(
+          'The target is not a object, so we cannot update it.',
+        );
+      }
     }
   }
 
   resetValue(): void {
-    this.fields.next({});
+    this.state.next(this.defaultValue);
   }
 
   destroy(): void {
-    this.fields.unsubscribe();
-  }
-
-  trigger(): void {
-    throw new Error('Method not implemented.');
+    this.state.unsubscribe();
   }
 }
