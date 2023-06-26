@@ -8,7 +8,6 @@ import { IRouterRepository } from './router-repository.interface';
 export interface IRepositoryManager {
   register(identifier: repositoryIdentifier, repository: IRepository): void;
   queryAll(): Observable<Record<string, unknown>>;
-  trigger(identifier: repositoryIdentifier, payload: unknown): void;
 
   get(identifier: repositoryIdentifier): IRepository;
 
