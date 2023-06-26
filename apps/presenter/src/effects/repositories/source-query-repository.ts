@@ -1,22 +1,14 @@
-import {
-  HttpQuerySchema,
-  PresenterEvent,
-  PresenterRepository,
-} from '@shukun/schema';
-import {
-  AsyncState,
-  EventHandlerContext,
-  IApiRequester,
-  IAsyncRepository,
-} from '@shukun/widget';
+import { HttpQuerySchema, PresenterEvent } from '@shukun/schema';
+import { AsyncState, IApiRequester, IAsyncRepository } from '@shukun/widget';
 import { Observable } from 'rxjs';
 
+import { RepositoryFactoryContext } from './repository-factory.type';
 import { Store } from './store';
 
 export class SourceQueryRepository implements IAsyncRepository {
   private readonly store: Store<AsyncState>;
 
-  constructor(readonly definition: PresenterRepository) {
+  constructor(readonly context: RepositoryFactoryContext) {
     this.store = new Store({
       loading: false,
       errorMessage: null,
@@ -40,30 +32,21 @@ export class SourceQueryRepository implements IAsyncRepository {
     this.store.unsubscribe();
   }
 
-  async run(
-    event: PresenterEvent,
-    context: EventHandlerContext,
-  ): Promise<void> {
+  async run(event: PresenterEvent, payload: unknown): Promise<void> {
     this.store.update((previous) => ({
       ...previous,
       loading: true,
     }));
 
-    const { apiRequester } = context;
-    const { atomName, query } = this.definition.parameters as any;
+    const { apiRequester, definition } = this.context;
+    const { atomName } = definition.parameters as any;
 
     // TODO Validate the parsedQuery is HttpQuerySchema in development mode.
-
-    const parsedQuery = context.templateService.run(
-      query,
-      context.states,
-      context.helpers,
-    );
 
     const response = await this.sendRequester(
       apiRequester,
       atomName,
-      parsedQuery as HttpQuerySchema,
+      payload as HttpQuerySchema,
     );
     this.store.update(() => ({
       loading: false,
