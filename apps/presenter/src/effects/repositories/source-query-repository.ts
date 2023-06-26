@@ -1,21 +1,22 @@
-import { HttpQuerySchema } from '@shukun/schema';
-import { AsyncState, IApiRequester, IAsyncRepository } from '@shukun/widget';
+import {
+  HttpQuerySchema,
+  PresenterEvent,
+  PresenterRepository,
+} from '@shukun/schema';
+import {
+  AsyncState,
+  EventHandlerContext,
+  IApiRequester,
+  IAsyncRepository,
+} from '@shukun/widget';
 import { Observable } from 'rxjs';
 
 import { Store } from './store';
 
-export type SourceQueryProps = {
-  atomName: string;
-  query: HttpQuerySchema;
-};
-
 export class SourceQueryRepository implements IAsyncRepository {
   private readonly store: Store<AsyncState>;
 
-  constructor(
-    private readonly apiRequester: IApiRequester,
-    private readonly parameters: SourceQueryProps,
-  ) {
+  constructor(readonly definition: PresenterRepository) {
     this.store = new Store({
       loading: false,
       errorMessage: null,
@@ -39,28 +40,54 @@ export class SourceQueryRepository implements IAsyncRepository {
     this.store.unsubscribe();
   }
 
-  async run(): Promise<void> {
+  async run(
+    event: PresenterEvent,
+    context: EventHandlerContext,
+  ): Promise<void> {
     this.store.update((previous) => ({
       ...previous,
       loading: true,
     }));
 
-    try {
-      const response = await this.apiRequester
-        .createSourceRequester(this.parameters.atomName)
-        .query(this.parameters.query);
+    const { apiRequester } = context;
+    const { atomName, query } = this.definition.parameters as any;
 
-      this.store.update(() => ({
-        loading: false,
-        errorMessage: null,
-        data: response.data,
-      }));
+    const parsedQuery = context.templateService.run(
+      query,
+      context.states,
+      context.helpers,
+    );
+
+    // TODO Validate the parsedQuery is HttpQuerySchema
+    const response = await this.sendRequester(
+      apiRequester,
+      atomName,
+      parsedQuery as HttpQuerySchema,
+    );
+    this.store.update(() => ({
+      loading: false,
+      errorMessage: null,
+      data: response.data,
+    }));
+  }
+
+  private async sendRequester(
+    apiRequester: IApiRequester,
+    atomName: string,
+    query: HttpQuerySchema,
+  ) {
+    try {
+      const response = await apiRequester
+        .createSourceRequester(atomName)
+        .query(query);
+      return response;
     } catch (error) {
       this.store.update((previous) => ({
         ...previous,
         loading: false,
         errorMessage: error instanceof Error ? error.message : '未知错误',
       }));
+      throw error;
     }
   }
 }

@@ -59,6 +59,7 @@ export const WidgetWrapper = ({
               states: { payload, ...states },
               containerId,
               helpers: app.helpers,
+              apiRequester: app.api,
             });
           });
         };

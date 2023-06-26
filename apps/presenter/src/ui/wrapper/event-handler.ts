@@ -1,84 +1,52 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterEvent } from '@shukun/schema';
 
-import { IRepositoryManager, TemplateEvaluateHelpers } from '@shukun/widget';
-
-import { ITemplateService } from '@shukun/widget';
-
-import { SimpleRepository } from '../../effects/repositories/simple-repository';
-import { SourceQueryRepository } from '../../effects/repositories/source-query-repository';
-
-export type EventHandlerContext = {
-  containerId: string;
-  repositoryManager: IRepositoryManager;
-  templateService: ITemplateService;
-  states: Record<string, unknown>;
-  helpers: TemplateEvaluateHelpers;
-};
+import { EventHandlerContext } from '@shukun/widget';
 
 export const handleEvent = (
   event: PresenterEvent,
   context: EventHandlerContext,
 ): void => {
-  const repository = context.repositoryManager.get({
-    scope: event.scope,
-    containerId: context.containerId,
-    repositoryId: event.target,
-  });
+  const { containerId } = context;
+  const { action, target, scope } = event;
 
-  if (repository instanceof SimpleRepository) {
-    return handleSimpleEvent(repository, event, context);
-  } else if (repository instanceof SourceQueryRepository) {
-    return handleSourceQueryEvent(repository, event, context);
-  }
-};
-
-const handleSimpleEvent = (
-  repository: SimpleRepository,
-  event: PresenterEvent,
-  context: EventHandlerContext,
-): void => {
-  const { value, path, action } = event;
-  if (action !== 'set') {
+  if (!containerId) {
     throw new TypeException(
-      'Did not support other action for SimpleRepository.: {{action}}',
+      'Did not find containerId, action is {{action}} and target is {{target}}',
       {
         action,
+        target,
       },
     );
   }
-  const parsedValue = value
-    ? parseTemplate(value, context)
-    : getPayload(context);
-  repository.setValue(path ?? [], parsedValue);
-};
 
-const handleSourceQueryEvent = (
-  repository: SourceQueryRepository,
-  event: PresenterEvent,
-  context: EventHandlerContext,
-): void => {
-  const { action } = event;
-  if (action === 'run') {
-    repository.run();
-    return;
+  const repository: unknown = context.repositoryManager.get({
+    scope: scope,
+    containerId,
+    repositoryId: target,
+  });
+
+  if (typeof repository !== 'object' || repository === null) {
+    throw new TypeException(
+      'The repository is not a object, action is {{action}} and target is {{target}}',
+      {
+        action,
+        target,
+      },
+    );
   }
-  throw new TypeException(
-    'Did not support other action for SourceQueryRepository: {{action}}' +
-      action,
-    {
-      action,
-    },
-  );
-};
 
-const parseTemplate = (
-  template: string,
-  context: EventHandlerContext,
-): unknown => {
-  return context.templateService.run(template, context.states, context.helpers);
-};
+  if (!(action in repository)) {
+    throw new TypeException(
+      'The repository did not has specific action, action is {{action}} and target is {{target}}',
+      {
+        action,
+        target,
+      },
+    );
+  }
 
-const getPayload = (context: EventHandlerContext) => {
-  return context.states?.['payload'] ?? null;
+  // eslint-disable-next-line security/detect-object-injection
+  const callback = (repository as any)[action];
+  callback.apply(repository, [event, context]);
 };

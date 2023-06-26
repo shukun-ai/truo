@@ -49,7 +49,20 @@ export interface PresenterRepositories {
  */
 export interface PresenterRepository {
   type: string;
-  defaultValue?: unknown;
+  parameters: {
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(.)+$".
+     */
+    [k: string]:
+      | string
+      | unknown[]
+      | {
+          [k: string]: unknown;
+        }
+      | number
+      | boolean;
+  };
 }
 export interface PresenterWidgets {
   [k: string]: PresenterWidget;

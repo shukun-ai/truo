@@ -64,21 +64,18 @@ const registerContainer = (
   for (const [repositoryId, definition] of Object.entries(
     container.repositories,
   )) {
+    // TODO use repository maps instead of switch
     switch (definition.type) {
       case 'simple':
         repositoryManager.register(
           { scope: 'container', containerId, repositoryId },
-          new SimpleRepository(definition.defaultValue),
+          new SimpleRepository(definition),
         );
         break;
       case 'sourceQuery':
         repositoryManager.register(
           { scope: 'container', containerId, repositoryId },
-          new SourceQueryRepository(apiRequester, {
-            // TODO get the parameters from presenter definition
-            atomName: 'airports',
-            query: {},
-          }),
+          new SourceQueryRepository(definition),
         );
         break;
       default:
