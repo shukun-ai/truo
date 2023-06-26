@@ -7,8 +7,6 @@ import {
 import { IRepositoryManager, repositoryIdentifier } from '@shukun/widget';
 import { combineLatest, map, Observable } from 'rxjs';
 
-import { SimpleRepository } from '../repositories/simple-repository';
-
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
 
@@ -23,29 +21,6 @@ export class RepositoryManager implements IRepositoryManager {
       throw new TypeException('Did not find repository: {{key}}', { key });
     }
     return repository;
-  }
-
-  /**
-   * @deprecated
-   */
-  public setValue(
-    identifier: repositoryIdentifier,
-    path: (string | number)[],
-    value: unknown,
-  ): void {
-    const key = this.getRepositoryKey(identifier);
-    const repository = this.repositories.get(key);
-    if (!repository) {
-      throw new TypeException('Did not find repository: {{key}}', { key });
-    }
-    if (repository instanceof SimpleRepository) {
-      repository.setValue(path, value);
-    } else {
-      throw new TypeException(
-        'The repository is not support setValue, repository type is: {{type}}',
-        { type: repository.constructor.name },
-      );
-    }
   }
 
   public queryAll(): Observable<Record<string, unknown>> {

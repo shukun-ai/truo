@@ -2,10 +2,17 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "PresenterRepository",
   "type": "object",
-  "required": ["type"],
+  "required": ["type", "parameters"],
   "additionalProperties": false,
   "properties": {
     "type": { "type": "string" },
-    "defaultValue": { "tsType": "unknown" }
+    "parameters": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "type": ["string", "array", "object", "number", "boolean"]
+        }
+      }
+    }
   }
 }

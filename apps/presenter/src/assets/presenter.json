@@ -13,15 +13,17 @@
               "keyword": { "type": "string" }
             }
           },
-          "defaultValue": {
-            "keyword": "Discount"
+          "parameters": {
+            "defaultValue": {
+              "keyword": "Discount"
+            }
           }
         },
         "airportSearch": {
           "type": "sourceQuery",
           "parameters": {
-            "atomName": "airport",
-            "query": "$$_js:return { filter: { code: $.searchForm.keyword }, limit: 20 };"
+            "atomName": "airports",
+            "query": "$$_js:return { filter: { code: { $like: $.searchForm.keyword } }, limit: 20 };"
           }
         }
       },
@@ -45,7 +47,7 @@
               {
                 "scope": "container",
                 "target": "searchForm",
-                "action": "set"
+                "action": "setValue"
               },
               {
                 "scope": "container",

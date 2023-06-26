@@ -1,28 +1,48 @@
 import { TypeException } from '@shukun/exception';
-import { ISimpleRepository, SimpleState } from '@shukun/widget';
+import { PresenterEvent, PresenterRepository } from '@shukun/schema';
+import {
+  CODE_MODE_JS_PREFIX,
+  EventHandlerContext,
+  ISimpleRepository,
+  SimpleState,
+} from '@shukun/widget';
 import { cloneDeep, set } from 'lodash';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { Store } from './store';
 
 export class SimpleRepository implements ISimpleRepository {
-  private readonly state: BehaviorSubject<SimpleState>;
+  private readonly state: Store<SimpleState>;
 
-  constructor(private readonly defaultValue: SimpleState) {
+  constructor(readonly definition: PresenterRepository) {
+    const { defaultValue } = this.definition.parameters;
     const parseDefaultValue: SimpleState =
-      typeof this.defaultValue === 'undefined' ? {} : this.defaultValue;
-    this.state = new BehaviorSubject(parseDefaultValue);
+      typeof defaultValue === 'undefined' ? {} : defaultValue;
+    this.state = new Store(parseDefaultValue);
   }
 
   query(): Observable<SimpleState> {
-    return this.state;
+    return this.state.asObservable();
   }
 
   getValue(): SimpleState {
     return this.state.getValue();
   }
 
-  setValue(path: (string | number)[], value: SimpleState): void {
+  setValue(event: PresenterEvent, context: EventHandlerContext): void {
+    const { value, path } = event;
+    const template = value ? value : `${CODE_MODE_JS_PREFIX}return $.payload`;
+    const newValue = context.templateService.run(
+      template,
+      context.states,
+      context.helpers,
+    );
+    this.updateValue(path ?? [], newValue);
+  }
+
+  private updateValue(path: (string | number)[], value: SimpleState): void {
     if (path.length === 0) {
-      this.state.next(value);
+      this.state.update(() => value);
     } else {
       const target = cloneDeep(this.state.getValue());
 
@@ -30,7 +50,7 @@ export class SimpleRepository implements ISimpleRepository {
         throw new TypeException('The target is null, so we cannot update it.');
       } else if (typeof target === 'object') {
         set(target, path, value);
-        this.state.next(target);
+        this.state.update(() => target);
       } else {
         throw new TypeException(
           'The target is not a object, so we cannot update it.',
@@ -40,7 +60,7 @@ export class SimpleRepository implements ISimpleRepository {
   }
 
   resetValue(): void {
-    this.state.next(this.defaultValue);
+    this.state.reset();
   }
 
   destroy(): void {
