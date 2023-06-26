@@ -50,14 +50,6 @@ export class RepositoryManager implements IRepositoryManager {
   /**
    * @deprecated
    */
-  public trigger(identifier: repositoryIdentifier, payload: unknown): void {
-    // TODO refactor
-    // this.repositories.get(this.getRepositoryKey(identifier))?.trigger(payload);
-  }
-
-  /**
-   * @deprecated
-   */
   public registerRouterRepository(routerRepository: IRouterRepository): void {
     this.register(
       { scope: 'app', containerId: 'app', repositoryId: 'router' },
