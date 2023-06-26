@@ -3,6 +3,8 @@ import { PresenterEvent } from '@shukun/schema';
 
 import { EventHandlerContext } from '@shukun/widget';
 
+import { extractContainerState } from '../../utils/extract-container-state';
+
 export const handleEvent = (
   event: PresenterEvent,
   context: EventHandlerContext,
@@ -46,7 +48,21 @@ export const handleEvent = (
     );
   }
 
+  const allState = context.repositoryManager.getValue();
+
+  const containerState = extractContainerState(allState, containerId);
+
+  const containerContext: EventHandlerContext = {
+    ...context,
+    states: {
+      ...containerState,
+      index: context.states['index'],
+      item: context.states['item'],
+      payload: context.states['payload'],
+    },
+  };
+
   // eslint-disable-next-line security/detect-object-injection
   const callback = (repository as any)[action];
-  callback.apply(repository, [event, context]);
+  callback.apply(repository, [event, containerContext]);
 };
