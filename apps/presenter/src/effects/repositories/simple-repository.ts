@@ -1,21 +1,17 @@
 import { TypeException } from '@shukun/exception';
-import { PresenterEvent, PresenterRepository } from '@shukun/schema';
-import {
-  CODE_MODE_JS_PREFIX,
-  EventHandlerContext,
-  ISimpleRepository,
-  SimpleState,
-} from '@shukun/widget';
+import { PresenterEvent } from '@shukun/schema';
+import { ISimpleRepository, SimpleState } from '@shukun/widget';
 import { cloneDeep, set } from 'lodash';
 import { Observable } from 'rxjs';
 
+import { RepositoryFactoryContext } from './repository-factory.type';
 import { Store } from './store';
 
 export class SimpleRepository implements ISimpleRepository {
   private readonly state: Store<SimpleState>;
 
-  constructor(readonly definition: PresenterRepository) {
-    const { defaultValue } = this.definition.parameters;
+  constructor(readonly context: RepositoryFactoryContext) {
+    const { defaultValue } = context.definition.parameters;
     const parseDefaultValue: SimpleState =
       typeof defaultValue === 'undefined' ? {} : defaultValue;
     this.state = new Store(parseDefaultValue);
@@ -29,15 +25,9 @@ export class SimpleRepository implements ISimpleRepository {
     return this.state.getValue();
   }
 
-  setValue(event: PresenterEvent, context: EventHandlerContext): void {
-    const { value, path } = event;
-    const template = value ? value : `${CODE_MODE_JS_PREFIX}return $.payload`;
-    const newValue = context.templateService.run(
-      template,
-      context.states,
-      context.helpers,
-    );
-    this.updateValue(path ?? [], newValue);
+  setValue(event: PresenterEvent, payload: unknown): void {
+    const { path } = event;
+    this.updateValue(path ?? [], payload);
   }
 
   private updateValue(path: (string | number)[], value: SimpleState): void {

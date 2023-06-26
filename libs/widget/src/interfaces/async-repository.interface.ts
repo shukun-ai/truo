@@ -1,7 +1,6 @@
 import { PresenterEvent } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
-import { EventHandlerContext } from './event-handler.interface';
 import { IRepository } from './repository.interface';
 
 export type AsyncState = {
@@ -15,5 +14,5 @@ export interface IAsyncRepository extends IRepository {
   getValue(): AsyncState;
   resetValue(): void;
   query(): Observable<AsyncState>;
-  run(event: PresenterEvent, context: EventHandlerContext): Promise<void>;
+  run(event: PresenterEvent, payload: unknown): Promise<void>;
 }
