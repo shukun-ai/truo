@@ -80,14 +80,45 @@
             "value": "$$_js:return `查询为：${$.searchForm.keyword}`;"
           },
           "events": {}
+        },
+        "BpLFZX": {
+          "tag": "sk-table",
+          "label": "表格",
+          "properties": {
+            "columns": [
+              {
+                "label": "机场编号",
+                "type": "text",
+                "field": "code"
+              },
+              {
+                "label": "机场名称",
+                "type": "text",
+                "field": "title"
+              },
+              {
+                "label": "城市名称",
+                "type": "text",
+                "field": "cityCode"
+              },
+              {
+                "label": "创建时间",
+                "type": "text",
+                "field": "createdAt"
+              }
+            ],
+            "value": "$$_js:return $.airportSearch.data.value"
+          },
+          "events": {}
         }
       },
       "tree": {
-        "root": ["huYq4i", "FW9ydN", "BpLFZY"],
+        "root": ["huYq4i", "FW9ydN", "BpLFZY", "BpLFZX"],
         "huYq4i": [],
         "FW9ydN": ["8hfgZV"],
         "8hfgZV": [],
-        "BpLFZY": []
+        "BpLFZY": [],
+        "BpLFZX": []
       }
     }
   },
