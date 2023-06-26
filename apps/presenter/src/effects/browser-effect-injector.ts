@@ -1,6 +1,7 @@
 import { TypeException } from '@shukun/exception';
-import { PresenterContainer, PresenterSchema } from '@shukun/schema';
-import { IApiRequester, IRepositoryManager } from '@shukun/widget';
+import { PresenterContainer } from '@shukun/schema';
+import { IRepositoryManager } from '@shukun/widget';
+import { ConfigDefinitions } from '@shukun/widget-react';
 import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
@@ -8,8 +9,6 @@ import { EffectInjector } from './effect-injector.interface';
 import { ServerLoader } from './loaders/server-loader';
 import { AuthRepository } from './repositories/auth-repository';
 import { RouterRepository } from './repositories/router-repository';
-import { SimpleRepository } from './repositories/simple-repository';
-import { SourceQueryRepository } from './repositories/source-query-repository';
 import { RepositoryManager } from './repository/repository-manager';
 import { AuthStorage } from './storages/auth-storage';
 import { TemplateService } from './template/template-service';
@@ -31,9 +30,10 @@ export const createBrowserEffect = async () => {
     router.mode,
   );
 
+  // TODO use repository register table instead
   repositoryManager.registerAuthRepository(authRepository);
   repositoryManager.registerRouterRepository(routerRepository);
-  registerContainers(apiRequester, repositoryManager, definitions.presenter);
+  registerContainers(repositoryManager, definitions);
 
   const injector: EffectInjector = {
     authStorage,
@@ -50,43 +50,37 @@ export const createBrowserEffect = async () => {
 };
 
 const registerContainers = (
-  apiRequester: IApiRequester,
   repositoryManager: IRepositoryManager,
-  presenter: PresenterSchema,
+  definitions: ConfigDefinitions,
 ) => {
-  for (const [containerId, container] of Object.entries(presenter.containers)) {
-    registerContainer(apiRequester, repositoryManager, containerId, container);
+  for (const [containerId, container] of Object.entries(
+    definitions.presenter.containers,
+  )) {
+    registerContainer(repositoryManager, definitions, containerId, container);
   }
 };
 
 const registerContainer = (
-  apiRequester: IApiRequester,
   repositoryManager: IRepositoryManager,
+  definitions: ConfigDefinitions,
   containerId: string,
   container: PresenterContainer,
 ): void => {
   for (const [repositoryId, definition] of Object.entries(
     container.repositories,
   )) {
-    // TODO use repository maps instead of switch
-    switch (definition.type) {
-      case 'simple':
-        repositoryManager.register(
-          { scope: 'container', containerId, repositoryId },
-          new SimpleRepository(definition),
-        );
-        break;
-      case 'sourceQuery':
-        repositoryManager.register(
-          { scope: 'container', containerId, repositoryId },
-          new SourceQueryRepository(definition),
-        );
-        break;
-      default:
-        throw new TypeException(
-          'We did not support this repository type, {{type}}',
-          { type: definition.type },
-        );
+    const RepositoryClass = definitions.reactRepositories[definition.type];
+
+    if (!RepositoryClass) {
+      throw new TypeException(
+        'We did not support this repository type, {{type}}',
+        { type: definition.type },
+      );
     }
+
+    repositoryManager.register(
+      { scope: 'container', containerId, repositoryId },
+      new RepositoryClass(definition),
+    );
   }
 };
