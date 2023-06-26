@@ -52,13 +52,14 @@ export class SourceQueryRepository implements IAsyncRepository {
     const { apiRequester } = context;
     const { atomName, query } = this.definition.parameters as any;
 
+    // TODO Validate the parsedQuery is HttpQuerySchema in development mode.
+
     const parsedQuery = context.templateService.run(
       query,
       context.states,
       context.helpers,
     );
 
-    // TODO Validate the parsedQuery is HttpQuerySchema
     const response = await this.sendRequester(
       apiRequester,
       atomName,

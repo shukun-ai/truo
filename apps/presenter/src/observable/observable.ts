@@ -20,6 +20,7 @@ export const createObservable = (
           orgName: router.orgName,
           screen: router.page,
           search: router.search,
+          mode: router.mode,
         },
         presenter: injector.definitions.presenter,
         reactWidgets: injector.definitions.reactWidgets,

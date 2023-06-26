@@ -1,7 +1,12 @@
 import { PresenterSchema, WidgetSchema } from '@shukun/schema';
+import { RouterMode } from '@shukun/widget';
 
 export interface ILoader {
-  load(orgName: string, appName: string): Promise<ConfigDefinitions>;
+  load(
+    orgName: string,
+    appName: string,
+    routerMode: RouterMode,
+  ): Promise<ConfigDefinitions>;
 }
 
 export type ConfigDefinitions = {

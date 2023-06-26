@@ -15,6 +15,7 @@ describe('RouterRepository', () => {
         orgName: 'shukun',
         page: 'home',
         search: {},
+        mode: 'server',
       });
     });
 
@@ -29,6 +30,7 @@ describe('RouterRepository', () => {
         orgName: 'shukun',
         page: 'home',
         search: {},
+        mode: 'server',
       });
     });
 
@@ -43,6 +45,7 @@ describe('RouterRepository', () => {
         orgName: 'shukun',
         page: 'home',
         search: {},
+        mode: 'server',
       });
     });
 
@@ -61,6 +64,7 @@ describe('RouterRepository', () => {
         orgName: 'shukun',
         page: 'home',
         search: { id: 'mock' },
+        mode: 'server',
       });
     });
   });
@@ -82,6 +86,7 @@ describe('RouterRepository', () => {
         orgName: 'shukun',
         page: 'about',
         search: { id: 'mock' },
+        mode: 'server',
       });
     });
 
@@ -105,6 +110,7 @@ describe('RouterRepository', () => {
         orgName: 'shukun',
         page: 'about',
         search: { id: 'mock' },
+        mode: 'server',
       });
     });
 
@@ -129,6 +135,7 @@ describe('RouterRepository', () => {
         orgName: 'shukun',
         page: 'home',
         search: {},
+        mode: 'server',
       });
     });
   });
@@ -144,6 +151,7 @@ describe('RouterRepository', () => {
         app: 'pda',
         page: 'home',
         search: {},
+        mode: 'server',
       });
 
       routerRepository.trigger({ page: 'about' });
@@ -153,6 +161,7 @@ describe('RouterRepository', () => {
         app: 'pda',
         page: 'about',
         search: {},
+        mode: 'server',
       });
     });
   });
@@ -177,6 +186,39 @@ describe('RouterRepository', () => {
         app: 'pda',
         page: 'about',
         search: { id: 'mock' },
+        mode: 'server',
+      });
+    });
+  });
+
+  describe('Parse mode', () => {
+    it('when mode is local.', () => {
+      const history = createMemoryHistory({
+        initialEntries: ['/presenter/shukun/pda?mode=local'],
+      });
+      const routerRepository = new RouterRepository(history);
+      const value = routerRepository.getValue();
+      expect(value).toEqual({
+        orgName: 'shukun',
+        app: 'pda',
+        page: 'home',
+        search: {},
+        mode: 'local',
+      });
+    });
+
+    it('when mode is unrecognized.', () => {
+      const history = createMemoryHistory({
+        initialEntries: ['/presenter/shukun/pda?mode=mock'],
+      });
+      const routerRepository = new RouterRepository(history);
+      const value = routerRepository.getValue();
+      expect(value).toEqual({
+        orgName: 'shukun',
+        app: 'pda',
+        page: 'home',
+        search: {},
+        mode: 'server',
       });
     });
   });

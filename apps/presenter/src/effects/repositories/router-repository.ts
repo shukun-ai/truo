@@ -1,5 +1,9 @@
 import { TypeException } from '@shukun/exception';
-import { IRouterRepository, RouterRepositoryStates } from '@shukun/widget';
+import {
+  IRouterRepository,
+  RouterMode,
+  RouterRepositoryStates,
+} from '@shukun/widget';
 import { History, Location } from 'history';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -63,6 +67,7 @@ export class RouterRepository implements IRouterRepository {
       orgName: orgName,
       page: pageName,
       search: this.parseHistorySearch(location.search),
+      mode: this.parseHistoryMode(location.search),
     };
   }
 
@@ -96,6 +101,17 @@ export class RouterRepository implements IRouterRepository {
     } catch {
       console.error('search JSON parse wrong.');
       return {};
+    }
+  }
+
+  private parseHistoryMode(search: string): RouterMode {
+    const params = new URLSearchParams(search);
+    const mode = params.get('mode') as unknown as RouterMode;
+
+    if (Object.values(RouterMode).includes(mode)) {
+      return mode;
+    } else {
+      return RouterMode.Server;
     }
   }
 

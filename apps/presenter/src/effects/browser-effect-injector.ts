@@ -25,7 +25,11 @@ export const createBrowserEffect = async () => {
   const loader = new ServerLoader(apiRequester);
 
   const router = routerRepository.getValue();
-  const definitions = await loader.load(router.orgName, router.app);
+  const definitions = await loader.load(
+    router.orgName,
+    router.app,
+    router.mode,
+  );
 
   repositoryManager.registerAuthRepository(authRepository);
   repositoryManager.registerRouterRepository(routerRepository);
