@@ -26,6 +26,9 @@ import {
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
 
+import { SimpleRepository } from '../repositories/simple-repository';
+import { SourceQueryRepository } from '../repositories/source-query-repository';
+
 export class ServerLoader implements ILoader {
   constructor(private readonly apiRequester: IApiRequester) {}
 
@@ -49,6 +52,7 @@ export class ServerLoader implements ILoader {
       presenter: json,
       widgetDefinitions,
       reactWidgets,
+      reactRepositories,
     };
   }
 
@@ -65,6 +69,7 @@ export class ServerLoader implements ILoader {
       presenter: response.data.value,
       widgetDefinitions,
       reactWidgets,
+      reactRepositories,
     };
   }
 }
@@ -117,4 +122,9 @@ const reactWidgets: ConfigDefinitions['reactWidgets'] = {
   'sk-badge': BadgeWidget.reactWidget,
   'sk-boolean-select': BooleanSelectWidget.reactWidget,
   'sk-number-input': NumberInputWidget.reactWidget,
+};
+
+const reactRepositories: ConfigDefinitions['reactRepositories'] = {
+  simple: SimpleRepository,
+  sourceQuery: SourceQueryRepository,
 };
