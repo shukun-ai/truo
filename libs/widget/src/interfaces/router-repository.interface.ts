@@ -17,4 +17,11 @@ export type RouterRepositoryStates = {
   orgName: string;
   page: string;
   search: Record<string, unknown>;
+  mode: RouterMode;
 };
+
+export enum RouterMode {
+  Local = 'local',
+  Editor = 'Editor',
+  Server = 'server',
+}

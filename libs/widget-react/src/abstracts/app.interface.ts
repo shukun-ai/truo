@@ -3,6 +3,7 @@ import { PresenterSchema } from '@shukun/schema';
 import {
   IApiRequester,
   IRepositoryManager,
+  RouterMode,
   TemplateEvaluateHelpers,
 } from '@shukun/widget';
 
@@ -17,6 +18,7 @@ export type AppProps = {
     orgName: string;
     screen: string;
     search: Record<string, unknown>;
+    mode: RouterMode;
   };
   rawStates: {
     [repositoryId: string]: unknown;

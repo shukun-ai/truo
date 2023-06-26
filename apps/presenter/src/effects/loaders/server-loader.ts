@@ -1,4 +1,4 @@
-import { IApiRequester } from '@shukun/widget';
+import { IApiRequester, RouterMode } from '@shukun/widget';
 import {
   ButtonWidget,
   CodeWidget,
@@ -26,29 +26,18 @@ import {
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
 
-enum LoaderMode {
-  Local = 'local',
-  Server = 'server',
-}
-
 export class ServerLoader implements ILoader {
   constructor(private readonly apiRequester: IApiRequester) {}
 
-  async load(orgName: string, appName: string): Promise<ConfigDefinitions> {
-    if (this.getLoaderMode() === LoaderMode.Local) {
+  async load(
+    orgName: string,
+    appName: string,
+    routerMode: RouterMode,
+  ): Promise<ConfigDefinitions> {
+    if (routerMode === RouterMode.Local) {
       return await this.loadFromLocal();
     } else {
       return await this.loadFromServer(orgName, appName);
-    }
-  }
-
-  private getLoaderMode(): LoaderMode {
-    const params = new URL(window.location.toString()).searchParams;
-
-    if (params.get('mode')?.toLowerCase() === LoaderMode.Local) {
-      return LoaderMode.Local;
-    } else {
-      return LoaderMode.Server;
     }
   }
 
