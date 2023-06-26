@@ -3,6 +3,8 @@ import { DashboardLayout, WorkshopLayout } from '@shukun/widget-react';
 import { AppProps } from '@shukun/widget-react';
 import { useMemo } from 'react';
 
+import { extractContainerState } from '../utils/extract-container-state';
+
 import { Container } from './container';
 
 export type ScreenProps = {
@@ -48,22 +50,6 @@ const getContainerAppProps = (
   return {
     ...appProps,
     containerId,
-    states: extractContainerStates(appProps.rawStates, containerId),
+    states: extractContainerState(appProps.rawStates, containerId),
   };
-};
-
-const extractContainerStates = (states: any, containerId: string) => {
-  const newStates: any = {};
-  for (const [id, value] of Object.entries(states)) {
-    const idSet = id.split(':');
-
-    if (idSet[0] === '_app') {
-      newStates[idSet[1]] = value;
-    } else if (idSet[0] === 'container' && idSet[1] === containerId) {
-      newStates[idSet[2]] = value;
-    } else if (idSet[0] === 'repository' && idSet[1] === containerId) {
-      newStates[idSet[2]] = value;
-    }
-  }
-  return newStates;
 };

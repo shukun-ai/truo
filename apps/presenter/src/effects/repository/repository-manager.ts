@@ -47,6 +47,21 @@ export class RepositoryManager implements IRepositoryManager {
     );
   }
 
+  getValue(): Record<string, unknown> {
+    const repositoryNames = [...this.repositories.keys()];
+    const values: Record<string, unknown> = {};
+
+    repositoryNames.forEach((name) => {
+      const repository = this.repositories.get(name);
+      if (repository) {
+        const output = repository.getValue();
+        values[name] = output ? output : {};
+      }
+    });
+
+    return values;
+  }
+
   /**
    * @deprecated
    */
