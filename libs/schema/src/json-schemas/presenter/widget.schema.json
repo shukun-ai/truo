@@ -22,34 +22,7 @@
         "^(.)+$": {
           "type": "array",
           "items": {
-            "type": "object",
-            "title": "PresenterEvent",
-            "additionalProperties": false,
-            "required": ["scope", "target", "action"],
-            "properties": {
-              "scope": {
-                "enum": ["app", "container"]
-              },
-              "target": {
-                "description": "Target for repository",
-                "type": "string"
-              },
-              "action": {
-                "description": "The action from repository",
-                "type": "string"
-              },
-              "path": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "default": []
-              },
-              "value": {
-                "description": "convert the widget payload to repository input.",
-                "type": "string"
-              }
-            }
+            "$ref": "event.schema.json"
           }
         }
       }

@@ -39,6 +39,7 @@ export interface PresenterContainer {
   repositories: PresenterRepositories;
   widgets: PresenterWidgets;
   tree: PresenterTreeNodes;
+  watches: PresenterWatches;
 }
 export interface PresenterRepositories {
   [k: string]: PresenterRepository;
@@ -119,6 +120,25 @@ export interface PresenterTreeNodes {
    * via the `patternProperty` "^(.)+$".
    */
   [k: string]: PresenterTreeNode[];
+}
+export interface PresenterWatches {
+  /**
+   * This interface was referenced by `PresenterWatches`'s JSON-Schema definition
+   * via the `patternProperty` "^(.)+$".
+   */
+  [k: string]: PresenterWatch[];
+}
+export interface PresenterWatch {
+  trigger: {
+    stateChanged?: string[][];
+    containerMounted?: boolean;
+    /**
+     * The unit of interval is milliseconds.
+     */
+    interval?: number;
+    [k: string]: unknown;
+  };
+  events: PresenterEvent[];
 }
 export interface PresenterScreenDashboard {
   layout: 'Dashboard';

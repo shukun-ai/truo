@@ -3,7 +3,7 @@ import { PresenterContainer } from '@shukun/schema';
 
 export type PresenterContainerEntity = {
   id: string;
-} & Omit<PresenterContainer, 'repositories' | 'widgets' | 'root'>;
+} & Omit<PresenterContainer, 'repositories' | 'widgets' | 'root' | 'watches'>;
 
 const { presenterContainerEntitiesRef, withPresenterContainerEntities } =
   entitiesPropsFactory('presenterContainer');
