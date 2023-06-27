@@ -23,6 +23,9 @@ export class RepositoryManager implements IRepositoryManager {
     return repository;
   }
 
+  /**
+   * @deprecated
+   */
   public queryAll(): Observable<Record<string, unknown>> {
     const repositoryNames = [...this.repositories.keys()];
     const repositories: IRepository[] = [];
@@ -47,6 +50,9 @@ export class RepositoryManager implements IRepositoryManager {
     );
   }
 
+  /**
+   * @deprecated
+   */
   getValue(): Record<string, unknown> {
     const repositoryNames = [...this.repositories.keys()];
     const values: Record<string, unknown> = {};
@@ -62,9 +68,6 @@ export class RepositoryManager implements IRepositoryManager {
     return values;
   }
 
-  /**
-   * @deprecated
-   */
   public registerRouterRepository(routerRepository: IRouterRepository): void {
     this.register(
       { scope: 'app', containerId: 'app', repositoryId: 'router' },
@@ -72,9 +75,6 @@ export class RepositoryManager implements IRepositoryManager {
     );
   }
 
-  /**
-   * @deprecated
-   */
   public getRouterRepository(): IRouterRepository {
     const repository = this.repositories.get(
       this.getRepositoryKey({
@@ -91,9 +91,6 @@ export class RepositoryManager implements IRepositoryManager {
     return repository as IRouterRepository;
   }
 
-  /**
-   * @deprecated
-   */
   registerAuthRepository(authRepository: IAuthRepository): void {
     this.register(
       { scope: 'app', containerId: 'app', repositoryId: 'auth' },
@@ -101,9 +98,6 @@ export class RepositoryManager implements IRepositoryManager {
     );
   }
 
-  /**
-   * @deprecated
-   */
   getAuthRepository(): IAuthRepository {
     const repository = this.repositories.get(
       this.getRepositoryKey({

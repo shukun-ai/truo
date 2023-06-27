@@ -20,3 +20,4 @@ export * from './interfaces/simple-repository.interface';
 export * from './interfaces/store.interface';
 export * from './interfaces/watch-manager.interface';
 export * from './interfaces/event-manager.interface';
+export * from './interfaces/store.interface';
