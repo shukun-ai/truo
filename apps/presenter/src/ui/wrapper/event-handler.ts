@@ -9,8 +9,8 @@ export const handleEvent = (
   event: PresenterEvent,
   context: EventHandlerContext,
 ): void => {
-  const { containerId } = context;
   const { action, target, scope, value } = event;
+  const { containerId, widgetState } = context;
 
   if (!containerId) {
     throw new TypeException(
@@ -54,9 +54,7 @@ export const handleEvent = (
 
   const states = {
     ...containerState,
-    index: context.states['index'],
-    item: context.states['item'],
-    payload: context.states['payload'],
+    ...widgetState,
   };
 
   const template = value ? value : `${CODE_MODE_JS_PREFIX}return $.payload`;

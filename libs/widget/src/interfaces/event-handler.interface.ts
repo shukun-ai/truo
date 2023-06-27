@@ -9,7 +9,11 @@ export type EventHandlerContext = {
   containerId: string | null;
   repositoryManager: IRepositoryManager;
   templateService: ITemplateService;
-  states: Record<string, unknown>;
   helpers: TemplateEvaluateHelpers;
   apiRequester: IApiRequester;
+  widgetState: {
+    index: number;
+    item: unknown;
+    payload: unknown;
+  };
 };
