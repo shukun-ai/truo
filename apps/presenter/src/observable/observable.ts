@@ -32,6 +32,8 @@ export const createObservable = (
         helpers: {},
         templateService: injector.templateService,
         repositoryManager: injector.repositoryManager,
+        watchManager: injector.watchManager,
+        eventManager: injector.eventManager,
         api: injector.apiRequester,
       };
 

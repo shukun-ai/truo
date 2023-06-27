@@ -6,6 +6,7 @@ import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';
 import { EffectInjector } from './effect-injector.interface';
+import { EventManager } from './event/event-manager';
 import { ServerLoader } from './loaders/server-loader';
 import { AuthRepository } from './repositories/auth-repository';
 import { RepositoryFactoryContext } from './repositories/repository-factory.type';
@@ -13,6 +14,7 @@ import { RouterRepository } from './repositories/router-repository';
 import { RepositoryManager } from './repository/repository-manager';
 import { AuthStorage } from './storages/auth-storage';
 import { TemplateService } from './template/template-service';
+import { WatchManager } from './watch/watch-manager';
 
 export const createBrowserEffect = async () => {
   const history = createBrowserHistory();
@@ -36,12 +38,23 @@ export const createBrowserEffect = async () => {
   repositoryManager.registerRouterRepository(routerRepository);
   registerContainers(apiRequester, repositoryManager, definitions);
 
+  const eventManager = new EventManager({
+    repositoryManager,
+    templateService,
+    helpers: {},
+    apiRequester,
+  });
+
+  const watchManager = new WatchManager(eventManager);
+
   const injector: EffectInjector = {
     authStorage,
     apiRequester,
     loader,
     repositoryManager,
     templateService,
+    watchManager,
+    eventManager,
     routerRepository,
     authRepository,
     definitions,

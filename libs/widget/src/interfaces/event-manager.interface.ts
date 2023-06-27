@@ -1,3 +1,5 @@
+import { PresenterEvent } from '@shukun/schema';
+
 import { IRepositoryManager } from './repository-manager.interface';
 import { IApiRequester } from './requester.interface';
 import {
@@ -5,15 +7,20 @@ import {
   TemplateEvaluateHelpers,
 } from './template-service.interface';
 
-export type EventHandlerContext = {
-  containerId: string | null;
+export interface IEventManager {
+  handleEvents(events: PresenterEvent[], state: EventManagerState): void;
+}
+
+export type EventManagerContext = {
   repositoryManager: IRepositoryManager;
   templateService: ITemplateService;
   helpers: TemplateEvaluateHelpers;
   apiRequester: IApiRequester;
-  widgetState: {
-    index: number;
-    item: unknown;
-    payload: unknown;
-  };
+};
+
+export type EventManagerState = {
+  index: number;
+  item: unknown;
+  payload: unknown;
+  containerId: string | null;
 };

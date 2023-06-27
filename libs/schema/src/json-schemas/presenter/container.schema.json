@@ -47,8 +47,7 @@
       "title": "PresenterWatches",
       "patternProperties": {
         "^(.)+$": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/PresenterWatch" }
+          "$ref": "#/definitions/PresenterWatch"
         }
       }
     }

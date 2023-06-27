@@ -1,4 +1,9 @@
-import { IApiRequester, IRepositoryManager } from '@shukun/widget';
+import {
+  IApiRequester,
+  IEventManager,
+  IRepositoryManager,
+  IWatchManager,
+} from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
 
@@ -13,6 +18,8 @@ export type EffectInjector = {
   apiRequester: IApiRequester;
   loader: ILoader;
   repositoryManager: IRepositoryManager;
+  watchManager: IWatchManager;
+  eventManager: IEventManager;
   templateService: ITemplateService;
   routerRepository: RouterRepository;
   authRepository: AuthRepository;

@@ -3,6 +3,7 @@ import { PresenterContainer } from '@shukun/schema';
 
 import { AppProps } from '@shukun/widget-react';
 
+import { useWatchManager } from './hooks/use-watch-manager';
 import { WidgetWrapper } from './wrapper/widget-wrapper';
 
 export type ContainerProps = {
@@ -13,6 +14,8 @@ export type ContainerProps = {
 
 export const Container = ({ containerId, container, app }: ContainerProps) => {
   const root: string[] = container.tree?.['root'] ?? [];
+
+  useWatchManager(containerId, container, app);
 
   return <div>{assembleWidgets(containerId, root, container, app)}</div>;
 };

@@ -4,8 +4,6 @@ import { ITemplateService, TemplateEvaluateHelpers } from '@shukun/widget';
 import { AppProps } from '@shukun/widget-react';
 import { Children, cloneElement, ReactElement, useMemo } from 'react';
 
-import { handleEvent } from './event-handler';
-
 export type WidgetWrapperProps = {
   containerId: string;
   widgetId: string;
@@ -51,20 +49,12 @@ export const WidgetWrapper = ({
         }
       } else {
         properties[propertyId] = (payload: unknown) => {
-          const events = widget.events[propertyId];
-          events?.forEach((event) => {
-            handleEvent(event, {
-              repositoryManager: app.repositoryManager,
-              templateService: app.templateService,
-              containerId,
-              helpers: app.helpers,
-              apiRequester: app.api,
-              widgetState: {
-                index: states.index,
-                item: states.item,
-                payload,
-              },
-            });
+          const events = widget.events[propertyId] ?? [];
+          app.eventManager.handleEvents(events, {
+            containerId,
+            index: states.index,
+            item: states.item,
+            payload,
           });
         };
       }

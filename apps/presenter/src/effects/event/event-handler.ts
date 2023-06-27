@@ -1,16 +1,21 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterEvent } from '@shukun/schema';
 
-import { CODE_MODE_JS_PREFIX, EventHandlerContext } from '@shukun/widget';
+import {
+  CODE_MODE_JS_PREFIX,
+  EventManagerContext,
+  EventManagerState,
+} from '@shukun/widget';
 
 import { extractContainerState } from '../../utils/extract-container-state';
 
 export const handleEvent = (
   event: PresenterEvent,
-  context: EventHandlerContext,
+  context: EventManagerContext,
+  eventState: EventManagerState,
 ): void => {
   const { action, target, scope, value } = event;
-  const { containerId, widgetState } = context;
+  const { containerId, index, item, payload } = eventState;
 
   if (!containerId) {
     throw new TypeException(
@@ -54,11 +59,13 @@ export const handleEvent = (
 
   const states = {
     ...containerState,
-    ...widgetState,
+    index,
+    item,
+    payload,
   };
 
   const template = value ? value : `${CODE_MODE_JS_PREFIX}return $.payload`;
-  const payload = context.templateService.run(
+  const parsedValue = context.templateService.run(
     template,
     states,
     context.helpers,
@@ -66,5 +73,5 @@ export const handleEvent = (
 
   // eslint-disable-next-line security/detect-object-injection, @typescript-eslint/no-explicit-any
   const callback = (repository as any)[action];
-  callback.apply(repository, [event, payload] as [PresenterEvent, unknown]);
+  callback.apply(repository, [event, parsedValue] as [PresenterEvent, unknown]);
 };
