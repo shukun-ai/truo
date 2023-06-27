@@ -56,10 +56,14 @@ export const WidgetWrapper = ({
             handleEvent(event, {
               repositoryManager: app.repositoryManager,
               templateService: app.templateService,
-              states: { payload, ...states },
               containerId,
               helpers: app.helpers,
               apiRequester: app.api,
+              widgetState: {
+                index: states.index,
+                item: states.item,
+                payload,
+              },
             });
           });
         };
