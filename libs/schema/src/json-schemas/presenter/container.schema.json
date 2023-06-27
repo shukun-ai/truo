@@ -3,7 +3,7 @@
   "title": "PresenterContainer",
   "type": "object",
   "additionalProperties": false,
-  "required": ["label", "type", "repositories", "widgets", "root", "tree"],
+  "required": ["label", "type", "repositories", "widgets", "tree", "watches"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -41,12 +41,55 @@
           "items": { "$ref": "#/definitions/PresenterTreeNode" }
         }
       }
+    },
+    "watches": {
+      "type": "object",
+      "title": "PresenterWatches",
+      "patternProperties": {
+        "^(.)+$": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/PresenterWatch" }
+        }
+      }
     }
   },
   "definitions": {
     "PresenterTreeNode": {
       "title": "PresenterTreeNode",
       "type": "string"
+    },
+    "PresenterWatch": {
+      "title": "PresenterWatch",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trigger", "events"],
+      "properties": {
+        "trigger": {
+          "type": "object",
+          "properties": {
+            "stateChanged": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "containerMounted": {
+              "type": "boolean"
+            },
+            "interval": {
+              "type": "number",
+              "description": "The unit of interval is milliseconds."
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "event.schema.json"
+          }
+        }
+      }
     }
   }
 }

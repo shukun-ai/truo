@@ -34,6 +34,7 @@ export class DeserializationService implements IDeserializationService {
         repositories: {},
         widgets: this.buildWidgets(container.id),
         tree: container.tree,
+        watches: {},
       };
     });
     return containers;

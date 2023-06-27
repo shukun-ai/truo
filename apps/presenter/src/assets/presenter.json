@@ -53,12 +53,6 @@
                 "scope": "container",
                 "target": "searchForm",
                 "action": "setValue"
-              },
-              {
-                "scope": "container",
-                "target": "airportSearch",
-                "action": "run",
-                "value": "$$_js:return { filter: { code: { $like: $.searchForm.keyword } }, limit: 20 };"
               }
             ]
           }
@@ -119,6 +113,23 @@
         "8hfgZV": [],
         "BpLFZY": [],
         "BpLFZX": []
+      },
+      "watch": {
+        "fetchAirports": {
+          "trigger": {
+            "stateChanged": [["searchForm", "keyword"]],
+            "containerMounted": [],
+            "interval": 10000
+          },
+          "events": [
+            {
+              "scope": "container",
+              "target": "airportSearch",
+              "action": "run",
+              "value": "$$_js:return { filter: { code: { $like: $.searchForm.keyword } }, limit: 20 };"
+            }
+          ]
+        }
       }
     }
   },
