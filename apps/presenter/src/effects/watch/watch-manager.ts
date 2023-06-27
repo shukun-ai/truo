@@ -8,6 +8,7 @@ import {
 
 import { createContainerMounted } from './watch-container-mounted';
 import { createInterval } from './watch-interval';
+import { createStateChanged } from './watch-state-changed';
 
 export class WatchManager implements IWatchManager {
   private watches: Map<string, WatchSubscriptions> = new Map();
@@ -16,6 +17,14 @@ export class WatchManager implements IWatchManager {
 
   register(identifier: WatchIdentifier, watch: PresenterWatch): void {
     const subscriptions: WatchSubscriptions = {};
+
+    if (watch.trigger.stateChanged) {
+      subscriptions.stateChanged = createStateChanged(
+        identifier.containerId,
+        this.eventManager,
+        watch,
+      );
+    }
 
     if (watch.trigger.containerMounted === true) {
       subscriptions.containerMounted = createContainerMounted(
@@ -38,6 +47,7 @@ export class WatchManager implements IWatchManager {
 
   unregister(identifier: WatchIdentifier): void {
     const subscriptions = this.watches.get(this.getWatchKey(identifier));
+    subscriptions?.stateChanged?.unsubscribe();
     subscriptions?.containerMounted?.unsubscribe();
     subscriptions?.interval?.unsubscribe();
     this.watches.delete(this.getWatchKey(identifier));
