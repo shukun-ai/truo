@@ -7,7 +7,14 @@ import { IRouterRepository } from './router-repository.interface';
 
 export interface IRepositoryManager {
   register(identifier: repositoryIdentifier, repository: IRepository): void;
+
+  /**
+   * @deprecated
+   */
   queryAll(): Observable<Record<string, unknown>>;
+  /**
+   * @deprecated
+   */
   getValue(): Record<string, unknown>;
 
   get(identifier: repositoryIdentifier): IRepository;
