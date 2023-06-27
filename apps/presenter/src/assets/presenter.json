@@ -15,7 +15,7 @@
           },
           "parameters": {
             "defaultValue": {
-              "keyword": "Discount"
+              "keyword": "w"
             }
           }
         },
@@ -114,11 +114,11 @@
         "BpLFZY": [],
         "BpLFZX": []
       },
-      "watch": {
+      "watches": {
         "fetchAirports": {
           "trigger": {
             "stateChanged": [["searchForm", "keyword"]],
-            "containerMounted": [],
+            "containerMounted": true,
             "interval": 10000
           },
           "events": [

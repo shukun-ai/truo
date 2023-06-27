@@ -18,4 +18,5 @@ export * from './interfaces/requester.interface';
 export * from './interfaces/async-repository.interface';
 export * from './interfaces/simple-repository.interface';
 export * from './interfaces/store.interface';
-export * from './interfaces/event-handler.interface';
+export * from './interfaces/watch-manager.interface';
+export * from './interfaces/event-manager.interface';

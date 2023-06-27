@@ -2,7 +2,9 @@ import { PresenterSchema } from '@shukun/schema';
 
 import {
   IApiRequester,
+  IEventManager,
   IRepositoryManager,
+  IWatchManager,
   RouterMode,
   TemplateEvaluateHelpers,
 } from '@shukun/widget';
@@ -34,5 +36,7 @@ export type AppProps = {
   widgetDefinitions: WidgetDefinitions;
   templateService: ITemplateService;
   repositoryManager: IRepositoryManager;
+  watchManager: IWatchManager;
+  eventManager: IEventManager;
   api: IApiRequester;
 };

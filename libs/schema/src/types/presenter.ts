@@ -122,12 +122,12 @@ export interface PresenterTreeNodes {
   [k: string]: PresenterTreeNode[];
 }
 export interface PresenterWatches {
-  /**
-   * This interface was referenced by `PresenterWatches`'s JSON-Schema definition
-   * via the `patternProperty` "^(.)+$".
-   */
-  [k: string]: PresenterWatch[];
+  [k: string]: PresenterWatch;
 }
+/**
+ * This interface was referenced by `PresenterWatches`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
 export interface PresenterWatch {
   trigger: {
     stateChanged?: string[][];
