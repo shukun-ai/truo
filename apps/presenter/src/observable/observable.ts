@@ -1,9 +1,7 @@
 import { AppProps } from '@shukun/widget-react';
-import { distinctUntilChanged, map, Observable, tap } from 'rxjs';
+import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect-injector.interface';
-
-import { send } from './devtool';
 
 export const createObservable = (
   injector: EffectInjector,
@@ -29,6 +27,7 @@ export const createObservable = (
         containerId: null,
         showSignInScreen,
         states: {},
+        store: injector.store,
         helpers: {},
         templateService: injector.templateService,
         repositoryManager: injector.repositoryManager,
@@ -40,8 +39,5 @@ export const createObservable = (
       return appProps;
     }),
     distinctUntilChanged(),
-    tap((state) => {
-      send({ action: 'change state', state });
-    }),
   );
 };

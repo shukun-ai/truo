@@ -1,7 +1,9 @@
-import { IStore } from '@shukun/widget';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export class Store<T> implements IStore<T> {
+/**
+ * deprecated
+ */
+export class Store<T> {
   private readonly store: BehaviorSubject<T>;
 
   private readonly initialValue: T;

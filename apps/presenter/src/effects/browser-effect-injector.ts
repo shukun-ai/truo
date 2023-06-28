@@ -1,6 +1,6 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterContainer } from '@shukun/schema';
-import { IApiRequester, IRepositoryManager } from '@shukun/widget';
+import { IApiRequester, IRepositoryManager, IStore } from '@shukun/widget';
 import { ConfigDefinitions } from '@shukun/widget-react';
 import { createBrowserHistory } from 'history';
 
@@ -13,10 +13,12 @@ import { RepositoryFactoryContext } from './repositories/repository-factory.type
 import { RouterRepository } from './repositories/router-repository';
 import { RepositoryManager } from './repository/repository-manager';
 import { AuthStorage } from './storages/auth-storage';
+import { Store } from './store/store';
 import { TemplateService } from './template/template-service';
 import { WatchManager } from './watch/watch-manager';
 
 export const createBrowserEffect = async () => {
+  const store = new Store();
   const history = createBrowserHistory();
   const authStorage = new AuthStorage();
   const routerRepository = new RouterRepository(history);
@@ -36,7 +38,7 @@ export const createBrowserEffect = async () => {
   // TODO use repository register table instead
   repositoryManager.registerAuthRepository(authRepository);
   repositoryManager.registerRouterRepository(routerRepository);
-  registerContainers(apiRequester, repositoryManager, definitions);
+  registerContainers(store, apiRequester, repositoryManager, definitions);
 
   const eventManager = new EventManager({
     repositoryManager,
@@ -51,6 +53,7 @@ export const createBrowserEffect = async () => {
     authStorage,
     apiRequester,
     loader,
+    store,
     repositoryManager,
     templateService,
     watchManager,
@@ -64,6 +67,7 @@ export const createBrowserEffect = async () => {
 };
 
 const registerContainers = (
+  store: IStore,
   apiRequester: IApiRequester,
   repositoryManager: IRepositoryManager,
   definitions: ConfigDefinitions,
@@ -72,6 +76,7 @@ const registerContainers = (
     definitions.presenter.containers,
   )) {
     registerContainer(
+      store,
       apiRequester,
       repositoryManager,
       definitions,
@@ -82,6 +87,7 @@ const registerContainers = (
 };
 
 const registerContainer = (
+  store: IStore,
   apiRequester: IApiRequester,
   repositoryManager: IRepositoryManager,
   definitions: ConfigDefinitions,
@@ -103,7 +109,10 @@ const registerContainer = (
     }
 
     const repositoryFactoryContext: RepositoryFactoryContext = {
+      containerId,
+      repositoryId,
       definition,
+      store,
       apiRequester,
     };
 
