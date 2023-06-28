@@ -1,10 +1,16 @@
 import { IStore, StoreScope } from '@shukun/widget';
 import produce from 'immer';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  distinctUntilChanged,
+  map,
+  tap,
+} from 'rxjs';
 
 import { send } from '../../observable/devtool';
 
-import { get, set } from './store-utils';
+import { getByScope, setByScope } from './store-utils';
 
 export class Store implements IStore {
   store = new BehaviorSubject<Record<string, unknown>>({});
@@ -22,27 +28,35 @@ export class Store implements IStore {
     path: string[],
     callback: (previous: SelectedState) => SelectedState,
   ): void {
-    const state = this.store.getValue();
-    const selectedState = get(state, scope, path);
-    const newSelectedState = callback(selectedState);
-    const newState = produce(state, (draft) => {
-      set(draft, scope, path, newSelectedState);
+    const previousAllState = this.store.getValue();
+    const previousSelectedState = getByScope(previousAllState, scope, path);
+    const nextSelectedState = callback.apply(null, [previousSelectedState]);
+    const nextAllState = produce(previousAllState, (draft) => {
+      setByScope(draft, scope, path, nextSelectedState);
     });
-    this.store.next(newState);
+    this.store.next(nextAllState);
   }
 
   remove(scope: StoreScope, path: string[]): void {
-    throw new Error('Method not implemented.');
+    this.update(scope, path, () => undefined);
   }
 
   getValue<SelectedState>(scope: StoreScope, path: string[]): SelectedState {
-    throw new Error('Method not implemented.');
+    const allState = this.store.getValue();
+    const selectedState = getByScope(allState, scope, path);
+    return selectedState;
   }
 
   query<SelectedState>(
     scope: StoreScope,
     path: string[],
   ): Observable<SelectedState> {
-    throw new Error('Method not implemented.');
+    return this.store.pipe(
+      map((allState) => {
+        const selectedState = getByScope(allState, scope, path);
+        return selectedState;
+      }),
+      distinctUntilChanged(),
+    );
   }
 }

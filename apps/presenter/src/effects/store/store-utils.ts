@@ -2,10 +2,17 @@ import { TypeException } from '@shukun/exception';
 import { StoreScope } from '@shukun/widget';
 import { set as lodashSet } from 'lodash';
 
-export const get = (state: unknown, scope: StoreScope, path: string[]) => {
+export const getByScope = (
+  state: unknown,
+  scope: StoreScope,
+  path: string[],
+) => {
   const scopePath = getScopePath(scope);
   const fullPath = [...scopePath, ...path];
+  return get(state, fullPath);
+};
 
+export const get = (state: unknown, fullPath: string[]) => {
   let newState: any = state;
 
   for (let index = 0; index < fullPath.length; index++) {
@@ -27,7 +34,7 @@ export const get = (state: unknown, scope: StoreScope, path: string[]) => {
   return newState;
 };
 
-export const set = (
+export const setByScope = (
   state: unknown,
   scope: StoreScope,
   path: string[],
@@ -35,10 +42,14 @@ export const set = (
 ) => {
   const scopePath = getScopePath(scope);
   const fullPath = [...scopePath, ...path];
+  return set(state, fullPath, value);
+};
+
+export const set = (state: unknown, fullPath: string[], value: unknown) => {
   lodashSet(state as any, fullPath.join('.'), value);
 };
 
-const getScopePath = (scope: StoreScope): string[] => {
+export const getScopePath = (scope: StoreScope): string[] => {
   const { type, containerId, repositoryId } = scope;
   switch (type) {
     case 'app':
