@@ -62,7 +62,7 @@ export const createBrowserEffect = async () => {
     apiRequester,
   });
 
-  const watchManager = new WatchManager(eventManager);
+  const watchManager = new WatchManager(store, eventManager);
 
   const injector: EffectInjector = {
     authStorage,

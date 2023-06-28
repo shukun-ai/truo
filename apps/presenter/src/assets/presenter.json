@@ -118,7 +118,8 @@
         "fetchAirports": {
           "trigger": {
             "stateChanged": [["searchForm", "keyword"]],
-            "containerMounted": true
+            "containerMounted": true,
+            "interval": 60000
           },
           "events": [
             {
