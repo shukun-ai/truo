@@ -12,8 +12,7 @@ export type AppRepositoryContext = {
   store: IStore;
 };
 
-// TODO rename to ContainerRepositoryContext
-export type RepositoryFactoryContext = {
+export type ContainerRepositoryContext = {
   type: 'container';
   containerId: string | null;
   repositoryId: string;
@@ -21,5 +20,3 @@ export type RepositoryFactoryContext = {
   store: IStore;
   apiRequester: IApiRequester;
 };
-
-export type ContainerFactoryContext = RepositoryFactoryContext;

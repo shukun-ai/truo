@@ -33,7 +33,13 @@ export class TemplateService implements ITemplateService {
     };
     const $ = states;
     const $$ = helpers;
-    const value = run($, $$, literal);
-    return value;
+
+    try {
+      const value = run($, $$, literal);
+      return value;
+    } catch (error) {
+      console.error(error);
+      return '';
+    }
   }
 }

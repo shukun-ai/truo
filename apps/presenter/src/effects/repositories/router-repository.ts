@@ -1,7 +1,6 @@
 import { TypeException } from '@shukun/exception';
 import {
   AppRepositoryContext,
-  IRouterRepository,
   RouterMode,
   RouterRepositoryStates,
 } from '@shukun/widget';
@@ -9,10 +8,7 @@ import { History, Location } from 'history';
 
 import { AppRepository } from './abstract/app-repository';
 
-export class RouterRepository
-  extends AppRepository<RouterRepositoryStates>
-  implements IRouterRepository
-{
+export class RouterRepository extends AppRepository<RouterRepositoryStates> {
   constructor(
     override readonly context: AppRepositoryContext,
     private readonly history: History,
