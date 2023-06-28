@@ -5,7 +5,6 @@ import {
   IRouterRepository,
 } from '@shukun/widget';
 import { IRepositoryManager, repositoryIdentifier } from '@shukun/widget';
-import { combineLatest, map, Observable } from 'rxjs';
 
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
@@ -21,51 +20,6 @@ export class RepositoryManager implements IRepositoryManager {
       throw new TypeException('Did not find repository: {{key}}', { key });
     }
     return repository;
-  }
-
-  /**
-   * @deprecated
-   */
-  public queryAll(): Observable<Record<string, unknown>> {
-    const repositoryNames = [...this.repositories.keys()];
-    const repositories: IRepository[] = [];
-
-    repositoryNames.forEach((name) => {
-      const repository = this.repositories.get(name);
-      if (repository) {
-        repositories.push(repository);
-      }
-    });
-
-    const observables = repositories.map((repository) => repository.query());
-
-    return combineLatest(observables).pipe(
-      map((output) => {
-        const values: Record<string, unknown> = {};
-        repositoryNames.forEach((name, index) => {
-          values[name] = output[index] ? output[index] : {};
-        });
-        return values;
-      }),
-    );
-  }
-
-  /**
-   * @deprecated
-   */
-  getValue(): Record<string, unknown> {
-    const repositoryNames = [...this.repositories.keys()];
-    const values: Record<string, unknown> = {};
-
-    repositoryNames.forEach((name) => {
-      const repository = this.repositories.get(name);
-      if (repository) {
-        const output = repository.getValue();
-        values[name] = output ? output : {};
-      }
-    });
-
-    return values;
   }
 
   public registerRouterRepository(routerRepository: IRouterRepository): void {

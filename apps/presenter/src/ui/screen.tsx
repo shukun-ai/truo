@@ -3,7 +3,7 @@ import { DashboardLayout, WorkshopLayout } from '@shukun/widget-react';
 import { AppProps } from '@shukun/widget-react';
 import { useMemo } from 'react';
 
-import { extractContainerState } from '../utils/extract-container-state';
+import { getSyntheticState } from '../effects/store/synthetic-state';
 
 import { Container } from './container';
 
@@ -50,6 +50,6 @@ const getContainerAppProps = (
   return {
     ...appProps,
     containerId,
-    states: extractContainerState(appProps.rawStates, containerId),
+    states: getSyntheticState(appProps.rawStates, containerId),
   };
 };

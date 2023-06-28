@@ -7,7 +7,7 @@ import {
   EventManagerState,
 } from '@shukun/widget';
 
-import { extractContainerState } from '../../utils/extract-container-state';
+import { getSyntheticState } from '../store/synthetic-state';
 
 export const handleEvent = (
   event: PresenterEvent,
@@ -53,9 +53,9 @@ export const handleEvent = (
     );
   }
 
-  const allState = context.repositoryManager.getValue();
+  const allState = context.store.getAllValue();
 
-  const containerState = extractContainerState(allState, containerId);
+  const containerState = getSyntheticState(allState, containerId);
 
   const states = {
     ...containerState,

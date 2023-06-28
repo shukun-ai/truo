@@ -12,6 +12,8 @@ export interface IStore {
     scope: StoreScope,
     path: string[],
   ): Observable<SelectedState>;
+  queryAll(): Observable<unknown>;
+  getAllValue(): unknown;
 }
 
 export type StoreScope = {

@@ -5,10 +5,10 @@ import {
   SimpleState,
 } from '@shukun/widget';
 
-import { BaseRepository } from './abstract/base-repository';
+import { ContainerRepository } from './abstract/container-repository';
 
 export class SimpleRepository
-  extends BaseRepository<unknown>
+  extends ContainerRepository<unknown>
   implements ISimpleRepository
 {
   constructor(override readonly context: RepositoryFactoryContext) {

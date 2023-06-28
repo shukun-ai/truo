@@ -25,8 +25,18 @@ export const createBrowserEffect = async () => {
   const store = new Store();
   const history = createBrowserHistory();
   const authStorage = new AuthStorage();
-  const routerRepository = new RouterRepository(history);
-  const authRepository = new AuthRepository(authStorage);
+  const routerRepository = new RouterRepository(
+    { type: 'app', repositoryId: 'router', store },
+    history,
+  );
+  const authRepository = new AuthRepository(
+    {
+      type: 'app',
+      repositoryId: 'auth',
+      store,
+    },
+    authStorage,
+  );
   const repositoryManager = new RepositoryManager();
   const templateService = new TemplateService();
   const apiRequester = new ApiRequester(authRepository);
@@ -45,6 +55,7 @@ export const createBrowserEffect = async () => {
   registerContainers(store, apiRequester, repositoryManager, definitions);
 
   const eventManager = new EventManager({
+    store,
     repositoryManager,
     templateService,
     helpers: {},
@@ -113,6 +124,7 @@ const registerContainer = (
     }
 
     const repositoryFactoryContext: RepositoryFactoryContext = {
+      type: 'container',
       containerId,
       repositoryId,
       definition,

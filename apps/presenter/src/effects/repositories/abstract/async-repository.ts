@@ -1,10 +1,10 @@
 import { PresenterEvent } from '@shukun/schema';
 import { AsyncState, IAsyncRepository } from '@shukun/widget';
 
-import { BaseRepository } from './base-repository';
+import { ContainerRepository } from './container-repository';
 
-export abstract class AsyncRepository
-  extends BaseRepository<AsyncState>
+export class AsyncRepository
+  extends ContainerRepository<AsyncState>
   implements IAsyncRepository
 {
   run(event: PresenterEvent, payload: unknown): Promise<void> {

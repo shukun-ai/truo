@@ -2,14 +2,16 @@ import { AppProps } from '@shukun/widget-react';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect-injector.interface';
+import { get } from '../effects/store/store-utils';
 
 export const createObservable = (
   injector: EffectInjector,
 ): Observable<AppProps> => {
-  return injector.repositoryManager.queryAll().pipe(
+  return injector.store.queryAll().pipe(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     map((rawStates: any) => {
-      const router = rawStates['_app:router'];
-      const showSignInScreen = !rawStates['_app:auth']?.current;
+      const router = get(rawStates, ['app', 'router']);
+      const showSignInScreen = !get(rawStates, ['app', 'auth', 'current']);
 
       const appProps: AppProps = {
         context: {

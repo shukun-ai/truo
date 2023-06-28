@@ -2,6 +2,7 @@ import { PresenterEvent } from '@shukun/schema';
 
 import { IRepositoryManager } from './repository-manager.interface';
 import { IApiRequester } from './requester.interface';
+import { IStore } from './store.interface';
 import {
   ITemplateService,
   TemplateEvaluateHelpers,
@@ -12,6 +13,7 @@ export interface IEventManager {
 }
 
 export type EventManagerContext = {
+  store: IStore;
   repositoryManager: IRepositoryManager;
   templateService: ITemplateService;
   helpers: TemplateEvaluateHelpers;
