@@ -19,6 +19,15 @@
             }
           }
         },
+        "table": {
+          "type": "simple",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "page": { "type": "number" }
+            }
+          }
+        },
         "airportSearch": {
           "type": "sourceQuery",
           "parameters": {
@@ -101,9 +110,19 @@
                 "field": "createdAt"
               }
             ],
-            "value": "$$_js:return $.airportSearch.data.value"
+            "value": "$$_js:return $.airportSearch.data.value",
+            "totalCounts": "$$_js:return $.airportSearch.data.count"
           },
-          "events": {}
+          "events": {
+            "changePage": [
+              {
+                "scope": "container",
+                "target": "table",
+                "action": "setValue",
+                "path": ["page"]
+              }
+            ]
+          }
         }
       },
       "tree": {
@@ -117,16 +136,18 @@
       "watches": {
         "fetchAirports": {
           "trigger": {
-            "stateChanged": [["searchForm", "keyword"]],
-            "containerMounted": true,
-            "interval": 60000
+            "stateChanged": [
+              ["searchForm", "keyword"],
+              ["table", "page"]
+            ],
+            "containerMounted": true
           },
           "events": [
             {
               "scope": "container",
               "target": "airportSearch",
               "action": "run",
-              "value": "$$_js:return { filter: { code: { $like: $.searchForm.keyword } }, limit: 20 };"
+              "value": "$$_js:return { filter: { code: { $like: $.searchForm.keyword } }, limit: 10, skip: (($.table.page || 1) - 1) * 10, count: true };"
             }
           ]
         }

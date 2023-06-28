@@ -46,6 +46,13 @@
       "schema": {
         "type": "number"
       }
+    },
+    "changePage": {
+      "label": "触发修改分页的事件",
+      "isEvent": true,
+      "schema": {
+        "type": "number"
+      }
     }
   }
 }
