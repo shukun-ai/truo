@@ -100,7 +100,12 @@ export const TableWidget = createWidget<TableDefinitionProps>(
             display="flex"
             sx={{ paddingTop: '2rem', justifyContent: 'flex-end' }}
           >
-            <Pagination total={paginationTotal} />
+            <Pagination
+              total={paginationTotal}
+              onChange={(page) => {
+                props.changePage && props.changePage(page);
+              }}
+            />
           </Box>
         </Paper>
       </TableContextProvider>

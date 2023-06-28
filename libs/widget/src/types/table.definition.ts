@@ -10,6 +10,7 @@ export type TableDefinitionProps = {
   columns: TableDefinitionColumns;
   value: TableDefinitionValue;
   totalCounts?: TableDefinitionTotalCounts;
+  changePage?: (payload: TableDefinitionChangePage) => void;
 };
 
 export type TableDefinitionColumns = {
@@ -37,3 +38,5 @@ export type TableDefinitionValue = {
 }[];
 
 export type TableDefinitionTotalCounts = number;
+
+export type TableDefinitionChangePage = number;
