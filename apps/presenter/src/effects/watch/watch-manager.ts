@@ -1,6 +1,7 @@
 import { PresenterWatch } from '@shukun/schema';
 import {
   IEventManager,
+  IStore,
   IWatchManager,
   WatchIdentifier,
   WatchSubscriptions,
@@ -13,13 +14,17 @@ import { createStateChanged } from './watch-state-changed';
 export class WatchManager implements IWatchManager {
   private watches: Map<string, WatchSubscriptions> = new Map();
 
-  constructor(private readonly eventManager: IEventManager) {}
+  constructor(
+    private readonly store: IStore,
+    private readonly eventManager: IEventManager,
+  ) {}
 
   register(identifier: WatchIdentifier, watch: PresenterWatch): void {
     const subscriptions: WatchSubscriptions = {};
 
     if (watch.trigger.stateChanged) {
       subscriptions.stateChanged = createStateChanged(
+        this.store,
         identifier.containerId,
         this.eventManager,
         watch,

@@ -1,9 +1,13 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterEvent, PresenterWatch } from '@shukun/schema';
-import { IEventManager } from '@shukun/widget';
-import { Observable, Subscription, of, tap } from 'rxjs';
+import { IEventManager, IStore } from '@shukun/widget';
+import { Observable, Subscription, distinctUntilChanged, map, tap } from 'rxjs';
+
+import { get } from '../store/store-utils';
+import { getSyntheticState } from '../store/synthetic-state';
 
 export const createStateChanged = (
+  store: IStore,
   containerId: string,
   eventManager: IEventManager,
   watch: PresenterWatch,
@@ -15,8 +19,8 @@ export const createStateChanged = (
 
   const observable =
     stateChanged.length === 0
-      ? createAutomaticallyWatch(containerId, eventManager, watch.events)
-      : createExplicitWatch(containerId, eventManager, stateChanged);
+      ? createAutomaticallyWatch(store, containerId, watch.events)
+      : createExplicitWatch(store, containerId, stateChanged);
 
   return observable
     .pipe(
@@ -33,18 +37,31 @@ export const createStateChanged = (
 };
 
 const createAutomaticallyWatch = (
+  store: IStore,
   containerId: string,
-  eventManager: IEventManager,
   events: PresenterEvent[],
 ): Observable<unknown> => {
-  return createExplicitWatch(containerId, eventManager, []);
+  // TODO implement automatically watch.
+  return createExplicitWatch(store, containerId, []);
 };
 
 const createExplicitWatch = (
+  store: IStore,
   containerId: string,
-  eventManager: IEventManager,
   stateList: string[][],
 ): Observable<unknown> => {
-  // TODO implement it
-  return of();
+  return store.queryAll().pipe(
+    map((allState) => getSyntheticState(allState, containerId)),
+    map((containerState) => {
+      const watched = stateList.map((item) => {
+        return get(containerState, item);
+      });
+      return generateDistinctValue(watched);
+    }),
+    distinctUntilChanged(),
+  );
+};
+
+const generateDistinctValue = (value: unknown) => {
+  return JSON.stringify(value);
 };
