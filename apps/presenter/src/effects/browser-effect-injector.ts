@@ -4,7 +4,7 @@ import {
   IApiRequester,
   IRepositoryManager,
   IStore,
-  RepositoryFactoryContext,
+  ContainerRepositoryContext,
 } from '@shukun/widget';
 import { ConfigDefinitions } from '@shukun/widget-react';
 import { createBrowserHistory } from 'history';
@@ -123,7 +123,7 @@ const registerContainer = (
       return;
     }
 
-    const repositoryFactoryContext: RepositoryFactoryContext = {
+    const repositoryFactoryContext: ContainerRepositoryContext = {
       type: 'container',
       containerId,
       repositoryId,

@@ -1,18 +1,11 @@
 import { AuthenticationToken } from '@shukun/schema';
-import {
-  IAuthRepository,
-  AuthRepositoryStates,
-  AppRepositoryContext,
-} from '@shukun/widget';
+import { AuthRepositoryStates, AppRepositoryContext } from '@shukun/widget';
 
 import { IAuthStorage } from '../storages/auth-storage.interface';
 
 import { AppRepository } from './abstract/app-repository';
 
-export class AuthRepository
-  extends AppRepository<AuthRepositoryStates>
-  implements IAuthRepository
-{
+export class AuthRepository extends AppRepository<AuthRepositoryStates> {
   constructor(
     override readonly context: AppRepositoryContext,
     private readonly authStorage: IAuthStorage,

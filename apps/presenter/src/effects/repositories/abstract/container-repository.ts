@@ -1,5 +1,5 @@
 import {
-  ContainerFactoryContext,
+  ContainerRepositoryContext,
   IRepository,
   StoreScope,
 } from '@shukun/widget';
@@ -7,7 +7,7 @@ import {
 import { write } from '../utils/mutation';
 
 export class ContainerRepository<State> implements IRepository {
-  constructor(readonly context: ContainerFactoryContext) {}
+  constructor(readonly context: ContainerRepositoryContext) {}
 
   initializeValue(initialValue: State) {
     this.context.store.update(this.getScope(), [], () => initialValue);

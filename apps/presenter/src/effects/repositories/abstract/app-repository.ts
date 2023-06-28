@@ -1,8 +1,8 @@
-import { AppRepositoryContext, StoreScope } from '@shukun/widget';
+import { AppRepositoryContext, IRepository, StoreScope } from '@shukun/widget';
 
 import { write } from '../utils/mutation';
 
-export class AppRepository<State> {
+export class AppRepository<State> implements IRepository {
   constructor(readonly context: AppRepositoryContext) {}
 
   initializeValue(initialValue: State) {
