@@ -1,8 +1,6 @@
-import { StoreScope } from '@shukun/widget';
+import { RepositoryFactoryContext, StoreScope } from '@shukun/widget';
 
 import { write } from '../utils/mutation';
-
-import { RepositoryFactoryContext } from './repository-factory.type';
 
 export abstract class BaseRepository<State> {
   constructor(readonly context: RepositoryFactoryContext) {}

@@ -1,6 +1,11 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterContainer } from '@shukun/schema';
-import { IApiRequester, IRepositoryManager, IStore } from '@shukun/widget';
+import {
+  IApiRequester,
+  IRepositoryManager,
+  IStore,
+  RepositoryFactoryContext,
+} from '@shukun/widget';
 import { ConfigDefinitions } from '@shukun/widget-react';
 import { createBrowserHistory } from 'history';
 
@@ -9,7 +14,6 @@ import { EffectInjector } from './effect-injector.interface';
 import { EventManager } from './event/event-manager';
 import { ServerLoader } from './loaders/server-loader';
 import { AuthRepository } from './repositories/auth-repository';
-import { RepositoryFactoryContext } from './repositories/repository-factory.type';
 import { RouterRepository } from './repositories/router-repository';
 import { RepositoryManager } from './repository/repository-manager';
 import { AuthStorage } from './storages/auth-storage';
