@@ -1,19 +1,16 @@
 import { HttpQuerySchema, PresenterEvent } from '@shukun/schema';
-import { AsyncState, IApiRequester, IAsyncRepository } from '@shukun/widget';
+import { IApiRequester } from '@shukun/widget';
 
-import { BaseRepository } from './base-repository';
-import { RepositoryFactoryContext } from './repository-factory.type';
+import { AsyncRepository } from './abstract/async-repository';
+import { RepositoryFactoryContext } from './abstract/repository-factory.type';
 
-export class SourceQueryRepository
-  extends BaseRepository<AsyncState>
-  implements IAsyncRepository
-{
+export class SourceQueryRepository extends AsyncRepository {
   constructor(override readonly context: RepositoryFactoryContext) {
     super(context);
     this.setInitialValue();
   }
 
-  async run(event: PresenterEvent, payload: unknown): Promise<void> {
+  override async run(event: PresenterEvent, payload: unknown): Promise<void> {
     this.updateValue((draft) => (draft.loading = true));
 
     const { apiRequester, definition } = this.context;
