@@ -1,14 +1,23 @@
+import { AppRepositoryContext } from '@shukun/widget';
 import { createMemoryHistory } from 'history';
+
+import { Store } from '../store/store';
 
 import { RouterRepository } from './router-repository';
 
 describe('RouterRepository', () => {
+  const context: AppRepositoryContext = {
+    type: 'app',
+    repositoryId: 'router',
+    store: new Store(),
+  };
+
   describe('Constructor', () => {
     it('should return page home, when /', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda/'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       const value = routerRepository.getValue();
       expect(value).toEqual({
         app: 'pda',
@@ -23,7 +32,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       const value = routerRepository.getValue();
       expect(value).toEqual({
         app: 'pda',
@@ -38,7 +47,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda/home/'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       const value = routerRepository.getValue();
       expect(value).toEqual({
         app: 'pda',
@@ -57,7 +66,7 @@ describe('RouterRepository', () => {
           )}`,
         ],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       const value = routerRepository.getValue();
       expect(value).toEqual({
         app: 'pda',
@@ -74,7 +83,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       routerRepository.trigger({ page: 'about', search: { id: 'mock' } });
       expect(history.location.pathname).toEqual('/presenter/shukun/pda/about');
       expect(history.location.search).toEqual(
@@ -94,7 +103,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       routerRepository.trigger({
         action: 'replace',
         page: 'about',
@@ -121,7 +130,7 @@ describe('RouterRepository', () => {
           '/presenter/shukun/pda/profile',
         ],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       routerRepository.trigger({
         action: 'pop',
         page: 'about',
@@ -145,7 +154,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       expect(routerRepository.getValue()).toEqual({
         orgName: 'shukun',
         app: 'pda',
@@ -171,7 +180,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       history.push({
         pathname: '/presenter/shukun/pda/about',
         search: `s=${encodeURIComponent(JSON.stringify({ id: 'mock' }))}`,
@@ -196,7 +205,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda?mode=local'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       const value = routerRepository.getValue();
       expect(value).toEqual({
         orgName: 'shukun',
@@ -211,7 +220,7 @@ describe('RouterRepository', () => {
       const history = createMemoryHistory({
         initialEntries: ['/presenter/shukun/pda?mode=mock'],
       });
-      const routerRepository = new RouterRepository(history);
+      const routerRepository = new RouterRepository(context, history);
       const value = routerRepository.getValue();
       expect(value).toEqual({
         orgName: 'shukun',

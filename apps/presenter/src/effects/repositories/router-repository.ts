@@ -1,32 +1,30 @@
 import { TypeException } from '@shukun/exception';
 import {
+  AppRepositoryContext,
   IRouterRepository,
   RouterMode,
   RouterRepositoryStates,
 } from '@shukun/widget';
 import { History, Location } from 'history';
-import { BehaviorSubject, Observable } from 'rxjs';
 
-export class RouterRepository implements IRouterRepository {
-  private internalStates: BehaviorSubject<RouterRepositoryStates>;
+import { AppRepository } from './abstract/app-repository';
 
-  constructor(private readonly history: History) {
-    this.internalStates = new BehaviorSubject<RouterRepositoryStates>(
-      this.parseLocation(this.history.location),
-    );
+export class RouterRepository
+  extends AppRepository<RouterRepositoryStates>
+  implements IRouterRepository
+{
+  constructor(
+    override readonly context: AppRepositoryContext,
+    private readonly history: History,
+  ) {
+    super(context);
+    const state = this.parseLocation(this.history.location);
+    this.initializeValue(state);
     this.listenHistoryChanges();
   }
 
-  query(): Observable<RouterRepositoryStates> {
-    return this.internalStates;
-  }
-
   getValue(): RouterRepositoryStates {
-    return this.internalStates.getValue();
-  }
-
-  destroy(): void {
-    this.internalStates.unsubscribe();
+    return this.getState();
   }
 
   trigger(payload: {
@@ -54,7 +52,8 @@ export class RouterRepository implements IRouterRepository {
 
   private listenHistoryChanges() {
     this.history.listen(({ location }) => {
-      this.internalStates.next(this.parseLocation(location));
+      const state = this.parseLocation(location);
+      this.initializeValue(state);
     });
   }
 

@@ -61,4 +61,12 @@ export class Store implements IStore {
       distinctUntilChanged(),
     );
   }
+
+  queryAll(): Observable<unknown> {
+    return this.store.pipe(distinctUntilChanged());
+  }
+
+  getAllValue(): unknown {
+    return this.store.getValue();
+  }
 }

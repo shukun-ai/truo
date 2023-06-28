@@ -1,38 +1,35 @@
 import { AuthenticationToken } from '@shukun/schema';
-import { IAuthRepository, AuthRepositoryStates } from '@shukun/widget';
-import { Observable } from 'rxjs';
+import {
+  IAuthRepository,
+  AuthRepositoryStates,
+  AppRepositoryContext,
+} from '@shukun/widget';
 
 import { IAuthStorage } from '../storages/auth-storage.interface';
 
-import { Store } from './store';
+import { AppRepository } from './abstract/app-repository';
 
-export class AuthRepository implements IAuthRepository {
-  private state: Store<AuthRepositoryStates>;
-
-  constructor(private readonly authStorage: IAuthStorage) {
+export class AuthRepository
+  extends AppRepository<AuthRepositoryStates>
+  implements IAuthRepository
+{
+  constructor(
+    override readonly context: AppRepositoryContext,
+    private readonly authStorage: IAuthStorage,
+  ) {
+    super(context);
     const auth = this.authStorage.get()?.current ?? null;
-    this.state = new Store<AuthRepositoryStates>({
+    this.initializeValue({
       current: auth,
     });
   }
 
-  query(): Observable<AuthRepositoryStates> {
-    return this.state.asObservable();
-  }
-
   getValue(): AuthRepositoryStates {
-    return this.state.getValue();
-  }
-
-  destroy(): void {
-    this.state.unsubscribe();
+    return this.getState();
   }
 
   signIn(token: AuthenticationToken): void {
-    this.state.update((previous) => ({
-      ...previous,
-      current: token,
-    }));
+    this.updateValue((draft) => (draft.current = token));
     // TODO refactor, remove authStorage, and change to subscribe
     this.authStorage.set({
       current: token,
@@ -40,10 +37,7 @@ export class AuthRepository implements IAuthRepository {
   }
 
   signOut(): void {
-    this.state.update((previous) => ({
-      ...previous,
-      current: null,
-    }));
+    this.updateValue((draft) => (draft.current = null));
     // TODO refactor, remove authStorage, and change to subscribe
     this.authStorage.remove();
   }
