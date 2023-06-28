@@ -1,8 +1,11 @@
 import { PresenterEvent } from '@shukun/schema';
-import { ISimpleRepository, SimpleState } from '@shukun/widget';
+import {
+  ISimpleRepository,
+  RepositoryFactoryContext,
+  SimpleState,
+} from '@shukun/widget';
 
-import { BaseRepository } from './base-repository';
-import { RepositoryFactoryContext } from './repository-factory.type';
+import { BaseRepository } from './abstract/base-repository';
 
 export class SimpleRepository
   extends BaseRepository<unknown>
