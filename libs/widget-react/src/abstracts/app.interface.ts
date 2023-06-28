@@ -4,6 +4,7 @@ import {
   IApiRequester,
   IEventManager,
   IRepositoryManager,
+  IStore,
   IWatchManager,
   RouterMode,
   TemplateEvaluateHelpers,
@@ -22,14 +23,13 @@ export type AppProps = {
     search: Record<string, unknown>;
     mode: RouterMode;
   };
-  rawStates: {
-    [repositoryId: string]: unknown;
-  };
+  rawStates: Record<string, unknown>;
   containerId: string | null;
   showSignInScreen: boolean;
   states: {
     [stateId: string]: unknown;
   };
+  store: IStore;
   helpers: TemplateEvaluateHelpers;
   presenter: PresenterSchema;
   reactWidgets: ReactWidgets;

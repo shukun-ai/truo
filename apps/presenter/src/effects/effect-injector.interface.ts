@@ -2,6 +2,7 @@ import {
   IApiRequester,
   IEventManager,
   IRepositoryManager,
+  IStore,
   IWatchManager,
 } from '@shukun/widget';
 
@@ -17,6 +18,7 @@ export type EffectInjector = {
   authStorage: IAuthStorage;
   apiRequester: IApiRequester;
   loader: ILoader;
+  store: IStore;
   repositoryManager: IRepositoryManager;
   watchManager: IWatchManager;
   eventManager: IEventManager;

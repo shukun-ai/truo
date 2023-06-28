@@ -16,11 +16,13 @@ export class Store implements IStore {
   store = new BehaviorSubject<Record<string, unknown>>({});
 
   constructor() {
-    this.store.pipe(
-      tap((state) => {
-        send({ action: 'store changed', state });
-      }),
-    );
+    this.store
+      .pipe(
+        tap((state) => {
+          send({ action: 'store changed', state });
+        }),
+      )
+      .subscribe();
   }
 
   update<SelectedState>(
