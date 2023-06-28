@@ -1,42 +1,20 @@
 import { HttpQuerySchema, PresenterEvent } from '@shukun/schema';
 import { AsyncState, IApiRequester, IAsyncRepository } from '@shukun/widget';
-import { Observable } from 'rxjs';
 
+import { BaseRepository } from './base-repository';
 import { RepositoryFactoryContext } from './repository-factory.type';
-import { Store } from './store';
 
-export class SourceQueryRepository implements IAsyncRepository {
-  private readonly store: Store<AsyncState>;
-
-  constructor(readonly context: RepositoryFactoryContext) {
-    this.store = new Store({
-      loading: false,
-      errorMessage: null,
-      data: {},
-    } as AsyncState);
-  }
-
-  query(): Observable<AsyncState> {
-    return this.store.asObservable();
-  }
-
-  getValue(): AsyncState {
-    return this.store.getValue();
-  }
-
-  resetValue(): void {
-    this.store.reset();
-  }
-
-  destroy(): void {
-    this.store.unsubscribe();
+export class SourceQueryRepository
+  extends BaseRepository<AsyncState>
+  implements IAsyncRepository
+{
+  constructor(override readonly context: RepositoryFactoryContext) {
+    super(context);
+    this.setInitialValue();
   }
 
   async run(event: PresenterEvent, payload: unknown): Promise<void> {
-    this.store.update((previous) => ({
-      ...previous,
-      loading: true,
-    }));
+    this.updateValue((draft) => (draft.loading = true));
 
     const { apiRequester, definition } = this.context;
     const { atomName } = definition.parameters as any;
@@ -48,11 +26,12 @@ export class SourceQueryRepository implements IAsyncRepository {
       atomName,
       payload as HttpQuerySchema,
     );
-    this.store.update(() => ({
-      loading: false,
-      errorMessage: null,
-      data: response.data,
-    }));
+
+    this.updateValue((draft) => {
+      draft.loading = false;
+      draft.errorMessage = null;
+      draft.data = response.data;
+    });
   }
 
   private async sendRequester(
@@ -66,12 +45,20 @@ export class SourceQueryRepository implements IAsyncRepository {
         .query(query);
       return response;
     } catch (error) {
-      this.store.update((previous) => ({
-        ...previous,
-        loading: false,
-        errorMessage: error instanceof Error ? error.message : '未知错误',
-      }));
+      this.updateValue((draft) => {
+        draft.loading = false;
+        draft.errorMessage =
+          error instanceof Error ? error.message : '未知错误';
+      });
       throw error;
     }
+  }
+
+  private setInitialValue() {
+    this.initializeValue({
+      loading: false,
+      errorMessage: null,
+      data: {},
+    });
   }
 }

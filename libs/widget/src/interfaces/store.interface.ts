@@ -4,7 +4,7 @@ export interface IStore {
   update<SelectedState>(
     scope: StoreScope,
     path: string[],
-    callback: (previous: SelectedState) => SelectedState,
+    callback: StoreCallback<SelectedState>,
   ): void;
   remove(scope: StoreScope, path: string[]): void;
   getValue<SelectedState>(scope: StoreScope, path: string[]): SelectedState;
@@ -19,3 +19,7 @@ export type StoreScope = {
   containerId: string | null;
   repositoryId: string;
 };
+
+export type StoreCallback<SelectedState> = (
+  previous: SelectedState,
+) => SelectedState;
