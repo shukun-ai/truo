@@ -10,7 +10,7 @@ export const FormWidget = createWidget<FormDefinitionProps>(
   formDefinition,
   (props) => {
     const form = useForm({
-      initialValues: props.value,
+      initialValues: structuredClone(props.value),
     });
 
     return (
@@ -20,7 +20,7 @@ export const FormWidget = createWidget<FormDefinitionProps>(
           component="form"
           sx={{ display: 'block' }}
           onSubmit={form.onSubmit((value) => {
-            props.submit && props.submit(value);
+            props.submit && props.submit(structuredClone(value));
           })}
         >
           <Box>{props.children}</Box>
