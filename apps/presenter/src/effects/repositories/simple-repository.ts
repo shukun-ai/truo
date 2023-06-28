@@ -24,7 +24,7 @@ export class SimpleRepository extends ContainerRepository<unknown> {
   }
 
   private setInitialValue(context: ContainerRepositoryContext) {
-    const { defaultValue } = context.definition.parameters;
+    const defaultValue = context.definition?.parameters?.['defaultValue'];
     const parseDefaultValue: SimpleState =
       typeof defaultValue === 'undefined' ? {} : defaultValue;
 
