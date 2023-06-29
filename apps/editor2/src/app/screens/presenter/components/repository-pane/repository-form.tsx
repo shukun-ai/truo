@@ -1,4 +1,4 @@
-import { Button, Select, SelectItem, TextInput } from '@mantine/core';
+import { Button, NativeSelect, SelectItem, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { useObservableState } from 'observable-hooks';
@@ -34,10 +34,12 @@ export const RepositoryForm = ({
   );
 
   const typeOptions = useMemo<SelectItem[]>(() => {
-    return Object.entries(repositoryDefinitions).map(([key, definition]) => ({
-      value: key,
-      label: key,
-    }));
+    return Object.entries(repositoryDefinitions)
+      .filter(([, definition]) => definition.scope === 'container')
+      .map(([key]) => ({
+        value: key,
+        label: key,
+      }));
   }, [repositoryDefinitions]);
 
   const form = useForm<RepositoryFormValues>({
@@ -77,7 +79,7 @@ export const RepositoryForm = ({
         description="数据仓库标识符用于 Repository 识别，请使用符合如下格式：字母 a-z、数字 0-9、下划线和中文，推荐使用中文。"
         {...form.getInputProps('repositoryId')}
       />
-      <Select
+      <NativeSelect
         label="选择数据仓库类型"
         placeholder="Repository Type"
         data={typeOptions}

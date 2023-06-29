@@ -3,7 +3,7 @@
   "title": "RepositorySchema",
   "description": "Define the presenter repository definitions",
   "type": "object",
-  "required": ["name", "parameters"],
+  "required": ["name", "scope", "parameters"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -12,6 +12,10 @@
     "name": {
       "type": "string"
     },
+    "scope": {
+      "enum": ["app", "container"]
+    },
+    "manualJsonSchema": { "type": "boolean" },
     "parameters": {
       "type": "object",
       "patternProperties": {
@@ -29,7 +33,6 @@
           }
         }
       }
-    },
-    "manualJsonSchema": { "type": "boolean" }
+    }
   }
 }
