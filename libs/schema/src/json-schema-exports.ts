@@ -1,6 +1,4 @@
-import applicationSchemaJson from './json-schemas/application.schema.json';
 import environmentSchemaJson from './json-schemas/application/environment.schema.json';
-import flowSchemaJson from './json-schemas/application/flow.schema.json';
 import flowEventChoiceSchemaJson from './json-schemas/application/flow/event/choice.schema.json';
 import flowEventFailSchemaJson from './json-schemas/application/flow/event/fail.schema.json';
 import flowEventFirstOrThrowSchemaJson from './json-schemas/application/flow/event/first-or-throw.schema.json';
@@ -18,6 +16,7 @@ import flowEventStoreSchemaJson from './json-schemas/application/flow/event/stor
 import flowEventSuccessSchemaJson from './json-schemas/application/flow/event/success.schema.json';
 import flowEventsSchemaJson from './json-schemas/application/flow/events.schema.json';
 import flowStoreSchemaJson from './json-schemas/application/flow/store.schema.json';
+import flowSchemaJson from './json-schemas/application/flow.schema.json';
 import metadataSchemaJson from './json-schemas/application/metadata.schema.json';
 import roleSchemaJson from './json-schemas/application/role.schema.json';
 import scheduleSchemaJson from './json-schemas/application/schedule.schema.json';
@@ -34,16 +33,18 @@ import workflowFailStateSchemaJson from './json-schemas/application/workflows/fa
 import workflowPassStateSchemaJson from './json-schemas/application/workflows/pass-state.schema.json';
 import workflowRetriesSchemaJson from './json-schemas/application/workflows/retries.schema.json';
 import workflowTaskStateSchemaJson from './json-schemas/application/workflows/task-state.schema.json';
+import applicationSchemaJson from './json-schemas/application.schema.json';
 import attachmentsSchemaJson from './json-schemas/attachments.schema.json';
 import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
 import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
-import presenterSchemaJson from './json-schemas/presenter.schema.json';
 import presenterContainerSchemaJson from './json-schemas/presenter/container.schema.json';
 import presenterEventSchemaJson from './json-schemas/presenter/event.schema.json';
 import presenterRepositorySchemaJson from './json-schemas/presenter/repository.schema.json';
 import presenterScreenSchemaJson from './json-schemas/presenter/screen.schema.json';
 import presenterWidgetSchemaJson from './json-schemas/presenter/widget.schema.json';
+import presenterSchemaJson from './json-schemas/presenter.schema.json';
 import ReferenceDataSchemaJson from './json-schemas/reference/reference-data.schema.json';
+import repositorySchemaJson from './json-schemas/repository.schema.json';
 import widgetSchemaJson from './json-schemas/widget.schema.json';
 
 export const applicationSchema = applicationSchemaJson;
@@ -94,4 +95,5 @@ export const presenterEventSchema = presenterEventSchemaJson;
 export const presenterRepositorySchema = presenterRepositorySchemaJson;
 export const presenterWidgetSchema = presenterWidgetSchemaJson;
 export const widgetSchema = widgetSchemaJson;
+export const repositorySchema = repositorySchemaJson;
 export const referenceDataSchema = ReferenceDataSchemaJson;

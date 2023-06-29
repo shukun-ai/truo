@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/repository.schema.json",
+  "name": "simple",
+  "manualJsonSchema": true,
+  "parameters": {
+    "defaultValue": {
+      "editorType": "json",
+      "required": false
+    }
+  }
+}
