@@ -4,6 +4,7 @@ import { PresenterContainer, PresenterSchema } from '@shukun/schema';
 import { containerRef } from './container-ref';
 import { IDeserializationService } from './deserialization-service.interface';
 import { presenterStore } from './presenter-store';
+import { getRepository, repositoryRef } from './repository-ref';
 import { screenRef } from './screen-ref';
 import { widgetRef } from './widget-ref';
 
@@ -31,7 +32,7 @@ export class DeserializationService implements IDeserializationService {
       containers[container.id] = {
         type: container.type,
         label: container.label,
-        repositories: {},
+        repositories: this.buildRepositories(container.id),
         widgets: this.buildWidgets(container.id),
         tree: container.tree,
         watches: {},
@@ -72,5 +73,21 @@ export class DeserializationService implements IDeserializationService {
       };
     });
     return widgets;
+  }
+
+  private buildRepositories(
+    containerId: string,
+  ): PresenterContainer['repositories'] {
+    const repositoryEntities = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (repository) => repository.containerId === containerId,
+        ref: repositoryRef,
+      }),
+    );
+    const repositories: PresenterContainer['repositories'] = {};
+    repositoryEntities.forEach((entity) => {
+      repositories[entity.repositoryId] = getRepository(entity);
+    });
+    return repositories;
   }
 }

@@ -22,3 +22,9 @@ export const createRepositoryEntityId = (
 ): `${string}:${string}` => {
   return `${containerId}:${repositoryId}`;
 };
+
+export const getRepository = (repositoryEntity: PresenterRepositoryEntity) => {
+  // TODO use omit instead
+  const { id, containerId, repositoryId, ...repository } = repositoryEntity;
+  return repository;
+};
