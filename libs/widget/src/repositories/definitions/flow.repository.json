@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/repository.schema.json",
+  "name": "flow",
+  "parameters": {
+    "flowName": {
+      "editorType": "flowName",
+      "required": true
+    }
+  }
+}
