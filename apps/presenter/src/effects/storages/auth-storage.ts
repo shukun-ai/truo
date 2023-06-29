@@ -1,30 +1,29 @@
-import {
-  IAuthStorage,
-  requesterSessionPayload,
-} from './auth-storage.interface';
+import { AuthenticationToken } from '@shukun/schema';
 
-export class AuthStorage implements IAuthStorage {
-  private STORAGE_KEY = 'SHUKUN_PRESENTER_AUTH';
+export type requesterSessionPayload = {
+  current: AuthenticationToken;
+};
 
-  set(payload: requesterSessionPayload): void {
-    const string = JSON.stringify(payload);
-    window.localStorage.setItem(this.STORAGE_KEY, string);
+export const AUTH_STORAGE_KEY = 'SHUKUN_PRESENTER_AUTH';
+
+export const setAuthStorage = (payload: requesterSessionPayload): void => {
+  const string = JSON.stringify(payload);
+  window.localStorage.setItem(AUTH_STORAGE_KEY, string);
+};
+
+export const getAuthStorage = (): requesterSessionPayload | null => {
+  const value = window.localStorage.getItem(AUTH_STORAGE_KEY);
+  if (!value) {
+    return null;
   }
-
-  get(): requesterSessionPayload | null {
-    const value = window.localStorage.getItem(this.STORAGE_KEY);
-    if (!value) {
-      return null;
-    }
-    try {
-      return JSON.parse(value);
-    } catch {
-      console.error('JSON Parse fail when get AuthStorage.');
-      return null;
-    }
+  try {
+    return JSON.parse(value);
+  } catch {
+    console.error('JSON Parse fail when get AuthStorage.');
+    return null;
   }
+};
 
-  remove(): void {
-    window.localStorage.removeItem(this.STORAGE_KEY);
-  }
-}
+export const remove = (): void => {
+  window.localStorage.removeItem(AUTH_STORAGE_KEY);
+};

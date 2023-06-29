@@ -16,7 +16,7 @@ import { ServerLoader } from './loaders/server-loader';
 import { AuthRepository } from './repositories/auth-repository';
 import { RouterRepository } from './repositories/router-repository';
 import { RepositoryManager } from './repository/repository-manager';
-import { AuthStorage } from './storages/auth-storage';
+import { StorageManager } from './storages/storage-manager';
 import { Store } from './store/store';
 import { TemplateService } from './template/template-service';
 import { WatchManager } from './watch/watch-manager';
@@ -24,19 +24,16 @@ import { WatchManager } from './watch/watch-manager';
 export const createBrowserEffect = async () => {
   const store = new Store();
   const history = createBrowserHistory();
-  const authStorage = new AuthStorage();
+  const storageManager = new StorageManager(store);
   const routerRepository = new RouterRepository(
     { type: 'app', repositoryId: 'router', store },
     history,
   );
-  const authRepository = new AuthRepository(
-    {
-      type: 'app',
-      repositoryId: 'auth',
-      store,
-    },
-    authStorage,
-  );
+  const authRepository = new AuthRepository({
+    type: 'app',
+    repositoryId: 'auth',
+    store,
+  });
   const repositoryManager = new RepositoryManager();
   const templateService = new TemplateService();
   const apiRequester = new ApiRequester(authRepository);
@@ -48,6 +45,8 @@ export const createBrowserEffect = async () => {
     router.app,
     router.mode,
   );
+
+  storageManager.register();
 
   // TODO use repository register table instead
   repositoryManager.registerAuthRepository(authRepository);
@@ -65,7 +64,6 @@ export const createBrowserEffect = async () => {
   const watchManager = new WatchManager(store, eventManager);
 
   const injector: EffectInjector = {
-    authStorage,
     apiRequester,
     loader,
     store,
