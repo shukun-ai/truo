@@ -30,3 +30,4 @@ export * from './repositories/implements/auth-repository';
 export * from './repositories/implements/router-repository';
 export * from './repositories/implements/simple-repository';
 export * from './repositories/implements/source-query-repository';
+export * from './repositories/definitions';
