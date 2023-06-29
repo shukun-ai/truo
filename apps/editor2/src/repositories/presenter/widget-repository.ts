@@ -49,7 +49,10 @@ export class WidgetRepository implements IWidgetRepository {
         });
         return selectedWidgets;
       }),
-      distinctUntilChanged(),
+      distinctUntilChanged((previous, current) => {
+        // TODO add distinctObjectUntilChanged
+        return JSON.stringify(previous) === JSON.stringify(current);
+      }),
     );
 
   upsertByContainer(presenter: PresenterSchema): void {

@@ -11,6 +11,7 @@ export * from './types/system-resources';
 export * from './types/system-roles';
 export * from './types/utils';
 export * from './types/presenter';
+export * from './types/repository';
 export * from './types/widget';
 
 export * from './json-schema-exports';

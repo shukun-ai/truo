@@ -1,9 +1,11 @@
 import { createStore, withProps } from '@ngneat/elf';
-import { WidgetSchema } from '@shukun/schema';
+import { RepositorySchema, WidgetSchema } from '@shukun/schema';
 
+import { repositoryDefinitions } from '../../widgets/repository-loader';
 import { widgetDefinitions } from '../../widgets/widget-loader';
 
 import { withContainer } from './container-ref';
+import { withRepository } from './repository-ref';
 import { withScreen } from './screen-ref';
 import { withTab } from './tab-ref';
 import { withTreeCollapse } from './tree-ui-ref';
@@ -12,9 +14,10 @@ import { withWidget } from './widget-ref';
 export type PresenterProps = {
   presenterLabel: string;
   widgetDefinitions: Record<string, WidgetSchema>;
-  selectedScreenId: string | null;
-  selectedContainerId: string | null;
-  selectedTabId: string | null;
+  repositoryDefinitions: Record<string, RepositorySchema>;
+  selectedScreenId: string | null; // REFACTOR rename to selectedScreenEntityId;
+  selectedContainerId: string | null; // REFACTOR rename to selectedContainerEntityId;
+  selectedTabId: string | null; // REFACTOR rename to selectedTabEntityId;
 };
 
 export const ROOT_NODE_ID = 'root';
@@ -25,6 +28,7 @@ export const presenterStore = createStore(
   withProps<PresenterProps>({
     presenterLabel: '未命名',
     widgetDefinitions,
+    repositoryDefinitions,
     selectedScreenId: null,
     selectedContainerId: null,
     selectedTabId: null,
@@ -34,4 +38,5 @@ export const presenterStore = createStore(
   withTreeCollapse(),
   withWidget(),
   withTab(),
+  withRepository(),
 );

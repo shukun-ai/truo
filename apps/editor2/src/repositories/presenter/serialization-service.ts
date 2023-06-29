@@ -4,6 +4,11 @@ import { PresenterSchema } from '@shukun/schema';
 
 import { PresenterContainerEntity, containerRef } from './container-ref';
 import { presenterStore } from './presenter-store';
+import {
+  PresenterRepositoryEntity,
+  createRepositoryEntityId,
+  repositoryRef,
+} from './repository-ref';
 import { PresenterScreenEntity, screenRef } from './screen-ref';
 import { ISerializationService } from './serialization-service.interface';
 import { PresenterWidgetEntity, widgetRef } from './widget-ref';
@@ -19,6 +24,9 @@ export class SerializationService implements ISerializationService {
         ref: containerRef,
       }),
       upsertEntities(this.getWidgetEntities(presenter), { ref: widgetRef }),
+      upsertEntities(this.getRepositoryEntities(presenter), {
+        ref: repositoryRef,
+      }),
     );
   }
 
@@ -72,5 +80,28 @@ export class SerializationService implements ISerializationService {
     }
 
     return widgetEntities;
+  }
+
+  private getRepositoryEntities(
+    presenter: PresenterSchema,
+  ): PresenterRepositoryEntity[] {
+    const repositoryEntities: PresenterRepositoryEntity[] = [];
+
+    for (const [containerId, container] of Object.entries(
+      presenter.containers,
+    )) {
+      for (const [repositoryId, repository] of Object.entries(
+        container.repositories,
+      )) {
+        repositoryEntities.push({
+          ...repository,
+          id: createRepositoryEntityId(containerId, repositoryId),
+          containerId,
+          repositoryId,
+        });
+      }
+    }
+
+    return repositoryEntities;
   }
 }

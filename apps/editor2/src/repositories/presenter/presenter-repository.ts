@@ -7,6 +7,7 @@ import { DeserializationService } from './deserialization-service';
 
 import { IPresenterRepository } from './presenter-repository.interface';
 import { presenterStore } from './presenter-store';
+import { RepositoryRepository } from './repository-repository';
 import { ScreenRepository } from './screen-repository';
 import { SerializationService } from './serialization-service';
 import { SynchronizeService } from './synchronize-service';
@@ -27,6 +28,8 @@ export class PresenterRepository implements IPresenterRepository {
 
   tabRepository = new TabRepository();
 
+  repositoryRepository = new RepositoryRepository();
+
   serializationService = new SerializationService();
 
   deserializationService = new DeserializationService();
@@ -35,6 +38,10 @@ export class PresenterRepository implements IPresenterRepository {
 
   widgetDefinitions$ = this.presenterStore.pipe(
     select((state) => state.widgetDefinitions),
+  );
+
+  repositoryDefinitions$ = this.presenterStore.pipe(
+    select((state) => state.repositoryDefinitions),
   );
 
   selectedContainerId$ = this.presenterStore.pipe(
@@ -52,6 +59,20 @@ export class PresenterRepository implements IPresenterRepository {
         return null;
       }
       return tabEntity.widgetId;
+    }),
+  );
+
+  selectedRepositoryId$ = this.presenterStore.pipe(
+    select((state) => {
+      const tabId = state.selectedTabId;
+      if (!tabId) {
+        return null;
+      }
+      const tabEntity = state.presenterTabEntities[tabId];
+      if (tabEntity.tabType !== 'repository') {
+        return null;
+      }
+      return tabEntity.repositoryId;
     }),
   );
 
