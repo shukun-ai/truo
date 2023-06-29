@@ -6,7 +6,7 @@ import {
   ViewRequester,
 } from '@shukun/api';
 import { UnknownSourceModel } from '@shukun/schema';
-import { IApiRequester, IAuthRepository } from '@shukun/widget';
+import { IApiRequester, IStore } from '@shukun/widget';
 
 import { environment } from '../../environments/environment';
 
@@ -17,7 +17,7 @@ export class ApiRequester implements IApiRequester {
 
   private readonly adaptor: AxiosAdaptor;
 
-  constructor(private readonly authRepository: IAuthRepository) {
+  constructor(private readonly store: IStore) {
     this.adaptor = new AxiosAdaptor({
       baseUrl: `${environment.serverDomain}/apis/v1`,
       onOrgName: () => this.getOrgName(),
@@ -33,10 +33,20 @@ export class ApiRequester implements IApiRequester {
   }
 
   private getOrgName(): string | null {
-    return this.authRepository.getValue()?.current?.orgName ?? null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const auth: any = this.store.getValue(
+      { type: 'app', containerId: null, repositoryId: 'auth' },
+      [],
+    );
+    return auth?.current?.orgName ?? null;
   }
 
   private getAccessToken(): string | null {
-    return this.authRepository.getValue()?.current?.accessToken ?? null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const auth: any = this.store.getValue(
+      { type: 'app', containerId: null, repositoryId: 'auth' },
+      [],
+    );
+    return auth?.current?.accessToken ?? null;
   }
 }

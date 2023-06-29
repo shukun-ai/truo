@@ -1,12 +1,13 @@
 import { PresenterEvent } from '@shukun/schema';
-import { ContainerRepositoryContext, SimpleState } from '@shukun/widget';
 
-import { ContainerRepository } from './abstract/container-repository';
+import { RepositoryContext } from '../../interfaces/repository.interface';
+import { SimpleState } from '../../interfaces/simple-repository.interface';
+import { BaseRepository } from '../abstracts/base-repository';
 
-export class SimpleRepository extends ContainerRepository<unknown> {
-  constructor(override readonly context: ContainerRepositoryContext) {
+export class SimpleRepository extends BaseRepository<unknown> {
+  constructor(override readonly context: RepositoryContext) {
     super(context);
-    this.setInitialValue(context);
+    this.setInitialValue();
   }
 
   setValue(event: PresenterEvent, payload: unknown): void {
@@ -23,8 +24,8 @@ export class SimpleRepository extends ContainerRepository<unknown> {
     );
   }
 
-  private setInitialValue(context: ContainerRepositoryContext) {
-    const defaultValue = context.definition?.parameters?.['defaultValue'];
+  private setInitialValue() {
+    const defaultValue = this.context.definition?.parameters?.['defaultValue'];
     const parseDefaultValue: SimpleState =
       typeof defaultValue === 'undefined' ? {} : defaultValue;
 

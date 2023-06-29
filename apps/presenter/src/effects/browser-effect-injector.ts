@@ -1,10 +1,12 @@
 import { TypeException } from '@shukun/exception';
 import { PresenterContainer } from '@shukun/schema';
 import {
+  AuthRepository,
   IApiRequester,
   IRepositoryManager,
   IStore,
-  ContainerRepositoryContext,
+  RepositoryContext,
+  RouterRepository,
 } from '@shukun/widget';
 import { ConfigDefinitions } from '@shukun/widget-react';
 import { createBrowserHistory } from 'history';
@@ -13,8 +15,6 @@ import { ApiRequester } from './apis/requester';
 import { EffectInjector } from './effect-injector.interface';
 import { EventManager } from './event/event-manager';
 import { ServerLoader } from './loaders/server-loader';
-import { AuthRepository } from './repositories/auth-repository';
-import { RouterRepository } from './repositories/router-repository';
 import { RepositoryManager } from './repository/repository-manager';
 import { StorageManager } from './storages/storage-manager';
 import { Store } from './store/store';
@@ -25,18 +25,28 @@ export const createBrowserEffect = async () => {
   const store = new Store();
   const history = createBrowserHistory();
   const storageManager = new StorageManager(store);
+  const apiRequester = new ApiRequester(store);
   const routerRepository = new RouterRepository(
-    { type: 'app', repositoryId: 'router', store },
+    {
+      type: 'app',
+      containerId: null,
+      repositoryId: 'router',
+      definition: { type: 'router', parameters: {} },
+      store,
+      apiRequester,
+    },
     history,
   );
   const authRepository = new AuthRepository({
     type: 'app',
+    containerId: null,
     repositoryId: 'auth',
+    definition: { type: 'auth', parameters: {} },
     store,
+    apiRequester,
   });
   const repositoryManager = new RepositoryManager();
   const templateService = new TemplateService();
-  const apiRequester = new ApiRequester(authRepository);
   const loader = new ServerLoader(apiRequester);
 
   const router = routerRepository.getValue();
@@ -71,8 +81,6 @@ export const createBrowserEffect = async () => {
     templateService,
     watchManager,
     eventManager,
-    routerRepository,
-    authRepository,
     definitions,
   };
 
@@ -121,7 +129,7 @@ const registerContainer = (
       return;
     }
 
-    const repositoryFactoryContext: ContainerRepositoryContext = {
+    const repositoryFactoryContext: RepositoryContext = {
       type: 'container',
       containerId,
       repositoryId,

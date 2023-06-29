@@ -23,3 +23,10 @@ export * from './interfaces/event-manager.interface';
 export * from './interfaces/store.interface';
 export * from './interfaces/storage-manager.interface';
 export * from './interfaces/history.interface';
+
+export * from './repositories/abstracts/base-repository';
+export * from './repositories/abstracts/async-repository';
+export * from './repositories/implements/auth-repository';
+export * from './repositories/implements/router-repository';
+export * from './repositories/implements/simple-repository';
+export * from './repositories/implements/source-query-repository';
