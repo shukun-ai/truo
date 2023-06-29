@@ -23,6 +23,11 @@ export const RepositoryForm = ({
 }: RepositoryFormProps) => {
   const app = useAppContext();
 
+  const containerId = useObservableState(
+    app.repositories.presenterRepository.selectedContainerId$,
+    null,
+  );
+
   const repositoryDefinitions = useObservableState(
     app.repositories.presenterRepository.repositoryDefinitions$,
     {},
@@ -39,9 +44,20 @@ export const RepositoryForm = ({
     initialValues,
     validate: {
       repositoryId: (value) => {
+        if (!containerId) {
+          return '初始化失败，请重新刷新载入应用';
+        }
+        if (
+          app.repositories.presenterRepository.repositoryRepository.isUniqueRepositoryId(
+            containerId,
+            value,
+          )
+        ) {
+          return '数据仓库标识符重复，无法创建，请更换名称';
+        }
         return null;
       },
-      type: (value) => {
+      type: () => {
         return null;
       },
     },
