@@ -12,6 +12,8 @@
 export interface RepositorySchema {
   $schema?: string;
   name: string;
+  scope: 'app' | 'container';
+  manualJsonSchema?: boolean;
   parameters: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
@@ -22,5 +24,4 @@ export interface RepositorySchema {
       required: boolean;
     };
   };
-  manualJsonSchema?: boolean;
 }

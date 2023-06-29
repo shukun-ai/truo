@@ -1,0 +1,6 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/repository.schema.json",
+  "name": "sourceQuery",
+  "scope": "app",
+  "parameters": {}
+}

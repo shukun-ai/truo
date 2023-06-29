@@ -1,9 +1,12 @@
 import { RepositorySchema } from '@shukun/schema';
 
 import flowRepositoryDefinitionJson from './flow.repository.json';
+import routerRepositoryDefinitionJson from './router.repository.json';
 import simpleRepositoryDefinitionJson from './simple.repository.json';
 import sourceQueryRepositoryDefinitionJson from './source-query.repository.json';
 
+export const routerRepositoryDefinition =
+  routerRepositoryDefinitionJson as unknown as RepositorySchema;
 export const flowRepositoryDefinition =
   flowRepositoryDefinitionJson as unknown as RepositorySchema;
 export const simpleRepositoryDefinition =

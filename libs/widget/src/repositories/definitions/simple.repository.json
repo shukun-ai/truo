@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../schema/src/json-schemas/repository.schema.json",
   "name": "simple",
+  "scope": "container",
   "manualJsonSchema": true,
   "parameters": {
     "defaultValue": {
