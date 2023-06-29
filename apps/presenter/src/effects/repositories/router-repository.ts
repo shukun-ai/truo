@@ -1,17 +1,17 @@
 import { TypeException } from '@shukun/exception';
 import {
   AppRepositoryContext,
+  IHistory,
   RouterMode,
   RouterRepositoryStates,
 } from '@shukun/widget';
-import { History, Location } from 'history';
 
 import { AppRepository } from './abstract/app-repository';
 
 export class RouterRepository extends AppRepository<RouterRepositoryStates> {
   constructor(
     override readonly context: AppRepositoryContext,
-    private readonly history: History,
+    private readonly history: IHistory,
   ) {
     super(context);
     const state = this.parseLocation(this.history.location);
@@ -53,7 +53,9 @@ export class RouterRepository extends AppRepository<RouterRepositoryStates> {
     });
   }
 
-  private parseLocation(location: Location): RouterRepositoryStates {
+  private parseLocation(
+    location: IHistory['location'],
+  ): RouterRepositoryStates {
     const { appName, orgName, pageName } = this.parsePathname(
       location.pathname,
     );
