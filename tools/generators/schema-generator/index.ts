@@ -36,6 +36,7 @@ async function generate(treeRoot: string, projectRoot: string) {
     'data-source',
     'presenter',
     'widget',
+    'repository',
   ];
 
   const queue = list.map(async (fileName: string) => {
