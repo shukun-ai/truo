@@ -6,14 +6,8 @@ import { IStore } from './store.interface';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IRepository {}
 
-export type AppRepositoryContext = {
-  type: 'app';
-  repositoryId: 'router' | 'auth';
-  store: IStore;
-};
-
-export type ContainerRepositoryContext = {
-  type: 'container';
+export type RepositoryContext = {
+  type: 'app' | 'container';
   containerId: string | null;
   repositoryId: string;
   definition: PresenterRepository;

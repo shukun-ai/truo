@@ -1,16 +1,16 @@
 import { TypeException } from '@shukun/exception';
+
+import { IHistory } from '../../interfaces/history.interface';
+import { RepositoryContext } from '../../interfaces/repository.interface';
 import {
-  AppRepositoryContext,
-  IHistory,
   RouterMode,
   RouterRepositoryStates,
-} from '@shukun/widget';
+} from '../../interfaces/router-repository.interface';
+import { BaseRepository } from '../abstracts/base-repository';
 
-import { AppRepository } from './abstract/app-repository';
-
-export class RouterRepository extends AppRepository<RouterRepositoryStates> {
+export class RouterRepository extends BaseRepository<RouterRepositoryStates> {
   constructor(
-    override readonly context: AppRepositoryContext,
+    override readonly context: RepositoryContext,
     private readonly history: IHistory,
   ) {
     super(context);

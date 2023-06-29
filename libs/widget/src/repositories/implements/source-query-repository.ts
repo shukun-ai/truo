@@ -1,10 +1,11 @@
 import { HttpQuerySchema, PresenterEvent } from '@shukun/schema';
-import { ContainerRepositoryContext, IApiRequester } from '@shukun/widget';
 
-import { AsyncRepository } from './abstract/async-repository';
+import { RepositoryContext } from '../../interfaces/repository.interface';
+import { IApiRequester } from '../../interfaces/requester.interface';
+import { AsyncRepository } from '../abstracts/async-repository';
 
 export class SourceQueryRepository extends AsyncRepository {
-  constructor(override readonly context: ContainerRepositoryContext) {
+  constructor(override readonly context: RepositoryContext) {
     super(context);
     this.setInitialValue();
   }

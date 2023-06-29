@@ -1,5 +1,6 @@
-import { StoreCallback } from '@shukun/widget';
 import produce from 'immer';
+
+import { StoreCallback } from '../../interfaces/store.interface';
 
 export const write = <SelectedState>(
   callback: (state: SelectedState) => void,

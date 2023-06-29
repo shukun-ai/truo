@@ -1,9 +1,12 @@
-import { AppRepositoryContext, IRepository, StoreScope } from '@shukun/widget';
-
+import {
+  RepositoryContext,
+  IRepository,
+} from '../../interfaces/repository.interface';
+import { StoreScope } from '../../interfaces/store.interface';
 import { write } from '../utils/mutation';
 
-export class AppRepository<State> implements IRepository {
-  constructor(readonly context: AppRepositoryContext) {}
+export class BaseRepository<State> implements IRepository {
+  constructor(readonly context: RepositoryContext) {}
 
   initializeValue(initialValue: State) {
     this.context.store.update(this.getScope(), [], () => initialValue);
@@ -19,8 +22,8 @@ export class AppRepository<State> implements IRepository {
 
   getScope(): StoreScope {
     return {
-      type: 'app',
-      containerId: null,
+      type: this.context.type,
+      containerId: this.context.containerId,
       repositoryId: this.context.repositoryId,
     };
   }

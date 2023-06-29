@@ -10,9 +10,6 @@ import { ITemplateService } from '@shukun/widget';
 
 import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
 
-import { AuthRepository } from './repositories/auth-repository';
-import { RouterRepository } from './repositories/router-repository';
-
 export type EffectInjector = {
   apiRequester: IApiRequester;
   loader: ILoader;
@@ -21,7 +18,5 @@ export type EffectInjector = {
   watchManager: IWatchManager;
   eventManager: IEventManager;
   templateService: ITemplateService;
-  routerRepository: RouterRepository;
-  authRepository: AuthRepository;
   definitions: ConfigDefinitions;
 };
