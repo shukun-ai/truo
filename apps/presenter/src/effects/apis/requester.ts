@@ -33,12 +33,10 @@ export class ApiRequester implements IApiRequester {
   }
 
   private getOrgName(): string | null {
-    const { current } = this.authRepository.getValue();
-    return current?.orgName ?? null;
+    return this.authRepository.getValue()?.current?.orgName ?? null;
   }
 
   private getAccessToken(): string | null {
-    const { current } = this.authRepository.getValue();
-    return current?.accessToken ?? null;
+    return this.authRepository.getValue()?.current?.accessToken ?? null;
   }
 }
