@@ -9,6 +9,7 @@ import {
 } from '@tabler/icons-react';
 
 import { ContainerPane } from './container/container-pane';
+import { RepositoryPane } from './repository-pane/repository-pane';
 import { ScreenPane } from './screen/screen-pane';
 import { TreePane } from './tree/tree-pane';
 
@@ -82,6 +83,21 @@ export const ScreenTool = () => {
           </Box>
           <Divider />
           <TreePane />
+        </Box>
+      </Tabs.Panel>
+
+      <Tabs.Panel value="repositories" className={cx(classes.panel)}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexShrink: 0,
+            minHeight: 0,
+            height: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          <RepositoryPane />
         </Box>
       </Tabs.Panel>
     </Tabs>
