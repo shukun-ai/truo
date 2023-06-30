@@ -15,7 +15,7 @@ export type PresenterProps = {
   presenterLabel: string;
   widgetDefinitions: Record<string, WidgetSchema>;
   repositoryDefinitions: Record<string, RepositorySchema>;
-  selectedScreenId: string | null; // REFACTOR rename to selectedScreenEntityId;
+  selectedScreenEntityId: string | null; // REFACTOR rename to selectedScreenEntityId;
   selectedContainerEntityId: string | null; // REFACTOR rename to selectedContainerEntityId;
   selectedTabId: string | null; // REFACTOR rename to selectedTabEntityId;
 };
@@ -29,7 +29,7 @@ export const presenterStore = createStore(
     presenterLabel: '未命名',
     widgetDefinitions,
     repositoryDefinitions,
-    selectedScreenId: null,
+    selectedScreenEntityId: null,
     selectedContainerEntityId: null,
     selectedTabId: null,
   }),

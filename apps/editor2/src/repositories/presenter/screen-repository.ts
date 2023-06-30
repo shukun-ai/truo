@@ -22,8 +22,8 @@ export class ScreenRepository implements IScreenRepository {
     selectAllEntities({ ref: screenRef }),
   );
 
-  selectedScreenId$: Observable<string | null> = this.presenterStore.pipe(
-    select((state) => state.selectedScreenId),
+  selectedScreenEntityId$: Observable<string | null> = this.presenterStore.pipe(
+    select((state) => state.selectedScreenEntityId),
   );
 
   isUniqueId(screenId: string): boolean {
@@ -35,7 +35,7 @@ export class ScreenRepository implements IScreenRepository {
   select(screenId: string): void {
     this.presenterStore.update(
       write((state) => {
-        state.selectedScreenId = screenId;
+        state.selectedScreenEntityId = screenId;
       }),
     );
   }
