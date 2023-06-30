@@ -17,14 +17,14 @@ export type RepositoryCreateButtonProps = {
 export const RepositoryCreateButton = () => {
   const app = useAppContext();
 
-  const containerId = useObservableState(
+  const containerName = useObservableState(
     app.repositories.presenterRepository.selectedContainerId$,
     null,
   );
 
   const onSubmit = useCallback<(values: RepositoryFormValues) => void>(
     (values) => {
-      if (!containerId) {
+      if (!containerName) {
         throw new TypeException(
           'The containerId is null when create repository.',
         );
@@ -35,7 +35,7 @@ export const RepositoryCreateButton = () => {
           ...values,
           type: 'simple', // TODO
           parameters: {},
-          containerId,
+          containerName,
         });
         modals.closeAll();
       } catch {
@@ -46,7 +46,7 @@ export const RepositoryCreateButton = () => {
         });
       }
     },
-    [app.repositories.presenterRepository.repositoryRepository, containerId],
+    [app.repositories.presenterRepository.repositoryRepository, containerName],
   );
 
   const open = useCallback(() => {
@@ -62,7 +62,7 @@ export const RepositoryCreateButton = () => {
       position="bottom"
       withArrow
       shadow="md"
-      opened={!containerId}
+      opened={!containerName}
     >
       <Popover.Target>
         <Button
@@ -71,7 +71,7 @@ export const RepositoryCreateButton = () => {
           size="sm"
           onClick={open}
           fullWidth
-          disabled={!containerId}
+          disabled={!containerName}
         >
           新建
         </Button>

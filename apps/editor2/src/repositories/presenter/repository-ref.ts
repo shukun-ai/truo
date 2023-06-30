@@ -3,8 +3,8 @@ import { PresenterRepository } from '@shukun/schema';
 
 export type PresenterRepositoryEntity = {
   id: string;
-  containerId: string;
-  repositoryId: string;
+  containerName: string;
+  repositoryName: string;
 } & PresenterRepository;
 
 const { presenterRepositoryEntitiesRef, withPresenterRepositoryEntities } =
@@ -17,14 +17,14 @@ export const withRepository = () => {
 export const repositoryRef = presenterRepositoryEntitiesRef;
 
 export const createRepositoryEntityId = (
-  containerId: string,
-  repositoryId: string,
+  containerName: string,
+  repositoryName: string,
 ): `${string}:${string}` => {
-  return `${containerId}:${repositoryId}`;
+  return `${containerName}:${repositoryName}`;
 };
 
 export const getRepository = (repositoryEntity: PresenterRepositoryEntity) => {
   // TODO use omit instead
-  const { id, containerId, repositoryId, ...repository } = repositoryEntity;
+  const { id, containerName, repositoryName, ...repository } = repositoryEntity;
   return repository;
 };

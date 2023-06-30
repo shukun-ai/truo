@@ -48,13 +48,13 @@ export const RepositoryPane = () => {
             )}
             onClick={() => {
               app.repositories.presenterRepository.tabRepository.previewRepositoryTab(
-                repository.containerId,
+                repository.containerName,
                 repository.id,
               );
             }}
           >
             <Group>
-              <Text size="sm">{repository.repositoryId}</Text>
+              <Text size="sm">{repository.repositoryName}</Text>
             </Group>
             <MoreButton repositoryId={repository.id} repository={repository} />
           </Box>
