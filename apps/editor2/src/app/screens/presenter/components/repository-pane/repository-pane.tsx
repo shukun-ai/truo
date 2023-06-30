@@ -47,7 +47,10 @@ export const RepositoryPane = () => {
               selectedRepositoryId === repository.id && classes.active,
             )}
             onClick={() => {
-              //
+              app.repositories.presenterRepository.tabRepository.previewRepositoryTab(
+                repository.containerId,
+                repository.id,
+              );
             }}
           >
             <Group>
