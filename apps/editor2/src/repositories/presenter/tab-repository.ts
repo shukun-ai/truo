@@ -30,27 +30,40 @@ export class TabRepository implements ITabRepository {
   );
 
   previewWidgetTab(containerId: string, widgetId: string): void {
-    const previewTabs = this.presenterStore.query(
-      getAllEntitiesApply({
-        filterEntity: (entity) => entity.isPreview,
-        ref: tabRef,
-      }),
-    );
-    const existPreviewWidgetTab = this.presenterStore.query(
-      getAllEntitiesApply({
-        filterEntity: (entity) =>
-          entity.tabType === 'widget' &&
-          entity.containerId === containerId &&
-          entity.widgetId === widgetId,
-        ref: tabRef,
-      }),
+    const existPreviewWidgetTab = this.getExistPreviewTab(
+      'widget',
+      containerId,
+      widgetId,
     );
 
     if (existPreviewWidgetTab.length === 1) {
-      this.selectPreviewWidgetTab(existPreviewWidgetTab[0].id);
+      this.selectPreviewTab(existPreviewWidgetTab[0].id);
     } else if (existPreviewWidgetTab.length === 0) {
-      const previewTabIds = previewTabs.map((tab) => tab.id);
-      this.createPreviewWidgetTab(previewTabIds, containerId, widgetId);
+      const entity = this.createPreviewTabEntity(
+        'widget',
+        containerId,
+        widgetId,
+      );
+      this.createPreviewTab(entity);
+    }
+  }
+
+  previewRepositoryTab(containerId: string, repositoryId: string): void {
+    const existPreviewRepositoryTab = this.getExistPreviewTab(
+      'repository',
+      containerId,
+      repositoryId,
+    );
+
+    if (existPreviewRepositoryTab.length === 1) {
+      this.selectPreviewTab(existPreviewRepositoryTab[0].id);
+    } else if (existPreviewRepositoryTab.length === 0) {
+      const entity = this.createPreviewTabEntity(
+        'repository',
+        containerId,
+        repositoryId,
+      );
+      this.createPreviewTab(entity);
     }
   }
 
@@ -119,7 +132,7 @@ export class TabRepository implements ITabRepository {
     );
   }
 
-  private selectPreviewWidgetTab(tabId: string) {
+  private selectPreviewTab(tabId: string) {
     this.presenterStore.update(
       setProps({
         selectedTabId: tabId,
@@ -127,28 +140,72 @@ export class TabRepository implements ITabRepository {
     );
   }
 
-  private createPreviewWidgetTab(
-    currentPreviewTabIds: string[],
+  private getExistPreviewTab(
+    tabType: PresenterTabEntity['tabType'],
     containerId: string,
-    widgetId: string,
+    foreignId: string,
+  ) {
+    return this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) =>
+          entity.tabType === 'widget' &&
+          entity.containerId === containerId &&
+          entity.widgetId === foreignId,
+        ref: tabRef,
+      }),
+    );
+  }
+
+  private createPreviewTabEntity(
+    tabType: PresenterTabEntity['tabType'],
+    containerId: string,
+    foreignId: string,
   ) {
     const tabId = nanoid();
+
+    let tab: PresenterTabEntity;
+
+    if (tabType === 'widget') {
+      tab = {
+        id: tabId,
+        tabType: 'widget',
+        containerId,
+        widgetId: foreignId,
+        isPreview: true,
+        isEdit: false,
+        hasError: false,
+      };
+    } else if (tabType === 'repository') {
+      tab = {
+        id: tabId,
+        tabType: 'repository',
+        containerId,
+        repositoryId: foreignId,
+        isPreview: true,
+        isEdit: false,
+        hasError: false,
+      };
+    } else {
+      throw new TypeException('Did not find specific tabType.');
+    }
+
+    return tab;
+  }
+
+  private createPreviewTab(tabEntity: PresenterTabEntity) {
+    const previewTabs = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) => entity.isPreview,
+        ref: tabRef,
+      }),
+    );
+    const previewTabIds = previewTabs.map((tab) => tab.id);
+
     this.presenterStore.update(
-      deleteEntities(currentPreviewTabIds, { ref: tabRef }),
-      addEntities(
-        {
-          id: tabId,
-          tabType: 'widget',
-          containerId,
-          widgetId,
-          isPreview: true,
-          isEdit: false,
-          hasError: false,
-        },
-        { ref: tabRef },
-      ),
+      deleteEntities(previewTabIds, { ref: tabRef }),
+      addEntities(tabEntity, { ref: tabRef }),
       setProps({
-        selectedTabId: tabId,
+        selectedTabId: tabEntity.id,
       }),
     );
   }
