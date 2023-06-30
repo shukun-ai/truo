@@ -70,10 +70,10 @@ export class SerializationService implements ISerializationService {
     for (const [containerName, container] of Object.entries(
       presenter.containers,
     )) {
-      for (const [widgetId, widget] of Object.entries(container.widgets)) {
+      for (const [widgetName, widget] of Object.entries(container.widgets)) {
         widgetEntities.push({
           ...widget,
-          id: widgetId,
+          id: widgetName,
           containerName,
         });
       }
