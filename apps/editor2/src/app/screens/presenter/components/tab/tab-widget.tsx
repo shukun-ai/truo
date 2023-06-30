@@ -8,11 +8,11 @@ import { useAppContext } from '../../../../contexts/app-context';
 
 import { WidgetForm } from '../widget/widget-form';
 
-export type SettingWidgetProps = {
+export type TabWidgetProps = {
   tab: PresenterTabEntity;
 };
 
-export const SettingWidget = ({ tab }: SettingWidgetProps) => {
+export const TabWidget = ({ tab }: TabWidgetProps) => {
   const app = useAppContext();
 
   const allWidgets = useObservableState(

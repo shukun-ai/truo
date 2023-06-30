@@ -4,11 +4,11 @@ import { IconPin, IconPinnedFilled, IconX } from '@tabler/icons-react';
 import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-export type SettingTabActionsProps = {
+export type TabActionsProps = {
   tab: PresenterTabEntity;
 };
 
-export const SettingTabActions = ({ tab }: SettingTabActionsProps) => {
+export const TabActions = ({ tab }: TabActionsProps) => {
   const app = useAppContext();
 
   return (
