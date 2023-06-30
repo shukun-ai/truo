@@ -48,11 +48,11 @@ export class TabRepository implements ITabRepository {
     }
   }
 
-  previewRepositoryTab(containerName: string, repositoryId: string): void {
+  previewRepositoryTab(containerName: string, repositoryName: string): void {
     const existPreviewRepositoryTab = this.getExistPreviewTab(
       'repository',
       containerName,
-      repositoryId,
+      repositoryName,
     );
 
     if (existPreviewRepositoryTab.length === 1) {
@@ -61,7 +61,7 @@ export class TabRepository implements ITabRepository {
       const entity = this.createPreviewTabEntity(
         'repository',
         containerName,
-        repositoryId,
+        repositoryName,
       );
       this.createPreviewTab(entity);
     }
@@ -143,14 +143,14 @@ export class TabRepository implements ITabRepository {
   private getExistPreviewTab(
     tabType: PresenterTabEntity['tabType'],
     containerName: string,
-    foreignId: string,
+    foreignName: string,
   ) {
     return this.presenterStore.query(
       getAllEntitiesApply({
         filterEntity: (entity) =>
           entity.tabType === 'widget' &&
           entity.containerName === containerName &&
-          entity.widgetId === foreignId,
+          entity.widgetId === foreignName,
         ref: tabRef,
       }),
     );
@@ -159,7 +159,7 @@ export class TabRepository implements ITabRepository {
   private createPreviewTabEntity(
     tabType: PresenterTabEntity['tabType'],
     containerName: string,
-    foreignId: string,
+    foreignName: string,
   ) {
     const tabId = nanoid();
 
@@ -170,7 +170,7 @@ export class TabRepository implements ITabRepository {
         id: tabId,
         tabType: 'widget',
         containerName,
-        widgetId: foreignId,
+        widgetId: foreignName,
         isPreview: true,
         isEdit: false,
         hasError: false,
@@ -180,7 +180,7 @@ export class TabRepository implements ITabRepository {
         id: tabId,
         tabType: 'repository',
         containerName,
-        repositoryId: foreignId,
+        repositoryName: foreignName,
         isPreview: true,
         isEdit: false,
         hasError: false,
