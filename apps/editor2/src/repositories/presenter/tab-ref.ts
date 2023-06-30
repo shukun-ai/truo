@@ -14,7 +14,7 @@ export type PresenterTabEntity = {
   | {
       tabType: 'repository';
       containerName: string;
-      repositoryId: string;
+      repositoryName: string;
     }
 );
 

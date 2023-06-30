@@ -11,7 +11,6 @@ import {
 import { IconDots, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
-import { SCREEN_HOME_PAGE_ID } from '../../../../../repositories/presenter/presenter-store';
 import { PresenterRepositoryEntity } from '../../../../../repositories/presenter/repository-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
@@ -39,24 +38,24 @@ export const RepositoryPane = () => {
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {allRepositories.map((repository) => (
+        {allRepositories.map((repositoryEntity) => (
           <Box
-            key={repository.id}
+            key={repositoryEntity.id}
             className={cx(
               classes.button,
-              selectedRepositoryId === repository.id && classes.active,
+              selectedRepositoryId === repositoryEntity.id && classes.active,
             )}
             onClick={() => {
               app.repositories.presenterRepository.tabRepository.previewRepositoryTab(
-                repository.containerName,
-                repository.id,
+                repositoryEntity.containerName,
+                repositoryEntity.id,
               );
             }}
           >
             <Group>
-              <Text size="sm">{repository.repositoryName}</Text>
+              <Text size="sm">{repositoryEntity.repositoryName}</Text>
             </Group>
-            <MoreButton repositoryId={repository.id} repository={repository} />
+            <MoreButton repositoryEntity={repositoryEntity} />
           </Box>
         ))}
       </ScrollArea>
@@ -65,10 +64,9 @@ export const RepositoryPane = () => {
 };
 
 const MoreButton = ({
-  repositoryId,
+  repositoryEntity,
 }: {
-  repositoryId: string;
-  repository: PresenterRepositoryEntity;
+  repositoryEntity: PresenterRepositoryEntity;
 }) => {
   const app = useAppContext();
 
@@ -86,10 +84,9 @@ const MoreButton = ({
           icon={<IconTrash size={14} />}
           onClick={() => {
             app.repositories.presenterRepository.repositoryRepository.remove(
-              repositoryId,
+              repositoryEntity.id,
             );
           }}
-          disabled={repositoryId === SCREEN_HOME_PAGE_ID}
         >
           删除
         </Menu.Item>

@@ -6,10 +6,10 @@ export interface ITabRepository {
   allTabs$: Observable<PresenterTabEntity[]>;
   selectedTabId$: Observable<string | null>;
   previewWidgetTab(containerName: string, widgetId: string): void;
-  previewRepositoryTab(containerName: string, repositoryId: string): void;
-  fixTab(tabId: string): void;
-  activeEditTab(tabId: string): void;
-  inactiveEditTab(tabId: string): void;
-  chooseTab(tabId: string): void;
-  closeTab(tabId: string): void;
+  previewRepositoryTab(containerName: string, repositoryName: string): void;
+  fixTab(entityId: string): void;
+  activeEditTab(entityId: string): void;
+  inactiveEditTab(entityId: string): void;
+  chooseTab(entityId: string): void;
+  closeTab(entityId: string): void;
 }
