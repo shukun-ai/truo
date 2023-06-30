@@ -50,11 +50,11 @@ export class SerializationService implements ISerializationService {
   ): PresenterContainerEntity[] {
     const containerEntities: PresenterContainerEntity[] = [];
 
-    for (const [containerId, container] of Object.entries(
+    for (const [containerName, container] of Object.entries(
       presenter.containers,
     )) {
       containerEntities.push({
-        id: containerId,
+        id: containerName,
         ...container,
       });
     }
@@ -67,14 +67,14 @@ export class SerializationService implements ISerializationService {
   ): PresenterWidgetEntity[] {
     const widgetEntities: PresenterWidgetEntity[] = [];
 
-    for (const [containerId, container] of Object.entries(
+    for (const [containerName, container] of Object.entries(
       presenter.containers,
     )) {
       for (const [widgetId, widget] of Object.entries(container.widgets)) {
         widgetEntities.push({
           ...widget,
           id: widgetId,
-          containerId,
+          containerName,
         });
       }
     }

@@ -26,7 +26,7 @@ export const RepositoryCreateButton = () => {
     (values) => {
       if (!containerName) {
         throw new TypeException(
-          'The containerId is null when create repository.',
+          'The containerName is null when create repository.',
         );
       }
 

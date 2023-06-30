@@ -156,7 +156,7 @@ export class TreeRepository implements ITreeRepository {
     const tree = addIntoNode(container.tree, newNodeId, targetNodeId);
     const newWidget: PresenterWidgetEntity = {
       id: newNodeId,
-      containerId: container.id,
+      containerName: container.id,
       tag: newWidgetTag,
       label: newWidgetTitle,
       properties: {},

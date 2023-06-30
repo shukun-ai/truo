@@ -21,10 +21,10 @@ export class ContainerRepository implements IContainerRepository {
     selectAllEntities({ ref: containerRef }),
   );
 
-  select(containerId: string) {
+  select(containerName: string) {
     this.presenterStore.update(
       write((state) => {
-        state.selectedContainerId = containerId;
+        state.selectedContainerId = containerName;
       }),
     );
   }
@@ -43,17 +43,17 @@ export class ContainerRepository implements IContainerRepository {
   }
 
   update(
-    containerId: string,
+    containerName: string,
     container: Omit<PresenterContainerEntity, 'id'>,
   ): void {
     this.presenterStore.update(
-      updateEntities(containerId, container, { ref: containerRef }),
+      updateEntities(containerName, container, { ref: containerRef }),
     );
   }
 
-  remove(containerId: string) {
+  remove(containerName: string) {
     this.presenterStore.update(
-      deleteEntities(containerId, { ref: containerRef }),
+      deleteEntities(containerName, { ref: containerRef }),
     );
   }
 }

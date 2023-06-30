@@ -3,7 +3,7 @@ import { PresenterWidget } from '@shukun/schema';
 
 export type PresenterWidgetEntity = {
   id: string;
-  containerId: string;
+  containerName: string;
 } & PresenterWidget;
 
 const { presenterWidgetEntitiesRef, withPresenterWidgetEntities } =

@@ -23,7 +23,7 @@ export const RepositoryForm = ({
 }: RepositoryFormProps) => {
   const app = useAppContext();
 
-  const containerId = useObservableState(
+  const containerName = useObservableState(
     app.repositories.presenterRepository.selectedContainerId$,
     null,
   );
@@ -46,12 +46,12 @@ export const RepositoryForm = ({
     initialValues,
     validate: {
       repositoryName: (value) => {
-        if (!containerId) {
+        if (!containerName) {
           return '初始化失败，请重新刷新载入应用';
         }
         if (
           app.repositories.presenterRepository.repositoryRepository.isUniqueRepositoryId(
-            containerId,
+            containerName,
             value,
           )
         ) {
