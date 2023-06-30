@@ -43,7 +43,10 @@ export class RepositoryRepository implements IRepositoryRepository {
       distinctUntilArrayItemChanged(),
     );
 
-  isUniqueRepositoryId(containerName: string, repositoryName: string): boolean {
+  isUniqueRepositoryName(
+    containerName: string,
+    repositoryName: string,
+  ): boolean {
     const existEntity = this.presenterStore.query(
       getAllEntitiesApply({
         filterEntity: (item) =>
@@ -58,7 +61,7 @@ export class RepositoryRepository implements IRepositoryRepository {
 
   create(entity: Omit<PresenterRepositoryEntity, 'id'>): void {
     if (
-      this.isUniqueRepositoryId(entity.containerName, entity.repositoryName)
+      this.isUniqueRepositoryName(entity.containerName, entity.repositoryName)
     ) {
       throw new TypeException('The repository is duplicated.');
     }
