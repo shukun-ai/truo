@@ -50,7 +50,7 @@ export const RepositoryForm = ({
           return '初始化失败，请重新刷新载入应用';
         }
         if (
-          app.repositories.presenterRepository.repositoryRepository.isUniqueRepositoryId(
+          app.repositories.presenterRepository.repositoryRepository.isUniqueRepositoryName(
             containerName,
             value,
           )
