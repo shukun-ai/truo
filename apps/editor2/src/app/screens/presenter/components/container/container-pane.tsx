@@ -19,8 +19,8 @@ export const ContainerPane = () => {
 
   const app = useAppContext();
 
-  const selectedContainerId = useObservableState(
-    app.repositories.presenterRepository.selectedContainerId$,
+  const selectedContainerEntityId = useObservableState(
+    app.repositories.presenterRepository.selectedContainerEntityId$,
     null,
   );
 
@@ -41,7 +41,7 @@ export const ContainerPane = () => {
             key={container.id}
             className={cx(
               classes.button,
-              selectedContainerId === container.id && classes.active,
+              selectedContainerEntityId === container.id && classes.active,
             )}
             onClick={() => {
               app.repositories.presenterRepository.containerRepository.select(

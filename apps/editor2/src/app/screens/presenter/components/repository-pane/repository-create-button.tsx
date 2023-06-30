@@ -18,7 +18,7 @@ export const RepositoryCreateButton = () => {
   const app = useAppContext();
 
   const containerName = useObservableState(
-    app.repositories.presenterRepository.selectedContainerId$,
+    app.repositories.presenterRepository.selectedContainerEntityId$,
     null,
   );
 

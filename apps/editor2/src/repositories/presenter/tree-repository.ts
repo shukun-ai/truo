@@ -34,11 +34,12 @@ export class TreeRepository implements ITreeRepository {
 
   selectedTreeNodes$: Observable<PresenterTreeNodes> = this.presenterStore.pipe(
     select((state) => {
-      const selectedContainerId = state.selectedContainerId;
-      if (!selectedContainerId) {
+      const selectedContainerEntityId = state.selectedContainerEntityId;
+      if (!selectedContainerEntityId) {
         return {};
       }
-      const container = state.presenterContainerEntities[selectedContainerId];
+      const container =
+        state.presenterContainerEntities[selectedContainerEntityId];
       if (!container) {
         return {};
       }
@@ -49,8 +50,8 @@ export class TreeRepository implements ITreeRepository {
   selectedTreeCollapses$: Observable<Record<string, PresenterTreeCollapse>> =
     this.presenterStore
       .combine({
-        selectedContainerId: this.presenterStore.pipe(
-          select((state) => state.selectedContainerId),
+        selectedContainerEntityId: this.presenterStore.pipe(
+          select((state) => state.selectedContainerEntityId),
         ),
         treeCollapse: this.presenterStore.pipe(
           selectAllEntities({ ref: treeCollapseRef }),
@@ -58,8 +59,8 @@ export class TreeRepository implements ITreeRepository {
       })
       .pipe(
         map((state) => {
-          const selectedContainerId = state.selectedContainerId;
-          if (!selectedContainerId) {
+          const selectedContainerEntityId = state.selectedContainerEntityId;
+          if (!selectedContainerEntityId) {
             return {};
           }
           const treeCollapses: Record<string, PresenterTreeCollapse> = {};
@@ -110,10 +111,10 @@ export class TreeRepository implements ITreeRepository {
   }
 
   closeTreeCollapse(sourceNodeId: string) {
-    const { selectedContainerId } = this.presenterStore.getValue();
+    const { selectedContainerEntityId } = this.presenterStore.getValue();
 
-    if (!selectedContainerId) {
-      throw new TypeException('Did not find selectedContainerId.');
+    if (!selectedContainerEntityId) {
+      throw new TypeException('Did not find selectedContainerEntityId.');
     }
 
     this.presenterStore.update(
@@ -128,10 +129,10 @@ export class TreeRepository implements ITreeRepository {
   }
 
   openTreeCollapse(sourceNodeId: string) {
-    const { selectedContainerId } = this.presenterStore.getValue();
+    const { selectedContainerEntityId } = this.presenterStore.getValue();
 
-    if (!selectedContainerId) {
-      throw new TypeException('Did not find selectedContainerId.');
+    if (!selectedContainerEntityId) {
+      throw new TypeException('Did not find selectedContainerEntityId.');
     }
 
     this.presenterStore.update(
@@ -169,24 +170,24 @@ export class TreeRepository implements ITreeRepository {
   }
 
   private getSelectedContainer(): PresenterContainerEntity {
-    const { selectedContainerId } = this.presenterStore.getValue();
+    const { selectedContainerEntityId } = this.presenterStore.getValue();
 
-    if (!selectedContainerId) {
+    if (!selectedContainerEntityId) {
       throw new TypeException(
-        'Did not find selectedContainerId: {{selectedContainerId}}',
+        'Did not find selectedContainerEntityId: {{selectedContainerEntityId}}',
         {
-          selectedContainerId,
+          selectedContainerEntityId,
         },
       );
     }
     const container = this.presenterStore.query(
-      getEntity(selectedContainerId, { ref: containerRef }),
+      getEntity(selectedContainerEntityId, { ref: containerRef }),
     );
     if (!container) {
       throw new TypeException(
-        'Did not find container: {{selectedContainerId}}',
+        'Did not find container: {{selectedContainerEntityId}}',
         {
-          selectedContainerId,
+          selectedContainerEntityId,
         },
       );
     }

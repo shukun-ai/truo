@@ -21,8 +21,8 @@ export const RepositoryPane = () => {
 
   const app = useAppContext();
 
-  const selectedRepositoryId = useObservableState(
-    app.repositories.presenterRepository.selectedRepositoryId$,
+  const selectedRepositoryEntityId = useObservableState(
+    app.repositories.presenterRepository.selectedRepositoryEntityId$,
     null,
   );
 
@@ -43,7 +43,8 @@ export const RepositoryPane = () => {
             key={repositoryEntity.id}
             className={cx(
               classes.button,
-              selectedRepositoryId === repositoryEntity.id && classes.active,
+              selectedRepositoryEntityId === repositoryEntity.id &&
+                classes.active,
             )}
             onClick={() => {
               app.repositories.presenterRepository.tabRepository.previewRepositoryTab(

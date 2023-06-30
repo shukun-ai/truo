@@ -23,19 +23,19 @@ export class RepositoryRepository implements IRepositoryRepository {
 
   all$: Observable<PresenterRepositoryEntity[]> = this.presenterStore
     .combine({
-      selectedContainerId: this.presenterStore.pipe(
-        select((state) => state.selectedContainerId),
+      selectedContainerEntityId: this.presenterStore.pipe(
+        select((state) => state.selectedContainerEntityId),
       ),
       repositories: this.presenterStore.pipe(
         selectAllEntities({ ref: repositoryRef }),
       ),
     })
     .pipe(
-      map(({ selectedContainerId }) => {
+      map(({ selectedContainerEntityId }) => {
         return this.presenterStore.query(
           getAllEntitiesApply({
             filterEntity: (entity) =>
-              entity.containerName === selectedContainerId,
+              entity.containerName === selectedContainerEntityId,
             ref: repositoryRef,
           }),
         );

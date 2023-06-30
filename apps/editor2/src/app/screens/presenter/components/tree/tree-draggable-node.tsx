@@ -21,8 +21,8 @@ export const TreeDraggableNode = ({
   sourceNodeId,
   level,
   index,
-  selectedWidgetId,
-  selectedContainerId,
+  selectedWidgetEntityId,
+  selectedContainerEntityId,
 }: {
   treeNodes: PresenterTreeNodes;
   widgets: PresenterWidgets;
@@ -30,8 +30,8 @@ export const TreeDraggableNode = ({
   sourceNodeId: string;
   level: number;
   index: number;
-  selectedWidgetId?: string;
-  selectedContainerId: string;
+  selectedWidgetEntityId?: string;
+  selectedContainerEntityId: string;
 }) => {
   const app = useAppContext();
 
@@ -63,11 +63,13 @@ export const TreeDraggableNode = ({
       <Box
         className={cx(
           classes.nodeItem,
-          sourceNodeId === selectedWidgetId ? classes.nodeItemActive : null,
+          sourceNodeId === selectedWidgetEntityId
+            ? classes.nodeItemActive
+            : null,
         )}
         onClick={() => {
           app.repositories.presenterRepository.tabRepository.previewWidgetTab(
-            selectedContainerId,
+            selectedContainerEntityId,
             sourceNodeId,
           );
         }}
@@ -97,11 +99,11 @@ export const TreeDraggableNode = ({
               treeNodes={treeNodes}
               widgets={widgets}
               treeCollapses={treeCollapses}
-              selectedWidgetId={selectedWidgetId}
+              selectedWidgetEntityId={selectedWidgetEntityId}
               sourceNodeId={childNode}
               level={level + 1}
               index={index}
-              selectedContainerId={selectedContainerId}
+              selectedContainerEntityId={selectedContainerEntityId}
             />
           ))}
         </List>

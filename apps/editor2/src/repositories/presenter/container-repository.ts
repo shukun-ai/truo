@@ -24,7 +24,7 @@ export class ContainerRepository implements IContainerRepository {
   select(containerName: string) {
     this.presenterStore.update(
       write((state) => {
-        state.selectedContainerId = containerName;
+        state.selectedContainerEntityId = containerName;
       }),
     );
   }

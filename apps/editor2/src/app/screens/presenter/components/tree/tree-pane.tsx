@@ -23,23 +23,23 @@ export const TreePane = () => {
     app.repositories.presenterRepository.widgetRepository.selectedWidgets$,
     {},
   );
-  const selectedContainerId = useObservableState(
-    app.repositories.presenterRepository.selectedContainerId$,
+  const selectedContainerEntityId = useObservableState(
+    app.repositories.presenterRepository.selectedContainerEntityId$,
     null,
   );
   const treeCollapses = useObservableState(
     app.repositories.presenterRepository.treeRepository.selectedTreeCollapses$,
     {},
   );
-  const selectedWidgetId = useObservableState(
-    app.repositories.presenterRepository.selectedWidgetId$,
+  const selectedWidgetEntityId = useObservableState(
+    app.repositories.presenterRepository.selectedWidgetEntityId$,
     null,
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const DndProvider2 = DndProvider as any;
 
-  if (!selectedContainerId) {
+  if (!selectedContainerEntityId) {
     return (
       <Box className={cx(classes.wrapper)}>
         <Text>请先选择容器</Text>
@@ -55,9 +55,9 @@ export const TreePane = () => {
             treeNodes={treeNodes}
             widgets={selectedWidgets}
             treeCollapses={treeCollapses}
-            selectedWidgetId={selectedWidgetId ?? undefined}
+            selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
             sourceNodeId="root"
-            selectedContainerId={selectedContainerId}
+            selectedContainerEntityId={selectedContainerEntityId}
             level={0}
             index={0}
           />

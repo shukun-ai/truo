@@ -24,9 +24,9 @@ export interface IPresenterRepository {
 
   widgetDefinitions$: Observable<Record<string, WidgetSchema>>;
   repositoryDefinitions$: Observable<Record<string, RepositorySchema>>;
-  selectedContainerId$: Observable<string | null>;
-  selectedWidgetId$: Observable<string | null>;
-  selectedRepositoryId$: Observable<string | null>;
+  selectedContainerEntityId$: Observable<string | null>;
+  selectedWidgetEntityId$: Observable<string | null>;
+  selectedRepositoryEntityId$: Observable<string | null>;
 
   initialize(presenterName: string): Promise<void>;
 }
