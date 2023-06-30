@@ -24,8 +24,9 @@ export const ScreenPane = () => {
 
   const app = useAppContext();
 
-  const selectedScreenId = useObservableState(
-    app.repositories.presenterRepository.screenRepository.selectedScreenId$,
+  const selectedScreenEntityId = useObservableState(
+    app.repositories.presenterRepository.screenRepository
+      .selectedScreenEntityId$,
     null,
   );
 
@@ -46,7 +47,7 @@ export const ScreenPane = () => {
             key={screen.id}
             className={cx(
               classes.button,
-              selectedScreenId === screen.id && classes.active,
+              selectedScreenEntityId === screen.id && classes.active,
             )}
             onClick={() => {
               app.repositories.presenterRepository.screenRepository.select(
