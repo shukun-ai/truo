@@ -3,6 +3,7 @@ import { WidgetProperty } from '@shukun/schema';
 
 import { WidgetBooleanInput } from './widget-boolean-input';
 import { WidgetEnumInput } from './widget-enum-input';
+import { WidgetEventInput } from './widget-event-input';
 import { WidgetNumberInput } from './widget-number-input';
 import { WidgetObjectInput } from './widget-object-input';
 import { WidgetStringInput } from './widget-string-input';
@@ -14,6 +15,10 @@ export type WidgetFieldProps = {
 
 export const WidgetField = ({ propertyId, property }: WidgetFieldProps) => {
   const schema = property.schema;
+
+  if (property.isEvent) {
+    return <WidgetEventInput propertyId={propertyId} property={property} />;
+  }
 
   if (typeof schema !== 'object') {
     return <Box>组件定义文件格式不正确</Box>;
