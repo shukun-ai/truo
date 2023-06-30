@@ -35,7 +35,7 @@ export class RepositoryRepository implements IRepositoryRepository {
         return this.presenterStore.query(
           getAllEntitiesApply({
             filterEntity: (entity) =>
-              entity.containerId === selectedContainerId,
+              entity.containerName === selectedContainerId,
             ref: repositoryRef,
           }),
         );
@@ -43,12 +43,12 @@ export class RepositoryRepository implements IRepositoryRepository {
       distinctUntilArrayItemChanged(),
     );
 
-  isUniqueRepositoryId(containerId: string, repositoryId: string): boolean {
+  isUniqueRepositoryId(containerName: string, repositoryName: string): boolean {
     const existEntity = this.presenterStore.query(
       getAllEntitiesApply({
         filterEntity: (item) =>
-          item.containerId === containerId &&
-          item.repositoryId === repositoryId,
+          item.containerName === containerName &&
+          item.repositoryName === repositoryName,
         ref: repositoryRef,
       }),
     );
@@ -57,7 +57,9 @@ export class RepositoryRepository implements IRepositoryRepository {
   }
 
   create(entity: Omit<PresenterRepositoryEntity, 'id'>): void {
-    if (this.isUniqueRepositoryId(entity.containerId, entity.repositoryId)) {
+    if (
+      this.isUniqueRepositoryId(entity.containerName, entity.repositoryName)
+    ) {
       throw new TypeException('The repository is duplicated.');
     }
 
@@ -65,7 +67,10 @@ export class RepositoryRepository implements IRepositoryRepository {
       addEntities(
         {
           ...entity,
-          id: createRepositoryEntityId(entity.containerId, entity.repositoryId),
+          id: createRepositoryEntityId(
+            entity.containerName,
+            entity.repositoryName,
+          ),
         },
         { ref: repositoryRef },
       ),

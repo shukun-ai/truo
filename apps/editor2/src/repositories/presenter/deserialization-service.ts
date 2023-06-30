@@ -76,17 +76,18 @@ export class DeserializationService implements IDeserializationService {
   }
 
   private buildRepositories(
-    containerId: string,
+    containerName: string,
   ): PresenterContainer['repositories'] {
     const repositoryEntities = this.presenterStore.query(
       getAllEntitiesApply({
-        filterEntity: (repository) => repository.containerId === containerId,
+        filterEntity: (repository) =>
+          repository.containerName === containerName,
         ref: repositoryRef,
       }),
     );
     const repositories: PresenterContainer['repositories'] = {};
     repositoryEntities.forEach((entity) => {
-      repositories[entity.repositoryId] = getRepository(entity);
+      repositories[entity.repositoryName] = getRepository(entity);
     });
     return repositories;
   }

@@ -8,7 +8,7 @@ import { PresenterRepositoryEntity } from '../../../../../repositories/presenter
 import { useAppContext } from '../../../../contexts/app-context';
 
 export type RepositoryFormValues = {
-  repositoryId: string;
+  repositoryName: string;
   type: PresenterRepositoryEntity['type'];
 };
 
@@ -45,7 +45,7 @@ export const RepositoryForm = ({
   const form = useForm<RepositoryFormValues>({
     initialValues,
     validate: {
-      repositoryId: (value) => {
+      repositoryName: (value) => {
         if (!containerId) {
           return '初始化失败，请重新刷新载入应用';
         }
@@ -77,7 +77,7 @@ export const RepositoryForm = ({
         data-autofocus
         withAsterisk
         description="数据仓库标识符用于 Repository 识别，请使用符合如下格式：字母 a-z、数字 0-9、下划线和中文，推荐使用中文。"
-        {...form.getInputProps('repositoryId')}
+        {...form.getInputProps('repositoryName')}
       />
       <NativeSelect
         label="选择数据仓库类型"

@@ -87,17 +87,17 @@ export class SerializationService implements ISerializationService {
   ): PresenterRepositoryEntity[] {
     const repositoryEntities: PresenterRepositoryEntity[] = [];
 
-    for (const [containerId, container] of Object.entries(
+    for (const [containerName, container] of Object.entries(
       presenter.containers,
     )) {
-      for (const [repositoryId, repository] of Object.entries(
+      for (const [repositoryName, repository] of Object.entries(
         container.repositories,
       )) {
         repositoryEntities.push({
           ...repository,
-          id: createRepositoryEntityId(containerId, repositoryId),
-          containerId,
-          repositoryId,
+          id: createRepositoryEntityId(containerName, repositoryName),
+          containerName,
+          repositoryName,
         });
       }
     }
