@@ -37,7 +37,7 @@ export class WidgetRepository implements IWidgetRepository {
         return this.presenterStore.query(
           getAllEntitiesApply({
             filterEntity: (entity) =>
-              entity.containerId === selectedContainerId,
+              entity.containerName === selectedContainerId,
             ref: widgetRef,
           }),
         );
@@ -58,14 +58,14 @@ export class WidgetRepository implements IWidgetRepository {
   upsertByContainer(presenter: PresenterSchema): void {
     const widgetEntities: PresenterWidgetEntity[] = [];
 
-    for (const [containerId, container] of Object.entries(
+    for (const [containerName, container] of Object.entries(
       presenter.containers,
     )) {
       for (const [widgetId, widget] of Object.entries(container.widgets)) {
         widgetEntities.push({
           ...widget,
           id: widgetId,
-          containerId,
+          containerName,
         });
       }
     }

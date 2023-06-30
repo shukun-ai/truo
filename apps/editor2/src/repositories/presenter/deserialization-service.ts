@@ -55,10 +55,10 @@ export class DeserializationService implements IDeserializationService {
     return screens;
   }
 
-  private buildWidgets(containerId: string): PresenterContainer['widgets'] {
+  private buildWidgets(containerName: string): PresenterContainer['widgets'] {
     const widgetEntities = this.presenterStore.query(
       getAllEntitiesApply({
-        filterEntity: (widget) => widget.containerId === containerId,
+        filterEntity: (widget) => widget.containerName === containerName,
         ref: widgetRef,
       }),
     );

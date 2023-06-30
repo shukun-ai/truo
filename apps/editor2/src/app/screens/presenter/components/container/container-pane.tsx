@@ -50,7 +50,7 @@ export const ContainerPane = () => {
             }}
           >
             <Text size="sm">{container.label}</Text>
-            <MoreButton containerId={container.id} />
+            <MoreButton containerName={container.id} />
           </Box>
         ))}
       </ScrollArea>
@@ -58,7 +58,7 @@ export const ContainerPane = () => {
   );
 };
 
-const MoreButton = ({ containerId }: { containerId: string }) => {
+const MoreButton = ({ containerName }: { containerName: string }) => {
   const app = useAppContext();
 
   return (
@@ -75,7 +75,7 @@ const MoreButton = ({ containerId }: { containerId: string }) => {
           icon={<IconTrash size={14} />}
           onClick={() => {
             app.repositories.presenterRepository.containerRepository.remove(
-              containerId,
+              containerName,
             );
           }}
         >
