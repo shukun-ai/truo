@@ -28,11 +28,11 @@ export const SettingWidget = ({ tab }: SettingWidgetProps) => {
     if (tab.tabType !== 'widget') {
       return null;
     }
-    const { widgetId } = tab;
-    if (!widgetId) {
+    const { widgetName } = tab;
+    if (!widgetName) {
       return null;
     }
-    return allWidgets.find((widget) => widget.id === tab.widgetId);
+    return allWidgets.find((widget) => widget.id === tab.widgetName);
   }, [allWidgets, tab]);
 
   const definition = useMemo(() => {

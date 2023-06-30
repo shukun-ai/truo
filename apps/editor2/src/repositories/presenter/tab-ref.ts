@@ -9,7 +9,7 @@ export type PresenterTabEntity = {
   | {
       tabType: 'widget';
       containerName: string;
-      widgetId: string;
+      widgetName: string;
     }
   | {
       tabType: 'repository';

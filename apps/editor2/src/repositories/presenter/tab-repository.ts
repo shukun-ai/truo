@@ -29,11 +29,11 @@ export class TabRepository implements ITabRepository {
     select((state) => state.selectedTabId),
   );
 
-  previewWidgetTab(containerName: string, widgetId: string): void {
+  previewWidgetTab(containerName: string, widgetName: string): void {
     const existPreviewWidgetTab = this.getExistPreviewTab(
       'widget',
       containerName,
-      widgetId,
+      widgetName,
     );
 
     if (existPreviewWidgetTab.length === 1) {
@@ -42,7 +42,7 @@ export class TabRepository implements ITabRepository {
       const entity = this.createPreviewTabEntity(
         'widget',
         containerName,
-        widgetId,
+        widgetName,
       );
       this.createPreviewTab(entity);
     }
@@ -150,7 +150,7 @@ export class TabRepository implements ITabRepository {
         filterEntity: (entity) =>
           entity.tabType === 'widget' &&
           entity.containerName === containerName &&
-          entity.widgetId === foreignName,
+          entity.widgetName === foreignName,
         ref: tabRef,
       }),
     );
@@ -170,7 +170,7 @@ export class TabRepository implements ITabRepository {
         id: tabId,
         tabType: 'widget',
         containerName,
-        widgetId: foreignName,
+        widgetName: foreignName,
         isPreview: true,
         isEdit: false,
         hasError: false,

@@ -61,10 +61,10 @@ export class WidgetRepository implements IWidgetRepository {
     for (const [containerName, container] of Object.entries(
       presenter.containers,
     )) {
-      for (const [widgetId, widget] of Object.entries(container.widgets)) {
+      for (const [widgetName, widget] of Object.entries(container.widgets)) {
         widgetEntities.push({
           ...widget,
-          id: widgetId,
+          id: widgetName,
           containerName,
         });
       }
@@ -76,11 +76,11 @@ export class WidgetRepository implements IWidgetRepository {
   }
 
   updateProperties(
-    widgetId: string,
+    widgetName: string,
     properties: PresenterWidget['properties'],
   ): void {
     this.presenterStore.update(
-      updateEntities(widgetId, { properties }, { ref: widgetRef }),
+      updateEntities(widgetName, { properties }, { ref: widgetRef }),
     );
   }
 }

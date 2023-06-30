@@ -58,7 +58,7 @@ export class PresenterRepository implements IPresenterRepository {
       if (tabEntity.tabType !== 'widget') {
         return null;
       }
-      return tabEntity.widgetId;
+      return tabEntity.widgetName;
     }),
   );
 
