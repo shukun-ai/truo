@@ -50,7 +50,7 @@ export class PresenterRepository implements IPresenterRepository {
 
   selectedWidgetEntityId$ = this.presenterStore.pipe(
     select((state) => {
-      const tabId = state.selectedTabId;
+      const tabId = state.selectedTabEntityId;
       if (!tabId) {
         return null;
       }
@@ -64,7 +64,7 @@ export class PresenterRepository implements IPresenterRepository {
 
   selectedRepositoryEntityId$ = this.presenterStore.pipe(
     select((state) => {
-      const tabId = state.selectedTabId;
+      const tabId = state.selectedTabEntityId;
       if (!tabId) {
         return null;
       }

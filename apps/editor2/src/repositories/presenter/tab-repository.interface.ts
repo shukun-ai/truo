@@ -4,7 +4,7 @@ import { PresenterTabEntity } from './tab-ref';
 
 export interface ITabRepository {
   allTabs$: Observable<PresenterTabEntity[]>;
-  selectedTabId$: Observable<string | null>;
+  selectedTabEntityId$: Observable<string | null>;
   previewWidgetTab(containerName: string, widgetName: string): void;
   previewRepositoryTab(containerName: string, repositoryName: string): void;
   fixTab(entityId: string): void;
