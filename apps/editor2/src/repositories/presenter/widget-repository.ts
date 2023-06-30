@@ -27,17 +27,17 @@ export class WidgetRepository implements IWidgetRepository {
 
   selectedWidgets$: Observable<PresenterWidgets> = this.presenterStore
     .combine({
-      selectedContainerId: this.presenterStore.pipe(
-        select((state) => state.selectedContainerId),
+      selectedContainerEntityId: this.presenterStore.pipe(
+        select((state) => state.selectedContainerEntityId),
       ),
       widgets: this.presenterStore.pipe(selectAllEntities({ ref: widgetRef })),
     })
     .pipe(
-      map(({ selectedContainerId }) => {
+      map(({ selectedContainerEntityId }) => {
         return this.presenterStore.query(
           getAllEntitiesApply({
             filterEntity: (entity) =>
-              entity.containerName === selectedContainerId,
+              entity.containerName === selectedContainerEntityId,
             ref: widgetRef,
           }),
         );

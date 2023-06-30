@@ -114,7 +114,7 @@ export class TabRepository implements ITabRepository {
     this.presenterStore.update(
       setProps({
         selectedTabId: tab.id,
-        selectedContainerId: tab.containerName,
+        selectedContainerEntityId: tab.containerName,
       }),
     );
   }

@@ -44,11 +44,11 @@ export class PresenterRepository implements IPresenterRepository {
     select((state) => state.repositoryDefinitions),
   );
 
-  selectedContainerId$ = this.presenterStore.pipe(
-    select((state) => state.selectedContainerId),
+  selectedContainerEntityId$ = this.presenterStore.pipe(
+    select((state) => state.selectedContainerEntityId),
   );
 
-  selectedWidgetId$ = this.presenterStore.pipe(
+  selectedWidgetEntityId$ = this.presenterStore.pipe(
     select((state) => {
       const tabId = state.selectedTabId;
       if (!tabId) {
@@ -62,7 +62,7 @@ export class PresenterRepository implements IPresenterRepository {
     }),
   );
 
-  selectedRepositoryId$ = this.presenterStore.pipe(
+  selectedRepositoryEntityId$ = this.presenterStore.pipe(
     select((state) => {
       const tabId = state.selectedTabId;
       if (!tabId) {
