@@ -25,8 +25,8 @@ export class TabRepository implements ITabRepository {
     selectAllEntities({ ref: tabRef }),
   );
 
-  selectedTabId$: Observable<string | null> = this.presenterStore.pipe(
-    select((state) => state.selectedTabId),
+  selectedTabEntityId$: Observable<string | null> = this.presenterStore.pipe(
+    select((state) => state.selectedTabEntityId),
   );
 
   previewWidgetTab(containerName: string, widgetName: string): void {
@@ -77,7 +77,7 @@ export class TabRepository implements ITabRepository {
         { ref: tabRef },
       ),
       setProps({
-        selectedTabId: tabId,
+        selectedTabEntityId: tabId,
       }),
     );
   }
@@ -113,7 +113,7 @@ export class TabRepository implements ITabRepository {
     }
     this.presenterStore.update(
       setProps({
-        selectedTabId: tab.id,
+        selectedTabEntityId: tab.id,
         selectedContainerEntityId: tab.containerName,
       }),
     );
@@ -126,7 +126,7 @@ export class TabRepository implements ITabRepository {
         const entities = Object.values(state.presenterTabEntities);
 
         return {
-          selectedTabId: entities.length > 0 ? entities[0].id : null,
+          selectedTabEntityId: entities.length > 0 ? entities[0].id : null,
         };
       }),
     );
@@ -135,7 +135,7 @@ export class TabRepository implements ITabRepository {
   private selectPreviewTab(tabId: string) {
     this.presenterStore.update(
       setProps({
-        selectedTabId: tabId,
+        selectedTabEntityId: tabId,
       }),
     );
   }
@@ -205,7 +205,7 @@ export class TabRepository implements ITabRepository {
       deleteEntities(previewTabIds, { ref: tabRef }),
       addEntities(tabEntity, { ref: tabRef }),
       setProps({
-        selectedTabId: tabEntity.id,
+        selectedTabEntityId: tabEntity.id,
       }),
     );
   }

@@ -14,8 +14,8 @@ export type SettingPaneProps = {
 
 export const SettingPane = () => {
   const app = useAppContext();
-  const selectedTabId = useObservableState(
-    app.repositories.presenterRepository.tabRepository.selectedTabId$,
+  const selectedTabEntityId = useObservableState(
+    app.repositories.presenterRepository.tabRepository.selectedTabEntityId$,
     null,
   );
   const allTabs = useObservableState(
@@ -33,7 +33,7 @@ export const SettingPane = () => {
           flexDirection: 'column',
           minHeight: 0,
         }}
-        value={selectedTabId}
+        value={selectedTabEntityId}
         onTabChange={(tabId) => {
           if (tabId) {
             app.repositories.presenterRepository.tabRepository.chooseTab(tabId);
