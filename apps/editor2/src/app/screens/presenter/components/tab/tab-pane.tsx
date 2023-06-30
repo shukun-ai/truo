@@ -4,15 +4,15 @@ import { useObservableState } from 'observable-hooks';
 
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { SettingDetail } from './setting-detail';
-import { SettingTabActions } from './setting-tab-actions';
-import { SettingTabLabel } from './setting-tab-label';
+import { TabActions } from './tab-actions';
+import { TabDetail } from './tab-detail';
+import { TabLabel } from './tab-label';
 
-export type SettingPaneProps = {
+export type TabPaneProps = {
   //
 };
 
-export const SettingPane = () => {
+export const TabPane = () => {
   const app = useAppContext();
   const selectedTabEntityId = useObservableState(
     app.repositories.presenterRepository.tabRepository.selectedTabEntityId$,
@@ -45,9 +45,9 @@ export const SettingPane = () => {
             <Tabs.Tab
               key={tab.id}
               value={tab.id}
-              rightSection={<SettingTabActions tab={tab} />}
+              rightSection={<TabActions tab={tab} />}
             >
-              <SettingTabLabel tab={tab} />
+              <TabLabel tab={tab} />
             </Tabs.Tab>
           ))}
         </Tabs.List>
@@ -57,7 +57,7 @@ export const SettingPane = () => {
             value={tab.id}
             sx={{ flex: 1, overflow: 'hidden' }}
           >
-            <SettingDetail tab={tab} />
+            <TabDetail tab={tab} />
           </Tabs.Panel>
         ))}
       </Tabs>

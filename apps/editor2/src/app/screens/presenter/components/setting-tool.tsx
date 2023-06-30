@@ -1,6 +1,6 @@
 import { Box } from '@mantine/core';
 
-import { SettingPane } from './setting/setting-pane';
+import { TabPane } from './tab/tab-pane';
 
 export type SettingToolProps = {
   //
@@ -9,7 +9,7 @@ export type SettingToolProps = {
 export const SettingTool = () => {
   return (
     <Box sx={{ height: '100%', overflow: 'hidden' }}>
-      <SettingPane />
+      <TabPane />
     </Box>
   );
 };
