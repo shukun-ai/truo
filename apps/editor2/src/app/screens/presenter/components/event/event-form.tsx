@@ -1,13 +1,17 @@
+import { javascript } from '@codemirror/lang-javascript';
 import { Box, NativeSelect, SelectItem } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { PresenterEvent } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 import { useMemo } from 'react';
 
+import { CodeInput } from '../../../../components/code-input/code-input';
 import {
   AppContextProps,
   useAppContext,
 } from '../../../../contexts/app-context';
+
+import { useJsInputProps } from './use-js-input-props';
 
 export type EventFormProps = {
   containerName: string;
@@ -56,6 +60,8 @@ export const EventForm = ({ containerName, event }: EventFormProps) => {
     });
   }, [app, containerName, form.values, repositoryDefinitions]);
 
+  const jsInputProps = useJsInputProps(form.getInputProps('value'));
+
   return (
     <Box>
       <NativeSelect
@@ -79,6 +85,9 @@ export const EventForm = ({ containerName, event }: EventFormProps) => {
         {...form.getInputProps('action')}
         withAsterisk
       />
+      <Box>
+        <CodeInput label="参数" extensions={[javascript()]} {...jsInputProps} />
+      </Box>
     </Box>
   );
 };
