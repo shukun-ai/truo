@@ -2,6 +2,7 @@ import { useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
+import { move, useEventContext } from './event-context';
 import {
   ACTIVE_DROPPABLE_HEIGHT,
   EVENT_NODE_TYPE,
@@ -14,6 +15,8 @@ export const EventDroppableDivider = ({
 }: {
   targetEventName: number;
 }) => {
+  const { events, onChange } = useEventContext();
+
   const [{ isOver, canDrop }, drop] = useDrop<
     EventDroppableItem,
     unknown,
@@ -24,7 +27,7 @@ export const EventDroppableDivider = ({
       return item.sourceEventName !== targetEventName;
     },
     drop: (item) => {
-      //
+      onChange(move(events, item.sourceEventName, targetEventName));
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
