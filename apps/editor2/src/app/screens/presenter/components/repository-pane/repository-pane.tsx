@@ -72,7 +72,7 @@ const MoreButton = ({
   const app = useAppContext();
 
   return (
-    <Menu shadow="md" width={200}>
+    <Menu trigger="hover" shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />
