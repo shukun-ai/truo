@@ -12,6 +12,7 @@ import {
 } from '../../../../contexts/app-context';
 
 import { useJsInputProps } from './use-js-input-props';
+import { usePathInputProps } from './use-path-input-props';
 
 export type EventFormProps = {
   containerName: string;
@@ -60,6 +61,8 @@ export const EventForm = ({ containerName, event }: EventFormProps) => {
     });
   }, [app, containerName, form.values, repositoryDefinitions]);
 
+  const pathInputProps = usePathInputProps(form.getInputProps('path'));
+
   const jsInputProps = useJsInputProps(form.getInputProps('value'));
 
   return (
@@ -85,9 +88,8 @@ export const EventForm = ({ containerName, event }: EventFormProps) => {
         {...form.getInputProps('action')}
         withAsterisk
       />
-      <Box>
-        <CodeInput label="参数" extensions={[javascript()]} {...jsInputProps} />
-      </Box>
+      <CodeInput label="路径" {...pathInputProps} />
+      <CodeInput label="参数" extensions={[javascript()]} {...jsInputProps} />
     </Box>
   );
 };
