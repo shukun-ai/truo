@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core';
+import { Box, Button } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 
 import { HTML5DndProvider } from '../../../../components/dnd/dnd-provider';
@@ -30,6 +30,23 @@ export const EventInput = ({
           </EventProvider>
         ))}
       </HTML5DndProvider>
+      <Box>
+        <Button
+          variant="light"
+          fullWidth
+          onClick={() => {
+            const clonedNews = structuredClone(value);
+            clonedNews.push({
+              scope: 'app',
+              target: 'router',
+              action: 'push',
+            });
+            onChange(clonedNews);
+          }}
+        >
+          新建事件
+        </Button>
+      </Box>
     </Box>
   );
 };

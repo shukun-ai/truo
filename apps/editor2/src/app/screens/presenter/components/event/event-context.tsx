@@ -27,3 +27,14 @@ export const useEventContext = (): EventContextProps => {
   }
   return eventContext;
 };
+
+export const move = (events: PresenterEvent[], source: number, target: number) => {
+  const clonedEvents = structuredClone(events);
+  const event = clonedEvents[source];
+  if (!event) {
+    throw new TypeException('Did not find event in events.');
+  }
+  events.splice(source, 1);
+  events.splice(target, 0, event);
+  return events;
+};
