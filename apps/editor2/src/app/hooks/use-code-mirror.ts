@@ -3,6 +3,7 @@ import { EditorView, basicSetup } from 'codemirror';
 import { useEffect, useRef, useState } from 'react';
 
 export const useCodeMirror = (extensions: Extension[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<any>();
   const [view, setView] = useState<EditorView>();
 
@@ -18,6 +19,7 @@ export const useCodeMirror = (extensions: Extension[]) => {
       view.destroy();
       setView(undefined);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { ref, view };

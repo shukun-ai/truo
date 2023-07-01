@@ -3,14 +3,9 @@ import {
   getAllEntitiesApply,
   selectAllEntities,
   updateEntities,
-  upsertEntities,
 } from '@ngneat/elf-entities';
 
-import {
-  PresenterSchema,
-  PresenterWidget,
-  PresenterWidgets,
-} from '@shukun/schema';
+import { PresenterWidget, PresenterWidgets } from '@shukun/schema';
 
 import { Observable, distinctUntilChanged, map } from 'rxjs';
 
@@ -55,32 +50,9 @@ export class WidgetRepository implements IWidgetRepository {
       }),
     );
 
-  upsertByContainer(presenter: PresenterSchema): void {
-    const widgetEntities: PresenterWidgetEntity[] = [];
-
-    for (const [containerName, container] of Object.entries(
-      presenter.containers,
-    )) {
-      for (const [widgetName, widget] of Object.entries(container.widgets)) {
-        widgetEntities.push({
-          ...widget,
-          id: widgetName,
-          containerName,
-        });
-      }
-    }
-
+  update(entityId: string, entity: Partial<PresenterWidget>): void {
     this.presenterStore.update(
-      upsertEntities(widgetEntities, { ref: widgetRef }),
-    );
-  }
-
-  updateProperties(
-    widgetName: string,
-    properties: PresenterWidget['properties'],
-  ): void {
-    this.presenterStore.update(
-      updateEntities(widgetName, { properties }, { ref: widgetRef }),
+      updateEntities(entityId, entity, { ref: widgetRef }),
     );
   }
 }

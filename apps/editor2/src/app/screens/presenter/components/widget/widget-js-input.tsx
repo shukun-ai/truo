@@ -5,8 +5,12 @@ import { WidgetProperty } from '@shukun/schema';
 import { CODE_MODE_JS_PREFIX } from '@shukun/widget';
 import { useEffect, useMemo } from 'react';
 
-import { useCodeMirror } from './use-code-mirror';
-import { useWidgetFormContext } from './widget-context';
+import { useCodeMirror } from '../../../../hooks/use-code-mirror';
+
+import {
+  composeFormPropertyName,
+  useWidgetFormContext,
+} from './widget-context';
 
 export type WidgetJsInputProps = {
   propertyId: string;
@@ -15,7 +19,7 @@ export type WidgetJsInputProps = {
 
 export const WidgetJsInput = ({ propertyId }: WidgetJsInputProps) => {
   const form = useWidgetFormContext();
-  const formProps = form.getInputProps(propertyId);
+  const formProps = form.getInputProps(composeFormPropertyName(propertyId));
 
   const { ref, view } = useCodeMirror([
     javascript(),

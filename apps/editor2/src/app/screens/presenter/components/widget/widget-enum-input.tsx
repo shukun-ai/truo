@@ -2,7 +2,10 @@ import { Button } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 import { useMemo } from 'react';
 
-import { useWidgetFormContext } from './widget-context';
+import {
+  composeFormPropertyName,
+  useWidgetFormContext,
+} from './widget-context';
 
 import { WidgetInputWrapper } from './widget-input-wrapper';
 
@@ -17,7 +20,7 @@ export const WidgetEnumInput = ({
 }: WidgetEnumInputProps) => {
   const form = useWidgetFormContext();
   const formProps = useMemo(
-    () => form.getInputProps(propertyId),
+    () => form.getInputProps(composeFormPropertyName(propertyId)),
     [form, propertyId],
   );
 

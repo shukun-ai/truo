@@ -15,13 +15,26 @@ export interface RepositorySchema {
   scope: 'app' | 'container';
   manualJsonSchema?: boolean;
   parameters: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(\w)+$".
-     */
-    [k: string]: {
-      editorType: 'json' | 'atomName' | 'flowName';
-      required: boolean;
-    };
+    [k: string]: RepositoryParameter;
   };
+  actions: {
+    [k: string]: RepositoryAction;
+  };
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export interface RepositoryParameter {
+  editorType: 'json' | 'atomName' | 'flowName';
+  required?: boolean;
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export interface RepositoryAction {
+  name: string;
+  requiredPath?: boolean;
+  requiredValue?: boolean;
 }

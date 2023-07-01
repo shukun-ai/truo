@@ -4,7 +4,10 @@ import { CODE_MODE_JS_PREFIX } from '@shukun/widget';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { useCallback, useMemo } from 'react';
 
-import { useWidgetFormContext } from './widget-context';
+import {
+  composeFormPropertyName,
+  useWidgetFormContext,
+} from './widget-context';
 import { WidgetJsInput } from './widget-js-input';
 
 export type WidgetInputWrapperProps = {
@@ -24,7 +27,7 @@ export const WidgetInputWrapper = ({
 }: WidgetInputWrapperProps) => {
   const form = useWidgetFormContext();
 
-  const formProps = form.getInputProps(propertyId);
+  const formProps = form.getInputProps(composeFormPropertyName(propertyId));
 
   const mode = useMemo(() => {
     if (

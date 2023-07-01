@@ -1,15 +1,15 @@
 import { Box, Button, Group, Text, useMantineTheme } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
-import { PresenterWidget, WidgetSchema } from '@shukun/schema';
+import { WidgetSchema } from '@shukun/schema';
 
-import { cloneDeep, isEqual } from 'lodash';
+import { isEqual } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 
 import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
 import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../contexts/app-context';
-import { WidgetFormProvider } from '../widget/widget-context';
+import { WidgetFormProvider, WidgetFormValue } from '../widget/widget-context';
 import { WidgetField } from '../widget/widget-field';
 
 export type WidgetFormProps = {
@@ -23,14 +23,23 @@ export const WidgetForm = ({ tab, widget, definition }: WidgetFormProps) => {
 
   const app = useAppContext();
 
-  const form = useForm<PresenterWidget['properties']>({
-    initialValues: cloneDeep(widget.properties),
+  const form = useForm<WidgetFormValue>({
+    initialValues: {
+      properties: structuredClone(widget.properties),
+      events: structuredClone(widget.events),
+    },
   });
 
   const [fixedCache, setFixedCache] = useState(false);
 
   useEffect(() => {
-    if (!isEqual(form.values, widget.properties) && !fixedCache) {
+    if (
+      !isEqual(form.values, {
+        properties: widget.properties,
+        events: widget.events,
+      }) &&
+      !fixedCache
+    ) {
       app.repositories.presenterRepository.tabRepository.fixTab(tab.id);
       app.repositories.presenterRepository.tabRepository.activeEditTab(tab.id);
       setFixedCache(true);
@@ -40,11 +49,12 @@ export const WidgetForm = ({ tab, widget, definition }: WidgetFormProps) => {
     fixedCache,
     form.values,
     tab.id,
+    widget.events,
     widget.properties,
   ]);
 
   const handleSubmit = useCallback(() => {
-    app.repositories.presenterRepository.widgetRepository.updateProperties(
+    app.repositories.presenterRepository.widgetRepository.update(
       widget.id,
       form.values,
     );
@@ -88,11 +98,11 @@ export const WidgetForm = ({ tab, widget, definition }: WidgetFormProps) => {
             <Box sx={{ height: 16 }}></Box>
           )}
           {Object.entries(definition.properties).map(
-            ([propertyId, property]) => (
+            ([definitionPropertyId, definitionProperty]) => (
               <WidgetField
-                key={propertyId}
-                propertyId={propertyId}
-                property={property}
+                key={definitionPropertyId}
+                definitionPropertyId={definitionPropertyId}
+                definitionProperty={definitionProperty}
               />
             ),
           )}

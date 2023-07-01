@@ -1,7 +1,10 @@
 import { Alert, Box, Code } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
-import { useWidgetFormContext } from './widget-context';
+import {
+  composeFormPropertyName,
+  useWidgetFormContext,
+} from './widget-context';
 
 import { WidgetInputWrapper } from './widget-input-wrapper';
 
@@ -15,7 +18,7 @@ export const WidgetObjectInput = ({
   property,
 }: WidgetObjectInputProps) => {
   const form = useWidgetFormContext();
-  const formProps = form.getInputProps(propertyId);
+  const formProps = form.getInputProps(composeFormPropertyName(propertyId));
 
   return (
     <WidgetInputWrapper propertyId={propertyId} property={property}>
