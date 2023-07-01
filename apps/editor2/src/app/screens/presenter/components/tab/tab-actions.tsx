@@ -21,7 +21,8 @@ export const TabActions = ({ tab }: TabActionsProps) => {
       {tab.isPreview && (
         <ActionIcon
           component="span"
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             app.repositories.presenterRepository.tabRepository.fixTab(tab.id);
           }}
         >
@@ -30,7 +31,8 @@ export const TabActions = ({ tab }: TabActionsProps) => {
       )}
       <ActionIcon
         component="span"
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           app.repositories.presenterRepository.tabRepository.closeTab(tab.id);
         }}
       >
