@@ -3,7 +3,7 @@ import { PresenterEvent } from '@shukun/schema';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
-import { useEventContext } from './event-context';
+import { remove, update, useEventContext } from './event-context';
 import { EventForm } from './event-form';
 
 export type EventDetailProps = {
@@ -24,9 +24,7 @@ export const EventDetail = () => {
         containerName={containerName}
         event={event}
         onChange={(value) => {
-          const clonedEvents = structuredClone(events);
-          clonedEvents.splice(index, 1, value);
-          onChange(clonedEvents);
+          onChange(update(events, index, value));
           setEditing(false);
         }}
         onCancel={() => {
@@ -40,9 +38,7 @@ export const EventDetail = () => {
         event={event}
         onEdit={() => setEditing(true)}
         onRemove={() => {
-          const clonedEvents = structuredClone(events);
-          clonedEvents.splice(index, 1);
-          onChange(clonedEvents);
+          onChange(remove(events, index));
           setEditing(false);
         }}
       />

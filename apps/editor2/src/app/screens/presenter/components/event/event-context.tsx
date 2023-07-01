@@ -28,7 +28,39 @@ export const useEventContext = (): EventContextProps => {
   return eventContext;
 };
 
-export const move = (events: PresenterEvent[], source: number, target: number) => {
+export const add = (
+  events: PresenterEvent[],
+  event: PresenterEvent,
+): PresenterEvent[] => {
+  const clonedNews = structuredClone(events);
+  clonedNews.push(event);
+  return clonedNews;
+};
+
+export const update = (
+  events: PresenterEvent[],
+  index: number,
+  event: PresenterEvent,
+): PresenterEvent[] => {
+  const clonedEvents = structuredClone(events);
+  clonedEvents.splice(index, 1, event);
+  return clonedEvents;
+};
+
+export const remove = (
+  events: PresenterEvent[],
+  index: number,
+): PresenterEvent[] => {
+  const clonedEvents = structuredClone(events);
+  clonedEvents.splice(index, 1);
+  return clonedEvents;
+};
+
+export const move = (
+  events: PresenterEvent[],
+  source: number,
+  target: number,
+): PresenterEvent[] => {
   const clonedEvents = structuredClone(events);
   const event = clonedEvents[source];
   if (!event) {
