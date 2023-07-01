@@ -1,5 +1,5 @@
 export type EventDroppableItem = {
-  sourceEventName: string;
+  sourceEventName: number;
 };
 
 export const EVENT_NODE_TYPE = 'EVENT_NODE_TYPE';

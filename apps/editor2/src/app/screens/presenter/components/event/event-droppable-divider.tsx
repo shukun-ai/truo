@@ -12,7 +12,7 @@ import {
 export const EventDroppableDivider = ({
   targetEventName,
 }: {
-  targetEventName: string;
+  targetEventName: number;
 }) => {
   const [{ isOver, canDrop }, drop] = useDrop<
     EventDroppableItem,

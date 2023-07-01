@@ -1,24 +1,16 @@
 import { ActionIcon, Box, Card, createStyles } from '@mantine/core';
-import { PresenterEvent } from '@shukun/schema';
-import { IconMenuOrder } from '@tabler/icons-react';
+import { IconGripVertical } from '@tabler/icons-react';
 import { useDrag } from 'react-dnd';
 
+import { useEventContext } from './event-context';
 import { EventDetail } from './event-detail';
 import { EVENT_NODE_TYPE, EventDroppableItem } from './event-droppable-type';
 
-export const EventDraggableNode = ({
-  containerName,
-  sourceEventName,
-  event,
-  index,
-  onChange,
-}: {
-  containerName: string;
-  sourceEventName: string;
-  event: PresenterEvent;
-  index: number;
-  onChange: (event: PresenterEvent, index: number) => void;
-}) => {
+export const EventDraggableNode = () => {
+  const { index } = useEventContext();
+
+  const sourceEventName = index;
+
   const [, drag, preview] = useDrag<EventDroppableItem>(() => ({
     type: EVENT_NODE_TYPE,
     item: { sourceEventName },
@@ -27,13 +19,7 @@ export const EventDraggableNode = ({
   const { classes } = useStyles();
 
   return (
-    <Card
-      withBorder
-      ref={preview}
-      onClick={() => {
-        //
-      }}
-    >
+    <Card withBorder ref={preview}>
       <Box
         sx={{
           display: 'flex',
@@ -43,16 +29,10 @@ export const EventDraggableNode = ({
         }}
       >
         <ActionIcon className={classes.draggableItem} ref={drag}>
-          <IconMenuOrder size="1.125rem" />
+          <IconGripVertical size="1rem" />
         </ActionIcon>
         <Box sx={{ flex: 1 }}>
-          <EventDetail
-            containerName={containerName}
-            event={event}
-            onChange={(values) => {
-              onChange(values, index);
-            }}
-          />
+          <EventDetail />
         </Box>
       </Box>
     </Card>

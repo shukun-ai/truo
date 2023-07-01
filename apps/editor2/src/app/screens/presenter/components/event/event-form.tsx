@@ -91,6 +91,22 @@ export const EventForm = ({
     });
   }, [app, containerName, form.values, repositoryDefinitions]);
 
+  const action = useMemo(() => {
+    const repositoryType = getRepositoryType(app, containerName, form.values);
+    if (!repositoryType) {
+      return null;
+    }
+    const definition = repositoryDefinitions[repositoryType];
+    if (!definition) {
+      return null;
+    }
+    const action = definition.actions[form.values.action];
+    if (!action) {
+      return null;
+    }
+    return action;
+  }, [app, containerName, form.values, repositoryDefinitions]);
+
   const pathInputProps = usePathInputProps(form.getInputProps('path'));
 
   const jsInputProps = useJsInputProps(form.getInputProps('value'));
@@ -118,8 +134,10 @@ export const EventForm = ({
         {...form.getInputProps('action')}
         withAsterisk
       />
-      <CodeInput label="路径" {...pathInputProps} />
-      <CodeInput label="参数" extensions={[javascript()]} {...jsInputProps} />
+      {action?.requiredPath && <CodeInput label="路径" {...pathInputProps} />}
+      {action?.requiredValue && (
+        <CodeInput label="参数" extensions={[javascript()]} {...jsInputProps} />
+      )}
       <Group sx={{ marginTop: 12 }}>
         <Button
           variant="filled"
