@@ -11,7 +11,11 @@ export type EventDetailProps = {
   onChange: (event: PresenterEvent) => void;
 };
 
-export const EventDetail = ({ containerName, event }: EventDetailProps) => {
+export const EventDetail = ({
+  containerName,
+  event,
+  onChange,
+}: EventDetailProps) => {
   const [editing, setEditing] = useState(false);
 
   if (editing) {
@@ -19,7 +23,11 @@ export const EventDetail = ({ containerName, event }: EventDetailProps) => {
       <EventForm
         containerName={containerName}
         event={event}
-        onChange={() => {
+        onChange={(values) => {
+          onChange(values);
+          setEditing(false);
+        }}
+        onCancel={() => {
           setEditing(false);
         }}
       />

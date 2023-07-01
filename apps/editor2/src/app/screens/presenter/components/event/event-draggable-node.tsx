@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Card, Group, createStyles } from '@mantine/core';
+import { ActionIcon, Box, Card, createStyles } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 import { IconMenuOrder } from '@tabler/icons-react';
 import { useDrag } from 'react-dnd';
@@ -11,11 +11,13 @@ export const EventDraggableNode = ({
   sourceEventName,
   event,
   index,
+  onChange,
 }: {
   containerName: string;
   sourceEventName: string;
   event: PresenterEvent;
   index: number;
+  onChange: (event: PresenterEvent, index: number) => void;
 }) => {
   const [, drag, preview] = useDrag<EventDroppableItem>(() => ({
     type: EVENT_NODE_TYPE,
@@ -47,8 +49,8 @@ export const EventDraggableNode = ({
           <EventDetail
             containerName={containerName}
             event={event}
-            onChange={() => {
-              //
+            onChange={(values) => {
+              onChange(values, index);
             }}
           />
         </Box>
