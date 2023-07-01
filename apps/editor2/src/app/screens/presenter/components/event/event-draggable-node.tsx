@@ -1,4 +1,4 @@
-import { ActionIcon, Card, Group, createStyles } from '@mantine/core';
+import { ActionIcon, Box, Card, Group, createStyles } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 import { IconMenuOrder } from '@tabler/icons-react';
 import { useDrag } from 'react-dnd';
@@ -32,18 +32,27 @@ export const EventDraggableNode = ({
         //
       }}
     >
-      <Group style={{ flex: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          minWidth: 0,
+          minHeight: 0,
+          alignItems: 'center',
+        }}
+      >
         <ActionIcon className={classes.draggableItem} ref={drag}>
           <IconMenuOrder size="1.125rem" />
         </ActionIcon>
-        <EventDetail
-          containerName={containerName}
-          event={event}
-          onChange={() => {
-            //
-          }}
-        />
-      </Group>
+        <Box sx={{ flex: 1 }}>
+          <EventDetail
+            containerName={containerName}
+            event={event}
+            onChange={() => {
+              //
+            }}
+          />
+        </Box>
+      </Box>
     </Card>
   );
 };
