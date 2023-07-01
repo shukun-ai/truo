@@ -1,16 +1,19 @@
 import { Box } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
+import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
 import { EventInput } from '../event/event-input';
 
 import { composeFormEventName, useWidgetFormContext } from './widget-context';
 
 export type WidgetEventInputProps = {
+  tab: PresenterTabEntity;
   propertyId: string;
   property: WidgetProperty;
 };
 
 export const WidgetEventInput = ({
+  tab,
   propertyId,
   property,
 }: WidgetEventInputProps) => {
@@ -24,7 +27,7 @@ export const WidgetEventInput = ({
           {property.label} ({propertyId})
         </Box>
       </Box>
-      <EventInput {...formProps} />
+      <EventInput containerName={tab.containerName} {...formProps} />
     </Box>
   );
 };

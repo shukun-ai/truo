@@ -8,5 +8,11 @@
       "editorType": "json",
       "required": false
     }
+  },
+  "actions": {
+    "setValue": {
+      "requiredPath": true,
+      "requiredValue": true
+    }
   }
 }

@@ -4,22 +4,32 @@ import { PresenterEvent } from '@shukun/schema';
 import { HTML5DndProvider } from '../../../../components/dnd/dnd-provider';
 
 import { EventDraggableNode } from './event-draggable-node';
+import { EventDroppableDivider } from './event-droppable-divider';
 
 export type EventInputProps = {
+  containerName: string;
   value: PresenterEvent[];
   onChange: (value: PresenterEvent[]) => void;
 };
 
-export const EventInput = ({ value, onChange }: EventInputProps) => {
+export const EventInput = ({
+  containerName,
+  value,
+  onChange,
+}: EventInputProps) => {
   return (
     <Box>
       <HTML5DndProvider>
         {value.map((event, index) => (
-          <EventDraggableNode
-            sourceEventName={`Event${index}`}
-            event={event}
-            index={index}
-          />
+          <>
+            <EventDraggableNode
+              containerName={containerName}
+              sourceEventName={`Event${index}`}
+              event={event}
+              index={index}
+            />
+            <EventDroppableDivider targetEventName={`Event${index}`} />
+          </>
         ))}
       </HTML5DndProvider>
     </Box>

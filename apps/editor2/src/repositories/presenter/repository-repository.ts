@@ -94,4 +94,24 @@ export class RepositoryRepository implements IRepositoryRepository {
       deleteEntities(entityId, { ref: repositoryRef }),
     );
   }
+
+  getByRepositoryName(
+    containerName: string,
+    repositoryName: string,
+  ): PresenterRepositoryEntity | null {
+    const repositories = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) =>
+          entity.containerName === containerName &&
+          entity.repositoryName === repositoryName,
+        ref: repositoryRef,
+      }),
+    );
+
+    if (repositories.length === 0) {
+      return null;
+    }
+
+    return repositories[0];
+  }
 }

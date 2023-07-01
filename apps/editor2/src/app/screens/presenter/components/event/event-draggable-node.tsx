@@ -1,20 +1,23 @@
-import { Box, createStyles } from '@mantine/core';
+import { ActionIcon, Card, Group, createStyles } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
+import { IconMenuOrder } from '@tabler/icons-react';
 import { useDrag } from 'react-dnd';
 
-import { EventDroppableDivider } from './event-droppable-divider';
+import { EventDetail } from './event-detail';
 import { EVENT_NODE_TYPE, EventDroppableItem } from './event-droppable-type';
 
 export const EventDraggableNode = ({
+  containerName,
   sourceEventName,
   event,
   index,
 }: {
+  containerName: string;
   sourceEventName: string;
   event: PresenterEvent;
   index: number;
 }) => {
-  const [, drag] = useDrag<EventDroppableItem>(() => ({
+  const [, drag, preview] = useDrag<EventDroppableItem>(() => ({
     type: EVENT_NODE_TYPE,
     item: { sourceEventName },
   }));
@@ -22,43 +25,31 @@ export const EventDraggableNode = ({
   const { classes } = useStyles();
 
   return (
-    <Box ref={drag} className={classes.draggableItem}>
-      <Box
-        onClick={() => {
-          //
-        }}
-      >
-        <Box style={{ flex: 1 }}>{sourceEventName}</Box>
-      </Box>
-      <EventDroppableDivider targetEventName={sourceEventName} />
-    </Box>
+    <Card
+      withBorder
+      ref={preview}
+      onClick={() => {
+        //
+      }}
+    >
+      <Group style={{ flex: 1 }}>
+        <ActionIcon className={classes.draggableItem} ref={drag}>
+          <IconMenuOrder size="1.125rem" />
+        </ActionIcon>
+        <EventDetail
+          containerName={containerName}
+          event={event}
+          onChange={() => {
+            //
+          }}
+        />
+      </Group>
+    </Card>
   );
 };
 
 const useStyles = createStyles((theme) => ({
-  selected: {
-    background: theme.colors.blue[8],
-    color: theme.white,
-  },
   draggableItem: {
-    cursor: 'pointer',
-  },
-  nodeItem: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: theme.colors.blue[8],
-
-    '&:hover': {
-      background: theme.colors.blue[1],
-    },
-  },
-  nodeItemActive: {
-    color: theme.white,
-    background: theme.colors.blue[8],
-
-    '&:hover': {
-      background: theme.colors.blue[8],
-    },
+    cursor: 'move',
   },
 }));
