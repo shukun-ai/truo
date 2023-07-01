@@ -3,7 +3,7 @@
   "title": "RepositorySchema",
   "description": "Define the presenter repository definitions",
   "type": "object",
-  "required": ["name", "scope", "parameters"],
+  "required": ["name", "scope", "parameters", "actions"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -19,9 +19,10 @@
     "parameters": {
       "type": "object",
       "patternProperties": {
-        "^(\\w)+$": {
+        "^(.)+$": {
           "type": "object",
-          "required": ["editorType", "required"],
+          "title": "RepositoryParameter",
+          "required": ["editorType"],
           "additionalProperties": false,
           "properties": {
             "editorType": {
@@ -30,6 +31,22 @@
             "required": {
               "type": "boolean"
             }
+          }
+        }
+      }
+    },
+    "actions": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "type": "object",
+          "title": "RepositoryAction",
+          "required": ["name"],
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string" },
+            "requiredPath": { "type": "boolean" },
+            "requiredValue": { "type": "boolean" }
           }
         }
       }

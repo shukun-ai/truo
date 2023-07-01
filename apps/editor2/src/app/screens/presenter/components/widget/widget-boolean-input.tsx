@@ -1,7 +1,10 @@
 import { Switch } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
-import { useWidgetFormContext } from './widget-context';
+import {
+  composeFormPropertyName,
+  useWidgetFormContext,
+} from './widget-context';
 
 import { WidgetInputWrapper } from './widget-input-wrapper';
 
@@ -15,7 +18,9 @@ export const WidgetBooleanInput = ({
   property,
 }: WidgetBooleanInputProps) => {
   const form = useWidgetFormContext();
-  const formProps = form.getInputProps(propertyId, { type: 'checkbox' });
+  const formProps = form.getInputProps(composeFormPropertyName(propertyId), {
+    type: 'checkbox',
+  });
 
   return (
     <WidgetInputWrapper propertyId={propertyId} property={property}>

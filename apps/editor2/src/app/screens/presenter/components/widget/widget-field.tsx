@@ -9,11 +9,14 @@ import { WidgetObjectInput } from './widget-object-input';
 import { WidgetStringInput } from './widget-string-input';
 
 export type WidgetFieldProps = {
-  propertyId: string;
-  property: WidgetProperty;
+  definitionPropertyId: string;
+  definitionProperty: WidgetProperty;
 };
 
-export const WidgetField = ({ propertyId, property }: WidgetFieldProps) => {
+export const WidgetField = ({
+  definitionPropertyId: propertyId,
+  definitionProperty: property,
+}: WidgetFieldProps) => {
   const schema = property.schema;
 
   if (property.isEvent) {

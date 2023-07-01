@@ -25,7 +25,8 @@
     "buildable",
     "mantine",
     "ngneat",
-    "tabler"
+    "tabler",
+    "codemirror"
   ],
   "ignoreWords": [],
   "import": []

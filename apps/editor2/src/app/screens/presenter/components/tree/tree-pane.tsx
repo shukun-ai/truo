@@ -1,9 +1,7 @@
 import { Box, ScrollArea, Text, createStyles } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-
+import { HTML5DndProvider } from '../../../../components/dnd/dnd-provider';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { TreeDraggableNode } from './tree-draggable-node';
@@ -36,9 +34,6 @@ export const TreePane = () => {
     null,
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const DndProvider2 = DndProvider as any;
-
   if (!selectedContainerEntityId) {
     return (
       <Box className={cx(classes.wrapper)}>
@@ -50,7 +45,7 @@ export const TreePane = () => {
   return (
     <Box className={cx(classes.wrapper)}>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        <DndProvider2 backend={HTML5Backend}>
+        <HTML5DndProvider>
           <TreeDraggableNode
             treeNodes={treeNodes}
             widgets={selectedWidgets}
@@ -61,7 +56,7 @@ export const TreePane = () => {
             level={0}
             index={0}
           />
-        </DndProvider2>
+        </HTML5DndProvider>
       </ScrollArea>
     </Box>
   );

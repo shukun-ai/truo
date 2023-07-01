@@ -1,7 +1,10 @@
 import { TextInput } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
-import { useWidgetFormContext } from './widget-context';
+import {
+  composeFormPropertyName,
+  useWidgetFormContext,
+} from './widget-context';
 
 import { WidgetInputWrapper } from './widget-input-wrapper';
 
@@ -18,7 +21,7 @@ export const WidgetStringInput = ({
 
   return (
     <WidgetInputWrapper propertyId={propertyId} property={property}>
-      <TextInput {...form.getInputProps(propertyId)} />
+      <TextInput {...form.getInputProps(composeFormPropertyName(propertyId))} />
     </WidgetInputWrapper>
   );
 };
