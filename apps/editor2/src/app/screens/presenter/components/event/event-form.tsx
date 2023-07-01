@@ -1,5 +1,5 @@
 import { javascript } from '@codemirror/lang-javascript';
-import { Box, NativeSelect, SelectItem } from '@mantine/core';
+import { Box, Button, Group, NativeSelect, SelectItem } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { PresenterEvent } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
@@ -18,10 +18,21 @@ export type EventFormProps = {
   containerName: string;
   event: PresenterEvent | undefined;
   onChange: (event: PresenterEvent) => void;
+  onCancel: () => void;
 };
 
-export const EventForm = ({ containerName, event }: EventFormProps) => {
+export const EventForm = ({
+  containerName,
+  event,
+  onChange,
+  onCancel,
+}: EventFormProps) => {
   const app = useAppContext();
+
+  const repositories = useObservableState(
+    app.repositories.presenterRepository.repositoryRepository.all$,
+    [],
+  );
 
   const repositoryDefinitions = useObservableState(
     app.repositories.presenterRepository.repositoryDefinitions$,
@@ -33,16 +44,35 @@ export const EventForm = ({ containerName, event }: EventFormProps) => {
     validate: {},
   });
 
-  const repositoryOptions = useMemo<SelectItem[]>(() => {
+  const appRepositoryOptions = useMemo<SelectItem[]>(() => {
     return Object.entries(repositoryDefinitions)
       .filter(([, definition]) => {
-        return definition.scope === form.values.scope;
+        return definition.scope === 'app';
       })
       .map(([name]) => ({
         label: name,
         value: name,
       }));
-  }, [form.values.scope, repositoryDefinitions]);
+  }, [repositoryDefinitions]);
+
+  const containerRepositoryOptions = useMemo<SelectItem[]>(() => {
+    return repositories
+      .filter((repository) => repository.containerName === containerName)
+      .map((repository) => ({
+        label: repository.repositoryName,
+        value: repository.repositoryName,
+      }));
+  }, [containerName, repositories]);
+
+  const repositoryOptions = useMemo<SelectItem[]>(() => {
+    if (form.values.scope === 'app') {
+      return appRepositoryOptions;
+    } else if (form.values.scope === 'container') {
+      return containerRepositoryOptions;
+    } else {
+      return [];
+    }
+  }, [appRepositoryOptions, containerRepositoryOptions, form.values.scope]);
 
   const repositoryActions = useMemo<SelectItem[]>(() => {
     const repositoryType = getRepositoryType(app, containerName, form.values);
@@ -90,6 +120,19 @@ export const EventForm = ({ containerName, event }: EventFormProps) => {
       />
       <CodeInput label="路径" {...pathInputProps} />
       <CodeInput label="参数" extensions={[javascript()]} {...jsInputProps} />
+      <Group sx={{ marginTop: 12 }}>
+        <Button
+          variant="filled"
+          onClick={() => {
+            onChange(form.values);
+          }}
+        >
+          保存
+        </Button>
+        <Button variant="light" onClick={onCancel}>
+          取消
+        </Button>
+      </Group>
     </Box>
   );
 };

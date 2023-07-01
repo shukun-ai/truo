@@ -27,6 +27,11 @@ export const EventInput = ({
               sourceEventName={`Event${index}`}
               event={event}
               index={index}
+              onChange={(event, index) => {
+                const events = structuredClone(value);
+                events.splice(index, 1, event);
+                onChange(events);
+              }}
             />
             <EventDroppableDivider targetEventName={`Event${index}`} />
           </>

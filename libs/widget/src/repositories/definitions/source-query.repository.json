@@ -7,5 +7,10 @@
       "editorType": "atomName",
       "required": true
     }
+  },
+  "actions": {
+    "run": {
+      "requiredValue": true
+    }
   }
 }
