@@ -41,10 +41,9 @@
         "^(.)+$": {
           "type": "object",
           "title": "RepositoryAction",
-          "required": ["name"],
+          "required": [],
           "additionalProperties": false,
           "properties": {
-            "name": { "type": "string" },
             "requiredPath": { "type": "boolean" },
             "requiredValue": { "type": "boolean" }
           }

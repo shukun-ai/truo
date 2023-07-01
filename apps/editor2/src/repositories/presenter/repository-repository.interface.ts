@@ -11,4 +11,8 @@ export interface IRepositoryRepository {
   create(entity: Omit<PresenterRepositoryEntity, 'id'>): void;
   update(entityId: string, entity: Omit<PresenterRepositoryEntity, 'id'>): void;
   remove(entityId: string): void;
+  getByRepositoryName(
+    containerName: string,
+    repositoryName: string,
+  ): PresenterRepositoryEntity | null;
 }

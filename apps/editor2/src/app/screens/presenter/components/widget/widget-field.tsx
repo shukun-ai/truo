@@ -1,6 +1,8 @@
 import { Box } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
+import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+
 import { WidgetBooleanInput } from './widget-boolean-input';
 import { WidgetEnumInput } from './widget-enum-input';
 import { WidgetEventInput } from './widget-event-input';
@@ -9,18 +11,22 @@ import { WidgetObjectInput } from './widget-object-input';
 import { WidgetStringInput } from './widget-string-input';
 
 export type WidgetFieldProps = {
+  tab: PresenterTabEntity;
   definitionPropertyId: string;
   definitionProperty: WidgetProperty;
 };
 
 export const WidgetField = ({
+  tab,
   definitionPropertyId: propertyId,
   definitionProperty: property,
 }: WidgetFieldProps) => {
   const schema = property.schema;
 
   if (property.isEvent) {
-    return <WidgetEventInput propertyId={propertyId} property={property} />;
+    return (
+      <WidgetEventInput tab={tab} propertyId={propertyId} property={property} />
+    );
   }
 
   if (typeof schema !== 'object') {

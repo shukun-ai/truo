@@ -101,6 +101,7 @@ export const WidgetForm = ({ tab, widget, definition }: WidgetFormProps) => {
             ([definitionPropertyId, definitionProperty]) => (
               <WidgetField
                 key={definitionPropertyId}
+                tab={tab}
                 definitionPropertyId={definitionPropertyId}
                 definitionProperty={definitionProperty}
               />
