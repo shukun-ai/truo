@@ -109,7 +109,7 @@ export class TreeRepository implements ITreeRepository {
     );
   }
 
-  closeTreeCollapse(sourceNodeId: string) {
+  closeTreeCollapse(widgetEntityId: string) {
     const { selectedContainerEntityId } = this.presenterStore.getValue();
 
     if (!selectedContainerEntityId) {
@@ -119,7 +119,7 @@ export class TreeRepository implements ITreeRepository {
     this.presenterStore.update(
       upsertEntities(
         {
-          id: sourceNodeId,
+          id: widgetEntityId,
           collapse: true,
         },
         { ref: treeCollapseRef },
@@ -127,7 +127,7 @@ export class TreeRepository implements ITreeRepository {
     );
   }
 
-  openTreeCollapse(sourceNodeId: string) {
+  openTreeCollapse(widgetEntityId: string) {
     const { selectedContainerEntityId } = this.presenterStore.getValue();
 
     if (!selectedContainerEntityId) {
@@ -135,7 +135,7 @@ export class TreeRepository implements ITreeRepository {
     }
 
     this.presenterStore.update(
-      deleteEntities(sourceNodeId, {
+      deleteEntities(widgetEntityId, {
         ref: treeCollapseRef,
       }),
     );

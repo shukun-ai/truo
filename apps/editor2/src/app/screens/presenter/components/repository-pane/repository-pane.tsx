@@ -49,6 +49,7 @@ export const RepositoryPane = () => {
             onClick={() => {
               app.repositories.presenterRepository.tabRepository.previewRepositoryTab(
                 repositoryEntity.containerName,
+                repositoryEntity.repositoryName,
                 repositoryEntity.id,
               );
             }}

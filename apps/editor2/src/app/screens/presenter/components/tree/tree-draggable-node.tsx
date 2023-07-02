@@ -76,7 +76,8 @@ export const TreeDraggableNode = ({
             }
             app.repositories.presenterRepository.tabRepository.previewWidgetTab(
               selectedContainerEntityId,
-              sourceNodeId,
+              sourceWidgetEntity.widgetName,
+              sourceWidgetEntity.id,
             );
           }}
         >
