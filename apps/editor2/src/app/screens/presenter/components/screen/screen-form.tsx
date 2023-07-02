@@ -36,7 +36,6 @@ export const ScreenForm = ({
 
   const containerOptions = useMemo<SelectItem[]>(() => {
     return allContainers.map((container) => ({
-      label: container.label,
       value: container.id,
     }));
   }, [allContainers]);

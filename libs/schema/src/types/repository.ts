@@ -34,7 +34,6 @@ export interface RepositoryParameter {
  * via the `patternProperty` "^(.)+$".
  */
 export interface RepositoryAction {
-  name: string;
   requiredPath?: boolean;
   requiredValue?: boolean;
 }

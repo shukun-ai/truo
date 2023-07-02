@@ -55,6 +55,7 @@ export class SerializationService implements ISerializationService {
     )) {
       containerEntities.push({
         id: containerName,
+        containerName,
         ...container,
       });
     }
