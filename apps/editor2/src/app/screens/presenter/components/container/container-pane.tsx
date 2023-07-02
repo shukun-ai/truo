@@ -49,7 +49,7 @@ export const ContainerPane = () => {
               );
             }}
           >
-            <Text size="sm">{container.label}</Text>
+            <Text size="sm">{container.containerName}</Text>
             <MoreButton containerName={container.id} />
           </Box>
         ))}

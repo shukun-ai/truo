@@ -1,11 +1,11 @@
 import {
   addEntities,
   deleteEntities,
+  getAllEntitiesApply,
   selectAllEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { nanoid } from 'nanoid';
 import { Observable } from 'rxjs';
 
 import { write } from '../mutations';
@@ -21,6 +21,16 @@ export class ContainerRepository implements IContainerRepository {
     selectAllEntities({ ref: containerRef }),
   );
 
+  isUniqueName(containerName: string): boolean {
+    const entities = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) => entity.containerName === containerName,
+        ref: containerRef,
+      }),
+    );
+    return entities.length === 0;
+  }
+
   select(containerName: string) {
     this.presenterStore.update(
       write((state) => {
@@ -29,17 +39,15 @@ export class ContainerRepository implements IContainerRepository {
     );
   }
 
-  createByLabel(containerLabel: string) {
-    const newContainer: PresenterContainerEntity = {
-      id: nanoid(),
-      label: containerLabel,
+  create(containerName: string) {
+    const entity: PresenterContainerEntity = {
+      id: containerName,
+      containerName,
       type: 'page',
       tree: {},
     };
 
-    this.presenterStore.update(
-      addEntities(newContainer, { ref: containerRef }),
-    );
+    this.presenterStore.update(addEntities(entity, { ref: containerRef }));
   }
 
   update(

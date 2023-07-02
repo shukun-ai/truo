@@ -1,18 +1,37 @@
 import { Button, TextInput } from '@mantine/core';
-import { isNotEmpty, useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
+import { z } from 'zod';
+
+import { useAppContext } from '../../../../contexts/app-context';
+
+export type ContainerFormValue = {
+  containerName: string;
+};
 
 export type ContainerFormProps = {
-  onSubmit: (values: { label: string }) => void;
+  onSubmit: (values: ContainerFormValue) => void;
 };
 
 export const ContainerForm = ({ onSubmit }: ContainerFormProps) => {
-  const form = useForm({
+  const app = useAppContext();
+
+  const form = useForm<ContainerFormValue>({
     initialValues: {
-      label: '',
+      containerName: '',
     },
-    validate: {
-      label: isNotEmpty('请输入容器名称后新建'),
-    },
+    validate: zodResolver(
+      z.object({
+        containerName: z
+          .string()
+          .min(1, { message: '请输入容器名称后新建' })
+          .max(20, { message: '容器名称过长' })
+          .refine((containerName) => {
+            return app.repositories.presenterRepository.containerRepository.isUniqueName(
+              containerName,
+            );
+          }, '该容器名已存在'),
+      }),
+    ),
   });
 
   return (
@@ -26,7 +45,7 @@ export const ContainerForm = ({ onSubmit }: ContainerFormProps) => {
         placeholder="Container name"
         data-autofocus
         withAsterisk
-        {...form.getInputProps('label')}
+        {...form.getInputProps('containerName')}
       />
       <Button type="submit" fullWidth mt="md">
         新建

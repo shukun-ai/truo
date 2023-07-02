@@ -1,9 +1,8 @@
 {
   "label": "test",
   "containers": {
-    "jNgZvOaZlgvIXYGXYAFVR": {
+    "操作台": {
       "type": "page",
-      "label": "操作台",
       "repositories": {
         "searchForm": {
           "type": "simple",
@@ -157,7 +156,7 @@
   "screens": {
     "home": {
       "layout": "Dashboard",
-      "slots": { "main": "jNgZvOaZlgvIXYGXYAFVR" }
+      "slots": { "main": "操作台" }
     }
   }
 }

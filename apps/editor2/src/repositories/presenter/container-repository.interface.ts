@@ -5,11 +5,9 @@ import { PresenterContainerEntity } from './container-ref';
 export interface IContainerRepository {
   all$: Observable<PresenterContainerEntity[]>;
 
-  select(containerName: string): void;
-  createByLabel(containerLabel: string): void;
-  update(
-    containerName: string,
-    container: Omit<PresenterContainerEntity, 'id'>,
-  ): void;
-  remove(containerName: string): void;
+  isUniqueName(containerName: string): boolean;
+  select(entityId: string): void;
+  create(containerName: string): void;
+  update(entityId: string, entity: Omit<PresenterContainerEntity, 'id'>): void;
+  remove(entityId: string): void;
 }

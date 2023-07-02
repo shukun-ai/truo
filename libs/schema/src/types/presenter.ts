@@ -34,7 +34,6 @@ export interface PresenterSchema {
  */
 export interface PresenterContainer {
   $schema?: string;
-  label: string;
   type: 'page';
   repositories: PresenterRepositories;
   widgets: PresenterWidgets;
