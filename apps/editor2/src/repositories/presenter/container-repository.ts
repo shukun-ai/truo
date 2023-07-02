@@ -44,7 +44,9 @@ export class ContainerRepository implements IContainerRepository {
       id: containerName,
       containerName,
       type: 'page',
-      tree: {},
+      tree: {
+        root: [],
+      },
     };
 
     this.presenterStore.update(addEntities(entity, { ref: containerRef }));

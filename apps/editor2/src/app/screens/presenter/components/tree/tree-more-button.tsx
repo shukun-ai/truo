@@ -10,7 +10,7 @@ import { modals } from '@mantine/modals';
 import { IconDots, IconPlus, IconTrash } from '@tabler/icons-react';
 
 import { useObservableState } from 'observable-hooks';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
 import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
@@ -107,7 +107,7 @@ export type NodeCreateFormProps = {
   onSubmit: (values: { widgetTag: string; widgetTitle: string }) => void;
 };
 
-const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
+export const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
   const form = useForm({
     initialValues: {
       widgetTag: '',
@@ -139,6 +139,14 @@ const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
     }));
     return [{ value: '', label: '请选择组件' }, ...options];
   }, [widgetDefinitions]);
+
+  useEffect(() => {
+    if (!form.values.widgetTitle) {
+      form.setFieldValue('widgetTitle', form.values.widgetTag);
+    }
+    // @remark The form.values.widgetTag is changed, we just give this field a recommend name.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.values.widgetTag]);
 
   return (
     <form

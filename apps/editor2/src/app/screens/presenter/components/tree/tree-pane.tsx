@@ -1,10 +1,13 @@
 import { Box, ScrollArea, Text, createStyles } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
+import { useMemo } from 'react';
+
 import { HTML5DndProvider } from '../../../../components/dnd/dnd-provider';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { TreeDraggableNode } from './tree-draggable-node';
+import { TreeRootCreate } from './tree-root-create';
 
 export type TreePaneProps = {
   //
@@ -35,6 +38,16 @@ export const TreePane = () => {
     null,
   );
 
+  const onlyRoot = useMemo(() => {
+    if (!treeNodes.root) {
+      return true;
+    }
+    if (treeNodes.root.length === 0) {
+      return true;
+    }
+    return false;
+  }, [treeNodes.root]);
+
   if (!selectedContainerEntityId) {
     return (
       <Box className={cx(classes.wrapper)}>
@@ -58,6 +71,7 @@ export const TreePane = () => {
             index={0}
           />
         </HTML5DndProvider>
+        {onlyRoot && <TreeRootCreate />}
       </ScrollArea>
     </Box>
   );
