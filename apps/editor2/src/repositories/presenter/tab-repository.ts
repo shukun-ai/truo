@@ -29,7 +29,11 @@ export class TabRepository implements ITabRepository {
     select((state) => state.selectedTabEntityId),
   );
 
-  previewWidgetTab(containerName: string, widgetName: string): void {
+  previewWidgetTab(
+    containerName: string,
+    widgetName: string,
+    widgetEntityId: string,
+  ): void {
     const existPreviewWidgetTab = this.getExistPreviewTab(
       'widget',
       containerName,
@@ -43,12 +47,17 @@ export class TabRepository implements ITabRepository {
         'widget',
         containerName,
         widgetName,
+        widgetEntityId,
       );
       this.createPreviewTab(entity);
     }
   }
 
-  previewRepositoryTab(containerName: string, repositoryName: string): void {
+  previewRepositoryTab(
+    containerName: string,
+    repositoryName: string,
+    repositoryEntityId: string,
+  ): void {
     const existPreviewRepositoryTab = this.getExistPreviewTab(
       'repository',
       containerName,
@@ -62,6 +71,7 @@ export class TabRepository implements ITabRepository {
         'repository',
         containerName,
         repositoryName,
+        repositoryEntityId,
       );
       this.createPreviewTab(entity);
     }
@@ -160,6 +170,7 @@ export class TabRepository implements ITabRepository {
     tabType: PresenterTabEntity['tabType'],
     containerName: string,
     foreignName: string,
+    foreignId: string,
   ) {
     const tabId = nanoid();
 
@@ -171,6 +182,7 @@ export class TabRepository implements ITabRepository {
         tabType: 'widget',
         containerName,
         widgetName: foreignName,
+        widgetEntityId: foreignId,
         isPreview: true,
         isEdit: false,
         hasError: false,
@@ -181,6 +193,7 @@ export class TabRepository implements ITabRepository {
         tabType: 'repository',
         containerName,
         repositoryName: foreignName,
+        repositoryEntityId: foreignId,
         isPreview: true,
         isEdit: false,
         hasError: false,

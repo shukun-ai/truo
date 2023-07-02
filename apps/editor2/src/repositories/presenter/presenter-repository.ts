@@ -58,7 +58,7 @@ export class PresenterRepository implements IPresenterRepository {
       if (tabEntity.tabType !== 'widget') {
         return null;
       }
-      return tabEntity.widgetName;
+      return tabEntity.widgetEntityId;
     }),
   );
 
@@ -72,7 +72,7 @@ export class PresenterRepository implements IPresenterRepository {
       if (tabEntity.tabType !== 'repository') {
         return null;
       }
-      return tabEntity.repositoryName;
+      return tabEntity.repositoryEntityId;
     }),
   );
 

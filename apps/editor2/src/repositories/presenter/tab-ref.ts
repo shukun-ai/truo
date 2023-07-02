@@ -10,11 +10,13 @@ export type PresenterTabEntity = {
       tabType: 'widget';
       containerName: string;
       widgetName: string;
+      widgetEntityId: string;
     }
   | {
       tabType: 'repository';
       containerName: string;
       repositoryName: string;
+      repositoryEntityId: string;
     }
 );
 
