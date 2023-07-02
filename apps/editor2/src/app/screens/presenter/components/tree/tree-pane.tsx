@@ -17,8 +17,9 @@ export const TreePane = () => {
     app.repositories.presenterRepository.treeRepository.selectedTreeNodes$,
     {},
   );
-  const selectedWidgets = useObservableState(
-    app.repositories.presenterRepository.widgetRepository.selectedWidgets$,
+  const selectedWidgetEntities = useObservableState(
+    app.repositories.presenterRepository.widgetRepository
+      .selectedWidgetEntities$,
     {},
   );
   const selectedContainerEntityId = useObservableState(
@@ -48,7 +49,7 @@ export const TreePane = () => {
         <HTML5DndProvider>
           <TreeDraggableNode
             treeNodes={treeNodes}
-            widgets={selectedWidgets}
+            widgetEntities={selectedWidgetEntities}
             treeCollapses={treeCollapses}
             selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
             sourceNodeId="root"

@@ -1,11 +1,11 @@
 import { Box, createStyles } from '@mantine/core';
-import { PresenterTreeNodes, PresenterWidgets } from '@shukun/schema';
+import { PresenterTreeNodes } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
-import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
 import { PresenterTreeCollapse } from '../../../../../repositories/presenter/tree-ui-ref';
 
+import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { LEFT_INDENT_WIDTH, TREE_NODE_TYPE } from './store';
@@ -17,7 +17,7 @@ import { TreeMoreButton } from './tree-more-button';
 
 export const TreeDraggableNode = ({
   treeNodes,
-  widgets,
+  widgetEntities,
   treeCollapses,
   sourceNodeId,
   level,
@@ -26,7 +26,7 @@ export const TreeDraggableNode = ({
   selectedContainerEntityId,
 }: {
   treeNodes: PresenterTreeNodes;
-  widgets: PresenterWidgets;
+  widgetEntities: Record<string, PresenterWidgetEntity>;
   treeCollapses: Record<string, PresenterTreeCollapse>;
   sourceNodeId: string;
   level: number;
@@ -48,60 +48,59 @@ export const TreeDraggableNode = ({
 
   const { classes, cx } = useStyles();
 
-  const widget = useMemo(() => {
-    return widgets[sourceNodeId];
-  }, [sourceNodeId, widgets]);
+  const sourceWidgetEntity = useMemo<PresenterWidgetEntity | null>(() => {
+    const widgetEntity = widgetEntities[sourceNodeId];
+    return widgetEntity ? widgetEntity : null;
+  }, [sourceNodeId, widgetEntities]);
 
   return (
     <Box ref={drag} className={classes.draggableItem}>
-      {index === 0 && (
+      {index === 0 && sourceWidgetEntity && (
         <TreeDroppableDivider
-          targetNodeId={sourceNodeId}
+          targetWidgetEntity={sourceWidgetEntity}
           position="before"
           level={level}
         />
       )}
-      <Box
-        className={cx(
-          classes.nodeItem,
-          sourceNodeId === selectedWidgetEntityId
-            ? classes.nodeItemActive
-            : null,
-        )}
-        onClick={() => {
-          if (sourceNodeId === ROOT_NODE_ID) {
-            return;
-          }
-          app.repositories.presenterRepository.tabRepository.previewWidgetTab(
-            selectedContainerEntityId,
-            sourceNodeId,
-          );
-        }}
-      >
-        <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
-        <TreeArrow
-          isOpen={isOpen}
-          sourceNodeId={sourceNodeId}
-          treeNodes={treeNodes}
-        />
-        <Box style={{ flex: 1 }}>
-          <TreeDroppableLabel
-            targetWidgetEntityId={sourceNodeId}
-            title={sourceNodeId}
-            tag={widget?.tag}
+      {sourceWidgetEntity && (
+        <Box
+          className={cx(
+            classes.nodeItem,
+            sourceNodeId === selectedWidgetEntityId
+              ? classes.nodeItemActive
+              : null,
+          )}
+          onClick={() => {
+            if (!sourceWidgetEntity) {
+              return;
+            }
+            app.repositories.presenterRepository.tabRepository.previewWidgetTab(
+              selectedContainerEntityId,
+              sourceNodeId,
+            );
+          }}
+        >
+          <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
+          <TreeArrow
+            isOpen={isOpen}
+            sourceNodeId={sourceNodeId}
+            treeNodes={treeNodes}
           />
+          <Box style={{ flex: 1 }}>
+            <TreeDroppableLabel targetWidgetEntity={sourceWidgetEntity} />
+          </Box>
+          <Box sx={{ paddingRight: 6 }}>
+            <TreeMoreButton sourceWidgetEntity={sourceWidgetEntity} />
+          </Box>
         </Box>
-        <Box sx={{ paddingRight: 6 }}>
-          <TreeMoreButton sourceNodeId={sourceNodeId} />
-        </Box>
-      </Box>
+      )}
       {isOpen && (
         <List>
           {treeNodes[sourceNodeId]?.map((childNode, index) => (
             <TreeDraggableNode
               key={childNode}
               treeNodes={treeNodes}
-              widgets={widgets}
+              widgetEntities={widgetEntities}
               treeCollapses={treeCollapses}
               selectedWidgetEntityId={selectedWidgetEntityId}
               sourceNodeId={childNode}
@@ -112,11 +111,13 @@ export const TreeDraggableNode = ({
           ))}
         </List>
       )}
-      <TreeDroppableDivider
-        targetNodeId={sourceNodeId}
-        position="after"
-        level={level}
-      />
+      {sourceWidgetEntity && (
+        <TreeDroppableDivider
+          targetWidgetEntity={sourceWidgetEntity}
+          position="after"
+          level={level}
+        />
+      )}
     </Box>
   );
 };
