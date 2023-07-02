@@ -12,6 +12,7 @@ import { withTreeCollapse } from './tree-ui-ref';
 import { withWidget } from './widget-ref';
 
 export type PresenterProps = {
+  initialized: boolean;
   presenterLabel: string;
   widgetDefinitions: Record<string, WidgetSchema>;
   repositoryDefinitions: Record<string, RepositorySchema>;
@@ -26,6 +27,7 @@ export const SCREEN_HOME_PAGE_ID = 'home';
 export const presenterStore = createStore(
   { name: 'presenter' },
   withProps<PresenterProps>({
+    initialized: false,
     presenterLabel: '未命名',
     widgetDefinitions,
     repositoryDefinitions,

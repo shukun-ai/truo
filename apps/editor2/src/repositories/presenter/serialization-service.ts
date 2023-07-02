@@ -17,8 +17,14 @@ export class SerializationService implements ISerializationService {
   private readonly presenterStore = presenterStore;
 
   parse(presenter: PresenterSchema): void {
+    const { initialized } = this.presenterStore.getValue();
+
+    if (initialized) {
+      return;
+    }
+
     this.presenterStore.update(
-      setProps(() => ({ presenterLabel: presenter.label })),
+      setProps(() => ({ initialized: true, presenterLabel: presenter.label })),
       upsertEntities(this.getScreenEntities(presenter), { ref: screenRef }),
       upsertEntities(this.getContainerEntities(presenter), {
         ref: containerRef,
@@ -96,7 +102,7 @@ export class SerializationService implements ISerializationService {
       )) {
         repositoryEntities.push({
           ...repository,
-          id: createRepositoryEntityId(containerName, repositoryName),
+          id: createRepositoryEntityId(),
           containerName,
           repositoryName,
         });
