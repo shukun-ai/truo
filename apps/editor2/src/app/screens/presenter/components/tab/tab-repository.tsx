@@ -16,7 +16,7 @@ export type TabRepositoryProps = {
 export const TabRepository = ({ tab }: TabRepositoryProps) => {
   const app = useAppContext();
 
-  const allRepositories = useObservableState(
+  const allRepositoryEntities = useObservableState(
     app.repositories.presenterRepository.repositoryRepository.all$,
     [],
   );
@@ -25,7 +25,7 @@ export const TabRepository = ({ tab }: TabRepositoryProps) => {
     {},
   );
 
-  const repository = useMemo(() => {
+  const repositoryEntity = useMemo(() => {
     if (tab.tabType !== 'repository') {
       return null;
     }
@@ -33,13 +33,13 @@ export const TabRepository = ({ tab }: TabRepositoryProps) => {
     if (!repositoryName) {
       return null;
     }
-    return allRepositories.find(
-      (repository) => repository.id === tab.repositoryName,
+    return allRepositoryEntities.find(
+      (repositoryEntity) => repositoryEntity.id === tab.repositoryEntityId,
     );
-  }, [allRepositories, tab]);
+  }, [allRepositoryEntities, tab]);
 
   const definition = useMemo(() => {
-    const { type } = repository ?? {};
+    const { type } = repositoryEntity ?? {};
     if (!type) {
       return null;
     }
@@ -48,10 +48,10 @@ export const TabRepository = ({ tab }: TabRepositoryProps) => {
       return null;
     }
     return definition;
-  }, [repository, repositoryDefinitions]);
+  }, [repositoryEntity, repositoryDefinitions]);
 
-  if (!repository || !definition) {
-    return <Box>未找到相关组件</Box>;
+  if (!repositoryEntity || !definition) {
+    return <Box>未找到相关数据仓库</Box>;
   }
 
   return (
@@ -59,7 +59,7 @@ export const TabRepository = ({ tab }: TabRepositoryProps) => {
       <Container fluid>
         <RepositoryForm
           tab={tab}
-          repository={repository}
+          repository={repositoryEntity}
           definition={definition}
         />
       </Container>
