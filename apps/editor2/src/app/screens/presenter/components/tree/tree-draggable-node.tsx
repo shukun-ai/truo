@@ -3,6 +3,7 @@ import { PresenterTreeNodes, PresenterWidgets } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
+import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
 import { PresenterTreeCollapse } from '../../../../../repositories/presenter/tree-ui-ref';
 
 import { useAppContext } from '../../../../contexts/app-context';
@@ -68,6 +69,9 @@ export const TreeDraggableNode = ({
             : null,
         )}
         onClick={() => {
+          if (sourceNodeId === ROOT_NODE_ID) {
+            return;
+          }
           app.repositories.presenterRepository.tabRepository.previewWidgetTab(
             selectedContainerEntityId,
             sourceNodeId,
