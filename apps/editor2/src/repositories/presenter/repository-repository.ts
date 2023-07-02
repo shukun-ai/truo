@@ -70,10 +70,7 @@ export class RepositoryRepository implements IRepositoryRepository {
       addEntities(
         {
           ...entity,
-          id: createRepositoryEntityId(
-            entity.containerName,
-            entity.repositoryName,
-          ),
+          id: createRepositoryEntityId(),
         },
         { ref: repositoryRef },
       ),
