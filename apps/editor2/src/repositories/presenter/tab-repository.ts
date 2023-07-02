@@ -133,7 +133,7 @@ export class TabRepository implements ITabRepository {
     this.presenterStore.update(
       deleteEntities(tabId, { ref: tabRef }),
       setProps((state) => {
-        const entities = Object.values(state.presenterTabEntities);
+        const entities = Object.values(state.tabEntities);
 
         return {
           selectedTabEntityId: entities.length > 0 ? entities[0].id : null,

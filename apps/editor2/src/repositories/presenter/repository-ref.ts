@@ -8,14 +8,14 @@ export type PresenterRepositoryEntity = {
   repositoryName: string;
 } & PresenterRepository;
 
-const { presenterRepositoryEntitiesRef, withPresenterRepositoryEntities } =
-  entitiesPropsFactory('presenterRepository');
+const { repositoryEntitiesRef, withRepositoryEntities } =
+  entitiesPropsFactory('repository');
 
 export const withRepository = () => {
-  return withPresenterRepositoryEntities<PresenterRepositoryEntity>();
+  return withRepositoryEntities<PresenterRepositoryEntity>();
 };
 
-export const repositoryRef = presenterRepositoryEntitiesRef;
+export const repositoryRef = repositoryEntitiesRef;
 
 export const createRepositoryEntityId = (): string => {
   return nanoid();

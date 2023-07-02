@@ -37,8 +37,7 @@ export class TreeRepository implements ITreeRepository {
       if (!selectedContainerEntityId) {
         return {};
       }
-      const container =
-        state.presenterContainerEntities[selectedContainerEntityId];
+      const container = state.containerEntities[selectedContainerEntityId];
       if (!container) {
         return {};
       }

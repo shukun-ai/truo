@@ -54,7 +54,7 @@ export class PresenterRepository implements IPresenterRepository {
       if (!tabId) {
         return null;
       }
-      const tabEntity = state.presenterTabEntities[tabId];
+      const tabEntity = state.tabEntities[tabId];
       if (tabEntity.tabType !== 'widget') {
         return null;
       }
@@ -68,7 +68,7 @@ export class PresenterRepository implements IPresenterRepository {
       if (!tabId) {
         return null;
       }
-      const tabEntity = state.presenterTabEntities[tabId];
+      const tabEntity = state.tabEntities[tabId];
       if (tabEntity.tabType !== 'repository') {
         return null;
       }
