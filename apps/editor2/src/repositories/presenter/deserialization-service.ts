@@ -11,6 +11,7 @@ import { presenterStore } from './presenter-store';
 import { getRepository, repositoryRef } from './repository-ref';
 import { screenRef } from './screen-ref';
 import { toWidgetNameTree, toWidgetNames } from './tree-convertor';
+import { getWatch, watchRef } from './watch-ref';
 import { widgetRef } from './widget-ref';
 
 export class DeserializationService implements IDeserializationService {
@@ -39,7 +40,7 @@ export class DeserializationService implements IDeserializationService {
         repositories: this.buildRepositories(container.containerName),
         widgets: this.buildWidgets(container.containerName),
         tree: this.buildTreeNodes(container.containerName, container.tree),
-        watches: {},
+        watches: this.buildWatches(container.containerName),
       };
     });
     return containers;
@@ -107,5 +108,19 @@ export class DeserializationService implements IDeserializationService {
       repositories[entity.repositoryName] = getRepository(entity);
     });
     return repositories;
+  }
+
+  private buildWatches(containerName: string): PresenterContainer['watches'] {
+    const watchEntities = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (watch) => watch.containerName === containerName,
+        ref: watchRef,
+      }),
+    );
+    const watches: PresenterContainer['watches'] = {};
+    watchEntities.forEach((entity) => {
+      watches[entity.watchName] = getWatch(entity);
+    });
+    return watches;
   }
 }

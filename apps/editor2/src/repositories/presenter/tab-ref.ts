@@ -18,6 +18,12 @@ export type PresenterTabEntity = {
       repositoryName: string;
       repositoryEntityId: string;
     }
+  | {
+      tabType: 'watch';
+      containerName: string;
+      watchName: string;
+      watchEntityId: string;
+    }
 );
 
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');

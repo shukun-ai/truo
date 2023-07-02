@@ -14,6 +14,11 @@ import {
 import { PresenterScreenEntity, screenRef } from './screen-ref';
 import { ISerializationService } from './serialization-service.interface';
 import { toWidgetEntityIdTree, toWidgetEntityIds } from './tree-convertor';
+import {
+  PresenterWatchEntity,
+  createWatchEntityId,
+  watchRef,
+} from './watch-ref';
 import { PresenterWidgetEntity, widgetRef } from './widget-ref';
 
 export class SerializationService implements ISerializationService {
@@ -30,6 +35,7 @@ export class SerializationService implements ISerializationService {
     const containerEntities = this.getContainerEntities(presenter);
     const widgetEntities = this.getWidgetEntities(presenter);
     const repositoryEntities = this.getRepositoryEntities(presenter);
+    const watchEntities = this.getWatchEntities(presenter);
     const parsedContainerEntities = this.toContainerWidgetEntityTree(
       containerEntities,
       widgetEntities,
@@ -41,6 +47,7 @@ export class SerializationService implements ISerializationService {
       upsertEntities(parsedContainerEntities, { ref: containerRef }),
       upsertEntities(widgetEntities, { ref: widgetRef }),
       upsertEntities(repositoryEntities, { ref: repositoryRef }),
+      upsertEntities(watchEntities, { ref: watchRef }),
     );
   }
 
@@ -119,6 +126,25 @@ export class SerializationService implements ISerializationService {
     }
 
     return repositoryEntities;
+  }
+
+  private getWatchEntities(presenter: PresenterSchema): PresenterWatchEntity[] {
+    const watchEntities: PresenterWatchEntity[] = [];
+
+    for (const [containerName, container] of Object.entries(
+      presenter.containers,
+    )) {
+      for (const [watchName, watch] of Object.entries(container.watches)) {
+        watchEntities.push({
+          ...watch,
+          id: createWatchEntityId(),
+          containerName,
+          watchName,
+        });
+      }
+    }
+
+    return watchEntities;
   }
 
   private toContainerWidgetEntityTree(

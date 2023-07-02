@@ -7,7 +7,6 @@ import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-re
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { RepositoryForm } from '../repository-tab/repository-form';
-import { WidgetForm } from '../widget/widget-form';
 
 export type TabRepositoryProps = {
   tab: PresenterTabEntity;
