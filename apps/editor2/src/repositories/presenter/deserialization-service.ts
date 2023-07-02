@@ -1,11 +1,16 @@
 import { getAllEntities, getAllEntitiesApply } from '@ngneat/elf-entities';
-import { PresenterContainer, PresenterSchema } from '@shukun/schema';
+import {
+  PresenterContainer,
+  PresenterSchema,
+  PresenterTreeNodes,
+} from '@shukun/schema';
 
 import { containerRef } from './container-ref';
 import { IDeserializationService } from './deserialization-service.interface';
 import { presenterStore } from './presenter-store';
 import { getRepository, repositoryRef } from './repository-ref';
 import { screenRef } from './screen-ref';
+import { toWidgetNameTree, toWidgetNames } from './tree-convertor';
 import { widgetRef } from './widget-ref';
 
 export class DeserializationService implements IDeserializationService {
@@ -29,15 +34,29 @@ export class DeserializationService implements IDeserializationService {
     );
     const containers: PresenterSchema['containers'] = {};
     containerEntities.forEach((container) => {
-      containers[container.id] = {
+      containers[container.containerName] = {
         type: container.type,
-        repositories: this.buildRepositories(container.id),
-        widgets: this.buildWidgets(container.id),
-        tree: container.tree,
+        repositories: this.buildRepositories(container.containerName),
+        widgets: this.buildWidgets(container.containerName),
+        tree: this.buildTreeNodes(container.containerName, container.tree),
         watches: {},
       };
     });
     return containers;
+  }
+
+  private buildTreeNodes(
+    containerName: string,
+    treeNodes: PresenterTreeNodes,
+  ): PresenterTreeNodes {
+    const widgetEntities = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (widget) => widget.containerName === containerName,
+        ref: widgetRef,
+      }),
+    );
+    const widgetNames = toWidgetNames(widgetEntities);
+    return toWidgetNameTree(treeNodes, widgetNames);
   }
 
   private buildScreens(): PresenterSchema['screens'] {
