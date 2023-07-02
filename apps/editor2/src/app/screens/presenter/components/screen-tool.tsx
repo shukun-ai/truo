@@ -6,12 +6,14 @@ import {
   IconAtom2Filled,
   IconGizmo,
   IconShieldLock,
+  Icon3dCubeSphere,
 } from '@tabler/icons-react';
 
 import { ContainerPane } from './container/container-pane';
 import { RepositoryPane } from './repository-pane/repository-pane';
 import { ScreenPane } from './screen/screen-pane';
 import { TreePane } from './tree/tree-pane';
+import { WatchPane } from './watch-pane/watch-pane';
 
 export const ScreenTool = () => {
   const { classes, cx } = useStyles();
@@ -33,6 +35,12 @@ export const ScreenTool = () => {
           <Tabs.Tab
             value="repositories"
             icon={<IconBuildingWarehouse size="0.95rem" />}
+          />
+        </Tooltip>
+        <Tooltip label="观察器" position="right">
+          <Tabs.Tab
+            value="watches"
+            icon={<Icon3dCubeSphere size="0.95rem" />}
           />
         </Tooltip>
         <Tooltip label="元数据" position="right">
@@ -102,6 +110,25 @@ export const ScreenTool = () => {
           </Box>
           <Divider />
           <RepositoryPane />
+        </Box>
+      </Tabs.Panel>
+
+      <Tabs.Panel value="watches" className={cx(classes.panel)}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexShrink: 0,
+            minHeight: 0,
+            height: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          <Box sx={{ height: 200 }}>
+            <ContainerPane />
+          </Box>
+          <Divider />
+          <WatchPane />
         </Box>
       </Tabs.Panel>
     </Tabs>

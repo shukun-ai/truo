@@ -9,6 +9,7 @@ import { withRepository } from './repository-ref';
 import { withScreen } from './screen-ref';
 import { withTab } from './tab-ref';
 import { withTreeCollapse } from './tree-ui-ref';
+import { withWatch } from './watch-ref';
 import { withWidget } from './widget-ref';
 
 export type PresenterProps = {
@@ -41,4 +42,5 @@ export const presenterStore = createStore(
   withWidget(),
   withTab(),
   withRepository(),
+  withWatch(),
 );

@@ -77,6 +77,30 @@ export class TabRepository implements ITabRepository {
     }
   }
 
+  previewWatchTab(
+    containerName: string,
+    watchName: string,
+    watchEntityId: string,
+  ): void {
+    const existPreviewWatchTab = this.getExistPreviewTab(
+      'watch',
+      containerName,
+      watchName,
+    );
+
+    if (existPreviewWatchTab.length === 1) {
+      this.selectPreviewTab(existPreviewWatchTab[0].id);
+    } else if (existPreviewWatchTab.length === 0) {
+      const entity = this.createPreviewTabEntity(
+        'watch',
+        containerName,
+        watchName,
+        watchEntityId,
+      );
+      this.createPreviewTab(entity);
+    }
+  }
+
   fixTab(tabId: string): void {
     this.presenterStore.update(
       updateEntities(
@@ -194,6 +218,17 @@ export class TabRepository implements ITabRepository {
         containerName,
         repositoryName: foreignName,
         repositoryEntityId: foreignId,
+        isPreview: true,
+        isEdit: false,
+        hasError: false,
+      };
+    } else if (tabType === 'watch') {
+      tab = {
+        id: tabId,
+        tabType: 'watch',
+        containerName,
+        watchName: foreignName,
+        watchEntityId: foreignId,
         isPreview: true,
         isEdit: false,
         hasError: false,

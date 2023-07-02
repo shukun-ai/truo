@@ -1,5 +1,6 @@
 import { Text } from '@mantine/core';
 
+import { TypeException } from '@shukun/exception';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -19,6 +20,9 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
   );
   const allRepositories = useObservableState(
     app.repositories.presenterRepository.repositoryRepository.all$,
+  );
+  const allWatches = useObservableState(
+    app.repositories.presenterRepository.watchRepository.all$,
   );
 
   const tabLabel = useMemo(() => {
@@ -40,10 +44,19 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
             tab.repositoryName === repository.repositoryName,
         )?.repositoryName
       );
-    } else {
-      return 'other';
+    } else if (tab.tabType === 'watch') {
+      return (
+        '观察器: ' +
+        allWatches?.find(
+          (repository) =>
+            tab.containerName === repository.containerName &&
+            tab.watchName === repository.watchName,
+        )?.watchName
+      );
     }
-  }, [allRepositories, allWidgets, tab]);
+
+    throw new TypeException('Did not find specific tab.');
+  }, [allRepositories, allWatches, allWidgets, tab]);
 
   return <Text fs={tab.isPreview ? 'italic' : undefined}>{tabLabel}</Text>;
 };

@@ -13,6 +13,7 @@ import { SerializationService } from './serialization-service';
 import { SynchronizeService } from './synchronize-service';
 import { TabRepository } from './tab-repository';
 import { TreeRepository } from './tree-repository';
+import { WatchRepository } from './watch-repository';
 import { WidgetRepository } from './widget-repository';
 
 export class PresenterRepository implements IPresenterRepository {
@@ -29,6 +30,8 @@ export class PresenterRepository implements IPresenterRepository {
   tabRepository = new TabRepository();
 
   repositoryRepository = new RepositoryRepository();
+
+  watchRepository = new WatchRepository();
 
   serializationService = new SerializationService();
 
@@ -73,6 +76,20 @@ export class PresenterRepository implements IPresenterRepository {
         return null;
       }
       return tabEntity.repositoryEntityId;
+    }),
+  );
+
+  selectedWatchEntityId$ = this.presenterStore.pipe(
+    select((state) => {
+      const tabId = state.selectedTabEntityId;
+      if (!tabId) {
+        return null;
+      }
+      const tabEntity = state.tabEntities[tabId];
+      if (tabEntity.tabType !== 'watch') {
+        return null;
+      }
+      return tabEntity.watchEntityId;
     }),
   );
 

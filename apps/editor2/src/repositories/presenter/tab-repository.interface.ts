@@ -15,6 +15,11 @@ export interface ITabRepository {
     repositoryName: string,
     repositoryEntityId: string,
   ): void;
+  previewWatchTab(
+    containerName: string,
+    watchName: string,
+    watchEntityId: string,
+  ): void;
   fixTab(entityId: string): void;
   activeEditTab(entityId: string): void;
   inactiveEditTab(entityId: string): void;
