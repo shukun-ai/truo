@@ -24,6 +24,7 @@ export const EventInput = ({
       <HTML5DndProvider>
         {value.map((event, index) => (
           <EventProvider
+            key={index}
             value={{ containerName, event, index, events: value, onChange }}
           >
             <EventDraggableNode />
