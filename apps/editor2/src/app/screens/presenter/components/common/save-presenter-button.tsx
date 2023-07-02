@@ -21,9 +21,9 @@ export const SavePresenterButton = () => {
       return;
     }
     setLoading(true);
+    const presenter =
+      app.repositories.presenterRepository.deserializationService.build();
     try {
-      const presenter =
-        app.repositories.presenterRepository.deserializationService.build();
       app.repositories.presenterRepository.synchronizeService.update(
         presenterName,
         presenter,

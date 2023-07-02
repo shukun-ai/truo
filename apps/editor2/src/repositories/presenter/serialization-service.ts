@@ -2,6 +2,8 @@ import { setProps } from '@ngneat/elf';
 import { upsertEntities } from '@ngneat/elf-entities';
 import { PresenterSchema } from '@shukun/schema';
 
+import { nanoid } from 'nanoid';
+
 import { PresenterContainerEntity, containerRef } from './container-ref';
 import { presenterStore } from './presenter-store';
 import {
@@ -11,6 +13,7 @@ import {
 } from './repository-ref';
 import { PresenterScreenEntity, screenRef } from './screen-ref';
 import { ISerializationService } from './serialization-service.interface';
+import { toWidgetEntityIdTree, toWidgetEntityIds } from './tree-convertor';
 import { PresenterWidgetEntity, widgetRef } from './widget-ref';
 
 export class SerializationService implements ISerializationService {
@@ -23,16 +26,21 @@ export class SerializationService implements ISerializationService {
       return;
     }
 
+    const screenEntities = this.getScreenEntities(presenter);
+    const containerEntities = this.getContainerEntities(presenter);
+    const widgetEntities = this.getWidgetEntities(presenter);
+    const repositoryEntities = this.getRepositoryEntities(presenter);
+    const parsedContainerEntities = this.toContainerWidgetEntityTree(
+      containerEntities,
+      widgetEntities,
+    );
+
     this.presenterStore.update(
       setProps(() => ({ initialized: true, presenterLabel: presenter.label })),
-      upsertEntities(this.getScreenEntities(presenter), { ref: screenRef }),
-      upsertEntities(this.getContainerEntities(presenter), {
-        ref: containerRef,
-      }),
-      upsertEntities(this.getWidgetEntities(presenter), { ref: widgetRef }),
-      upsertEntities(this.getRepositoryEntities(presenter), {
-        ref: repositoryRef,
-      }),
+      upsertEntities(screenEntities, { ref: screenRef }),
+      upsertEntities(parsedContainerEntities, { ref: containerRef }),
+      upsertEntities(widgetEntities, { ref: widgetRef }),
+      upsertEntities(repositoryEntities, { ref: repositoryRef }),
     );
   }
 
@@ -80,7 +88,7 @@ export class SerializationService implements ISerializationService {
       for (const [widgetName, widget] of Object.entries(container.widgets)) {
         widgetEntities.push({
           ...widget,
-          id: widgetName,
+          id: nanoid(),
           containerName,
           widgetName,
         });
@@ -111,5 +119,23 @@ export class SerializationService implements ISerializationService {
     }
 
     return repositoryEntities;
+  }
+
+  private toContainerWidgetEntityTree(
+    containerEntities: PresenterContainerEntity[],
+    widgetEntities: PresenterWidgetEntity[],
+  ): PresenterContainerEntity[] {
+    const widgetEntityIdMap = toWidgetEntityIds(widgetEntities);
+    return containerEntities.map((container) => {
+      const treeNodes = toWidgetEntityIdTree(
+        container.containerName,
+        container.tree,
+        widgetEntityIdMap,
+      );
+      return {
+        ...container,
+        tree: treeNodes,
+      };
+    });
   }
 }
