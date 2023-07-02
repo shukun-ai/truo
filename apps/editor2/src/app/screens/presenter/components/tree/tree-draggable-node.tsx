@@ -86,8 +86,8 @@ export const TreeDraggableNode = ({
         />
         <Box style={{ flex: 1 }}>
           <TreeDroppableLabel
-            targetNodeId={sourceNodeId}
-            title={widget?.label}
+            targetWidgetEntityId={sourceNodeId}
+            title={sourceNodeId}
             tag={widget?.tag}
           />
         </Box>

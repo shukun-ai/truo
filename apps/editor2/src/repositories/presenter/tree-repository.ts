@@ -2,7 +2,6 @@ import { select } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
-  getEntitiesIds,
   getEntity,
   selectAllEntities,
   updateEntities,
@@ -11,6 +10,7 @@ import {
 
 import { TypeException } from '@shukun/exception';
 import { PresenterTreeNodes } from '@shukun/schema';
+import { nanoid } from 'nanoid';
 import { Observable, map } from 'rxjs';
 
 import { PresenterContainerEntity, containerRef } from './container-ref';
@@ -23,7 +23,6 @@ import {
 } from './move-node';
 
 import { presenterStore } from './presenter-store';
-import { createRandomWidgetId } from './random-widget-id';
 import { ITreeRepository } from './tree-repository.interface';
 import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
 
@@ -144,22 +143,19 @@ export class TreeRepository implements ITreeRepository {
 
   addWidget(
     type: 'sibling' | 'insert',
-    newWidgetTag: string,
-    newWidgetTitle: string,
+    widgetTag: string,
+    widgetName: string,
     targetNodeId: string,
   ) {
     const addIntoNode = type === 'sibling' ? addSiblingNode : insertNode;
     const container = this.getSelectedContainer();
-    const existWidgetIds = this.presenterStore.query(
-      getEntitiesIds({ ref: widgetRef }),
-    );
-    const newNodeId = createRandomWidgetId(existWidgetIds);
-    const tree = addIntoNode(container.tree, newNodeId, targetNodeId);
+    const entityId = nanoid();
+    const tree = addIntoNode(container.tree, entityId, targetNodeId);
     const newWidget: PresenterWidgetEntity = {
-      id: newNodeId,
+      id: entityId,
       containerName: container.id,
-      tag: newWidgetTag,
-      label: newWidgetTitle,
+      widgetName,
+      tag: widgetTag,
       properties: {},
       events: {},
     };

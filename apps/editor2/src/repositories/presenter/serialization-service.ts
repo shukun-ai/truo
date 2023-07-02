@@ -82,6 +82,7 @@ export class SerializationService implements ISerializationService {
           ...widget,
           id: widgetName,
           containerName,
+          widgetName,
         });
       }
     }

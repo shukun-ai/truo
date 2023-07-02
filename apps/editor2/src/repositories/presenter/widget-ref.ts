@@ -4,6 +4,7 @@ import { PresenterWidget } from '@shukun/schema';
 export type PresenterWidgetEntity = {
   id: string;
   containerName: string;
+  widgetName: string;
 } & PresenterWidget;
 
 const { presenterWidgetEntitiesRef, withPresenterWidgetEntities } =
