@@ -5,11 +5,11 @@ export type PresenterScreenEntity = {
   id: string;
 } & PresenterScreen;
 
-const { presenterScreenEntitiesRef, withPresenterScreenEntities } =
-  entitiesPropsFactory('presenterScreen');
+const { screenEntitiesRef, withScreenEntities } =
+  entitiesPropsFactory('screen');
 
 export const withScreen = () => {
-  return withPresenterScreenEntities<PresenterScreenEntity>();
+  return withScreenEntities<PresenterScreenEntity>();
 };
 
-export const screenRef = presenterScreenEntitiesRef;
+export const screenRef = screenEntitiesRef;

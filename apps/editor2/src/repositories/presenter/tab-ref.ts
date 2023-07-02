@@ -20,11 +20,10 @@ export type PresenterTabEntity = {
     }
 );
 
-const { presenterTabEntitiesRef, withPresenterTabEntities } =
-  entitiesPropsFactory('presenterTab');
+const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');
 
 export const withTab = () => {
-  return withPresenterTabEntities<PresenterTabEntity>();
+  return withTabEntities<PresenterTabEntity>();
 };
 
-export const tabRef = presenterTabEntitiesRef;
+export const tabRef = tabEntitiesRef;

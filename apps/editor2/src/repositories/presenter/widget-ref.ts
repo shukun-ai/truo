@@ -7,11 +7,11 @@ export type PresenterWidgetEntity = {
   widgetName: string;
 } & PresenterWidget;
 
-const { presenterWidgetEntitiesRef, withPresenterWidgetEntities } =
-  entitiesPropsFactory('presenterWidget');
+const { widgetEntitiesRef, withWidgetEntities } =
+  entitiesPropsFactory('widget');
 
 export const withWidget = () => {
-  return withPresenterWidgetEntities<PresenterWidgetEntity>();
+  return withWidgetEntities<PresenterWidgetEntity>();
 };
 
-export const widgetRef = presenterWidgetEntitiesRef;
+export const widgetRef = widgetEntitiesRef;

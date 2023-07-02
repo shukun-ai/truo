@@ -5,11 +5,11 @@ export type PresenterTreeCollapse = {
   collapse: true;
 };
 
-const { presenterTreeCollapseEntitiesRef, withPresenterTreeCollapseEntities } =
-  entitiesPropsFactory('presenterTreeCollapse');
+const { treeCollapseEntitiesRef, withTreeCollapseEntities } =
+  entitiesPropsFactory('treeCollapse');
 
 export const withTreeCollapse = () => {
-  return withPresenterTreeCollapseEntities<PresenterTreeCollapse>();
+  return withTreeCollapseEntities<PresenterTreeCollapse>();
 };
 
-export const treeCollapseRef = presenterTreeCollapseEntitiesRef;
+export const treeCollapseRef = treeCollapseEntitiesRef;

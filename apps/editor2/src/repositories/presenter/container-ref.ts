@@ -6,14 +6,14 @@ export type PresenterContainerEntity = {
   containerName: string;
 } & Omit<PresenterContainer, 'repositories' | 'widgets' | 'watches'>;
 
-const { presenterContainerEntitiesRef, withPresenterContainerEntities } =
-  entitiesPropsFactory('presenterContainer');
+const { containerEntitiesRef, withContainerEntities } =
+  entitiesPropsFactory('container');
 
 export const withContainer = () => {
-  return withPresenterContainerEntities<PresenterContainerEntity>();
+  return withContainerEntities<PresenterContainerEntity>();
 };
 
-export const containerRef = presenterContainerEntitiesRef;
+export const containerRef = containerEntitiesRef;
 
 export const createContainerEntityId = (containerName: string): `${string}` => {
   return `${containerName}`;
