@@ -15,7 +15,7 @@ export type TabWidgetProps = {
 export const TabWidget = ({ tab }: TabWidgetProps) => {
   const app = useAppContext();
 
-  const allWidgets = useObservableState(
+  const allWidgetEntities = useObservableState(
     app.repositories.presenterRepository.widgetRepository.allWidgets$,
     [],
   );
@@ -24,19 +24,21 @@ export const TabWidget = ({ tab }: TabWidgetProps) => {
     {},
   );
 
-  const widget = useMemo(() => {
+  const widgetEntity = useMemo(() => {
     if (tab.tabType !== 'widget') {
       return null;
     }
-    const { widgetName } = tab;
-    if (!widgetName) {
+    const { widgetEntityId } = tab;
+    if (!widgetEntityId) {
       return null;
     }
-    return allWidgets.find((widget) => widget.id === tab.widgetName);
-  }, [allWidgets, tab]);
+    return allWidgetEntities.find(
+      (widgetEntity) => widgetEntity.id === tab.widgetEntityId,
+    );
+  }, [allWidgetEntities, tab]);
 
   const definition = useMemo(() => {
-    const { tag } = widget ?? {};
+    const { tag } = widgetEntity ?? {};
     if (!tag) {
       return null;
     }
@@ -45,16 +47,16 @@ export const TabWidget = ({ tab }: TabWidgetProps) => {
       return null;
     }
     return definition;
-  }, [widget, widgetDefinitions]);
+  }, [widgetEntity, widgetDefinitions]);
 
-  if (!widget || !definition) {
+  if (!widgetEntity || !definition) {
     return <Box>未找到相关组件</Box>;
   }
 
   return (
     <ScrollArea sx={{ width: '100%', height: '100%' }}>
       <Container fluid>
-        <WidgetForm tab={tab} widget={widget} definition={definition} />
+        <WidgetForm tab={tab} widget={widgetEntity} definition={definition} />
       </Container>
     </ScrollArea>
   );
