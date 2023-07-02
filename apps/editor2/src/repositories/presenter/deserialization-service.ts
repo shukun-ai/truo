@@ -65,7 +65,6 @@ export class DeserializationService implements IDeserializationService {
     widgetEntities.forEach((widget) => {
       widgets[widget.id] = {
         tag: widget.tag,
-        label: widget.label,
         parentSlot: widget.parentSlot,
         properties: widget.properties,
         events: widget.events,

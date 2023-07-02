@@ -73,7 +73,6 @@ export interface PresenterWidgets {
  */
 export interface PresenterWidget {
   tag: string;
-  label?: string;
   parentSlot?: string;
   properties: {
     /**

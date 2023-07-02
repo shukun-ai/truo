@@ -10,13 +10,13 @@ import { TREE_NODE_TYPE } from './store';
 import { TreeDroppableItem } from './tree-droppable-type';
 
 export type TreeDroppableLabelProps = {
-  targetNodeId: string;
+  targetWidgetEntityId: string;
   title?: string;
   tag?: string;
 };
 
 export const TreeDroppableLabel = ({
-  targetNodeId,
+  targetWidgetEntityId,
   title,
   tag,
 }: TreeDroppableLabelProps) => {
@@ -30,7 +30,8 @@ export const TreeDroppableLabel = ({
     accept: TREE_NODE_TYPE,
     canDrop: (item) => {
       return (
-        item.sourceNodeId !== targetNodeId && targetNodeId !== ROOT_NODE_ID
+        item.sourceNodeId !== targetWidgetEntityId &&
+        targetWidgetEntityId !== ROOT_NODE_ID
       );
     },
     drop: (item) => {
@@ -38,7 +39,7 @@ export const TreeDroppableLabel = ({
 
       app.repositories.presenterRepository.treeRepository.moveToInside(
         sourceNodeId,
-        targetNodeId,
+        targetWidgetEntityId,
       );
     },
     collect: (monitor) => ({
@@ -62,7 +63,7 @@ export const TreeDroppableLabel = ({
   }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius, theme.white]);
 
   const labelComponent = useMemo(() => {
-    if (targetNodeId === 'root') {
+    if (targetWidgetEntityId === 'root') {
       return <Text size="sm">组件树</Text>;
     }
     if (!title && !tag) {
@@ -78,7 +79,7 @@ export const TreeDroppableLabel = ({
         )}
       </Group>
     );
-  }, [tag, targetNodeId, title]);
+  }, [tag, targetWidgetEntityId, title]);
 
   return (
     <Box ref={drop} sx={{ ...style }}>
