@@ -97,6 +97,10 @@ export const ScreenTool = () => {
             overflow: 'hidden',
           }}
         >
+          <Box sx={{ height: 200 }}>
+            <ContainerPane />
+          </Box>
+          <Divider />
           <RepositoryPane />
         </Box>
       </Tabs.Panel>
