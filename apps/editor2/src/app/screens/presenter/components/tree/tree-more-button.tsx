@@ -13,13 +13,14 @@ import { useObservableState } from 'observable-hooks';
 import { useCallback, useMemo } from 'react';
 
 import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
+import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 export type TreeMoreButtonProps = {
-  sourceNodeId: string;
+  sourceWidgetEntity: PresenterWidgetEntity;
 };
 
-export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
+export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
   const app = useAppContext();
 
   const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
@@ -28,10 +29,13 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
         'sibling',
         values.widgetTag,
         values.widgetTitle,
-        sourceNodeId,
+        sourceWidgetEntity.id,
       );
     },
-    [app.repositories.presenterRepository, sourceNodeId],
+    [
+      app.repositories.presenterRepository.treeRepository,
+      sourceWidgetEntity.id,
+    ],
   );
 
   const handleSiblingCreate = useCallback(() => {
@@ -47,10 +51,13 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
         'insert',
         values.widgetTag,
         values.widgetTitle,
-        sourceNodeId,
+        sourceWidgetEntity.id,
       );
     },
-    [app.repositories.presenterRepository.treeRepository, sourceNodeId],
+    [
+      app.repositories.presenterRepository.treeRepository,
+      sourceWidgetEntity.id,
+    ],
   );
 
   const handleChildCreate = useCallback(() => {
@@ -69,7 +76,7 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        {sourceNodeId !== ROOT_NODE_ID && (
+        {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
           <Menu.Item
             icon={<IconPlus size={14} />}
             onClick={handleSiblingCreate}
@@ -85,7 +92,7 @@ export const TreeMoreButton = ({ sourceNodeId }: TreeMoreButtonProps) => {
           icon={<IconTrash size={14} />}
           onClick={() => {
             app.repositories.presenterRepository.treeRepository.removeTreeNode(
-              sourceNodeId,
+              sourceWidgetEntity.id,
             );
           }}
         >

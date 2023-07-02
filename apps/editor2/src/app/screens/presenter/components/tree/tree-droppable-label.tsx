@@ -4,21 +4,18 @@ import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
 import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
+import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { TREE_NODE_TYPE } from './store';
 import { TreeDroppableItem } from './tree-droppable-type';
 
 export type TreeDroppableLabelProps = {
-  targetWidgetEntityId: string;
-  title?: string;
-  tag?: string;
+  targetWidgetEntity: PresenterWidgetEntity;
 };
 
 export const TreeDroppableLabel = ({
-  targetWidgetEntityId,
-  title,
-  tag,
+  targetWidgetEntity,
 }: TreeDroppableLabelProps) => {
   const app = useAppContext();
 
@@ -30,8 +27,8 @@ export const TreeDroppableLabel = ({
     accept: TREE_NODE_TYPE,
     canDrop: (item) => {
       return (
-        item.sourceNodeId !== targetWidgetEntityId &&
-        targetWidgetEntityId !== ROOT_NODE_ID
+        item.sourceNodeId !== targetWidgetEntity.id &&
+        targetWidgetEntity.widgetName !== ROOT_NODE_ID
       );
     },
     drop: (item) => {
@@ -39,7 +36,7 @@ export const TreeDroppableLabel = ({
 
       app.repositories.presenterRepository.treeRepository.moveToInside(
         sourceNodeId,
-        targetWidgetEntityId,
+        targetWidgetEntity.id,
       );
     },
     collect: (monitor) => ({
@@ -63,23 +60,18 @@ export const TreeDroppableLabel = ({
   }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius, theme.white]);
 
   const labelComponent = useMemo(() => {
-    if (targetWidgetEntityId === 'root') {
+    if (targetWidgetEntity.widgetName === ROOT_NODE_ID) {
       return <Text size="sm">组件树</Text>;
-    }
-    if (!title && !tag) {
-      return <Text size="sm">异常组件</Text>;
     }
     return (
       <Group>
-        {title && <Text size="sm">{title}</Text>}
-        {tag && (
-          <Badge size="sm" sx={{ textTransform: 'lowercase' }}>
-            {tag}
-          </Badge>
-        )}
+        <Text size="sm">{targetWidgetEntity.widgetName}</Text>
+        <Badge size="sm" sx={{ textTransform: 'lowercase' }}>
+          {targetWidgetEntity.tag}
+        </Badge>
       </Group>
     );
-  }, [tag, targetWidgetEntityId, title]);
+  }, [targetWidgetEntity]);
 
   return (
     <Box ref={drop} sx={{ ...style }}>

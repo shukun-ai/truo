@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
 import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
+import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import {
@@ -14,11 +15,11 @@ import {
 import { TreeDroppableItem } from './tree-droppable-type';
 
 export const TreeDroppableDivider = ({
-  targetNodeId,
+  targetWidgetEntity,
   position,
   level,
 }: {
-  targetNodeId: string;
+  targetWidgetEntity: PresenterWidgetEntity;
   position: 'before' | 'after';
   level: number;
 }) => {
@@ -32,7 +33,8 @@ export const TreeDroppableDivider = ({
     accept: TREE_NODE_TYPE,
     canDrop: (item) => {
       return (
-        item.sourceNodeId !== targetNodeId && targetNodeId !== ROOT_NODE_ID
+        item.sourceNodeId !== targetWidgetEntity.id &&
+        targetWidgetEntity.widgetName !== ROOT_NODE_ID
       );
     },
     drop: (item) => {
@@ -40,7 +42,7 @@ export const TreeDroppableDivider = ({
 
       app.repositories.presenterRepository.treeRepository.moveToBeside(
         sourceNodeId,
-        targetNodeId,
+        targetWidgetEntity.id,
         position,
       );
     },
