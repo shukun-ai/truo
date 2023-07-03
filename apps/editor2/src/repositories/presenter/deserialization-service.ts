@@ -83,7 +83,7 @@ export class DeserializationService implements IDeserializationService {
     );
     const widgets: PresenterContainer['widgets'] = {};
     widgetEntities.forEach((widget) => {
-      widgets[widget.id] = {
+      widgets[widget.widgetName] = {
         tag: widget.tag,
         parentSlot: widget.parentSlot,
         properties: widget.properties,
