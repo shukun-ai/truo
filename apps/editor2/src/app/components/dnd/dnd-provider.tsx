@@ -9,7 +9,7 @@ export type DndProviderProps<BackendContext, BackendOptions> = {
   children?: ReactNode;
 } & Omit<BaseDndProviderProps<BackendContext, BackendOptions>, 'backend'>;
 
-export const HTML5DndProvider = <BackendContext, BackendOptions>({
+export const DndProvider = <BackendContext, BackendOptions>({
   children,
   ...props
 }: DndProviderProps<BackendContext, BackendOptions>) => {

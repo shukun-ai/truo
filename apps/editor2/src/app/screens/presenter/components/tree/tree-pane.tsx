@@ -3,7 +3,6 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { HTML5DndProvider } from '../../../../components/dnd/dnd-provider';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { TreeDraggableNode } from './tree-draggable-node';
@@ -59,18 +58,16 @@ export const TreePane = () => {
   return (
     <Box className={cx(classes.wrapper)}>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        <HTML5DndProvider>
-          <TreeDraggableNode
-            treeNodes={treeNodes}
-            widgetEntities={selectedWidgetEntities}
-            treeCollapses={treeCollapses}
-            selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
-            sourceNodeId="root"
-            selectedContainerEntityId={selectedContainerEntityId}
-            level={0}
-            index={0}
-          />
-        </HTML5DndProvider>
+        <TreeDraggableNode
+          treeNodes={treeNodes}
+          widgetEntities={selectedWidgetEntities}
+          treeCollapses={treeCollapses}
+          selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
+          sourceNodeId="root"
+          selectedContainerEntityId={selectedContainerEntityId}
+          level={0}
+          index={0}
+        />
         {onlyRoot && <TreeRootCreate />}
       </ScrollArea>
     </Box>
