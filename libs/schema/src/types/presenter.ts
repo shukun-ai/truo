@@ -127,7 +127,7 @@ export interface PresenterWatches {
  * via the `patternProperty` "^(.)+$".
  */
 export interface PresenterWatch {
-  trigger: {
+  triggers: {
     stateChanged?: string[][];
     containerMounted?: boolean;
     /**

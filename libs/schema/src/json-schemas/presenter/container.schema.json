@@ -58,9 +58,9 @@
       "title": "PresenterWatch",
       "type": "object",
       "additionalProperties": false,
-      "required": ["trigger", "events"],
+      "required": ["triggers", "events"],
       "properties": {
-        "trigger": {
+        "triggers": {
           "type": "object",
           "properties": {
             "stateChanged": {

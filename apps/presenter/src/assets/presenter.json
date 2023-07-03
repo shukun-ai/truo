@@ -129,7 +129,7 @@
       },
       "watches": {
         "fetchAirports": {
-          "trigger": {
+          "triggers": {
             "stateChanged": [
               ["searchForm", "keyword"],
               ["table", "page"]
