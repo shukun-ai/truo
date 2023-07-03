@@ -22,7 +22,7 @@ export class WatchManager implements IWatchManager {
   register(identifier: WatchIdentifier, watch: PresenterWatch): void {
     const subscriptions: WatchSubscriptions = {};
 
-    if (watch.trigger.stateChanged) {
+    if (watch.triggers.stateChanged) {
       subscriptions.stateChanged = createStateChanged(
         this.store,
         identifier.containerId,
@@ -31,7 +31,7 @@ export class WatchManager implements IWatchManager {
       );
     }
 
-    if (watch.trigger.containerMounted === true) {
+    if (watch.triggers.containerMounted === true) {
       subscriptions.containerMounted = createContainerMounted(
         identifier.containerId,
         this.eventManager,
@@ -39,7 +39,7 @@ export class WatchManager implements IWatchManager {
       );
     }
 
-    if (typeof watch.trigger.interval === 'number') {
+    if (typeof watch.triggers.interval === 'number') {
       subscriptions.interval = createInterval(
         identifier.containerId,
         this.eventManager,

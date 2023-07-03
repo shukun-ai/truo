@@ -7,7 +7,7 @@ export const createInterval = (
   eventManager: IEventManager,
   watch: PresenterWatch,
 ): Subscription => {
-  return interval(watch.trigger.interval)
+  return interval(watch.triggers.interval)
     .pipe(
       tap(() => {
         eventManager.handleEvents(watch.events, {

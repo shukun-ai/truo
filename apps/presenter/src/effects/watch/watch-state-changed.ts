@@ -12,7 +12,7 @@ export const createStateChanged = (
   eventManager: IEventManager,
   watch: PresenterWatch,
 ): Subscription => {
-  const { stateChanged } = watch.trigger;
+  const { stateChanged } = watch.triggers;
   if (!stateChanged) {
     throw new TypeException('stateChanged is empty.');
   }

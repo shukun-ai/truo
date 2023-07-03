@@ -32,7 +32,7 @@ export const WatchCreateButton = () => {
         app.repositories.presenterRepository.watchRepository.create({
           ...values,
           containerName,
-          trigger: {},
+          triggers: {},
           events: [],
         });
         modals.closeAll();
