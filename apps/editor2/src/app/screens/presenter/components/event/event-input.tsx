@@ -1,8 +1,6 @@
 import { Box } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 
-import { HTML5DndProvider } from '../../../../components/dnd/dnd-provider';
-
 import { EventProvider } from './event-context';
 import { EventCreate } from './event-create';
 import { EventDraggableNode } from './event-draggable-node';
@@ -21,17 +19,15 @@ export const EventInput = ({
 }: EventInputProps) => {
   return (
     <Box>
-      <HTML5DndProvider>
-        {value.map((event, index) => (
-          <EventProvider
-            key={index}
-            value={{ containerName, event, index, events: value, onChange }}
-          >
-            <EventDraggableNode />
-            <EventDroppableDivider targetEventName={index} />
-          </EventProvider>
-        ))}
-      </HTML5DndProvider>
+      {value.map((event, index) => (
+        <EventProvider
+          key={index}
+          value={{ containerName, event, index, events: value, onChange }}
+        >
+          <EventDraggableNode />
+          <EventDroppableDivider targetEventName={index} />
+        </EventProvider>
+      ))}
       <Box>
         <EventCreate
           containerName={containerName}
