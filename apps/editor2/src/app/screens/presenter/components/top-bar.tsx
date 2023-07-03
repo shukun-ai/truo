@@ -15,7 +15,7 @@ export type TopBarProps = {
 export const TopBar = () => {
   const { handleOpen } = useRealtimeButton();
 
-  const [openedPopover, setOpenedPopover] = useState(true);
+  const [openedPopover, setOpenedPopover] = useState(false);
 
   return (
     <Header height={42}>
@@ -47,7 +47,7 @@ export const TopBar = () => {
                   setOpenedPopover(false);
                 }}
               >
-                实时预览
+                新标签页中预览
               </Button>
             </Popover.Target>
             <Popover.Dropdown>
