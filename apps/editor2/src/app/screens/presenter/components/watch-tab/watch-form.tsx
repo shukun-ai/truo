@@ -10,7 +10,7 @@ import { PresenterWatchEntity } from '../../../../../repositories/presenter/watc
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { WatchFormProvider } from './watch-context';
-import { WatchField } from './watch-field';
+import { WatchDetail } from './watch-detail';
 
 export type WatchFormProps = {
   tab: PresenterTabEntity;
@@ -89,7 +89,7 @@ export const WatchForm = ({ tab, watchEntity }: WatchFormProps) => {
           ) : (
             <Box sx={{ height: 16 }}></Box>
           )}
-          <WatchField watchEntity={watchEntity} />
+          <WatchDetail watchEntity={watchEntity} />
         </form>
       </WatchFormProvider>
     </Box>
