@@ -1,8 +1,6 @@
 import { json } from '@codemirror/lang-json';
 import { ExtractFormItem, ExtractFormItemProps } from '@shukun/component';
 import { LegacyFunctionComponent } from '@shukun/component';
-import { githubDark } from '@uiw/codemirror-theme-github';
-import CodeMirror from '@uiw/react-codemirror';
 import { Button, Form, message } from 'antd';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 
@@ -71,14 +69,11 @@ const ParallelBranchesFromInput: LegacyFunctionComponent<
 
   return (
     <div>
-      <CodeMirror
+      <textarea
         id={id}
         value={stringifyValue}
-        theme={githubDark}
-        extensions={[json()]}
-        editable={false}
         placeholder={label}
-        height="160px"
+        style={{ height: 160 }}
       />
       <Button size="small" disabled={!editing} onClick={handleClick}>
         Edit the code
