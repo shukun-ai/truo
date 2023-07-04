@@ -22,6 +22,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
             '#00153C',
           ],
         },
+        defaultRadius: 2,
         components: {},
       }}
       withGlobalStyles
