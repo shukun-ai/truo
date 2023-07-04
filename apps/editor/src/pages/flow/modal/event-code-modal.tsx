@@ -1,7 +1,5 @@
 import { json } from '@codemirror/lang-json';
 import { LegacyFunctionComponent } from '@shukun/component';
-import { githubDark } from '@uiw/codemirror-theme-github';
-import ReactCodeMirror from '@uiw/react-codemirror';
 import { Button, Drawer } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
@@ -50,12 +48,10 @@ export const EventCodeModal: LegacyFunctionComponent<
       }
       width={600}
     >
-      <ReactCodeMirror
+      <textarea
         value={store?.value ?? ''}
-        theme={githubDark}
-        extensions={[json()]}
-        onChange={handleChange}
-        height="600px"
+        onChange={(event) => handleChange(event.target.value)}
+        style={{ height: 600 }}
       />
     </Drawer>
   );
