@@ -3,7 +3,8 @@
   "type": "page",
   "repositories": {
     "form2": {
-      "type": "Simple"
+      "type": "Simple",
+      "parameters": {}
     }
   },
   "widgets": {
@@ -15,6 +16,8 @@
       "events": {}
     }
   },
-  "root": ["w1"],
-  "tree": {}
+  "watches": {},
+  "tree": {
+    "root": ["w1"]
+  }
 }

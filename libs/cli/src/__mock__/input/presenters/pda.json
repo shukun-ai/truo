@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/presenter.schema.json",
-  "title": "PDA",
+  "label": "PDA",
   "containers": {},
   "screens": {}
 }
