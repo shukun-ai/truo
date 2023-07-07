@@ -1,11 +1,18 @@
 {
   "$schema": "../../../../schema/src/json-schemas/repository.schema.json",
   "name": "simple",
+  "scope": "container",
   "manualJsonSchema": true,
   "parameters": {
     "defaultValue": {
       "editorType": "json",
       "required": false
+    }
+  },
+  "actions": {
+    "setValue": {
+      "requiredPath": true,
+      "requiredValue": true
     }
   }
 }

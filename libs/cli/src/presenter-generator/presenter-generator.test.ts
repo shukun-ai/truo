@@ -12,13 +12,14 @@ describe('Generate', () => {
     expect(JSON.parse(output)).toEqual({
       presenters: {
         pda: {
-          title: 'PDA',
+          label: 'PDA',
           containers: {
             home: {
               type: 'page',
               repositories: {
                 form1: {
                   type: 'Simple',
+                  parameters: {},
                 },
               },
               widgets: {
@@ -37,8 +38,9 @@ describe('Generate', () => {
                   events: {
                     'value-changed': [
                       {
-                        action: 'setRepository',
+                        scope: 'container',
                         target: 'form1',
+                        action: 'setValue',
                         path: ['deviceNumber'],
                       },
                     ],
@@ -52,14 +54,17 @@ describe('Generate', () => {
                   events: {},
                 },
               },
-              root: ['w1', 'w2', 'w3'],
-              tree: {},
+              watches: {},
+              tree: {
+                root: ['w1', 'w2', 'w3'],
+              },
             },
             about: {
               type: 'page',
               repositories: {
                 form2: {
                   type: 'Simple',
+                  parameters: {},
                 },
               },
               widgets: {
@@ -71,8 +76,10 @@ describe('Generate', () => {
                   events: {},
                 },
               },
-              root: ['w1'],
-              tree: {},
+              watches: {},
+              tree: {
+                root: ['w1'],
+              },
             },
           },
           screens: {},

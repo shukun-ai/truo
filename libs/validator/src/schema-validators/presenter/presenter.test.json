@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../schema/src/json-schemas/presenter.schema.json",
-  "title": "PDA",
+  "label": "PDA",
   "screens": {
     "home": {
       "layout": "Dashboard",
@@ -20,7 +20,8 @@
       "type": "page",
       "repositories": {
         "form1": {
-          "type": "Simple"
+          "type": "Simple",
+          "parameters": {}
         }
       },
       "widgets": {
@@ -39,8 +40,9 @@
           "events": {
             "value-changed": [
               {
-                "action": "setRepository",
+                "scope": "container",
                 "target": "form1",
+                "action": "setValue",
                 "path": ["deviceNumber"]
               }
             ]
@@ -54,14 +56,17 @@
           "events": {}
         }
       },
-      "root": ["w1", "w2", "w3"],
-      "tree": {}
+      "watches": {},
+      "tree": {
+        "root": ["w1", "w2", "w3"]
+      }
     },
     "about": {
       "type": "page",
       "repositories": {
         "form2": {
-          "type": "Simple"
+          "type": "Simple",
+          "parameters": {}
         }
       },
       "widgets": {
@@ -73,8 +78,10 @@
           "events": {}
         }
       },
-      "root": ["w1"],
-      "tree": {}
+      "watches": {},
+      "tree": {
+        "root": ["w1"]
+      }
     }
   }
 }
