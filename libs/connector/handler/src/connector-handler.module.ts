@@ -5,6 +5,6 @@ import { ConnectorHandlerService } from './connector-handler.service';
 @Module({
   controllers: [],
   providers: [ConnectorHandlerService],
-  exports: [],
+  exports: [ConnectorHandlerService],
 })
 export class ConnectorHandlerModule {}

@@ -1,5 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 
+import { ConnectorHandlerModule } from '@shukun/connector/handler';
+
 import { CompilerModule } from '../compiler/compiler.module';
 
 import { CoreModule } from '../core/core.module';
@@ -17,6 +19,7 @@ import { AuthenticationController } from './authentication/authentication.contro
 import { AuthorizationController } from './authorization/authorization.controller';
 import { AuthorizationService } from './authorization/authorization.service';
 import { CodebaseController } from './codebase/codebase.controller';
+import { ConnectorController } from './connector/connector.controller';
 import { DataSourceController } from './data-source/data-source.controller';
 import { EditorController } from './editor/editor.controller';
 import { GrantListController } from './grant-list/grant-list.controller';
@@ -47,6 +50,7 @@ import { WebhookController } from './webhook/webhook.controller';
     CompilerModule,
     ScheduleModule,
     MigrationModule,
+    ConnectorHandlerModule,
   ],
   controllers: [
     AuthenticationController,
@@ -66,6 +70,7 @@ import { WebhookController } from './webhook/webhook.controller';
     PresenterController,
     PresenterCodeController,
     EditorController,
+    ConnectorController,
   ],
   providers: [
     SourceAccessControlService,
