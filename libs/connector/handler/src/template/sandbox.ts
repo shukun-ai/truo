@@ -1,6 +1,6 @@
 import { NodeVM } from 'vm2';
 
-import { HandlerContext } from '../internal/types';
+import { HandlerContext } from '../types';
 
 export const runSandbox = (code: string, context: HandlerContext): unknown => {
   const vm = new NodeVM();

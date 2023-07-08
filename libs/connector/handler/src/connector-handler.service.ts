@@ -6,12 +6,8 @@ import { ConnectorTask } from '@shukun/schema';
 import { handleChoiceTask } from './internal/handle-choice-task';
 import { handleResourceTask } from './internal/handle-resource-task';
 import { handleTransformerTask } from './internal/handle-transformer-task';
-import {
-  HandlerContext,
-  ParallelParameters,
-  RepeatParameters,
-} from './internal/types';
 import { parseParameters } from './template/template';
+import { HandlerContext, ParallelParameters, RepeatParameters } from './types';
 
 @Injectable()
 export class ConnectorHandlerService {

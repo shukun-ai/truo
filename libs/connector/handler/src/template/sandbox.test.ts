@@ -1,4 +1,4 @@
-import { HandlerContext } from '../internal/types';
+import { HandlerContext } from '../types';
 
 import { runSandbox } from './sandbox';
 

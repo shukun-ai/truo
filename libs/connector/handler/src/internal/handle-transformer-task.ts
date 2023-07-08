@@ -1,6 +1,6 @@
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext } from './types';
+import { HandlerContext } from '../types';
 
 export const handleTransformerTask = (
   task: ConnectorTask,

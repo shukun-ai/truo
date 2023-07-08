@@ -2,7 +2,7 @@ import { TypeException } from '@shukun/exception';
 
 import { CodeMode } from '@shukun/schema';
 
-import { HandlerContext } from '../internal/types';
+import { HandlerContext } from '../types';
 
 import { runSandbox } from './sandbox';
 
