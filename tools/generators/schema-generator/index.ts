@@ -30,13 +30,15 @@ async function generate(treeRoot: string, projectRoot: string) {
   const list = [
     'application',
     'attachments',
+    'connector',
     'http-query',
     'flow-compiled-codes',
     'exception',
     'data-source',
     'presenter',
-    'widget',
     'repository',
+    'task',
+    'widget',
   ];
 
   const queue = list.map(async (fileName: string) => {

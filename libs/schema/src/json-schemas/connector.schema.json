@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ConnectorSchema",
+  "description": "Describe Connector Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["label", "start", "tasks"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "label": { "type": "string" },
+    "inputSchema": {
+      "type": "object",
+      "$comment": "The input JSON Schema Rule"
+    },
+    "outputSchema": {
+      "type": "object",
+      "$comment": "The output JSON Schema Rule"
+    },
+    "start": {
+      "type": "string",
+      "$comment": "Start task name"
+    },
+    "tasks": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "type": "object",
+          "title": "ConnectorTask",
+          "required": ["type", "parameters"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "$comment": "task name from task list defined by TaskSchema."
+            },
+            "parameters": {
+              "type": "object",
+              "patternProperties": {
+                "^(.)+$": {
+                  "tsType": "unknown",
+                  "$comment": "The value and structure is defined by task list by TaskSchema."
+                }
+              }
+            },
+            "next": {
+              "type": "string",
+              "$comment": "Next task name."
+            }
+          }
+        }
+      }
+    }
+  }
+}
