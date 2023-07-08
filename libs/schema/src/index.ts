@@ -1,5 +1,6 @@
 export * from './types/application';
 export * from './types/attachments';
+export * from './types/code-mode';
 export * from './types/connector';
 export * from './types/data-source';
 export * from './types/exception';
