@@ -1,5 +1,5 @@
+import { AppProps } from '@shukun/presenter/widget-react';
 import { PresenterContainer } from '@shukun/schema';
-import { AppProps } from '@shukun/widget-react';
 import { useEffect } from 'react';
 
 export const useWatchManager = (

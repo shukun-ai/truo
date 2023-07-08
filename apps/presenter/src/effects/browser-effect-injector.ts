@@ -1,4 +1,5 @@
 import { TypeException } from '@shukun/exception';
+import { ConfigDefinitions } from '@shukun/presenter/widget-react';
 import { PresenterContainer } from '@shukun/schema';
 import {
   AuthRepository,
@@ -8,7 +9,6 @@ import {
   RepositoryContext,
   RouterRepository,
 } from '@shukun/widget';
-import { ConfigDefinitions } from '@shukun/widget-react';
 import { createBrowserHistory } from 'history';
 
 import { ApiRequester } from './apis/requester';

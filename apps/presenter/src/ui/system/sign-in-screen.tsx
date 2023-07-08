@@ -13,8 +13,8 @@ import {
   LoadingOverlay,
 } from '@mantine/core';
 import { OrgBrand } from '@shukun/component';
+import { AppProps } from '@shukun/presenter/widget-react';
 import { SystemPublicOrgModel } from '@shukun/schema';
-import { AppProps } from '@shukun/widget-react';
 import { IconShieldQuestion } from '@tabler/icons-react';
 
 import { useFetchOrg } from './use-fetch-org';

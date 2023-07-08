@@ -1,7 +1,6 @@
 import { TypeException } from '@shukun/exception';
+import { AppProps } from '@shukun/presenter/widget-react';
 import { PresenterContainer } from '@shukun/schema';
-
-import { AppProps } from '@shukun/widget-react';
 
 import { useWatchManager } from './hooks/use-watch-manager';
 import { WidgetWrapper } from './wrapper/widget-wrapper';

@@ -1,6 +1,9 @@
+import {
+  DashboardLayout,
+  WorkshopLayout,
+} from '@shukun/presenter/widget-react';
+import { AppProps } from '@shukun/presenter/widget-react';
 import { PresenterScreen } from '@shukun/schema';
-import { DashboardLayout, WorkshopLayout } from '@shukun/widget-react';
-import { AppProps } from '@shukun/widget-react';
 import { useMemo } from 'react';
 
 import { getSyntheticState } from '../effects/store/synthetic-state';

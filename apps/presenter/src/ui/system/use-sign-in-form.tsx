@@ -1,5 +1,5 @@
 import { useForm } from '@mantine/form';
-import { AppProps } from '@shukun/widget-react';
+import { AppProps } from '@shukun/presenter/widget-react';
 import { useState } from 'react';
 
 export const useSignInForm = (app: AppProps) => {
