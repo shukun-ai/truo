@@ -1,7 +1,7 @@
 import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext } from '../internal/types';
+import { HandlerContext } from '../types';
 
 import { handleChoiceTask } from './handle-choice-task';
 

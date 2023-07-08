@@ -1,7 +1,7 @@
 import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
-import { ChoiceParameters, HandlerContext } from './types';
+import { ChoiceParameters, HandlerContext } from '../types';
 
 export const handleChoiceTask = (
   task: ConnectorTask,

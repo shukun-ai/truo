@@ -1,4 +1,4 @@
-import { HandlerContext } from '../internal/types';
+import { HandlerContext } from '../types';
 
 import { parseParameters } from './template';
 describe('template', () => {
