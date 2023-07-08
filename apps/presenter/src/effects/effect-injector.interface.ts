@@ -1,3 +1,4 @@
+import { ConfigDefinitions, ILoader } from '@shukun/presenter/widget-react';
 import {
   IApiRequester,
   IEventManager,
@@ -7,8 +8,6 @@ import {
 } from '@shukun/widget';
 
 import { ITemplateService } from '@shukun/widget';
-
-import { ConfigDefinitions, ILoader } from '@shukun/widget-react';
 
 export type EffectInjector = {
   apiRequester: IApiRequester;

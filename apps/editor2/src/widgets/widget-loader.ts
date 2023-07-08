@@ -1,4 +1,3 @@
-import { WidgetSchema } from '@shukun/schema';
 import {
   ButtonWidget,
   CodeWidget,
@@ -22,7 +21,8 @@ import {
   MultipleInputWidget,
   BooleanSelectWidget,
   NumberInputWidget,
-} from '@shukun/widget-react';
+} from '@shukun/presenter/widget-react';
+import { WidgetSchema } from '@shukun/schema';
 
 export const widgetDefinitions: Record<string, WidgetSchema> = {
   'sk-base': BaseWidget.definition,

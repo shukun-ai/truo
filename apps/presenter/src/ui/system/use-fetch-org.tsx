@@ -1,5 +1,5 @@
+import { AppProps } from '@shukun/presenter/widget-react';
 import { SystemPublicOrgModel } from '@shukun/schema';
-import { AppProps } from '@shukun/widget-react';
 import { useEffect, useState } from 'react';
 
 export const useFetchOrg = (app: AppProps) => {

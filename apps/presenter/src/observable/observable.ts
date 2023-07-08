@@ -1,4 +1,4 @@
-import { AppProps } from '@shukun/widget-react';
+import { AppProps } from '@shukun/presenter/widget-react';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { EffectInjector } from '../effects/effect-injector.interface';

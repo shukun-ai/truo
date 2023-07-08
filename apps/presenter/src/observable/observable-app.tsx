@@ -1,4 +1,4 @@
-import { AppProps } from '@shukun/widget-react';
+import { AppProps } from '@shukun/presenter/widget-react';
 import { useObservableState } from 'observable-hooks';
 import { Observable } from 'rxjs';
 
