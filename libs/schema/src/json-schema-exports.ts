@@ -35,6 +35,7 @@ import workflowRetriesSchemaJson from './json-schemas/application/workflows/retr
 import workflowTaskStateSchemaJson from './json-schemas/application/workflows/task-state.schema.json';
 import applicationSchemaJson from './json-schemas/application.schema.json';
 import attachmentsSchemaJson from './json-schemas/attachments.schema.json';
+import connectorSchemaJson from './json-schemas/connector.schema.json';
 import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
 import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
 import presenterContainerSchemaJson from './json-schemas/presenter/container.schema.json';
@@ -45,6 +46,7 @@ import presenterWidgetSchemaJson from './json-schemas/presenter/widget.schema.js
 import presenterSchemaJson from './json-schemas/presenter.schema.json';
 import ReferenceDataSchemaJson from './json-schemas/reference/reference-data.schema.json';
 import repositorySchemaJson from './json-schemas/repository.schema.json';
+import taskSchemaJson from './json-schemas/task.schema.json';
 import widgetSchemaJson from './json-schemas/widget.schema.json';
 
 export const applicationSchema = applicationSchemaJson;
@@ -88,6 +90,8 @@ export const workflowInputSchema = workflowInputSchemaJson;
 export const attachmentsSchema = attachmentsSchemaJson;
 export const httpQuerySchema = httpQuerySchemaJson;
 export const dataSourceSchema = dataSourceSchemaJson;
+export const connectorSchema = connectorSchemaJson;
+export const taskSchema = taskSchemaJson;
 export const presenterSchema = presenterSchemaJson;
 export const presenterScreenSchema = presenterScreenSchemaJson;
 export const presenterContainerSchema = presenterContainerSchemaJson;

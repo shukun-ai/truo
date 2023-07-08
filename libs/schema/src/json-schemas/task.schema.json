@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "TaskSchema",
+  "description": "Define the connector task definitions",
+  "type": "object",
+  "required": ["scope", "parameters"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "scope": {
+      "enum": ["internal", "resource"]
+    },
+    "parameters": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "type": "object",
+          "title": "TaskParameter",
+          "required": ["schema", "required"],
+          "additionalProperties": false,
+          "properties": {
+            "schema": {
+              "$ref": "reference/task-reference.schema.json"
+            },
+            "required": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}
