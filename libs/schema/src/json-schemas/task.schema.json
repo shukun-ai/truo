@@ -18,7 +18,7 @@
         "^(.)+$": {
           "type": "object",
           "title": "TaskParameter",
-          "required": ["schema", "required"],
+          "required": ["schema", "required", "editorType"],
           "additionalProperties": false,
           "properties": {
             "schema": {
@@ -26,6 +26,19 @@
             },
             "required": {
               "type": "boolean"
+            },
+            "editorType": {
+              "enum": [
+                "taskName",
+                "atomName",
+                "sourceQuery",
+                "connectorName",
+                "parallelBranches",
+                "choiceConditions",
+                "repeatCount",
+                "template",
+                "description"
+              ]
             }
           }
         }

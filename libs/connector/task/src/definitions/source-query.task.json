@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/task.schema.json",
+  "scope": "internal",
+  "parameters": {
+    "atomName": {
+      "schema": {
+        "type": "string"
+      },
+      "required": true,
+      "editorType": "atomName"
+    },
+    "query": {
+      "schema": {},
+      "required": true,
+      "editorType": "sourceQuery"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 export * from './types/application';
 export * from './types/attachments';
+export * from './types/connector';
 export * from './types/data-source';
 export * from './types/exception';
 export * from './types/flow-compiled-codes';
@@ -9,6 +10,7 @@ export * from './types/system-authentication';
 export * from './types/system-models';
 export * from './types/system-resources';
 export * from './types/system-roles';
+export * from './types/task';
 export * from './types/utils';
 export * from './types/presenter';
 export * from './types/repository';

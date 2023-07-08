@@ -1,0 +1,27 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/task.schema.json",
+  "scope": "internal",
+  "parameters": {
+    "start": {
+      "schema": {
+        "type": "string"
+      },
+      "required": true,
+      "editorType": "taskName"
+    },
+    "repeatCount": {
+      "schema": {
+        "type": "number"
+      },
+      "required": true,
+      "editorType": "repeatCount"
+    },
+    "description": {
+      "schema": {
+        "type": "string"
+      },
+      "required": false,
+      "editorType": "description"
+    }
+  }
+}
