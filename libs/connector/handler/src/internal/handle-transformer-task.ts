@@ -9,5 +9,6 @@ export const handleTransformerTask = (
   return {
     ...context,
     next: task.next,
+    input: task.parameters,
   };
 };

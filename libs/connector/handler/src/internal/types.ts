@@ -5,7 +5,7 @@ import {
   TaskSchema,
 } from '@shukun/schema';
 
-export interface HandlerContext {
+export type HandlerContext = {
   input: unknown;
   next: string | undefined | null;
   index: number;
@@ -15,4 +15,22 @@ export interface HandlerContext {
   operatorId: IDString | undefined;
   taskDefinitions: Record<string, TaskSchema>;
   connector: ConnectorSchema;
-}
+};
+
+export type ParallelParameters = {
+  branches: {
+    start: string;
+  }[];
+};
+
+export type RepeatParameters = {
+  start: string;
+  repeatCount: number;
+};
+
+export type ChoiceParameters = {
+  conditions: {
+    next: string;
+    condition: unknown;
+  }[];
+};
