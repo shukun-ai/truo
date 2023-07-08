@@ -1,5 +1,8 @@
 import { Select, SelectItem } from '@mantine/core';
-import { selectDefinition, SelectDefinitionProps } from '@shukun/widget';
+import {
+  selectDefinition,
+  SelectDefinitionProps,
+} from '@shukun/presenter/definition';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';

@@ -1,8 +1,8 @@
 import { javascript } from '@codemirror/lang-javascript';
 import { ViewUpdate, EditorView } from '@codemirror/view';
 import { Box } from '@mantine/core';
+import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
 import { WidgetProperty } from '@shukun/schema';
-import { CODE_MODE_JS_PREFIX } from '@shukun/widget';
 import { useEffect, useMemo } from 'react';
 
 import { useCodeMirror } from '../../../../hooks/use-code-mirror';

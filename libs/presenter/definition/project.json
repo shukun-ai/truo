@@ -1,21 +1,21 @@
 {
-  "name": "widget",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/widget/src",
+  "name": "presenter-definition",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/presenter/definition/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/widget/**/*.ts"]
+        "lintFilePatterns": ["libs/presenter/definition/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/widget"],
+      "outputs": ["{workspaceRoot}/coverage/libs/presenter/definition"],
       "options": {
-        "jestConfig": "libs/widget/jest.config.ts",
+        "jestConfig": "libs/presenter/definition/jest.config.ts",
         "passWithNoTests": true
       }
     },

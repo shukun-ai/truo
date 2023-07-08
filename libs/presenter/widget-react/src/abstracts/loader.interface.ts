@@ -1,5 +1,5 @@
+import { IRepository, RouterMode } from '@shukun/presenter/definition';
 import { PresenterSchema, WidgetSchema } from '@shukun/schema';
-import { IRepository, RouterMode } from '@shukun/widget';
 import { Class } from 'utility-types';
 
 export interface ILoader {

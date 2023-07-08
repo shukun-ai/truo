@@ -2,7 +2,7 @@ import { Avatar, Box, Flex, Input, UnstyledButton } from '@mantine/core';
 import {
   imageInputDefinition,
   ImageInputDefinitionProps,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 import { IconCameraPlus } from '@tabler/icons-react';
 import { useRef } from 'react';
 

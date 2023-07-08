@@ -3,7 +3,7 @@ import {
   navLinkDefinition,
   NavLinkDefinitionProps,
   NavLinkDefinitionValue,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 
 import { IconPlus } from '@tabler/icons-react';
 import { useMemo } from 'react';

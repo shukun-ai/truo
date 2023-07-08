@@ -5,8 +5,8 @@ import {
   SourceRequester,
   ViewRequester,
 } from '@shukun/api';
+import { IApiRequester, IStore } from '@shukun/presenter/definition';
 import { UnknownSourceModel } from '@shukun/schema';
-import { IApiRequester, IStore } from '@shukun/widget';
 
 import { environment } from '../../environments/environment';
 

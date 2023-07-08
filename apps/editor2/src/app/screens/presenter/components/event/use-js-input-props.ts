@@ -1,4 +1,4 @@
-import { CODE_MODE_JS_PREFIX } from '@shukun/widget';
+import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
 import { useCallback, useMemo } from 'react';
 
 export const useJsInputProps = ({

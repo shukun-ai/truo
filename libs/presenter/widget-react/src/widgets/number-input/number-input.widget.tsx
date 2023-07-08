@@ -2,7 +2,7 @@ import { NumberInput } from '@mantine/core';
 import {
   numberInputDefinition,
   NumberInputDefinitionProps,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractForm, useFormContext } from '../../shares/form-context';

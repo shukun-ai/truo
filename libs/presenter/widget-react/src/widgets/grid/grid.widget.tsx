@@ -1,5 +1,8 @@
 import { SimpleGrid } from '@mantine/core';
-import { gridDefinition, GridDefinitionProps } from '@shukun/widget';
+import {
+  gridDefinition,
+  GridDefinitionProps,
+} from '@shukun/presenter/definition';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';

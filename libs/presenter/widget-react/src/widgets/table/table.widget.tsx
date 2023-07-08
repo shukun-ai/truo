@@ -1,5 +1,8 @@
 import { Box, Pagination, Paper, Table } from '@mantine/core';
-import { tableDefinition, TableDefinitionProps } from '@shukun/widget';
+import {
+  tableDefinition,
+  TableDefinitionProps,
+} from '@shukun/presenter/definition';
 import { IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import {
   flexRender,

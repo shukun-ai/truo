@@ -1,4 +1,4 @@
-import { TableDefinitionColumns } from '@shukun/widget';
+import { TableDefinitionColumns } from '@shukun/presenter/definition';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 

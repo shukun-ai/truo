@@ -1,5 +1,8 @@
 import { Card } from '@mantine/core';
-import { cardDefinition, CardDefinitionProps } from '@shukun/widget';
+import {
+  cardDefinition,
+  CardDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractBase } from '../../shares/inheritance';

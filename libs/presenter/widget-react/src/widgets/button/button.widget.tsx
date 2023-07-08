@@ -1,5 +1,8 @@
 import { Button } from '@mantine/core';
-import { buttonDefinition, ButtonDefinitionProps } from '@shukun/widget';
+import {
+  buttonDefinition,
+  ButtonDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractBase } from '../../shares/inheritance';

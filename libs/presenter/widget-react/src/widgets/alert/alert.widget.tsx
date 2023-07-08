@@ -1,5 +1,8 @@
 import { Alert } from '@mantine/core';
-import { alertDefinition, AlertDefinitionProps } from '@shukun/widget';
+import {
+  alertDefinition,
+  AlertDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractBase } from '../../shares/inheritance';

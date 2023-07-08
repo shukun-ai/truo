@@ -1,4 +1,10 @@
 import {
+  IApiRequester,
+  RouterMode,
+  SimpleRepository,
+  SourceQueryRepository,
+} from '@shukun/presenter/definition';
+import {
   ButtonWidget,
   CodeWidget,
   InputWidget,
@@ -24,12 +30,6 @@ import {
 } from '@shukun/presenter/widget-react';
 
 import { ConfigDefinitions, ILoader } from '@shukun/presenter/widget-react';
-import {
-  IApiRequester,
-  RouterMode,
-  SimpleRepository,
-  SourceQueryRepository,
-} from '@shukun/widget';
 
 export class ServerLoader implements ILoader {
   constructor(private readonly apiRequester: IApiRequester) {}

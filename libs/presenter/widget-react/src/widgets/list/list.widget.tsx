@@ -1,5 +1,8 @@
 import { Box } from '@mantine/core';
-import { listDefinition, ListDefinitionProps } from '@shukun/widget';
+import {
+  listDefinition,
+  ListDefinitionProps,
+} from '@shukun/presenter/definition';
 import { cloneElement } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';

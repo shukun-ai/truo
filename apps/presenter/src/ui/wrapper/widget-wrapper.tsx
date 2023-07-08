@@ -1,7 +1,10 @@
 import { TypeException } from '@shukun/exception';
+import {
+  ITemplateService,
+  TemplateEvaluateHelpers,
+} from '@shukun/presenter/definition';
 import { AppProps } from '@shukun/presenter/widget-react';
 import { PresenterWidget, WidgetSchema } from '@shukun/schema';
-import { ITemplateService, TemplateEvaluateHelpers } from '@shukun/widget';
 import { Children, cloneElement, ReactElement, useMemo } from 'react';
 
 export type WidgetWrapperProps = {

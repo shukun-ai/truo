@@ -3,8 +3,11 @@ import {
   IAuthRepository,
   IRepository,
   IRouterRepository,
-} from '@shukun/widget';
-import { IRepositoryManager, repositoryIdentifier } from '@shukun/widget';
+} from '@shukun/presenter/definition';
+import {
+  IRepositoryManager,
+  repositoryIdentifier,
+} from '@shukun/presenter/definition';
 
 export class RepositoryManager implements IRepositoryManager {
   private repositories: Map<string, IRepository> = new Map();
