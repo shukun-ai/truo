@@ -1,21 +1,21 @@
 {
-  "name": "connect-handler",
+  "name": "connector-handler",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/connect/handler/src",
+  "sourceRoot": "libs/connector/handler/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/connect/handler/**/*.ts"]
+        "lintFilePatterns": ["libs/connector/handler/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/connect/handler/jest.config.ts",
+        "jestConfig": "libs/connector/handler/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
