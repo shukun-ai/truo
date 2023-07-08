@@ -2,7 +2,7 @@ import { Group, Radio, SelectItem } from '@mantine/core';
 import {
   radioSelectDefinition,
   RadioSelectDefinitionProps,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';

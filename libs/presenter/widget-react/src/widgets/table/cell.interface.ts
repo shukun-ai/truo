@@ -1,4 +1,4 @@
-import { TableDefinitionColumns } from '@shukun/widget';
+import { TableDefinitionColumns } from '@shukun/presenter/definition';
 import { Cell, Column, Row, Table } from '@tanstack/react-table';
 
 export type CellComponentProps = {

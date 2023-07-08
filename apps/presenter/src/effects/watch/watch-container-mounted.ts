@@ -1,5 +1,5 @@
+import { IEventManager } from '@shukun/presenter/definition';
 import { PresenterWatch } from '@shukun/schema';
-import { IEventManager } from '@shukun/widget';
 import { BehaviorSubject, Subscription, tap } from 'rxjs';
 
 export const createContainerMounted = (

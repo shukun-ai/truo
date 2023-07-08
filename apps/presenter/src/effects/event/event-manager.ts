@@ -1,9 +1,9 @@
-import { PresenterEvent } from '@shukun/schema';
 import {
   EventManagerContext,
   EventManagerState,
   IEventManager,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
+import { PresenterEvent } from '@shukun/schema';
 
 import { handleEvent } from './event-handler';
 

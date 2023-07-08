@@ -1,10 +1,10 @@
-import { RepositorySchema } from '@shukun/schema';
 import {
   flowRepositoryDefinition,
   routerRepositoryDefinition,
   simpleRepositoryDefinition,
   sourceQueryRepositoryDefinition,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
+import { RepositorySchema } from '@shukun/schema';
 
 export const repositoryDefinitions: Record<string, RepositorySchema> = {
   router: routerRepositoryDefinition,

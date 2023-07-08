@@ -1,4 +1,4 @@
-import { IStore, StoreScope } from '@shukun/widget';
+import { IStore, StoreScope } from '@shukun/presenter/definition';
 import produce from 'immer';
 import { BehaviorSubject, Observable, distinctUntilChanged, map } from 'rxjs';
 

@@ -1,5 +1,8 @@
 import { Box } from '@mantine/core';
-import { boxDefinition, BoxDefinitionProps } from '@shukun/widget';
+import {
+  boxDefinition,
+  BoxDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractBase } from '../../shares/inheritance';

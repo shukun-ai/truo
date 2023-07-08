@@ -13,8 +13,8 @@ import {
   SystemUserModel,
 } from '@shukun/schema';
 
-import { OrgService } from '../../core/org.service';
 import { OrgDocument } from '../../core/org/org.schema';
+import { OrgService } from '../../core/org.service';
 import { SourceService } from '../../source/source.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';

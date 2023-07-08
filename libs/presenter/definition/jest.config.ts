@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'widget',
-  preset: '../../jest.preset.js',
+  displayName: 'presenter-definition',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   transform: {
@@ -13,5 +13,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/libs/widget',
+  coverageDirectory: '../../../coverage/libs/presenter/definition',
 };

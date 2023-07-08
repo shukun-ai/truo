@@ -1,11 +1,11 @@
-import { PresenterWatch } from '@shukun/schema';
 import {
   IEventManager,
   IStore,
   IWatchManager,
   WatchIdentifier,
   WatchSubscriptions,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
+import { PresenterWatch } from '@shukun/schema';
 
 import { createContainerMounted } from './watch-container-mounted';
 import { createInterval } from './watch-interval';

@@ -64,4 +64,3 @@ export enum CustomVariables {
 
   radius = '--sk-radius',
 }
-

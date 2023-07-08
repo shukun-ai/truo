@@ -1,5 +1,8 @@
 import { Box, Text, Title, TitleOrder } from '@mantine/core';
-import { textDefinition, TextDefinitionProps } from '@shukun/widget';
+import {
+  textDefinition,
+  TextDefinitionProps,
+} from '@shukun/presenter/definition';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';

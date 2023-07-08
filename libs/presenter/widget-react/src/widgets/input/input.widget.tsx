@@ -1,5 +1,8 @@
 import { TextInput } from '@mantine/core';
-import { inputDefinition, InputDefinitionProps } from '@shukun/widget';
+import {
+  inputDefinition,
+  InputDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractForm, useFormContext } from '../../shares/form-context';

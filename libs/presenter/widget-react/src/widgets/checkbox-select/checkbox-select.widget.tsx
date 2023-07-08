@@ -2,7 +2,7 @@ import { Checkbox, Group, SelectItem } from '@mantine/core';
 import {
   checkboxSelectDefinition,
   CheckboxSelectDefinitionProps,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 import { useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';

@@ -1,6 +1,6 @@
 import { TypeException } from '@shukun/exception';
+import { IEventManager, IStore } from '@shukun/presenter/definition';
 import { PresenterEvent, PresenterWatch } from '@shukun/schema';
-import { IEventManager, IStore } from '@shukun/widget';
 import { Observable, Subscription, distinctUntilChanged, map, tap } from 'rxjs';
 
 import { get } from '../store/store-utils';

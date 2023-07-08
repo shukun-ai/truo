@@ -1,5 +1,5 @@
 import { Text, UnstyledButton } from '@mantine/core';
-import { TableDefinitionColumns } from '@shukun/widget';
+import { TableDefinitionColumns } from '@shukun/presenter/definition';
 
 import { AppProps } from '../../../abstracts/app.interface';
 import { CellFactoryProps } from '../cell.interface';

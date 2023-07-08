@@ -1,4 +1,7 @@
-import { codeDefinition, CodeDefinitionProps } from '@shukun/widget';
+import {
+  codeDefinition,
+  CodeDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 

@@ -1,11 +1,10 @@
 import { TypeException } from '@shukun/exception';
-import { PresenterEvent } from '@shukun/schema';
-
 import {
   CODE_MODE_JS_PREFIX,
   EventManagerContext,
   EventManagerState,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
+import { PresenterEvent } from '@shukun/schema';
 
 import { getSyntheticState } from '../store/synthetic-state';
 

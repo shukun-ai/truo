@@ -1,5 +1,5 @@
+import { IEventManager } from '@shukun/presenter/definition';
 import { PresenterWatch } from '@shukun/schema';
-import { IEventManager } from '@shukun/widget';
 import { Subscription, interval, tap } from 'rxjs';
 
 export const createInterval = (

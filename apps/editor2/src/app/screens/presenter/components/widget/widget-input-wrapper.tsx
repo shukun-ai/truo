@@ -1,6 +1,6 @@
 import { ActionIcon, Box, Group, Tooltip } from '@mantine/core';
+import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
 import { WidgetProperty } from '@shukun/schema';
-import { CODE_MODE_JS_PREFIX } from '@shukun/widget';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { useCallback, useMemo } from 'react';
 

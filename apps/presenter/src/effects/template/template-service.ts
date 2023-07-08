@@ -4,7 +4,7 @@ import {
   TemplateBasicOutput,
   TemplateEvaluateHelpers,
   TemplateEvaluateStates,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 
 export class TemplateService implements ITemplateService {
   run(

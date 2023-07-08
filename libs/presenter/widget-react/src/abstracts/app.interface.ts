@@ -1,5 +1,3 @@
-import { PresenterSchema } from '@shukun/schema';
-
 import {
   IApiRequester,
   IEventManager,
@@ -8,9 +6,10 @@ import {
   IWatchManager,
   RouterMode,
   TemplateEvaluateHelpers,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 
-import { ITemplateService } from '@shukun/widget';
+import { ITemplateService } from '@shukun/presenter/definition';
+import { PresenterSchema } from '@shukun/schema';
 
 import { ReactWidgets, WidgetDefinitions } from './loader.interface';
 

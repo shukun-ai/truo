@@ -1,5 +1,5 @@
 import { TypeException } from '@shukun/exception';
-import { StoreScope } from '@shukun/widget';
+import { StoreScope } from '@shukun/presenter/definition';
 import { set as lodashSet } from 'lodash';
 
 export const getByScope = (

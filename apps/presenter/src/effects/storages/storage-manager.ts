@@ -1,4 +1,4 @@
-import { IStorageManager, IStore } from '@shukun/widget';
+import { IStorageManager, IStore } from '@shukun/presenter/definition';
 import { tap } from 'rxjs';
 
 import {

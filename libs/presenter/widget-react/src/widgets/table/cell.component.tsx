@@ -1,4 +1,4 @@
-import { TableDefinitionColumns } from '@shukun/widget';
+import { TableDefinitionColumns } from '@shukun/presenter/definition';
 
 import { CellComponentProps, CellFactoryProps } from './cell.interface';
 import { LinkCell } from './cells/link-cell.component';

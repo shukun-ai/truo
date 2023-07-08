@@ -1,5 +1,8 @@
 import { Badge, Box } from '@mantine/core';
-import { badgeDefinition, BadgeDefinitionProps } from '@shukun/widget';
+import {
+  badgeDefinition,
+  BadgeDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractBase } from '../../shares/inheritance';

@@ -2,7 +2,7 @@ import { Switch } from '@mantine/core';
 import {
   booleanSelectDefinition,
   BooleanSelectDefinitionProps,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { extractForm, useFormContext } from '../../shares/form-context';

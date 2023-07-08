@@ -1,5 +1,8 @@
 import { Box, Button, Group } from '@mantine/core';
-import { formDefinition, FormDefinitionProps } from '@shukun/widget';
+import {
+  formDefinition,
+  FormDefinitionProps,
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { FormProvider, useForm } from '../../shares/form-context';

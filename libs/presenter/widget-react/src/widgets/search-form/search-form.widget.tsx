@@ -2,7 +2,7 @@ import { Box, Button, Group, SimpleGrid } from '@mantine/core';
 import {
   searchFormDefinition,
   SearchFormDefinitionProps,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 
 import { createWidget } from '../../abstracts/create-widget';
 import { FormProvider, useForm } from '../../shares/form-context';

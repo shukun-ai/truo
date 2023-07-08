@@ -3,7 +3,7 @@ import { useInputState } from '@mantine/hooks';
 import {
   multipleInputDefinition,
   MultipleInputDefinitionProps,
-} from '@shukun/widget';
+} from '@shukun/presenter/definition';
 import { useMemo, useCallback } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
