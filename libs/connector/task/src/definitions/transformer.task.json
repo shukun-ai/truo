@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/task.schema.json",
+  "scope": "internal",
+  "parameters": {
+    "job": {
+      "schema": {},
+      "required": true,
+      "editorType": "template"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/task.schema.json",
+  "scope": "internal",
+  "parameters": {
+    "conditions": {
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["condition", "next"],
+          "additionalProperties": false,
+          "properties": {
+            "description": { "type": "string" },
+            "condition": { "type": "string" },
+            "next": { "type": "string" }
+          }
+        }
+      },
+      "required": true,
+      "editorType": "choiceConditions"
+    }
+  }
+}

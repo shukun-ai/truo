@@ -1,1 +1,1 @@
-export * from './lib/connector-task';
+export * from './definitions';

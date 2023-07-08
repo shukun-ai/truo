@@ -1,0 +1,22 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/task.schema.json",
+  "scope": "internal",
+  "parameters": {
+    "branches": {
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["start"],
+          "additionalProperties": false,
+          "properties": {
+            "start": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        }
+      },
+      "required": true,
+      "editorType": "parallelBranches"
+    }
+  }
+}
