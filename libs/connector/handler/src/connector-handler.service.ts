@@ -4,11 +4,14 @@ import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
 import { handleChoiceTask } from './internal/handle-choice-task';
-import { handleParallelTask } from './internal/handle-parallel-task';
-import { handleRepeatTask } from './internal/handle-repeat-task';
 import { handleResourceTask } from './internal/handle-resource-task';
 import { handleTransformerTask } from './internal/handle-transformer-task';
-import { HandlerContext } from './internal/types';
+import {
+  HandlerContext,
+  ParallelParameters,
+  RepeatParameters,
+} from './internal/types';
+import { parseParameters } from './template/template';
 
 @Injectable()
 export class ConnectorHandlerService {
@@ -25,8 +28,17 @@ export class ConnectorHandlerService {
       });
     }
 
-    // handle next task
-    const newContext = await this.handleTask(nextTask, context);
+    // @remark: handle next task
+    const newContext = await this.handleTask(
+      {
+        ...nextTask,
+        parameters: parseParameters(nextTask.parameters, context) as Record<
+          string,
+          unknown
+        >,
+      },
+      context,
+    );
 
     return this.execute(newContext);
   }
@@ -36,16 +48,65 @@ export class ConnectorHandlerService {
     context: HandlerContext,
   ): Promise<HandlerContext> {
     switch (task.type) {
+      case 'transformer':
+        return handleTransformerTask(task, context);
       case 'choice':
         return handleChoiceTask(task, context);
       case 'parallel':
-        return handleParallelTask(task, context);
+        return await this.handleParallelTask(task, context);
       case 'repeat':
-        return handleRepeatTask(task, context);
-      case 'transformer':
-        return handleTransformerTask(task, context);
+        return await this.handleRepeatTask(task, context);
       default:
-        return handleResourceTask(task, context);
+        return await handleResourceTask(task, context);
     }
+  }
+
+  async handleParallelTask(
+    task: ConnectorTask,
+    context: HandlerContext,
+  ): Promise<HandlerContext> {
+    const { branches } = task.parameters as ParallelParameters;
+
+    const branchesPromise = branches.map(async (branch, index) => {
+      const computedContext = await this.execute({
+        ...context,
+        next: branch.start,
+        index,
+      });
+      return computedContext.input;
+    });
+
+    const outputArray = await Promise.all(branchesPromise);
+
+    return {
+      ...context,
+      input: outputArray,
+    };
+  }
+
+  async handleRepeatTask(
+    task: ConnectorTask,
+    context: HandlerContext,
+  ): Promise<HandlerContext> {
+    const { start, repeatCount } = task.parameters as RepeatParameters;
+    const outputArray: unknown[] = [];
+
+    if (repeatCount > 1000) {
+      throw new TypeException('Did not support repeatCount greater than 1000.');
+    }
+
+    for (let index = 0; index < repeatCount; index++) {
+      const { input: output } = await this.execute({
+        ...context,
+        next: start,
+        index,
+      });
+      outputArray.push(output);
+    }
+
+    return {
+      ...context,
+      input: outputArray,
+    };
   }
 }
