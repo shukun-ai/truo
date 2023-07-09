@@ -12,6 +12,7 @@ export type HandlerContext = {
   store: Record<string, unknown>;
   orgName: string;
   operatorId: IDString | undefined;
+  accessToken: string | undefined;
   connector: ConnectorSchema;
 };
 

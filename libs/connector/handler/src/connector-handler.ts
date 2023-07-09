@@ -4,6 +4,7 @@ import { ConnectorTask } from '@shukun/schema';
 
 import { handleChoiceTask } from './internal/handle-choice-task';
 import { handleResourceTask } from './internal/handle-resource-task';
+import { handleSourceQueryTask } from './internal/handle-source-query-task';
 import { handleTransformerTask } from './internal/handle-transformer-task';
 import { parseParameters } from './template/template';
 import { HandlerContext, ParallelParameters, RepeatParameters } from './types';
@@ -19,7 +20,7 @@ export const execute = async (
 
   if (!nextTask) {
     throw new TypeException('Did not find the specific task: {{task}}', {
-      task: nextTask,
+      task: context.next,
     });
   }
 
@@ -51,6 +52,8 @@ const handleTask = async (
       return await handleParallelTask(task, context);
     case 'repeat':
       return await handleRepeatTask(task, context);
+    case 'source-query':
+      return await handleSourceQueryTask(task, context);
     default:
       return await handleResourceTask(task, context);
   }

@@ -22,7 +22,6 @@ export class ConnectorController {
     @Body() dto: unknown,
   ): Promise<unknown> {
     const connector = await this.connectorService.get(orgName, connectorName);
-    const taskDefinitions = await this.connectorService.getDefinitions(orgName);
     const env = await this.environmentService.findAllEnvironments(orgName);
 
     const output = await this.connectorHandlerService.execute({
@@ -33,7 +32,7 @@ export class ConnectorController {
       store: {},
       orgName,
       operatorId: req.userId,
-      taskDefinitions,
+      accessToken: req.accessToken,
       connector,
     });
 
