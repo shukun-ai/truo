@@ -47,7 +47,7 @@ export class ConnectorService {
     connectorName: string,
     connector: ConnectorSchema,
   ): Promise<void> {
-    await this.getCollection(orgName).updateOne(
+    await this.getCollection(orgName).findOneAndUpdate(
       {
         name: connectorName,
       },
