@@ -11,6 +11,8 @@ describe('connector-handler', () => {
       store: {},
       orgName: 'shukun',
       operatorId: undefined,
+      accessToken: undefined,
+      taskDefinitions: {},
       connector: {
         label: 'test',
         start: 'repeat',
@@ -68,6 +70,8 @@ describe('connector-handler', () => {
       store: {},
       orgName: 'shukun',
       operatorId: undefined,
+      accessToken: undefined,
+      taskDefinitions: {},
       connector: {
         label: 'test',
         start: 'parallel',
@@ -127,6 +131,8 @@ describe('connector-handler', () => {
       store: {},
       orgName: 'shukun',
       operatorId: undefined,
+      accessToken: undefined,
+      taskDefinitions: {},
       connector: {
         label: 'test',
         start: 'choice',
