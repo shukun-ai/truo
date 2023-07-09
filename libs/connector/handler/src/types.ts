@@ -2,7 +2,6 @@ import {
   ConnectorSchema,
   DataSourceEnvironments,
   IDString,
-  TaskSchema,
 } from '@shukun/schema';
 
 export type HandlerContext = {
@@ -13,7 +12,6 @@ export type HandlerContext = {
   store: Record<string, unknown>;
   orgName: string;
   operatorId: IDString | undefined;
-  taskDefinitions: Record<string, TaskSchema>;
   connector: ConnectorSchema;
 };
 

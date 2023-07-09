@@ -76,6 +76,7 @@ const handleParallelTask = async (
   return {
     ...context,
     input: outputArray,
+    next: task.next,
   };
 };
 
@@ -106,5 +107,6 @@ const handleRepeatTask = async (
   return {
     ...context,
     input: outputArray,
+    next: task.next,
   };
 };
