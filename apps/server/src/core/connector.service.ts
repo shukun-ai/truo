@@ -1,34 +1,80 @@
 import { Injectable } from '@nestjs/common';
+import { InjectConnection } from '@nestjs/mongoose';
 import {
   choiceTask,
   parallelTask,
   repeatTask,
   transformerTask,
 } from '@shukun/connector/task';
-import { ConnectorSchema, PresenterSchema, TaskSchema } from '@shukun/schema';
+import { TypeException } from '@shukun/exception';
+import { ConnectorSchema, TaskSchema } from '@shukun/schema';
+import { Connection } from 'mongoose';
 
-export type PresenterEntity = {
-  name: string;
-  orgName: string;
-  definition: PresenterSchema;
-};
+import { connectorMongoSchema } from './connector/connector.schema';
 
 @Injectable()
 export class ConnectorService {
+  constructor(@InjectConnection() private connection: Connection) {}
+
   async get(orgName: string, connectorName: string): Promise<ConnectorSchema> {
-    const connector: ConnectorSchema = {
-      label: 'test',
-      start: 'test',
-      tasks: {
-        test: {
-          type: 'transformer',
-          parameters: {
-            count: '$$_js:return $.input.number + 100;',
-          },
-        },
+    const entity = await this.getCollection(orgName).findOne({
+      name: connectorName,
+    });
+
+    if (!entity || !entity.content) {
+      throw new TypeException('Did not find connector by name: {{name}}', {
+        name: connectorName,
+      });
+    }
+
+    return this.serialize(entity.content);
+  }
+
+  async create(
+    orgName: string,
+    connectorName: string,
+    connector: ConnectorSchema,
+  ): Promise<void> {
+    await this.getCollection(orgName).create({
+      unique: `${orgName}:${connectorName}`,
+      name: connectorName,
+      content: this.deserialize(connector),
+    });
+  }
+
+  async update(
+    orgName: string,
+    connectorName: string,
+    connector: ConnectorSchema,
+  ): Promise<void> {
+    await this.getCollection(orgName).updateOne(
+      {
+        name: connectorName,
       },
-    };
-    return connector;
+      {
+        content: this.deserialize(connector),
+      },
+    );
+  }
+
+  private serialize(buffer: Buffer): ConnectorSchema {
+    return JSON.parse(buffer.toString());
+  }
+
+  private deserialize(connector: ConnectorSchema): Buffer {
+    return Buffer.from(JSON.stringify(connector));
+  }
+
+  private getCollection(orgName: string) {
+    const collection = this.connection.model(
+      this.buildCollectionName(orgName),
+      connectorMongoSchema,
+    );
+    return collection;
+  }
+
+  private buildCollectionName(orgName: string) {
+    return `orgs_${orgName}_system__connectors`;
   }
 
   async getDefinitions(orgName: string): Promise<Record<string, TaskSchema>> {
