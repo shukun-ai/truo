@@ -1,14 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
-import {
-  choiceTask,
-  parallelTask,
-  repeatTask,
-  sourceQueryTask,
-  transformerTask,
-} from '@shukun/connector/task';
 import { TypeException } from '@shukun/exception';
-import { ConnectorSchema, TaskSchema } from '@shukun/schema';
+import { ConnectorSchema } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
 import { connectorMongoSchema } from './connector/connector.schema';
@@ -76,15 +69,5 @@ export class ConnectorService {
 
   private buildCollectionName(orgName: string) {
     return `orgs_${orgName}_system__connectors`;
-  }
-
-  async getDefinitions(orgName: string): Promise<Record<string, TaskSchema>> {
-    return {
-      choice: choiceTask,
-      parallel: parallelTask,
-      repeat: repeatTask,
-      transformer: transformerTask,
-      sourceQuery: sourceQueryTask,
-    };
   }
 }

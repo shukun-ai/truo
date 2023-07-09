@@ -12,6 +12,7 @@
     "scope": {
       "enum": ["internal", "resource"]
     },
+    "address": { "type": "string" },
     "parameters": {
       "type": "object",
       "patternProperties": {

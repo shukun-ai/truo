@@ -20,6 +20,7 @@ import { CodebaseController } from './developer/codebase/codebase.controller';
 import { DataSourceController } from './developer/data-source/data-source.controller';
 import { DeveloperConnectorController } from './developer/developer-connector.controller';
 import { DeveloperPresenterController } from './developer/developer-presenter.controller';
+import { DeveloperTaskController } from './developer/developer-task.controller';
 import { InspectionController } from './developer/inspection/inspection.controller';
 import { MigrationController } from './developer/migration/migration.controller';
 import { PresenterCodeController } from './developer/presenter-code/presenter-code.controller';
@@ -73,6 +74,7 @@ import { WebhookController } from './webhook/webhook.controller';
     ConnectorController,
     DeveloperPresenterController,
     DeveloperConnectorController,
+    DeveloperTaskController,
   ],
   providers: [
     SourceAccessControlService,

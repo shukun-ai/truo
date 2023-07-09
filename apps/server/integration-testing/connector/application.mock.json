@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../libs/schema/src/json-schemas/application.schema.json",
+  "title": "Airports",
+  "metadata": [
+    {
+      "name": "airports",
+      "label": "Airports",
+      "electrons": [
+        {
+          "name": "code",
+          "label": "Code",
+          "fieldType": "Text",
+          "isRequired": true
+        }
+      ]
+    }
+  ]
+}

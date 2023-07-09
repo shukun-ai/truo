@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../libs/schema/src/json-schemas/connector.schema.json",
+  "label": "realWorldConnector",
+  "start": "findAirline",
+  "tasks": {
+    "findAirline": {
+      "type": "sourceQuery",
+      "parameters": {
+        "atomName": "airports",
+        "query": {
+          "filter": {
+            "code": { "$eq": "$$_js:return $.input.code;" }
+          }
+        }
+      }
+    }
+  }
+}
