@@ -2,6 +2,7 @@ import {
   ConnectorSchema,
   DataSourceEnvironments,
   IDString,
+  TaskSchema,
 } from '@shukun/schema';
 
 export type HandlerContext = {
@@ -14,6 +15,7 @@ export type HandlerContext = {
   operatorId: IDString | undefined;
   accessToken: string | undefined;
   connector: ConnectorSchema;
+  taskDefinitions: Record<string, TaskSchema>;
 };
 
 export type ParallelParameters = {

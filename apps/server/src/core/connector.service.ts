@@ -4,6 +4,7 @@ import {
   choiceTask,
   parallelTask,
   repeatTask,
+  sourceQueryTask,
   transformerTask,
 } from '@shukun/connector/task';
 import { TypeException } from '@shukun/exception';
@@ -83,6 +84,7 @@ export class ConnectorService {
       parallel: parallelTask,
       repeat: repeatTask,
       transformer: transformerTask,
+      sourceQuery: sourceQueryTask,
     };
   }
 }
