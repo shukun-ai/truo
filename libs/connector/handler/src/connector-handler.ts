@@ -4,7 +4,7 @@ import { ConnectorTask } from '@shukun/schema';
 
 import { handleChoiceTask } from './internal/handle-choice-task';
 import { handleResourceTask } from './internal/handle-resource-task';
-import { handleSourceQueryTask } from './internal/handle-source-query-task';
+import { handleShukunTask } from './internal/handle-shukun-task';
 import { handleTransformerTask } from './internal/handle-transformer-task';
 import { parseParameters } from './template/template';
 import { HandlerContext, ParallelParameters, RepeatParameters } from './types';
@@ -53,7 +53,7 @@ const handleTask = async (
     case 'repeat':
       return await handleRepeatTask(task, context);
     case 'source-query':
-      return await handleSourceQueryTask(task, context);
+      return await handleShukunTask(task, context);
     default:
       return await handleResourceTask(task, context);
   }
