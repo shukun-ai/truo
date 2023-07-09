@@ -1,7 +1,6 @@
 import { RoleResourceType } from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
-import { ApiResponse } from '../request-adaptor/request-adaptor.type';
 
 export class ConnectorRequester {
   constructor(private readonly requestAdaptor: IRequestAdaptor) {}
@@ -11,7 +10,7 @@ export class ConnectorRequester {
    * POST /apis/v1/connector/{orgName}/${connectorName}
    */
   public async runConnector<Model>(connectorName: string, input: unknown) {
-    return await this.requestAdaptor.fetch<ApiResponse<Model>>(
+    return await this.requestAdaptor.fetch<Model>(
       'POST',
       this.buildUri(connectorName),
       {

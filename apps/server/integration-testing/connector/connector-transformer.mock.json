@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../libs/schema/src/json-schemas/connector.schema.json",
+  "label": "test",
+  "start": "test",
+  "tasks": {
+    "test": {
+      "type": "transformer",
+      "parameters": {
+        "count": "$$_js:return $.input.number + 100;"
+      }
+    }
+  }
+}
