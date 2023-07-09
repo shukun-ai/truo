@@ -23,7 +23,6 @@ export * from './requesters/view-requester';
 export * from './requesters/webhook-requester';
 export * from './requesters/source-requester';
 export * from './requesters/tenant-requester';
-export * from './requesters/editor-requester';
 
 export * from './response-exception/response-exception';
 export * from './response-exception/response-exception.interface';
