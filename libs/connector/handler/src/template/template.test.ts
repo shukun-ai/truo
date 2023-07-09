@@ -12,6 +12,8 @@ describe('template', () => {
         store: {},
         orgName: 'shukun',
         operatorId: undefined,
+        accessToken: undefined,
+        taskDefinitions: {},
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         connector: undefined as any,
       };

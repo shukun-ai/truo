@@ -12,15 +12,17 @@ import { HandlerContext, ParallelParameters, RepeatParameters } from './types';
 export const execute = async (
   context: HandlerContext,
 ): Promise<HandlerContext> => {
-  if (!context.next) {
+  const current = context.next;
+
+  if (!current) {
     return context;
   }
 
-  const nextTask = context.connector.tasks[context.next];
+  const nextTask = context.connector.tasks[current];
 
   if (!nextTask) {
     throw new TypeException('Did not find the specific task: {{task}}', {
-      task: context.next,
+      task: current,
     });
   }
 
@@ -52,10 +54,19 @@ const handleTask = async (
       return await handleParallelTask(task, context);
     case 'repeat':
       return await handleRepeatTask(task, context);
-    case 'source-query':
-      return await handleShukunTask(task, context);
-    default:
-      return await handleResourceTask(task, context);
+  }
+
+  if (['sourceQuery'].includes(task.type)) {
+    return await handleShukunTask(task, context);
+  }
+
+  if (Object.keys(context.taskDefinitions).includes(task.type)) {
+    return await handleResourceTask(task, context);
+  } else {
+    throw new TypeException(
+      'We did not support the specific task type: {{type}}',
+      { type: task.type },
+    );
   }
 };
 

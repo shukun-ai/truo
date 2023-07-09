@@ -9,7 +9,7 @@ export const handleShukunTask = async (
   context: HandlerContext,
 ): Promise<HandlerContext> => {
   switch (task.type) {
-    case 'source-query':
+    case 'sourceQuery':
       return await handleSourceQueryTask(task, context);
     default:
       throw new TypeException('This type is not supported by shukun task.');
@@ -22,7 +22,7 @@ const handleSourceQueryTask = async (
 ): Promise<HandlerContext> => {
   const { atomName, query } = task.parameters as any;
 
-  const requester = new SourceRequester(createAdaptor(context), atomName);
+  const requester = new SourceRequester(createAdaptor(task, context), atomName);
   const response = await requester.query(query);
 
   return {
@@ -32,10 +32,24 @@ const handleSourceQueryTask = async (
   };
 };
 
-const createAdaptor = (context: HandlerContext): IRequestAdaptor => {
-  const port = process.env.PORT ?? '3000';
+const createAdaptor = (
+  task: ConnectorTask,
+  context: HandlerContext,
+): IRequestAdaptor => {
+  const definition = context.taskDefinitions[task.type];
+
+  if (!definition) {
+    throw new TypeException('Did not find task definition.');
+  }
+
+  const { address } = definition as { address?: string };
+
+  const baseUrl = address
+    ? address
+    : `http://127.0.0.1:${process.env.PORT ?? '3000'}/apis/v1`;
+
   const adaptor = new AxiosAdaptor({
-    baseUrl: `http://127.0.0.1:${port}/apis/v1`,
+    baseUrl,
     onOrgName: () => context.orgName,
     onAccessToken: () => context.accessToken ?? null,
   });
