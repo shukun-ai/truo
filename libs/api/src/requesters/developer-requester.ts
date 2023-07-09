@@ -5,6 +5,7 @@ import {
   PresenterSchema,
   IDString,
   ConnectorSchema,
+  TaskSchema,
 } from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
@@ -213,6 +214,39 @@ export class DeveloperRequester {
         body: {
           connectorName,
           connector,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/query-task
+   */
+  public async queryTask(taskName: string) {
+    return await this.requestAdaptor.fetch<TaskSchema>(
+      'POST',
+      this.buildUri(`query-task`),
+      {
+        body: {
+          taskName,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/query-task
+   */
+  public async upsertTask(taskName: string, task: TaskSchema) {
+    return await this.requestAdaptor.fetch<TaskSchema>(
+      'POST',
+      this.buildUri(`upsert-task`),
+      {
+        body: {
+          taskName,
+          task,
         },
       },
     );

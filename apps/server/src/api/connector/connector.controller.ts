@@ -2,6 +2,7 @@ import { Body, Controller, Param, Post, Req } from '@nestjs/common';
 import { ConnectorHandlerService } from '@shukun/connector/handler';
 import { RoleResourceType } from '@shukun/schema';
 
+import { ConnectorTaskService } from '../../core/connector/task.service';
 import { ConnectorService } from '../../core/connector.service';
 import { EnvironmentService } from '../../core/environment.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
@@ -12,6 +13,7 @@ export class ConnectorController {
     private readonly connectorHandlerService: ConnectorHandlerService,
     private readonly environmentService: EnvironmentService,
     private readonly connectorService: ConnectorService,
+    private readonly connectorTaskService: ConnectorTaskService,
   ) {}
 
   @Post(':connectorName')
@@ -22,7 +24,7 @@ export class ConnectorController {
     @Body() dto: unknown,
   ): Promise<unknown> {
     const connector = await this.connectorService.get(orgName, connectorName);
-    const taskDefinitions = await this.connectorService.getDefinitions(orgName);
+    const taskDefinitions = await this.connectorTaskService.query(orgName);
     const env = await this.environmentService.findAllEnvironments(orgName);
 
     const output = await this.connectorHandlerService.execute({

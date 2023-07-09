@@ -48,6 +48,7 @@ export type _InternalTaskReference =
 export interface TaskSchema {
   $schema?: string;
   scope: 'internal' | 'resource';
+  address?: string;
   parameters: {
     [k: string]: TaskParameter;
   };
@@ -59,4 +60,14 @@ export interface TaskSchema {
 export interface TaskParameter {
   schema: _InternalTaskReference;
   required: boolean;
+  editorType:
+    | 'taskName'
+    | 'atomName'
+    | 'sourceQuery'
+    | 'connectorName'
+    | 'parallelBranches'
+    | 'choiceConditions'
+    | 'repeatCount'
+    | 'template'
+    | 'description';
 }

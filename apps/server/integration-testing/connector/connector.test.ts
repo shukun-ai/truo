@@ -3,17 +3,21 @@ import {
   ConnectorRequester,
   DeveloperRequester,
   IRequestAdaptor,
+  SourceRequester,
 } from '@shukun/api';
-import { AuthenticationToken, ConnectorSchema } from '@shukun/schema';
+import {
+  AuthenticationToken,
+  ConnectorSchema,
+  TaskSchema,
+} from '@shukun/schema';
 import nock from 'nock';
 
 import { WebServer } from '../../src/app';
-import { createOrg, destroyOrg } from '../hooks/seed';
+import { createOrg, destroyOrg, updateCodebase } from '../hooks/seed';
 import { signIn } from '../hooks/sign-in';
 
-import choiceMockJson from './connector-choice.mock.json';
-import repeatMockJson from './connector-repeat.mock.json';
-import transformerMockJson from './connector-transformer.mock.json';
+import applicationMockJson from './application.mock.json';
+import connectorSourceMockJson from './connector-source.mock.json';
 
 describe('Connector API', () => {
   const orgName = 'connector_mock_org';
@@ -28,8 +32,10 @@ describe('Connector API', () => {
     nock.disableNetConnect();
     nock.enableNetConnect('127.0.0.1');
 
+    const baseUrl = `http://127.0.0.1:${apiConnection.port}/apis/v1`;
+
     adaptor = new AxiosAdaptor({
-      baseUrl: `http://127.0.0.1:${apiConnection.port}/apis/v1`,
+      baseUrl,
       timeout: 10 * 1000,
       retries: 1,
       onOrgName: () => orgName,
@@ -39,10 +45,36 @@ describe('Connector API', () => {
     await createOrg(adaptor, { orgName });
     auth = await signIn(adaptor, { orgName });
 
+    await updateCodebase(adaptor, applicationMockJson);
+
     const developerRequester = new DeveloperRequester(adaptor);
-    updateConnector(developerRequester, 'transformer', transformerMockJson);
-    updateConnector(developerRequester, 'choice', choiceMockJson);
-    updateConnector(developerRequester, 'repeat', repeatMockJson);
+    await updateConnector(
+      developerRequester,
+      'real_world',
+      connectorSourceMockJson,
+    );
+
+    const sourceQueryTask: TaskSchema = {
+      $schema: '../../../../schema/src/json-schemas/task.schema.json',
+      scope: 'internal',
+      address: baseUrl,
+      parameters: {
+        atomName: {
+          schema: {
+            type: 'string',
+          },
+          required: true,
+          editorType: 'atomName',
+        },
+        query: {
+          schema: {},
+          required: true,
+          editorType: 'sourceQuery',
+        },
+      },
+    };
+
+    await developerRequester.upsertTask('sourceQuery', sourceQueryTask);
   });
 
   afterAll(async () => {
@@ -51,47 +83,22 @@ describe('Connector API', () => {
     nock.enableNetConnect();
   });
 
-  describe('Transformer', () => {
-    it('should pass, when run transformer connector.', async () => {
-      const connectorRequester = new ConnectorRequester(adaptor);
-      const response = await connectorRequester.runConnector('transformer', {
-        number: 1000,
-      });
-      expect(response.data).toEqual({
-        count: 1100,
-      });
-    });
-  });
+  describe('connectorSource', () => {
+    it('should pass', async () => {
+      const sourceRequester = new SourceRequester(adaptor, 'airports');
+      try {
+        await sourceRequester.create({
+          code: 'PVG',
+        });
+      } catch (error) {
+        console.error(error);
+      }
 
-  describe('Choice', () => {
-    it('should return English, when run EN.', async () => {
       const connectorRequester = new ConnectorRequester(adaptor);
-      const response = await connectorRequester.runConnector('choice', {
-        language: 'EN',
+      const response = await connectorRequester.runConnector('real_world', {
+        code: 'PVG',
       });
-      expect(response.data).toEqual({
-        language: 'English',
-      });
-    });
-
-    it('should return Chinese, when run CN.', async () => {
-      const connectorRequester = new ConnectorRequester(adaptor);
-      const response = await connectorRequester.runConnector('choice', {
-        language: 'CN',
-      });
-      expect(response.data).toEqual({
-        language: 'Chinese',
-      });
-    });
-
-    it('should return Default, when run FR.', async () => {
-      const connectorRequester = new ConnectorRequester(adaptor);
-      const response = await connectorRequester.runConnector('choice', {
-        language: 'FR',
-      });
-      expect(response.data).toEqual({
-        language: 'Default',
-      });
+      expect((response.data.value as any)[0].code).toEqual('PVG');
     });
   });
 });
@@ -108,8 +115,8 @@ const updateConnector = async (
     //
   }
   if (!response) {
-    requester.createConnector(connectorName, connector);
+    await requester.createConnector(connectorName, connector);
   } else {
-    requester.updateConnector(connectorName, connector);
+    await requester.updateConnector(connectorName, connector);
   }
 };
