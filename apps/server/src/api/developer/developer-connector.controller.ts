@@ -7,12 +7,12 @@ import { QueryResponse } from '../../util/query/interfaces';
 
 import { DeveloperConnectorCreateDto } from './developer-connector-create.dto';
 
-@Controller(`/${RoleResourceType.Developer}/:orgName/connector`)
+@Controller(`/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperConnectorController {
   constructor(private readonly connectorService: ConnectorService) {}
 
-  @Post(':connectorName')
+  @Post('get-connector/:connectorName')
   async get(
     @Param('orgName') orgName: string,
     @Param('connectorName') connectorName: string,
@@ -23,7 +23,7 @@ export class DeveloperConnectorController {
     };
   }
 
-  @Post('create')
+  @Post('create-connector')
   async create(
     @Param('orgName') orgName: string,
     @Body() dto: DeveloperConnectorCreateDto,
@@ -38,7 +38,7 @@ export class DeveloperConnectorController {
     };
   }
 
-  @Post('update')
+  @Post('update-connector')
   async update(
     @Param('orgName') orgName: string,
     @Body() dto: DeveloperConnectorCreateDto,

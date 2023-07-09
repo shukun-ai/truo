@@ -4,6 +4,7 @@ import {
   MigrationDifference,
   PresenterSchema,
   IDString,
+  ConnectorSchema,
 } from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
@@ -102,7 +103,7 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/editor/{orgName}/presenters/:presenterId/query
+   * POST /apis/v1/developer/{orgName}/presenters/:presenterId/query
    */
   public async getPresenter(presenterName: string) {
     return await this.requestAdaptor.fetch<PresenterSchema>(
@@ -113,7 +114,7 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/editor/{orgName}/presenters/any/query
+   * POST /apis/v1/developer/{orgName}/presenters/any/query
    */
   public async getPresenters() {
     return await this.requestAdaptor.fetch<Record<string, PresenterSchema>>(
@@ -124,7 +125,7 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/editor/{orgName}/presenters/:presenterId
+   * POST /apis/v1/developer/{orgName}/presenters/:presenterId
    */
   public async createPresenter(presenterName: string) {
     return await this.requestAdaptor.fetch<{ _id: IDString }>(
@@ -138,7 +139,7 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/editor/{orgName}/presenters/:presenterId
+   * POST /apis/v1/developer/{orgName}/presenters/:presenterId
    */
   public async updatePresenter(
     presenterName: string,
@@ -157,12 +158,63 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/editor/{orgName}/presenters/:presenterId
+   * POST /apis/v1/developer/{orgName}/presenters/:presenterId
    */
   public async deletePresenter(presenterName: string) {
     return await this.requestAdaptor.fetch<PresenterSchema>(
       'POST',
       this.buildUri(`presenters/${presenterName}/delete`),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/get-connector/{connectorName}
+   */
+  public async getConnector(connectorName: string) {
+    return await this.requestAdaptor.fetch<ConnectorSchema>(
+      'POST',
+      this.buildUri(`get-connector/${connectorName}`),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/create-connector
+   */
+  public async createConnector(
+    connectorName: string,
+    connector: ConnectorSchema,
+  ) {
+    return await this.requestAdaptor.fetch<ConnectorSchema>(
+      'POST',
+      this.buildUri(`create-connector`),
+      {
+        body: {
+          connectorName,
+          connector,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/update-connector
+   */
+  public async updateConnector(
+    connectorName: string,
+    connector: ConnectorSchema,
+  ) {
+    return await this.requestAdaptor.fetch<ConnectorSchema>(
+      'POST',
+      this.buildUri(`update-connector`),
+      {
+        body: {
+          connectorName,
+          connector,
+        },
+      },
     );
   }
 
