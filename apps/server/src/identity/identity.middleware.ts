@@ -25,6 +25,7 @@ export class IdentityMiddleware implements NestMiddleware {
     if (token) {
       const authJwt = this.getAuthJwt(token);
       set(req, 'userId', authJwt.userId);
+      set(req, 'accessToken', token);
     }
 
     next();
