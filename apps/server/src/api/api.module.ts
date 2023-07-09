@@ -15,10 +15,10 @@ import { SystemSourceModule } from '../system-source/system-source.module';
 import { PassportModule } from '../util/passport/passport.module';
 import { WebhookModule } from '../webhook/webhook.module';
 
-import { ConnectorDeveloperController } from './connector/connector-developer.controller';
 import { ConnectorController } from './connector/connector.controller';
 import { CodebaseController } from './developer/codebase/codebase.controller';
 import { DataSourceController } from './developer/data-source/data-source.controller';
+import { DeveloperConnectorController } from './developer/developer-connector.controller';
 import { DeveloperPresenterController } from './developer/developer-presenter.controller';
 import { InspectionController } from './developer/inspection/inspection.controller';
 import { MigrationController } from './developer/migration/migration.controller';
@@ -70,9 +70,9 @@ import { WebhookController } from './webhook/webhook.controller';
     MigrationController,
     PresenterController,
     PresenterCodeController,
-    DeveloperPresenterController,
     ConnectorController,
-    ConnectorDeveloperController,
+    DeveloperPresenterController,
+    DeveloperConnectorController,
   ],
   providers: [
     SourceAccessControlService,
