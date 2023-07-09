@@ -15,26 +15,27 @@ import { SystemSourceModule } from '../system-source/system-source.module';
 import { PassportModule } from '../util/passport/passport.module';
 import { WebhookModule } from '../webhook/webhook.module';
 
-import { AuthenticationController } from './authentication/authentication.controller';
-import { AuthorizationController } from './authorization/authorization.controller';
-import { AuthorizationService } from './authorization/authorization.service';
-import { CodebaseController } from './codebase/codebase.controller';
+import { ConnectorDeveloperController } from './connector/connector-developer.controller';
 import { ConnectorController } from './connector/connector.controller';
-import { DataSourceController } from './data-source/data-source.controller';
+import { CodebaseController } from './developer/codebase/codebase.controller';
+import { DataSourceController } from './developer/data-source/data-source.controller';
+import { InspectionController } from './developer/inspection/inspection.controller';
+import { MigrationController } from './developer/migration/migration.controller';
+import { PresenterCodeController } from './developer/presenter-code/presenter-code.controller';
 import { EditorController } from './editor/editor.controller';
-import { GrantListController } from './grant-list/grant-list.controller';
-import { GrantRoleController } from './grant-role/grant-role.controller';
-import { InspectionController } from './inspection/inspection.controller';
-import { MigrationController } from './migration/migration.controller';
-import { OrgController } from './org/org.controller';
-import { PresenterController } from './presenter/presenter.controller';
-import { PresenterCodeController } from './presenter-code/presenter-code.controller';
-import { RoleController } from './role/role.controller';
-import { SeedController } from './seed/seed.controller';
+import { AuthenticationController } from './public/authentication/authentication.controller';
+import { AuthorizationController } from './public/authorization/authorization.controller';
+import { AuthorizationService } from './public/authorization/authorization.service';
+import { GrantListController } from './public/grant-list/grant-list.controller';
+import { GrantRoleController } from './public/grant-role/grant-role.controller';
+import { OrgController } from './public/org/org.controller';
+import { PresenterController } from './public/presenter/presenter.controller';
+import { RoleController } from './public/role/role.controller';
 import { SourceAccessControlService } from './source/source-access-control.service';
 import { SourceOperationService } from './source/source-operation.service';
 import { SourceQueryPermissionService } from './source/source-query-permission.service';
 import { SourceController } from './source/source.controller';
+import { SeedController } from './tenant/seed/seed.controller';
 import { ViewController } from './view/view.controller';
 import { WebhookController } from './webhook/webhook.controller';
 
@@ -71,6 +72,7 @@ import { WebhookController } from './webhook/webhook.controller';
     PresenterCodeController,
     EditorController,
     ConnectorController,
+    ConnectorDeveloperController,
   ],
   providers: [
     SourceAccessControlService,
