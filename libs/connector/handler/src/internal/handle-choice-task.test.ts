@@ -15,7 +15,6 @@ describe('handle-choice-task', () => {
       store: {},
       orgName: 'shukun',
       operatorId: undefined,
-      taskDefinitions: {},
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       connector: undefined as any,
     };
