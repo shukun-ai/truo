@@ -19,10 +19,10 @@ import { ConnectorDeveloperController } from './connector/connector-developer.co
 import { ConnectorController } from './connector/connector.controller';
 import { CodebaseController } from './developer/codebase/codebase.controller';
 import { DataSourceController } from './developer/data-source/data-source.controller';
+import { DeveloperPresenterController } from './developer/developer-presenter.controller';
 import { InspectionController } from './developer/inspection/inspection.controller';
 import { MigrationController } from './developer/migration/migration.controller';
 import { PresenterCodeController } from './developer/presenter-code/presenter-code.controller';
-import { EditorController } from './editor/editor.controller';
 import { AuthenticationController } from './public/authentication/authentication.controller';
 import { AuthorizationController } from './public/authorization/authorization.controller';
 import { AuthorizationService } from './public/authorization/authorization.service';
@@ -70,7 +70,7 @@ import { WebhookController } from './webhook/webhook.controller';
     MigrationController,
     PresenterController,
     PresenterCodeController,
-    EditorController,
+    DeveloperPresenterController,
     ConnectorController,
     ConnectorDeveloperController,
   ],
