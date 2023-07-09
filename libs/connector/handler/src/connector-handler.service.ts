@@ -87,6 +87,10 @@ export class ConnectorHandlerService {
     const { start, repeatCount } = task.parameters as RepeatParameters;
     const outputArray: unknown[] = [];
 
+    if (typeof repeatCount !== 'number') {
+      throw new TypeException('repeatCount is not a number.');
+    }
+
     if (repeatCount > 1000) {
       throw new TypeException('Did not support repeatCount greater than 1000.');
     }
