@@ -48,8 +48,8 @@ describe('Connector API', () => {
     await updateCodebase(adaptor, applicationMockJson);
 
     const developerRequester = new DeveloperRequester(adaptor);
-    await updateConnector(
-      developerRequester,
+
+    await developerRequester.upsertConnector(
       'real_world',
       connectorSourceMockJson,
     );
@@ -102,21 +102,3 @@ describe('Connector API', () => {
     });
   });
 });
-
-const updateConnector = async (
-  requester: DeveloperRequester,
-  connectorName: string,
-  connector: ConnectorSchema,
-) => {
-  let response;
-  try {
-    response = await requester.getConnector(connectorName);
-  } catch (error) {
-    //
-  }
-  if (!response) {
-    await requester.createConnector(connectorName, connector);
-  } else {
-    await requester.updateConnector(connectorName, connector);
-  }
-};
