@@ -5,9 +5,11 @@ export const taskMongoSchema = new Schema(
     name: {
       type: String,
       require: true,
+      unique: true,
     },
     definition: {
       type: Buffer,
+      require: true,
     },
   },
   { timestamps: true },

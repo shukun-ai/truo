@@ -4,7 +4,7 @@ import { TypeException } from '@shukun/exception';
 import { ConnectorSchema } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
-import { connectorMongoSchema } from './connector/connector.schema';
+import { connectorMongoSchema } from './connector.schema';
 
 @Injectable()
 export class ConnectorService {
@@ -15,40 +15,38 @@ export class ConnectorService {
       name: connectorName,
     });
 
-    if (!entity || !entity.content) {
+    if (!entity || !entity.definition) {
       throw new TypeException('Did not find connector by name: {{name}}', {
         name: connectorName,
       });
     }
 
-    return this.serialize(entity.content);
+    return this.serialize(entity.definition);
   }
 
-  async create(
+  async upsert(
     orgName: string,
     connectorName: string,
-    connector: ConnectorSchema,
-  ): Promise<void> {
-    await this.getCollection(orgName).create({
-      unique: `${orgName}:${connectorName}`,
-      name: connectorName,
-      content: this.deserialize(connector),
-    });
-  }
-
-  async update(
-    orgName: string,
-    connectorName: string,
-    connector: ConnectorSchema,
+    connectorDefinition: ConnectorSchema,
   ): Promise<void> {
     await this.getCollection(orgName).findOneAndUpdate(
       {
         name: connectorName,
       },
       {
-        content: this.deserialize(connector),
+        name: connectorName,
+        definition: this.deserialize(connectorDefinition),
+      },
+      {
+        upsert: true,
       },
     );
+  }
+
+  async remove(orgName: string, connectorName: string): Promise<void> {
+    await this.getCollection(orgName).findOneAndRemove({
+      name: connectorName,
+    });
   }
 
   private serialize(buffer: Buffer): ConnectorSchema {

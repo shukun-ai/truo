@@ -2,17 +2,14 @@ import { Schema } from 'mongoose';
 
 export const connectorMongoSchema = new Schema(
   {
-    unique: {
+    name: {
       type: String,
       require: true,
       unique: true,
     },
-    name: {
-      type: String,
-      require: true,
-    },
-    content: {
+    definition: {
       type: Buffer,
+      require: true,
     },
   },
   { timestamps: true },
@@ -20,7 +17,7 @@ export const connectorMongoSchema = new Schema(
 
 export type ConnectorDocument = {
   name: string;
-  content: Buffer;
+  definition: Buffer;
   createdAt: NativeDate;
   updatedAt: NativeDate;
 };

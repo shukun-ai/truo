@@ -50,6 +50,7 @@ export class ConnectorTaskService {
         name: taskName,
       },
       {
+        name: taskName,
         definition: this.deserialize(taskDefinition),
       },
       {
