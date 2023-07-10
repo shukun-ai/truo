@@ -1,11 +1,11 @@
 import { Body, Controller, Param, Post, UseInterceptors } from '@nestjs/common';
 import { ConnectorSchema, RoleResourceType } from '@shukun/schema';
 
-import { ConnectorService } from '../../core/connector.service';
+import { ConnectorService } from '../../core/connector/connector.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
-import { ConnectorCreateDto } from './dto/connector-create.dto';
+import { ConnectorCreateDto, ConnectorRemoveDto } from './dto/connector.dto';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
@@ -23,12 +23,12 @@ export class DeveloperConnectorController {
     };
   }
 
-  @Post('create-connector')
+  @Post('upsert-connector')
   async create(
     @Param('orgName') orgName: string,
     @Body() dto: ConnectorCreateDto,
   ): Promise<QueryResponse<null>> {
-    await this.connectorService.create(
+    await this.connectorService.upsert(
       orgName,
       dto.connectorName,
       dto.connector,
@@ -38,16 +38,12 @@ export class DeveloperConnectorController {
     };
   }
 
-  @Post('update-connector')
-  async update(
+  @Post('remove-connector')
+  async remove(
     @Param('orgName') orgName: string,
-    @Body() dto: ConnectorCreateDto,
+    @Body() dto: ConnectorRemoveDto,
   ): Promise<QueryResponse<null>> {
-    await this.connectorService.update(
-      orgName,
-      dto.connectorName,
-      dto.connector,
-    );
+    await this.connectorService.remove(orgName, dto.connectorName);
     return {
       value: null,
     };

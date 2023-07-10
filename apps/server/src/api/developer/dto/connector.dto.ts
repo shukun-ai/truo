@@ -21,3 +21,14 @@ export class ConnectorCreateDto {
   @IsNotEmpty()
   readonly connector!: ConnectorSchema;
 }
+
+export class ConnectorRemoveDto {
+  @IsNotEmpty()
+  @IsString()
+  @IsEngineName()
+  @IsStartedWithLowercase()
+  @IsNotDoubleUnderscore()
+  @MinLength(2)
+  @MaxLength(30)
+  readonly connectorName!: string;
+}
