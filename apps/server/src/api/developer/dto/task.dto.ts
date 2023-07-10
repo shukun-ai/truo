@@ -12,3 +12,11 @@ export class TaskCreateDto {
   @IsNotEmpty()
   readonly task!: TaskSchema;
 }
+
+export class TaskRemoveDto {
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(2)
+  @MaxLength(30)
+  readonly taskName!: string;
+}

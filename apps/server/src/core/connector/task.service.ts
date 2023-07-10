@@ -58,6 +58,12 @@ export class ConnectorTaskService {
     );
   }
 
+  async remove(orgName: string, taskName: string): Promise<void> {
+    await this.getCollection(orgName).findOneAndRemove({
+      name: taskName,
+    });
+  }
+
   private serialize(buffer: Buffer): TaskSchema {
     return JSON.parse(buffer.toString());
   }
