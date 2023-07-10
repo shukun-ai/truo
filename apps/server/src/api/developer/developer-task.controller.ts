@@ -5,7 +5,7 @@ import { ConnectorTaskService } from '../../core/connector/task.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
-import { TaskCreateDto } from './internal/task-create.dto';
+import { TaskCreateDto, TaskRemoveDto } from './dto/task.dto';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
@@ -28,6 +28,17 @@ export class DeveloperTaskController {
     @Body() dto: TaskCreateDto,
   ): Promise<QueryResponse<null>> {
     await this.connectorTaskService.upsert(orgName, dto.taskName, dto.task);
+    return {
+      value: null,
+    };
+  }
+
+  @Post('remove-task')
+  async remove(
+    @Param('orgName') orgName: string,
+    @Body() dto: TaskRemoveDto,
+  ): Promise<QueryResponse<null>> {
+    await this.connectorTaskService.remove(orgName, dto.taskName);
     return {
       value: null,
     };

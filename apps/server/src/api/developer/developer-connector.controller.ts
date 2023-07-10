@@ -5,7 +5,7 @@ import { ConnectorService } from '../../core/connector.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
-import { ConnectorCreateDto } from './internal/connector-create.dto';
+import { ConnectorCreateDto } from './dto/connector-create.dto';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
