@@ -181,15 +181,15 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/developer/{orgName}/create-connector
+   * POST /apis/v1/developer/{orgName}/upsert-connector
    */
-  public async createConnector(
+  public async upsertConnector(
     connectorName: string,
     connector: ConnectorSchema,
   ) {
     return await this.requestAdaptor.fetch<ConnectorSchema>(
       'POST',
-      this.buildUri(`create-connector`),
+      this.buildUri(`upsert-connector`),
       {
         body: {
           connectorName,
@@ -201,19 +201,15 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/developer/{orgName}/update-connector
+   * POST /apis/v1/developer/{orgName}/remove-connector
    */
-  public async updateConnector(
-    connectorName: string,
-    connector: ConnectorSchema,
-  ) {
+  public async removeConnector(connectorName: string) {
     return await this.requestAdaptor.fetch<ConnectorSchema>(
       'POST',
-      this.buildUri(`update-connector`),
+      this.buildUri(`remove-connector`),
       {
         body: {
           connectorName,
-          connector,
         },
       },
     );
@@ -247,6 +243,22 @@ export class DeveloperRequester {
         body: {
           taskName,
           task,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/remove-task
+   */
+  public async removeTask(taskName: string) {
+    return await this.requestAdaptor.fetch<TaskSchema>(
+      'POST',
+      this.buildUri(`remove-task`),
+      {
+        body: {
+          taskName,
         },
       },
     );
