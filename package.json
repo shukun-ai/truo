@@ -3,7 +3,7 @@
   "version": "1.28.0",
   "private": true,
   "scripts": {
-    "start": "nx run-many --target=serve --projects=server,client,presenter",
+    "start": "nx run-many --target=serve --projects=server,presenter,editor2",
     "build": "nx run-many --target=build --all --configuration=production",
     "test": "npm run test:unit && npm run test:integrate",
     "test:integrate": "nx run server:integration-test",
