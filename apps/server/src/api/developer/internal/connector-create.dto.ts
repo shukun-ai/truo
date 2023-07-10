@@ -5,9 +5,9 @@ import {
   IsEngineName,
   IsNotDoubleUnderscore,
   IsStartedWithLowercase,
-} from '../../util/validation/decorators';
+} from '../../../util/validation/decorators';
 
-export class DeveloperConnectorCreateDto {
+export class ConnectorCreateDto {
   @IsNotEmpty()
   @IsString()
   @IsEngineName()

@@ -17,7 +17,7 @@ export class ConnectorController {
   ) {}
 
   @Post(':connectorName')
-  async call(
+  async run(
     @Req() req: SecurityRequest,
     @Param('orgName') orgName: string,
     @Param('connectorName') connectorName: string,

@@ -15,17 +15,17 @@ import {
   applicationSchemaValidator,
 } from '@shukun/validator';
 
-import { CompilerService } from '../../../compiler/compiler.service';
-import { FlowService } from '../../../core/flow.service';
-import { OrgService } from '../../../core/org.service';
-import { ScheduleOrgOperatorService } from '../../../schedule/schedule-org-operator.service';
-import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
-import { QueryResponse } from '../../../util/query/interfaces';
+import { CompilerService } from '../../compiler/compiler.service';
+import { FlowService } from '../../core/flow.service';
+import { OrgService } from '../../core/org.service';
+import { ScheduleOrgOperatorService } from '../../schedule/schedule-org-operator.service';
+import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
+import { QueryResponse } from '../../util/query/interfaces';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName/codebase`)
 @UseInterceptors(QueryResponseInterceptor)
 @ApiBearerAuth()
-export class CodebaseController {
+export class DeveloperCodebaseController {
   constructor(
     private readonly orgService: OrgService,
     private readonly flowService: FlowService,

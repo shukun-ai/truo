@@ -5,7 +5,7 @@ import { ConnectorService } from '../../core/connector.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
-import { DeveloperConnectorCreateDto } from './developer-connector-create.dto';
+import { ConnectorCreateDto } from './internal/connector-create.dto';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
@@ -26,7 +26,7 @@ export class DeveloperConnectorController {
   @Post('create-connector')
   async create(
     @Param('orgName') orgName: string,
-    @Body() dto: DeveloperConnectorCreateDto,
+    @Body() dto: ConnectorCreateDto,
   ): Promise<QueryResponse<null>> {
     await this.connectorService.create(
       orgName,
@@ -41,7 +41,7 @@ export class DeveloperConnectorController {
   @Post('update-connector')
   async update(
     @Param('orgName') orgName: string,
-    @Body() dto: DeveloperConnectorCreateDto,
+    @Body() dto: ConnectorCreateDto,
   ): Promise<QueryResponse<null>> {
     await this.connectorService.update(
       orgName,

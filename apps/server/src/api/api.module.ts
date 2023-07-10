@@ -16,14 +16,14 @@ import { PassportModule } from '../util/passport/passport.module';
 import { WebhookModule } from '../webhook/webhook.module';
 
 import { ConnectorController } from './connector/connector.controller';
-import { CodebaseController } from './developer/codebase/codebase.controller';
-import { DataSourceController } from './developer/data-source/data-source.controller';
+import { DeveloperCodebaseController } from './developer/developer-codebase.controller';
 import { DeveloperConnectorController } from './developer/developer-connector.controller';
+import { DeveloperDataSourceController } from './developer/developer-data-source.controller';
+import { DeveloperInspectionController } from './developer/developer-inspection.controller';
+import { DeveloperMigrationController } from './developer/developer-migration.controller';
+import { DeveloperPresenterCodeController } from './developer/developer-presenter-code.controller';
 import { DeveloperPresenterController } from './developer/developer-presenter.controller';
 import { DeveloperTaskController } from './developer/developer-task.controller';
-import { InspectionController } from './developer/inspection/inspection.controller';
-import { MigrationController } from './developer/migration/migration.controller';
-import { PresenterCodeController } from './developer/presenter-code/presenter-code.controller';
 import { AuthenticationController } from './public/authentication/authentication.controller';
 import { AuthorizationController } from './public/authorization/authorization.controller';
 import { AuthorizationService } from './public/authorization/authorization.service';
@@ -62,16 +62,16 @@ import { WebhookController } from './webhook/webhook.controller';
     OrgController,
     WebhookController,
     ViewController,
-    CodebaseController,
-    DataSourceController,
     SourceController,
     SeedController,
     RoleController,
-    InspectionController,
-    MigrationController,
     PresenterController,
-    PresenterCodeController,
     ConnectorController,
+    DeveloperCodebaseController,
+    DeveloperDataSourceController,
+    DeveloperInspectionController,
+    DeveloperMigrationController,
+    DeveloperPresenterCodeController,
     DeveloperPresenterController,
     DeveloperConnectorController,
     DeveloperTaskController,
