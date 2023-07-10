@@ -1,7 +1,6 @@
 import {
   AxiosAdaptor,
   DeveloperRequester,
-  EditorRequester,
   PublicRequester,
   SourceRequester,
   ViewRequester,
@@ -17,7 +16,6 @@ export class ApiRequester implements IApiRequester {
   readonly publicRequester: PublicRequester;
   readonly viewRequester: ViewRequester;
   readonly developerRequester: DeveloperRequester;
-  readonly editorRequester: EditorRequester;
 
   private readonly adaptor: AxiosAdaptor;
 
@@ -30,7 +28,6 @@ export class ApiRequester implements IApiRequester {
     this.publicRequester = new PublicRequester(this.adaptor);
     this.viewRequester = new ViewRequester(this.adaptor);
     this.developerRequester = new DeveloperRequester(this.adaptor);
-    this.editorRequester = new EditorRequester(this.adaptor);
   }
 
   createSourceRequester<Model extends UnknownSourceModel>(atomName: string) {
