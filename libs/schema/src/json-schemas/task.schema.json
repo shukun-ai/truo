@@ -3,7 +3,7 @@
   "title": "TaskSchema",
   "description": "Define the connector task definitions",
   "type": "object",
-  "required": ["scope", "parameters"],
+  "required": ["scope", "parameters", "withAccessToken"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -12,7 +12,14 @@
     "scope": {
       "enum": ["internal", "resource"]
     },
-    "address": { "type": "string" },
+    "address": {
+      "type": "string",
+      "$comment": "Example: http://127.0.0.1:3000/apis/v1, mongodb://127.0.0.1/db"
+    },
+    "withAccessToken": {
+      "type": "boolean"
+    },
+    "protocol": { "enum": ["http"] },
     "parameters": {
       "type": "object",
       "patternProperties": {

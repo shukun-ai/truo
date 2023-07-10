@@ -1,7 +1,9 @@
-import { AxiosAdaptor, IRequestAdaptor, SourceRequester } from '@shukun/api';
+import { IRequestAdaptor, SourceRequester } from '@shukun/api';
 import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
+import { getDefinition } from '../helpers/get-definition';
+import { createRequesterAdaptor } from '../helpers/requester-adaptor';
 import { HandlerContext } from '../types';
 
 export const handleShukunTask = async (
@@ -22,7 +24,10 @@ const handleSourceQueryTask = async (
 ): Promise<HandlerContext> => {
   const { atomName, query } = task.parameters as any;
 
-  const requester = new SourceRequester(createAdaptor(task, context), atomName);
+  const requester = new SourceRequester(
+    createShukunAdaptor(task, context),
+    atomName,
+  );
   const response = await requester.query(query);
 
   return {
@@ -32,26 +37,22 @@ const handleSourceQueryTask = async (
   };
 };
 
-const createAdaptor = (
+const createShukunAdaptor = (
   task: ConnectorTask,
   context: HandlerContext,
 ): IRequestAdaptor => {
-  const definition = context.taskDefinitions[task.type];
+  const definition = getDefinition(task, context);
 
-  if (!definition) {
-    throw new TypeException('Did not find task definition.');
-  }
+  const defaultAddress = `http://127.0.0.1:${
+    process.env.PORT ?? '3000'
+  }/apis/v1`;
 
-  const { address } = definition as { address?: string };
-
-  const baseUrl = address
-    ? address
-    : `http://127.0.0.1:${process.env.PORT ?? '3000'}/apis/v1`;
-
-  const adaptor = new AxiosAdaptor({
-    baseUrl,
-    onOrgName: () => context.orgName,
-    onAccessToken: () => context.accessToken ?? null,
+  return createRequesterAdaptor({
+    orgName: context.orgName,
+    protocol: definition.protocol,
+    address: definition.address,
+    defaultAddress,
+    withAccessToken: definition.withAccessToken,
+    accessToken: context.accessToken,
   });
-  return adaptor;
 };
