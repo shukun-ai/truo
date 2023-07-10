@@ -8,17 +8,17 @@ import {
 import { InspectionResponse } from '@shukun/api';
 import { RoleResourceType } from '@shukun/schema';
 
-import { OrgService } from '../../../core/org.service';
+import { OrgService } from '../../core/org.service';
 
-import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
-import { QueryResponse } from '../../../util/query/interfaces';
+import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
+import { QueryResponse } from '../../util/query/interfaces';
 
 /**
  * @deprecated
  */
 @Controller(`${RoleResourceType.Developer}/:orgName/inspection`)
 @UseInterceptors(QueryResponseInterceptor)
-export class InspectionController {
+export class DeveloperInspectionController {
   @Inject() private readonly orgService!: OrgService;
 
   @Get()

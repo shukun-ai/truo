@@ -2,14 +2,14 @@ import { Controller, Param, Post, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { RoleResourceType, MigrationDifference } from '@shukun/schema';
 
-import { MigrationService } from '../../../migration/migration.service';
-import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
-import { QueryResponse } from '../../../util/query/interfaces';
+import { MigrationService } from '../../migration/migration.service';
+import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
+import { QueryResponse } from '../../util/query/interfaces';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName/migration`)
 @UseInterceptors(QueryResponseInterceptor)
 @ApiBearerAuth()
-export class MigrationController {
+export class DeveloperMigrationController {
   constructor(private readonly migrationService: MigrationService) {}
 
   @Post('preview')

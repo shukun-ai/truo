@@ -11,14 +11,14 @@ import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { PresenterSchema, RoleResourceType } from '@shukun/schema';
 import { presenterSchemaValidator } from '@shukun/validator';
 
-import { PresenterService } from '../../../core/presenter.service';
+import { PresenterService } from '../../core/presenter.service';
 
-import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
-import { QueryResponse } from '../../../util/query/interfaces';
+import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
+import { QueryResponse } from '../../util/query/interfaces';
 
 @Controller(`${RoleResourceType.Developer}/:orgName/presenters-code`)
 @UseInterceptors(QueryResponseInterceptor)
-export class PresenterCodeController {
+export class DeveloperPresenterCodeController {
   constructor(private readonly presenterService: PresenterService) {}
 
   @Post()
