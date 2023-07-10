@@ -29,7 +29,7 @@ export const RepositoryField = ({
     );
   }
 
-  if (editorType === 'json') {
+  if (editorType === 'jsonSchema') {
     return (
       <RepositoryJson parameterName={parameterName} parameter={parameter} />
     );

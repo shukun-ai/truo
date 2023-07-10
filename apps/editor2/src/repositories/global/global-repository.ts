@@ -13,7 +13,7 @@ export class GlobalRepository implements IGlobalRepository {
   constructor(private readonly apiRequester: ApiRequester) {}
 
   async fetchPresenters() {
-    const response = await this.apiRequester.editorRequester.getPresenters();
+    const response = await this.apiRequester.developerRequester.getPresenters();
     const presenters = Object.entries(response.data.value).map(
       ([name, definition]) => ({
         name,
