@@ -21,7 +21,7 @@ export class ConnectorController {
     @Req() req: SecurityRequest,
     @Param('orgName') orgName: string,
     @Param('connectorName') connectorName: string,
-    @Body() dto: unknown,
+    @Body() dto: Record<string, unknown>,
   ): Promise<unknown> {
     const connector = await this.connectorService.get(orgName, connectorName);
     const taskDefinitions = await this.connectorTaskService.query(orgName);
@@ -32,7 +32,8 @@ export class ConnectorController {
       next: connector.start,
       index: 0,
       env,
-      store: {},
+      temps: {},
+      params: dto,
       orgName,
       operatorId: req.userId,
       accessToken: req.accessToken,

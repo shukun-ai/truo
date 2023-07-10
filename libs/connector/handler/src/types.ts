@@ -10,7 +10,8 @@ export type HandlerContext = {
   next: string | undefined | null;
   index: number;
   env: DataSourceEnvironments;
-  store: Record<string, unknown>;
+  temps: Record<string, unknown>; // For storing temporary values
+  params: Record<string, unknown>; // Fix value from http body
   orgName: string;
   operatorId: IDString | undefined;
   accessToken: string | undefined;
