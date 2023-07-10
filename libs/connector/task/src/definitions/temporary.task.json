@@ -3,17 +3,19 @@
   "scope": "internal",
   "withAccessToken": true,
   "parameters": {
-    "atomName": {
+    "key": {
       "schema": {
         "type": "string"
       },
-      "required": true,
-      "editorType": "atomName"
+      "editorType": "temporaryKey",
+      "required": true
     },
-    "query": {
-      "schema": {},
-      "required": true,
-      "editorType": "sourceQuery"
+    "value": {
+      "schema": {
+        "type": "string"
+      },
+      "editorType": "jsCode",
+      "required": true
     }
   }
 }

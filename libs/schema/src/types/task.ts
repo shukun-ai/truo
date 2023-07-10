@@ -70,6 +70,12 @@ export interface TaskParameter {
     | 'parallelBranches'
     | 'choiceConditions'
     | 'repeatCount'
-    | 'template'
-    | 'description';
+    | 'templateCode'
+    | 'jsCode'
+    | 'description'
+    | 'temporaryKey'
+    | 'string'
+    | 'number'
+    | 'integer'
+    | 'boolean';
 }

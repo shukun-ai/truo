@@ -26,7 +26,7 @@
           "additionalProperties": false,
           "properties": {
             "editorType": {
-              "enum": ["json", "atomName", "flowName"]
+              "enum": ["jsonSchema", "atomName", "flowName", "connectorName"]
             },
             "required": {
               "type": "boolean"
