@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../schema/src/json-schemas/task.schema.json",
   "scope": "internal",
+  "withAccessToken": true,
   "parameters": {
     "branches": {
       "schema": {

@@ -26,7 +26,7 @@ export interface RepositorySchema {
  * via the `patternProperty` "^(.)+$".
  */
 export interface RepositoryParameter {
-  editorType: 'json' | 'atomName' | 'flowName';
+  editorType: 'jsonSchema' | 'atomName' | 'flowName' | 'connectorName';
   required?: boolean;
 }
 /**
