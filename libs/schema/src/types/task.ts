@@ -49,6 +49,8 @@ export interface TaskSchema {
   $schema?: string;
   scope: 'internal' | 'resource';
   address?: string;
+  withAccessToken: boolean;
+  protocol?: 'http';
   parameters: {
     [k: string]: TaskParameter;
   };
