@@ -7,14 +7,14 @@ import { isEqual } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 
 import { PresenterRepositoryEntity } from '../../../../../repositories/presenter/repository-ref';
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { RepositoryFormProvider } from './repository-context';
 import { RepositoryField } from './repository-field';
 
 export type RepositoryFormProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
   repository: PresenterRepositoryEntity;
   definition: RepositorySchema;
 };
@@ -36,12 +36,12 @@ export const RepositoryForm = ({
 
   useEffect(() => {
     if (!isEqual(form.values, repository.parameters) && !fixedCache) {
-      app.repositories.presenterRepository.tabRepository.fixTab(tab.id);
-      app.repositories.presenterRepository.tabRepository.activeEditTab(tab.id);
+      app.repositories.tabRepository.fixTab(tab.id);
+      app.repositories.tabRepository.activeEditTab(tab.id);
       setFixedCache(true);
     }
   }, [
-    app.repositories.presenterRepository.tabRepository,
+    app.repositories.tabRepository,
     fixedCache,
     form.values,
     repository.parameters,
@@ -56,11 +56,11 @@ export const RepositoryForm = ({
         parameters: form.values,
       },
     );
-    app.repositories.presenterRepository.tabRepository.inactiveEditTab(tab.id);
+    app.repositories.tabRepository.inactiveEditTab(tab.id);
     setFixedCache(false);
   }, [
     app.repositories.presenterRepository.repositoryRepository,
-    app.repositories.presenterRepository.tabRepository,
+    app.repositories.tabRepository,
     form.values,
     repository,
     tab.id,

@@ -3,13 +3,13 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { WidgetForm } from '../widget/widget-form';
 
 export type TabWidgetProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
 };
 
 export const TabWidget = ({ tab }: TabWidgetProps) => {

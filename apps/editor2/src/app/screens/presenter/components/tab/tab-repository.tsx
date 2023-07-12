@@ -3,13 +3,13 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { RepositoryForm } from '../repository-tab/repository-form';
 
 export type TabRepositoryProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
 };
 
 export const TabRepository = ({ tab }: TabRepositoryProps) => {

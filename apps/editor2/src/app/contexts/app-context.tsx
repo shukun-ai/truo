@@ -10,6 +10,8 @@ import { GlobalRepository } from '../../repositories/global/global-repository';
 import { IGlobalRepository } from '../../repositories/global/global-repository.interface';
 import { PresenterRepository } from '../../repositories/presenter/presenter-repository';
 import { IPresenterRepository } from '../../repositories/presenter/presenter-repository.interface';
+import { TabRepository } from '../../repositories/tab/tab-repository';
+import { ITabRepository } from '../../repositories/tab/tab-repository.interface';
 
 export type AppContextProps = {
   repositories: {
@@ -17,6 +19,7 @@ export type AppContextProps = {
     globalRepository: IGlobalRepository;
     presenterRepository: IPresenterRepository;
     connectorRepository: IConnectorRepository;
+    tabRepository: ITabRepository;
   };
 };
 
@@ -26,6 +29,7 @@ export const initializeAppContextProps = (): AppContextProps => {
   const globalRepository = new GlobalRepository(apiRequester);
   const presenterRepository = new PresenterRepository(apiRequester);
   const connectorRepository = new ConnectorRepository(apiRequester);
+  const tabRepository = new TabRepository();
 
   return {
     repositories: {
@@ -33,6 +37,7 @@ export const initializeAppContextProps = (): AppContextProps => {
       globalRepository,
       presenterRepository,
       connectorRepository,
+      tabRepository,
     },
   };
 };

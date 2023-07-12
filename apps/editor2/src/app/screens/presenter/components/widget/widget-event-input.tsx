@@ -1,13 +1,13 @@
 import { Box } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { EventInput } from '../event/event-input';
 
 import { composeFormEventName, useWidgetFormContext } from './widget-context';
 
 export type WidgetEventInputProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
   propertyId: string;
   property: WidgetProperty;
 };

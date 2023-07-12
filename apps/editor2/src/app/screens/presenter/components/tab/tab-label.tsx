@@ -5,11 +5,11 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
 export type TabLabelProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
 };
 
 export const TabLabel = ({ tab }: TabLabelProps) => {

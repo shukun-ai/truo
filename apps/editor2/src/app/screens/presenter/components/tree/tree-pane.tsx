@@ -33,7 +33,7 @@ export const TreePane = () => {
     {},
   );
   const selectedWidgetEntityId = useObservableState(
-    app.repositories.presenterRepository.selectedWidgetEntityId$,
+    app.repositories.tabRepository.selectedWidgetEntityId$,
     null,
   );
 

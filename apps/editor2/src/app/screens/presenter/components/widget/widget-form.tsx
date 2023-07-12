@@ -6,14 +6,14 @@ import { WidgetSchema } from '@shukun/schema';
 import { isEqual } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
 import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 import { WidgetFormProvider, WidgetFormValue } from '../widget/widget-context';
 import { WidgetField } from '../widget/widget-field';
 
 export type WidgetFormProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
   widget: PresenterWidgetEntity;
   definition: WidgetSchema;
 };
@@ -40,12 +40,12 @@ export const WidgetForm = ({ tab, widget, definition }: WidgetFormProps) => {
       }) &&
       !fixedCache
     ) {
-      app.repositories.presenterRepository.tabRepository.fixTab(tab.id);
-      app.repositories.presenterRepository.tabRepository.activeEditTab(tab.id);
+      app.repositories.tabRepository.fixTab(tab.id);
+      app.repositories.tabRepository.activeEditTab(tab.id);
       setFixedCache(true);
     }
   }, [
-    app.repositories.presenterRepository.tabRepository,
+    app.repositories.tabRepository,
     fixedCache,
     form.values,
     tab.id,
@@ -58,10 +58,10 @@ export const WidgetForm = ({ tab, widget, definition }: WidgetFormProps) => {
       widget.id,
       form.values,
     );
-    app.repositories.presenterRepository.tabRepository.inactiveEditTab(tab.id);
+    app.repositories.tabRepository.inactiveEditTab(tab.id);
     setFixedCache(false);
   }, [
-    app.repositories.presenterRepository.tabRepository,
+    app.repositories.tabRepository,
     app.repositories.presenterRepository.widgetRepository,
     form.values,
     tab.id,

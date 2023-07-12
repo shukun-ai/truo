@@ -1,6 +1,6 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
 
-export type PresenterTabEntity = {
+export type TabEntity = {
   id: string;
   isPreview: boolean;
   isEdit: boolean;
@@ -29,7 +29,7 @@ export type PresenterTabEntity = {
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');
 
 export const withTab = () => {
-  return withTabEntities<PresenterTabEntity>();
+  return withTabEntities<TabEntity>();
 };
 
 export const tabRef = tabEntitiesRef;
