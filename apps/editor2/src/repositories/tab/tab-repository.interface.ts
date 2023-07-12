@@ -8,6 +8,7 @@ export interface ITabRepository {
   selectedWidgetEntityId$: Observable<string | null>;
   selectedRepositoryEntityId$: Observable<string | null>;
   selectedWatchEntityId$: Observable<string | null>;
+  selectedConnectorEntityId$: Observable<string | null>;
 
   previewWidgetTab(
     containerName: string,
@@ -24,6 +25,7 @@ export interface ITabRepository {
     watchName: string,
     watchEntityId: string,
   ): void;
+  previewConnectorTab(connectorName: string, connectorEntityId: string): void;
   fixTab(entityId: string): void;
   activeEditTab(entityId: string): void;
   inactiveEditTab(entityId: string): void;
