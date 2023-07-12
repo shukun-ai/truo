@@ -1,7 +1,7 @@
 import { Box } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 
 import { WidgetBooleanInput } from './widget-boolean-input';
 import { WidgetEnumInput } from './widget-enum-input';
@@ -11,7 +11,7 @@ import { WidgetObjectInput } from './widget-object-input';
 import { WidgetStringInput } from './widget-string-input';
 
 export type WidgetFieldProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
   definitionPropertyId: string;
   definitionProperty: WidgetProperty;
 };

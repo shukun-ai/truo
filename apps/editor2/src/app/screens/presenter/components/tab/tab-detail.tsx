@@ -1,6 +1,6 @@
 import { TypeException } from '@shukun/exception';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
+import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 
 import { TabRepository } from './tab-repository';
 import { TabWatch } from './tab-watch';
@@ -8,7 +8,7 @@ import { TabWatch } from './tab-watch';
 import { TabWidget } from './tab-widget';
 
 export type TabDetailProps = {
-  tab: PresenterTabEntity;
+  tab: TabEntity;
 };
 
 export const TabDetail = ({ tab }: TabDetailProps) => {

@@ -7,7 +7,6 @@ import { widgetDefinitions } from '../../widgets/widget-loader';
 import { withContainer } from './container-ref';
 import { withRepository } from './repository-ref';
 import { withScreen } from './screen-ref';
-import { withTab } from './tab-ref';
 import { withTreeCollapse } from './tree-ui-ref';
 import { withWatch } from './watch-ref';
 import { withWidget } from './widget-ref';
@@ -19,7 +18,6 @@ export type PresenterProps = {
   repositoryDefinitions: Record<string, RepositorySchema>;
   selectedScreenEntityId: string | null;
   selectedContainerEntityId: string | null;
-  selectedTabEntityId: string | null;
 };
 
 export const ROOT_NODE_ID = 'root';
@@ -34,13 +32,11 @@ export const presenterStore = createStore(
     repositoryDefinitions,
     selectedScreenEntityId: null,
     selectedContainerEntityId: null,
-    selectedTabEntityId: null,
   }),
   withScreen(),
   withContainer(),
   withTreeCollapse(),
   withWidget(),
-  withTab(),
   withRepository(),
   withWatch(),
 );

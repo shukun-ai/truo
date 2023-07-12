@@ -13,11 +13,11 @@ export type TabPaneProps = {
 export const TabPane = () => {
   const app = useAppContext();
   const selectedTabEntityId = useObservableState(
-    app.repositories.presenterRepository.tabRepository.selectedTabEntityId$,
+    app.repositories.tabRepository.selectedTabEntityId$,
     null,
   );
   const allTabs = useObservableState(
-    app.repositories.presenterRepository.tabRepository.allTabs$,
+    app.repositories.tabRepository.allTabs$,
     [],
   );
 
@@ -25,14 +25,14 @@ export const TabPane = () => {
     <EditorTabs
       selectedTabId={selectedTabEntityId}
       tabs={allTabs}
-      fixTab={app.repositories.presenterRepository.tabRepository.fixTab.bind(
-        app.repositories.presenterRepository.tabRepository,
+      fixTab={app.repositories.tabRepository.fixTab.bind(
+        app.repositories.tabRepository,
       )}
-      chooseTab={app.repositories.presenterRepository.tabRepository.chooseTab.bind(
-        app.repositories.presenterRepository.tabRepository,
+      chooseTab={app.repositories.tabRepository.chooseTab.bind(
+        app.repositories.tabRepository,
       )}
-      closeTab={app.repositories.presenterRepository.tabRepository.closeTab.bind(
-        app.repositories.presenterRepository.tabRepository,
+      closeTab={app.repositories.tabRepository.closeTab.bind(
+        app.repositories.tabRepository,
       )}
       detail={(tabItem, index) => <TabDetail tab={allTabs[index]} />}
       label={(tabItem, index) => <TabLabel tab={allTabs[index]} />}

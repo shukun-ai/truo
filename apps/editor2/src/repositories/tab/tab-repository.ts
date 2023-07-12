@@ -13,20 +13,62 @@ import { nanoid } from 'nanoid';
 
 import { Observable } from 'rxjs';
 
-import { presenterStore } from './presenter-store';
-import { PresenterTabEntity, tabRef } from './tab-ref';
+import { TabEntity, tabRef } from './tab-ref';
 
 import { ITabRepository } from './tab-repository.interface';
+import { tabStore } from './tab-store';
 
 export class TabRepository implements ITabRepository {
-  private readonly presenterStore = presenterStore;
+  private readonly tabStore = tabStore;
 
-  allTabs$: Observable<PresenterTabEntity[]> = this.presenterStore.pipe(
+  allTabs$: Observable<TabEntity[]> = this.tabStore.pipe(
     selectAllEntities({ ref: tabRef }),
   );
 
-  selectedTabEntityId$: Observable<string | null> = this.presenterStore.pipe(
+  selectedTabEntityId$: Observable<string | null> = this.tabStore.pipe(
     select((state) => state.selectedTabEntityId),
+  );
+
+  selectedWidgetEntityId$ = this.tabStore.pipe(
+    select((state) => {
+      const tabId = state.selectedTabEntityId;
+      if (!tabId) {
+        return null;
+      }
+      const tabEntity = state.tabEntities[tabId];
+      if (tabEntity.tabType !== 'widget') {
+        return null;
+      }
+      return tabEntity.widgetEntityId;
+    }),
+  );
+
+  selectedRepositoryEntityId$ = this.tabStore.pipe(
+    select((state) => {
+      const tabId = state.selectedTabEntityId;
+      if (!tabId) {
+        return null;
+      }
+      const tabEntity = state.tabEntities[tabId];
+      if (tabEntity.tabType !== 'repository') {
+        return null;
+      }
+      return tabEntity.repositoryEntityId;
+    }),
+  );
+
+  selectedWatchEntityId$ = this.tabStore.pipe(
+    select((state) => {
+      const tabId = state.selectedTabEntityId;
+      if (!tabId) {
+        return null;
+      }
+      const tabEntity = state.tabEntities[tabId];
+      if (tabEntity.tabType !== 'watch') {
+        return null;
+      }
+      return tabEntity.watchEntityId;
+    }),
   );
 
   previewWidgetTab(
@@ -102,7 +144,7 @@ export class TabRepository implements ITabRepository {
   }
 
   fixTab(tabId: string): void {
-    this.presenterStore.update(
+    this.tabStore.update(
       updateEntities(
         tabId,
         {
@@ -117,7 +159,7 @@ export class TabRepository implements ITabRepository {
   }
 
   activeEditTab(tabId: string): void {
-    this.presenterStore.update(
+    this.tabStore.update(
       updateEntities(
         tabId,
         {
@@ -129,7 +171,7 @@ export class TabRepository implements ITabRepository {
   }
 
   inactiveEditTab(tabId: string): void {
-    this.presenterStore.update(
+    this.tabStore.update(
       updateEntities(
         tabId,
         {
@@ -141,11 +183,11 @@ export class TabRepository implements ITabRepository {
   }
 
   chooseTab(tabId: string): void {
-    const tab = this.presenterStore.query(getEntity(tabId, { ref: tabRef }));
+    const tab = this.tabStore.query(getEntity(tabId, { ref: tabRef }));
     if (!tab) {
       throw new TypeException('Did not find tab: {{tabId}}', { tabId });
     }
-    this.presenterStore.update(
+    this.tabStore.update(
       setProps({
         selectedTabEntityId: tab.id,
         selectedContainerEntityId: tab.containerName,
@@ -154,7 +196,7 @@ export class TabRepository implements ITabRepository {
   }
 
   closeTab(tabId: string): void {
-    this.presenterStore.update(
+    this.tabStore.update(
       deleteEntities(tabId, { ref: tabRef }),
       setProps((state) => {
         const entities = Object.values(state.tabEntities);
@@ -167,7 +209,7 @@ export class TabRepository implements ITabRepository {
   }
 
   private selectPreviewTab(tabId: string) {
-    this.presenterStore.update(
+    this.tabStore.update(
       setProps({
         selectedTabEntityId: tabId,
       }),
@@ -175,11 +217,11 @@ export class TabRepository implements ITabRepository {
   }
 
   private getExistPreviewTab(
-    tabType: PresenterTabEntity['tabType'],
+    tabType: TabEntity['tabType'],
     containerName: string,
     foreignName: string,
   ) {
-    return this.presenterStore.query(
+    return this.tabStore.query(
       getAllEntitiesApply({
         filterEntity: (entity) =>
           entity.tabType === 'widget' &&
@@ -191,14 +233,14 @@ export class TabRepository implements ITabRepository {
   }
 
   private createPreviewTabEntity(
-    tabType: PresenterTabEntity['tabType'],
+    tabType: TabEntity['tabType'],
     containerName: string,
     foreignName: string,
     foreignId: string,
   ) {
     const tabId = nanoid();
 
-    let tab: PresenterTabEntity;
+    let tab: TabEntity;
 
     if (tabType === 'widget') {
       tab = {
@@ -240,8 +282,8 @@ export class TabRepository implements ITabRepository {
     return tab;
   }
 
-  private createPreviewTab(tabEntity: PresenterTabEntity) {
-    const previewTabs = this.presenterStore.query(
+  private createPreviewTab(tabEntity: TabEntity) {
+    const previewTabs = this.tabStore.query(
       getAllEntitiesApply({
         filterEntity: (entity) => entity.isPreview,
         ref: tabRef,
@@ -249,7 +291,7 @@ export class TabRepository implements ITabRepository {
     );
     const previewTabIds = previewTabs.map((tab) => tab.id);
 
-    this.presenterStore.update(
+    this.tabStore.update(
       deleteEntities(previewTabIds, { ref: tabRef }),
       addEntities(tabEntity, { ref: tabRef }),
       setProps({

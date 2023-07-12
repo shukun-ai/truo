@@ -11,7 +11,6 @@ import { RepositoryRepository } from './repository-repository';
 import { ScreenRepository } from './screen-repository';
 import { SerializationService } from './serialization-service';
 import { SynchronizeService } from './synchronize-service';
-import { TabRepository } from './tab-repository';
 import { TreeRepository } from './tree-repository';
 import { WatchRepository } from './watch-repository';
 import { WidgetRepository } from './widget-repository';
@@ -26,8 +25,6 @@ export class PresenterRepository implements IPresenterRepository {
   widgetRepository = new WidgetRepository();
 
   treeRepository = new TreeRepository();
-
-  tabRepository = new TabRepository();
 
   repositoryRepository = new RepositoryRepository();
 
@@ -49,48 +46,6 @@ export class PresenterRepository implements IPresenterRepository {
 
   selectedContainerEntityId$ = this.presenterStore.pipe(
     select((state) => state.selectedContainerEntityId),
-  );
-
-  selectedWidgetEntityId$ = this.presenterStore.pipe(
-    select((state) => {
-      const tabId = state.selectedTabEntityId;
-      if (!tabId) {
-        return null;
-      }
-      const tabEntity = state.tabEntities[tabId];
-      if (tabEntity.tabType !== 'widget') {
-        return null;
-      }
-      return tabEntity.widgetEntityId;
-    }),
-  );
-
-  selectedRepositoryEntityId$ = this.presenterStore.pipe(
-    select((state) => {
-      const tabId = state.selectedTabEntityId;
-      if (!tabId) {
-        return null;
-      }
-      const tabEntity = state.tabEntities[tabId];
-      if (tabEntity.tabType !== 'repository') {
-        return null;
-      }
-      return tabEntity.repositoryEntityId;
-    }),
-  );
-
-  selectedWatchEntityId$ = this.presenterStore.pipe(
-    select((state) => {
-      const tabId = state.selectedTabEntityId;
-      if (!tabId) {
-        return null;
-      }
-      const tabEntity = state.tabEntities[tabId];
-      if (tabEntity.tabType !== 'watch') {
-        return null;
-      }
-      return tabEntity.watchEntityId;
-    }),
   );
 
   constructor(private readonly apiRequester: ApiRequester) {}

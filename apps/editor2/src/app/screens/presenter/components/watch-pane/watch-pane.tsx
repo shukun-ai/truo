@@ -22,7 +22,7 @@ export const WatchPane = () => {
   const app = useAppContext();
 
   const selectedWatchEntityId = useObservableState(
-    app.repositories.presenterRepository.selectedWatchEntityId$,
+    app.repositories.tabRepository.selectedWatchEntityId$,
     null,
   );
 
@@ -46,7 +46,7 @@ export const WatchPane = () => {
               selectedWatchEntityId === watchEntity.id && classes.active,
             )}
             onClick={() => {
-              app.repositories.presenterRepository.tabRepository.previewWatchTab(
+              app.repositories.tabRepository.previewWatchTab(
                 watchEntity.containerName,
                 watchEntity.watchName,
                 watchEntity.id,

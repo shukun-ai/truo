@@ -1,10 +1,14 @@
 import { Observable } from 'rxjs';
 
-import { PresenterTabEntity } from './tab-ref';
+import { TabEntity } from './tab-ref';
 
 export interface ITabRepository {
-  allTabs$: Observable<PresenterTabEntity[]>;
+  allTabs$: Observable<TabEntity[]>;
   selectedTabEntityId$: Observable<string | null>;
+  selectedWidgetEntityId$: Observable<string | null>;
+  selectedRepositoryEntityId$: Observable<string | null>;
+  selectedWatchEntityId$: Observable<string | null>;
+
   previewWidgetTab(
     containerName: string,
     widgetName: string,
