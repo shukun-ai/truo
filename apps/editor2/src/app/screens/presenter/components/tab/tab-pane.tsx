@@ -1,10 +1,8 @@
-import { Box, Tabs } from '@mantine/core';
-
 import { useObservableState } from 'observable-hooks';
 
+import { EditorTabs } from '../../../../components/editor-tabs/editor-tabs';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { TabActions } from './tab-actions';
 import { TabDetail } from './tab-detail';
 import { TabLabel } from './tab-label';
 
@@ -24,43 +22,20 @@ export const TabPane = () => {
   );
 
   return (
-    <Box sx={{ height: '100%', overflow: 'hidden' }}>
-      <Tabs
-        sx={{
-          overflow: 'hidden',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: 0,
-        }}
-        value={selectedTabEntityId}
-        onTabChange={(tabId) => {
-          if (tabId) {
-            app.repositories.presenterRepository.tabRepository.chooseTab(tabId);
-          }
-        }}
-      >
-        <Tabs.List>
-          {allTabs.map((tab) => (
-            <Tabs.Tab
-              key={tab.id}
-              value={tab.id}
-              rightSection={<TabActions tab={tab} />}
-            >
-              <TabLabel tab={tab} />
-            </Tabs.Tab>
-          ))}
-        </Tabs.List>
-        {allTabs.map((tab) => (
-          <Tabs.Panel
-            key={tab.id}
-            value={tab.id}
-            sx={{ flex: 1, overflow: 'hidden' }}
-          >
-            <TabDetail tab={tab} />
-          </Tabs.Panel>
-        ))}
-      </Tabs>
-    </Box>
+    <EditorTabs
+      selectedTabId={selectedTabEntityId}
+      tabs={allTabs}
+      fixTab={app.repositories.presenterRepository.tabRepository.fixTab.bind(
+        app.repositories.presenterRepository.tabRepository,
+      )}
+      chooseTab={app.repositories.presenterRepository.tabRepository.chooseTab.bind(
+        app.repositories.presenterRepository.tabRepository,
+      )}
+      closeTab={app.repositories.presenterRepository.tabRepository.closeTab.bind(
+        app.repositories.presenterRepository.tabRepository,
+      )}
+      detail={(tabItem, index) => <TabDetail tab={allTabs[index]} />}
+      label={(tabItem, index) => <TabLabel tab={allTabs[index]} />}
+    />
   );
 };
