@@ -4,6 +4,8 @@ import { ApiRequester } from '../../apis/requester';
 import { AuthRepository } from '../../repositories/auth/auth-repository';
 import { IAuthRepository } from '../../repositories/auth/auth-repository.interface';
 import { authStore } from '../../repositories/auth/auth-store';
+import { ConnectorRepository } from '../../repositories/connector/connector-repository';
+import { IConnectorRepository } from '../../repositories/connector/connector-repository.interface';
 import { GlobalRepository } from '../../repositories/global/global-repository';
 import { IGlobalRepository } from '../../repositories/global/global-repository.interface';
 import { PresenterRepository } from '../../repositories/presenter/presenter-repository';
@@ -14,6 +16,7 @@ export type AppContextProps = {
     authRepository: IAuthRepository;
     globalRepository: IGlobalRepository;
     presenterRepository: IPresenterRepository;
+    connectorRepository: IConnectorRepository;
   };
 };
 
@@ -22,12 +25,14 @@ export const initializeAppContextProps = (): AppContextProps => {
   const authRepository = new AuthRepository(apiRequester);
   const globalRepository = new GlobalRepository(apiRequester);
   const presenterRepository = new PresenterRepository(apiRequester);
+  const connectorRepository = new ConnectorRepository(apiRequester);
 
   return {
     repositories: {
       authRepository,
       globalRepository,
       presenterRepository,
+      connectorRepository,
     },
   };
 };

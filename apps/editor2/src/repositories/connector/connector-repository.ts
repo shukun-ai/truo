@@ -1,9 +1,12 @@
 import {
   addEntities,
   deleteEntities,
+  selectAllEntities,
   setEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
+
+import { Observable } from 'rxjs';
 
 import { ApiRequester } from '../../apis/requester';
 
@@ -11,8 +14,12 @@ import { ConnectorEntity, connectorRef } from './connector-ref';
 import { IConnectorRepository } from './connector-repository.interface';
 import { connectorStore } from './connector-store';
 
-export class PresenterRepository implements IConnectorRepository {
+export class ConnectorRepository implements IConnectorRepository {
   private readonly connectorStore = connectorStore;
+
+  all$: Observable<ConnectorEntity[]> = this.connectorStore.pipe(
+    selectAllEntities({ ref: connectorRef }),
+  );
 
   constructor(private readonly apiRequester: ApiRequester) {}
 
