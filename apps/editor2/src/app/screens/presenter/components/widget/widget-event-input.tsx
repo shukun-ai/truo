@@ -20,6 +20,10 @@ export const WidgetEventInput = ({
   const form = useWidgetFormContext();
   const formProps = form.getInputProps(composeFormEventName(propertyId));
 
+  if (!('containerName' in tab)) {
+    return null;
+  }
+
   return (
     <Box sx={{ marginBottom: 16 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>

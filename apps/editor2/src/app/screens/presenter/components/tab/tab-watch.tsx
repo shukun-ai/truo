@@ -33,7 +33,7 @@ export const TabWatch = ({ tab }: TabWatchProps) => {
   }, [allWatchEntities, tab]);
 
   if (!watchEntity) {
-    return <Box>未找到相关数据仓库</Box>;
+    return null;
   }
 
   return (
