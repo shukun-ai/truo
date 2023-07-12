@@ -173,9 +173,10 @@ export class DeveloperRequester {
    * POST /apis/v1/developer/{orgName}/pull-connectors
    */
   public async pullConnectors() {
-    return await this.requestAdaptor.fetch<
-      ApiResponse<Record<string, ConnectorSchema>>
-    >('POST', this.buildUri(`pull-connectors`));
+    return await this.requestAdaptor.fetch<Record<string, ConnectorSchema>>(
+      'POST',
+      this.buildUri(`pull-connectors`),
+    );
   }
 
   /**
@@ -183,7 +184,7 @@ export class DeveloperRequester {
    * POST /apis/v1/developer/{orgName}/push-connectors
    */
   public async pushConnectors(connectors: Record<string, ConnectorSchema>) {
-    return await this.requestAdaptor.fetch<ApiResponse<null>>(
+    return await this.requestAdaptor.fetch<null>(
       'POST',
       this.buildUri(`push-connectors`),
       {
