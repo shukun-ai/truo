@@ -50,7 +50,7 @@ export const TabWidget = ({ tab }: TabWidgetProps) => {
   }, [widgetEntity, widgetDefinitions]);
 
   if (!widgetEntity || !definition) {
-    return <Box>未找到相关组件</Box>;
+    return null;
   }
 
   return (

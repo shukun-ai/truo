@@ -50,7 +50,7 @@ export const TabRepository = ({ tab }: TabRepositoryProps) => {
   }, [repositoryEntity, repositoryDefinitions]);
 
   if (!repositoryEntity || !definition) {
-    return <Box>未找到相关数据仓库</Box>;
+    return null;
   }
 
   return (

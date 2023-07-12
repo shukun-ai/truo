@@ -42,11 +42,10 @@ export const ConnectorListPane = () => {
                 classes.active,
             )}
             onClick={() => {
-              // app.repositories.presenterRepository.tabRepository.previewWatchTab(
-              //   connectorEntity.containerName,
-              //   connectorEntity.watchName,
-              //   connectorEntity.id,
-              // );
+              app.repositories.tabRepository.previewConnectorTab(
+                connectorEntity.connectorName,
+                connectorEntity.id,
+              );
             }}
           >
             <Group>

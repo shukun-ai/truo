@@ -10,6 +10,7 @@ import { TypeException } from '@shukun/exception';
 
 import { Observable } from 'rxjs';
 
+import { ConnectorTab } from './internal/connector-tab';
 import { RepositoryTab } from './internal/repository-tab';
 import { WatchTab } from './internal/watch-tab';
 import { WidgetTab } from './internal/widget-tab';
@@ -23,6 +24,7 @@ export class TabRepository implements ITabRepository {
   private readonly widgetTab = new WidgetTab();
   private readonly repositoryTab = new RepositoryTab();
   private readonly watchTab = new WatchTab();
+  private readonly connectorTab = new ConnectorTab();
 
   allTabs$: Observable<TabEntity[]> = this.tabStore.pipe(
     selectAllEntities({ ref: tabRef }),
@@ -38,19 +40,7 @@ export class TabRepository implements ITabRepository {
 
   selectedWatchEntityId$ = this.watchTab.selectedWatchEntityId$;
 
-  selectedConnectorEntityId$ = this.tabStore.pipe(
-    select((state) => {
-      const tabId = state.selectedTabEntityId;
-      if (!tabId) {
-        return null;
-      }
-      const tabEntity = state.tabEntities[tabId];
-      if (tabEntity.tabType !== 'connector') {
-        return null;
-      }
-      return tabEntity.connectorEntityId;
-    }),
-  );
+  selectedConnectorEntityId$ = this.connectorTab.selectedConnectorEntityId$;
 
   previewWidgetTab(
     containerName: string,
@@ -81,7 +71,7 @@ export class TabRepository implements ITabRepository {
   }
 
   previewConnectorTab(connectorName: string, connectorEntityId: string): void {
-    //
+    this.connectorTab.preview(connectorName, connectorEntityId);
   }
 
   fixTab(tabId: string): void {

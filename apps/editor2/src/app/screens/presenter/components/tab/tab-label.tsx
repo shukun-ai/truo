@@ -24,6 +24,9 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
   const allWatches = useObservableState(
     app.repositories.presenterRepository.watchRepository.all$,
   );
+  const allConnectors = useObservableState(
+    app.repositories.connectorRepository.all$,
+  );
 
   const tabLabel = useMemo(() => {
     if (tab.tabType === 'widget') {
@@ -48,15 +51,22 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
       return (
         '观察器: ' +
         allWatches?.find(
-          (repository) =>
-            tab.containerName === repository.containerName &&
-            tab.watchName === repository.watchName,
+          (watch) =>
+            tab.containerName === watch.containerName &&
+            tab.watchName === watch.watchName,
         )?.watchName
+      );
+    } else if (tab.tabType === 'connector') {
+      return (
+        '函数流: ' +
+        allConnectors?.find(
+          (connector) => tab.connectorName === connector.connectorName,
+        )?.connectorName
       );
     }
 
-    throw new TypeException('Did not find specific tab.');
-  }, [allRepositories, allWatches, allWidgets, tab]);
+    throw new TypeException('Did not find specific tab');
+  }, [allConnectors, allRepositories, allWatches, allWidgets, tab]);
 
   return <Text fs={tab.isPreview ? 'italic' : undefined}>{tabLabel}</Text>;
 };
