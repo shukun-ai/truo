@@ -5,45 +5,29 @@ import { ConnectorService } from '../../core/connector/connector.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
-import { ConnectorCreateDto, ConnectorRemoveDto } from './dto/connector.dto';
+import { ConnectorPushDto } from './dto/connector.dto';
 
 @Controller(`/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperConnectorController {
   constructor(private readonly connectorService: ConnectorService) {}
 
-  @Post('get-connector/:connectorName')
-  async get(
+  @Post('pull-connectors')
+  async pull(
     @Param('orgName') orgName: string,
-    @Param('connectorName') connectorName: string,
-  ): Promise<QueryResponse<ConnectorSchema>> {
-    const connector = await this.connectorService.get(orgName, connectorName);
+  ): Promise<QueryResponse<Record<string, ConnectorSchema>>> {
+    const connectors = await this.connectorService.pull(orgName);
     return {
-      value: connector,
+      value: connectors,
     };
   }
 
-  @Post('upsert-connector')
-  async create(
+  @Post('push-connectors')
+  async push(
     @Param('orgName') orgName: string,
-    @Body() dto: ConnectorCreateDto,
+    @Body() dto: ConnectorPushDto,
   ): Promise<QueryResponse<null>> {
-    await this.connectorService.upsert(
-      orgName,
-      dto.connectorName,
-      dto.connector,
-    );
-    return {
-      value: null,
-    };
-  }
-
-  @Post('remove-connector')
-  async remove(
-    @Param('orgName') orgName: string,
-    @Body() dto: ConnectorRemoveDto,
-  ): Promise<QueryResponse<null>> {
-    await this.connectorService.remove(orgName, dto.connectorName);
+    await this.connectorService.push(orgName, dto.definition);
     return {
       value: null,
     };

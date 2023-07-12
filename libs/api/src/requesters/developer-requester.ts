@@ -170,46 +170,25 @@ export class DeveloperRequester {
 
   /**
    * @remarks
-   * POST /apis/v1/developer/{orgName}/get-connector/{connectorName}
+   * POST /apis/v1/developer/{orgName}/pull-connectors
    */
-  public async getConnector(connectorName: string) {
-    return await this.requestAdaptor.fetch<ConnectorSchema>(
-      'POST',
-      this.buildUri(`get-connector/${connectorName}`),
-    );
+  public async pullConnectors() {
+    return await this.requestAdaptor.fetch<
+      ApiResponse<Record<string, ConnectorSchema>>
+    >('POST', this.buildUri(`pull-connectors`));
   }
 
   /**
    * @remarks
-   * POST /apis/v1/developer/{orgName}/upsert-connector
+   * POST /apis/v1/developer/{orgName}/push-connectors
    */
-  public async upsertConnector(
-    connectorName: string,
-    connector: ConnectorSchema,
-  ) {
-    return await this.requestAdaptor.fetch<ConnectorSchema>(
+  public async pushConnectors(connectors: Record<string, ConnectorSchema>) {
+    return await this.requestAdaptor.fetch<ApiResponse<null>>(
       'POST',
-      this.buildUri(`upsert-connector`),
+      this.buildUri(`push-connectors`),
       {
         body: {
-          connectorName,
-          connector,
-        },
-      },
-    );
-  }
-
-  /**
-   * @remarks
-   * POST /apis/v1/developer/{orgName}/remove-connector
-   */
-  public async removeConnector(connectorName: string) {
-    return await this.requestAdaptor.fetch<ConnectorSchema>(
-      'POST',
-      this.buildUri(`remove-connector`),
-      {
-        body: {
-          connectorName,
+          definition: connectors,
         },
       },
     );

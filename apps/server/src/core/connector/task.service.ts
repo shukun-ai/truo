@@ -11,24 +11,24 @@ import { TypeException } from '@shukun/exception';
 import { TaskSchema } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
-import { taskMongoSchema } from './task.schema';
+import { TaskDocument, taskMongoSchema } from './task.schema';
 
 @Injectable()
 export class ConnectorTaskService {
   constructor(@InjectConnection() private connection: Connection) {}
 
   async query(orgName: string): Promise<Record<string, TaskSchema>> {
-    const entity = await this.getCollection(orgName).find({});
-    const records = entity.reduce((record, next) => {
-      const { name, definition } = next;
-      if (!name || !definition) {
-        throw new TypeException('Did not find next');
-      }
-      return {
-        ...record,
-        [name]: this.serialize(definition),
-      };
-    }, {} as Record<string, TaskSchema>);
+    const entity = await this.getCollection(orgName).find();
+
+    const records: Record<string, TaskSchema> = entity.reduce(
+      (records, next) => {
+        return {
+          ...records,
+          [next.name]: this.serialize(next.definition),
+        };
+      },
+      {},
+    );
 
     return {
       choice: choiceTask,
@@ -74,7 +74,7 @@ export class ConnectorTaskService {
   }
 
   private getCollection(orgName: string) {
-    const collection = this.connection.model(
+    const collection = this.connection.model<TaskDocument>(
       this.buildCollectionName(orgName),
       taskMongoSchema,
     );
