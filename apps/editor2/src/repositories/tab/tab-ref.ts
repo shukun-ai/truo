@@ -24,6 +24,11 @@ export type TabEntity = {
       watchName: string;
       watchEntityId: string;
     }
+  | {
+      tabType: 'connector';
+      connectorName: string;
+      connectorEntityId: string;
+    }
 );
 
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');
