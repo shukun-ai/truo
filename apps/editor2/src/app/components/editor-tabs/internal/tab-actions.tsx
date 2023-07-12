@@ -1,16 +1,15 @@
 import { ActionIcon } from '@mantine/core';
 import { IconPin, IconPinnedFilled, IconX } from '@tabler/icons-react';
 
-import { PresenterTabEntity } from '../../../../../repositories/presenter/tab-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { EditorTabItem } from './type';
 
 export type TabActionsProps = {
-  tab: PresenterTabEntity;
+  tab: EditorTabItem;
+  fixTab(tabItemId: string): void;
+  closeTab(tabItemId: string): void;
 };
 
-export const TabActions = ({ tab }: TabActionsProps) => {
-  const app = useAppContext();
-
+export const TabActions = ({ tab, fixTab, closeTab }: TabActionsProps) => {
   return (
     <>
       {!tab.isPreview && (
@@ -23,7 +22,7 @@ export const TabActions = ({ tab }: TabActionsProps) => {
           component="span"
           onClick={(event) => {
             event.stopPropagation();
-            app.repositories.presenterRepository.tabRepository.fixTab(tab.id);
+            fixTab(tab.id);
           }}
         >
           <IconPin size="0.75rem" />
@@ -33,7 +32,7 @@ export const TabActions = ({ tab }: TabActionsProps) => {
         component="span"
         onClick={(event) => {
           event.stopPropagation();
-          app.repositories.presenterRepository.tabRepository.closeTab(tab.id);
+          closeTab(tab.id);
         }}
       >
         <IconX size="0.75rem" />
