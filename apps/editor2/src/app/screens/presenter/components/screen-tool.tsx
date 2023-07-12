@@ -9,6 +9,7 @@ import {
   Icon3dCubeSphere,
 } from '@tabler/icons-react';
 
+import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { ContainerPane } from './container/container-pane';
 import { RepositoryPane } from './repository-pane/repository-pane';
 import { ScreenPane } from './screen/screen-pane';
@@ -50,7 +51,7 @@ export const ScreenTool = () => {
           />
         </Tooltip>
         <Tooltip label="函数流" position="right">
-          <Tabs.Tab value="flows" icon={<IconGizmo size="0.95rem" />} />
+          <Tabs.Tab value="connectors" icon={<IconGizmo size="0.95rem" />} />
         </Tooltip>
         <Tooltip label="权限" position="right">
           <Tabs.Tab
@@ -130,6 +131,10 @@ export const ScreenTool = () => {
           <Divider />
           <WatchPane />
         </Box>
+      </Tabs.Panel>
+
+      <Tabs.Panel value="connectors" className={cx(classes.panel)}>
+        <ConnectorListPane />
       </Tabs.Panel>
     </Tabs>
   );
