@@ -15,7 +15,7 @@ export const taskMongoSchema = new Schema(
   { timestamps: true },
 );
 
-export type ConnectorDocument = {
+export type TaskDocument = {
   name: string;
   definition: Buffer;
   createdAt: NativeDate;

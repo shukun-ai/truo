@@ -4,61 +4,56 @@ import { TypeException } from '@shukun/exception';
 import { ConnectorSchema } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
-import { connectorMongoSchema } from './connector.schema';
+import { ConnectorDocument, connectorMongoSchema } from './connector.schema';
 
 @Injectable()
 export class ConnectorService {
   constructor(@InjectConnection() private connection: Connection) {}
 
   async get(orgName: string, connectorName: string): Promise<ConnectorSchema> {
-    const entity = await this.getCollection(orgName).findOne({
-      name: connectorName,
-    });
-
-    if (!entity || !entity.definition) {
+    const connectors = await this.pull(orgName);
+    const connector = connectors[connectorName];
+    if (!connector) {
       throw new TypeException('Did not find connector by name: {{name}}', {
         name: connectorName,
       });
+    }
+    return connector;
+  }
+
+  async pull(orgName: string): Promise<Record<string, ConnectorSchema>> {
+    const entity = await this.getCollection(orgName).findOne(
+      {},
+      {},
+      { sort: { createdAt: -1 } },
+    );
+
+    if (!entity) {
+      return {};
     }
 
     return this.serialize(entity.definition);
   }
 
-  async upsert(
+  async push(
     orgName: string,
-    connectorName: string,
-    connectorDefinition: ConnectorSchema,
+    connectors: Record<string, ConnectorSchema>,
   ): Promise<void> {
-    await this.getCollection(orgName).findOneAndUpdate(
-      {
-        name: connectorName,
-      },
-      {
-        name: connectorName,
-        definition: this.deserialize(connectorDefinition),
-      },
-      {
-        upsert: true,
-      },
-    );
-  }
-
-  async remove(orgName: string, connectorName: string): Promise<void> {
-    await this.getCollection(orgName).findOneAndRemove({
-      name: connectorName,
+    await this.getCollection(orgName).create({
+      definition: this.deserialize(connectors),
     });
   }
 
-  private serialize(buffer: Buffer): ConnectorSchema {
+  private serialize(buffer: Buffer): Record<string, ConnectorSchema> {
     return JSON.parse(buffer.toString());
   }
 
-  private deserialize(connector: ConnectorSchema): Buffer {
-    return Buffer.from(JSON.stringify(connector));
+  private deserialize(connectors: Record<string, ConnectorSchema>): Buffer {
+    return Buffer.from(JSON.stringify(connectors));
   }
 
   private getCollection(orgName: string) {
-    const collection = this.connection.model(
+    const collection = this.connection.model<ConnectorDocument>(
       this.buildCollectionName(orgName),
       connectorMongoSchema,
     );
@@ -66,6 +61,6 @@ export class ConnectorService {
   }
 
   private buildCollectionName(orgName: string) {
-    return `orgs_${orgName}_system__connectors`;
+    return `orgs_${orgName}_editor__connectors`;
   }
 }
