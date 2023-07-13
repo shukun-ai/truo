@@ -25,8 +25,11 @@ export const PresenterContainer = () => {
   useEffect(() => {
     if (presenterName) {
       app.repositories.presenterRepository.initialize(presenterName);
+      app.repositories.connectorRepository.initialize();
+      app.repositories.taskRepository.initialize();
     }
-  }, [app.repositories.presenterRepository, presenterName]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presenterName]);
 
   return (
     <Box

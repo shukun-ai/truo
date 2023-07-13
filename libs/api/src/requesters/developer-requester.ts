@@ -199,15 +199,10 @@ export class DeveloperRequester {
    * @remarks
    * POST /apis/v1/developer/{orgName}/query-task
    */
-  public async queryTask(taskName: string) {
+  public async queryTask() {
     return await this.requestAdaptor.fetch<TaskSchema>(
       'POST',
       this.buildUri(`query-task`),
-      {
-        body: {
-          taskName,
-        },
-      },
     );
   }
 
