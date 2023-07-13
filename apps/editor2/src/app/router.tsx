@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { routerMap } from './router-map';
+import { ConnectorContainer } from './screens/connector/connector.container';
 import { DashboardContainer } from './screens/dashboard/dashboard.container';
 import { HomeContainer } from './screens/home/home.container';
 import { PresenterContainer } from './screens/presenter/presenter.container';
@@ -17,5 +18,9 @@ export const router = createBrowserRouter([
   {
     path: routerMap.presenter,
     element: <PresenterContainer />,
+  },
+  {
+    path: routerMap.connector,
+    element: <ConnectorContainer />,
   },
 ]);

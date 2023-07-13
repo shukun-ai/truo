@@ -183,7 +183,7 @@
     "react-jss": "^10.10.0",
     "react-photo-view": "^0.5.7",
     "react-router-dom": "6.4.3",
-    "reactflow": "^11.3.3",
+    "reactflow": "^11.7.4",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rooks": "^7.14.1",
