@@ -12,6 +12,8 @@ import { PresenterRepository } from '../../repositories/presenter/presenter-repo
 import { IPresenterRepository } from '../../repositories/presenter/presenter-repository.interface';
 import { TabRepository } from '../../repositories/tab/tab-repository';
 import { ITabRepository } from '../../repositories/tab/tab-repository.interface';
+import { TaskRepository } from '../../repositories/task/task-repository';
+import { ITaskRepository } from '../../repositories/task/task-repository.interface';
 
 export type AppContextProps = {
   repositories: {
@@ -20,6 +22,7 @@ export type AppContextProps = {
     presenterRepository: IPresenterRepository;
     connectorRepository: IConnectorRepository;
     tabRepository: ITabRepository;
+    taskRepository: ITaskRepository;
   };
 };
 
@@ -30,6 +33,7 @@ export const initializeAppContextProps = (): AppContextProps => {
   const presenterRepository = new PresenterRepository(apiRequester);
   const connectorRepository = new ConnectorRepository(apiRequester);
   const tabRepository = new TabRepository();
+  const taskRepository = new TaskRepository(apiRequester);
 
   return {
     repositories: {
@@ -38,6 +42,7 @@ export const initializeAppContextProps = (): AppContextProps => {
       presenterRepository,
       connectorRepository,
       tabRepository,
+      taskRepository,
     },
   };
 };
