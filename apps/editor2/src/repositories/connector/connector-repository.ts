@@ -10,7 +10,11 @@ import { Observable } from 'rxjs';
 
 import { ApiRequester } from '../../apis/requester';
 
-import { ConnectorEntity, connectorRef } from './connector-ref';
+import {
+  ConnectorEntity,
+  connectorRef,
+  createConnectorEntityId,
+} from './connector-ref';
 import { IConnectorRepository } from './connector-repository.interface';
 import { connectorStore } from './connector-store';
 
@@ -29,7 +33,7 @@ export class ConnectorRepository implements IConnectorRepository {
 
     const entities: ConnectorEntity[] = Object.entries(response.data.value).map(
       ([connectorName, connector]) => ({
-        id: connectorName,
+        id: createConnectorEntityId(connectorName),
         connectorName,
         isEdited: false,
         ...connector,
@@ -40,7 +44,7 @@ export class ConnectorRepository implements IConnectorRepository {
 
   create(connectorName: string): void {
     const entity: ConnectorEntity = {
-      id: connectorName,
+      id: createConnectorEntityId(connectorName),
       connectorName,
       isEdited: true,
       label: 'connectorName',
