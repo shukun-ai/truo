@@ -9,6 +9,7 @@ import { useAppContext } from '../../../../../contexts/app-context';
 
 import { Parameters } from './parameters';
 import { TaskMoreButton } from './task-more-button';
+import { TaskNextInput } from './task-next-input';
 
 export type TaskProps = {
   name: string;
@@ -25,11 +26,6 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
     () =>
       allTasks.map((task) => ({ label: task.taskName, value: task.taskName })),
     [allTasks],
-  );
-
-  const nextOptions = useMemo<SelectItem[]>(
-    () => [{ label: '结束函数流', value: '' }],
-    [],
   );
 
   const taskEntity = useMemo<TaskEntity | null>(() => {
@@ -52,12 +48,7 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
         onChange={(event) => onChange({ ...value, type: event.target.value })}
         withAsterisk
       />
-      <NativeSelect
-        label="下一任务"
-        data={nextOptions}
-        value={value.next}
-        onChange={(event) => onChange({ ...value, next: event.target.value })}
-      />
+      <TaskNextInput value={value} onChange={onChange} />
       {taskEntity && (
         <Parameters
           taskEntity={taskEntity}
