@@ -1,4 +1,4 @@
-import { Box, NativeSelect, SelectItem, Text } from '@mantine/core';
+import { Card, Group, NativeSelect, SelectItem, Text } from '@mantine/core';
 import { ConnectorTask } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 
@@ -8,11 +8,12 @@ import { TaskEntity } from '../../../../../../repositories/task/task-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
 
 import { Parameters } from './parameters';
+import { TaskMoreButton } from './task-more-button';
 
 export type TaskProps = {
   name: string;
   value: ConnectorTask;
-  onChange: (value: ConnectorTask) => void;
+  onChange: (value: ConnectorTask | null) => void;
   taskEntities: TaskEntity[];
 };
 
@@ -39,8 +40,11 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
   }, [taskEntities, value.type]);
 
   return (
-    <Box>
-      <Text>{name}</Text>
+    <Card withBorder mb={12}>
+      <Group position="apart">
+        <Text fz="lg">{name}</Text>
+        <TaskMoreButton onRemove={() => onChange(null)} />
+      </Group>
       <NativeSelect
         label="类型"
         data={typeOptions}
@@ -66,6 +70,6 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
           }
         />
       )}
-    </Box>
+    </Card>
   );
 };
