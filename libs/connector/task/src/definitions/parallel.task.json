@@ -8,10 +8,10 @@
         "type": "array",
         "items": {
           "type": "object",
-          "required": ["start"],
+          "required": ["connectorName"],
           "additionalProperties": false,
           "properties": {
-            "start": { "type": "string" },
+            "connectorName": { "type": "string" },
             "description": { "type": "string" }
           }
         }
