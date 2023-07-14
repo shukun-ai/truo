@@ -10,7 +10,7 @@
       "required": true,
       "editorType": "jsCode"
     },
-    "fail": {
+    "right": {
       "schema": {
         "type": "string"
       },

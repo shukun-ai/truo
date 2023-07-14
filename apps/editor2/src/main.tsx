@@ -2,6 +2,7 @@ import { devTools } from '@ngneat/elf-devtools';
 import { createRoot } from 'react-dom/client';
 
 import { App } from './app/app';
+import 'reactflow/dist/style.css';
 
 const start = () => {
   devTools();
