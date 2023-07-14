@@ -1,20 +1,14 @@
 import { TextInput } from '@mantine/core';
 
+import { EditorInputProps } from '../editor-inputs.type';
 import { useValidate } from '../hooks/use-validate';
-
-export type AtomNameInputProps = {
-  value: unknown;
-  onChange: (value: unknown) => void;
-  required?: boolean;
-  schema: unknown;
-};
 
 export const AtomNameInput = ({
   value,
   onChange,
   required,
   schema,
-}: AtomNameInputProps) => {
+}: EditorInputProps) => {
   const parsedValue = typeof value === 'string' ? value : '';
 
   return (
