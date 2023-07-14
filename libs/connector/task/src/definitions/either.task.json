@@ -3,26 +3,19 @@
   "scope": "internal",
   "withAccessToken": true,
   "parameters": {
-    "connectorName": {
+    "condition": {
       "schema": {
         "type": "string"
       },
       "required": true,
-      "editorType": "connectorName"
+      "editorType": "jsCode"
     },
-    "repeatCount": {
-      "schema": {
-        "type": "number"
-      },
-      "required": true,
-      "editorType": "number"
-    },
-    "description": {
+    "fail": {
       "schema": {
         "type": "string"
       },
-      "required": false,
-      "editorType": "description"
+      "required": true,
+      "editorType": "taskName"
     }
   }
 }
