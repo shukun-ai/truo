@@ -1,14 +1,11 @@
 import { Text } from '@mantine/core';
 
 import { AtomNameInput } from './atom-name/atom-name.input';
+import { EditorInputProps } from './editor-inputs.type';
 
 export type EditorInputsProps = {
   editorType: 'atomName' | string;
-  value: unknown;
-  onChange: (value: unknown) => void;
-  required?: boolean;
-  schema: unknown;
-};
+} & EditorInputProps;
 
 export const EditorInputs = (props: EditorInputsProps) => {
   switch (props.editorType) {
