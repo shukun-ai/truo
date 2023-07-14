@@ -1,38 +1,67 @@
 import { ConnectorSchema, ConnectorTask } from '@shukun/schema';
 import { Edge, Node } from 'reactflow';
 
+export type NodeData = {
+  ui: { width: number; height: number };
+  taskName: string;
+  task: ConnectorTask | null;
+};
+
 export type EditorState = {
-  nodes: Node[];
+  nodes: Node<NodeData>[];
   edges: Edge[];
 };
 
 export const toEditorState = (connector: ConnectorSchema): EditorState => {
   const state: EditorState = {
-    nodes: [...addInternalNode(), ...addNodes(connector)],
-    edges: [...addStartEdge(connector), ...addEdges(connector)],
+    nodes: [...addInternalNode(), ...addNodes(connector)].map((node) => ({
+      ...node,
+      data: {
+        ...node.data,
+        label: node?.data?.task?.type ?? 'none',
+      },
+    })),
+    edges: [...addStartEdge(connector), ...addEdges(connector)].map((edge) => ({
+      ...edge,
+      type: 'default',
+    })),
   };
 
   return state;
 };
 
-const addInternalNode = (): Node[] => {
+const addInternalNode = (): EditorState['nodes'] => {
   return [
     {
       id: '$$__start',
       type: 'start',
       position: { x: 0, y: 0 },
-      data: {},
+      data: {
+        taskName: '开始',
+        task: null,
+        ui: {
+          width: 150,
+          height: 50,
+        },
+      },
     },
     {
       id: '$$__end',
       type: 'end',
       position: { x: 0, y: 0 },
-      data: {},
+      data: {
+        taskName: '结束',
+        task: null,
+        ui: {
+          width: 150,
+          height: 50,
+        },
+      },
     },
   ];
 };
 
-const addNodes = (connector: ConnectorSchema): Node[] => {
+const addNodes = (connector: ConnectorSchema): EditorState['nodes'] => {
   return Object.entries(connector.tasks).reduce((total, [taskName, task]) => {
     return [
       ...total,
@@ -41,11 +70,16 @@ const addNodes = (connector: ConnectorSchema): Node[] => {
         type: createTaskNode(task),
         position: { x: 0, y: 0 },
         data: {
+          taskName,
           task,
+          ui: {
+            width: 360,
+            height: 180,
+          },
         },
       },
     ];
-  }, [] as Node[]);
+  }, [] as EditorState['nodes']);
 };
 
 const createTaskNode = (task: ConnectorTask) => {

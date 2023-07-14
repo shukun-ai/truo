@@ -1,5 +1,6 @@
 import { ConnectorSchema } from '@shukun/schema';
 
+import { Stage } from './components/stage';
 import { EditorProvider } from './context/connector-context';
 
 export type ConnectorEditorProps = {
@@ -8,5 +9,9 @@ export type ConnectorEditorProps = {
 };
 
 export const ConnectorEditor = ({ value, onChange }: ConnectorEditorProps) => {
-  return <EditorProvider value={{ value, onChange }}>hi</EditorProvider>;
+  return (
+    <EditorProvider value={{ value, onChange }}>
+      <Stage />
+    </EditorProvider>
+  );
 };

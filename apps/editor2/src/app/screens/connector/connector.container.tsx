@@ -9,10 +9,11 @@ export const ConnectorContainer = () => {
     <ConnectorEditor
       value={{
         label: 'realWorldConnector',
-        start: 'findAirline',
+        start: '获得机场数据',
         tasks: {
-          findAirline: {
+          获得机场数据: {
             type: 'sourceQuery',
+            next: '检查机场数据长度',
             parameters: {
               atomName: 'airports',
               query: {
@@ -22,6 +23,29 @@ export const ConnectorContainer = () => {
                   },
                 },
               },
+            },
+          },
+          检查机场数据长度: {
+            type: 'either',
+            next: '重映射数据',
+            parameters: {
+              condition: '$$__js:return $.input.data.length > 0;',
+              right: '提示用户失败',
+            },
+          },
+          重映射数据: {
+            type: 'repeat',
+            parameters: {
+              connectorName: '映射机场数据',
+              connectorInput: '$$__js:return {index: $.index}',
+              repeatCount: '$.input.data.length',
+            },
+          },
+          提示用户失败: {
+            type: 'fail',
+            parameters: {
+              code: 'NotFoundException',
+              message: '错误信息',
             },
           },
         },
