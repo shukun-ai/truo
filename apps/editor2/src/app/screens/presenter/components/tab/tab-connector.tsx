@@ -1,4 +1,3 @@
-import { Box, Container, ScrollArea } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -36,36 +35,5 @@ export const TabConnector = ({ tab }: TabConnectorProps) => {
     return null;
   }
 
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <Box
-        sx={{
-          flex: 1,
-          height: '100%',
-          minWidth: 0,
-          minHeight: 0,
-          overflow: 'hidden',
-        }}
-      >
-        <ScrollArea sx={{ width: '100%', height: '100%' }}>
-          <Container fluid>
-            <ConnectorDetail tab={tab} connectorEntity={connectorEntity} />
-          </Container>
-        </ScrollArea>
-      </Box>
-      <Box
-        sx={{
-          flex: 1,
-          height: '100%',
-          minWidth: 0,
-          minHeight: 0,
-          overflow: 'hidden',
-        }}
-      >
-        <ScrollArea sx={{ width: '100%', height: '100%' }}>
-          <Container fluid>Visual Section</Container>
-        </ScrollArea>
-      </Box>
-    </Box>
-  );
+  return <ConnectorDetail tab={tab} connectorEntity={connectorEntity} />;
 };
