@@ -4,7 +4,6 @@ import { ConnectorSchema } from '@shukun/schema';
 export type ConnectorEntity = {
   id: string;
   connectorName: string;
-  isEdited: boolean;
 } & ConnectorSchema;
 
 const { connectorEntitiesRef, withConnectorEntities } =
@@ -21,6 +20,6 @@ export const createConnectorEntityId = (connectorName: string): `${string}` => {
 };
 
 export const getConnector = (entity: ConnectorEntity): ConnectorSchema => {
-  const { id, connectorName, isEdited, ...connector } = entity;
+  const { id, connectorName, ...connector } = entity;
   return { ...connector };
 };

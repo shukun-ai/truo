@@ -8,6 +8,7 @@ import { ConnectorEntity } from '../../../../../../repositories/connector/connec
 
 import { useAppContext } from '../../../../../contexts/app-context';
 
+import { Basic } from './basic';
 import { Tasks } from './tasks';
 
 export type SchemaProps = {
@@ -23,6 +24,7 @@ export const Schema = ({ form }: SchemaProps) => {
 
   return (
     <Box>
+      <Basic form={form} />
       <Tasks {...form.getInputProps('tasks')} taskEntities={allTasks} />
     </Box>
   );

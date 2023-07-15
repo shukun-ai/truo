@@ -35,7 +35,6 @@ export class ConnectorRepository implements IConnectorRepository {
       ([connectorName, connector]) => ({
         id: createConnectorEntityId(connectorName),
         connectorName,
-        isEdited: false,
         ...connector,
       }),
     );
@@ -46,7 +45,6 @@ export class ConnectorRepository implements IConnectorRepository {
     const entity: ConnectorEntity = {
       id: createConnectorEntityId(connectorName),
       connectorName,
-      isEdited: true,
       label: 'connectorName',
       start: 'example',
       tasks: {
@@ -67,7 +65,6 @@ export class ConnectorRepository implements IConnectorRepository {
         entity.id,
         {
           ...entity,
-          isEdited: true,
         },
         { ref: connectorRef },
       ),
