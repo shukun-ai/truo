@@ -10,6 +10,8 @@ import { ConnectorEditor } from '../../../../components/connector-editor/connect
 
 import { ConnectorEditorProvider } from '../../../../components/connector-editor/connector-editor-context';
 
+import { TabAlert } from '../../../../components/tab-alert/tab-alert';
+
 import { Schema } from './internal/schema';
 
 export type ConnectorDetailProps = {
@@ -39,23 +41,35 @@ export const ConnectorDetail = ({
           display: 'flex',
           width: '100%',
           height: '100%',
-          overflow: 'hidden',
+          minWidth: 0,
+          minHeight: 0,
+          flexDirection: 'column',
         }}
       >
-        <Box sx={{ flex: 1, height: '100%' }}>
-          <Container fluid>
-            <form>
-              <Schema form={form} />
-            </form>
-          </Container>
-        </Box>
-        <Box sx={{ flex: 1, height: '100%' }}>
-          <ConnectorEditor
-            value={form.values}
-            onChange={() => {
-              //
-            }}
-          ></ConnectorEditor>
+        <TabAlert tab={tab} formValue={form.values} entity={connectorEntity} />
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            flex: 1,
+            overflow: 'hidden',
+          }}
+        >
+          <Box sx={{ flex: 1, height: '100%' }}>
+            <Container fluid>
+              <form>
+                <Schema form={form} />
+              </form>
+            </Container>
+          </Box>
+          <Box sx={{ flex: 1, height: '100%' }}>
+            <ConnectorEditor
+              value={form.values}
+              onChange={() => {
+                //
+              }}
+            ></ConnectorEditor>
+          </Box>
         </Box>
       </Box>
     </ConnectorEditorProvider>

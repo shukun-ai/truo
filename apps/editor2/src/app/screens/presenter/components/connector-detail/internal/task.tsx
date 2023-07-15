@@ -49,7 +49,7 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
   return (
     <Card
       withBorder
-      mb={12}
+      mb={6}
       padding="xs"
       sx={{
         overflow: 'visible',
