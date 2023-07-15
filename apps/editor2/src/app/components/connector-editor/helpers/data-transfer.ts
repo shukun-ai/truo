@@ -23,7 +23,7 @@ export const toEditorState = (connector: ConnectorSchema): EditorState => {
     })),
     edges: [...addStartEdge(connector), ...addEdges(connector)].map((edge) => ({
       ...edge,
-      type: 'default',
+      type: 'smoothstep',
     })),
   };
 
@@ -73,8 +73,8 @@ const addNodes = (connector: ConnectorSchema): EditorState['nodes'] => {
           taskName,
           task,
           ui: {
-            width: 360,
-            height: 180,
+            width: 280,
+            height: 67,
           },
         },
       },
@@ -117,6 +117,7 @@ const addEdges = (connector: ConnectorSchema): Edge[] => {
 };
 
 const createNextEdges = (taskName: string, task: ConnectorTask): Edge[] => {
+  const label = task.type === 'either' ? '是' : undefined;
   if (task.next) {
     return [
       {
@@ -124,6 +125,7 @@ const createNextEdges = (taskName: string, task: ConnectorTask): Edge[] => {
         type: 'next',
         source: taskName,
         target: task.next,
+        label,
       },
     ];
   } else {
@@ -133,6 +135,7 @@ const createNextEdges = (taskName: string, task: ConnectorTask): Edge[] => {
         type: 'end',
         source: taskName,
         target: '$$__end',
+        label,
       },
     ];
   }
@@ -152,6 +155,7 @@ const createEitherEdges = (taskName: string, task: ConnectorTask): Edge[] => {
       type: 'eitherRight',
       source: taskName,
       target: right,
+      label: '否',
     },
   ];
 };

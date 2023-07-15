@@ -1,21 +1,17 @@
-import { Badge, Group } from '@mantine/core';
+import { Box, Group, Text } from '@mantine/core';
 import {
   IconBinaryTree,
   IconPlugConnected,
   IconTopologyBus,
   IconTopologyFull,
 } from '@tabler/icons-react';
-import { ReactNode } from 'react';
 import { Handle, NodeProps, Position } from 'reactflow';
 
 import { NodeData } from '../helpers/data-transfer';
 
 import { Card } from './card';
-import { MoreButton } from './more-button';
 
-export const TaskCard = (
-  props: NodeProps<NodeData> & { children: ReactNode },
-) => {
+export const CustomTask = (props: NodeProps<NodeData>) => {
   if (!props.data.task) {
     return null;
   }
@@ -28,16 +24,13 @@ export const TaskCard = (
         label={
           <Group spacing="xs">
             {getIcon(props.data.task.type)}
-            {props.data.taskName}
-            {props.data.task?.type && (
-              <Badge tt="none">{props.data.task.type}</Badge>
-            )}
+            <Box>
+              <Text truncate>{props.data.taskName}</Text>
+              <Text fz="sm">{props.data.task.type}</Text>
+            </Box>
           </Group>
         }
-        more={<MoreButton />}
-      >
-        {props.children}
-      </Card>
+      />
       <Handle type="source" position={Position.Bottom} />
     </>
   );
