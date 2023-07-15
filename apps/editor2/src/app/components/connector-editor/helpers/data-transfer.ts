@@ -48,7 +48,7 @@ const addInternalNode = (): EditorState['nodes'] => {
     {
       id: '$$__end',
       type: 'end',
-      position: { x: 0, y: 0 },
+      position: { x: 0, y: 500 },
       data: {
         taskName: null,
         task: null,
@@ -68,7 +68,7 @@ const addNodes = (connector: ConnectorSchema): EditorState['nodes'] => {
       {
         id: taskName,
         type: createTaskNode(task),
-        position: { x: 0, y: 0 },
+        position: { x: 200, y: 500 },
         data: {
           taskName,
           task,
@@ -95,6 +95,16 @@ const createTaskNode = (task: ConnectorTask) => {
 };
 
 const addStartEdge = (connector: ConnectorSchema): Edge[] => {
+  if (!connector.start) {
+    return [
+      {
+        id: `$$__start>$$__end`,
+        type: 'start',
+        source: '$$__start',
+        target: '$$__end',
+      },
+    ];
+  }
   return [
     {
       id: `$$__start>${connector.start}`,

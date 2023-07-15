@@ -60,7 +60,7 @@ export const Tasks = ({ value, onChange, taskEntities }: TasksProps) => {
           taskEntities={taskEntities}
         />
       ))}
-      <Button onClick={open} fullWidth>
+      <Button onClick={open} fullWidth variant="light">
         新建任务
       </Button>
     </Box>
