@@ -2,16 +2,27 @@ import { NativeSelect, SelectItem } from '@mantine/core';
 import { ConnectorTask } from '@shukun/schema';
 import { useMemo } from 'react';
 
+import { useConnectorEditorContext } from '../../../../../components/connector-editor/connector-editor-context';
+
 export type TaskNextInputProps = {
+  currentTaskName: string;
   value: ConnectorTask;
   onChange: (value: ConnectorTask | null) => void;
 };
 
-export const TaskNextInput = ({ value, onChange }: TaskNextInputProps) => {
-  const nextOptions = useMemo<SelectItem[]>(
-    () => [{ label: '结束函数流', value: '' }],
-    [],
-  );
+export const TaskNextInput = ({
+  currentTaskName,
+  value,
+  onChange,
+}: TaskNextInputProps) => {
+  const { taskOptions } = useConnectorEditorContext();
+
+  const nextOptions = useMemo<SelectItem[]>(() => {
+    const options = taskOptions.filter(
+      (task) => task.value !== currentTaskName,
+    );
+    return [{ label: '结束函数流', value: '' }].concat(options);
+  }, [currentTaskName, taskOptions]);
 
   return (
     <NativeSelect

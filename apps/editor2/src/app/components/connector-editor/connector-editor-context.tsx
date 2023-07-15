@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from 'react';
 export type ConnectorEditorContextProps = {
   selectedTaskName: string | null;
   setSelectedTaskName: (taskName: string | null) => void;
+  taskOptions: { value: string; label: string }[];
 };
 
 const ConnectorEditorContext =
@@ -10,8 +11,10 @@ const ConnectorEditorContext =
 
 export const ConnectorEditorProvider = ({
   children,
+  taskOptions,
 }: {
   children: JSX.Element;
+  taskOptions: ConnectorEditorContextProps['taskOptions'];
 }) => {
   const [selectedTaskName, setSelectedTaskName] =
     useState<ConnectorEditorContextProps['selectedTaskName']>(null);
@@ -21,6 +24,7 @@ export const ConnectorEditorProvider = ({
       value={{
         selectedTaskName,
         setSelectedTaskName,
+        taskOptions,
       }}
     >
       {children}
