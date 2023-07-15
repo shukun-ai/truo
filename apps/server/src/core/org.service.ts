@@ -110,23 +110,6 @@ export class OrgService {
     return application;
   }
 
-  async findCodebase(orgId: IDString): Promise<ApplicationSchema> {
-    const org = await this.orgModel
-      .findOne({ _id: orgId })
-      .select('codebase')
-      .exec();
-
-    if (!org?.codebase) {
-      const application: ApplicationSchema = {
-        title: 'No title',
-      };
-      return application;
-    }
-
-    const application: ApplicationSchema = JSON.parse(org.codebase.toString());
-    return application;
-  }
-
   async updateFlowOrgCompiledCodes(
     orgName: IDString,
     flowOrgCompiledCodes: FlowOrgCompiledCodes,

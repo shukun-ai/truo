@@ -1,17 +1,17 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { WorkflowSchema } from '@shukun/schema';
 
-import { OrgService } from './org.service';
+import { CodebaseService } from './codebase.service';
 
 @Injectable()
 export class WorkflowService {
-  @Inject() private readonly orgService!: OrgService;
+  constructor(private readonly codebaseService: CodebaseService) {}
 
   async findOne(
     orgName: string,
     workflowName: string,
   ): Promise<WorkflowSchema> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
 
     const workflow = application.workflows?.find(
       (item) => item.name === workflowName,

@@ -1,20 +1,20 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ViewSchema } from '@shukun/schema';
 
-import { OrgService } from './org.service';
+import { CodebaseService } from './codebase.service';
 
 @Injectable()
 export class ViewService {
-  @Inject() private readonly orgService!: OrgService;
+  constructor(private readonly codebaseService: CodebaseService) {}
 
   async findAll(orgName: string): Promise<ViewSchema[]> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
 
     return application?.views || [];
   }
 
   async findOne(orgName: string, viewName: string): Promise<ViewSchema> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
 
     const view = application.views?.find((item) => item.name === viewName);
 

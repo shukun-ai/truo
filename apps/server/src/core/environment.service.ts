@@ -1,19 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { EnvironmentSchema, DataSourceEnvironments } from '@shukun/schema';
 
+import { CodebaseService } from './codebase.service';
 import { DataSourceService } from './data-source.service';
-
-import { OrgService } from './org.service';
 
 @Injectable()
 export class EnvironmentService {
   constructor(
-    private readonly orgService: OrgService,
     private readonly dataSourceService: DataSourceService,
+    private readonly codebaseService: CodebaseService,
   ) {}
 
   async findAll(orgName: string): Promise<EnvironmentSchema[]> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
     return application.environments ?? [];
   }
 

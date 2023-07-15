@@ -1,14 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { RoleSchema } from '@shukun/schema';
 
-import { OrgService } from './org.service';
+import { CodebaseService } from './codebase.service';
 
 @Injectable()
 export class RoleService {
-  @Inject() private readonly orgService!: OrgService;
+  constructor(private readonly codebaseService: CodebaseService) {}
 
   async findAll(orgName: string): Promise<RoleSchema[]> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
 
     return application?.roles || [];
   }

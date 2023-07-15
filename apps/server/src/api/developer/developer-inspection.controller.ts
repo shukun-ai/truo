@@ -1,14 +1,8 @@
-import {
-  Controller,
-  Get,
-  UseInterceptors,
-  Inject,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, UseInterceptors, Param } from '@nestjs/common';
 import { InspectionResponse } from '@shukun/api';
 import { RoleResourceType } from '@shukun/schema';
 
-import { OrgService } from '../../core/org.service';
+import { CodebaseService } from '../../core/codebase.service';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
@@ -19,13 +13,13 @@ import { QueryResponse } from '../../util/query/interfaces';
 @Controller(`${RoleResourceType.Developer}/:orgName/inspection`)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperInspectionController {
-  @Inject() private readonly orgService!: OrgService;
+  constructor(private readonly codebaseService: CodebaseService) {}
 
   @Get()
   async index(
     @Param('orgName') orgName: string,
   ): Promise<QueryResponse<InspectionResponse>> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
 
     return {
       value: {
