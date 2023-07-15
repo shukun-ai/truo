@@ -3,6 +3,7 @@ import { MetadataSchema } from '@shukun/schema';
 
 export type MetadataEntity = {
   id: string;
+  metadataName: string;
 } & MetadataSchema;
 
 const { metadataEntitiesRef, withMetadataEntities } =
@@ -19,6 +20,6 @@ export const createMetadataEntityId = (metadataName: string): `${string}` => {
 };
 
 export const getMetadata = (entity: MetadataEntity): MetadataSchema => {
-  const { id, ...metadata } = entity;
+  const { id, metadataName, ...metadata } = entity;
   return { ...metadata };
 };

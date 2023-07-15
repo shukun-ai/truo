@@ -27,6 +27,9 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
   const allConnectors = useObservableState(
     app.repositories.connectorRepository.all$,
   );
+  const allMetadatas = useObservableState(
+    app.repositories.metadataRepository.all$,
+  );
 
   const tabLabel = useMemo(() => {
     if (tab.tabType === 'widget') {
@@ -63,10 +66,24 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           (connector) => tab.connectorName === connector.connectorName,
         )?.connectorName
       );
+    } else if (tab.tabType === 'metadata') {
+      return (
+        '元数据: ' +
+        allMetadatas?.find(
+          (metadata) => tab.metadataName === metadata.metadataName,
+        )?.metadataName
+      );
     }
 
     throw new TypeException('Did not find specific tab');
-  }, [allConnectors, allRepositories, allWatches, allWidgets, tab]);
+  }, [
+    allConnectors,
+    allRepositories,
+    allWatches,
+    allWidgets,
+    allMetadatas,
+    tab,
+  ]);
 
   return <Text fs={tab.isPreview ? 'italic' : undefined}>{tabLabel}</Text>;
 };

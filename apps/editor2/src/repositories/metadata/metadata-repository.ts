@@ -49,6 +49,7 @@ export class MetadataRepository implements IMetadataRepository {
   create(metadataName: string): void {
     const entity: MetadataEntity = {
       id: createMetadataEntityId(metadataName),
+      metadataName,
       name: metadataName,
       label: metadataName,
       electrons: [],
