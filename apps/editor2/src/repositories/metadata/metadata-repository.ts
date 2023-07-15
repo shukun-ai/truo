@@ -50,9 +50,8 @@ export class MetadataRepository implements IMetadataRepository {
     const entity: MetadataEntity = {
       id: createMetadataEntityId(metadataName),
       metadataName,
-      name: metadataName,
       label: metadataName,
-      electrons: [],
+      electrons: {},
     };
     this.metadataStore.update(addEntities(entity, { ref: metadataRef }));
   }

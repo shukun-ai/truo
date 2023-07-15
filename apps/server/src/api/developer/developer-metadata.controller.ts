@@ -1,5 +1,5 @@
 import { Body, Controller, Param, Post, UseInterceptors } from '@nestjs/common';
-import { MetadataSchema, RoleResourceType } from '@shukun/schema';
+import { MetadataReviseSchema, RoleResourceType } from '@shukun/schema';
 
 import { SourceService } from '../../core/source/source.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
@@ -15,7 +15,7 @@ export class DeveloperMetadataController {
   @Post('pull-metadatas')
   async pull(
     @Param('orgName') orgName: string,
-  ): Promise<QueryResponse<Record<string, MetadataSchema>>> {
+  ): Promise<QueryResponse<Record<string, MetadataReviseSchema>>> {
     const metadatas = await this.metadataService.pull(orgName);
     return {
       value: metadatas,
