@@ -6,6 +6,8 @@ import { ConnectorEntity } from '../../../../../repositories/connector/connector
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { ConnectorEditor } from '../../../../components/connector-editor/connector-editor';
 
+import { ConnectorEditorProvider } from '../../../../components/connector-editor/connector-editor-context';
+
 import { Schema } from './internal/schema';
 
 export type ConnectorDetailProps = {
@@ -22,27 +24,31 @@ export const ConnectorDetail = ({
   });
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-      }}
-    >
-      <Box sx={{ flex: 1, height: '100%' }}>
-        <ConnectorEditor
-          value={form.values}
-          onChange={() => {}}
-        ></ConnectorEditor>
+    <ConnectorEditorProvider>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+        }}
+      >
+        <Box sx={{ flex: 1, height: '100%' }}>
+          <Container fluid>
+            <form>
+              <Schema form={form} />
+            </form>
+          </Container>
+        </Box>
+        <Box sx={{ flex: 1, height: '100%' }}>
+          <ConnectorEditor
+            value={form.values}
+            onChange={() => {
+              //
+            }}
+          ></ConnectorEditor>
+        </Box>
       </Box>
-      <Box sx={{ flex: 1, height: '100%' }}>
-        <Container fluid>
-          <form>
-            <Schema form={form} />
-          </form>
-        </Container>
-      </Box>
-    </Box>
+    </ConnectorEditorProvider>
   );
 };

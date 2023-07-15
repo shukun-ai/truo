@@ -1,10 +1,19 @@
-import { Card, Group, NativeSelect, SelectItem, Text } from '@mantine/core';
+import {
+  Badge,
+  Box,
+  Card,
+  Group,
+  NativeSelect,
+  SelectItem,
+  Text,
+} from '@mantine/core';
 import { ConnectorTask } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
 import { TaskEntity } from '../../../../../../repositories/task/task-ref';
+import { useConnectorEditorContext } from '../../../../../components/connector-editor/connector-editor-context';
 import { useAppContext } from '../../../../../contexts/app-context';
 
 import { Parameters } from './parameters';
@@ -35,32 +44,61 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
     return taskEntity ?? null;
   }, [taskEntities, value.type]);
 
+  const { selectedTaskName, setSelectedTaskName } = useConnectorEditorContext();
+
   return (
-    <Card withBorder mb={12}>
-      <Group position="apart">
-        <Text fz="lg">{name}</Text>
-        <TaskMoreButton onRemove={() => onChange(null)} />
-      </Group>
-      <NativeSelect
-        label="类型"
-        data={typeOptions}
-        value={value.type}
-        onChange={(event) => onChange({ ...value, type: event.target.value })}
-        withAsterisk
-      />
-      <TaskNextInput value={value} onChange={onChange} />
-      {taskEntity && (
-        <Parameters
-          taskEntity={taskEntity}
-          value={value.parameters}
-          onChange={(parameters) =>
-            onChange({
-              ...value,
-              parameters,
-            })
-          }
+    <Card
+      withBorder
+      mb={12}
+      padding="xs"
+      sx={{
+        overflow: 'visible',
+        cursor: selectedTaskName !== name ? 'pointer' : 'default',
+      }}
+    >
+      <Box
+        p={6}
+        onClick={() => {
+          setSelectedTaskName(name);
+        }}
+      >
+        <Group position="apart">
+          <Group spacing="xs">
+            <Text fz="lg" fw="bold">
+              {name}
+            </Text>
+            <Badge tt="none">{value.type}</Badge>
+          </Group>
+          <TaskMoreButton onRemove={() => onChange(null)} />
+        </Group>
+      </Box>
+      <Box
+        // withBorder
+
+        p={6}
+        display={selectedTaskName === name ? 'block' : 'none'}
+      >
+        <NativeSelect
+          label="类型"
+          data={typeOptions}
+          value={value.type}
+          onChange={(event) => onChange({ ...value, type: event.target.value })}
+          withAsterisk
         />
-      )}
+        <TaskNextInput value={value} onChange={onChange} />
+        {taskEntity && (
+          <Parameters
+            taskEntity={taskEntity}
+            value={value.parameters}
+            onChange={(parameters) =>
+              onChange({
+                ...value,
+                parameters,
+              })
+            }
+          />
+        )}
+      </Box>
     </Card>
   );
 };

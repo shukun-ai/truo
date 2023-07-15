@@ -1,9 +1,11 @@
 import { Box, Group, Text } from '@mantine/core';
 import {
+  IconAlertTriangle,
   IconBinaryTree,
   IconPlugConnected,
   IconTopologyBus,
   IconTopologyFull,
+  IconTransform,
 } from '@tabler/icons-react';
 import { Handle, NodeProps, Position } from 'reactflow';
 
@@ -25,8 +27,12 @@ export const CustomTask = (props: NodeProps<NodeData>) => {
           <Group spacing="xs">
             {getIcon(props.data.task.type)}
             <Box>
-              <Text truncate>{props.data.taskName}</Text>
-              <Text fz="sm">{props.data.task.type}</Text>
+              <Text c="blue" fw="bold" truncate>
+                {props.data.taskName}
+              </Text>
+              <Text c="gray" fz="sm">
+                {props.data.task.type}
+              </Text>
             </Box>
           </Group>
         }
@@ -44,6 +50,10 @@ const getIcon = (type: string) => {
       return <IconTopologyBus size="0.95rem" />;
     case 'repeat':
       return <IconTopologyFull size="0.95rem" />;
+    case 'transformer':
+      return <IconTransform size="0.95rem" />;
+    case 'fail':
+      return <IconAlertTriangle size="0.95rem" />;
     default:
       return <IconPlugConnected size="0.95rem" />;
   }
