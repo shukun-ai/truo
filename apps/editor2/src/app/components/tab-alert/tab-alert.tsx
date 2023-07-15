@@ -53,7 +53,7 @@ export const TabAlert = ({ tab, formValue, entity }: TabAlertProps) => {
       }}
     >
       <Group spacing="xs">
-        <Text>函数流正处于编辑状态，编辑后进行保存。</Text>
+        <Text>正处于编辑状态，编辑后进行保存。</Text>
         <Button size="xs" variant="light" onClick={handleSubmit}>
           点击保存
         </Button>

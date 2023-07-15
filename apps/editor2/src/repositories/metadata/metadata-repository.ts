@@ -1,4 +1,4 @@
-import { setProps } from '@ngneat/elf';
+import { select, setProps } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
@@ -7,6 +7,7 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
+import { MetadataElectron } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
 import { ApiRequester } from '../../apis/requester';
@@ -25,6 +26,9 @@ export class MetadataRepository implements IMetadataRepository {
   all$: Observable<MetadataEntity[]> = this.metadataStore.pipe(
     selectAllEntities({ ref: metadataRef }),
   );
+
+  allowedFieldType$: Observable<MetadataElectron['fieldType'][]> =
+    this.metadataStore.pipe(select((state) => state.allowedFieldType));
 
   constructor(private readonly apiRequester: ApiRequester) {}
 

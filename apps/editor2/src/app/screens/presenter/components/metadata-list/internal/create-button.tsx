@@ -46,7 +46,7 @@ export const CreateButton = () => {
       onClick={open}
       fullWidth
     >
-      新建
+      新建元数据表
     </Button>
   );
 };
