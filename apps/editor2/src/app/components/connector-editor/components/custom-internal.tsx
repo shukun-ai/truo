@@ -5,9 +5,10 @@ import { NodeData } from '../helpers/data-transfer';
 
 import { Card } from './card';
 
-export const CustomNodeStart = (props: NodeProps<NodeData>) => {
+export const CustomInternal = (props: NodeProps<NodeData>) => {
   return (
     <>
+      {props.type === 'end' && <Handle type="target" position={Position.Top} />}
       <Card
         {...props}
         label={
@@ -16,7 +17,9 @@ export const CustomNodeStart = (props: NodeProps<NodeData>) => {
           </Text>
         }
       />
-      <Handle type="source" position={Position.Bottom} />
+      {props.type === 'start' && (
+        <Handle type="source" position={Position.Bottom} />
+      )}
     </>
   );
 };

@@ -1,16 +1,21 @@
 import { Box } from '@mantine/core';
 import { useMemo } from 'react';
-import { Background, Controls, ReactFlow } from 'reactflow';
+import {
+  Background,
+  ConnectionLineType,
+  Controls,
+  MarkerType,
+  ReactFlow,
+} from 'reactflow';
 
 import { useEditorContext } from '../context/connector-context';
 import { toEditorState } from '../helpers/data-transfer';
 
 import { calculateLayout } from '../helpers/layout-algorithm';
 
-import { CustomNodeEither } from './custom-node-either';
-import { CustomNodeEnd } from './custom-node-end';
-import { CustomNodeResource } from './custom-node-resource';
-import { CustomNodeStart } from './custom-node-start';
+import { ConnectionLine } from './connection-line';
+import { CustomInternal } from './custom-internal';
+import { CustomTask } from './custom-task';
 
 export type StageProps = {
   //
@@ -27,16 +32,26 @@ export const Stage = () => {
     <Box sx={{ width: '100vw', height: '100vh' }}>
       <ReactFlow
         nodeTypes={{
-          start: CustomNodeStart,
-          resource: CustomNodeResource,
-          either: CustomNodeEither,
-          parallel: CustomNodeResource,
-          repeat: CustomNodeResource,
-          fail: CustomNodeResource,
-          end: CustomNodeEnd,
+          start: CustomInternal,
+          resource: CustomTask,
+          either: CustomTask,
+          parallel: CustomTask,
+          repeat: CustomTask,
+          fail: CustomTask,
+          end: CustomInternal,
         }}
         nodes={state.nodes}
         edges={state.edges}
+        defaultEdgeOptions={{
+          type: 'straight',
+          style: { strokeWidth: 1.5 },
+          animated: true,
+          markerEnd: {
+            type: MarkerType.ArrowClosed,
+            width: 12,
+            height: 12,
+          },
+        }}
       >
         <Background />
         <Controls />
