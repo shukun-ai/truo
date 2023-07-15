@@ -25,5 +25,8 @@ export const TabDetail = ({ tab }: TabDetailProps) => {
   if (tab.tabType === 'connector') {
     return <TabConnector tab={tab} />;
   }
+  if (tab.tabType === 'metadata') {
+    return <>metadata</>;
+  }
   throw new TypeException('Did not find specific tab');
 };

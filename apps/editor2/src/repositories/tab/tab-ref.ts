@@ -29,6 +29,11 @@ export type TabEntity = {
       connectorName: string;
       connectorEntityId: string;
     }
+  | {
+      tabType: 'metadata';
+      metadataName: string;
+      metadataEntityId: string;
+    }
 );
 
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');

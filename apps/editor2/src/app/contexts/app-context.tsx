@@ -8,6 +8,8 @@ import { ConnectorRepository } from '../../repositories/connector/connector-repo
 import { IConnectorRepository } from '../../repositories/connector/connector-repository.interface';
 import { GlobalRepository } from '../../repositories/global/global-repository';
 import { IGlobalRepository } from '../../repositories/global/global-repository.interface';
+import { MetadataRepository } from '../../repositories/metadata/metadata-repository';
+import { IMetadataRepository } from '../../repositories/metadata/metadata-repository.interface';
 import { PresenterRepository } from '../../repositories/presenter/presenter-repository';
 import { IPresenterRepository } from '../../repositories/presenter/presenter-repository.interface';
 import { TabRepository } from '../../repositories/tab/tab-repository';
@@ -23,6 +25,7 @@ export type AppContextProps = {
     connectorRepository: IConnectorRepository;
     tabRepository: ITabRepository;
     taskRepository: ITaskRepository;
+    metadataRepository: IMetadataRepository;
   };
 };
 
@@ -34,6 +37,7 @@ export const initializeAppContextProps = (): AppContextProps => {
   const connectorRepository = new ConnectorRepository(apiRequester);
   const tabRepository = new TabRepository();
   const taskRepository = new TaskRepository(apiRequester);
+  const metadataRepository = new MetadataRepository(apiRequester);
 
   return {
     repositories: {
@@ -43,6 +47,7 @@ export const initializeAppContextProps = (): AppContextProps => {
       connectorRepository,
       tabRepository,
       taskRepository,
+      metadataRepository,
     },
   };
 };

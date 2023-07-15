@@ -7,10 +7,12 @@ import {
   IconGizmo,
   IconShieldLock,
   Icon3dCubeSphere,
+  IconVariable,
 } from '@tabler/icons-react';
 
 import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { ContainerPane } from './container/container-pane';
+import { MetadataListPane } from './metadata-list/metadata-list-pane';
 import { RepositoryPane } from './repository-pane/repository-pane';
 import { ScreenPane } from './screen/screen-pane';
 import { TreePane } from './tree/tree-pane';
@@ -52,6 +54,12 @@ export const ScreenTool = () => {
         </Tooltip>
         <Tooltip label="函数流" position="right">
           <Tabs.Tab value="connectors" icon={<IconGizmo size="0.95rem" />} />
+        </Tooltip>
+        <Tooltip label="环境变量" position="right">
+          <Tabs.Tab
+            value="environments"
+            icon={<IconVariable size="0.95rem" />}
+          />
         </Tooltip>
         <Tooltip label="权限" position="right">
           <Tabs.Tab
@@ -133,8 +141,27 @@ export const ScreenTool = () => {
         </Box>
       </Tabs.Panel>
 
+      <Tabs.Panel value="metadata" className={cx(classes.panel)}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexShrink: 0,
+            minHeight: 0,
+            height: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          <MetadataListPane />
+        </Box>
+      </Tabs.Panel>
+
       <Tabs.Panel value="connectors" className={cx(classes.panel)}>
         <ConnectorListPane />
+      </Tabs.Panel>
+
+      <Tabs.Panel value="environments" className={cx(classes.panel)}>
+        environments
       </Tabs.Panel>
     </Tabs>
   );
