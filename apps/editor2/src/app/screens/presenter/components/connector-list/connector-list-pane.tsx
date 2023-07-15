@@ -19,7 +19,10 @@ export const ConnectorListPane = () => {
 
   const app = useAppContext();
 
-  const selectedConnectorEntityId = null;
+  const selectedConnectorEntityId = useObservableState(
+    app.repositories.tabRepository.selectedConnectorEntityId$,
+    null,
+  );
 
   const allConnectors = useObservableState(
     app.repositories.connectorRepository.all$,
