@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import {
-  choiceTask,
+  eitherTask,
   parallelTask,
   repeatTask,
   sourceQueryTask,
   transformerTask,
 } from '@shukun/connector/task';
-import { TypeException } from '@shukun/exception';
 import { TaskSchema } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
@@ -31,7 +30,7 @@ export class ConnectorTaskService {
     );
 
     return {
-      choice: choiceTask,
+      either: eitherTask,
       parallel: parallelTask,
       repeat: repeatTask,
       transformer: transformerTask,
