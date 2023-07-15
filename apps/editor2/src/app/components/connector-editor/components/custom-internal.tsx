@@ -13,7 +13,11 @@ export const CustomInternal = (props: NodeProps<NodeData>) => {
         {...props}
         label={
           <Text align="center" sx={{ display: 'block', width: '100%' }}>
-            {props.data.taskName}
+            {props.type === 'start'
+              ? '开始'
+              : props.type === 'end'
+              ? '结束'
+              : '无'}
           </Text>
         }
       />

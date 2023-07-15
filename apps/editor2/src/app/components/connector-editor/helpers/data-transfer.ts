@@ -3,7 +3,7 @@ import { Edge, Node } from 'reactflow';
 
 export type NodeData = {
   ui: { width: number; height: number };
-  taskName: string;
+  taskName: string | null;
   task: ConnectorTask | null;
 };
 
@@ -37,7 +37,7 @@ const addInternalNode = (): EditorState['nodes'] => {
       type: 'start',
       position: { x: 0, y: 0 },
       data: {
-        taskName: '开始',
+        taskName: null,
         task: null,
         ui: {
           width: 150,
@@ -50,7 +50,7 @@ const addInternalNode = (): EditorState['nodes'] => {
       type: 'end',
       position: { x: 0, y: 0 },
       data: {
-        taskName: '结束',
+        taskName: null,
         task: null,
         ui: {
           width: 150,
