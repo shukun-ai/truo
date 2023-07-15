@@ -1,4 +1,4 @@
-import { Box, Container } from '@mantine/core';
+import { Box, Container, ScrollArea } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 
@@ -56,11 +56,13 @@ export const ConnectorDetail = ({
           }}
         >
           <Box sx={{ flex: 1, height: '100%' }}>
-            <Container fluid>
-              <form>
-                <Schema form={form} />
-              </form>
-            </Container>
+            <ScrollArea sx={{ width: '100%', height: '100%' }}>
+              <Container fluid>
+                <form>
+                  <Schema form={form} />
+                </form>
+              </Container>
+            </ScrollArea>
           </Box>
           <Box sx={{ flex: 1, height: '100%' }}>
             <ConnectorEditor
