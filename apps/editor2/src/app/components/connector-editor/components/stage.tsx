@@ -29,7 +29,7 @@ export const Stage = () => {
   }, [value]);
 
   return (
-    <Box sx={{ width: '100vw', height: '100vh' }}>
+    <Box sx={{ width: '100%', height: '100%' }}>
       <ReactFlow
         nodeTypes={{
           start: CustomInternal,
