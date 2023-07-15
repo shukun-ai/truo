@@ -18,6 +18,7 @@ import {
 import { PresenterService } from './presenter.service';
 import { RoleService } from './role.service';
 import { ScheduleService } from './schedule.service';
+import { SourceService } from './source/source.service';
 import { ViewService } from './view.service';
 import { WorkflowService } from './workflow.service';
 
@@ -41,6 +42,7 @@ import { WorkflowService } from './workflow.service';
     PresenterService,
     ConnectorService,
     ConnectorTaskService,
+    SourceService,
   ],
   exports: [
     OrgService,
@@ -55,6 +57,7 @@ import { WorkflowService } from './workflow.service';
     PresenterService,
     ConnectorService,
     ConnectorTaskService,
+    SourceService,
   ],
 })
 export class CoreModule {}

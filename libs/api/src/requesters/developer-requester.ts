@@ -6,6 +6,7 @@ import {
   IDString,
   ConnectorSchema,
   TaskSchema,
+  MetadataSchema,
 } from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
@@ -234,6 +235,33 @@ export class DeveloperRequester {
       {
         body: {
           taskName,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/pull-metadatas
+   */
+  public async pullMetadatas() {
+    return await this.requestAdaptor.fetch<Record<string, MetadataSchema>>(
+      'POST',
+      this.buildUri(`pull-metadatas`),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/push-metadatas
+   */
+  public async pushMetadatas(metadatas: Record<string, MetadataSchema>) {
+    return await this.requestAdaptor.fetch<null>(
+      'POST',
+      this.buildUri(`push-metadatas`),
+      {
+        body: {
+          definition: metadatas,
         },
       },
     );

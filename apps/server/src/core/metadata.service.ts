@@ -7,6 +7,16 @@ import { OrgService } from './org.service';
 export class MetadataService {
   constructor(private readonly orgService: OrgService) {}
 
+  async pull(orgName: string): Promise<Record<string, MetadataSchema>> {
+    const entities = await this.getAll(orgName);
+    return entities.reduce((total, entity) => {
+      return {
+        ...total,
+        [entity.name]: entity,
+      };
+    }, {} as Record<string, MetadataSchema>);
+  }
+
   async getAll(orgName: string): Promise<MetadataSchema[]> {
     const application = await this.orgService.findCodebaseByOrgName(orgName);
     return application.metadata ?? [];
