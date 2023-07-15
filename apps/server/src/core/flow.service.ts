@@ -1,14 +1,18 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { FlowEventCompiledCodes, FlowSchema } from '@shukun/schema';
 
+import { CodebaseService } from './codebase.service';
 import { OrgService } from './org.service';
 
 @Injectable()
 export class FlowService {
-  constructor(private readonly orgService: OrgService) {}
+  constructor(
+    private readonly orgService: OrgService,
+    private readonly codebaseService: CodebaseService,
+  ) {}
 
   async findAll(orgName: string): Promise<FlowSchema[]> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
     return application.flows ?? [];
   }
 

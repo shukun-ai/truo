@@ -16,6 +16,7 @@ import {
 } from '@shukun/validator';
 
 import { CompilerService } from '../../compiler/compiler.service';
+import { CodebaseService } from '../../core/codebase.service';
 import { FlowService } from '../../core/flow.service';
 import { OrgService } from '../../core/org.service';
 import { ScheduleOrgOperatorService } from '../../schedule/schedule-org-operator.service';
@@ -31,6 +32,7 @@ export class DeveloperCodebaseController {
     private readonly flowService: FlowService,
     private readonly compilerService: CompilerService,
     private readonly scheduleOrgOperatorService: ScheduleOrgOperatorService,
+    private readonly codebaseService: CodebaseService,
   ) {}
 
   @Post()
@@ -82,7 +84,7 @@ export class DeveloperCodebaseController {
       throw new BadRequestException(systemDataValidator.getErrors()?.join(','));
     }
 
-    await this.orgService.updateCodebase(orgName, merged);
+    await this.codebaseService.update(orgName, merged);
 
     await this.compileOrgFlowCodes(orgName);
 

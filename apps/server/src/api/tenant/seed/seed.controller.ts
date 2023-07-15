@@ -13,6 +13,7 @@ import {
   SystemUserModel,
 } from '@shukun/schema';
 
+import { CodebaseService } from '../../../core/codebase.service';
 import { OrgDocument } from '../../../core/org/org.schema';
 import { OrgService } from '../../../core/org.service';
 import { SourceService } from '../../../source/source.service';
@@ -36,6 +37,8 @@ export class SeedController {
   @Inject()
   private readonly systemPositionService!: SourceService<SystemPositionModel>;
 
+  constructor(private readonly codebaseService: CodebaseService) {}
+
   @Post()
   async createNewOrg(
     @Body() createDto: SeedCreateDto,
@@ -44,7 +47,7 @@ export class SeedController {
     const org = await this.createOrg(createDto);
 
     // upload codebase
-    await this.orgService.updateCodebase(org.name, applicationSeedData);
+    await this.codebaseService.update(org.name, applicationSeedData);
 
     // create user
     const rootUser = await this.systemUserService.createOne(

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ScheduleSchema } from '@shukun/schema';
 
-import { OrgService } from './org.service';
+import { CodebaseService } from './codebase.service';
 
 @Injectable()
 export class ScheduleService {
-  constructor(private readonly orgService: OrgService) {}
+  constructor(private readonly codebaseService: CodebaseService) {}
 
   async findAll(orgName: string): Promise<ScheduleSchema[]> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
     return application.schedules ?? [];
   }
 }

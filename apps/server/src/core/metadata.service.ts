@@ -1,24 +1,18 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { MetadataSchema } from '@shukun/schema';
 
+import { CodebaseService } from './codebase.service';
 import { OrgService } from './org.service';
 
 @Injectable()
 export class MetadataService {
-  constructor(private readonly orgService: OrgService) {}
-
-  async pull(orgName: string): Promise<Record<string, MetadataSchema>> {
-    const entities = await this.getAll(orgName);
-    return entities.reduce((total, entity) => {
-      return {
-        ...total,
-        [entity.name]: entity,
-      };
-    }, {} as Record<string, MetadataSchema>);
-  }
+  constructor(
+    private readonly orgService: OrgService,
+    private readonly codebaseService: CodebaseService,
+  ) {}
 
   async getAll(orgName: string): Promise<MetadataSchema[]> {
-    const application = await this.orgService.findCodebaseByOrgName(orgName);
+    const application = await this.codebaseService.findByOrgName(orgName);
     return application.metadata ?? [];
   }
 
