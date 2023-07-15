@@ -1,8 +1,8 @@
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataReviseSchema } from '@shukun/schema';
 import { IsNotEmpty } from 'class-validator';
 
 export class MetadataPushDto {
   // TODO validate connector type here.
   @IsNotEmpty()
-  readonly definition!: Record<string, MetadataSchema>;
+  readonly definition!: Record<string, MetadataReviseSchema>;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataReviseSchema } from '@shukun/schema';
 import { Connection } from 'mongoose';
 
 import { SourceDocument, sourceMongoSchema } from './source.schema';
@@ -10,7 +10,7 @@ import { SourceDocument, sourceMongoSchema } from './source.schema';
 export class SourceService {
   constructor(@InjectConnection() private connection: Connection) {}
 
-  async pull(orgName: string): Promise<Record<string, MetadataSchema>> {
+  async pull(orgName: string): Promise<Record<string, MetadataReviseSchema>> {
     const entity = await this.getCollection(orgName).findOne(
       {},
       {},
@@ -26,18 +26,18 @@ export class SourceService {
 
   async push(
     orgName: string,
-    sources: Record<string, MetadataSchema>,
+    sources: Record<string, MetadataReviseSchema>,
   ): Promise<void> {
     await this.getCollection(orgName).create({
       definition: this.deserialize(sources),
     });
   }
 
-  private serialize(buffer: Buffer): Record<string, MetadataSchema> {
+  private serialize(buffer: Buffer): Record<string, MetadataReviseSchema> {
     return JSON.parse(buffer.toString());
   }
 
-  private deserialize(sources: Record<string, MetadataSchema>): Buffer {
+  private deserialize(sources: Record<string, MetadataReviseSchema>): Buffer {
     return Buffer.from(JSON.stringify(sources));
   }
 
@@ -50,6 +50,6 @@ export class SourceService {
   }
 
   private buildCollectionName(orgName: string) {
-    return `orgs_${orgName}_editor__sources`;
+    return `orgs_${orgName}_editor__metadatas`;
   }
 }

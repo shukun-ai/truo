@@ -1,10 +1,10 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
-import { MetadataSchema } from '@shukun/schema';
+import { MetadataReviseSchema } from '@shukun/schema';
 
 export type MetadataEntity = {
   id: string;
   metadataName: string;
-} & MetadataSchema;
+} & MetadataReviseSchema;
 
 const { metadataEntitiesRef, withMetadataEntities } =
   entitiesPropsFactory('metadata');
@@ -19,7 +19,7 @@ export const createMetadataEntityId = (metadataName: string): `${string}` => {
   return `${metadataName}`;
 };
 
-export const getMetadata = (entity: MetadataEntity): MetadataSchema => {
+export const getMetadata = (entity: MetadataEntity): MetadataReviseSchema => {
   const { id, metadataName, ...metadata } = entity;
   return { ...metadata };
 };
