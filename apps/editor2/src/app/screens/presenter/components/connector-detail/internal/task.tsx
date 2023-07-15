@@ -85,7 +85,11 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
           onChange={(event) => onChange({ ...value, type: event.target.value })}
           withAsterisk
         />
-        <TaskNextInput value={value} onChange={onChange} />
+        <TaskNextInput
+          currentTaskName={name}
+          value={value}
+          onChange={onChange}
+        />
         {taskEntity && (
           <Parameters
             taskEntity={taskEntity}

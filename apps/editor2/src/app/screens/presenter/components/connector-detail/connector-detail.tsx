@@ -2,6 +2,8 @@ import { Box, Container } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 
+import { useMemo } from 'react';
+
 import { ConnectorEntity } from '../../../../../repositories/connector/connector-ref';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { ConnectorEditor } from '../../../../components/connector-editor/connector-editor';
@@ -23,8 +25,15 @@ export const ConnectorDetail = ({
     initialValues: structuredClone(connectorEntity),
   });
 
+  const taskOptions = useMemo(() => {
+    return Object.entries(form.values.tasks).map(([taskName, task]) => ({
+      value: taskName,
+      label: taskName,
+    }));
+  }, [form.values.tasks]);
+
   return (
-    <ConnectorEditorProvider>
+    <ConnectorEditorProvider taskOptions={taskOptions}>
       <Box
         sx={{
           display: 'flex',
