@@ -73,6 +73,7 @@ export const PreviewFrame = () => {
       >
         <Box
           sx={{
+            boxSizing: 'content-box',
             width: device.width,
             height: device.height,
             minWidth: device.width,

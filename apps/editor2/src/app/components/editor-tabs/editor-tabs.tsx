@@ -1,4 +1,4 @@
-import { Box, Tabs } from '@mantine/core';
+import { Box, Tabs, Text } from '@mantine/core';
 
 import { ReactNode } from 'react';
 
@@ -41,7 +41,7 @@ export const EditorTabs = ({
           }
         }}
       >
-        <Tabs.List>
+        <Tabs.List sx={{ overflowX: 'scroll', flexWrap: 'nowrap' }}>
           {tabs.map((tab, index) => (
             <Tabs.Tab
               key={tab.id}
