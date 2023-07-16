@@ -34,6 +34,11 @@ export type TabEntity = {
       metadataName: string;
       metadataEntityId: string;
     }
+  | {
+      tabType: 'environment';
+      environmentName: string;
+      environmentEntityId: string;
+    }
 );
 
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');

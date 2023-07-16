@@ -10,6 +10,7 @@ export interface ITabRepository {
   selectedWatchEntityId$: Observable<string | null>;
   selectedConnectorEntityId$: Observable<string | null>;
   selectedMetadataEntityId$: Observable<string | null>;
+  selectedEnvironmentEntityId$: Observable<string | null>;
 
   previewWidgetTab(
     containerName: string,
@@ -28,6 +29,10 @@ export interface ITabRepository {
   ): void;
   previewConnectorTab(connectorName: string, connectorEntityId: string): void;
   previewMetadataTab(metadataName: string, metadataEntityId: string): void;
+  previewEnvironmentTab(
+    environmentName: string,
+    environmentEntityId: string,
+  ): void;
   fixTab(entityId: string): void;
   activeEditTab(entityId: string): void;
   inactiveEditTab(entityId: string): void;

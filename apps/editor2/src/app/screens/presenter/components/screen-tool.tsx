@@ -12,6 +12,7 @@ import {
 
 import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { ContainerPane } from './container/container-pane';
+import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
 import { RepositoryPane } from './repository-pane/repository-pane';
 import { ScreenPane } from './screen/screen-pane';
@@ -161,7 +162,7 @@ export const ScreenTool = () => {
       </Tabs.Panel>
 
       <Tabs.Panel value="environments" className={cx(classes.panel)}>
-        environments
+        <EnvironmentListPane />
       </Tabs.Panel>
     </Tabs>
   );
