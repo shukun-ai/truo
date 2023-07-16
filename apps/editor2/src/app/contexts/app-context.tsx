@@ -6,6 +6,8 @@ import { IAuthRepository } from '../../repositories/auth/auth-repository.interfa
 import { authStore } from '../../repositories/auth/auth-store';
 import { ConnectorRepository } from '../../repositories/connector/connector-repository';
 import { IConnectorRepository } from '../../repositories/connector/connector-repository.interface';
+import { EnvironmentRepository } from '../../repositories/environment/environment-repository';
+import { IEnvironmentRepository } from '../../repositories/environment/environment-repository.interface';
 import { GlobalRepository } from '../../repositories/global/global-repository';
 import { IGlobalRepository } from '../../repositories/global/global-repository.interface';
 import { MetadataRepository } from '../../repositories/metadata/metadata-repository';
@@ -26,6 +28,7 @@ export type AppContextProps = {
     tabRepository: ITabRepository;
     taskRepository: ITaskRepository;
     metadataRepository: IMetadataRepository;
+    environmentRepository: IEnvironmentRepository;
   };
 };
 
@@ -38,6 +41,7 @@ export const initializeAppContextProps = (): AppContextProps => {
   const tabRepository = new TabRepository();
   const taskRepository = new TaskRepository(apiRequester);
   const metadataRepository = new MetadataRepository(apiRequester);
+  const environmentRepository = new EnvironmentRepository(apiRequester);
 
   return {
     repositories: {
@@ -48,6 +52,7 @@ export const initializeAppContextProps = (): AppContextProps => {
       tabRepository,
       taskRepository,
       metadataRepository,
+      environmentRepository,
     },
   };
 };

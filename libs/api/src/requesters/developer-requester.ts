@@ -7,6 +7,7 @@ import {
   ConnectorSchema,
   TaskSchema,
   MetadataReviseSchema,
+  EnvironmentSchema,
 } from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
@@ -261,6 +262,35 @@ export class DeveloperRequester {
       {
         body: {
           definition: metadatas,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/pull-environments
+   */
+  public async pullEnvironments() {
+    return await this.requestAdaptor.fetch<Record<string, EnvironmentSchema>>(
+      'POST',
+      this.buildUri(`pull-environments`),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/push-environments
+   */
+  public async pushEnvironments(
+    environments: Record<string, EnvironmentSchema>,
+  ) {
+    return await this.requestAdaptor.fetch<null>(
+      'POST',
+      this.buildUri(`push-environments`),
+      {
+        body: {
+          definition: environments,
         },
       },
     );
