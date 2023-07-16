@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EnvironmentSchema, DataSourceEnvironments } from '@shukun/schema';
 
 import { CodebaseService } from './codebase.service';
+import { EnvironmentDao } from './dao/environment.dao';
 import { DataSourceService } from './data-source.service';
 
 @Injectable()
@@ -9,7 +10,19 @@ export class EnvironmentService {
   constructor(
     private readonly dataSourceService: DataSourceService,
     private readonly codebaseService: CodebaseService,
+    private readonly environmentDao: EnvironmentDao,
   ) {}
+
+  async pull(orgName: string): Promise<Record<string, EnvironmentSchema>> {
+    return this.environmentDao.getAll(orgName);
+  }
+
+  async push(
+    orgName: string,
+    environments: Record<string, EnvironmentSchema>,
+  ): Promise<void> {
+    return this.environmentDao.saveAll(orgName, environments);
+  }
 
   async findAll(orgName: string): Promise<EnvironmentSchema[]> {
     const application = await this.codebaseService.findByOrgName(orgName);

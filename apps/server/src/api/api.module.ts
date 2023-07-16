@@ -19,6 +19,7 @@ import { ConnectorController } from './connector/connector.controller';
 import { DeveloperCodebaseController } from './developer/developer-codebase.controller';
 import { DeveloperConnectorController } from './developer/developer-connector.controller';
 import { DeveloperDataSourceController } from './developer/developer-data-source.controller';
+import { DeveloperEnvironmentController } from './developer/developer-environment.controller';
 import { DeveloperInspectionController } from './developer/developer-inspection.controller';
 import { DeveloperMetadataController } from './developer/developer-metadata.controller';
 import { DeveloperMigrationController } from './developer/developer-migration.controller';
@@ -77,6 +78,7 @@ import { WebhookController } from './webhook/webhook.controller';
     DeveloperConnectorController,
     DeveloperTaskController,
     DeveloperMetadataController,
+    DeveloperEnvironmentController,
   ],
   providers: [
     SourceAccessControlService,

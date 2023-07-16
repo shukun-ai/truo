@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CodebaseService } from './codebase.service';
 import { ConnectorService } from './connector/connector.service';
 import { ConnectorTaskService } from './connector/task.service';
+import { EnvironmentDao } from './dao/environment.dao';
 import { DataSourceService } from './data-source.service';
 import { EnvironmentService } from './environment.service';
 
@@ -45,6 +46,7 @@ import { WorkflowService } from './workflow.service';
     ConnectorTaskService,
     SourceService,
     CodebaseService,
+    EnvironmentDao,
   ],
   exports: [
     OrgService,
