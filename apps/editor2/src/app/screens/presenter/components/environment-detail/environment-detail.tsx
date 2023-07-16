@@ -2,7 +2,7 @@ import { Box, Container, ScrollArea } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 
-import { MetadataEntity } from '../../../../../repositories/metadata/metadata-ref';
+import { EnvironmentEntity } from '../../../../../repositories/environment/environment-ref';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 
 import { TabAlert } from '../../../../components/tab-alert/tab-alert';
@@ -11,19 +11,19 @@ import { useAppContext } from '../../../../contexts/app-context';
 
 import { Schema } from './internal/schema';
 
-export type MetadataDetailProps = {
+export type EnvironmentDetailProps = {
   tab: TabEntity;
-  metadataEntity: MetadataEntity;
+  environmentEntity: EnvironmentEntity;
 };
 
-export const MetadataDetail = ({
+export const EnvironmentDetail = ({
   tab,
-  metadataEntity,
-}: MetadataDetailProps) => {
+  environmentEntity,
+}: EnvironmentDetailProps) => {
   const app = useAppContext();
 
-  const form = useForm<MetadataEntity>({
-    initialValues: structuredClone(metadataEntity),
+  const form = useForm<EnvironmentEntity>({
+    initialValues: structuredClone(environmentEntity),
   });
 
   return (
@@ -40,9 +40,9 @@ export const MetadataDetail = ({
       <TabAlert
         tab={tab}
         formValue={form.values}
-        entity={metadataEntity}
+        entity={environmentEntity}
         onSubmit={async () => {
-          app.repositories.metadataRepository.update(form.values);
+          app.repositories.environmentRepository.update(form.values);
           return true;
         }}
       />

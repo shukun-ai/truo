@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Divider,
   Group,
@@ -51,9 +52,14 @@ export const EnvironmentListPane = () => {
             }}
           >
             <Group>
-              <Text size="sm" truncate>
+              <Text size="sm" truncate w={140}>
                 {environmentEntity.environmentName}
               </Text>
+              {environmentEntity.isPublic ? (
+                <Badge color="orange">公开</Badge>
+              ) : (
+                <Badge color="gray">私密</Badge>
+              )}
             </Group>
             <MoreButton environmentEntity={environmentEntity} />
           </Box>
