@@ -5,7 +5,13 @@ import { MetadataEntity } from './metadata-ref';
 
 export interface IMetadataRepository {
   all$: Observable<MetadataEntity[]>;
-  allowedFieldType$: Observable<MetadataElectron['fieldType'][]>;
+  allowedFieldType$: Observable<
+    {
+      type: MetadataElectron['fieldType'];
+      deprecated?: boolean;
+      system?: boolean;
+    }[]
+  >;
 
   initialize(): Promise<void>;
   create(metadataName: string): void;
