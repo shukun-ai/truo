@@ -30,6 +30,9 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
   const allMetadatas = useObservableState(
     app.repositories.metadataRepository.all$,
   );
+  const allEnvironments = useObservableState(
+    app.repositories.environmentRepository.all$,
+  );
 
   const tabLabel = useMemo(() => {
     if (tab.tabType === 'widget') {
@@ -73,6 +76,13 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           (metadata) => tab.metadataName === metadata.metadataName,
         )?.metadataName
       );
+    } else if (tab.tabType === 'environment') {
+      return (
+        '环境变量: ' +
+        allEnvironments?.find(
+          (environment) => tab.environmentName === environment.environmentName,
+        )?.environmentName
+      );
     }
 
     throw new TypeException('Did not find specific tab');
@@ -82,6 +92,7 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
     allWatches,
     allWidgets,
     allMetadatas,
+    allEnvironments,
     tab,
   ]);
 

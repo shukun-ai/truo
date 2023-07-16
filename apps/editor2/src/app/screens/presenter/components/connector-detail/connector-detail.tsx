@@ -12,6 +12,8 @@ import { ConnectorEditorProvider } from '../../../../components/connector-editor
 
 import { TabAlert } from '../../../../components/tab-alert/tab-alert';
 
+import { useAppContext } from '../../../../contexts/app-context';
+
 import { Schema } from './internal/schema';
 
 export type ConnectorDetailProps = {
@@ -23,6 +25,8 @@ export const ConnectorDetail = ({
   tab,
   connectorEntity,
 }: ConnectorDetailProps) => {
+  const app = useAppContext();
+
   const form = useForm<ConnectorEntity>({
     initialValues: structuredClone(connectorEntity),
   });
@@ -46,7 +50,15 @@ export const ConnectorDetail = ({
           flexDirection: 'column',
         }}
       >
-        <TabAlert tab={tab} formValue={form.values} entity={connectorEntity} />
+        <TabAlert
+          tab={tab}
+          formValue={form.values}
+          entity={connectorEntity}
+          onSubmit={async () => {
+            app.repositories.connectorRepository.update(form.values);
+            return true;
+          }}
+        />
         <Box
           sx={{
             display: 'flex',

@@ -10,9 +10,15 @@ export type TabAlertProps = {
   formValue: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   entity: any;
+  onSubmit: () => Promise<boolean>;
 };
 
-export const TabAlert = ({ tab, formValue, entity }: TabAlertProps) => {
+export const TabAlert = ({
+  tab,
+  formValue,
+  entity,
+  onSubmit,
+}: TabAlertProps) => {
   const theme = useMantineTheme();
 
   const app = useAppContext();
@@ -28,12 +34,13 @@ export const TabAlert = ({ tab, formValue, entity }: TabAlertProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entity, fixedCache, formValue, tab.id]);
 
-  const handleSubmit = useCallback(() => {
-    app.repositories.connectorRepository.update(formValue);
-    app.repositories.tabRepository.inactiveEditTab(tab.id);
-    setFixedCache(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValue, tab.id]);
+  const handleSubmit = useCallback(async () => {
+    const result = await onSubmit();
+    if (result) {
+      app.repositories.tabRepository.inactiveEditTab(tab.id);
+      setFixedCache(false);
+    }
+  }, [app.repositories.tabRepository, onSubmit, tab.id]);
 
   if (!tab.isEdit) {
     return <Box sx={{ height: 16 }}></Box>;
