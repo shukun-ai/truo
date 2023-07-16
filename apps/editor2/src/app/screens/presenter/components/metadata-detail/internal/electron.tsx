@@ -32,8 +32,9 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
 
   const filedTypeOptions = useMemo<SelectItem[]>(() => {
     return allowedFieldType.map((fieldType) => ({
-      value: fieldType,
-      label: fieldType,
+      value: fieldType.type,
+      label: fieldType.type,
+      disabled: !!fieldType.deprecated || !!fieldType.system,
     }));
   }, [allowedFieldType]);
 

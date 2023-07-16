@@ -7,7 +7,11 @@ import { withMetadata } from './metadata-ref';
 export type MetadataProps = {
   initialized: boolean;
   selectedMetadataId: string | null;
-  allowedFieldType: MetadataElectron['fieldType'][];
+  allowedFieldType: {
+    type: MetadataElectron['fieldType'];
+    deprecated?: boolean;
+    system?: boolean;
+  }[];
 };
 
 export const metadataStore = createStore(
@@ -16,18 +20,23 @@ export const metadataStore = createStore(
     initialized: false,
     selectedMetadataId: null,
     allowedFieldType: [
-      'Text',
-      'LargeText',
-      'SingleSelect',
-      'Boolean',
-      'DateTime',
-      'Integer',
-      'Float',
-      'Currency',
-      'Password',
-      'ManyToOne',
-      'Attachment',
-      'Mixed',
+      { type: 'Text' },
+      { type: 'NameText', deprecated: true },
+      { type: 'LargeText' },
+      { type: 'SingleSelect' },
+      { type: 'MultiSelect', deprecated: true },
+      { type: 'Boolean' },
+      { type: 'DateTime' },
+      { type: 'Integer' },
+      { type: 'Float' },
+      { type: 'Currency' },
+      { type: 'Password' },
+      { type: 'ManyToMany', deprecated: true },
+      { type: 'ManyToOne' },
+      { type: 'Owner', system: true },
+      { type: 'Attachment' },
+      { type: 'Mixed' },
+      { type: 'Role', system: true },
     ],
   }),
   withMetadata(),
