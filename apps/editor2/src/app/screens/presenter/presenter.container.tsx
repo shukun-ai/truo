@@ -1,12 +1,11 @@
-import { Box, Divider, useMantineTheme } from '@mantine/core';
+import { Box, Divider } from '@mantine/core';
 
-import { IconGripHorizontal } from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppContext } from '../../contexts/app-context';
 
-import { PreviewTool } from './components/preview-tool';
+import { PreviewArea } from './components/preview-area';
 import { ScreenTool } from './components/screen-tool';
 import { SettingTool } from './components/setting-tool';
 import { TopBar } from './components/top-bar';
@@ -16,8 +15,6 @@ export type PresenterContainerProps = {
 };
 
 export const PresenterContainer = () => {
-  const theme = useMantineTheme();
-
   const app = useAppContext();
 
   const { presenterName } = useParams();
@@ -25,14 +22,21 @@ export const PresenterContainer = () => {
   useEffect(() => {
     if (presenterName) {
       app.repositories.presenterRepository.initialize(presenterName);
-      app.repositories.connectorRepository.initialize();
-      app.repositories.taskRepository.initialize();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presenterName]);
 
+  useEffect(() => {
+    app.repositories.connectorRepository.initialize();
+    app.repositories.taskRepository.initialize();
+    app.repositories.metadataRepository.initialize();
+    app.repositories.environmentRepository.initialize();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box
+      id="presenter__wrap"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -41,6 +45,7 @@ export const PresenterContainer = () => {
       }}
     >
       <Box
+        id="presenter__wrap2"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -48,10 +53,11 @@ export const PresenterContainer = () => {
           overflow: 'hidden',
         }}
       >
-        <Box>
+        <Box id="presenter__top_bar">
           <TopBar />
         </Box>
         <Box
+          id="presenter__middle_area"
           sx={{
             flex: 1,
             minWidth: 0,
@@ -61,6 +67,7 @@ export const PresenterContainer = () => {
           }}
         >
           <Box
+            id="presenter__middle_area_menu"
             sx={{
               display: 'flex',
               minWidth: 0,
@@ -73,10 +80,6 @@ export const PresenterContainer = () => {
             <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
               <ScreenTool />
             </Box>
-            {/* <Divider />
-          <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
-            <RepositoryTool />
-          </Box> */}
           </Box>
           <Divider orientation="vertical" />
           <Box
@@ -90,38 +93,20 @@ export const PresenterContainer = () => {
           >
             <SettingTool />
           </Box>
-          {/* <Divider orientation="vertical" />
-        <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
-          <Box sx={{ flex: 1 }}>
-            <CodeTool />
+          <Divider orientation="vertical" />
+          <Box
+            sx={{
+              display: 'flex',
+              flex: 2,
+              minWidth: 0,
+              minHeight: 0,
+              flexShrink: 0,
+              overflow: 'hidden',
+            }}
+          >
+            <PreviewArea />
           </Box>
-          <Divider />
-          <Box sx={{ flex: 1 }}>
-            <DebugTool />
-          </Box>
-        </Box> */}
         </Box>
-      </Box>
-
-      <Box
-        sx={{
-          background: theme.colors.gray[2],
-          borderTop: 'solid 1px',
-          borderBottom: 'solid 1px',
-          borderColor: theme.colors.gray[4],
-          height: 12,
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          cursor: 'row-resize',
-        }}
-      >
-        <IconGripHorizontal color={theme.colors.gray[7]} size="0.9rem" />
-      </Box>
-
-      <Box sx={{ flex: '1 0', overflow: 'hidden' }}>
-        <PreviewTool />
       </Box>
     </Box>
   );
