@@ -16,6 +16,8 @@ import { useMemo } from 'react';
 import { MetadataEntity } from '../../../../../../repositories/metadata/metadata-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
 
+import { ElectronSelectInputs } from './electron-select-inputs';
+
 export type ElectronProps = {
   electronName: string;
   value: MetadataEntity['electrons'][number];
@@ -42,9 +44,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
     <Card
       withBorder
       sx={{
-        display: 'flex',
         overflow: 'visible',
-        alignItems: 'center',
         marginBottom: 12,
       }}
     >
@@ -108,6 +108,15 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
           />
         </Group>
       </Box>
+      {value.fieldType === 'SingleSelect' && (
+        <Card withBorder>
+          <Text>选择项</Text>
+          <ElectronSelectInputs
+            value={value.options}
+            onChange={(newValue) => onChange({ ...value, options: newValue })}
+          />
+        </Card>
+      )}
     </Card>
   );
 };

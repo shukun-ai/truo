@@ -1,30 +1,32 @@
-import { append, move, remove, update } from './array';
+import {
+  mutableAppend,
+  mutableUpdate,
+  mutableRemove,
+  mutableMove,
+} from './mutable-array';
 
 describe('Name of the group', () => {
   describe('append', () => {
     it('should append', () => {
       const sets = [{ id: 'hello' }];
-      const output = append(sets, { id: 'world' });
-      expect(output).toEqual([{ id: 'hello' }, { id: 'world' }]);
-      expect(sets).toEqual([{ id: 'hello' }]);
+      mutableAppend(sets, { id: 'world' });
+      expect(sets).toEqual([{ id: 'hello' }, { id: 'world' }]);
     });
   });
 
   describe('update', () => {
     it('should update', () => {
       const sets = [{ id: 'hello' }];
-      const output = update(sets, 0, { id: 'world' });
-      expect(output).toEqual([{ id: 'world' }]);
-      expect(sets).toEqual([{ id: 'hello' }]);
+      mutableUpdate(sets, 0, { id: 'world' });
+      expect(sets).toEqual([{ id: 'world' }]);
     });
   });
 
   describe('remove', () => {
     it('should remove', () => {
       const sets = [{ id: 'hello' }];
-      const output = remove(sets, 0);
-      expect(output).toEqual([]);
-      expect(sets).toEqual([{ id: 'hello' }]);
+      mutableRemove(sets, 0);
+      expect(sets).toEqual([]);
     });
   });
 
@@ -38,8 +40,8 @@ describe('Name of the group', () => {
         'accepted',
         'executed',
       ];
-      const output = move(sets, 2, 4);
-      expect(output).toEqual([
+      mutableMove(sets, 2, 4);
+      expect(sets).toEqual([
         'raw',
         'bound',
         'published',
@@ -58,8 +60,8 @@ describe('Name of the group', () => {
         'accepted',
         'executed',
       ];
-      const output = move(sets, 4, 2);
-      expect(output).toEqual([
+      mutableMove(sets, 4, 2);
+      expect(sets).toEqual([
         'raw',
         'bound',
         'synced',
