@@ -18,7 +18,18 @@ export type PresenterProps = {
   repositoryDefinitions: Record<string, RepositorySchema>;
   selectedScreenEntityId: string | null;
   selectedContainerEntityId: string | null;
+  selectedActivityTab: ActivityTabs | null;
 };
+
+export enum ActivityTabs {
+  Screens = 'Screens',
+  Widgets = 'Widgets',
+  Repositories = 'Repositories',
+  Watches = 'Watches',
+  Metadatas = 'Metadatas',
+  Connectors = 'Connectors',
+  Environments = 'Environments',
+}
 
 export const ROOT_NODE_ID = 'root';
 export const SCREEN_HOME_PAGE_ID = 'home';
@@ -32,6 +43,7 @@ export const presenterStore = createStore(
     repositoryDefinitions,
     selectedScreenEntityId: null,
     selectedContainerEntityId: null,
+    selectedActivityTab: ActivityTabs.Widgets,
   }),
   withScreen(),
   withContainer(),
