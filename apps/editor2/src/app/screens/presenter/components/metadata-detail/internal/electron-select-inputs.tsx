@@ -1,7 +1,9 @@
-import { Box, ColorInput, TextInput } from '@mantine/core';
+import { ActionIcon, Box, ColorInput, TextInput } from '@mantine/core';
 import { MetadataOptions } from '@shukun/schema';
 
 import { getUniqueLabel } from '@shukun/util-functions';
+
+import { IconTrash } from '@tabler/icons-react';
 
 import { ArrayInputs } from '../../../../../components/array-inputs/array-inputs';
 
@@ -28,8 +30,8 @@ export const ElectronSelectInputs = ({
           label: key,
         };
       }}
-      renderItem={(itemValue, itemChange) => (
-        <Box sx={{ display: 'flex' }}>
+      renderItem={(itemValue, itemChange, itemRemove) => (
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <TextInput
             sx={{ flex: 1 }}
             label="key"
@@ -57,6 +59,14 @@ export const ElectronSelectInputs = ({
               })
             }
           />
+          <ActionIcon
+            mt={22}
+            onClick={() => {
+              itemRemove();
+            }}
+          >
+            <IconTrash size="1rem" />
+          </ActionIcon>
         </Box>
       )}
     />

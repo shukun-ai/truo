@@ -1,6 +1,11 @@
 import { Box, Button } from '@mantine/core';
 
-import { mutableAppend, mutableMove } from '@shukun/util-functions';
+import {
+  mutableAppend,
+  mutableMove,
+  mutableRemove,
+  mutableUpdate,
+} from '@shukun/util-functions';
 
 import { Fragment, useId } from 'react';
 
@@ -11,7 +16,11 @@ export type ArrayInputProps<T> = {
   value: T[];
   onChange: (value: T[]) => void;
   onCreate: () => T;
-  renderItem: (itemValue: T, itemChange: (itemValue: T) => void) => JSX.Element;
+  renderItem: (
+    itemValue: T,
+    itemChange: (itemValue: T) => void,
+    itemRemove: () => void,
+  ) => JSX.Element;
 };
 
 export const ArrayInputs = <T,>({
@@ -29,10 +38,15 @@ export const ArrayInputs = <T,>({
           <Fragment key={index}>
             <Draggable
               dragType={`DRAG_DROP_${dragDropId}`}
-              value={value}
               item={item}
               index={index}
               renderItem={renderItem}
+              onChange={(newItemValue) => {
+                onChange(mutableUpdate(value, index, newItemValue));
+              }}
+              onRemove={() => {
+                onChange(mutableRemove(value, index));
+              }}
             />
             <Droppable
               dropType={`DRAG_DROP_${dragDropId}`}
