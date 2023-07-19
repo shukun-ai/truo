@@ -16,6 +16,8 @@ import { useMemo } from 'react';
 import { MetadataEntity } from '../../../../../../repositories/metadata/metadata-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
 
+import { ElectronForeignNameInputs } from './electron-foreign-name-inputs';
+import { ElectronReferenceToInputs } from './electron-reference-to-inputs';
 import { ElectronSelectInputs } from './electron-select-inputs';
 
 export type ElectronProps = {
@@ -108,12 +110,32 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
           />
         </Group>
       </Box>
-      {value.fieldType === 'SingleSelect' && (
+      {(value.fieldType === 'SingleSelect' ||
+        value.fieldType === 'MultiSelect') && (
         <Card withBorder>
           <Text>选择项</Text>
           <ElectronSelectInputs
             value={value.options}
             onChange={(newValue) => onChange({ ...value, options: newValue })}
+          />
+        </Card>
+      )}
+      {(value.fieldType === 'ManyToOne' ||
+        value.fieldType === 'ManyToMany') && (
+        <Card withBorder>
+          <Text>关联项</Text>
+          <ElectronReferenceToInputs
+            value={value.referenceTo}
+            onChange={(newValue) =>
+              onChange({ ...value, referenceTo: newValue })
+            }
+          />
+          <ElectronForeignNameInputs
+            atomName={value.referenceTo}
+            value={value.foreignName}
+            onChange={(newValue) =>
+              onChange({ ...value, foreignName: newValue })
+            }
           />
         </Card>
       )}
