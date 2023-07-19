@@ -31,7 +31,7 @@ import { ScreenPane } from './screen/screen-pane';
 import { TreePane } from './tree/tree-pane';
 import { WatchPane } from './watch-pane/watch-pane';
 
-export const ScreenTool = () => {
+export const ActivityBar = () => {
   const { classes, cx } = useStyles();
 
   const app = useAppContext();
