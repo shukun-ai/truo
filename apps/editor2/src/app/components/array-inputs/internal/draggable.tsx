@@ -1,5 +1,4 @@
 import { ActionIcon, Box } from '@mantine/core';
-import { mutableUpdate } from '@shukun/util-functions';
 import { IconGripVertical } from '@tabler/icons-react';
 import { useDrag } from 'react-dnd';
 
@@ -7,18 +6,24 @@ import { DroppableItem } from './types';
 
 export type DraggableProps<T> = {
   dragType: string;
-  value: T[];
   item: T;
   index: number;
-  renderItem: (itemValue: T, itemChange: (itemValue: T) => void) => JSX.Element;
+  renderItem: (
+    itemValue: T,
+    itemChange: (itemValue: T) => void,
+    itemRemove: () => void,
+  ) => JSX.Element;
+  onChange: (newItemValue: T) => void;
+  onRemove: () => void;
 };
 
 export const Draggable = <T,>({
   dragType,
-  value,
   item,
   index,
   renderItem,
+  onChange,
+  onRemove,
 }: DraggableProps<T>) => {
   const [, drag, preview] = useDrag<DroppableItem>(() => ({
     type: dragType,
@@ -39,9 +44,15 @@ export const Draggable = <T,>({
         </ActionIcon>
       </Box>
       <Box>
-        {renderItem(item, (newValue) => {
-          mutableUpdate(value, index, newValue);
-        })}
+        {renderItem(
+          item,
+          (newValue) => {
+            onChange(newValue);
+          },
+          () => {
+            onRemove();
+          },
+        )}
       </Box>
     </Box>
   );
