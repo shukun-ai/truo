@@ -1,6 +1,6 @@
 import { Box, Button } from '@mantine/core';
 
-import { append, update } from './array-inputs-helper';
+import { append, update } from '@shukun/util-functions';
 
 export type ArrayInputProps<T> = {
   value: T[];
