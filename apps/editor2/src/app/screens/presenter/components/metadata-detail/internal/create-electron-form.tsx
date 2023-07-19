@@ -36,7 +36,7 @@ export const CreateElectronForm = ({
       })}
     >
       <TextInput
-        label="任务名称"
+        label="字段名称"
         placeholder="Electron Name"
         data-autofocus
         withAsterisk
