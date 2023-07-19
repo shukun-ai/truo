@@ -34,6 +34,17 @@ export class TabRepository implements ITabRepository {
     selectAllEntities({ ref: tabRef }),
   );
 
+  selectedTab$: Observable<TabEntity | null> = this.tabStore.pipe(
+    select((state) => {
+      const tabId = state.selectedTabEntityId;
+      if (!tabId) {
+        return null;
+      }
+      const tabEntity = state.tabEntities[tabId];
+      return tabEntity || null;
+    }),
+  );
+
   selectedTabEntityId$: Observable<string | null> = this.tabStore.pipe(
     select((state) => state.selectedTabEntityId),
   );
