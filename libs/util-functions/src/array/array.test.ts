@@ -1,4 +1,4 @@
-import { append, move, remove, update } from './array-inputs-helper';
+import { append, move, remove, update } from './array';
 
 describe('Name of the group', () => {
   describe('append', () => {

@@ -1,1 +1,1 @@
-export * from './lib/util-functions';
+export * from './array/array';
