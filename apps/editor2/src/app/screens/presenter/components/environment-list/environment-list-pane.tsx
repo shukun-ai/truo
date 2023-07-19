@@ -52,7 +52,7 @@ export const EnvironmentListPane = () => {
             }}
           >
             <Group>
-              <Text size="sm" truncate w={140}>
+              <Text size="sm" truncate w={100}>
                 {environmentEntity.environmentName}
               </Text>
               {environmentEntity.isPublic ? (
