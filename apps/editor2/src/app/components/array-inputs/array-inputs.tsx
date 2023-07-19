@@ -9,6 +9,8 @@ import {
 
 import { Fragment, useId } from 'react';
 
+import { ConnectDragSource } from 'react-dnd';
+
 import { Draggable } from './internal/draggable';
 import { Droppable } from './internal/droppable';
 
@@ -20,6 +22,9 @@ export type ArrayInputProps<T> = {
     itemValue: T,
     itemChange: (itemValue: T) => void,
     itemRemove: () => void,
+    options: {
+      drag: ConnectDragSource;
+    },
   ) => JSX.Element;
 };
 

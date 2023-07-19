@@ -1,6 +1,5 @@
-import { ActionIcon, Box } from '@mantine/core';
-import { IconGripVertical } from '@tabler/icons-react';
-import { useDrag } from 'react-dnd';
+import { Box } from '@mantine/core';
+import { ConnectDragSource, useDrag } from 'react-dnd';
 
 import { DroppableItem } from './types';
 
@@ -12,6 +11,9 @@ export type DraggableProps<T> = {
     itemValue: T,
     itemChange: (itemValue: T) => void,
     itemRemove: () => void,
+    options: {
+      drag: ConnectDragSource;
+    },
   ) => JSX.Element;
   onChange: (newItemValue: T) => void;
   onRemove: () => void;
@@ -31,29 +33,19 @@ export const Draggable = <T,>({
   }));
 
   return (
-    <Box
-      ref={preview}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      <Box>
-        <ActionIcon sx={{ cursor: 'move' }} ref={drag}>
-          <IconGripVertical size="1rem" />
-        </ActionIcon>
-      </Box>
-      <Box>
-        {renderItem(
-          item,
-          (newValue) => {
-            onChange(newValue);
-          },
-          () => {
-            onRemove();
-          },
-        )}
-      </Box>
+    <Box ref={preview}>
+      {renderItem(
+        item,
+        (newValue) => {
+          onChange(newValue);
+        },
+        () => {
+          onRemove();
+        },
+        {
+          drag,
+        },
+      )}
     </Box>
   );
 };

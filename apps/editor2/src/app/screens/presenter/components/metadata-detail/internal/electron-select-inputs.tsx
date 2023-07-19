@@ -3,7 +3,7 @@ import { MetadataOptions } from '@shukun/schema';
 
 import { getUniqueLabel } from '@shukun/util-functions';
 
-import { IconTrash } from '@tabler/icons-react';
+import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 
 import { ArrayInputs } from '../../../../../components/array-inputs/array-inputs';
 
@@ -30,8 +30,11 @@ export const ElectronSelectInputs = ({
           label: key,
         };
       }}
-      renderItem={(itemValue, itemChange, itemRemove) => (
+      renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <ActionIcon sx={{ cursor: 'move' }} ref={drag} mt={22}>
+            <IconGripVertical size="1rem" />
+          </ActionIcon>
           <TextInput
             sx={{ flex: 1 }}
             label="key"
