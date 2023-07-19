@@ -1,4 +1,5 @@
-import { Box, ScrollArea, Text, createStyles } from '@mantine/core';
+import { Alert, Box, ScrollArea, createStyles } from '@mantine/core';
+import { IconInfoCircle } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -50,7 +51,11 @@ export const TreePane = () => {
   if (!selectedContainerEntityId) {
     return (
       <Box className={cx(classes.wrapper)}>
-        <Text>请先选择容器</Text>
+        <Alert icon={<IconInfoCircle />} title="请先选择容器">
+          在上方选择或者创建新的容器，然后操作相关的组件树。
+          <br />
+          一个容器有多条组件树、数据仓库、观察器组成。
+        </Alert>
       </Box>
     );
   }
