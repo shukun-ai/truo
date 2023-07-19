@@ -37,7 +37,7 @@ export const ElectronSelectInputs = ({
           </ActionIcon>
           <TextInput
             sx={{ flex: 1 }}
-            label="key"
+            label="唯一值"
             value={itemValue.key}
             onChange={(event) =>
               itemChange({ ...itemValue, key: event.target.value })
@@ -45,7 +45,7 @@ export const ElectronSelectInputs = ({
           />
           <TextInput
             sx={{ flex: 1 }}
-            label="label"
+            label="显示名"
             value={itemValue.label}
             onChange={(event) =>
               itemChange({ ...itemValue, label: event.target.value })
@@ -53,7 +53,7 @@ export const ElectronSelectInputs = ({
           />
           <ColorInput
             sx={{ flex: 1 }}
-            label="color"
+            label="颜色"
             value={itemValue.color}
             onChange={(value) =>
               itemChange({

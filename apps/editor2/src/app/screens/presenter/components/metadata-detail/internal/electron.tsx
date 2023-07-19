@@ -50,34 +50,35 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
         marginBottom: 12,
       }}
     >
-      <Text sx={{ width: 100 }} align="right" truncate mr={12}>
+      <Text fw="bold" mb={6}>
         {electronName}
       </Text>
-      <Box sx={{ width: 120, marginRight: 12 }}>
-        <TextInput
-          placeholder="显示名称"
-          value={value.label}
-          onChange={(event) =>
-            onChange({
-              ...value,
-              label: event.target.value,
-            })
-          }
-        />
-      </Box>
-      <Box sx={{ width: 120, marginRight: 12 }}>
-        <NativeSelect
-          data={filedTypeOptions}
-          value={value.fieldType}
-          onChange={(event) =>
-            onChange({
-              ...value,
-              fieldType: event.target.value as any,
-            })
-          }
-        />
-      </Box>
-      <Box>
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ flex: 1, marginRight: 12 }}>
+          <TextInput
+            placeholder="显示名称"
+            value={value.label}
+            onChange={(event) =>
+              onChange({
+                ...value,
+                label: event.target.value,
+              })
+            }
+          />
+        </Box>
+        <Box sx={{ flex: 1, marginRight: 12 }}>
+          <NativeSelect
+            data={filedTypeOptions}
+            value={value.fieldType}
+            onChange={(event) =>
+              onChange({
+                ...value,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                fieldType: event.target.value as any,
+              })
+            }
+          />
+        </Box>
         <Group>
           <Checkbox
             label="必填"
@@ -112,7 +113,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
       </Box>
       {(value.fieldType === 'SingleSelect' ||
         value.fieldType === 'MultiSelect') && (
-        <Card withBorder>
+        <Card withBorder mt={12}>
           <Text>选择项</Text>
           <ElectronSelectInputs
             value={value.options}
@@ -122,7 +123,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
       )}
       {(value.fieldType === 'ManyToOne' ||
         value.fieldType === 'ManyToMany') && (
-        <Card withBorder>
+        <Card withBorder mt={12}>
           <Text>关联项</Text>
           <ElectronReferenceToInputs
             value={value.referenceTo}
