@@ -1,6 +1,8 @@
 import { Box, ColorInput, TextInput } from '@mantine/core';
 import { MetadataOptions } from '@shukun/schema';
 
+import { getUniqueLabel } from '@shukun/util-functions';
+
 import { ArrayInputs } from '../../../../../components/array-inputs/array-inputs';
 
 export type ElectronSelectInputsProps = {
@@ -16,10 +18,16 @@ export const ElectronSelectInputs = ({
     <ArrayInputs<MetadataOptions[number]>
       value={value}
       onChange={(value) => onChange(value)}
-      onCreate={() => ({
-        key: 'untitle',
-        label: 'untitle',
-      })}
+      onCreate={() => {
+        const key = getUniqueLabel(
+          'untitle',
+          value.map((item) => item.key),
+        );
+        return {
+          key: key,
+          label: key,
+        };
+      }}
       renderItem={(itemValue, itemChange) => (
         <Box sx={{ display: 'flex' }}>
           <TextInput
