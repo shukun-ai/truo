@@ -7,8 +7,8 @@ import { useParams } from 'react-router-dom';
 import { useAppContext } from '../../contexts/app-context';
 
 import { ActivityBar } from './components/activity-bar';
+import { EditorGroups } from './components/editor-groups';
 import { PreviewArea } from './components/preview-area';
-import { SettingTool } from './components/setting-tool';
 import { TopBar } from './components/top-bar';
 
 export type PresenterContainerProps = {
@@ -97,7 +97,7 @@ export const PresenterContainer = () => {
               overflow: 'hidden',
             }}
           >
-            <SettingTool />
+            <EditorGroups />
           </Box>
           <Divider orientation="vertical" />
           <Box

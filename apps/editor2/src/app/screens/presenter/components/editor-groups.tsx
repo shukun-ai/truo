@@ -6,7 +6,7 @@ export type SettingToolProps = {
   //
 };
 
-export const SettingTool = () => {
+export const EditorGroups = () => {
   return (
     <Box sx={{ height: '100%', overflow: 'hidden' }}>
       <TabPane />
