@@ -1,4 +1,4 @@
-import { Alert, Box, Tabs } from '@mantine/core';
+import { Alert, Box, Tabs, useMantineTheme } from '@mantine/core';
 
 import { IconMoodCheck } from '@tabler/icons-react';
 import { ReactNode } from 'react';
@@ -25,6 +25,8 @@ export const EditorTabs = ({
   label,
   detail,
 }: EditorTabsProps) => {
+  const theme = useMantineTheme();
+
   return (
     <Box sx={{ height: '100%', overflow: 'hidden' }}>
       <Tabs
@@ -42,7 +44,14 @@ export const EditorTabs = ({
           }
         }}
       >
-        <Tabs.List sx={{ overflowX: 'scroll', flexWrap: 'nowrap' }}>
+        <Tabs.List
+          sx={{
+            overflowX: 'scroll',
+            flexWrap: 'nowrap',
+            background: theme.colors.gray[1],
+            borderBottomWidth: 0,
+          }}
+        >
           {tabs.map((tab, index) => (
             <Tabs.Tab
               key={tab.id}
@@ -50,6 +59,11 @@ export const EditorTabs = ({
               rightSection={
                 <TabActions tab={tab} fixTab={fixTab} closeTab={closeTab} />
               }
+              sx={{
+                background:
+                  selectedTabId === tab.id ? theme.white : theme.colors.gray[3],
+                fontWeight: selectedTabId === tab.id ? 'bold' : 'normal',
+              }}
             >
               {label(tab, index)}
             </Tabs.Tab>
