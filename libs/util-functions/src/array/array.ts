@@ -23,8 +23,8 @@ export const move = <T>(
 ): T[] => {
   if (sourceIndex <= targetIndex) {
     const first = sets.slice(0, sourceIndex);
-    const second = sets.slice(sourceIndex + 1, targetIndex);
-    const third = sets.slice(targetIndex, sets.length);
+    const second = sets.slice(sourceIndex + 1, targetIndex + 1);
+    const third = sets.slice(targetIndex + 1, sets.length);
     const source = sets.slice(sourceIndex, sourceIndex + 1);
 
     return [...first, ...second, ...source, ...third];
