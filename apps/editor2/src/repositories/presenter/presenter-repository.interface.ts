@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { IContainerRepository } from './container-repository.interface';
 import { IDeserializationService } from './deserialization-service.interface';
+import { ActivityTabs } from './presenter-store';
 import { IRepositoryRepository } from './repository-repository.interface';
 import { IScreenRepository } from './screen-repository.interface';
 import { ISerializationService } from './serialization-service.interface';
@@ -25,6 +26,8 @@ export interface IPresenterRepository {
   widgetDefinitions$: Observable<Record<string, WidgetSchema>>;
   repositoryDefinitions$: Observable<Record<string, RepositorySchema>>;
   selectedContainerEntityId$: Observable<string | null>;
+  selectedActivityTab$: Observable<ActivityTabs | null>;
 
   initialize(presenterName: string): Promise<void>;
+  chooseActivityTab(tab: ActivityTabs | null): void;
 }

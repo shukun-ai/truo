@@ -1,14 +1,26 @@
-import { Box, Divider, Tabs, Tooltip, createStyles } from '@mantine/core';
+import {
+  Box,
+  Divider,
+  Tabs,
+  Tooltip,
+  createStyles,
+  useMantineTheme,
+} from '@mantine/core';
 import {
   IconRoute,
   IconBinaryTree,
   IconBuildingWarehouse,
   IconAtom2Filled,
   IconGizmo,
-  IconShieldLock,
   Icon3dCubeSphere,
   IconVariable,
 } from '@tabler/icons-react';
+
+import { useObservableState } from 'observable-hooks';
+
+import { ActivityTabs } from '../../../../repositories/presenter/presenter-store';
+
+import { useAppContext } from '../../../contexts/app-context';
 
 import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { ContainerPane } from './container/container-pane';
@@ -22,64 +34,82 @@ import { WatchPane } from './watch-pane/watch-pane';
 export const ScreenTool = () => {
   const { classes, cx } = useStyles();
 
+  const app = useAppContext();
+
+  const selectedActivityTab = useObservableState(
+    app.repositories.presenterRepository.selectedActivityTab$,
+    null,
+  );
+
+  const activityTabs = useActivityTabs();
+
+  const theme = useMantineTheme();
+
   return (
     <Tabs
-      defaultValue="widgets"
       className={cx(classes.wrapper)}
       orientation="vertical"
+      value={selectedActivityTab}
+      onTabChange={(value) => {
+        app.repositories.presenterRepository.chooseActivityTab(
+          value as ActivityTabs,
+        );
+      }}
     >
       <Tabs.List className={cx(classes.tabs)}>
-        <Tooltip label="路由" position="right">
-          <Tabs.Tab value="screens" icon={<IconRoute size="0.95rem" />} />
-        </Tooltip>
-        <Tooltip label="组件树" position="right">
-          <Tabs.Tab value="widgets" icon={<IconBinaryTree size="0.95rem" />} />
-        </Tooltip>
-        <Tooltip label="数据仓库" position="right">
-          <Tabs.Tab
-            value="repositories"
-            icon={<IconBuildingWarehouse size="0.95rem" />}
-          />
-        </Tooltip>
-        <Tooltip label="观察器" position="right">
-          <Tabs.Tab
-            value="watches"
-            icon={<Icon3dCubeSphere size="0.95rem" />}
-          />
-        </Tooltip>
-        <Tooltip label="元数据" position="right">
-          <Tabs.Tab
-            value="metadata"
-            icon={<IconAtom2Filled size="0.95rem" />}
-          />
-        </Tooltip>
-        <Tooltip label="连接器" position="right">
-          <Tabs.Tab value="connectors" icon={<IconGizmo size="0.95rem" />} />
-        </Tooltip>
-        <Tooltip label="环境变量" position="right">
-          <Tabs.Tab
-            value="environments"
-            icon={<IconVariable size="0.95rem" />}
-          />
-        </Tooltip>
+        {activityTabs.map((tab) => (
+          <Tooltip label={tab.label} position="right" withArrow>
+            <Tabs.Tab
+              value={tab.value}
+              icon={tab.icon}
+              sx={{
+                background:
+                  tab.value === selectedActivityTab
+                    ? theme.colors.gray[3]
+                    : 'transparent',
+                borderRightWidth: 0,
+                marginRight: 0,
+                borderRadius: 0,
+              }}
+            />
+          </Tooltip>
+        ))}
       </Tabs.List>
 
-      <Tabs.Panel value="screens" className={cx(classes.panel)}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexShrink: 0,
-            minHeight: 0,
-            height: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <ScreenPane />
-        </Box>
-      </Tabs.Panel>
+      {activityTabs.map((tab) => (
+        <Tabs.Panel value={tab.value} className={cx(classes.panel)}>
+          {tab.pane}
+        </Tabs.Panel>
+      ))}
+    </Tabs>
+  );
+};
 
-      <Tabs.Panel value="widgets" className={cx(classes.panel)}>
+const useStyles = createStyles(() => ({
+  wrapper: {
+    overflow: 'hidden',
+    height: '100%',
+  },
+  tabs: {},
+  panel: {
+    flex: 1,
+    overflow: 'hidden',
+  },
+}));
+
+const useActivityTabs = () => {
+  return [
+    {
+      label: '页面',
+      value: ActivityTabs.Screens,
+      icon: <IconRoute size="1.2rem" />,
+      pane: <ScreenPane />,
+    },
+    {
+      label: '组件树',
+      value: ActivityTabs.Widgets,
+      icon: <IconBinaryTree size="1.2rem" />,
+      pane: (
         <Box
           sx={{
             display: 'flex',
@@ -96,9 +126,13 @@ export const ScreenTool = () => {
           <Divider />
           <TreePane />
         </Box>
-      </Tabs.Panel>
-
-      <Tabs.Panel value="repositories" className={cx(classes.panel)}>
+      ),
+    },
+    {
+      label: '数据仓库',
+      value: ActivityTabs.Repositories,
+      icon: <IconBuildingWarehouse size="1.2rem" />,
+      pane: (
         <Box
           sx={{
             display: 'flex',
@@ -115,9 +149,13 @@ export const ScreenTool = () => {
           <Divider />
           <RepositoryPane />
         </Box>
-      </Tabs.Panel>
-
-      <Tabs.Panel value="watches" className={cx(classes.panel)}>
+      ),
+    },
+    {
+      label: '观察器',
+      value: ActivityTabs.Watches,
+      icon: <Icon3dCubeSphere size="1.2rem" />,
+      pane: (
         <Box
           sx={{
             display: 'flex',
@@ -134,42 +172,25 @@ export const ScreenTool = () => {
           <Divider />
           <WatchPane />
         </Box>
-      </Tabs.Panel>
-
-      <Tabs.Panel value="metadata" className={cx(classes.panel)}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexShrink: 0,
-            minHeight: 0,
-            height: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <MetadataListPane />
-        </Box>
-      </Tabs.Panel>
-
-      <Tabs.Panel value="connectors" className={cx(classes.panel)}>
-        <ConnectorListPane />
-      </Tabs.Panel>
-
-      <Tabs.Panel value="environments" className={cx(classes.panel)}>
-        <EnvironmentListPane />
-      </Tabs.Panel>
-    </Tabs>
-  );
+      ),
+    },
+    {
+      label: '元数据',
+      value: ActivityTabs.Metadatas,
+      icon: <IconAtom2Filled size="1.2rem" />,
+      pane: <MetadataListPane />,
+    },
+    {
+      label: '连接器',
+      value: ActivityTabs.Connectors,
+      icon: <IconGizmo size="1.2rem" />,
+      pane: <ConnectorListPane />,
+    },
+    {
+      label: '环境变量',
+      value: ActivityTabs.Environments,
+      icon: <IconVariable size="1.2rem" />,
+      pane: <EnvironmentListPane />,
+    },
+  ];
 };
-
-const useStyles = createStyles(() => ({
-  wrapper: {
-    overflow: 'hidden',
-    height: '100%',
-  },
-  tabs: {},
-  panel: {
-    flex: 1,
-    overflow: 'hidden',
-  },
-}));
