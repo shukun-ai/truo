@@ -1,5 +1,6 @@
-import { Box, Tabs, Text } from '@mantine/core';
+import { Alert, Box, Tabs } from '@mantine/core';
 
+import { IconMoodCheck } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
 import { TabActions } from './internal/tab-actions';
@@ -63,6 +64,16 @@ export const EditorTabs = ({
             {detail(tab, index)}
           </Tabs.Panel>
         ))}
+        {tabs.length === 0 && (
+          <Box p={24}>
+            <Alert
+              icon={<IconMoodCheck size="2rem" />}
+              title="欢迎使用 SHUKUN 开发平台"
+            >
+              请选择左侧的元素开始您的项目
+            </Alert>
+          </Box>
+        )}
       </Tabs>
     </Box>
   );
