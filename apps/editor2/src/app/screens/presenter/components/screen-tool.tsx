@@ -62,12 +62,6 @@ export const ScreenTool = () => {
             icon={<IconVariable size="0.95rem" />}
           />
         </Tooltip>
-        <Tooltip label="权限" position="right">
-          <Tabs.Tab
-            value="permissions"
-            icon={<IconShieldLock size="0.95rem" />}
-          />
-        </Tooltip>
       </Tabs.List>
 
       <Tabs.Panel value="screens" className={cx(classes.panel)}>

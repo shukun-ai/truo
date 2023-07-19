@@ -1,5 +1,6 @@
 import { Box, Divider } from '@mantine/core';
 
+import { useObservableState } from 'observable-hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -18,6 +19,11 @@ export const PresenterContainer = () => {
   const app = useAppContext();
 
   const { presenterName } = useParams();
+
+  const selectedTab = useObservableState(
+    app.repositories.tabRepository.selectedTab$,
+    null,
+  );
 
   useEffect(() => {
     if (presenterName) {
@@ -96,7 +102,7 @@ export const PresenterContainer = () => {
           <Divider orientation="vertical" />
           <Box
             sx={{
-              display: 'flex',
+              display: selectedTab?.tabType !== 'connector' ? 'flex' : 'none',
               flex: 2,
               minWidth: 0,
               minHeight: 0,

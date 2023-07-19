@@ -4,6 +4,7 @@ import { TabEntity } from './tab-ref';
 
 export interface ITabRepository {
   allTabs$: Observable<TabEntity[]>;
+  selectedTab$: Observable<TabEntity | null>;
   selectedTabEntityId$: Observable<string | null>;
   selectedWidgetEntityId$: Observable<string | null>;
   selectedRepositoryEntityId$: Observable<string | null>;
