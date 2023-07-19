@@ -29,18 +29,32 @@ describe('Name of the group', () => {
   });
 
   describe('move', () => {
-    it('should move to front', () => {
-      const sets = [{ id: 'hello' }, { id: 'world' }];
-      const output = move(sets, 1, 0);
-      expect(output).toEqual([{ id: 'world' }, { id: 'hello' }]);
-      expect(sets).toEqual([{ id: 'hello' }, { id: 'world' }]);
+    it('should move from 0 to 1', () => {
+      const sets = ['x', 1, 2, 3, 4, 5, 6];
+      const output = move(sets, 0, 1);
+      expect(output).toEqual([1, 'x', 2, 3, 4, 5, 6]);
+      expect(sets).toEqual(['x', 1, 2, 3, 4, 5, 6]);
     });
 
     it('should move to back', () => {
-      const sets = [1, 'x', 3, 4, 5, 6];
-      const output = move(sets, 1, 5);
-      expect(output).toEqual([1, 3, 4, 5, 'x', 6]);
-      expect(sets).toEqual([1, 'x', 3, 4, 5, 6]);
+      const sets = [1, 'x', 2, 3, 4, 5, 6];
+      const output = move(sets, 1, 2);
+      expect(output).toEqual([1, 2, 'x', 3, 4, 5, 6]);
+      expect(sets).toEqual([1, 'x', 2, 3, 4, 5, 6]);
+    });
+
+    it('should move to back', () => {
+      const sets = [1, 2, 3, 4, 5, 6, 'x'];
+      const output = move(sets, 6, 5);
+      expect(output).toEqual([1, 2, 3, 4, 5, 'x', 6]);
+      expect(sets).toEqual([1, 2, 3, 4, 5, 6, 'x']);
+    });
+
+    it('should move to back', () => {
+      const sets = [1, 2, 3, 4, 5, 6, 'x'];
+      const output = move(sets, 6, 0);
+      expect(output).toEqual(['x', 1, 2, 3, 4, 5, 6]);
+      expect(sets).toEqual([1, 2, 3, 4, 5, 6, 'x']);
     });
   });
 });
