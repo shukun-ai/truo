@@ -95,11 +95,11 @@ export const ScreenForm = ({
       })}
     >
       <TextInput
-        label="路由标识符"
+        label="页面标识符"
         placeholder="Screen Id"
         data-autofocus
         withAsterisk
-        description="路由标识符用于URL识别，请使用符合如下格式：字母 a-z、数字 0-9、下划线或连字符"
+        description="页面标识符用于URL识别，请使用符合如下格式：字母 a-z、数字 0-9、下划线或连字符"
         {...form.getInputProps('screenId')}
         disabled={isEditMode}
       />

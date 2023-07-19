@@ -32,7 +32,7 @@ export const useScreenEditButton = ({
 
   const open = useCallback(() => {
     modals.open({
-      title: '编辑路由',
+      title: '编辑页面',
       children: (
         <ScreenForm
           presenterName={presenterName}
