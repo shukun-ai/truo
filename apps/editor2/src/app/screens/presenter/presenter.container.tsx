@@ -79,7 +79,7 @@ export const PresenterContainer = () => {
               minWidth: 0,
               minHeight: 0,
               flexShrink: 0,
-              width: 320,
+              maxWidth: 320,
               flexDirection: 'column',
             }}
           >
