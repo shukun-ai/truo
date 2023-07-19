@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 
 import { useAppContext } from '../../contexts/app-context';
 
+import { ActivityBar } from './components/activity-bar';
 import { PreviewArea } from './components/preview-area';
-import { ScreenTool } from './components/screen-tool';
 import { SettingTool } from './components/setting-tool';
 import { TopBar } from './components/top-bar';
 
@@ -84,7 +84,7 @@ export const PresenterContainer = () => {
             }}
           >
             <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
-              <ScreenTool />
+              <ActivityBar />
             </Box>
           </Box>
           <Divider orientation="vertical" />
