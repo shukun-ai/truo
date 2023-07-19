@@ -73,7 +73,7 @@ export const RepositoryCreateButton = () => {
           fullWidth
           disabled={!containerName}
         >
-          新建
+          新建数据仓库
         </Button>
       </Popover.Target>
       <Popover.Dropdown sx={{ pointerEvents: 'none' }}>

@@ -71,7 +71,7 @@ export const WatchCreateButton = () => {
           fullWidth
           disabled={!containerName}
         >
-          新建
+          新建观察器
         </Button>
       </Popover.Target>
       <Popover.Dropdown sx={{ pointerEvents: 'none' }}>

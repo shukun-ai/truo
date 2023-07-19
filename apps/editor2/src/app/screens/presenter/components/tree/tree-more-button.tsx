@@ -169,7 +169,7 @@ export const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
         {...form.getInputProps('widgetTitle')}
       />
       <Button type="submit" fullWidth mt="md">
-        新建
+        新建组件
       </Button>
     </form>
   );

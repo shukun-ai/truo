@@ -48,7 +48,7 @@ export const ContainerForm = ({ onSubmit }: ContainerFormProps) => {
         {...form.getInputProps('containerName')}
       />
       <Button type="submit" fullWidth mt="md">
-        新建
+        新建容器
       </Button>
     </form>
   );

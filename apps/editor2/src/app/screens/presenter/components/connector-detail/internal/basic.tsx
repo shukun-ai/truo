@@ -26,7 +26,7 @@ export const Basic = ({ form }: BasicProps) => {
       <Text fz="lg" fw="bold">
         基础设置
       </Text>
-      <TextInput label="函数流名称" {...form.getInputProps('label')} />
+      <TextInput label="连接器名称" {...form.getInputProps('label')} />
       <NativeSelect
         label="开始任务"
         data={nextOptions}
