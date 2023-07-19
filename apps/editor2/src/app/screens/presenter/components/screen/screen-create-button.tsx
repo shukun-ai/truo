@@ -59,7 +59,7 @@ export const ScreenCreateButton = () => {
       onClick={open}
       fullWidth
     >
-      新建
+      新建路由
     </Button>
   );
 };

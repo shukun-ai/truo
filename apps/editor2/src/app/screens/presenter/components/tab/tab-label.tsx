@@ -64,7 +64,7 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
       );
     } else if (tab.tabType === 'connector') {
       return (
-        '函数流: ' +
+        '连接器: ' +
         allConnectors?.find(
           (connector) => tab.connectorName === connector.connectorName,
         )?.connectorName

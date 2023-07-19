@@ -39,7 +39,7 @@ export const ContainerCreateButton = () => {
       onClick={open}
       fullWidth
     >
-      新建
+      新建容器
     </Button>
   );
 };

@@ -13,7 +13,7 @@ export const MoreButton = ({ metadataEntity }: MoreButtonProps) => {
   const app = useAppContext();
 
   return (
-    <Menu trigger="hover" shadow="md" width={200}>
+    <Menu shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />
@@ -24,7 +24,9 @@ export const MoreButton = ({ metadataEntity }: MoreButtonProps) => {
         <Menu.Item
           color="red"
           icon={<IconTrash size={14} />}
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
             app.repositories.metadataRepository.remove(metadataEntity.id);
           }}
         >

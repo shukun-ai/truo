@@ -26,7 +26,7 @@ export const PresenterCreateButton = ({
       onClick={open}
       fullWidth
     >
-      新建
+      新建应用
     </Button>
   );
 };
@@ -61,7 +61,7 @@ const ContainerCreateForm = ({ onSubmit }: PresenterCreateButtonProps) => {
         {...form.getInputProps('text')}
       />
       <Button type="submit" fullWidth mt="md">
-        新建
+        新建应用
       </Button>
     </form>
   );

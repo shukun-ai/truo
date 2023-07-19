@@ -53,7 +53,7 @@ export const ScreenTool = () => {
             icon={<IconAtom2Filled size="0.95rem" />}
           />
         </Tooltip>
-        <Tooltip label="函数流" position="right">
+        <Tooltip label="连接器" position="right">
           <Tabs.Tab value="connectors" icon={<IconGizmo size="0.95rem" />} />
         </Tooltip>
         <Tooltip label="环境变量" position="right">
