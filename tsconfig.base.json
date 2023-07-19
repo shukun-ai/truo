@@ -38,6 +38,7 @@
         "libs/presenter/widget-react/src/index.ts"
       ],
       "@shukun/schema": ["libs/schema/src/index.ts"],
+      "@shukun/util-functions": ["libs/util-functions/src/index.ts"],
       "@shukun/validator": ["libs/validator/src/index.ts"]
     }
   },
