@@ -92,11 +92,9 @@ const isHttpLink = (value: string) =>
 
 const buildUrl = (value: string) => {
   if (isHttpLink(value)) {
+    // TODO if it startsWith http, we should validate whether it is trusted domain.
     return value;
   }
 
-  const slash = value.startsWith('/') ? '' : '/';
-  const url = `${window.location.host}${slash}${value}`;
-
-  return url;
+  return value;
 };
