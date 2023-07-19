@@ -52,7 +52,7 @@ export const ActivityBar = () => {
       value={selectedActivityTab}
       onTabChange={(value) => {
         app.repositories.presenterRepository.chooseActivityTab(
-          value as ActivityTabs,
+          value === selectedActivityTab ? null : (value as ActivityTabs),
         );
       }}
     >
@@ -92,7 +92,7 @@ const useStyles = createStyles(() => ({
   },
   tabs: {},
   panel: {
-    flex: 1,
+    width: 240,
     overflow: 'hidden',
   },
 }));
