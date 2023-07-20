@@ -1,3 +1,4 @@
+import { IApiRequester } from '@shukun/presenter/definition';
 import { createContext, useContext } from 'react';
 
 import { ApiRequester } from '../../apis/requester';
@@ -20,6 +21,7 @@ import { TaskRepository } from '../../repositories/task/task-repository';
 import { ITaskRepository } from '../../repositories/task/task-repository.interface';
 
 export type AppContextProps = {
+  apiRequester: IApiRequester;
   repositories: {
     authRepository: IAuthRepository;
     globalRepository: IGlobalRepository;
@@ -44,6 +46,7 @@ export const initializeAppContextProps = (): AppContextProps => {
   const environmentRepository = new EnvironmentRepository(apiRequester);
 
   return {
+    apiRequester,
     repositories: {
       authRepository,
       globalRepository,
