@@ -10,4 +10,5 @@ export interface IAuthRepository {
     username: string;
     password: string;
   }): Promise<void>;
+  signOut(): void;
 }

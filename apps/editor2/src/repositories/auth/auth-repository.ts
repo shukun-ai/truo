@@ -34,4 +34,10 @@ export class AuthRepository implements IAuthRepository {
       currentUser: response.data.value,
     }));
   }
+
+  signOut(): void {
+    this.authStore.update(() => ({
+      currentUser: null,
+    }));
+  }
 }
