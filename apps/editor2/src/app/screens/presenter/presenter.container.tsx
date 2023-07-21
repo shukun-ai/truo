@@ -9,7 +9,6 @@ import { useAppContext } from '../../contexts/app-context';
 import { ActivityBar } from './components/activity-bar';
 import { EditorGroups } from './components/editor-groups';
 import { PreviewArea } from './components/preview-area';
-import { TopBar } from './components/top-bar';
 
 export type PresenterContainerProps = {
   //
@@ -42,77 +41,54 @@ export const PresenterContainer = () => {
 
   return (
     <Box
-      id="presenter__wrap"
+      id="presenter__middle_area"
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
         width: '100vw',
         height: '100vh',
+        minWidth: 0,
+        minHeight: 0,
+        display: 'flex',
       }}
     >
       <Box
-        id="presenter__wrap2"
-        style={{
+        id="presenter__middle_area_menu"
+        sx={{
           display: 'flex',
+          minWidth: 0,
+          minHeight: 0,
+          flexShrink: 0,
+          maxWidth: 320,
           flexDirection: 'column',
-          flex: '1 0',
+        }}
+      >
+        <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
+          <ActivityBar />
+        </Box>
+      </Box>
+      <Divider orientation="vertical" />
+      <Box
+        sx={{
+          flex: 1,
+          minWidth: 0,
+          minHeight: 0,
+          flexShrink: 0,
           overflow: 'hidden',
         }}
       >
-        <Box id="presenter__top_bar">
-          <TopBar />
-        </Box>
-        <Box
-          id="presenter__middle_area"
-          sx={{
-            flex: 1,
-            minWidth: 0,
-            minHeight: 0,
-            flexShrink: 0,
-            display: 'flex',
-          }}
-        >
-          <Box
-            id="presenter__middle_area_menu"
-            sx={{
-              display: 'flex',
-              minWidth: 0,
-              minHeight: 0,
-              flexShrink: 0,
-              maxWidth: 320,
-              flexDirection: 'column',
-            }}
-          >
-            <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
-              <ActivityBar />
-            </Box>
-          </Box>
-          <Divider orientation="vertical" />
-          <Box
-            sx={{
-              flex: 1,
-              minWidth: 0,
-              minHeight: 0,
-              flexShrink: 0,
-              overflow: 'hidden',
-            }}
-          >
-            <EditorGroups />
-          </Box>
-          <Divider orientation="vertical" />
-          <Box
-            sx={{
-              display: selectedTab?.tabType !== 'connector' ? 'flex' : 'none',
-              flex: 2,
-              minWidth: 0,
-              minHeight: 0,
-              flexShrink: 0,
-              overflow: 'hidden',
-            }}
-          >
-            <PreviewArea />
-          </Box>
-        </Box>
+        <EditorGroups />
+      </Box>
+      <Divider orientation="vertical" />
+      <Box
+        sx={{
+          display: selectedTab?.tabType !== 'connector' ? 'flex' : 'none',
+          flex: 2,
+          minWidth: 0,
+          minHeight: 0,
+          flexShrink: 0,
+          overflow: 'hidden',
+        }}
+      >
+        <PreviewArea />
       </Box>
     </Box>
   );

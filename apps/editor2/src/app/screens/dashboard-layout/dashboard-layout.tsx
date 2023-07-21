@@ -1,29 +1,15 @@
-import { Badge, Box, Container, Header, Text, rem } from '@mantine/core';
+import { Badge, Box, Container, Header, Text } from '@mantine/core';
 import { ShukunBrand } from '@shukun/component';
-import { useObservableState } from 'observable-hooks';
 
 import { ReactNode } from 'react';
 
-import { useAppContext } from '../../contexts/app-context';
 import { Avatar } from '../avatar/avatar';
-import { SignIn } from '../sign-in/sign-in';
 
 export type DashboardLayoutProps = {
   children: ReactNode;
 };
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
-  const app = useAppContext();
-
-  const currentUser = useObservableState(
-    app.repositories.authRepository.currentUser$,
-    null,
-  );
-
-  if (!currentUser) {
-    return <SignIn />;
-  }
-
   return (
     <Box>
       <Header height={50} mb={20}>
@@ -53,7 +39,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           </Box>
         </Container>
       </Header>
-      <Container fluid>{children}</Container>
+      {children}
     </Box>
   );
 };

@@ -3,6 +3,7 @@ export type RouterMap = {
   dashboard: '/editor/:orgName/dashboard';
   presenter: '/editor/:orgName/presenter/:presenterName';
   connector: '/editor/:orgName/connector/:connectorName';
+  system: '/editor/:orgName/system';
 };
 
 export const routerMap: RouterMap = {
@@ -10,4 +11,5 @@ export const routerMap: RouterMap = {
   dashboard: '/editor/:orgName/dashboard',
   presenter: '/editor/:orgName/presenter/:presenterName',
   connector: '/editor/:orgName/connector/:connectorName',
+  system: '/editor/:orgName/system',
 };
