@@ -38,7 +38,9 @@ export const HomeContainer = () => {
           onSubmit={async (value) => {
             try {
               await app.apiRequester.publicRequester.getOrg(value.orgName);
-              navigate(routerMap.dashboard.replace(':orgName', value.orgName));
+              navigate(routerMap.dashboard.replace(':orgName', value.orgName), {
+                replace: true,
+              });
             } catch (error) {
               if (error instanceof Error) {
                 setErrorMessage(error.message);

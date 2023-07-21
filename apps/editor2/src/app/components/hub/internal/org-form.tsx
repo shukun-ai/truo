@@ -58,9 +58,10 @@ export const OrgForm = ({ errorMessage, onSubmit }: OrgFormProps) => {
           placeholder="请输入英文字母的组织编码"
           required
           {...form.getInputProps('orgName')}
+          radius="sm"
         />
         <Group mt="lg">
-          <Button sx={{ minWidth: 100 }} type="submit">
+          <Button sx={{ minWidth: 100 }} type="submit" radius="sm">
             查询
           </Button>
           <Divider orientation="vertical" />
