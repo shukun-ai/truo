@@ -3,6 +3,7 @@ import { ShukunBrand } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 
 import { useAppContext } from '../../contexts/app-context';
+import { Avatar } from '../avatar/avatar';
 import { SignIn } from '../sign-in/sign-in';
 
 export type DashboardLayoutProps = {
@@ -25,11 +26,20 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     <Box>
       <Header height={50} mb={20}>
         <Container fluid sx={{ height: '100%' }}>
-          <Box sx={{ display: 'flex', height: '100%', alignItems: 'center' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              height: '100%',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <ShukunBrand />
               <Text sx={{ marginLeft: rem(8) }}>开发平台</Text>
             </Box>
+
+            <Avatar />
           </Box>
         </Container>
       </Header>
