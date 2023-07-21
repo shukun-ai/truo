@@ -3,13 +3,13 @@ import { ShukunBrand } from '@shukun/component';
 
 import { ReactNode } from 'react';
 
-import { Avatar } from '../avatar/avatar';
+import { Avatar } from '../../avatar/avatar';
 
-export type DashboardLayoutProps = {
+export type LayoutProps = {
   children: ReactNode;
 };
 
-export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
   return (
     <Box>
       <Header height={50} mb={20}>

@@ -11,8 +11,14 @@ import {
   IconUsers,
   IconVariable,
 } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
+
+import { useRouteOrgName } from '../../../hooks/use-route-org-name';
+import { routerMap } from '../../../router-map';
 
 export const SideBar = () => {
+  const routeOrgName = useRouteOrgName();
+
   return (
     <Box>
       <Text size="xs" c="gray" fw="bold">
@@ -21,11 +27,15 @@ export const SideBar = () => {
       <NavLink
         label="前端应用"
         icon={<IconHome2 size="1rem" stroke={1.5} />}
+        component={Link}
+        to={routerMap.dashboard.replace(':orgName', routeOrgName)}
         active
       />
       <NavLink
         label="服务器应用"
         icon={<IconCloud size="1rem" stroke={1.5} />}
+        component={Link}
+        to={routerMap.dashboardSystem.replace(':orgName', routeOrgName)}
       />
       <Text size="xs" c="gray" fw="bold">
         数据

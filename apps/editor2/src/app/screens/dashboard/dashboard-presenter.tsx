@@ -4,18 +4,13 @@ import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDidMount } from 'rooks';
 
-import { useAppContext } from '../../../contexts/app-context';
+import { useAppContext } from '../../contexts/app-context';
+import { useRouteOrgName } from '../../hooks/use-route-org-name';
+import { routerMap } from '../../router-map';
 
-import { useRouteOrgName } from '../../../hooks/use-route-org-name';
-import { routerMap } from '../../../router-map';
+import { PresenterCreateButton } from './dashboard-presenter/presenter-create-button';
 
-import { PresenterCreateButton } from './presenter-create-button';
-
-export type PresenterSectionProps = {
-  //
-};
-
-export const PresenterSection = () => {
+export const DashboardPresenter = () => {
   const app = useAppContext();
 
   const presenters = useObservableState(
