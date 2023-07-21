@@ -1,14 +1,10 @@
 import { Box, Text } from '@mantine/core';
 
-import { DashboardLayout } from '../../components/dashboard-layout/dashboard-layout';
+import { DashboardLayout } from '../dashboard-layout/dashboard-layout';
 
 import { PresenterSection } from './components/presenter-section';
 
-export type DashboardContainerProps = {
-  //
-};
-
-export const DashboardContainer = ({}: DashboardContainerProps) => {
+export const DashboardContainer = () => {
   return (
     <DashboardLayout>
       <Box>
