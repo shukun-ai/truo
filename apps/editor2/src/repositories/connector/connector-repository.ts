@@ -2,6 +2,7 @@ import {
   addEntities,
   deleteEntities,
   selectAllEntities,
+  selectEntitiesCount,
   setEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
@@ -23,6 +24,10 @@ export class ConnectorRepository implements IConnectorRepository {
 
   all$: Observable<ConnectorEntity[]> = this.connectorStore.pipe(
     selectAllEntities({ ref: connectorRef }),
+  );
+
+  count$: Observable<number> = this.connectorStore.pipe(
+    selectEntitiesCount({ ref: connectorRef }),
   );
 
   constructor(private readonly apiRequester: ApiRequester) {}
