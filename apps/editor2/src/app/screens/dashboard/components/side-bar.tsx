@@ -1,8 +1,11 @@
 import { Badge, Box, NavLink, Text } from '@mantine/core';
 import {
   IconAffiliate,
+  IconApiApp,
   IconAtom,
   IconBook,
+  IconCloud,
+  IconDatabase,
   IconHome2,
   IconUserCheck,
   IconUsers,
@@ -16,30 +19,26 @@ export const SideBar = () => {
         程序
       </Text>
       <NavLink
-        label="应用中心"
+        label="前端应用"
         icon={<IconHome2 size="1rem" stroke={1.5} />}
         active
       />
       <NavLink
-        label="元数据结构"
-        icon={<IconVariable size="1rem" stroke={1.5} />}
-      />
-      <NavLink
-        label="连接器"
-        icon={<IconVariable size="1rem" stroke={1.5} />}
+        label="服务器应用"
+        icon={<IconCloud size="1rem" stroke={1.5} />}
       />
       <Text size="xs" c="gray" fw="bold">
         数据
       </Text>
       <NavLink
         label="数据库"
-        icon={<IconVariable size="1rem" stroke={1.5} />}
+        icon={<IconDatabase size="1rem" stroke={1.5} />}
         disabled
         rightSection={<Badge>未开放</Badge>}
       />
       <NavLink
         label="API 接口"
-        icon={<IconVariable size="1rem" stroke={1.5} />}
+        icon={<IconApiApp size="1rem" stroke={1.5} />}
         disabled
         rightSection={<Badge>未开放</Badge>}
       />

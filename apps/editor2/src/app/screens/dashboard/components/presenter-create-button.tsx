@@ -13,7 +13,7 @@ export const PresenterCreateButton = ({
 }: PresenterCreateButtonProps) => {
   const open = useCallback(() => {
     modals.open({
-      title: '新建应用的名称',
+      title: '新建前端应用',
       children: <ContainerCreateForm onSubmit={onSubmit} />,
     });
   }, [onSubmit]);
@@ -22,7 +22,7 @@ export const PresenterCreateButton = ({
     <Group position="apart">
       <Box></Box>
       <Button leftIcon={<IconPlus size="0.9rem" />} size="sm" onClick={open}>
-        新建应用
+        新建前端应用
       </Button>
     </Group>
   );
