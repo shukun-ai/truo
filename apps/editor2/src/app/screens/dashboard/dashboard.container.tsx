@@ -1,18 +1,23 @@
-import { Box, Text } from '@mantine/core';
+import { Container, Grid } from '@mantine/core';
 
 import { DashboardLayout } from '../dashboard-layout/dashboard-layout';
 
 import { PresenterSection } from './components/presenter-section';
+import { SideBar } from './components/side-bar';
 
 export const DashboardContainer = () => {
   return (
     <DashboardLayout>
-      <Box>
-        <Text>应用列表</Text>
-      </Box>
-      <Box>
-        <PresenterSection />
-      </Box>
+      <Container>
+        <Grid>
+          <Grid.Col span={3}>
+            <SideBar />
+          </Grid.Col>
+          <Grid.Col span={9}>
+            <PresenterSection />
+          </Grid.Col>
+        </Grid>
+      </Container>
     </DashboardLayout>
   );
 };

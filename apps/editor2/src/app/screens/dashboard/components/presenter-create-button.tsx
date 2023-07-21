@@ -1,4 +1,4 @@
-import { Button, TextInput } from '@mantine/core';
+import { Box, Button, Group, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
 import { IconPlus } from '@tabler/icons-react';
@@ -19,15 +19,12 @@ export const PresenterCreateButton = ({
   }, [onSubmit]);
 
   return (
-    <Button
-      leftIcon={<IconPlus size="0.9rem" />}
-      variant="subtle"
-      size="sm"
-      onClick={open}
-      fullWidth
-    >
-      新建应用
-    </Button>
+    <Group position="apart">
+      <Box></Box>
+      <Button leftIcon={<IconPlus size="0.9rem" />} size="sm" onClick={open}>
+        新建应用
+      </Button>
+    </Group>
   );
 };
 
