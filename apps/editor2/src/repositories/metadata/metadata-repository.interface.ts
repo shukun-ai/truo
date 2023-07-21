@@ -5,6 +5,7 @@ import { MetadataEntity } from './metadata-ref';
 
 export interface IMetadataRepository {
   all$: Observable<MetadataEntity[]>;
+  count$: Observable<number>;
   allowedFieldType$: Observable<
     {
       type: MetadataElectron['fieldType'];

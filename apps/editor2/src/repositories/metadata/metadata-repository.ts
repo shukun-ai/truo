@@ -3,6 +3,7 @@ import {
   addEntities,
   deleteEntities,
   selectAllEntities,
+  selectEntitiesCount,
   setEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
@@ -24,6 +25,10 @@ export class MetadataRepository implements IMetadataRepository {
 
   all$: Observable<MetadataEntity[]> = this.metadataStore.pipe(
     selectAllEntities({ ref: metadataRef }),
+  );
+
+  count$: Observable<number> = this.metadataStore.pipe(
+    selectEntitiesCount({ ref: metadataRef }),
   );
 
   allowedFieldType$: Observable<MetadataProps['allowedFieldType']> =
