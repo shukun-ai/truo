@@ -1,0 +1,93 @@
+import { Badge, Box, NavLink, Text } from '@mantine/core';
+import {
+  IconAffiliate,
+  IconAtom,
+  IconBook,
+  IconHome2,
+  IconUserCheck,
+  IconUsers,
+  IconVariable,
+} from '@tabler/icons-react';
+
+export const SideBar = () => {
+  return (
+    <Box>
+      <Text size="xs" c="gray" fw="bold">
+        程序
+      </Text>
+      <NavLink
+        label="应用中心"
+        icon={<IconHome2 size="1rem" stroke={1.5} />}
+        active
+      />
+      <NavLink
+        label="元数据结构"
+        icon={<IconVariable size="1rem" stroke={1.5} />}
+      />
+      <NavLink
+        label="连接器"
+        icon={<IconVariable size="1rem" stroke={1.5} />}
+      />
+      <Text size="xs" c="gray" fw="bold">
+        数据
+      </Text>
+      <NavLink
+        label="数据库"
+        icon={<IconVariable size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+      <NavLink
+        label="API 接口"
+        icon={<IconVariable size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+      <Text size="xs" c="gray" fw="bold">
+        变量
+      </Text>
+      <NavLink
+        label="环境变量"
+        icon={<IconVariable size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+      <NavLink
+        label="连接器资源"
+        icon={<IconAtom size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+      <Text size="xs" c="gray" fw="bold">
+        用户
+      </Text>
+      <NavLink
+        label="用户管理"
+        icon={<IconUsers size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+      <NavLink
+        label="角色组"
+        icon={<IconUserCheck size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+      <NavLink
+        label="部门"
+        icon={<IconAffiliate size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+      <Text size="xs" c="gray" fw="bold">
+        帮助
+      </Text>
+      <NavLink
+        label="使用手册"
+        icon={<IconBook size="1rem" stroke={1.5} />}
+        disabled
+        rightSection={<Badge>未开放</Badge>}
+      />
+    </Box>
+  );
+};

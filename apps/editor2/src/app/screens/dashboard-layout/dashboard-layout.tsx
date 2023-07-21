@@ -1,13 +1,15 @@
-import { Box, Container, Header, Text, rem } from '@mantine/core';
+import { Badge, Box, Container, Header, Text, rem } from '@mantine/core';
 import { ShukunBrand } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
+
+import { ReactNode } from 'react';
 
 import { useAppContext } from '../../contexts/app-context';
 import { Avatar } from '../avatar/avatar';
 import { SignIn } from '../sign-in/sign-in';
 
 export type DashboardLayoutProps = {
-  children: JSX.Element[];
+  children: ReactNode;
 };
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
@@ -36,7 +38,15 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <ShukunBrand />
-              <Text sx={{ marginLeft: rem(8) }}>开发平台</Text>
+              <Text ml={8} mr={8}>
+                开发平台
+              </Text>
+              <Badge
+                variant="gradient"
+                gradient={{ from: 'orange', to: 'red' }}
+              >
+                Beta
+              </Badge>
             </Box>
 
             <Avatar />

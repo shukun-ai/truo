@@ -1,4 +1,4 @@
-import { Box, Table } from '@mantine/core';
+import { Alert, Anchor, Box, Table, Text, Title } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -44,29 +44,46 @@ export const PresenterSection = () => {
 
   return (
     <Box>
+      <Title order={4}>应用列表</Title>
+
       <PresenterCreateButton onSubmit={handleCreate} />
+
       <Table>
         <thead>
           <tr>
             <th>应用标识</th>
             <th>应用名称</th>
+            <th>更新时间</th>
           </tr>
         </thead>
         <tbody>
           {presenters?.map((presenter) => (
             <tr>
               <td>
-                <Link
+                <Anchor
+                  component={Link}
                   to={routerMap.presenter
                     .replace(':orgName', routeOrgName)
                     .replace(':presenterName', presenter.name)}
+                  target="_blank"
                 >
                   {presenter.name}
-                </Link>
+                </Anchor>
               </td>
               <td>{presenter.definition.label}</td>
             </tr>
           ))}
+          {(!presenters || presenters.length === 0) && (
+            <tr>
+              <td colSpan={3}>
+                <Alert>
+                  <Text align="center" fw="bold">
+                    点击上方按钮创建您的第一个应用
+                  </Text>
+                </Alert>
+              </td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </Box>
