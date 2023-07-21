@@ -44,7 +44,7 @@ export const PresenterSection = () => {
 
   return (
     <Box>
-      <Title order={4}>应用列表</Title>
+      <Title order={4}>前端应用</Title>
 
       <PresenterCreateButton onSubmit={handleCreate} />
 
