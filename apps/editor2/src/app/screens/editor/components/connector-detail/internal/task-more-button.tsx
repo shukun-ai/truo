@@ -3,9 +3,14 @@ import { IconDots, IconTrash } from '@tabler/icons-react';
 
 export type TaskMoreButtonProps = {
   onRemove: () => void;
+  disabled?: boolean;
 };
 
-export const TaskMoreButton = ({ onRemove }: TaskMoreButtonProps) => {
+export const TaskMoreButton = ({ onRemove, disabled }: TaskMoreButtonProps) => {
+  if (disabled) {
+    return null;
+  }
+
   return (
     <Menu trigger="hover" shadow="md" width={200}>
       <Menu.Target>

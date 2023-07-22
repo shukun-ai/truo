@@ -8,6 +8,7 @@ export const AtomNameInput = ({
   onChange,
   required,
   schema,
+  disabled,
 }: EditorInputProps) => {
   const parsedValue = typeof value === 'string' ? value : '';
 
@@ -18,6 +19,7 @@ export const AtomNameInput = ({
       label="数据表名"
       withAsterisk={required}
       {...useValidate(value, schema, '格式不正确')}
+      disabled={disabled}
     />
   );
 };
