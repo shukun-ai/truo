@@ -6,6 +6,8 @@ import {
   Post,
   Body,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { GatewayForbiddenException } from '@shukun/exception';
 import { RoleResourceType, SystemPublicOrgModel } from '@shukun/schema';
 
 import { OrgService } from '../../../core/org.service';
@@ -22,6 +24,7 @@ export class OrgController {
   constructor(
     private readonly orgService: OrgService,
     private readonly tenantService: TenantService,
+    private readonly configService: ConfigService,
   ) {}
 
   @Get()
@@ -45,6 +48,14 @@ export class OrgController {
   async createNewOrg(
     @Body() createDto: OrgCreateDto,
   ): Promise<QueryResponse<null>> {
+    const orgRegisterMode = this.configService.get('org.registerMode');
+
+    if (orgRegisterMode !== 'self-create') {
+      throw new GatewayForbiddenException(
+        'The runtime does not enable self-create org',
+      );
+    }
+
     await this.tenantService.createNewOrg(createDto);
     return {
       value: null,
