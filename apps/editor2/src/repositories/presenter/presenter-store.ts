@@ -31,6 +31,19 @@ export enum ActivityTabs {
   Environments = 'Environments',
 }
 
+export const presenterActivityTabs = [
+  ActivityTabs.Screens,
+  ActivityTabs.Widgets,
+  ActivityTabs.Repositories,
+  ActivityTabs.Watches,
+];
+
+export const systemActivityTabs = [
+  ActivityTabs.Metadatas,
+  ActivityTabs.Connectors,
+  ActivityTabs.Environments,
+];
+
 export const ROOT_NODE_ID = 'root';
 export const SCREEN_HOME_PAGE_ID = 'home';
 
