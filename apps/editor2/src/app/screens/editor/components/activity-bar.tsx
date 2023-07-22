@@ -6,6 +6,7 @@ import {
   createStyles,
   useMantineTheme,
 } from '@mantine/core';
+import { ShukunLogo } from '@shukun/component';
 import {
   IconRoute,
   IconBinaryTree,
@@ -61,6 +62,17 @@ export const ActivityBar = () => {
       }}
     >
       <Tabs.List className={cx(classes.tabs)}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 8,
+            marginBottom: 8,
+          }}
+        >
+          <ShukunLogo />
+        </Box>
         {activityTabs
           .filter((tab) => !tab.disabled)
           .map((tab) => (

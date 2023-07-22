@@ -1,3 +1,5 @@
+import { ShukunLogo } from './shukun-logo';
+
 export type ShukunBrandProps = {
   theme?: 'light' | 'dark';
   title?: string;
@@ -10,25 +12,7 @@ export const ShukunBrand = ({
   return (
     <div style={{ display: 'flex' }}>
       <div style={{ paddingTop: 4, marginRight: 8 }}>
-        <div
-          style={{
-            display: 'inline-block',
-            width: 20,
-            height: 20,
-            background: 'rgba(55, 169, 92, 1)',
-            borderRadius: 10,
-          }}
-        ></div>
-        <div
-          style={{
-            display: 'inline-block',
-            width: 20,
-            height: 20,
-            background: 'rgba(28, 82, 108, 1)',
-            borderRadius: 10,
-            marginLeft: -8,
-          }}
-        ></div>
+        <ShukunLogo />
       </div>
       <div
         style={{
