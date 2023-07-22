@@ -18,9 +18,16 @@ import {
 
 import { useObservableState } from 'observable-hooks';
 
-import { ActivityTabs } from '../../../../repositories/presenter/presenter-store';
+import { ReactNode, useMemo } from 'react';
+
+import {
+  ActivityTabs,
+  systemActivityTabs,
+} from '../../../../repositories/presenter/presenter-store';
 
 import { useAppContext } from '../../../contexts/app-context';
+
+import { useEditorContext } from '../editor-context';
 
 import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { ContainerPane } from './container/container-pane';
@@ -36,10 +43,7 @@ export const ActivityBar = () => {
 
   const app = useAppContext();
 
-  const selectedActivityTab = useObservableState(
-    app.repositories.presenterRepository.selectedActivityTab$,
-    null,
-  );
+  const activeTab = useActiveTab();
 
   const activityTabs = useActivityTabs();
 
@@ -49,31 +53,33 @@ export const ActivityBar = () => {
     <Tabs
       className={cx(classes.wrapper)}
       orientation="vertical"
-      value={selectedActivityTab}
+      value={activeTab}
       onTabChange={(value) => {
         app.repositories.presenterRepository.chooseActivityTab(
-          value === selectedActivityTab ? null : (value as ActivityTabs),
+          value === activeTab ? null : (value as ActivityTabs),
         );
       }}
     >
       <Tabs.List className={cx(classes.tabs)}>
-        {activityTabs.map((tab) => (
-          <Tooltip label={tab.label} position="right" withArrow>
-            <Tabs.Tab
-              value={tab.value}
-              icon={tab.icon}
-              sx={{
-                background:
-                  tab.value === selectedActivityTab
-                    ? theme.colors.gray[3]
-                    : 'transparent',
-                borderRightWidth: 0,
-                marginRight: 0,
-                borderRadius: 0,
-              }}
-            />
-          </Tooltip>
-        ))}
+        {activityTabs
+          .filter((tab) => !tab.disabled)
+          .map((tab) => (
+            <Tooltip label={tab.label} position="right" withArrow>
+              <Tabs.Tab
+                value={tab.value}
+                icon={tab.icon}
+                sx={{
+                  background:
+                    tab.value === activeTab
+                      ? theme.colors.gray[3]
+                      : 'transparent',
+                  borderRightWidth: 0,
+                  marginRight: 0,
+                  borderRadius: 0,
+                }}
+              />
+            </Tooltip>
+          ))}
       </Tabs.List>
 
       {activityTabs.map((tab) => (
@@ -97,18 +103,28 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const useActivityTabs = () => {
+const useActivityTabs = (): {
+  label: string;
+  value: ActivityTabs;
+  icon: ReactNode;
+  disabled?: boolean;
+  pane: ReactNode;
+}[] => {
+  const { mode } = useEditorContext();
+
   return [
     {
       label: '页面',
       value: ActivityTabs.Screens,
       icon: <IconRoute size="1.2rem" />,
+      disabled: mode === 'system',
       pane: <ScreenPane />,
     },
     {
       label: '组件树',
       value: ActivityTabs.Widgets,
       icon: <IconBinaryTree size="1.2rem" />,
+      disabled: mode === 'system',
       pane: (
         <Box
           sx={{
@@ -132,6 +148,7 @@ const useActivityTabs = () => {
       label: '数据仓库',
       value: ActivityTabs.Repositories,
       icon: <IconBuildingWarehouse size="1.2rem" />,
+      disabled: mode === 'system',
       pane: (
         <Box
           sx={{
@@ -155,6 +172,7 @@ const useActivityTabs = () => {
       label: '观察器',
       value: ActivityTabs.Watches,
       icon: <Icon3dCubeSphere size="1.2rem" />,
+      disabled: mode === 'system',
       pane: (
         <Box
           sx={{
@@ -193,4 +211,27 @@ const useActivityTabs = () => {
       pane: <EnvironmentListPane />,
     },
   ];
+};
+
+const useActiveTab = () => {
+  const app = useAppContext();
+  const { mode } = useEditorContext();
+
+  const selectedActivityTab = useObservableState(
+    app.repositories.presenterRepository.selectedActivityTab$,
+    null,
+  );
+
+  return useMemo(() => {
+    if (selectedActivityTab === null) {
+      return null;
+    } else if (
+      mode === 'system' &&
+      !systemActivityTabs.includes(selectedActivityTab)
+    ) {
+      return ActivityTabs.Metadatas;
+    } else {
+      return selectedActivityTab;
+    }
+  }, [mode, selectedActivityTab]);
 };

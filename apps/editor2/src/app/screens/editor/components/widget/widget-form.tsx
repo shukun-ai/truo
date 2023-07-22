@@ -9,8 +9,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
-import { WidgetFormProvider, WidgetFormValue } from '../widget/widget-context';
-import { WidgetField } from '../widget/widget-field';
+import { WidgetFormProvider, WidgetFormValue } from './widget-context';
+import { WidgetField } from './widget-field';
 
 export type WidgetFormProps = {
   tab: TabEntity;

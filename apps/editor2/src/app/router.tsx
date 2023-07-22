@@ -2,13 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { routerMap } from './router-map';
 import { AuthLayout } from './screens/auth-layout/auth-layout';
-import { Backend } from './screens/backend/backend';
 import { ConnectorContainer } from './screens/connector/connector.container';
 import { Dashboard } from './screens/dashboard/dashboard';
 import { DashboardBackend } from './screens/dashboard/dashboard-backend';
 import { DashboardPresenter } from './screens/dashboard/dashboard-presenter';
+import { Editor } from './screens/editor/editor';
 import { HomeContainer } from './screens/home/home.container';
-import { Editor } from './screens/presenter/presenter.container';
 
 export const router = createBrowserRouter([
   {
@@ -24,11 +23,11 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: routerMap.dashboard + '/',
+        path: routerMap.dashboard,
         element: <DashboardPresenter />,
       },
       {
-        path: routerMap.dashboard + '/system',
+        path: routerMap.dashboardBackend,
         element: <DashboardBackend />,
       },
     ],
@@ -37,7 +36,7 @@ export const router = createBrowserRouter([
     path: routerMap.presenter,
     element: (
       <AuthLayout>
-        <Editor />
+        <Editor mode="presenter" />
       </AuthLayout>
     ),
   },
@@ -45,7 +44,7 @@ export const router = createBrowserRouter([
     path: routerMap.backend,
     element: (
       <AuthLayout>
-        <Backend />
+        <Editor mode="system" />
       </AuthLayout>
     ),
   },
