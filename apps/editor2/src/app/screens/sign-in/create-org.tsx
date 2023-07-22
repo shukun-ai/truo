@@ -18,12 +18,11 @@ import {
 } from '@shukun/validator';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, generatePath, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { Hub } from '../../components/hub/hub.container';
 import { useAppContext } from '../../contexts/app-context';
-import { useOrgRoute } from '../../hooks/use-org-router';
 import { routerMap } from '../../router-map';
 
 export type CreateOrgValue = {
@@ -38,7 +37,6 @@ export const CreateOrg = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const createOrgRoute = useOrgRoute();
 
   const form = useForm<CreateOrgValue>({
     initialValues: {
@@ -72,21 +70,19 @@ export const CreateOrg = () => {
       setLoading(true);
       try {
         await app.apiRequester.publicRequester.createOrg(value);
-        navigate(createOrgRoute(app.routerMap.dashboard), {
-          replace: true,
-        });
+        navigate(
+          generatePath(app.routerMap.dashboard, { orgName: value.name }),
+          {
+            replace: true,
+          },
+        );
       } catch (error) {
         setErrorMessage(getErrorMessage(error));
       } finally {
         setLoading(false);
       }
     },
-    [
-      app.apiRequester.publicRequester,
-      app.routerMap.dashboard,
-      createOrgRoute,
-      navigate,
-    ],
+    [app.apiRequester.publicRequester, app.routerMap.dashboard, navigate],
   );
 
   return (
@@ -155,7 +151,7 @@ export const CreateOrg = () => {
               variant="subtle"
               color="gray"
               component={Link}
-              to={createOrgRoute(routerMap.home)}
+              to={generatePath(routerMap.home, {})}
             >
               返回登录组织
             </Button>

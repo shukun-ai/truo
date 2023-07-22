@@ -1,19 +1,22 @@
 import {
   Alert,
   Anchor,
-  Box,
   Button,
   Group,
   Paper,
   PasswordInput,
   Text,
   TextInput,
-  useMantineTheme,
+  Title,
 } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
-import { OrgBrand } from '@shukun/component';
+import { SystemPublicOrgModel } from '@shukun/schema';
 import { IconInfoCircle } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
+
+import { useAppContext } from '../../../contexts/app-context';
+import { useRouteOrgName } from '../../../hooks/use-route-org-name';
 
 export type SignInFormProps = {
   loading: boolean;
@@ -28,8 +31,6 @@ export const SignInForm = ({
   errorMessage,
   onSubmit,
 }: SignInFormProps) => {
-  const theme = useMantineTheme();
-
   const form = useForm<SignInFormValue>({
     initialValues: {
       username: '',
@@ -37,25 +38,24 @@ export const SignInForm = ({
     },
     validate: zodResolver(
       z.object({
-        username: z
-          .string()
-          .min(1, { message: '请输入用户名' })
-          .max(20, { message: '用户名过长' }),
-        password: z
-          .string()
-          .min(6, { message: '密码大于 6 位' })
-          .max(20, { message: '密码小于 6 位' }),
+        username: z.string().min(1).max(20),
+        password: z.string().min(6).max(24),
       }),
     ),
   });
 
+  const org = useOrg();
+
   return (
     <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-      <Box>
-        <OrgBrand theme={theme.colorScheme} org={undefined} />
-      </Box>
+      <Group align="baseline" mb={24}>
+        <Title order={1}>{org?.label}</Title>
+        <Text c="gray" size="sm">
+          {org?.name}
+        </Text>
+      </Group>
       <Text mb={24} fz="sm" c="gray">
-        请输入账号密码登录您的开发平台已开发您组织的项目
+        请输入账号密码登录您的开发平台，开始您的项目
       </Text>
       {errorMessage && (
         <Alert
@@ -96,4 +96,23 @@ export const SignInForm = ({
       </form>
     </Paper>
   );
+};
+
+const useOrg = () => {
+  const app = useAppContext();
+  const routeOrgName = useRouteOrgName();
+
+  const [org, setOrg] = useState<SystemPublicOrgModel | null>(null);
+
+  useEffect(() => {
+    app.apiRequester.publicRequester.getOrg(routeOrgName).then((response) => {
+      setOrg(response.data.value);
+    });
+
+    return () => {
+      setOrg(null);
+    };
+  }, [app.apiRequester.publicRequester, routeOrgName]);
+
+  return org;
 };
