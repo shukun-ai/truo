@@ -6,4 +6,5 @@ export type Environment = {
   previewDomain: string;
   version: string;
   authPersistKey: string;
+  enableRegisteringOrg: boolean;
 };
