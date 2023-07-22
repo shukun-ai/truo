@@ -56,12 +56,13 @@ export const Electron = ({
         marginBottom: 12,
       }}
     >
-      <Text fw="bold" mb={6}>
-        {electronName}
-      </Text>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', alignItems: 'end' }}>
+        <Text fw="bold" mb={8} w={100} align="right" mr={12} truncate>
+          {electronName}
+        </Text>
         <Box sx={{ flex: 1, marginRight: 12 }}>
           <TextInput
+            label="显示名称"
             placeholder="显示名称"
             value={value.label}
             onChange={(event) =>
@@ -75,6 +76,7 @@ export const Electron = ({
         </Box>
         <Box sx={{ flex: 1, marginRight: 12 }}>
           <NativeSelect
+            label="字段类型"
             data={filedTypeOptions}
             value={value.fieldType}
             onChange={(event) =>
@@ -87,7 +89,7 @@ export const Electron = ({
             disabled={disabled}
           />
         </Box>
-        <Group>
+        <Group mb={8}>
           <Checkbox
             label="必填"
             checked={value.isRequired}
