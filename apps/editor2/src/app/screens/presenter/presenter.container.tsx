@@ -10,11 +10,11 @@ import { ActivityBar } from './components/activity-bar';
 import { EditorGroups } from './components/editor-groups';
 import { PreviewArea } from './components/preview-area';
 
-export type PresenterContainerProps = {
+export type EditorProps = {
   //
 };
 
-export const PresenterContainer = () => {
+export const Editor = () => {
   const app = useAppContext();
 
   const { presenterName } = useParams();
@@ -41,7 +41,7 @@ export const PresenterContainer = () => {
 
   return (
     <Box
-      id="presenter__middle_area"
+      id="editor__wrapper"
       sx={{
         width: '100vw',
         height: '100vh',
@@ -51,22 +51,20 @@ export const PresenterContainer = () => {
       }}
     >
       <Box
-        id="presenter__middle_area_menu"
+        id="editor__activity_bar"
         sx={{
           display: 'flex',
           minWidth: 0,
           minHeight: 0,
           flexShrink: 0,
           maxWidth: 320,
-          flexDirection: 'column',
         }}
       >
-        <Box sx={{ flex: 1, minWidth: 0, minHeight: 0, flexShrink: 0 }}>
-          <ActivityBar />
-        </Box>
+        <ActivityBar />
       </Box>
       <Divider orientation="vertical" />
       <Box
+        id="editor__editor_group"
         sx={{
           flex: 1,
           minWidth: 0,
@@ -79,6 +77,7 @@ export const PresenterContainer = () => {
       </Box>
       <Divider orientation="vertical" />
       <Box
+        id="editor__preview_area"
         sx={{
           display: selectedTab?.tabType !== 'connector' ? 'flex' : 'none',
           flex: 2,
