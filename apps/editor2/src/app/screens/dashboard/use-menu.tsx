@@ -12,8 +12,8 @@ import {
 } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
-import { useRouteOrgName } from '../../../hooks/use-route-org-name';
-import { routerMap } from '../../../router-map';
+import { useRouteOrgName } from '../../hooks/use-route-org-name';
+import { routerMap } from '../../router-map';
 
 export const useMenu = (): {
   label: string;
@@ -38,7 +38,7 @@ export const useMenu = (): {
         {
           label: '服务器应用',
           icon: <IconCloud size="1rem" stroke={1.5} />,
-          path: routerMap.dashboardSystem.replace(':orgName', routeOrgName),
+          path: routerMap.dashboardBackend.replace(':orgName', routeOrgName),
         },
       ],
     },

@@ -1,7 +1,7 @@
 import { Badge, Box, NavLink, Text } from '@mantine/core';
 import { Link, matchPath, useMatches } from 'react-router-dom';
 
-import { useMenu } from './use-menu';
+import { useMenu } from '../use-menu';
 
 export const SideBar = () => {
   const menu = useMenu();
