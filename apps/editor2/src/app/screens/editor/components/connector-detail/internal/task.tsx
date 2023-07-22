@@ -25,9 +25,16 @@ export type TaskProps = {
   value: ConnectorTask;
   onChange: (value: ConnectorTask | null) => void;
   taskEntities: TaskEntity[];
+  disabled?: boolean;
 };
 
-export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
+export const Task = ({
+  name,
+  value,
+  onChange,
+  taskEntities,
+  disabled,
+}: TaskProps) => {
   const app = useAppContext();
   const allTasks = useObservableState(app.repositories.taskRepository.all$, []);
 
@@ -69,7 +76,7 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
             </Text>
             <Badge tt="none">{value.type}</Badge>
           </Group>
-          <TaskMoreButton onRemove={() => onChange(null)} />
+          <TaskMoreButton onRemove={() => onChange(null)} disabled={disabled} />
         </Group>
       </Box>
       <Box
@@ -84,11 +91,13 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
           value={value.type}
           onChange={(event) => onChange({ ...value, type: event.target.value })}
           withAsterisk
+          disabled={disabled}
         />
         <TaskNextInput
           currentTaskName={name}
           value={value}
           onChange={onChange}
+          disabled={disabled}
         />
         {taskEntity && (
           <Parameters
@@ -100,6 +109,7 @@ export const Task = ({ name, value, onChange, taskEntities }: TaskProps) => {
                 parameters,
               })
             }
+            disabled={disabled}
           />
         )}
       </Box>

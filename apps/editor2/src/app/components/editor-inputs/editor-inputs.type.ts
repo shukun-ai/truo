@@ -3,4 +3,5 @@ export type EditorInputProps = {
   onChange: (value: unknown) => void;
   required?: boolean;
   schema: unknown;
+  disabled?: boolean;
 };

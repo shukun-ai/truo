@@ -13,9 +13,15 @@ export type TasksProps = {
   value: ConnectorSchema['tasks'];
   onChange: (value: ConnectorSchema['tasks']) => void;
   taskEntities: TaskEntity[];
+  disabled?: boolean;
 };
 
-export const Tasks = ({ value, onChange, taskEntities }: TasksProps) => {
+export const Tasks = ({
+  value,
+  onChange,
+  taskEntities,
+  disabled,
+}: TasksProps) => {
   const open = useCallback(() => {
     modals.open({
       title: '新建任务',
@@ -58,9 +64,10 @@ export const Tasks = ({ value, onChange, taskEntities }: TasksProps) => {
           value={task}
           onChange={(newTask) => handleChange(taskName, newTask)}
           taskEntities={taskEntities}
+          disabled={disabled}
         />
       ))}
-      <Button onClick={open} fullWidth variant="light">
+      <Button onClick={open} fullWidth variant="light" disabled={disabled}>
         新建任务
       </Button>
     </Box>

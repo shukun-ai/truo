@@ -8,12 +8,14 @@ export type TaskNextInputProps = {
   currentTaskName: string;
   value: ConnectorTask;
   onChange: (value: ConnectorTask | null) => void;
+  disabled?: boolean;
 };
 
 export const TaskNextInput = ({
   currentTaskName,
   value,
   onChange,
+  disabled,
 }: TaskNextInputProps) => {
   const { taskOptions } = useConnectorEditorContext();
 
@@ -30,6 +32,7 @@ export const TaskNextInput = ({
       data={nextOptions}
       value={value.next}
       onChange={(event) => onChange({ ...value, next: event.target.value })}
+      disabled={disabled}
     />
   );
 };

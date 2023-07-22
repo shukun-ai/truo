@@ -12,9 +12,10 @@ export type BasicProps = {
     ConnectorEntity,
     (values: ConnectorEntity) => ConnectorEntity
   >;
+  disabled?: boolean;
 };
 
-export const Basic = ({ form }: BasicProps) => {
+export const Basic = ({ form, disabled }: BasicProps) => {
   const { taskOptions } = useConnectorEditorContext();
 
   const nextOptions = useMemo<SelectItem[]>(() => {
@@ -26,11 +27,16 @@ export const Basic = ({ form }: BasicProps) => {
       <Text fz="lg" fw="bold">
         基础设置
       </Text>
-      <TextInput label="函数流名称" {...form.getInputProps('label')} />
+      <TextInput
+        label="函数流名称"
+        {...form.getInputProps('label')}
+        disabled={disabled}
+      />
       <NativeSelect
         label="开始任务"
         data={nextOptions}
         {...form.getInputProps('start')}
+        disabled={disabled}
       />
     </Card>
   );

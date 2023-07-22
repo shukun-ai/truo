@@ -8,12 +8,14 @@ export type ParametersProps = {
   taskEntity: TaskEntity;
   value: ConnectorTask['parameters'];
   onChange: (value: ConnectorTask['parameters']) => void;
+  disabled?: boolean;
 };
 
 export const Parameters = ({
   taskEntity,
   value,
   onChange,
+  disabled,
 }: ParametersProps) => {
   return (
     <Box>
@@ -30,6 +32,7 @@ export const Parameters = ({
             }
             required={parameter.required}
             schema={parameter.schema}
+            disabled={disabled}
           />
         ),
       )}
