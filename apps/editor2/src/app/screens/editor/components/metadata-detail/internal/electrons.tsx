@@ -1,5 +1,6 @@
 import { Box, Button } from '@mantine/core';
 import { modals } from '@mantine/modals';
+import { notifications } from '@mantine/notifications';
 import { MetadataElectron } from '@shukun/schema';
 
 import { useCallback } from 'react';
@@ -22,6 +23,17 @@ export const Electrons = ({ value, onChange, disabled }: ElectronsProps) => {
       children: (
         <CreateElectronForm
           onSubmit={(formValue) => {
+            const exist = value[formValue.electronName];
+
+            if (exist) {
+              notifications.show({
+                color: 'red',
+                title: '创建失败',
+                message: '字段名已存在，请更换名称',
+              });
+              return;
+            }
+
             onChange({
               ...value,
               [formValue.electronName]: {
