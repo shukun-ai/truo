@@ -199,7 +199,7 @@ const useActivityTabs = (): {
       pane: <MetadataListPane />,
     },
     {
-      label: '连接器',
+      label: '函数流',
       value: ActivityTabs.Connectors,
       icon: <IconGizmo size="1.2rem" />,
       pane: <ConnectorListPane />,

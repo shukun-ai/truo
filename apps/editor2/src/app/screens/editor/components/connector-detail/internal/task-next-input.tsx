@@ -21,7 +21,7 @@ export const TaskNextInput = ({
     const options = taskOptions.filter(
       (task) => task.value !== currentTaskName,
     );
-    return [{ label: '结束连接器', value: '' }].concat(options);
+    return [{ label: '结束函数流', value: '' }].concat(options);
   }, [currentTaskName, taskOptions]);
 
   return (

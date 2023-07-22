@@ -67,7 +67,7 @@ export const useMenu = (): {
           disabled: true,
         },
         {
-          label: '连接器资源',
+          label: '函数流资源',
           icon: <IconAtom size="1rem" stroke={1.5} />,
           disabled: true,
         },
