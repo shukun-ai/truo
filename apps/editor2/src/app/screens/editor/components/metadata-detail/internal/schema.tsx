@@ -8,6 +8,8 @@ import { MetadataEntity } from '../../../../../../repositories/metadata/metadata
 
 import { useAppContext } from '../../../../../contexts/app-context';
 
+import { useEditorContext } from '../../../editor-context';
+
 import { Basic } from './basic';
 import { Electrons } from './electrons';
 import { SchemaProvider } from './schema-context';
@@ -21,6 +23,7 @@ export type SchemaProps = {
 
 export const Schema = ({ form }: SchemaProps) => {
   const app = useAppContext();
+  const { disabledSystem } = useEditorContext();
 
   const allMetadatas = useObservableState(
     app.repositories.metadataRepository.all$,
@@ -33,11 +36,14 @@ export const Schema = ({ form }: SchemaProps) => {
         <Text fz="md" fw="bold">
           表基础设置
         </Text>
-        <Basic form={form} />
+        <Basic form={form} disabled={disabledSystem} />
         <Text fz="md" fw="bold">
           字段列表
         </Text>
-        <Electrons {...form.getInputProps('electrons')} />
+        <Electrons
+          {...form.getInputProps('electrons')}
+          disabled={disabledSystem}
+        />
       </SchemaProvider>
     </Box>
   );

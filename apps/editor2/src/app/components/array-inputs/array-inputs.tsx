@@ -26,6 +26,7 @@ export type ArrayInputProps<T> = {
       drag: ConnectDragSource;
     },
   ) => JSX.Element;
+  disabled?: boolean;
 };
 
 export const ArrayInputs = <T,>({
@@ -33,6 +34,7 @@ export const ArrayInputs = <T,>({
   onChange,
   onCreate,
   renderItem,
+  disabled,
 }: ArrayInputProps<T>) => {
   const dragDropId = useId();
 
@@ -68,6 +70,7 @@ export const ArrayInputs = <T,>({
           onClick={() => {
             onChange(mutableAppend(value, onCreate()));
           }}
+          disabled={disabled}
         >
           新增
         </Button>

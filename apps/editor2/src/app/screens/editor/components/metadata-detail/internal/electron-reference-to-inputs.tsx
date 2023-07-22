@@ -8,11 +8,13 @@ import { useSchemaContext } from './schema-context';
 export type ElectronReferenceToInputsProps = {
   value: MetadataElectronManyToOne['referenceTo'];
   onChange: (newValue: MetadataElectronManyToOne['referenceTo']) => void;
+  disabled?: boolean;
 };
 
 export const ElectronReferenceToInputs = ({
   value,
   onChange,
+  disabled,
 }: ElectronReferenceToInputsProps) => {
   const { metadatas } = useSchemaContext();
 
@@ -29,6 +31,7 @@ export const ElectronReferenceToInputs = ({
       data={atoms}
       value={value}
       onChange={(event) => onChange(event.target.value)}
+      disabled={disabled}
     />
   );
 };
