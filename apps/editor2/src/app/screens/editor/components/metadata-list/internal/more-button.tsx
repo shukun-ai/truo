@@ -4,6 +4,7 @@ import { IconDots, IconTrash } from '@tabler/icons-react';
 
 import { MetadataEntity } from '../../../../../../repositories/metadata/metadata-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
+import { useEditorContext } from '../../../editor-context';
 
 export type MoreButtonProps = {
   metadataEntity: MetadataEntity;
@@ -11,6 +12,11 @@ export type MoreButtonProps = {
 
 export const MoreButton = ({ metadataEntity }: MoreButtonProps) => {
   const app = useAppContext();
+  const { disabledSystem } = useEditorContext();
+
+  if (disabledSystem) {
+    return null;
+  }
 
   return (
     <Menu shadow="md" width={200}>

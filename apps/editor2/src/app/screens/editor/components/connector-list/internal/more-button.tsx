@@ -4,6 +4,7 @@ import { IconDots, IconTrash } from '@tabler/icons-react';
 
 import { ConnectorEntity } from '../../../../../../repositories/connector/connector-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
+import { useEditorContext } from '../../../editor-context';
 
 export type MoreButtonProps = {
   connectorEntity: ConnectorEntity;
@@ -11,6 +12,11 @@ export type MoreButtonProps = {
 
 export const MoreButton = ({ connectorEntity }: MoreButtonProps) => {
   const app = useAppContext();
+  const { disabledSystem } = useEditorContext();
+
+  if (disabledSystem) {
+    return null;
+  }
 
   return (
     <Menu trigger="hover" shadow="md" width={200}>

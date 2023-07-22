@@ -1,10 +1,12 @@
-import { Button } from '@mantine/core';
+import { Button, Title } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import { IconPlus } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
 import { useAppContext } from '../../../../../contexts/app-context';
+
+import { useEditorContext } from '../../../editor-context';
 
 import { CreateForm, CreateFormValues } from './create-form';
 
@@ -37,6 +39,16 @@ export const CreateButton = () => {
       children: <CreateForm onSubmit={onSubmit} />,
     });
   }, [onSubmit]);
+
+  const { disabledSystem } = useEditorContext();
+
+  if (disabledSystem) {
+    return (
+      <Title order={4} p={12}>
+        查看环境变量
+      </Title>
+    );
+  }
 
   return (
     <Button
