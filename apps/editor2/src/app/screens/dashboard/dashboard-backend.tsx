@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 
 import { useAppContext } from '../../contexts/app-context';
 
-export const DashboardSystem = () => {
+export const DashboardBackend = () => {
   const metric = useMetric();
 
   const app = useAppContext();
