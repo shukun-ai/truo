@@ -1,3 +1,4 @@
+import { getErrorMessage } from '@shukun/api';
 import { useState } from 'react';
 
 import { Hub } from '../../components/hub/hub.container';
@@ -28,7 +29,7 @@ export const SignIn = () => {
               ...value,
             });
           } catch (error) {
-            setErrorMessage(handleErrorMessage(error));
+            setErrorMessage(getErrorMessage(error));
           } finally {
             setLoading(false);
           }
@@ -36,18 +37,4 @@ export const SignIn = () => {
       />
     </Hub>
   );
-};
-
-const handleErrorMessage = (error: any): string => {
-  const message = error?.response?.data?.message;
-  if (typeof message === 'string') {
-    return message;
-  } else if (Array.isArray(message)) {
-    return message.join(', ');
-  } else if (error?.message) {
-    return error.message;
-  } else {
-    console.error(error);
-    return '发生异常错误';
-  }
 };

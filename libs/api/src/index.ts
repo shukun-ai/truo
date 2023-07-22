@@ -16,6 +16,7 @@ export * from './legacy/crypto/rsa-helpers';
 export * from './adaptors/axios-adaptor';
 export * from './request-adaptor/request-adaptor.interface';
 export * from './request-adaptor/request-adaptor.type';
+export * from './helpers/error-message';
 export * from './helpers/source-helper';
 export * from './requesters/connector-requester';
 export * from './requesters/developer-requester';

@@ -12,6 +12,7 @@ import { MigrationModule } from '../migration/migration.module';
 import { ScheduleModule } from '../schedule/schedule.module';
 import { SourceModule } from '../source/source.module';
 import { SystemSourceModule } from '../system-source/system-source.module';
+import { TenantModule } from '../tenant/tenant.module';
 import { PassportModule } from '../util/passport/passport.module';
 import { WebhookModule } from '../webhook/webhook.module';
 
@@ -55,6 +56,7 @@ import { WebhookController } from './webhook/webhook.controller';
     ScheduleModule,
     MigrationModule,
     ConnectorHandlerModule,
+    TenantModule,
   ],
   controllers: [
     AuthenticationController,

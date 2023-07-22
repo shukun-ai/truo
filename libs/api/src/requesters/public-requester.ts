@@ -10,6 +10,7 @@ import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
 import {
   ApiResponse,
   EncryptSignInDto,
+  SeedCreateDto,
   SignInDto,
 } from '../request-adaptor/request-adaptor.type';
 
@@ -104,6 +105,20 @@ export class PublicRequester {
     return await this.requestAdaptor.fetch<SystemPublicOrgModel>(
       'GET',
       this.buildUri('org', orgName),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/public/{orgName}/org/create
+   */
+  public async createOrg(dto: SeedCreateDto) {
+    return await this.requestAdaptor.fetch<SystemPublicOrgModel>(
+      'POST',
+      this.buildUri('org/create', dto.name),
+      {
+        body: dto,
+      },
     );
   }
 

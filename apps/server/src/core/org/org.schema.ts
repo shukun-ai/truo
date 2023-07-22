@@ -49,3 +49,17 @@ export class Org {
 }
 
 export const OrgSchema = SchemaFactory.createForClass(Org);
+
+// TODO Rename it when refactor the OrgDocument
+export type OrgDocumentRevise = {
+  name: string;
+  label: string;
+  lightLogo?: string;
+  darkLogo?: string;
+  mainColor?: string;
+  codebase?: Buffer;
+  compiledCodes?: Buffer;
+  dataSource?: DataSourceSchema;
+  migrated?: Buffer;
+  presenters?: Buffer;
+};
