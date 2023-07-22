@@ -94,11 +94,13 @@ export const ActivityBar = () => {
           ))}
       </Tabs.List>
 
-      {activityTabs.map((tab) => (
-        <Tabs.Panel value={tab.value} className={cx(classes.panel)}>
-          {tab.pane}
-        </Tabs.Panel>
-      ))}
+      {activityTabs
+        .filter((tab) => !tab.disabled)
+        .map((tab) => (
+          <Tabs.Panel value={tab.value} className={cx(classes.panel)}>
+            {tab.pane}
+          </Tabs.Panel>
+        ))}
     </Tabs>
   );
 };
