@@ -4,6 +4,8 @@ import { UseFormReturnType } from '@mantine/form';
 
 import { useObservableState } from 'observable-hooks';
 
+import { useMemo } from 'react';
+
 import { MetadataEntity } from '../../../../../../repositories/metadata/metadata-ref';
 
 import { useAppContext } from '../../../../../contexts/app-context';
@@ -30,20 +32,23 @@ export const Schema = ({ form }: SchemaProps) => {
     [],
   );
 
+  const disabled = useMemo(() => {
+    return form.values.metadataName.startsWith('system__')
+      ? true
+      : disabledSystem;
+  }, [disabledSystem, form.values.metadataName]);
+
   return (
     <Box>
       <SchemaProvider metadatas={allMetadatas}>
         <Text fz="md" fw="bold">
           表基础设置
         </Text>
-        <Basic form={form} disabled={disabledSystem} />
+        <Basic form={form} disabled={disabled} />
         <Text fz="md" fw="bold">
           字段列表
         </Text>
-        <Electrons
-          {...form.getInputProps('electrons')}
-          disabled={disabledSystem}
-        />
+        <Electrons {...form.getInputProps('electrons')} disabled={disabled} />
       </SchemaProvider>
     </Box>
   );

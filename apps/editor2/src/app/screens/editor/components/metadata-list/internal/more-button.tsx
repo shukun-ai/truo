@@ -2,6 +2,8 @@ import { ActionIcon, Menu } from '@mantine/core';
 
 import { IconDots, IconTrash } from '@tabler/icons-react';
 
+import { useMemo } from 'react';
+
 import { MetadataEntity } from '../../../../../../repositories/metadata/metadata-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
 import { useEditorContext } from '../../../editor-context';
@@ -14,7 +16,13 @@ export const MoreButton = ({ metadataEntity }: MoreButtonProps) => {
   const app = useAppContext();
   const { disabledSystem } = useEditorContext();
 
-  if (disabledSystem) {
+  const disabled = useMemo(() => {
+    return metadataEntity.metadataName.startsWith('system__')
+      ? true
+      : disabledSystem;
+  }, [disabledSystem, metadataEntity.metadataName]);
+
+  if (disabled) {
     return null;
   }
 
