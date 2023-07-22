@@ -110,21 +110,21 @@ const useActivityTabs = (): {
   disabled?: boolean;
   pane: ReactNode;
 }[] => {
-  const { mode } = useEditorContext();
+  const { disabledPresenter } = useEditorContext();
 
   return [
     {
       label: '页面',
       value: ActivityTabs.Screens,
       icon: <IconRoute size="1.2rem" />,
-      disabled: mode === 'system',
+      disabled: disabledPresenter,
       pane: <ScreenPane />,
     },
     {
       label: '组件树',
       value: ActivityTabs.Widgets,
       icon: <IconBinaryTree size="1.2rem" />,
-      disabled: mode === 'system',
+      disabled: disabledPresenter,
       pane: (
         <Box
           sx={{
@@ -148,7 +148,7 @@ const useActivityTabs = (): {
       label: '数据仓库',
       value: ActivityTabs.Repositories,
       icon: <IconBuildingWarehouse size="1.2rem" />,
-      disabled: mode === 'system',
+      disabled: disabledPresenter,
       pane: (
         <Box
           sx={{
@@ -172,7 +172,7 @@ const useActivityTabs = (): {
       label: '观察器',
       value: ActivityTabs.Watches,
       icon: <Icon3dCubeSphere size="1.2rem" />,
-      disabled: mode === 'system',
+      disabled: disabledPresenter,
       pane: (
         <Box
           sx={{
@@ -215,7 +215,7 @@ const useActivityTabs = (): {
 
 const useActiveTab = () => {
   const app = useAppContext();
-  const { mode } = useEditorContext();
+  const { disabledPresenter } = useEditorContext();
 
   const selectedActivityTab = useObservableState(
     app.repositories.presenterRepository.selectedActivityTab$,
@@ -226,12 +226,12 @@ const useActiveTab = () => {
     if (selectedActivityTab === null) {
       return null;
     } else if (
-      mode === 'system' &&
+      disabledPresenter &&
       !systemActivityTabs.includes(selectedActivityTab)
     ) {
       return ActivityTabs.Metadatas;
     } else {
       return selectedActivityTab;
     }
-  }, [mode, selectedActivityTab]);
+  }, [disabledPresenter, selectedActivityTab]);
 };
