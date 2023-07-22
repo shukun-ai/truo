@@ -15,7 +15,7 @@ export const ParallelBranchesInput = ({
     <TextInput
       value={parsedValue}
       onChange={(event) => onChange(event.target.value)}
-      label="元数据表名"
+      label="数据表名"
       withAsterisk={required}
       {...useValidate(value, schema, '格式不正确')}
     />

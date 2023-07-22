@@ -193,7 +193,7 @@ const useActivityTabs = (): {
       ),
     },
     {
-      label: '元数据',
+      label: '数据表',
       value: ActivityTabs.Metadatas,
       icon: <IconAtom2Filled size="1.2rem" />,
       pane: <MetadataListPane />,
