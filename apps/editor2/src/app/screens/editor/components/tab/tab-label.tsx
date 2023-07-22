@@ -71,7 +71,7 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
       );
     } else if (tab.tabType === 'metadata') {
       return (
-        '元数据: ' +
+        '数据表: ' +
         allMetadatas?.find(
           (metadata) => tab.metadataName === metadata.metadataName,
         )?.metadataName

@@ -19,8 +19,8 @@ export const CreateForm = ({ initialValues, onSubmit }: CreateFormProps) => {
       z.object({
         metadataName: z
           .string()
-          .min(1, { message: '请输入元数据标识符后新建' })
-          .max(20, { message: '元数据标识符过长' }),
+          .min(1, { message: '请输入数据表标识符后新建' })
+          .max(20, { message: '数据表标识符过长' }),
         // TODO 不允许空格、特殊符号并且符合 engineName 和其他多个校验
       }),
     ),
@@ -33,11 +33,11 @@ export const CreateForm = ({ initialValues, onSubmit }: CreateFormProps) => {
       })}
     >
       <TextInput
-        label="元数据标识符"
+        label="数据表标识符"
         placeholder="Metadata Name"
         data-autofocus
         withAsterisk
-        description="元数据标识符用于元数据识别，仅支持小写字母、数字、下划线，不可以数字或下划线开头，或连续下划线。"
+        description="数据表标识符用于数据表识别，仅支持小写字母、数字、下划线，不可以数字或下划线开头，或连续下划线。"
         {...form.getInputProps('metadataName')}
       />
       <Button type="submit" fullWidth mt="md">
