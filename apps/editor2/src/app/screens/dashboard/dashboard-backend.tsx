@@ -13,7 +13,11 @@ import { useObservableState } from 'observable-hooks';
 
 import { useEffect } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { useAppContext } from '../../contexts/app-context';
+import { useRouteOrgName } from '../../hooks/use-route-org-name';
+import { routerMap } from '../../router-map';
 
 export const DashboardBackend = () => {
   const metric = useMetric();
@@ -28,6 +32,8 @@ export const DashboardBackend = () => {
     app.repositories.metadataRepository,
   ]);
 
+  const routeOrgName = useRouteOrgName();
+
   return (
     <Box>
       <Title order={4} mb={24}>
@@ -35,7 +41,12 @@ export const DashboardBackend = () => {
       </Title>
       <Group position="apart" mb={24}>
         <Group>
-          <Button>编辑服务器应用</Button>
+          <Button
+            component={Link}
+            to={routerMap.backend.replace(':orgName', routeOrgName)}
+          >
+            编辑服务器应用
+          </Button>
         </Group>
         <Group>
           <Button variant="white" pl={0} pr={0}>
