@@ -15,7 +15,7 @@ import { IdentityModule } from './identity/identity.module';
 import { routes } from './routes';
 import { ScheduleModule } from './schedule/schedule.module';
 import { SourceModule } from './source/source.module';
-import configuration from './util/config/configuration';
+import { configuration } from './util/config/configuration';
 import { MongooseConfigService } from './util/database/mongo/mongoose-config.service';
 import { PassportModule } from './util/passport/passport.module';
 import { WebhookModule } from './webhook/webhook.module';
