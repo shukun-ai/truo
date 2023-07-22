@@ -7,12 +7,26 @@ import { Dashboard } from './screens/dashboard/dashboard';
 import { DashboardBackend } from './screens/dashboard/dashboard-backend';
 import { DashboardPresenter } from './screens/dashboard/dashboard-presenter';
 import { Editor } from './screens/editor/editor';
-import { HomeContainer } from './screens/home/home.container';
+import { PublicLayout } from './screens/public-layout/public-layout';
+import { CreateOrg } from './screens/sign-in/create-org';
+import { SearchOrg } from './screens/sign-in/search-org';
 
 export const router = createBrowserRouter([
   {
     path: routerMap.home,
-    element: <HomeContainer />,
+    element: (
+      <PublicLayout>
+        <SearchOrg />
+      </PublicLayout>
+    ),
+  },
+  {
+    path: routerMap.createOrg,
+    element: (
+      <PublicLayout>
+        <CreateOrg />
+      </PublicLayout>
+    ),
   },
   {
     path: routerMap.dashboard,

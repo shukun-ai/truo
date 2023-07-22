@@ -2,6 +2,8 @@ import { IApiRequester } from '@shukun/presenter/definition';
 import { createContext, useContext } from 'react';
 
 import { ApiRequester } from '../../apis/requester';
+import { environment } from '../../environments/environment';
+import { Environment } from '../../environments/environment.type';
 import { AuthRepository } from '../../repositories/auth/auth-repository';
 import { IAuthRepository } from '../../repositories/auth/auth-repository.interface';
 import { authStore } from '../../repositories/auth/auth-store';
@@ -19,9 +21,12 @@ import { TabRepository } from '../../repositories/tab/tab-repository';
 import { ITabRepository } from '../../repositories/tab/tab-repository.interface';
 import { TaskRepository } from '../../repositories/task/task-repository';
 import { ITaskRepository } from '../../repositories/task/task-repository.interface';
+import { RouterMap, routerMap } from '../router-map';
 
 export type AppContextProps = {
   apiRequester: IApiRequester;
+  routerMap: RouterMap;
+  environment: Environment;
   repositories: {
     authRepository: IAuthRepository;
     globalRepository: IGlobalRepository;
@@ -47,6 +52,8 @@ export const initializeAppContextProps = (): AppContextProps => {
 
   return {
     apiRequester,
+    routerMap: routerMap,
+    environment: environment,
     repositories: {
       authRepository,
       globalRepository,

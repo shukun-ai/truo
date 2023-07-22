@@ -1,5 +1,6 @@
 export type RouterMap = {
   home: '/editor';
+  createOrg: '/editor/create-org';
   dashboard: '/editor/:orgName/dashboard';
   dashboardBackend: '/editor/:orgName/dashboard/backend';
   presenter: '/editor/:orgName/presenter/:presenterName';
@@ -9,6 +10,7 @@ export type RouterMap = {
 
 export const routerMap: RouterMap = {
   home: '/editor',
+  createOrg: '/editor/create-org',
   dashboard: '/editor/:orgName/dashboard',
   dashboardBackend: '/editor/:orgName/dashboard/backend',
   presenter: '/editor/:orgName/presenter/:presenterName',
