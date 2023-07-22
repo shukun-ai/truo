@@ -107,7 +107,7 @@ export const SearchOrg = () => {
             </Button>
             <Divider orientation="vertical" />
 
-            {app.environment.enableRegisteringOrg ? (
+            {app.environment.orgRegisterMode === 'self-create' && (
               <Button
                 variant="subtle"
                 color="gray"
@@ -116,10 +116,6 @@ export const SearchOrg = () => {
                 loading={loading}
               >
                 创建新组织
-              </Button>
-            ) : (
-              <Button variant="subtle" color="gray" loading={loading}>
-                联系管理员以申请新组织
               </Button>
             )}
           </Group>
