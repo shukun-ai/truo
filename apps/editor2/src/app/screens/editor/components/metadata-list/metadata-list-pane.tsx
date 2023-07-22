@@ -1,5 +1,4 @@
 import {
-  Badge,
   Box,
   Divider,
   Group,
@@ -13,6 +12,7 @@ import { useAppContext } from '../../../../contexts/app-context';
 
 import { CreateButton } from './internal/create-button';
 import { MoreButton } from './internal/more-button';
+import { MoreTag } from './internal/more-tag';
 
 export const MetadataListPane = () => {
   const { classes, cx } = useStyles();
@@ -52,6 +52,7 @@ export const MetadataListPane = () => {
           >
             <Group>
               <Text size="sm">{metadataEntity.metadataName}</Text>
+              <MoreTag metadataEntity={metadataEntity} />
             </Group>
             <MoreButton metadataEntity={metadataEntity} />
           </Box>
