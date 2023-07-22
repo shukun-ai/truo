@@ -24,9 +24,15 @@ export type ElectronProps = {
   electronName: string;
   value: MetadataEntity['electrons'][number];
   onChange: (value: MetadataEntity['electrons'][number] | null) => void;
+  disabled?: boolean;
 };
 
-export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
+export const Electron = ({
+  electronName,
+  value,
+  onChange,
+  disabled,
+}: ElectronProps) => {
   const app = useAppContext();
 
   const allowedFieldType = useObservableState(
@@ -64,6 +70,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
                 label: event.target.value,
               })
             }
+            disabled={disabled}
           />
         </Box>
         <Box sx={{ flex: 1, marginRight: 12 }}>
@@ -77,6 +84,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
                 fieldType: event.target.value as any,
               })
             }
+            disabled={disabled}
           />
         </Box>
         <Group>
@@ -86,6 +94,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
             onChange={(event) =>
               onChange({ ...value, isRequired: event.currentTarget.checked })
             }
+            disabled={disabled}
           />
           <Tooltip
             multiline
@@ -100,6 +109,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
               onChange={(event) =>
                 onChange({ ...value, isUnique: event.currentTarget.checked })
               }
+              disabled={disabled}
             />
           </Tooltip>
           <Checkbox
@@ -108,6 +118,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
             onChange={(event) =>
               onChange({ ...value, isIndexed: event.currentTarget.checked })
             }
+            disabled={disabled}
           />
         </Group>
       </Box>
@@ -118,6 +129,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
           <ElectronSelectInputs
             value={value.options}
             onChange={(newValue) => onChange({ ...value, options: newValue })}
+            disabled={disabled}
           />
         </Card>
       )}
@@ -130,6 +142,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
             onChange={(newValue) =>
               onChange({ ...value, referenceTo: newValue })
             }
+            disabled={disabled}
           />
           <ElectronForeignNameInputs
             atomName={value.referenceTo}
@@ -137,6 +150,7 @@ export const Electron = ({ electronName, value, onChange }: ElectronProps) => {
             onChange={(newValue) =>
               onChange({ ...value, foreignName: newValue })
             }
+            disabled={disabled}
           />
         </Card>
       )}

@@ -9,12 +9,14 @@ export type ElectronForeignNameInputsProps = {
   atomName: string;
   value: MetadataElectronManyToOne['foreignName'];
   onChange: (newValue: MetadataElectronManyToOne['foreignName']) => void;
+  disabled?: boolean;
 };
 
 export const ElectronForeignNameInputs = ({
   atomName,
   value,
   onChange,
+  disabled,
 }: ElectronForeignNameInputsProps) => {
   const { metadatas } = useSchemaContext();
 
@@ -37,6 +39,7 @@ export const ElectronForeignNameInputs = ({
         data={atomOptions}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        disabled={disabled}
       />
     </Box>
   );

@@ -12,9 +12,10 @@ import { Electron } from './electron';
 export type ElectronsProps = {
   value: MetadataEntity['electrons'];
   onChange: (value: MetadataEntity['electrons']) => void;
+  disabled?: boolean;
 };
 
-export const Electrons = ({ value, onChange }: ElectronsProps) => {
+export const Electrons = ({ value, onChange, disabled }: ElectronsProps) => {
   const open = useCallback(() => {
     modals.open({
       title: '新建任务',
@@ -61,9 +62,10 @@ export const Electrons = ({ value, onChange }: ElectronsProps) => {
           electronName={electronName}
           value={electron}
           onChange={(newElectron) => handleChange(electronName, newElectron)}
+          disabled={disabled}
         />
       ))}
-      <Button onClick={open} fullWidth variant="light">
+      <Button onClick={open} fullWidth variant="light" disabled={disabled}>
         新建字段
       </Button>
     </Box>
