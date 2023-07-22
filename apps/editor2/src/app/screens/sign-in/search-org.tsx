@@ -9,6 +9,7 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
+import { getErrorMessage } from '@shukun/api';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -27,6 +28,8 @@ export const SearchOrg = () => {
   const app = useAppContext();
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -48,20 +51,24 @@ export const SearchOrg = () => {
 
   const handleSubmit = useCallback(
     async (value: SearchOrgValue) => {
+      setLoading(true);
       try {
         await app.apiRequester.publicRequester.getOrg(value.orgName);
-        navigate(app.routerMap.dashboard.replace(':orgName', value.orgName), {
+        navigate(createOrgRoute(app.routerMap.dashboard), {
           replace: true,
         });
       } catch (error) {
-        if (error instanceof Error) {
-          setErrorMessage(error.message);
-        } else {
-          setErrorMessage('未知错误，请联系管理员');
-        }
+        setErrorMessage(getErrorMessage(error));
+      } finally {
+        setLoading(false);
       }
     },
-    [app.apiRequester.publicRequester, app.routerMap.dashboard, navigate],
+    [
+      app.apiRequester.publicRequester,
+      app.routerMap.dashboard,
+      createOrgRoute,
+      navigate,
+    ],
   );
 
   return (
@@ -90,7 +97,12 @@ export const SearchOrg = () => {
             radius="sm"
           />
           <Group mt="lg">
-            <Button sx={{ minWidth: 100 }} type="submit" radius="sm">
+            <Button
+              sx={{ minWidth: 100 }}
+              type="submit"
+              radius="sm"
+              loading={loading}
+            >
               查询
             </Button>
             <Divider orientation="vertical" />
@@ -101,11 +113,12 @@ export const SearchOrg = () => {
                 color="gray"
                 component={Link}
                 to={createOrgRoute(routerMap.createOrg)}
+                loading={loading}
               >
                 创建新组织
               </Button>
             ) : (
-              <Button variant="subtle" color="gray">
+              <Button variant="subtle" color="gray" loading={loading}>
                 联系管理员以申请新组织
               </Button>
             )}

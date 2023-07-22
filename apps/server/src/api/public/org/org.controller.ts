@@ -2,21 +2,27 @@ import {
   Controller,
   Get,
   UseInterceptors,
-  Inject,
   Param,
+  Post,
+  Body,
 } from '@nestjs/common';
 import { RoleResourceType, SystemPublicOrgModel } from '@shukun/schema';
 
 import { OrgService } from '../../../core/org.service';
 
+import { TenantService } from '../../../tenant/tenant.service';
 import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../../util/query/interfaces';
+
+import { OrgCreateDto } from './dto';
 
 @Controller(`${RoleResourceType.Public}/:orgName/org`)
 @UseInterceptors(QueryResponseInterceptor)
 export class OrgController {
-  @Inject()
-  private readonly orgService!: OrgService;
+  constructor(
+    private readonly orgService: OrgService,
+    private readonly tenantService: TenantService,
+  ) {}
 
   @Get()
   async index(
@@ -32,6 +38,16 @@ export class OrgController {
         darkLogo: value.darkLogo,
         mainColor: value.mainColor,
       },
+    };
+  }
+
+  @Post('create')
+  async createNewOrg(
+    @Body() createDto: OrgCreateDto,
+  ): Promise<QueryResponse<null>> {
+    await this.tenantService.createNewOrg(createDto);
+    return {
+      value: null,
     };
   }
 }
