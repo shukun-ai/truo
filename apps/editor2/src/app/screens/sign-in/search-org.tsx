@@ -12,12 +12,11 @@ import { useForm, zodResolver } from '@mantine/form';
 import { getErrorMessage } from '@shukun/api';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, generatePath, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { Hub } from '../../components/hub/hub.container';
 import { useAppContext } from '../../contexts/app-context';
-import { useOrgRoute } from '../../hooks/use-org-router';
 import { routerMap } from '../../router-map';
 
 export type SearchOrgValue = {
@@ -32,8 +31,6 @@ export const SearchOrg = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  const createOrgRoute = useOrgRoute();
 
   const form = useForm<SearchOrgValue>({
     initialValues: {
@@ -54,21 +51,19 @@ export const SearchOrg = () => {
       setLoading(true);
       try {
         await app.apiRequester.publicRequester.getOrg(value.orgName);
-        navigate(createOrgRoute(app.routerMap.dashboard), {
-          replace: true,
-        });
+        navigate(
+          generatePath(app.routerMap.dashboard, { orgName: value.orgName }),
+          {
+            replace: true,
+          },
+        );
       } catch (error) {
         setErrorMessage(getErrorMessage(error));
       } finally {
         setLoading(false);
       }
     },
-    [
-      app.apiRequester.publicRequester,
-      app.routerMap.dashboard,
-      createOrgRoute,
-      navigate,
-    ],
+    [app.apiRequester.publicRequester, app.routerMap.dashboard, navigate],
   );
 
   return (
@@ -112,7 +107,7 @@ export const SearchOrg = () => {
                 variant="subtle"
                 color="gray"
                 component={Link}
-                to={createOrgRoute(routerMap.createOrg)}
+                to={generatePath(routerMap.createOrg, {})}
                 loading={loading}
               >
                 创建新组织
