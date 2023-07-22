@@ -4,10 +4,6 @@ import { useObservableState } from 'observable-hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  ActivityTabs,
-  presenterActivityTabs,
-} from '../../../repositories/presenter/presenter-store';
 import { useAppContext } from '../../contexts/app-context';
 
 import { ActivityBar } from './components/activity-bar';
@@ -85,8 +81,9 @@ export const Editor = ({ mode }: EditorProps) => {
         <Box
           id="editor__preview_area"
           sx={{
-            display: presenterActivityTabs.includes(
-              selectedTab?.tabType as ActivityTabs,
+            // TODO refactor ActivityTabs and TabEntity to use universal constants
+            display: ['widget', 'repository', 'watch'].includes(
+              selectedTab?.tabType as string,
             )
               ? 'flex'
               : 'none',

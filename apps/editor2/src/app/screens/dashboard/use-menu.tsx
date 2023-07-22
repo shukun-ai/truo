@@ -33,7 +33,7 @@ export const useMenu = (): {
         {
           label: '前端应用',
           icon: <IconHome2 size="1rem" stroke={1.5} />,
-          path: routerMap.dashboard,
+          path: routerMap.dashboard.replace(':orgName', routeOrgName),
         },
         {
           label: '服务器应用',

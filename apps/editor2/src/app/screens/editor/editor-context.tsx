@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react';
 
 export type EditorContextProps = {
-  mode: 'presenter' | 'system';
+  disabledPresenter: boolean;
+  disabledSystem: boolean;
 };
 
 const EditorContext = createContext<EditorContextProps | null>(null);
@@ -10,10 +11,17 @@ export const EditorProvider = ({
   mode,
   children,
 }: {
-  mode: EditorContextProps['mode'];
+  mode: 'presenter' | 'system';
   children: JSX.Element;
 }) => (
-  <EditorContext.Provider value={{ mode }}>{children}</EditorContext.Provider>
+  <EditorContext.Provider
+    value={{
+      disabledPresenter: mode === 'system',
+      disabledSystem: mode === 'presenter',
+    }}
+  >
+    {children}
+  </EditorContext.Provider>
 );
 
 export const useEditorContext = (): EditorContextProps => {
