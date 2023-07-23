@@ -2,56 +2,21 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "PresenterScreen",
   "type": "object",
-  "required": ["layout"],
+  "required": ["layout", "slots"],
+  "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
-    }
-  },
-  "oneOf": [
-    {
-      "$ref": "#/definitions/PresenterScreenDashboard"
     },
-    {
-      "$ref": "#/definitions/PresenterScreenWorkshop"
-    }
-  ],
-  "definitions": {
-    "PresenterScreenDashboard": {
-      "title": "PresenterScreenDashboard",
+    "layout": { "type": "string" },
+    "slots": {
       "type": "object",
-      "required": ["layout", "slots"],
-      "additionalProperties": false,
-      "properties": {
-        "layout": { "const": "Dashboard" },
-        "slots": {
-          "type": "object",
-          "required": ["main"],
-          "additionalProperties": false,
-          "properties": {
-            "main": { "type": "string" },
-            "menu": { "type": "string" }
-          }
+      "patternProperties": {
+        "^(.)+$": {
+          "type": "string"
         }
       }
     },
-    "PresenterScreenWorkshop": {
-      "title": "PresenterScreenWorkshop",
-      "type": "object",
-      "required": ["layout", "slots"],
-      "additionalProperties": false,
-      "properties": {
-        "layout": { "const": "Workshop" },
-        "slots": {
-          "type": "object",
-          "required": ["main"],
-          "additionalProperties": false,
-          "properties": {
-            "main": { "type": "string" },
-            "menu": { "type": "string" }
-          }
-        }
-      }
-    }
+    "description": { "type": "string" }
   }
 }
