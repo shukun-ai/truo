@@ -9,28 +9,28 @@ import { OverflowArea } from '../../../../components/overflow-area/overflow-area
 import { TabAlert } from '../../../../components/tab-alert/tab-alert';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { WidgetFormProvider, WidgetFormValue } from './internal/widget-context';
-import { WidgetField } from './internal/widget-field';
+import { Schema } from './internal/schema';
 
 export type WidgetDetailProps = {
   tab: TabEntity;
-  widget: PresenterWidgetEntity;
+  widgetEntity: PresenterWidgetEntity;
   definition: WidgetSchema;
 };
 
 export const WidgetDetail = ({
   tab,
-  widget,
+  widgetEntity,
   definition,
 }: WidgetDetailProps) => {
   const app = useAppContext();
 
-  const form = useForm<WidgetFormValue>({
-    initialValues: {
-      properties: structuredClone(widget.properties),
-      events: structuredClone(widget.events),
-    },
+  const form = useForm<PresenterWidgetEntity>({
+    initialValues: structuredClone(widgetEntity),
   });
+
+  if (tab.tabType !== 'widget') {
+    return null;
+  }
 
   return (
     <Box
@@ -46,13 +46,10 @@ export const WidgetDetail = ({
       <TabAlert
         tab={tab}
         formValue={form.values}
-        entity={{
-          properties: widget.properties,
-          events: widget.events,
-        }}
+        entity={widgetEntity}
         onSubmit={async () => {
           app.repositories.presenterRepository.widgetRepository.update(
-            widget.id,
+            widgetEntity.id,
             form.values,
           );
           return true;
@@ -68,20 +65,13 @@ export const WidgetDetail = ({
       >
         <OverflowArea y="scroll">
           <Container fluid>
-            <WidgetFormProvider form={form}>
-              <form>
-                {Object.entries(definition.properties).map(
-                  ([definitionPropertyId, definitionProperty]) => (
-                    <WidgetField
-                      key={definitionPropertyId}
-                      tab={tab}
-                      definitionPropertyId={definitionPropertyId}
-                      definitionProperty={definitionProperty}
-                    />
-                  ),
-                )}
-              </form>
-            </WidgetFormProvider>
+            <form>
+              <Schema
+                form={form}
+                definition={definition}
+                containerName={tab.containerName}
+              />
+            </form>
           </Container>
         </OverflowArea>
       </Box>

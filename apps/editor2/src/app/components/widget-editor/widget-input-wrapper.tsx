@@ -1,59 +1,48 @@
 import { ActionIcon, Box, Group, Text, Title, Tooltip } from '@mantine/core';
 import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
-import { WidgetProperty } from '@shukun/schema';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { ReactNode, useCallback, useMemo } from 'react';
 
-import {
-  composeFormPropertyName,
-  useWidgetFormContext,
-} from './widget-context';
-import { WidgetJsInput } from './widget-js-input';
+import { JsInput } from './internal/js-input';
 
 export type WidgetInputWrapperProps = {
-  propertyId: string;
-  property: WidgetProperty;
+  label: string;
+  secondaryLabel?: string;
+  value: unknown;
+  onChange: (newValue: unknown) => void;
+  disabled?: boolean;
   children: ReactNode;
   disabledSimpleMode?: boolean;
   disabledJsMode?: boolean;
 };
 
 export const WidgetInputWrapper = ({
-  propertyId,
-  property,
+  label,
+  secondaryLabel,
+  value,
+  onChange,
+  disabled,
   children,
   disabledSimpleMode,
   disabledJsMode,
 }: WidgetInputWrapperProps) => {
-  const form = useWidgetFormContext();
-
-  const formProps = form.getInputProps(composeFormPropertyName(propertyId));
-
   const mode = useMemo(() => {
-    if (
-      formProps.value === null ||
-      formProps.value === undefined ||
-      typeof formProps.value === 'number' ||
-      typeof formProps.value === 'boolean' ||
-      typeof formProps.value === 'object'
-    ) {
-      return 'simple';
-    } else if (formProps.value.startsWith(CODE_MODE_JS_PREFIX)) {
+    if (typeof value === 'string' && value.startsWith(CODE_MODE_JS_PREFIX)) {
       return 'js';
     } else {
       return 'simple';
     }
-  }, [formProps.value]);
+  }, [value]);
 
   const switchMode = useCallback(
     (mode: 'simple' | 'js') => {
       if (mode === 'simple') {
-        formProps.onChange(undefined);
+        onChange(undefined);
       } else if (mode === 'js') {
-        formProps.onChange(CODE_MODE_JS_PREFIX);
+        onChange(CODE_MODE_JS_PREFIX);
       }
     },
-    [formProps],
+    [onChange],
   );
 
   return (
@@ -67,10 +56,12 @@ export const WidgetInputWrapper = ({
         }}
       >
         <Group>
-          <Title order={5}>{property.label}</Title>
-          <Text size="xs" c="gray">
-            {propertyId}
-          </Text>
+          <Title order={5}>{label}</Title>
+          {secondaryLabel && (
+            <Text size="xs" c="gray">
+              {secondaryLabel}
+            </Text>
+          )}
         </Group>
         <Box>
           <Group spacing={0}>
@@ -106,8 +97,8 @@ export const WidgetInputWrapper = ({
         </Box>
       </Box>
       <Box>
-        {mode === 'js' ? (
-          <WidgetJsInput propertyId={propertyId} property={property} />
+        {mode === 'js' && typeof value === 'string' ? (
+          <JsInput value={value} onChange={onChange} disabled={disabled} />
         ) : (
           children
         )}

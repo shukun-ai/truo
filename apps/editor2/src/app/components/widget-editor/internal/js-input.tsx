@@ -2,52 +2,41 @@ import { javascript } from '@codemirror/lang-javascript';
 import { ViewUpdate, EditorView } from '@codemirror/view';
 import { Box } from '@mantine/core';
 import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
-import { WidgetProperty } from '@shukun/schema';
 import { useEffect, useMemo } from 'react';
 
-import { useCodeMirror } from '../../../../../hooks/use-code-mirror';
+import { useCodeMirror } from '../../../hooks/use-code-mirror';
 
-import {
-  composeFormPropertyName,
-  useWidgetFormContext,
-} from './widget-context';
-
-export type WidgetJsInputProps = {
-  propertyId: string;
-  property: WidgetProperty;
+export type JsInputProps = {
+  value: string;
+  onChange: (newValue: string) => void;
+  disabled?: boolean;
 };
 
-export const WidgetJsInput = ({ propertyId }: WidgetJsInputProps) => {
-  const form = useWidgetFormContext();
-  const formProps = form.getInputProps(composeFormPropertyName(propertyId));
-
+export const JsInput = ({ value, onChange }: JsInputProps) => {
   const { ref, view } = useCodeMirror([
     javascript(),
-    onUpdate((value) => formProps.onChange(`${CODE_MODE_JS_PREFIX}${value}`)),
+    onUpdate((value) => onChange(`${CODE_MODE_JS_PREFIX}${value}`)),
   ]);
 
-  const value = useMemo(() => {
-    return formProps.value.substring(
-      CODE_MODE_JS_PREFIX.length,
-      formProps.value.length,
-    );
-  }, [formProps.value]);
+  const parsedValue = useMemo(() => {
+    return value.substring(CODE_MODE_JS_PREFIX.length, value.length);
+  }, [value]);
 
   useEffect(() => {
     if (view) {
       const editorValue = view.state.doc.toString();
 
-      if (value !== editorValue) {
+      if (parsedValue !== editorValue) {
         view.dispatch({
           changes: {
             from: 0,
             to: editorValue.length,
-            insert: value || '',
+            insert: parsedValue || '',
           },
         });
       }
     }
-  }, [value, view]);
+  }, [parsedValue, view]);
 
   return <Box ref={ref}></Box>;
 };

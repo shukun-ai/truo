@@ -53,6 +53,10 @@ export const TabWidget = ({ tab }: TabWidgetProps) => {
   }
 
   return (
-    <WidgetDetail tab={tab} widget={widgetEntity} definition={definition} />
+    <WidgetDetail
+      tab={tab}
+      widgetEntity={widgetEntity}
+      definition={definition}
+    />
   );
 };
