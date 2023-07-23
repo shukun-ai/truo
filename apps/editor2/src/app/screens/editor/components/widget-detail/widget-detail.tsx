@@ -9,16 +9,21 @@ import { useCallback, useEffect, useState } from 'react';
 import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
-import { WidgetFormProvider, WidgetFormValue } from './widget-context';
-import { WidgetField } from './widget-field';
 
-export type WidgetFormProps = {
+import { WidgetFormProvider, WidgetFormValue } from './internal/widget-context';
+import { WidgetField } from './internal/widget-field';
+
+export type WidgetDetailProps = {
   tab: TabEntity;
   widget: PresenterWidgetEntity;
   definition: WidgetSchema;
 };
 
-export const WidgetForm = ({ tab, widget, definition }: WidgetFormProps) => {
+export const WidgetDetail = ({
+  tab,
+  widget,
+  definition,
+}: WidgetDetailProps) => {
   const theme = useMantineTheme();
 
   const app = useAppContext();

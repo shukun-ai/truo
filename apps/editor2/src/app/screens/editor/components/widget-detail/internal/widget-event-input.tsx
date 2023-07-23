@@ -1,8 +1,8 @@
 import { Box } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 
-import { TabEntity } from '../../../../../repositories/tab/tab-ref';
-import { EventInput } from '../event/event-input';
+import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
+import { EventInput } from '../../event/event-input';
 
 import { composeFormEventName, useWidgetFormContext } from './widget-context';
 
