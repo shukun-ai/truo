@@ -23,6 +23,7 @@ export const PropertyInputs = ({
         .filter(([, widgetProperty]) => !widgetProperty.isEvent)
         .map(([widgetPropertyId, widgetProperty]) => (
           <WidgetInputWrapper
+            key={widgetPropertyId}
             label={widgetProperty.label}
             secondaryLabel={widgetPropertyId}
             value={value?.[widgetPropertyId]}
@@ -37,7 +38,6 @@ export const PropertyInputs = ({
             disabledJsMode={false}
           >
             <PropertyInput
-              key={widgetPropertyId}
               widgetProperty={widgetProperty}
               value={value?.[widgetPropertyId]}
               onChange={(newValue) => {
