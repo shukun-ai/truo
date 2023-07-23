@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core';
+import { Group, Radio } from '@mantine/core';
 import { WidgetProperty } from '@shukun/schema';
 import { useMemo } from 'react';
 
@@ -19,10 +19,7 @@ export const WidgetEnumInput = ({
   property,
 }: WidgetEnumInputProps) => {
   const form = useWidgetFormContext();
-  const formProps = useMemo(
-    () => form.getInputProps(composeFormPropertyName(propertyId)),
-    [form, propertyId],
-  );
+  const formProps = form.getInputProps(composeFormPropertyName(propertyId));
 
   const options = useMemo(() => {
     const value = (property.schema as any)?.enum;
@@ -35,19 +32,13 @@ export const WidgetEnumInput = ({
 
   return (
     <WidgetInputWrapper propertyId={propertyId} property={property}>
-      <Button.Group>
-        {options.map((option) => (
-          <Button
-            key={option.value}
-            variant={option.value === formProps.value ? 'filled' : 'default'}
-            onClick={() => {
-              formProps.onChange(option.value);
-            }}
-          >
-            {option.label}
-          </Button>
-        ))}
-      </Button.Group>
+      <Radio.Group {...formProps}>
+        <Group mt="xs">
+          {options.map((option) => (
+            <Radio value={option.value} label={option.label} />
+          ))}
+        </Group>
+      </Radio.Group>
     </WidgetInputWrapper>
   );
 };
