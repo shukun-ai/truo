@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { tap } from 'rxjs';
 
+import { usePreviewUrl } from '../../../../hooks/use-preview-url';
 import { getPreviewRefreshObservable } from '../../events/preview-event';
 
 import { devices } from './device';
@@ -13,6 +14,8 @@ export type PreviewFrameProps = {
 };
 
 export const PreviewFrame = () => {
+  const previewUrl = usePreviewUrl();
+
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -21,8 +24,7 @@ export const PreviewFrame = () => {
       .pipe(
         tap(() => {
           if (iframeRef.current) {
-            iframeRef.current.src =
-              'http://localhost:9010/presenter/pactl/test';
+            iframeRef.current.src = previewUrl;
           }
         }),
       )
@@ -31,6 +33,7 @@ export const PreviewFrame = () => {
     return () => {
       subscription.unsubscribe();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [selectedDevice, setSelectedDevice] = useState<string>('monitor');
@@ -41,6 +44,7 @@ export const PreviewFrame = () => {
   }, [selectedDevice]);
 
   const theme = useMantineTheme();
+  console.log('previewUrl', previewUrl);
 
   return (
     <Box
@@ -86,7 +90,7 @@ export const PreviewFrame = () => {
         >
           <iframe
             ref={iframeRef}
-            src="http://localhost:9010/presenter/pactl/test"
+            src={previewUrl}
             title="Preview"
             style={{
               border: 'none',
