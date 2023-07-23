@@ -28,7 +28,7 @@ export const WidgetEnumInput = ({
     <Radio.Group value={value} onChange={(newValue) => onChange(newValue)}>
       <Group mt="xs">
         {options.map((option) => (
-          <Radio value={option.value} label={option.label} />
+          <Radio key={option.value} value={option.value} label={option.label} />
         ))}
       </Group>
     </Radio.Group>

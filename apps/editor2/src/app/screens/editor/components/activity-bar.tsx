@@ -76,7 +76,12 @@ export const ActivityBar = () => {
         {activityTabs
           .filter((tab) => !tab.disabled)
           .map((tab) => (
-            <Tooltip label={tab.label} position="right" withArrow>
+            <Tooltip
+              key={tab.value}
+              label={tab.label}
+              position="right"
+              withArrow
+            >
               <Tabs.Tab
                 value={tab.value}
                 icon={tab.icon}
@@ -97,7 +102,11 @@ export const ActivityBar = () => {
       {activityTabs
         .filter((tab) => !tab.disabled)
         .map((tab) => (
-          <Tabs.Panel value={tab.value} className={cx(classes.panel)}>
+          <Tabs.Panel
+            key={tab.value}
+            value={tab.value}
+            className={cx(classes.panel)}
+          >
             {tab.pane}
           </Tabs.Panel>
         ))}
