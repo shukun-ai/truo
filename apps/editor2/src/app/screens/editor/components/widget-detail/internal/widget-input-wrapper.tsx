@@ -1,8 +1,8 @@
-import { ActionIcon, Box, Group, Tooltip } from '@mantine/core';
+import { ActionIcon, Box, Group, Text, Title, Tooltip } from '@mantine/core';
 import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
 import { WidgetProperty } from '@shukun/schema';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
-import { useCallback, useMemo } from 'react';
+import { ReactNode, useCallback, useMemo } from 'react';
 
 import {
   composeFormPropertyName,
@@ -13,7 +13,7 @@ import { WidgetJsInput } from './widget-js-input';
 export type WidgetInputWrapperProps = {
   propertyId: string;
   property: WidgetProperty;
-  children: JSX.Element;
+  children: ReactNode;
   disabledSimpleMode?: boolean;
   disabledJsMode?: boolean;
 };
@@ -57,22 +57,34 @@ export const WidgetInputWrapper = ({
   );
 
   return (
-    <Box sx={{ marginBottom: 16 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
-        <Box sx={{ marginRight: 6 }}>
-          {property.label} ({propertyId})
-        </Box>
+    <Box mb={32}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 6,
+        }}
+      >
+        <Group>
+          <Title order={5}>{property.label}</Title>
+          <Text size="xs" c="gray">
+            {propertyId}
+          </Text>
+        </Group>
         <Box>
           <Group spacing={0}>
             {!disabledSimpleMode && (
               <Tooltip label="使用简单模式输入文本或单选">
                 <ActionIcon
                   onClick={() => switchMode('simple')}
-                  color="blue"
+                  color="gray.4"
                   variant={mode === 'simple' ? 'filled' : undefined}
-                  size="sm"
+                  size="xs"
+                  w={30}
+                  radius="lg"
                 >
-                  <IconLetterCase size="1rem" />
+                  <IconLetterCase size="0.8rem" />
                 </ActionIcon>
               </Tooltip>
             )}
@@ -80,11 +92,13 @@ export const WidgetInputWrapper = ({
               <Tooltip label="使用 JS 模式进行简单编码">
                 <ActionIcon
                   onClick={() => switchMode('js')}
-                  color="blue"
+                  color="gray.4"
                   variant={mode === 'js' ? 'filled' : undefined}
-                  size="sm"
+                  size="xs"
+                  w={30}
+                  radius="lg"
                 >
-                  <IconBrandJavascript size="1rem" />
+                  <IconBrandJavascript size="0.8rem" />
                 </ActionIcon>
               </Tooltip>
             )}

@@ -1,13 +1,12 @@
-import { Box, Button, Group, Text, useMantineTheme } from '@mantine/core';
+import { Box, Container } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 import { WidgetSchema } from '@shukun/schema';
 
-import { isEqual } from 'lodash';
-import { useCallback, useEffect, useState } from 'react';
-
 import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
+import { OverflowArea } from '../../../../components/overflow-area/overflow-area';
+import { TabAlert } from '../../../../components/tab-alert/tab-alert';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { WidgetFormProvider, WidgetFormValue } from './internal/widget-context';
@@ -24,8 +23,6 @@ export const WidgetDetail = ({
   widget,
   definition,
 }: WidgetDetailProps) => {
-  const theme = useMantineTheme();
-
   const app = useAppContext();
 
   const form = useForm<WidgetFormValue>({
@@ -35,85 +32,59 @@ export const WidgetDetail = ({
     },
   });
 
-  const [fixedCache, setFixedCache] = useState(false);
-
-  useEffect(() => {
-    if (
-      !isEqual(form.values, {
-        properties: widget.properties,
-        events: widget.events,
-      }) &&
-      !fixedCache
-    ) {
-      app.repositories.tabRepository.fixTab(tab.id);
-      app.repositories.tabRepository.activeEditTab(tab.id);
-      setFixedCache(true);
-    }
-  }, [
-    app.repositories.tabRepository,
-    fixedCache,
-    form.values,
-    tab.id,
-    widget.events,
-    widget.properties,
-  ]);
-
-  const handleSubmit = useCallback(() => {
-    app.repositories.presenterRepository.widgetRepository.update(
-      widget.id,
-      form.values,
-    );
-    app.repositories.tabRepository.inactiveEditTab(tab.id);
-    setFixedCache(false);
-  }, [
-    app.repositories.tabRepository,
-    app.repositories.presenterRepository.widgetRepository,
-    form.values,
-    tab.id,
-    widget.id,
-  ]);
-
   return (
-    <Box>
-      <WidgetFormProvider form={form}>
-        <form>
-          {tab.isEdit ? (
-            <Box
-              sx={{
-                background: theme.colors.blue[2],
-                marginLeft: -16,
-                marginRight: -16,
-                padding: 6,
-                paddingLeft: 16,
-                paddingRight: 16,
-                marginBottom: 16,
-                position: 'sticky',
-                top: 0,
-                zIndex: 1,
-              }}
-            >
-              <Group spacing="xs">
-                <Text>组件正处于编辑状态，编辑后进行保存。</Text>
-                <Button size="xs" variant="light" onClick={handleSubmit}>
-                  点击保存
-                </Button>
-              </Group>
-            </Box>
-          ) : (
-            <Box sx={{ height: 16 }}></Box>
-          )}
-          {Object.entries(definition.properties).map(
-            ([definitionPropertyId, definitionProperty]) => (
-              <WidgetField
-                key={definitionPropertyId}
-                tab={tab}
-                definitionPropertyId={definitionPropertyId}
-                definitionProperty={definitionProperty}
-              />
-            ),
-          )}
-        </form>
-      </WidgetFormProvider>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        minWidth: 0,
+        minHeight: 0,
+        flexDirection: 'column',
+      }}
+    >
+      <TabAlert
+        tab={tab}
+        formValue={form.values}
+        entity={{
+          properties: widget.properties,
+          events: widget.events,
+        }}
+        onSubmit={async () => {
+          app.repositories.presenterRepository.widgetRepository.update(
+            widget.id,
+            form.values,
+          );
+          return true;
+        }}
+      />
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          flex: 1,
+          overflow: 'hidden',
+        }}
+      >
+        <OverflowArea y="scroll">
+          <Container fluid>
+            <WidgetFormProvider form={form}>
+              <form>
+                {Object.entries(definition.properties).map(
+                  ([definitionPropertyId, definitionProperty]) => (
+                    <WidgetField
+                      key={definitionPropertyId}
+                      tab={tab}
+                      definitionPropertyId={definitionPropertyId}
+                      definitionProperty={definitionProperty}
+                    />
+                  ),
+                )}
+              </form>
+            </WidgetFormProvider>
+          </Container>
+        </OverflowArea>
+      </Box>
     </Box>
   );
 };
