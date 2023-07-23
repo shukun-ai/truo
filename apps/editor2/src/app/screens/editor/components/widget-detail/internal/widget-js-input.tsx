@@ -5,7 +5,7 @@ import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
 import { WidgetProperty } from '@shukun/schema';
 import { useEffect, useMemo } from 'react';
 
-import { useCodeMirror } from '../../../../hooks/use-code-mirror';
+import { useCodeMirror } from '../../../../../hooks/use-code-mirror';
 
 import {
   composeFormPropertyName,

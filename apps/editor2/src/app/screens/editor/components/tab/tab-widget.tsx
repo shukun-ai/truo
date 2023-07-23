@@ -1,4 +1,4 @@
-import { Box, Container, ScrollArea } from '@mantine/core';
+import { Container, ScrollArea } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { WidgetForm } from '../widget/widget-form';
+import { WidgetDetail } from '../widget-detail/widget-detail';
 
 export type TabWidgetProps = {
   tab: TabEntity;
@@ -56,7 +56,7 @@ export const TabWidget = ({ tab }: TabWidgetProps) => {
   return (
     <ScrollArea sx={{ width: '100%', height: '100%' }}>
       <Container fluid>
-        <WidgetForm tab={tab} widget={widgetEntity} definition={definition} />
+        <WidgetDetail tab={tab} widget={widgetEntity} definition={definition} />
       </Container>
     </ScrollArea>
   );
