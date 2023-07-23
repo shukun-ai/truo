@@ -68,7 +68,7 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
   }, [onChildSubmit]);
 
   return (
-    <Menu trigger="hover" shadow="md" width={200}>
+    <Menu shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />

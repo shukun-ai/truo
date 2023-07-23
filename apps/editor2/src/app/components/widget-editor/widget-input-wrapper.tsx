@@ -14,6 +14,7 @@ export type WidgetInputWrapperProps = {
   children: ReactNode;
   disabledSimpleMode?: boolean;
   disabledJsMode?: boolean;
+  tipSection?: ReactNode;
 };
 
 export const WidgetInputWrapper = ({
@@ -25,6 +26,7 @@ export const WidgetInputWrapper = ({
   children,
   disabledSimpleMode,
   disabledJsMode,
+  tipSection,
 }: WidgetInputWrapperProps) => {
   const mode = useMemo(() => {
     if (typeof value === 'string' && value.startsWith(CODE_MODE_JS_PREFIX)) {
@@ -96,6 +98,7 @@ export const WidgetInputWrapper = ({
           </Group>
         </Box>
       </Box>
+      {tipSection && <Box>{tipSection}</Box>}
       <Box>
         {mode === 'js' && typeof value === 'string' ? (
           <JsInput value={value} onChange={onChange} disabled={disabled} />

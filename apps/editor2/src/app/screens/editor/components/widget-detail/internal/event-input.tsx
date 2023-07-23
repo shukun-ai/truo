@@ -1,5 +1,7 @@
 import { Box, Group, Text, Title } from '@mantine/core';
 
+import { ReactNode } from 'react';
+
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
 import { EventInput as BaseEventInput } from '../../event/event-input';
 
@@ -9,6 +11,7 @@ export type EventInputProps = {
   containerName: string;
   value: PresenterWidgetEntity['events'][number];
   onChange: (newValue: PresenterWidgetEntity['events'][number]) => void;
+  tipSection?: ReactNode;
 };
 
 export const EventInput = ({
@@ -17,6 +20,7 @@ export const EventInput = ({
   containerName,
   value,
   onChange,
+  tipSection,
 }: EventInputProps) => {
   return (
     <Box sx={{ marginBottom: 16 }}>
@@ -28,6 +32,7 @@ export const EventInput = ({
           </Text>
         )}
       </Group>
+      {tipSection}
       <BaseEventInput
         containerName={containerName}
         value={value}
