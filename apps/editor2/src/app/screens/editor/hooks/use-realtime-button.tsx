@@ -1,14 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import { useParams } from 'react-router-dom';
-
-import { environment } from '../../../../environments/environment';
-
-export const usePreviewUrl = () => {
-  const { orgName, presenterName } = useParams();
-  const domain = environment.previewDomain;
-  return `${domain}/presenter/${orgName}/${presenterName}`;
-};
+import { usePreviewUrl } from '../../../hooks/use-preview-url';
 
 export const useRealtimeButton = () => {
   const url = usePreviewUrl();
