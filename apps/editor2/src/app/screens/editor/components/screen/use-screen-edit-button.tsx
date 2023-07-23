@@ -1,12 +1,14 @@
 import { modals } from '@mantine/modals';
-import { omit } from 'lodash';
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { PresenterScreenEntity } from '../../../../../repositories/presenter/screen-ref';
+import {
+  PresenterScreenEntity,
+  createScreenEntityId,
+} from '../../../../../repositories/presenter/screen-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { ScreenForm, ScreenFormValues } from './screen-form';
+import { ScreenForm, ScreenFormValue } from './screen-form';
 
 export type UseScreenEditButtonProps = {
   screenEntity: PresenterScreenEntity;
@@ -19,12 +21,12 @@ export const useScreenEditButton = ({
 
   const { presenterName } = useParams();
 
-  const onSubmit = useCallback<(values: ScreenFormValues) => void>(
+  const onSubmit = useCallback<(values: ScreenFormValue) => void>(
     (values) => {
-      app.repositories.presenterRepository.screenRepository.update(
-        values.screenId,
-        omit(values, 'screenId'),
-      );
+      app.repositories.presenterRepository.screenRepository.update({
+        id: createScreenEntityId(values.screenName),
+        ...values,
+      });
       modals.closeAll();
     },
     [app.repositories.presenterRepository.screenRepository],

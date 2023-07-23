@@ -11,7 +11,11 @@ import {
   createRepositoryEntityId,
   repositoryRef,
 } from './repository-ref';
-import { PresenterScreenEntity, screenRef } from './screen-ref';
+import {
+  PresenterScreenEntity,
+  createScreenEntityId,
+  screenRef,
+} from './screen-ref';
 import { ISerializationService } from './serialization-service.interface';
 import { toWidgetEntityIdTree, toWidgetEntityIds } from './tree-convertor';
 import {
@@ -56,9 +60,10 @@ export class SerializationService implements ISerializationService {
   ): PresenterScreenEntity[] {
     const screenEntities: PresenterScreenEntity[] = [];
 
-    for (const [screenId, screen] of Object.entries(presenter.screens)) {
+    for (const [screenName, screen] of Object.entries(presenter.screens)) {
       screenEntities.push({
-        id: screenId,
+        id: createScreenEntityId(screenName),
+        screenName,
         ...screen,
       });
     }

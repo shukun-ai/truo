@@ -5,9 +5,10 @@ import { PresenterScreenEntity } from './screen-ref';
 export interface IScreenRepository {
   all$: Observable<PresenterScreenEntity[]>;
   selectedScreenEntityId$: Observable<string | null>;
-  isUniqueId(screenId: string): boolean;
-  select(screenId: string): void;
-  create(screenId: string, screen: Omit<PresenterScreenEntity, 'id'>): void;
-  update(screenId: string, screen: Omit<PresenterScreenEntity, 'id'>): void;
-  remove(screenId: string): void;
+
+  initialize(): Promise<void>;
+  select(entityId: string): void;
+  create(entity: PresenterScreenEntity): void;
+  update(entity: PresenterScreenEntity): void;
+  remove(entityId: string): void;
 }
