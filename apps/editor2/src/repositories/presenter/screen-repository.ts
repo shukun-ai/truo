@@ -2,7 +2,6 @@ import { select } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
-  getEntitiesIds,
   selectAllEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
@@ -26,39 +25,29 @@ export class ScreenRepository implements IScreenRepository {
     select((state) => state.selectedScreenEntityId),
   );
 
-  isUniqueId(screenId: string): boolean {
-    const ids = this.presenterStore.query(getEntitiesIds({ ref: screenRef }));
-    const isUniqueId = !ids.includes(screenId);
-    return isUniqueId;
+  async initialize(): Promise<void> {
+    //
   }
 
-  select(screenId: string): void {
+  select(entityId: string): void {
     this.presenterStore.update(
       write((state) => {
-        state.selectedScreenEntityId = screenId;
+        state.selectedScreenEntityId = entityId;
       }),
     );
   }
 
-  create(screenId: string, screen: Omit<PresenterScreenEntity, 'id'>): void {
+  create(entity: PresenterScreenEntity): void {
+    this.presenterStore.update(addEntities(entity, { ref: screenRef }));
+  }
+
+  update(entity: PresenterScreenEntity): void {
     this.presenterStore.update(
-      addEntities(
-        {
-          ...screen,
-          id: screenId,
-        },
-        { ref: screenRef },
-      ),
+      updateEntities(entity.id, entity, { ref: screenRef }),
     );
   }
 
-  update(screenId: string, screen: Omit<PresenterScreenEntity, 'id'>): void {
-    this.presenterStore.update(
-      updateEntities(screenId, screen, { ref: screenRef }),
-    );
-  }
-
-  remove(screenId: string): void {
-    this.presenterStore.update(deleteEntities(screenId, { ref: screenRef }));
+  remove(entityId: string): void {
+    this.presenterStore.update(deleteEntities(entityId, { ref: screenRef }));
   }
 }

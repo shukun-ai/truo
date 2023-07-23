@@ -2,13 +2,13 @@ import { Button } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import { IconPlus } from '@tabler/icons-react';
-import { omit } from 'lodash';
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { createScreenEntityId } from '../../../../../repositories/presenter/screen-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { ScreenForm, ScreenFormValues } from './screen-form';
+import { ScreenForm, ScreenFormValue } from './screen-form';
 
 export type ScreenCreateButtonProps = {
   //
@@ -19,13 +19,13 @@ export const ScreenCreateButton = () => {
 
   const { presenterName } = useParams();
 
-  const onSubmit = useCallback<(values: ScreenFormValues) => void>(
+  const onSubmit = useCallback<(values: ScreenFormValue) => void>(
     (values) => {
       try {
-        app.repositories.presenterRepository.screenRepository.create(
-          values.screenId,
-          omit(values, 'screenId'),
-        );
+        app.repositories.presenterRepository.screenRepository.create({
+          id: createScreenEntityId(values.screenName),
+          ...values,
+        });
         modals.closeAll();
       } catch {
         notifications.show({

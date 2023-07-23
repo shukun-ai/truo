@@ -56,8 +56,8 @@ export const ScreenPane = () => {
             }}
           >
             <Group>
-              <Text size="sm">{screen.id}</Text>
-              <Badge>{screen.id === SCREEN_HOME_PAGE_ID && '首页'}</Badge>
+              <Text size="sm">{screen.screenName}</Text>
+              {screen.screenName === SCREEN_HOME_PAGE_ID && <Badge>首页</Badge>}
             </Group>
             <MoreButton screenId={screen.id} screen={screen} />
           </Box>
