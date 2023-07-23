@@ -1,4 +1,5 @@
 import { Button } from '@mantine/core';
+import { IconRefresh } from '@tabler/icons-react';
 import { useCallback, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
@@ -42,8 +43,14 @@ export const SavePresenterButton = () => {
   ]);
 
   return (
-    <Button onClick={handleSave} loading={loading}>
-      保存刷新预览
+    <Button
+      onClick={handleSave}
+      loading={loading}
+      size="xs"
+      variant="filled"
+      leftIcon={<IconRefresh size="0.8rem" />}
+    >
+      保存刷新后预览
     </Button>
   );
 };
