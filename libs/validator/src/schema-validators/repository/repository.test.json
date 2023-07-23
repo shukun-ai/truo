@@ -5,7 +5,7 @@
   "manualJsonSchema": true,
   "parameters": {
     "defaultValue": {
-      "editorType": "json",
+      "editorType": "jsonSchema",
       "required": false
     }
   },

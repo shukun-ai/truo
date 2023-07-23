@@ -16,10 +16,7 @@ export const toEditorState = (connector: ConnectorSchema): EditorState => {
   const state: EditorState = {
     nodes: [...addInternalNode(), ...addNodes(connector)].map((node) => ({
       ...node,
-      data: {
-        ...node.data,
-        label: node?.data?.task?.type ?? 'none',
-      },
+      data: node.data,
     })),
     edges: [...addStartEdge(connector), ...addEdges(connector)].map((edge) => ({
       ...edge,
@@ -48,7 +45,7 @@ const addInternalNode = (): EditorState['nodes'] => {
     {
       id: '$$__end',
       type: 'end',
-      position: { x: 0, y: 500 },
+      position: { x: 0, y: 0 },
       data: {
         taskName: null,
         task: null,
@@ -68,7 +65,7 @@ const addNodes = (connector: ConnectorSchema): EditorState['nodes'] => {
       {
         id: taskName,
         type: createTaskNode(task),
-        position: { x: 200, y: 500 },
+        position: { x: 0, y: 0 },
         data: {
           taskName,
           task,

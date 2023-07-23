@@ -22,6 +22,7 @@ describe('FlowService', () => {
     environmentService = new EnvironmentService(
       mockEmptyDependencies(),
       mockEmptyDependencies(),
+      mockEmptyDependencies(),
     );
 
     flowService = new FlowService(

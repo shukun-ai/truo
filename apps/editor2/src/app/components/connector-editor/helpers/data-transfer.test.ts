@@ -57,13 +57,21 @@ describe('data-transfer', () => {
             id: '$$__start',
             type: 'start',
             position: { x: 0, y: 0 },
-            data: {},
+            data: {
+              taskName: null,
+              task: null,
+              ui: { width: 150, height: 50 },
+            },
           },
           {
             id: '$$__end',
             type: 'end',
             position: { x: 0, y: 0 },
-            data: {},
+            data: {
+              taskName: null,
+              task: null,
+              ui: { width: 150, height: 50 },
+            },
           },
           {
             id: '获得机场数据',
@@ -71,6 +79,8 @@ describe('data-transfer', () => {
             position: { x: 0, y: 0 },
             data: {
               task: connector.tasks['获得机场数据'],
+              taskName: '获得机场数据',
+              ui: { width: 280, height: 67 },
             },
           },
           {
@@ -79,6 +89,8 @@ describe('data-transfer', () => {
             position: { x: 0, y: 0 },
             data: {
               task: connector.tasks['检查机场数据长度'],
+              taskName: '检查机场数据长度',
+              ui: { width: 280, height: 67 },
             },
           },
           {
@@ -87,6 +99,8 @@ describe('data-transfer', () => {
             position: { x: 0, y: 0 },
             data: {
               task: connector.tasks['重映射数据'],
+              taskName: '重映射数据',
+              ui: { width: 280, height: 67 },
             },
           },
           {
@@ -95,43 +109,47 @@ describe('data-transfer', () => {
             position: { x: 0, y: 0 },
             data: {
               task: connector.tasks['提示用户失败'],
+              taskName: '提示用户失败',
+              ui: { width: 280, height: 67 },
             },
           },
         ],
         edges: [
           {
             id: '$$__start>获得机场数据',
-            type: 'start',
+            type: 'smoothstep',
             source: '$$__start',
             target: '获得机场数据',
           },
           {
             id: '获得机场数据>检查机场数据长度',
-            type: 'next',
+            type: 'smoothstep',
             source: '获得机场数据',
             target: '检查机场数据长度',
           },
           {
             id: '检查机场数据长度>重映射数据',
-            type: 'next',
+            label: '是',
+            type: 'smoothstep',
             source: '检查机场数据长度',
             target: '重映射数据',
           },
           {
             id: '检查机场数据长度>提示用户失败',
-            type: 'eitherRight',
+            label: '否',
+            type: 'smoothstep',
             source: '检查机场数据长度',
             target: '提示用户失败',
           },
           {
             id: '重映射数据>$$__end',
-            type: 'end',
+            type: 'smoothstep',
             source: '重映射数据',
             target: '$$__end',
           },
           {
             id: '提示用户失败>$$__end',
-            type: 'end',
+            type: 'smoothstep',
             source: '提示用户失败',
             target: '$$__end',
           },
