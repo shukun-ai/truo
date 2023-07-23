@@ -44,7 +44,6 @@ export const PreviewFrame = () => {
   }, [selectedDevice]);
 
   const theme = useMantineTheme();
-  console.log('previewUrl', previewUrl);
 
   return (
     <Box

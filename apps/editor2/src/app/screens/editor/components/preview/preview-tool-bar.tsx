@@ -1,6 +1,7 @@
-import { Box, Button, Group, NativeSelect, SelectItem } from '@mantine/core';
-import { IconRefresh } from '@tabler/icons-react';
+import { Box, Group, NativeSelect, SelectItem } from '@mantine/core';
 import { useMemo } from 'react';
+
+import { SavePresenterButton } from '../common/save-presenter-button';
 
 import { devices } from './device';
 
@@ -35,13 +36,7 @@ export const PreviewToolBar = ({
       />
       <Box sx={{ flex: 1 }}></Box>
       <Group>
-        <Button
-          size="xs"
-          variant="filled"
-          leftIcon={<IconRefresh size="0.8rem" />}
-        >
-          保存刷新后预览
-        </Button>
+        <SavePresenterButton />
       </Group>
     </Box>
   );
