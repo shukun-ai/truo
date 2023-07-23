@@ -1,3 +1,4 @@
+import { TypeException } from '@shukun/exception';
 import {
   DashboardLayout,
   WorkshopLayout,
@@ -43,6 +44,8 @@ const getScreenLayout = (screen: PresenterScreen) => {
       return DashboardLayout;
     case 'Workshop':
       return WorkshopLayout;
+    default:
+      throw new TypeException('Did not support specific layout');
   }
 };
 

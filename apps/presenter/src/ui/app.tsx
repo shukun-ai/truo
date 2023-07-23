@@ -16,7 +16,7 @@ export const App = (props: AppProps) => {
   }
 
   if (!currentScreen) {
-    return <div>Did not found page.</div>;
+    return <div>Please configure the first screen.</div>;
   }
 
   return <Screen screen={currentScreen} {...props} />;
