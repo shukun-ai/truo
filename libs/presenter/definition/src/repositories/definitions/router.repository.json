@@ -1,10 +1,10 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
-  "name": "sourceQuery",
+  "name": "router",
   "scope": "app",
   "parameters": {},
   "actions": {
-    "trigger": {
+    "push": {
       "requiredValue": true
     }
   }

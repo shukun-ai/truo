@@ -1,7 +1,14 @@
 import { javascript } from '@codemirror/lang-javascript';
-import { Box, Button, Group, NativeSelect, SelectItem } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import {
+  Alert,
+  Box,
+  Button,
+  Group,
+  NativeSelect,
+  SelectItem,
+} from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
+import { IconInfoCircle } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 import { useMemo } from 'react';
 
@@ -11,12 +18,9 @@ import {
   useAppContext,
 } from '../../../../contexts/app-context';
 
-import { useJsInputProps } from './use-js-input-props';
-import { usePathInputProps } from './use-path-input-props';
-
 export type EventFormProps = {
   containerName: string;
-  event: PresenterEvent | undefined;
+  event: PresenterEvent;
   onChange: (event: PresenterEvent) => void;
   onCancel: () => void;
 };
@@ -27,6 +31,8 @@ export const EventForm = ({
   onChange,
   onCancel,
 }: EventFormProps) => {
+  const value = event;
+
   const app = useAppContext();
 
   const repositories = useObservableState(
@@ -38,11 +44,6 @@ export const EventForm = ({
     app.repositories.presenterRepository.repositoryDefinitions$,
     {},
   );
-
-  const form = useForm<PresenterEvent>({
-    initialValues: event,
-    validate: {},
-  });
 
   const appRepositoryOptions = useMemo<SelectItem[]>(() => {
     return Object.entries(repositoryDefinitions)
@@ -65,17 +66,17 @@ export const EventForm = ({
   }, [containerName, repositories]);
 
   const repositoryOptions = useMemo<SelectItem[]>(() => {
-    if (form.values.scope === 'app') {
+    if (value.scope === 'app') {
       return appRepositoryOptions;
-    } else if (form.values.scope === 'container') {
+    } else if (value.scope === 'container') {
       return containerRepositoryOptions;
     } else {
       return [];
     }
-  }, [appRepositoryOptions, containerRepositoryOptions, form.values.scope]);
+  }, [appRepositoryOptions, containerRepositoryOptions, value.scope]);
 
   const repositoryActions = useMemo<SelectItem[]>(() => {
-    const repositoryType = getRepositoryType(app, containerName, form.values);
+    const repositoryType = getRepositoryType(app, containerName, value);
     if (!repositoryType) {
       return [];
     }
@@ -89,10 +90,10 @@ export const EventForm = ({
         value: actionName,
       };
     });
-  }, [app, containerName, form.values, repositoryDefinitions]);
+  }, [app, containerName, value, repositoryDefinitions]);
 
   const action = useMemo(() => {
-    const repositoryType = getRepositoryType(app, containerName, form.values);
+    const repositoryType = getRepositoryType(app, containerName, value);
     if (!repositoryType) {
       return null;
     }
@@ -100,16 +101,12 @@ export const EventForm = ({
     if (!definition) {
       return null;
     }
-    const action = definition.actions[form.values.action];
+    const action = definition.actions[value.action];
     if (!action) {
       return null;
     }
     return action;
-  }, [app, containerName, form.values, repositoryDefinitions]);
-
-  const pathInputProps = usePathInputProps(form.getInputProps('path'));
-
-  const jsInputProps = useJsInputProps(form.getInputProps('value'));
+  }, [app, containerName, value, repositoryDefinitions]);
 
   return (
     <Box>
@@ -119,36 +116,70 @@ export const EventForm = ({
           { value: 'container', label: 'Container 容器级' },
         ]}
         label="数据仓库类型"
-        {...form.getInputProps('scope')}
         withAsterisk
+        value={value.scope}
+        onChange={(event) => {
+          value.scope = event.target.value as 'app' | 'container';
+          onChange(value);
+        }}
       />
-      <NativeSelect
-        data={repositoryOptions}
-        label="选择数据仓库"
-        {...form.getInputProps('target')}
-        withAsterisk
-      />
-      <NativeSelect
-        data={repositoryActions}
-        label="选择方法"
-        {...form.getInputProps('action')}
-        withAsterisk
-      />
-      {action?.requiredPath && <CodeInput label="路径" {...pathInputProps} />}
-      {action?.requiredValue && (
-        <CodeInput label="参数" extensions={[javascript()]} {...jsInputProps} />
+      {value.scope === 'container' &&
+      containerRepositoryOptions.length === 0 ? (
+        <Alert icon={<IconInfoCircle />} color="orange">
+          您当前未创建数据仓库，所以无法选择容器级数据仓库
+        </Alert>
+      ) : (
+        <>
+          <Group>
+            <NativeSelect
+              data={repositoryOptions}
+              label="选择数据仓库"
+              withAsterisk
+              value={value.target}
+              onChange={(event) => {
+                value.target = event.target.value;
+                onChange(value);
+              }}
+            />
+            <NativeSelect
+              data={repositoryActions}
+              label="选择方法"
+              withAsterisk
+              value={value.action}
+              onChange={(event) => {
+                value.action = event.target.value;
+                onChange(value);
+              }}
+            />
+          </Group>
+          {/* TODO should add PathInput, it's a array inputs */}
+          {/* {action?.requiredPath && (
+            <CodeInput label="路径"
+            value={value.path}
+            onChange={(event) => {
+              value.path = event.target.value;
+              onChange(value);
+            }}
+             />
+          )} */}
+          {action?.requiredValue}
+          {action?.requiredValue && (
+            <CodeInput
+              label="参数"
+              extensions={[javascript()]}
+              value={value.value ?? ''}
+              onChange={(newValue) => {
+                value.value = newValue;
+                onChange(value);
+              }}
+            />
+          )}
+        </>
       )}
-      <Group sx={{ marginTop: 12 }}>
-        <Button
-          variant="filled"
-          onClick={() => {
-            onChange(form.values);
-          }}
-        >
-          保存
-        </Button>
+
+      <Group mb={12}>
         <Button variant="light" onClick={onCancel}>
-          取消
+          折叠
         </Button>
       </Group>
     </Box>
