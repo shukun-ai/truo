@@ -6,8 +6,9 @@ import { WidgetSchema } from '@shukun/schema';
 import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { OverflowArea } from '../../../../components/overflow-area/overflow-area';
-import { TabAlert } from '../../../../components/tab-alert/tab-alert';
 import { useAppContext } from '../../../../contexts/app-context';
+
+import { useDebounceSave } from '../../hooks/use-debounce-save';
 
 import { Schema } from './internal/schema';
 
@@ -28,6 +29,13 @@ export const WidgetDetail = ({
     initialValues: structuredClone(widgetEntity),
   });
 
+  useDebounceSave(form.values, (debounced) => {
+    app.repositories.presenterRepository.widgetRepository.update(
+      widgetEntity.id,
+      debounced,
+    );
+  });
+
   if (tab.tabType !== 'widget') {
     return null;
   }
@@ -43,18 +51,6 @@ export const WidgetDetail = ({
         flexDirection: 'column',
       }}
     >
-      <TabAlert
-        tab={tab}
-        formValue={form.values}
-        entity={widgetEntity}
-        onSubmit={async () => {
-          app.repositories.presenterRepository.widgetRepository.update(
-            widgetEntity.id,
-            form.values,
-          );
-          return true;
-        }}
-      />
       <Box
         sx={{
           display: 'flex',
