@@ -25,7 +25,6 @@ export const EventDetail = () => {
         event={event}
         onChange={(value) => {
           onChange(update(events, index, value));
-          setEditing(false);
         }}
         onCancel={() => {
           setEditing(false);
@@ -39,7 +38,6 @@ export const EventDetail = () => {
         onEdit={() => setEditing(true)}
         onRemove={() => {
           onChange(remove(events, index));
-          setEditing(false);
         }}
       />
     );
