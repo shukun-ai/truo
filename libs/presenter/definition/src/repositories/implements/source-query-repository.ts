@@ -11,7 +11,7 @@ export class SourceQueryRepository extends AsyncRepository {
   }
 
   async run(event: PresenterEvent, payload: unknown): Promise<void> {
-    this.updateValue((draft) => (draft.loading = true));
+    this.updateDraft((draft) => (draft.loading = true));
 
     const { apiRequester, definition } = this.context;
     const { atomName } = definition.parameters as any;
@@ -24,7 +24,7 @@ export class SourceQueryRepository extends AsyncRepository {
       payload as HttpQuerySchema,
     );
 
-    this.updateValue((draft) => {
+    this.updateDraft((draft) => {
       draft.loading = false;
       draft.errorMessage = null;
       draft.data = response.data;
@@ -42,7 +42,7 @@ export class SourceQueryRepository extends AsyncRepository {
         .query(query);
       return response;
     } catch (error) {
-      this.updateValue((draft) => {
+      this.updateDraft((draft) => {
         draft.loading = false;
         draft.errorMessage =
           error instanceof Error ? error.message : '未知错误';

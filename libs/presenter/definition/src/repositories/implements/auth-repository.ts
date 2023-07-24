@@ -17,10 +17,14 @@ export class AuthRepository extends BaseRepository<AuthRepositoryStates> {
   }
 
   signIn(token: AuthenticationToken): void {
-    this.updateValue((draft) => (draft.current = token));
+    this.context.store.update(this.getScope(), [], () => ({
+      current: token,
+    }));
   }
 
   signOut(): void {
-    this.updateValue((draft) => (draft.current = null));
+    this.context.store.update(this.getScope(), [], () => ({
+      current: null,
+    }));
   }
 }

@@ -12,7 +12,7 @@ export class BaseRepository<State> implements IRepository {
     this.context.store.update(this.getScope(), [], () => initialValue);
   }
 
-  updateValue(callback: (draft: State) => void) {
+  updateDraft(callback: (draft: State) => void) {
     this.context.store.update(this.getScope(), [], write(callback));
   }
 
