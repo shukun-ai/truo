@@ -1,22 +1,24 @@
 import { Box } from '@mantine/core';
 
+import { PresenterWatch } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 
-import { PresenterWatchEntity } from '../../../../../repositories/presenter/watch-ref';
+import { PresenterWatchEntity } from '../../../../../../repositories/presenter/watch-ref';
 
-import { EventInputs } from '../../../../components/event-editor/event-inputs';
-import { useAppContext } from '../../../../contexts/app-context';
+import { EventInputs } from '../../../../../components/event-editor/event-inputs';
+import { useAppContext } from '../../../../../contexts/app-context';
 
-import { useWatchFormContext } from './watch-context';
-
-export type WatchEventInputProps = {
+export type EventInputProps = {
   watchEntity: PresenterWatchEntity;
+  value: PresenterWatch['events'];
+  onChange: (newValue: PresenterWatch['events']) => void;
 };
 
-export const WatchEventInput = ({ watchEntity }: WatchEventInputProps) => {
-  const form = useWatchFormContext();
-  const formProps = form.getInputProps('events');
-
+export const EventInput = ({
+  watchEntity,
+  value,
+  onChange,
+}: EventInputProps) => {
   const app = useAppContext();
 
   const repositories = useObservableState(
@@ -42,7 +44,8 @@ export const WatchEventInput = ({ watchEntity }: WatchEventInputProps) => {
         repositoryRepository={
           app.repositories.presenterRepository.repositoryRepository
         }
-        {...formProps}
+        value={value}
+        onChange={onChange}
       />
     </Box>
   );

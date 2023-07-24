@@ -1,22 +1,18 @@
 import { Box, Button, NumberInput, Text } from '@mantine/core';
 
+import { PresenterWatch } from '@shukun/schema';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
 import { formatDuration } from 'date-fns';
 
 import { useMemo } from 'react';
 
-import { useWatchFormContext } from './watch-context';
-
-export type WatchIntervalInputProps = {
-  //
+export type IntervalTriggerProps = {
+  value: PresenterWatch['triggers']['interval'];
+  onChange: (newValue: PresenterWatch['triggers']['interval']) => void;
 };
 
-export const WatchIntervalInput = () => {
-  const form = useWatchFormContext();
-  const formProps = form.getInputProps('triggers.interval');
-
+export const IntervalTrigger = ({ value, onChange }: IntervalTriggerProps) => {
   const humanDuration = useMemo(() => {
-    const value: number | undefined = formProps.value;
     if (!value) {
       return '';
     }
@@ -30,39 +26,42 @@ export const WatchIntervalInput = () => {
         seconds: milliseconds / 1000,
       });
     }
-  }, [formProps.value]);
+  }, [value]);
 
   // TODO add hours, minutes, seconds input for enhancement
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: 150, marginRight: 20 }}>定时器 (毫秒)</Box>
-      {formProps.value !== undefined && (
+      {value !== undefined && (
         <NumberInput
           placeholder="Interval"
           step={1}
           sx={{ marginRight: 20 }}
-          {...formProps}
+          value={value}
+          onChange={(newValue) => {
+            onChange(newValue === '' ? undefined : newValue);
+          }}
         />
       )}
-      {formProps.value !== undefined && (
+      {value !== undefined && (
         <Button
           leftIcon={<IconTrash size="0.9rem" />}
           size="sm"
           variant="light"
           onClick={() => {
-            formProps.onChange(undefined);
+            onChange(undefined);
           }}
         >
           删除
         </Button>
       )}
-      {formProps.value === undefined && (
+      {value === undefined && (
         <Button
           leftIcon={<IconPlus size="0.9rem" />}
           size="sm"
           variant="light"
           onClick={() => {
-            formProps.onChange(60000);
+            onChange(60000);
           }}
         >
           激活触发该条件
