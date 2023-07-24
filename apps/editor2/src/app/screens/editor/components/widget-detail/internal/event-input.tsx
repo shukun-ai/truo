@@ -1,9 +1,11 @@
 import { Box, Group, Text, Title } from '@mantine/core';
 
+import { useObservableState } from 'observable-hooks';
 import { ReactNode } from 'react';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
-import { EventInput as BaseEventInput } from '../../event/event-input';
+import { EventInputs } from '../../../../../components/event-editor/event-inputs';
+import { useAppContext } from '../../../../../contexts/app-context';
 
 export type EventInputProps = {
   label: string;
@@ -22,6 +24,18 @@ export const EventInput = ({
   onChange,
   tipSection,
 }: EventInputProps) => {
+  const app = useAppContext();
+
+  const repositories = useObservableState(
+    app.repositories.presenterRepository.repositoryRepository.all$,
+    [],
+  );
+
+  const repositoryDefinitions = useObservableState(
+    app.repositories.presenterRepository.repositoryDefinitions$,
+    {},
+  );
+
   return (
     <Box sx={{ marginBottom: 16 }}>
       <Group mb={12}>
@@ -33,8 +47,14 @@ export const EventInput = ({
         )}
       </Group>
       {tipSection}
-      <BaseEventInput
+
+      <EventInputs
         containerName={containerName}
+        repositories={repositories}
+        repositoryDefinitions={repositoryDefinitions}
+        repositoryRepository={
+          app.repositories.presenterRepository.repositoryRepository
+        }
         value={value}
         onChange={onChange}
       />
