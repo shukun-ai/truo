@@ -30,10 +30,9 @@ export const EventInputs = ({
             containerName={containerName}
             value={value?.[widgetPropertyId] ?? []}
             onChange={(newValue) => {
-              onChange({
-                ...value,
-                [widgetPropertyId]: newValue as any,
-              });
+              // @remark update mutable values here for data sync
+              value[widgetPropertyId] = newValue as any;
+              onChange(value);
             }}
             tipSection={
               <SchemaTip

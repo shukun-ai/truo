@@ -29,10 +29,9 @@ export const PropertyInputs = ({
             secondaryLabel={widgetPropertyId}
             value={value?.[widgetPropertyId]}
             onChange={(newValue) => {
-              onChange({
-                ...value,
-                [widgetPropertyId]: newValue as any,
-              });
+              // @remark update mutable values here for data sync
+              value[widgetPropertyId] = newValue as any;
+              onChange(value);
             }}
             disabled={false}
             disabledSimpleMode={false}
