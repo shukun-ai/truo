@@ -1,11 +1,10 @@
-import { Box, Container, ScrollArea } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
-import { WatchForm } from '../watch-tab/watch-form';
+import { WatchDetail } from '../watch-detail/watch-detail';
 
 export type TabWatchProps = {
   tab: TabEntity;
@@ -36,11 +35,5 @@ export const TabWatch = ({ tab }: TabWatchProps) => {
     return null;
   }
 
-  return (
-    <ScrollArea sx={{ width: '100%', height: '100%' }}>
-      <Container fluid>
-        <WatchForm tab={tab} watchEntity={watchEntity} />
-      </Container>
-    </ScrollArea>
-  );
+  return <WatchDetail tab={tab} watchEntity={watchEntity} />;
 };
