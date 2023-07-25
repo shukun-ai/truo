@@ -1,6 +1,8 @@
-import { Box } from '@mantine/core';
+import { Alert, Box } from '@mantine/core';
 
 import { PresenterWatch } from '@shukun/schema';
+
+import { IconInfoCircle } from '@tabler/icons-react';
 
 import { PresenterWatchEntity } from '../../../../../../repositories/presenter/watch-ref';
 
@@ -18,6 +20,10 @@ export type SchemaProps = {
 export const Schema = ({ watchEntity, value, onChange }: SchemaProps) => {
   return (
     <Box>
+      <Alert icon={<IconInfoCircle />} mb={12}>
+        观察器监听变化从而触发执行事件的功能，大部分功能将通过观察器实现。请先选择触发条件，然后设置相应的执行事件
+      </Alert>
+
       <Box>
         <Box mb={12}>
           <StateChangedTrigger
@@ -62,6 +68,7 @@ export const Schema = ({ watchEntity, value, onChange }: SchemaProps) => {
           />
         </Box>
       </Box>
+
       <EventInput
         watchEntity={watchEntity}
         value={value.events}

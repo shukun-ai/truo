@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Button, JsonInput } from '@mantine/core';
+import { ActionIcon, Box, Button, Group, JsonInput, Text } from '@mantine/core';
 import { PresenterWatch } from '@shukun/schema';
 
 import {
@@ -44,8 +44,48 @@ export const StateChangedTrigger = ({
   }, [cache]);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: 150, marginRight: 20 }}>数据仓库状态监听</Box>
+    <Box>
+      <Group position="apart" mb={12}>
+        <Group>
+          <Text fw="500">数据仓库状态监听</Text>
+          {value !== undefined && (
+            <Button
+              leftIcon={<IconTrash size="0.9rem" />}
+              size="sm"
+              variant="light"
+              onClick={() => {
+                onChange(undefined);
+              }}
+            >
+              删除
+            </Button>
+          )}
+          {value === undefined && (
+            <Button
+              leftIcon={<IconPlus size="0.9rem" />}
+              size="sm"
+              variant="light"
+              onClick={() => {
+                onChange([[]]);
+              }}
+            >
+              激活触发该条件
+            </Button>
+          )}
+        </Group>
+
+        {value !== undefined && (
+          <ActionIcon
+            color={valid ? 'green' : 'red'}
+            radius="xl"
+            variant="transparent"
+            sx={{ marginRight: 20, cursor: 'default' }}
+          >
+            {valid ? <IconCircleCheckFilled /> : <IconCircleXFilled />}
+          </ActionIcon>
+        )}
+      </Group>
+
       {value !== undefined && (
         <JsonInput
           placeholder="Interval"
@@ -53,41 +93,6 @@ export const StateChangedTrigger = ({
           value={cache}
           onChange={(value) => setCache(value)}
         />
-      )}
-      {value !== undefined && (
-        <Button
-          leftIcon={<IconTrash size="0.9rem" />}
-          size="sm"
-          variant="light"
-          onClick={() => {
-            onChange(undefined);
-          }}
-        >
-          删除
-        </Button>
-      )}
-      {value === undefined && (
-        <Button
-          leftIcon={<IconPlus size="0.9rem" />}
-          size="sm"
-          variant="light"
-          onClick={() => {
-            onChange([[]]);
-          }}
-        >
-          激活触发该条件
-        </Button>
-      )}
-
-      {value !== undefined && (
-        <ActionIcon
-          color={valid ? 'green' : 'red'}
-          radius="xl"
-          variant="transparent"
-          sx={{ marginRight: 20, cursor: 'default' }}
-        >
-          {valid ? <IconCircleCheckFilled /> : <IconCircleXFilled />}
-        </ActionIcon>
       )}
     </Box>
   );

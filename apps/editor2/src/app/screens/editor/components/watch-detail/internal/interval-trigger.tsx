@@ -1,4 +1,4 @@
-import { Box, Button, NumberInput, Text } from '@mantine/core';
+import { Button, Group, NumberInput, Text } from '@mantine/core';
 
 import { PresenterWatch } from '@shukun/schema';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
@@ -30,8 +30,8 @@ export const IntervalTrigger = ({ value, onChange }: IntervalTriggerProps) => {
 
   // TODO add hours, minutes, seconds input for enhancement
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: 150, marginRight: 20 }}>定时器 (毫秒)</Box>
+    <Group>
+      <Text fw="500">定时器 (毫秒)</Text>
       {value !== undefined && (
         <NumberInput
           placeholder="Interval"
@@ -41,6 +41,7 @@ export const IntervalTrigger = ({ value, onChange }: IntervalTriggerProps) => {
           onChange={(newValue) => {
             onChange(newValue === '' ? undefined : newValue);
           }}
+          w={150}
         />
       )}
       {value !== undefined && (
@@ -68,6 +69,6 @@ export const IntervalTrigger = ({ value, onChange }: IntervalTriggerProps) => {
         </Button>
       )}
       <Text sx={{ marginLeft: 20 }}>{humanDuration}</Text>
-    </Box>
+    </Group>
   );
 };

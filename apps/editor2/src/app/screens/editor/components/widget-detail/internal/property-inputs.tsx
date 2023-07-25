@@ -2,10 +2,10 @@ import { WidgetSchema } from '@shukun/schema';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
 
+import { SchemaTip } from '../../../../../components/schema-tip/schema-tip';
 import { WidgetInputWrapper } from '../../../../../components/widget-editor/widget-input-wrapper';
 
 import { PropertyInput } from './property-input';
-import { SchemaTip } from './schema-tip';
 
 export type PropertyInputsProps = {
   definition: WidgetSchema;
@@ -37,7 +37,7 @@ export const PropertyInputs = ({
             disabledSimpleMode={false}
             disabledJsMode={false}
             tipSection={
-              <SchemaTip title="期望的格式" widgetProperty={widgetProperty} />
+              <SchemaTip title="期望的格式" schema={widgetProperty.schema} />
             }
           >
             <PropertyInput

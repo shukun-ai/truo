@@ -2,8 +2,9 @@ import { WidgetSchema } from '@shukun/schema';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
 
+import { SchemaTip } from '../../../../../components/schema-tip/schema-tip';
+
 import { EventInput } from './event-input';
-import { SchemaTip } from './schema-tip';
 
 export type EventInputsProps = {
   containerName: string;
@@ -37,7 +38,7 @@ export const EventInputs = ({
             tipSection={
               <SchemaTip
                 title="回调数据的格式"
-                widgetProperty={widgetProperty}
+                schema={widgetProperty.schema}
               />
             }
           />
