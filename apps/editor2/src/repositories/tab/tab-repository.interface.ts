@@ -34,6 +34,7 @@ export interface ITabRepository {
     environmentName: string,
     environmentEntityId: string,
   ): void;
+  previewScreensTab(): void;
   fixTab(entityId: string): void;
   activeEditTab(entityId: string): void;
   inactiveEditTab(entityId: string): void;

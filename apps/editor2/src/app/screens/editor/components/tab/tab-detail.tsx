@@ -6,6 +6,7 @@ import { TabConnector } from './tab-connector';
 import { TabEnvironment } from './tab-environment';
 import { TabMetadata } from './tab-metadata';
 import { TabRepository } from './tab-repository';
+import { TabScreens } from './tab-screens';
 import { TabWatch } from './tab-watch';
 
 import { TabWidget } from './tab-widget';
@@ -32,6 +33,9 @@ export const TabDetail = ({ tab }: TabDetailProps) => {
   }
   if (tab.tabType === 'environment') {
     return <TabEnvironment tab={tab} />;
+  }
+  if (tab.tabType === 'screens') {
+    return <TabScreens tab={tab} />;
   }
   throw new TypeException('Did not find specific tab');
 };

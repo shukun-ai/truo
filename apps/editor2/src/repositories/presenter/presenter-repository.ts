@@ -1,15 +1,18 @@
 import { select, setProps } from '@ngneat/elf';
 
+import { getAllEntitiesApply } from '@ngneat/elf-entities';
 import { Observable } from 'rxjs';
 
 import { ApiRequester } from '../../apis/requester';
 
+import { containerRef } from './container-ref';
 import { ContainerRepository } from './container-repository';
 import { DeserializationService } from './deserialization-service';
 
 import { IPresenterRepository } from './presenter-repository.interface';
 import { ActivityTabs, presenterStore } from './presenter-store';
 import { RepositoryRepository } from './repository-repository';
+import { screenRef } from './screen-ref';
 import { ScreenRepository } from './screen-repository';
 import { SerializationService } from './serialization-service';
 import { SynchronizeService } from './synchronize-service';
@@ -65,5 +68,27 @@ export class PresenterRepository implements IPresenterRepository {
 
   chooseActivityTab(tab: ActivityTabs | null): void {
     this.presenterStore.update(setProps({ selectedActivityTab: tab }));
+  }
+
+  chooseContainer(screenName: string, containerName: string): void {
+    const screens = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) => entity.screenName === screenName,
+        ref: screenRef,
+      }),
+    );
+    const containers = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) => entity.containerName === containerName,
+        ref: containerRef,
+      }),
+    );
+    if (screens.length !== 1 || containers.length !== 1) {
+      throw new Error(
+        'The screens or containers is less than 1 or greater than 1',
+      );
+    }
+    this.screenRepository.select(screens[0].id);
+    this.containerRepository.select(containers[0].id);
   }
 }

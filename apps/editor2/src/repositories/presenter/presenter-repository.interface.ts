@@ -30,4 +30,5 @@ export interface IPresenterRepository {
 
   initialize(presenterName: string): Promise<void>;
   chooseActivityTab(tab: ActivityTabs | null): void;
+  chooseContainer(screenName: string, containerName: string): void;
 }
