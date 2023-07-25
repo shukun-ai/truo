@@ -82,11 +82,13 @@ export const Editor = ({ mode }: EditorProps) => {
           id="editor__preview_area"
           sx={{
             // TODO refactor ActivityTabs and TabEntity to use universal constants
-            display: ['widget', 'repository', 'watch'].includes(
-              selectedTab?.tabType as string,
-            )
-              ? 'flex'
-              : 'none',
+            display:
+              selectedTab === null ||
+              ['widget', 'repository', 'watch', 'screens'].includes(
+                selectedTab.tabType as string,
+              )
+                ? 'flex'
+                : 'none',
             flex: 2,
             minWidth: 0,
             minHeight: 0,

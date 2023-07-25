@@ -1,4 +1,4 @@
-import { Badge, Button, Input, Select, TextInput } from '@mantine/core';
+import { Badge, Button, Select, TextInput } from '@mantine/core';
 import { isNotEmpty, useForm, zodResolver } from '@mantine/form';
 
 import { useObservableState } from 'observable-hooks';
@@ -6,11 +6,11 @@ import { useMemo } from 'react';
 
 import { z } from 'zod';
 
-import { PresenterScreenEntity } from '../../../../../repositories/presenter/screen-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { PresenterScreenEntity } from '../../../../../../repositories/presenter/screen-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
-import { availableSlots } from './internal/available-slots';
-import { Slots } from './internal/slots';
+import { availableSlots } from './available-slots';
+import { Slots } from './slots';
 
 export type ScreenFormValue = {
   screenName: string;

@@ -14,6 +14,8 @@ import { useObservableState } from 'observable-hooks';
 import { PresenterRepositoryEntity } from '../../../../../repositories/presenter/repository-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
+import { ScreenTip } from '../screen-tip/screen-tip';
+
 import { RepositoryCreateButton } from './repository-create-button';
 
 export const RepositoryPane = () => {
@@ -33,6 +35,7 @@ export const RepositoryPane = () => {
 
   return (
     <Box className={cx(classes.wrapper)}>
+      <ScreenTip />
       <Box>
         <RepositoryCreateButton />
         <Divider />

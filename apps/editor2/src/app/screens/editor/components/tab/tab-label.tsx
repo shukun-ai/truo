@@ -83,6 +83,8 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           (environment) => tab.environmentName === environment.environmentName,
         )?.environmentName
       );
+    } else if (tab.tabType === 'screens') {
+      return '页面管理';
     }
 
     throw new TypeException('Did not find specific tab');

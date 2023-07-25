@@ -14,6 +14,7 @@ import { ConnectorTab } from './internal/connector-tab';
 import { EnvironmentTab } from './internal/environment-tab';
 import { MetadataTab } from './internal/metadata-tab';
 import { RepositoryTab } from './internal/repository-tab';
+import { ScreensTab } from './internal/screens-tab';
 import { WatchTab } from './internal/watch-tab';
 import { WidgetTab } from './internal/widget-tab';
 import { TabEntity, tabRef } from './tab-ref';
@@ -29,6 +30,7 @@ export class TabRepository implements ITabRepository {
   private readonly connectorTab = new ConnectorTab();
   private readonly metadataTab = new MetadataTab();
   private readonly environmentTab = new EnvironmentTab();
+  private readonly screensTab = new ScreensTab();
 
   allTabs$: Observable<TabEntity[]> = this.tabStore.pipe(
     selectAllEntities({ ref: tabRef }),
@@ -103,6 +105,10 @@ export class TabRepository implements ITabRepository {
     environmentEntityId: string,
   ): void {
     this.environmentTab.preview(environmentName, environmentEntityId);
+  }
+
+  previewScreensTab(): void {
+    this.screensTab.preview();
   }
 
   fixTab(tabId: string): void {

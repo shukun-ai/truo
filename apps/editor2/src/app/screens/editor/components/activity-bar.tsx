@@ -1,6 +1,5 @@
 import {
   Box,
-  Divider,
   Tabs,
   Tooltip,
   createStyles,
@@ -8,7 +7,6 @@ import {
 } from '@mantine/core';
 import { ShukunLogo } from '@shukun/component';
 import {
-  IconRoute,
   IconBinaryTree,
   IconBuildingWarehouse,
   IconAtom2Filled,
@@ -35,7 +33,6 @@ import { ContainerPane } from './container/container-pane';
 import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
 import { RepositoryPane } from './repository-pane/repository-pane';
-import { ScreenPane } from './screen/screen-pane';
 import { TreePane } from './tree/tree-pane';
 import { WatchPane } from './watch-pane/watch-pane';
 
@@ -137,83 +134,25 @@ const useActivityTabs = (): {
 
   return [
     {
-      label: '页面',
-      value: ActivityTabs.Screens,
-      icon: <IconRoute size="1.2rem" />,
-      disabled: disabledPresenter,
-      pane: <ScreenPane />,
-    },
-    {
       label: '组件树',
       value: ActivityTabs.Widgets,
       icon: <IconBinaryTree size="1.2rem" />,
       disabled: disabledPresenter,
-      pane: (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexShrink: 0,
-            minHeight: 0,
-            height: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <Box sx={{ height: 200 }}>
-            <ContainerPane />
-          </Box>
-          <Divider />
-          <TreePane />
-        </Box>
-      ),
+      pane: <TreePane />,
     },
     {
       label: '数据仓库',
       value: ActivityTabs.Repositories,
       icon: <IconBuildingWarehouse size="1.2rem" />,
       disabled: disabledPresenter,
-      pane: (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexShrink: 0,
-            minHeight: 0,
-            height: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <Box sx={{ height: 200 }}>
-            <ContainerPane />
-          </Box>
-          <Divider />
-          <RepositoryPane />
-        </Box>
-      ),
+      pane: <RepositoryPane />,
     },
     {
       label: '观察器',
       value: ActivityTabs.Watches,
       icon: <Icon3dCubeSphere size="1.2rem" />,
       disabled: disabledPresenter,
-      pane: (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexShrink: 0,
-            minHeight: 0,
-            height: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <Box sx={{ height: 200 }}>
-            <ContainerPane />
-          </Box>
-          <Divider />
-          <WatchPane />
-        </Box>
-      ),
+      pane: <WatchPane />,
     },
     {
       label: '数据表',

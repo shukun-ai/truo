@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 import {
   PresenterScreenEntity,
   createScreenEntityId,
-} from '../../../../../repositories/presenter/screen-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+} from '../../../../../../repositories/presenter/screen-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
 import { ScreenForm, ScreenFormValue } from './screen-form';
 

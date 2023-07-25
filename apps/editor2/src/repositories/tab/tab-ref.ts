@@ -39,6 +39,9 @@ export type TabEntity = {
       environmentName: string;
       environmentEntityId: string;
     }
+  | {
+      tabType: 'screens';
+    }
 );
 
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');

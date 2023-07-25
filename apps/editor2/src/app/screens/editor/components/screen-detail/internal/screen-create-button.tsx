@@ -5,8 +5,8 @@ import { IconPlus } from '@tabler/icons-react';
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { createScreenEntityId } from '../../../../../repositories/presenter/screen-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { createScreenEntityId } from '../../../../../../repositories/presenter/screen-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
 import { ScreenForm, ScreenFormValue } from './screen-form';
 
@@ -54,7 +54,6 @@ export const ScreenCreateButton = () => {
   return (
     <Button
       leftIcon={<IconPlus size="0.9rem" />}
-      variant="subtle"
       size="sm"
       onClick={open}
       fullWidth

@@ -14,6 +14,8 @@ import { useObservableState } from 'observable-hooks';
 import { PresenterWatchEntity } from '../../../../../repositories/presenter/watch-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
+import { ScreenTip } from '../screen-tip/screen-tip';
+
 import { WatchCreateButton } from './watch-create-button';
 
 export const WatchPane = () => {
@@ -33,6 +35,7 @@ export const WatchPane = () => {
 
   return (
     <Box className={cx(classes.wrapper)}>
+      <ScreenTip />
       <Box>
         <WatchCreateButton />
         <Divider />
