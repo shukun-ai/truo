@@ -67,17 +67,25 @@ export const ScreenTip = () => {
           }}
           sx={{
             background: theme.fn.linearGradient(120, 'cyan', 'indigo', 'cyan'),
+            color: 'rgba(255,255,255,0.8)',
+            transition: 'all 600ms',
+            ':hover': {
+              boxShadow: 'inset 0px 0px 20px rgba(0,0,0,0.5)',
+              color: 'rgba(255,255,255,1)',
+              paddingTop: 8,
+              paddingBottom: 8,
+            },
             borderRadius: 12,
           }}
-          p={2}
+          p={4}
           m={8}
         >
           {screen ? (
-            <Stack spacing={4}>
-              <Text c="white" align="center" size="lg">
+            <Stack spacing={0}>
+              <Text align="center" size="lg">
                 {screen?.screenName}
               </Text>
-              <Text c="white" align="center" size="xs">
+              <Text align="center" size="xs">
                 {container?.containerName}
               </Text>
             </Stack>

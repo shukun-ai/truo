@@ -1,4 +1,11 @@
-import { Alert, Box, ScrollArea, createStyles } from '@mantine/core';
+import {
+  Alert,
+  Box,
+  Divider,
+  ScrollArea,
+  Title,
+  createStyles,
+} from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
@@ -56,6 +63,10 @@ export const TreePane = () => {
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
         {selectedContainerEntityId ? (
           <>
+            <Title order={4} p={12}>
+              查看组件
+            </Title>
+            <Divider />
             <TreeDraggableNode
               treeNodes={treeNodes}
               widgetEntities={selectedWidgetEntities}
