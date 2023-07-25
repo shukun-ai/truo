@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core';
+import { Box, Group, Title } from '@mantine/core';
 
 import { PresenterWatch } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
@@ -33,9 +33,9 @@ export const EventInput = ({
 
   return (
     <Box sx={{ marginBottom: 16 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
-        <Box sx={{ marginRight: 6 }}>事件</Box>
-      </Box>
+      <Group mb={12}>
+        <Title order={5}>执行事件</Title>
+      </Group>
 
       <EventInputs
         containerName={watchEntity.containerName}

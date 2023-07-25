@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Button } from '@mantine/core';
+import { ActionIcon, Button, Group, Text } from '@mantine/core';
 
 import { PresenterWatch } from '@shukun/schema';
 import {
@@ -17,8 +17,8 @@ export const ContainerMountedTrigger = ({
   onChange,
 }: ContainerMountedTriggerProps) => {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: 150, marginRight: 20 }}>容器挂载时触发</Box>
+    <Group>
+      <Text fw="500">容器挂载时触发</Text>
       {value !== undefined && (
         <ActionIcon
           color="green"
@@ -53,6 +53,6 @@ export const ContainerMountedTrigger = ({
           激活触发该条件
         </Button>
       )}
-    </Box>
+    </Group>
   );
 };

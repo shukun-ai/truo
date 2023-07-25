@@ -1,15 +1,14 @@
 import { Box, Code, Group, Text, UnstyledButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { WidgetProperty } from '@shukun/schema';
 
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 export type SchemaTipProps = {
   title: string;
-  widgetProperty: WidgetProperty;
+  schema: unknown;
 };
 
-export const SchemaTip = ({ title, widgetProperty }: SchemaTipProps) => {
+export const SchemaTip = ({ title, schema }: SchemaTipProps) => {
   const [opened, { toggle }] = useDisclosure(false);
 
   return (
@@ -42,7 +41,7 @@ export const SchemaTip = ({ title, widgetProperty }: SchemaTipProps) => {
       </UnstyledButton>
       {opened && (
         <Box>
-          <Code block>{JSON.stringify(widgetProperty.schema, null, 2)}</Code>
+          <Code block>{JSON.stringify(schema, null, 2)}</Code>
         </Box>
       )}
     </Box>
