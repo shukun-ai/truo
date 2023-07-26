@@ -84,9 +84,13 @@ export const Editor = ({ mode }: EditorProps) => {
             // TODO refactor ActivityTabs and TabEntity to use universal constants
             display:
               selectedTab === null ||
-              ['widget', 'repository', 'watch', 'screens'].includes(
-                selectedTab.tabType as string,
-              )
+              [
+                'widget',
+                'repository',
+                'watch',
+                'screens',
+                'containers',
+              ].includes(selectedTab.tabType as string)
                 ? 'flex'
                 : 'none',
             flex: 2,

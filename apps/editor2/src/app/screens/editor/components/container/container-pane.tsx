@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Box,
+  Container,
   Divider,
   Menu,
   ScrollArea,
@@ -9,6 +10,8 @@ import {
 } from '@mantine/core';
 import { IconDots, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
+
+import { useState } from 'react';
 
 import { useAppContext } from '../../../../contexts/app-context';
 
@@ -19,10 +22,7 @@ export const ContainerPane = () => {
 
   const app = useAppContext();
 
-  const selectedContainerEntityId = useObservableState(
-    app.repositories.presenterRepository.selectedContainerEntityId$,
-    null,
-  );
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const allContainers = useObservableState(
     app.repositories.presenterRepository.containerRepository.all$,
@@ -36,23 +36,23 @@ export const ContainerPane = () => {
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {allContainers.map((container) => (
-          <Box
-            key={container.id}
-            className={cx(
-              classes.button,
-              selectedContainerEntityId === container.id && classes.active,
-            )}
-            onClick={() => {
-              app.repositories.presenterRepository.containerRepository.select(
-                container.id,
-              );
-            }}
-          >
-            <Text size="sm">{container.containerName}</Text>
-            <MoreButton containerName={container.id} />
-          </Box>
-        ))}
+        <Container fluid mt={12} mb={12}>
+          {allContainers.map((container) => (
+            <Box
+              key={container.id}
+              className={cx(
+                classes.button,
+                selectedId === container.id && classes.active,
+              )}
+              onClick={() => {
+                setSelectedId(container.id);
+              }}
+            >
+              <Text size="sm">{container.containerName}</Text>
+              <MoreButton containerName={container.id} />
+            </Box>
+          ))}
+        </Container>
       </ScrollArea>
     </Box>
   );

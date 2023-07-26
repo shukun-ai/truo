@@ -2,6 +2,7 @@ import { Box, Grid } from '@mantine/core';
 
 import { PresenterScreenEntity } from '../../../../../../repositories/presenter/screen-ref';
 
+import { ContainerManageButton } from './container-manage-button';
 import { Screen } from './screen';
 import { ScreenCreateButton } from './screen-create-button';
 
@@ -20,6 +21,7 @@ export const Screens = ({ screens }: ScreensProps) => {
         ))}
       </Grid>
       <ScreenCreateButton />
+      <ContainerManageButton />
     </Box>
   );
 };
