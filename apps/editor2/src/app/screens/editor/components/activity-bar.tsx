@@ -116,7 +116,9 @@ const useStyles = createStyles(() => ({
     overflow: 'hidden',
     height: '100%',
   },
-  tabs: {},
+  tabs: {
+    borderRightWidth: 1,
+  },
   panel: {
     width: 240,
     overflow: 'hidden',
