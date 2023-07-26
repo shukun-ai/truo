@@ -9,7 +9,7 @@ import { ShukunLogo } from '@shukun/component';
 import {
   IconBinaryTree,
   IconBuildingWarehouse,
-  IconAtom2Filled,
+  IconDatabaseCog,
   IconGizmo,
   Icon3dCubeSphere,
   IconVariable,
@@ -159,7 +159,7 @@ const useActivityTabs = (): {
     {
       label: '数据表',
       value: ActivityTabs.Metadatas,
-      icon: <IconAtom2Filled size="1.2rem" />,
+      icon: <IconDatabaseCog size="1.2rem" />,
       pane: <MetadataListPane />,
     },
     {

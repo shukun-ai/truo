@@ -6,6 +6,7 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
+import { IconDatabaseCog } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
 import { useAppContext } from '../../../../contexts/app-context';
@@ -51,6 +52,7 @@ export const MetadataListPane = () => {
             }}
           >
             <Group>
+              <IconDatabaseCog size="1rem" />
               <Text size="sm">{metadataEntity.metadataName}</Text>
               <MoreTag metadataEntity={metadataEntity} />
             </Group>

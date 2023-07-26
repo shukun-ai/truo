@@ -1,4 +1,5 @@
-import { Badge } from '@mantine/core';
+import { Tooltip } from '@mantine/core';
+import { IconLock } from '@tabler/icons-react';
 import { useMemo } from 'react';
 
 import { MetadataEntity } from '../../../../../../repositories/metadata/metadata-ref';
@@ -13,7 +14,11 @@ export const MoreTag = ({ metadataEntity }: MoreTagProps) => {
   }, [metadataEntity.metadataName]);
 
   if (isLock) {
-    return <Badge>系统内置</Badge>;
+    return (
+      <Tooltip label="该数据表为系统内置锁定状态，无法编辑和删除" withinPortal>
+        <IconLock size="0.9rem" />
+      </Tooltip>
+    );
   }
 
   return null;
