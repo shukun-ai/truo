@@ -2,10 +2,10 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { TabEntity } from '../../../../../repositories/tab/tab-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
-import { WidgetDetail } from '../widget-detail/widget-detail';
+import { WidgetDetail } from '../../widget-detail/widget-detail';
 
 export type TabWidgetProps = {
   tab: TabEntity;

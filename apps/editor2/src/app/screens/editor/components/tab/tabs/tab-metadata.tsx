@@ -2,9 +2,9 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { TabEntity } from '../../../../../repositories/tab/tab-ref';
-import { useAppContext } from '../../../../contexts/app-context';
-import { MetadataDetail } from '../metadata-detail/metadata-detail';
+import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
+import { MetadataDetail } from '../../metadata-detail/metadata-detail';
 
 export type TabMetadataProps = {
   tab: TabEntity;

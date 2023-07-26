@@ -1,5 +1,5 @@
-import { TabEntity } from '../../../../../repositories/tab/tab-ref';
-import { ScreenDetail } from '../screen-detail/screen-detail';
+import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
+import { ScreenDetail } from '../../screen-detail/screen-detail';
 
 export type TabScreensProps = {
   tab: TabEntity;

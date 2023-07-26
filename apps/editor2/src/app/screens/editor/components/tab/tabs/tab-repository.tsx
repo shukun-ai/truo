@@ -3,10 +3,10 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { TabEntity } from '../../../../../repositories/tab/tab-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
-import { RepositoryDetail } from '../repository-detail/repository-detail';
+import { RepositoryDetail } from '../../repository-detail/repository-detail';
 
 export type TabRepositoryProps = {
   tab: TabEntity;

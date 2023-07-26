@@ -1,15 +1,15 @@
 import { TypeException } from '@shukun/exception';
 
-import { TabEntity } from '../../../../../repositories/tab/tab-ref';
+import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
 
-import { TabConnector } from './tab-connector';
-import { TabEnvironment } from './tab-environment';
-import { TabMetadata } from './tab-metadata';
-import { TabRepository } from './tab-repository';
-import { TabScreens } from './tab-screens';
-import { TabWatch } from './tab-watch';
+import { TabConnector } from '../tabs/tab-connector';
+import { TabEnvironment } from '../tabs/tab-environment';
+import { TabMetadata } from '../tabs/tab-metadata';
+import { TabRepository } from '../tabs/tab-repository';
+import { TabScreens } from '../tabs/tab-screens';
+import { TabWatch } from '../tabs/tab-watch';
 
-import { TabWidget } from './tab-widget';
+import { TabWidget } from '../tabs/tab-widget';
 
 export type TabDetailProps = {
   tab: TabEntity;
