@@ -1,6 +1,9 @@
-import { Box, Group, NativeSelect, SelectItem } from '@mantine/core';
+import { Box, Group, NativeSelect, SelectItem, Text } from '@mantine/core';
+import { useObservableState } from 'observable-hooks';
 import { useMemo } from 'react';
 
+import { useAppContext } from '../../../../contexts/app-context';
+import { usePreviewUrl } from '../../../../hooks/use-preview-url';
 import { SavePresenterButton } from '../common/save-presenter-button';
 
 import { devices } from './device';
@@ -14,6 +17,13 @@ export const PreviewToolBar = ({
   selectedDevice,
   changeSelectedDevice,
 }: PreviewToolBarProps) => {
+  const app = useAppContext();
+  const screen = useObservableState(
+    app.repositories.presenterRepository.screenRepository.selectedScreenEntity$,
+    null,
+  );
+  const previewUrl = usePreviewUrl(screen?.screenName ?? '');
+
   const deviceOptions = useMemo<SelectItem[]>(() => {
     return devices.map((device) => ({
       value: device.name,
@@ -34,7 +44,11 @@ export const PreviewToolBar = ({
         value={selectedDevice}
         onChange={(event) => changeSelectedDevice(event.target.value)}
       />
-      <Box sx={{ flex: 1 }}></Box>
+      <Box sx={{ flex: 1 }} ml={12} mr={12}>
+        <Text truncate c="gray.6">
+          {previewUrl}
+        </Text>
+      </Box>
       <Group>
         <SavePresenterButton />
       </Group>

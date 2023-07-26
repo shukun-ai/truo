@@ -42,6 +42,9 @@ export type TabEntity = {
   | {
       tabType: 'screens';
     }
+  | {
+      tabType: 'containers';
+    }
 );
 
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');

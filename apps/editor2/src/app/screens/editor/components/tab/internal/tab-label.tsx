@@ -85,6 +85,8 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
       );
     } else if (tab.tabType === 'screens') {
       return '页面管理';
+    } else if (tab.tabType === 'containers') {
+      return '容器管理';
     }
 
     throw new TypeException('Did not find specific tab');

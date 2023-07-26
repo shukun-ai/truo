@@ -11,6 +11,7 @@ import { TypeException } from '@shukun/exception';
 import { Observable } from 'rxjs';
 
 import { ConnectorTab } from './internal/connector-tab';
+import { ContainersTab } from './internal/containers-tab';
 import { EnvironmentTab } from './internal/environment-tab';
 import { MetadataTab } from './internal/metadata-tab';
 import { RepositoryTab } from './internal/repository-tab';
@@ -31,6 +32,7 @@ export class TabRepository implements ITabRepository {
   private readonly metadataTab = new MetadataTab();
   private readonly environmentTab = new EnvironmentTab();
   private readonly screensTab = new ScreensTab();
+  private readonly containersTab = new ContainersTab();
 
   allTabs$: Observable<TabEntity[]> = this.tabStore.pipe(
     selectAllEntities({ ref: tabRef }),
@@ -109,6 +111,10 @@ export class TabRepository implements ITabRepository {
 
   previewScreensTab(): void {
     this.screensTab.preview();
+  }
+
+  previewContainersTab(): void {
+    this.containersTab.preview();
   }
 
   fixTab(tabId: string): void {

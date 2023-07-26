@@ -3,6 +3,7 @@ import { TypeException } from '@shukun/exception';
 import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
 
 import { TabConnector } from '../tabs/tab-connector';
+import { TabContainers } from '../tabs/tab-containers';
 import { TabEnvironment } from '../tabs/tab-environment';
 import { TabMetadata } from '../tabs/tab-metadata';
 import { TabRepository } from '../tabs/tab-repository';
@@ -36,6 +37,9 @@ export const TabDetail = ({ tab }: TabDetailProps) => {
   }
   if (tab.tabType === 'screens') {
     return <TabScreens tab={tab} />;
+  }
+  if (tab.tabType === 'containers') {
+    return <TabContainers tab={tab} />;
   }
   throw new TypeException('Did not find specific tab');
 };
