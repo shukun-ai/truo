@@ -1,12 +1,4 @@
-import {
-  Alert,
-  Box,
-  Divider,
-  ScrollArea,
-  Title,
-  createStyles,
-} from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons-react';
+import { Box, Divider, Title, createStyles } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -16,7 +8,9 @@ import { useAppContext } from '../../../../contexts/app-context';
 import { ScreenTip } from '../screen-tip/screen-tip';
 
 import { TreeDraggableNode } from './internal/draggable-node';
+import { EmptyTip } from './internal/empty-tip';
 import { TreeRootCreate } from './internal/root-create';
+import { ScrollArea } from './internal/scroll-area';
 
 export type TreePaneProps = {
   //
@@ -60,35 +54,29 @@ export const TreePane = () => {
   return (
     <Box className={cx(classes.wrapper)}>
       <ScreenTip />
-      <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {selectedContainerEntityId ? (
-          <>
-            <Title order={4} p={12}>
-              查看组件
-            </Title>
-            <Divider />
-            <TreeDraggableNode
-              treeNodes={treeNodes}
-              widgetEntities={selectedWidgetEntities}
-              treeCollapses={treeCollapses}
-              selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
-              sourceNodeId="root"
-              selectedContainerEntityId={selectedContainerEntityId}
-              level={0}
-              index={0}
-            />
-            {onlyRoot && <TreeRootCreate />}
-          </>
-        ) : (
-          <Box className={cx(classes.wrapper)}>
-            <Alert icon={<IconInfoCircle />} title="请先选择容器">
-              在上方选择或者创建新的容器，然后操作相关的组件树。
-              <br />
-              一个容器有多条组件树、数据仓库、观察器组成。
-            </Alert>
-          </Box>
-        )}
-      </ScrollArea>
+      <Title order={4} p={12}>
+        查看组件
+      </Title>
+      <Divider />
+      {/* <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}> */}
+      {selectedContainerEntityId ? (
+        <ScrollArea>
+          <TreeDraggableNode
+            treeNodes={treeNodes}
+            widgetEntities={selectedWidgetEntities}
+            treeCollapses={treeCollapses}
+            selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
+            sourceNodeId="root"
+            selectedContainerEntityId={selectedContainerEntityId}
+            level={0}
+            index={0}
+          />
+          {onlyRoot && <TreeRootCreate />}
+        </ScrollArea>
+      ) : (
+        <EmptyTip />
+      )}
+      {/* </ScrollArea> */}
     </Box>
   );
 };

@@ -144,6 +144,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     color: theme.colors.blue[8],
     borderRadius: theme.radius.md,
+    flexWrap: 'nowrap',
 
     '&:hover': {
       background: theme.colors.blue[1],
