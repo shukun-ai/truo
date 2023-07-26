@@ -1,7 +1,6 @@
 import {
   ActionIcon,
   Box,
-  Divider,
   Group,
   Menu,
   ScrollArea,
@@ -12,6 +11,7 @@ import { Icon3dCubeSphere, IconDots, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
 import { PresenterWatchEntity } from '../../../../../repositories/presenter/watch-ref';
+import { NonContainerTip } from '../../../../components/non-container-tip/non-container-tip';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { ScreenTip } from '../screen-tip/screen-tip';
@@ -28,7 +28,7 @@ export const WatchPane = () => {
     null,
   );
 
-  const allRepositories = useObservableState(
+  const allWatches = useObservableState(
     app.repositories.presenterRepository.watchRepository.all$,
     [],
   );
@@ -36,12 +36,12 @@ export const WatchPane = () => {
   return (
     <Box className={cx(classes.wrapper)}>
       <ScreenTip />
-      <Box>
+      <Box pl={4} pr={4} mb={8}>
         <WatchCreateButton />
-        <Divider />
       </Box>
+      {allWatches.length === 0 && <NonContainerTip />}
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {allRepositories.map((watchEntity) => (
+        {allWatches.map((watchEntity) => (
           <Box
             key={watchEntity.id}
             className={cx(

@@ -1,7 +1,6 @@
 import {
   ActionIcon,
   Box,
-  Divider,
   Group,
   Menu,
   ScrollArea,
@@ -16,13 +15,14 @@ import {
 import { useObservableState } from 'observable-hooks';
 
 import { PresenterRepositoryEntity } from '../../../../../repositories/presenter/repository-ref';
+import { NonContainerTip } from '../../../../components/non-container-tip/non-container-tip';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { ScreenTip } from '../screen-tip/screen-tip';
 
 import { RepositoryCreateButton } from './repository-create-button';
 
-export const RepositoryPane = () => {
+export const RepositoryList = () => {
   const { classes, cx } = useStyles();
 
   const app = useAppContext();
@@ -40,10 +40,10 @@ export const RepositoryPane = () => {
   return (
     <Box className={cx(classes.wrapper)}>
       <ScreenTip />
-      <Box>
+      <Box pl={4} pr={4} mb={8}>
         <RepositoryCreateButton />
-        <Divider />
       </Box>
+      {allRepositories.length === 0 && <NonContainerTip />}
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
         {allRepositories.map((repositoryEntity) => (
           <Box

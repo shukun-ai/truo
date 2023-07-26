@@ -3,12 +3,12 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
+import { NonContainerTip } from '../../../../components/non-container-tip/non-container-tip';
 import { useAppContext } from '../../../../contexts/app-context';
 
 import { ScreenTip } from '../screen-tip/screen-tip';
 
 import { TreeDraggableNode } from './internal/draggable-node';
-import { EmptyTip } from './internal/empty-tip';
 import { TreeRootCreate } from './internal/root-create';
 import { ScrollArea } from './internal/scroll-area';
 
@@ -58,7 +58,6 @@ export const TreePane = () => {
         查看组件
       </Title>
       <Divider />
-      {/* <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}> */}
       {selectedContainerEntityId ? (
         <ScrollArea>
           <TreeDraggableNode
@@ -74,9 +73,8 @@ export const TreePane = () => {
           {onlyRoot && <TreeRootCreate />}
         </ScrollArea>
       ) : (
-        <EmptyTip />
+        <NonContainerTip />
       )}
-      {/* </ScrollArea> */}
     </Box>
   );
 };
