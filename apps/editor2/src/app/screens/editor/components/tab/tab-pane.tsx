@@ -3,8 +3,8 @@ import { useObservableState } from 'observable-hooks';
 import { EditorTabs } from '../../../../components/editor-tabs/editor-tabs';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { TabDetail } from './tab-detail';
-import { TabLabel } from './tab-label';
+import { TabDetail } from './internal/tab-detail';
+import { TabLabel } from './internal/tab-label';
 
 export type TabPaneProps = {
   //

@@ -2,9 +2,9 @@ import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { TabEntity } from '../../../../../repositories/tab/tab-ref';
-import { useAppContext } from '../../../../contexts/app-context';
-import { WatchDetail } from '../watch-detail/watch-detail';
+import { TabEntity } from '../../../../../../repositories/tab/tab-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
+import { WatchDetail } from '../../watch-detail/watch-detail';
 
 export type TabWatchProps = {
   tab: TabEntity;
