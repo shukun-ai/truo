@@ -8,7 +8,6 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 
 import { useObservableState } from 'observable-hooks';
-import { useMemo } from 'react';
 
 import { useAppContext } from '../../../../contexts/app-context';
 
@@ -16,39 +15,14 @@ export const ScreenTip = () => {
   const theme = useMantineTheme();
   const app = useAppContext();
   const [opened, { close, open }] = useDisclosure(false);
-  const allScreens = useObservableState(
-    app.repositories.presenterRepository.screenRepository.all$,
-    [],
-  );
-  const selectedScreenEntityId = useObservableState(
-    app.repositories.presenterRepository.screenRepository
-      .selectedScreenEntityId$,
+  const screen = useObservableState(
+    app.repositories.presenterRepository.screenRepository.selectedScreenEntity$,
     null,
   );
-  const allContainers = useObservableState(
-    app.repositories.presenterRepository.containerRepository.all$,
-    [],
-  );
-  const selectedContainerEntityId = useObservableState(
-    app.repositories.presenterRepository.selectedContainerEntityId$,
+  const container = useObservableState(
+    app.repositories.presenterRepository.containerRepository.selectedEntity$,
     null,
   );
-
-  const screen = useMemo(() => {
-    if (!selectedScreenEntityId) {
-      return null;
-    }
-    return allScreens.find((screen) => screen.id === selectedScreenEntityId);
-  }, [allScreens, selectedScreenEntityId]);
-
-  const container = useMemo(() => {
-    if (!selectedContainerEntityId) {
-      return null;
-    }
-    return allContainers.find(
-      (container) => container.id === selectedContainerEntityId,
-    );
-  }, [allContainers, selectedContainerEntityId]);
 
   return (
     <Popover

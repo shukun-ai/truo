@@ -5,6 +5,7 @@ import { PresenterScreenEntity } from './screen-ref';
 export interface IScreenRepository {
   all$: Observable<PresenterScreenEntity[]>;
   selectedScreenEntityId$: Observable<string | null>;
+  selectedScreenEntity$: Observable<PresenterScreenEntity | null>;
 
   initialize(): Promise<void>;
   select(entityId: string): void;

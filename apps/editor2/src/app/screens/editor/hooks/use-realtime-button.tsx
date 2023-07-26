@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { usePreviewUrl } from '../../../hooks/use-preview-url';
 
 export const useRealtimeButton = () => {
-  const url = usePreviewUrl();
+  const url = usePreviewUrl('home');
   const previewRef = useRef<Window | null>(null);
 
   const handleOpen = useCallback(() => {

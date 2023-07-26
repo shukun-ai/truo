@@ -1,8 +1,8 @@
 import { Box, useMantineTheme } from '@mantine/core';
+import { useObservableState } from 'observable-hooks';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { tap } from 'rxjs';
-
+import { useAppContext } from '../../../../contexts/app-context';
 import { usePreviewUrl } from '../../../../hooks/use-preview-url';
 import { getPreviewRefreshObservable } from '../../events/preview-event';
 
@@ -14,27 +14,20 @@ export type PreviewFrameProps = {
 };
 
 export const PreviewFrame = () => {
-  const previewUrl = usePreviewUrl();
-
+  const app = useAppContext();
+  const screen = useObservableState(
+    app.repositories.presenterRepository.screenRepository.selectedScreenEntity$,
+    null,
+  );
+  const previewUrl = usePreviewUrl(screen?.screenName ?? '');
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const previewRefresh = useObservableState(getPreviewRefreshObservable());
 
   useEffect(() => {
-    // TODO use context to instead import explicitly
-    const subscription = getPreviewRefreshObservable()
-      .pipe(
-        tap(() => {
-          if (iframeRef.current) {
-            iframeRef.current.src = previewUrl;
-          }
-        }),
-      )
-      .subscribe();
-
-    return () => {
-      subscription.unsubscribe();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (iframeRef.current && previewRefresh) {
+      iframeRef.current.src = previewUrl;
+    }
+  }, [previewRefresh, previewUrl]);
 
   const [selectedDevice, setSelectedDevice] = useState<string>('monitor');
 

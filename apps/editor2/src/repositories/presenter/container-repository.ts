@@ -1,3 +1,4 @@
+import { select } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
@@ -6,7 +7,7 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 
 import { write } from '../mutations';
 
@@ -19,6 +20,22 @@ export class ContainerRepository implements IContainerRepository {
 
   all$: Observable<PresenterContainerEntity[]> = this.presenterStore.pipe(
     selectAllEntities({ ref: containerRef }),
+  );
+
+  selectedEntityId$: Observable<string | null> = this.presenterStore.pipe(
+    select((state) => state.selectedContainerEntityId),
+  );
+
+  selectedEntity$: Observable<PresenterContainerEntity | null> = combineLatest([
+    this.selectedEntityId$,
+    this.all$,
+  ]).pipe(
+    map(([selectedEntityId, all]) => {
+      if (!selectedEntityId) {
+        return null;
+      }
+      return all.find((entity) => entity.id === selectedEntityId) ?? null;
+    }),
   );
 
   isUniqueName(containerName: string): boolean {
