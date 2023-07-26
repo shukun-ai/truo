@@ -6,7 +6,7 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 
 import { write } from '../mutations';
 
@@ -24,6 +24,18 @@ export class ScreenRepository implements IScreenRepository {
   selectedScreenEntityId$: Observable<string | null> = this.presenterStore.pipe(
     select((state) => state.selectedScreenEntityId),
   );
+
+  selectedScreenEntity$: Observable<PresenterScreenEntity | null> =
+    combineLatest([this.selectedScreenEntityId$, this.all$]).pipe(
+      map(([selectedScreenEntityId, all]) => {
+        if (!selectedScreenEntityId) {
+          return null;
+        }
+        return (
+          all.find((screen) => screen.id === selectedScreenEntityId) ?? null
+        );
+      }),
+    );
 
   async initialize(): Promise<void> {
     //

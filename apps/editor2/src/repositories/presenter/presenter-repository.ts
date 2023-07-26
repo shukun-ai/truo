@@ -49,6 +49,10 @@ export class PresenterRepository implements IPresenterRepository {
     select((state) => state.repositoryDefinitions),
   );
 
+  /**
+   * @deprecated
+   * TODO remove it, using this.containerRepository.selectedEntityId$
+   */
   selectedContainerEntityId$ = this.presenterStore.pipe(
     select((state) => state.selectedContainerEntityId),
   );
