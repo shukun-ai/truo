@@ -140,6 +140,7 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     color: theme.colors.blue[8],
+    borderRadius: theme.radius.md,
 
     '&:hover': {
       background: theme.colors.blue[1],
