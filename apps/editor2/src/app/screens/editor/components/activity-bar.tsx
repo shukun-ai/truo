@@ -32,7 +32,7 @@ import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { ContainerPane } from './container/container-pane';
 import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
-import { RepositoryPane } from './repository-pane/repository-pane';
+import { RepositoryPane } from './repository-list/repository-pane';
 import { TreePane } from './tree/tree-pane';
 import { WatchPane } from './watch-pane/watch-pane';
 
