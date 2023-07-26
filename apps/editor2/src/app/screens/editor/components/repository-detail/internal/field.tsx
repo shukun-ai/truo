@@ -2,9 +2,9 @@ import { Box } from '@mantine/core';
 
 import { RepositoryParameter } from '@shukun/schema';
 
-import { RepositoryAtomName } from './repository-atom-name';
-import { RepositoryFlowName } from './repository-flow-name';
-import { RepositoryJson } from './repository-json';
+import { RepositoryAtomName } from './atom-name';
+import { RepositoryFlowName } from './flow-name';
+import { RepositoryJson } from './json';
 
 export type RepositoryFieldProps = {
   parameterName: string;

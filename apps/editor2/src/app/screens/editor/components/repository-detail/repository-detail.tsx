@@ -10,20 +10,20 @@ import { PresenterRepositoryEntity } from '../../../../../repositories/presenter
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { RepositoryFormProvider } from './repository-context';
-import { RepositoryField } from './repository-field';
+import { RepositoryFormProvider } from './internal/context';
+import { RepositoryField } from './internal/field';
 
-export type RepositoryFormProps = {
+export type RepositoryDetailProps = {
   tab: TabEntity;
   repository: PresenterRepositoryEntity;
   definition: RepositorySchema;
 };
 
-export const RepositoryForm = ({
+export const RepositoryDetail = ({
   tab,
   repository,
   definition,
-}: RepositoryFormProps) => {
+}: RepositoryDetailProps) => {
   const theme = useMantineTheme();
 
   const app = useAppContext();

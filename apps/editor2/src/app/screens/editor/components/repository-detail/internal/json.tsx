@@ -1,7 +1,7 @@
 import { JsonInput } from '@mantine/core';
 import { RepositoryParameter } from '@shukun/schema';
 
-import { useRepositoryFormContext } from './repository-context';
+import { useRepositoryFormContext } from './context';
 
 export type RepositoryJsonProps = {
   parameterName: string;

@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { RepositoryForm } from '../repository-detail/repository-form';
+import { RepositoryDetail } from '../repository-detail/repository-detail';
 
 export type TabRepositoryProps = {
   tab: TabEntity;
@@ -56,7 +56,7 @@ export const TabRepository = ({ tab }: TabRepositoryProps) => {
   return (
     <ScrollArea sx={{ width: '100%', height: '100%' }}>
       <Container fluid>
-        <RepositoryForm
+        <RepositoryDetail
           tab={tab}
           repository={repositoryEntity}
           definition={definition}

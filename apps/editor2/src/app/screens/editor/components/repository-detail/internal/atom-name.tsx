@@ -1,17 +1,17 @@
 import { TextInput } from '@mantine/core';
 import { RepositoryParameter } from '@shukun/schema';
 
-import { useRepositoryFormContext } from './repository-context';
+import { useRepositoryFormContext } from './context';
 
-export type RepositoryFlowNameProps = {
+export type RepositoryAtomNameProps = {
   parameterName: string;
   parameter: RepositoryParameter;
 };
 
-export const RepositoryFlowName = ({
+export const RepositoryAtomName = ({
   parameterName,
   parameter,
-}: RepositoryFlowNameProps) => {
+}: RepositoryAtomNameProps) => {
   const form = useRepositoryFormContext();
 
   return (
