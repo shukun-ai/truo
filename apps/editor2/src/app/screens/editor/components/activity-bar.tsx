@@ -34,7 +34,7 @@ import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
 import { RepositoryPane } from './repository-list/repository-pane';
 import { TreePane } from './tree/tree-pane';
-import { WatchPane } from './watch-pane/watch-pane';
+import { WatchPane } from './watch-list/watch-pane';
 
 export const ActivityBar = () => {
   const { classes, cx } = useStyles();
