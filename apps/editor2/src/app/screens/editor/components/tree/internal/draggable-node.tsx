@@ -3,17 +3,20 @@ import { PresenterTreeNodes } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
-import { PresenterTreeCollapse } from '../../../../../repositories/presenter/tree-ui-ref';
+import { PresenterTreeCollapse } from '../../../../../../repositories/presenter/tree-ui-ref';
 
-import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
-import { LEFT_INDENT_WIDTH, TREE_NODE_TYPE } from './store';
-import { TreeArrow } from './tree-arrow';
-import { TreeDroppableDivider } from './tree-droppable-divider';
-import { TreeDroppableLabel } from './tree-droppable-label';
-import { TreeDroppableItem } from './tree-droppable-type';
-import { TreeMoreButton } from './tree-more-button';
+import { TreeArrow } from './arrow';
+import {
+  LEFT_INDENT_WIDTH,
+  TREE_NODE_TYPE,
+  TreeDroppableItem,
+} from './constants';
+import { TreeDroppableDivider } from './droppable-divider';
+import { TreeDroppableLabel } from './droppable-label';
+import { TreeMoreButton } from './more-button';
 
 export const TreeDraggableNode = ({
   treeNodes,

@@ -3,10 +3,10 @@ import { modals } from '@mantine/modals';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
-import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
-import { useAppContext } from '../../../../contexts/app-context';
+import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter-store';
+import { useAppContext } from '../../../../../contexts/app-context';
 
-import { NodeCreateForm, NodeCreateFormProps } from './tree-more-button';
+import { NodeCreateForm, NodeCreateFormProps } from './more-button';
 
 export type TreeRootCreateProps = {
   //
