@@ -8,7 +8,7 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
-import { IconDots, IconTrash } from '@tabler/icons-react';
+import { Icon3dCubeSphere, IconDots, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
 import { PresenterWatchEntity } from '../../../../../repositories/presenter/watch-ref';
@@ -56,7 +56,8 @@ export const WatchPane = () => {
               );
             }}
           >
-            <Group>
+            <Group align="center">
+              <Icon3dCubeSphere size="1rem" />
               <Text size="sm">{watchEntity.watchName}</Text>
             </Group>
             <MoreButton watchEntity={watchEntity} />
@@ -71,7 +72,7 @@ const MoreButton = ({ watchEntity }: { watchEntity: PresenterWatchEntity }) => {
   const app = useAppContext();
 
   return (
-    <Menu trigger="hover" shadow="md" width={200}>
+    <Menu shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />

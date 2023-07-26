@@ -20,7 +20,7 @@ export const MoreButton = ({ environmentEntity }: MoreButtonProps) => {
   }
 
   return (
-    <Menu trigger="hover" shadow="md" width={200}>
+    <Menu shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />

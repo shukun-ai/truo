@@ -8,7 +8,11 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
-import { IconDots, IconTrash } from '@tabler/icons-react';
+import {
+  IconBuildingWarehouse,
+  IconDots,
+  IconTrash,
+} from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 
 import { PresenterRepositoryEntity } from '../../../../../repositories/presenter/repository-ref';
@@ -58,6 +62,7 @@ export const RepositoryPane = () => {
             }}
           >
             <Group>
+              <IconBuildingWarehouse size="1rem" />
               <Text size="sm">{repositoryEntity.repositoryName}</Text>
             </Group>
             <MoreButton repositoryEntity={repositoryEntity} />
@@ -76,7 +81,7 @@ const MoreButton = ({
   const app = useAppContext();
 
   return (
-    <Menu trigger="hover" shadow="md" width={200}>
+    <Menu shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />

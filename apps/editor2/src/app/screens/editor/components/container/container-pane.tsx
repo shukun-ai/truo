@@ -62,7 +62,7 @@ const MoreButton = ({ containerName }: { containerName: string }) => {
   const app = useAppContext();
 
   return (
-    <Menu trigger="hover" shadow="md" width={200}>
+    <Menu shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />
