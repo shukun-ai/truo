@@ -7,7 +7,11 @@ import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
 
-import { TREE_NODE_TYPE, TreeDroppableItem } from './constants';
+import {
+  SHOW_WIDGET_TAG,
+  TREE_NODE_TYPE,
+  TreeDroppableItem,
+} from './constants';
 
 export type TreeDroppableLabelProps = {
   targetWidgetEntity: PresenterWidgetEntity;
@@ -65,9 +69,11 @@ export const TreeDroppableLabel = ({
     return (
       <Group>
         <Text size="sm">{targetWidgetEntity.widgetName}</Text>
-        <Badge size="sm" sx={{ textTransform: 'lowercase' }}>
-          {targetWidgetEntity.tag}
-        </Badge>
+        {SHOW_WIDGET_TAG && (
+          <Badge size="sm" sx={{ textTransform: 'lowercase' }}>
+            {targetWidgetEntity.tag}
+          </Badge>
+        )}
       </Group>
     );
   }, [targetWidgetEntity]);

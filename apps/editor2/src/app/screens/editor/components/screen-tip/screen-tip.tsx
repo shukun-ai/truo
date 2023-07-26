@@ -72,8 +72,6 @@ export const ScreenTip = () => {
             ':hover': {
               boxShadow: 'inset 0px 0px 20px rgba(0,0,0,0.5)',
               color: 'rgba(255,255,255,1)',
-              paddingTop: 8,
-              paddingBottom: 8,
             },
             borderRadius: 12,
           }}
