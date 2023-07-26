@@ -1,4 +1,4 @@
-import { Box, Container, ScrollArea } from '@mantine/core';
+import { Container, ScrollArea } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { TabEntity } from '../../../../../repositories/tab/tab-ref';
 import { useAppContext } from '../../../../contexts/app-context';
 
-import { RepositoryForm } from '../repository-tab/repository-form';
+import { RepositoryForm } from '../repository-detail/repository-form';
 
 export type TabRepositoryProps = {
   tab: TabEntity;
