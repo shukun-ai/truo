@@ -29,10 +29,9 @@ import { useAppContext } from '../../../contexts/app-context';
 import { useEditorContext } from '../editor-context';
 
 import { ConnectorListPane } from './connector-list/connector-list-pane';
-import { ContainerPane } from './container/container-pane';
 import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
-import { RepositoryPane } from './repository-list/repository-pane';
+import { RepositoryList } from './repository-list/repository-list';
 import { TreePane } from './tree/tree-pane';
 import { WatchPane } from './watch-list/watch-pane';
 
@@ -147,7 +146,7 @@ const useActivityTabs = (): {
       value: ActivityTabs.Repositories,
       icon: <IconBuildingWarehouse size="1.2rem" />,
       disabled: disabledPresenter,
-      pane: <RepositoryPane />,
+      pane: <RepositoryList />,
     },
     {
       label: '观察器',

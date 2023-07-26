@@ -1,4 +1,4 @@
-import { Button, Popover, Text } from '@mantine/core';
+import { Button } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import { TypeException } from '@shukun/exception';
@@ -55,28 +55,15 @@ export const WatchCreateButton = () => {
   }, [onSubmit]);
 
   return (
-    <Popover
-      width={200}
-      position="bottom"
-      withArrow
-      shadow="md"
-      opened={!containerName}
+    <Button
+      leftIcon={<IconPlus size="0.9rem" />}
+      variant="subtle"
+      size="sm"
+      onClick={open}
+      fullWidth
+      disabled={!containerName}
     >
-      <Popover.Target>
-        <Button
-          leftIcon={<IconPlus size="0.9rem" />}
-          variant="subtle"
-          size="sm"
-          onClick={open}
-          fullWidth
-          disabled={!containerName}
-        >
-          新建观察器
-        </Button>
-      </Popover.Target>
-      <Popover.Dropdown sx={{ pointerEvents: 'none' }}>
-        <Text size="sm">请先选择一个容器后才可创建观察器</Text>
-      </Popover.Dropdown>
-    </Popover>
+      新建观察器
+    </Button>
   );
 };
