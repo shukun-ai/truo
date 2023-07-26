@@ -12,9 +12,9 @@ import { IconDots, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useObservableState } from 'observable-hooks';
 import { useCallback, useEffect, useMemo } from 'react';
 
-import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
-import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter-store';
+import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
 export type TreeMoreButtonProps = {
   sourceWidgetEntity: PresenterWidgetEntity;

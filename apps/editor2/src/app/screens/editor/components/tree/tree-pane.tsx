@@ -15,8 +15,8 @@ import { useAppContext } from '../../../../contexts/app-context';
 
 import { ScreenTip } from '../screen-tip/screen-tip';
 
-import { TreeDraggableNode } from './tree-draggable-node';
-import { TreeRootCreate } from './tree-root-create';
+import { TreeDraggableNode } from './internal/draggable-node';
+import { TreeRootCreate } from './internal/root-create';
 
 export type TreePaneProps = {
   //

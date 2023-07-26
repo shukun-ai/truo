@@ -2,17 +2,17 @@ import { useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
-import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
-import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter-store';
+import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
 import {
   ACTIVE_DROPPABLE_HEIGHT,
   INACTIVE_DROPPABLE_HEIGHT,
   LEFT_INDENT_WIDTH,
   TREE_NODE_TYPE,
-} from './store';
-import { TreeDroppableItem } from './tree-droppable-type';
+  TreeDroppableItem,
+} from './constants';
 
 export const TreeDroppableDivider = ({
   targetWidgetEntity,

@@ -3,12 +3,11 @@ import { Badge, Box, Group, Text, useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
-import { ROOT_NODE_ID } from '../../../../../repositories/presenter/presenter-store';
-import { PresenterWidgetEntity } from '../../../../../repositories/presenter/widget-ref';
-import { useAppContext } from '../../../../contexts/app-context';
+import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter-store';
+import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
+import { useAppContext } from '../../../../../contexts/app-context';
 
-import { TREE_NODE_TYPE } from './store';
-import { TreeDroppableItem } from './tree-droppable-type';
+import { TREE_NODE_TYPE, TreeDroppableItem } from './constants';
 
 export type TreeDroppableLabelProps = {
   targetWidgetEntity: PresenterWidgetEntity;
