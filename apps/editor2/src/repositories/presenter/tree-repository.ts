@@ -10,6 +10,7 @@ import {
 
 import { TypeException } from '@shukun/exception';
 import { PresenterTreeNodes } from '@shukun/schema';
+import { getUniqueLabel } from '@shukun/util-functions';
 import { nanoid } from 'nanoid';
 import { Observable, map } from 'rxjs';
 
@@ -158,6 +159,23 @@ export class TreeRepository implements ITreeRepository {
       label: widgetName,
       properties: {},
       events: {},
+    };
+    this.presenterStore.update(
+      updateEntities(container.id, { tree }, { ref: containerRef }),
+      addEntities(newWidget, { ref: widgetRef }),
+    );
+  }
+
+  copyWidget(widget: PresenterWidgetEntity, targetNodeId: string): void {
+    const container = this.getSelectedContainer();
+    const entityId = nanoid();
+    const tree = addSiblingNode(container.tree, entityId, targetNodeId);
+    const newWidget: PresenterWidgetEntity = {
+      ...widget,
+      id: entityId,
+      containerName: container.id,
+      widgetName: entityId,
+      label: getUniqueLabel(widget.label, [widget.label]),
     };
     this.presenterStore.update(
       updateEntities(container.id, { tree }, { ref: containerRef }),
