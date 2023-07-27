@@ -10,6 +10,7 @@
   "widgets": {
     "w1": {
       "tag": "sk-text",
+      "label": "text",
       "properties": {
         "value": "It is about page {{$.form2.value}}."
       },

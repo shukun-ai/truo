@@ -25,6 +25,7 @@ describe('Generate', () => {
               widgets: {
                 w1: {
                   tag: 'sk-text',
+                  label: 'text',
                   properties: {
                     value: '{{$.form1.deviceNumber}}',
                   },
@@ -32,6 +33,7 @@ describe('Generate', () => {
                 },
                 w2: {
                   tag: 'sk-input',
+                  label: 'deviceNumber',
                   properties: {
                     value: '{{$.form1.deviceNumber}}',
                   },
@@ -48,6 +50,7 @@ describe('Generate', () => {
                 },
                 w3: {
                   tag: 'sk-code',
+                  label: 'code',
                   properties: {
                     value: '{{$.form1}}',
                   },
@@ -70,6 +73,7 @@ describe('Generate', () => {
               widgets: {
                 w1: {
                   tag: 'sk-text',
+                  label: 'text',
                   properties: {
                     value: 'It is about page {{$.form2.value}}.',
                   },
