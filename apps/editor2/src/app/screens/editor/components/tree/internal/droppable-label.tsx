@@ -68,7 +68,7 @@ export const TreeDroppableLabel = ({
     }
     return (
       <Group>
-        <Text size="sm">{targetWidgetEntity.widgetName}</Text>
+        <Text size="sm">{targetWidgetEntity.label}</Text>
         {SHOW_WIDGET_TAG && (
           <Badge size="sm" sx={{ textTransform: 'lowercase' }}>
             {targetWidgetEntity.tag}

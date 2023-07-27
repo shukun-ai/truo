@@ -143,7 +143,7 @@ export class TreeRepository implements ITreeRepository {
   addWidget(
     type: 'sibling' | 'insert',
     widgetTag: string,
-    widgetName: string,
+    widgetName: string, // TODO rename widgetName to widgetLabel
     targetNodeId: string,
   ) {
     const addIntoNode = type === 'sibling' ? addSiblingNode : insertNode;
@@ -153,8 +153,9 @@ export class TreeRepository implements ITreeRepository {
     const newWidget: PresenterWidgetEntity = {
       id: entityId,
       containerName: container.id,
-      widgetName,
+      widgetName: entityId,
       tag: widgetTag,
+      label: widgetName,
       properties: {},
       events: {},
     };
