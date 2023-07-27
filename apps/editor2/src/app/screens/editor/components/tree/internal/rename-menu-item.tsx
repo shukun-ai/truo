@@ -1,6 +1,7 @@
 import { Menu } from '@mantine/core';
 import { modals } from '@mantine/modals';
 
+import { notifications } from '@mantine/notifications';
 import { useCallback } from 'react';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
@@ -21,17 +22,30 @@ export const RenameMenuItem = ({ widgetEntity }: RenameMenuItemProps) => {
         <RenameForm
           initialValues={{ label: widgetEntity.label }}
           onSubmit={(newValue) => {
-            app.repositories.presenterRepository.widgetRepository.rename(
-              widgetEntity.id,
-              newValue.label,
-            );
-            modals.closeAll();
+            if (newValue.label === widgetEntity.label) {
+              modals.closeAll();
+              return;
+            }
+            try {
+              app.repositories.presenterRepository.widgetRepository.rename(
+                widgetEntity.id,
+                widgetEntity.containerName,
+                newValue.label,
+              );
+              modals.closeAll();
+            } catch {
+              notifications.show({
+                message: '该名称已存在',
+                color: 'red',
+              });
+            }
           }}
         />
       ),
     });
   }, [
     app.repositories.presenterRepository.widgetRepository,
+    widgetEntity.containerName,
     widgetEntity.id,
     widgetEntity.label,
   ]);
