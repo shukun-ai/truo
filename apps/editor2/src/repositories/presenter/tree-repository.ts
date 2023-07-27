@@ -10,7 +10,6 @@ import {
 import { TypeException } from '@shukun/exception';
 import { PresenterTreeNodes } from '@shukun/schema';
 import { getUniqueLabel } from '@shukun/util-functions';
-import { nanoid } from 'nanoid';
 import { Observable, map } from 'rxjs';
 
 import { PresenterContainerEntity, containerRef } from './container-ref';
@@ -26,7 +25,7 @@ import { presenterStore } from './presenter-store';
 import { ITreeRepository } from './tree-repository.interface';
 import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
 
-import { PresenterWidgetEntity } from './widget-ref';
+import { PresenterWidgetEntity, createWidgetEntityId } from './widget-ref';
 import { IWidgetRepository } from './widget-repository.interface';
 
 export class TreeRepository implements ITreeRepository {
@@ -149,7 +148,7 @@ export class TreeRepository implements ITreeRepository {
   ) {
     const addIntoNode = type === 'sibling' ? addSiblingNode : insertNode;
     const container = this.getSelectedContainer();
-    const entityId = nanoid();
+    const entityId = createWidgetEntityId();
     const tree = addIntoNode(container.tree, entityId, targetNodeId);
     const newWidget: PresenterWidgetEntity = {
       id: entityId,
@@ -168,7 +167,7 @@ export class TreeRepository implements ITreeRepository {
 
   copyWidget(widget: PresenterWidgetEntity, targetNodeId: string): void {
     const container = this.getSelectedContainer();
-    const entityId = nanoid();
+    const entityId = createWidgetEntityId();
     const tree = addSiblingNode(container.tree, entityId, targetNodeId);
     const newWidget: PresenterWidgetEntity = {
       ...widget,

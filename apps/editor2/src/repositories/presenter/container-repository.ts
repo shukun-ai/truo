@@ -7,12 +7,15 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { nanoid } from 'nanoid';
 import { Observable, combineLatest, map } from 'rxjs';
 
 import { write } from '../mutations';
 
-import { PresenterContainerEntity, containerRef } from './container-ref';
+import {
+  PresenterContainerEntity,
+  containerRef,
+  createContainerEntityId,
+} from './container-ref';
 import { IContainerRepository } from './container-repository.interface';
 import { presenterStore } from './presenter-store';
 
@@ -58,7 +61,7 @@ export class ContainerRepository implements IContainerRepository {
   }
 
   create(label: string) {
-    const id = nanoid();
+    const id = createContainerEntityId();
     const entity: PresenterContainerEntity = {
       id: id,
       containerName: id,
