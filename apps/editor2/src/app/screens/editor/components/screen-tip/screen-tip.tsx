@@ -58,7 +58,7 @@ export const ScreenTip = () => {
                 {screen?.screenName}
               </Text>
               <Text align="center" size="xs">
-                {container?.containerName}
+                {container?.label}
               </Text>
             </Stack>
           ) : (

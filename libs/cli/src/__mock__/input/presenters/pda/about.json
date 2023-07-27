@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../../../schema/src/json-schemas/presenter/container.schema.json",
   "type": "page",
+  "label": "about",
   "repositories": {
     "form2": {
       "type": "Simple",

@@ -48,7 +48,7 @@ export const ContainerPane = () => {
                 setSelectedId(container.id);
               }}
             >
-              <Text size="sm">{container.containerName}</Text>
+              <Text size="sm">{container.label}</Text>
               <MoreButton containerName={container.id} />
             </Box>
           ))}

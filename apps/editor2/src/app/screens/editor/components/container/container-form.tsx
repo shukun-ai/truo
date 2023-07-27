@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { useAppContext } from '../../../../contexts/app-context';
 
 export type ContainerFormValue = {
-  containerName: string;
+  label: string;
 };
 
 export type ContainerFormProps = {
@@ -17,19 +17,19 @@ export const ContainerForm = ({ onSubmit }: ContainerFormProps) => {
 
   const form = useForm<ContainerFormValue>({
     initialValues: {
-      containerName: '',
+      label: '',
     },
     validate: zodResolver(
       z.object({
-        containerName: z
+        label: z
           .string()
-          .min(1, { message: '请输入容器名称后新建' })
-          .max(20, { message: '容器名称过长' })
-          .refine((containerName) => {
-            return app.repositories.presenterRepository.containerRepository.isUniqueName(
-              containerName,
+          .min(1)
+          .max(20)
+          .refine((label) => {
+            return app.repositories.presenterRepository.containerRepository.isUniqueLabel(
+              label,
             );
-          }, '该容器名已存在'),
+          }, '该名称已存在'),
       }),
     ),
   });
@@ -42,10 +42,10 @@ export const ContainerForm = ({ onSubmit }: ContainerFormProps) => {
     >
       <TextInput
         label="容器名称"
-        placeholder="Container name"
+        placeholder="建议使用中文便于记忆"
         data-autofocus
         withAsterisk
-        {...form.getInputProps('containerName')}
+        {...form.getInputProps('label')}
       />
       <Button type="submit" fullWidth mt="md">
         新建容器

@@ -16,6 +16,7 @@ describe('Generate', () => {
           containers: {
             home: {
               type: 'page',
+              label: 'home',
               repositories: {
                 form1: {
                   type: 'Simple',
@@ -64,6 +65,7 @@ describe('Generate', () => {
             },
             about: {
               type: 'page',
+              label: 'about',
               repositories: {
                 form2: {
                   type: 'Simple',

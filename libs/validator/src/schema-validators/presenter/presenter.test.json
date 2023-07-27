@@ -18,6 +18,7 @@
   "containers": {
     "home": {
       "type": "page",
+      "label": "home",
       "repositories": {
         "form1": {
           "type": "Simple",
@@ -66,6 +67,7 @@
     },
     "about": {
       "type": "page",
+      "label": "about",
       "repositories": {
         "form2": {
           "type": "Simple",
