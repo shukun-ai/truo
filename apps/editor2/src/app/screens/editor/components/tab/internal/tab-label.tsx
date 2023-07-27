@@ -42,7 +42,7 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           (widget) =>
             tab.containerName === widget.containerName &&
             tab.widgetName === widget.widgetName,
-        )?.widgetName
+        )?.label
       );
     } else if (tab.tabType === 'repository') {
       return (
