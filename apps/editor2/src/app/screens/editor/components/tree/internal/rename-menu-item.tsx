@@ -1,10 +1,10 @@
 import { Menu } from '@mantine/core';
 import { modals } from '@mantine/modals';
-import { IconPlus } from '@tabler/icons-react';
 
 import { useCallback } from 'react';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
+import { Icon } from '../../../../../components/domain-icons/domain-icons';
 import { RenameForm } from '../../../../../components/rename-form/rename-form';
 import { useAppContext } from '../../../../../contexts/app-context';
 
@@ -37,7 +37,7 @@ export const RenameMenuItem = ({ widgetEntity }: RenameMenuItemProps) => {
   ]);
 
   return (
-    <Menu.Item icon={<IconPlus size={14} />} onClick={openModal}>
+    <Menu.Item icon={<Icon type="rename" size={14} />} onClick={openModal}>
       重命名
     </Menu.Item>
   );
