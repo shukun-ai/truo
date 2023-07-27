@@ -12,11 +12,12 @@ import { useObservableState } from 'observable-hooks';
 
 import { useParams } from 'react-router-dom';
 
+import { PresenterContainerEntity } from '../../../../../../repositories/presenter/container-ref';
 import { SCREEN_HOME_PAGE_ID } from '../../../../../../repositories/presenter/presenter-store';
 import { PresenterScreenEntity } from '../../../../../../repositories/presenter/screen-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
 
-import { availableSlots } from './available-slots';
+import { SlotStructure, availableSlots } from './available-slots';
 import { MoreButton } from './more-button';
 
 export type ScreenProps = {
@@ -28,6 +29,10 @@ export const Screen = ({ screen }: ScreenProps) => {
   const currentUser = useObservableState(
     app.repositories.authRepository.currentUser$,
     null,
+  );
+  const containerRecords = useObservableState(
+    app.repositories.presenterRepository.containerRepository.records$,
+    {},
   );
   const { presenterName } = useParams();
 
@@ -70,11 +75,27 @@ export const Screen = ({ screen }: ScreenProps) => {
             >
               {!screen.slots[slot.name]
                 ? `${slot.name}: 无`
-                : `${slot.name}: ${screen.slots[slot.name]}`}
+                : `${slot.name}: ${getLabel(screen, containerRecords, slot)}`}
             </Button>
           ))}
         </Stack>
       </Card.Section>
     </Card>
   );
+};
+
+const getLabel = (
+  screen: PresenterScreenEntity,
+  containerRecords: Record<string, PresenterContainerEntity>,
+  slot: SlotStructure,
+) => {
+  const containerId = screen.slots[slot.name];
+  if (!containerId) {
+    return '未找到 containerId';
+  }
+  const container = containerRecords[containerId];
+  if (!container) {
+    return '已删除';
+  }
+  return container.label;
 };

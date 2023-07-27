@@ -26,6 +26,9 @@ export class ContainerRepository implements IContainerRepository {
     selectAllEntities({ ref: containerRef }),
   );
 
+  records$: Observable<Record<string, PresenterContainerEntity>> =
+    this.presenterStore.pipe(select((state) => state.containerEntities));
+
   selectedEntityId$: Observable<string | null> = this.presenterStore.pipe(
     select((state) => state.selectedContainerEntityId),
   );

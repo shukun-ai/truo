@@ -4,6 +4,7 @@ import { PresenterContainerEntity } from './container-ref';
 
 export interface IContainerRepository {
   all$: Observable<PresenterContainerEntity[]>;
+  records$: Observable<Record<string, PresenterContainerEntity>>;
   selectedEntityId$: Observable<string | null>;
   selectedEntity$: Observable<PresenterContainerEntity | null>;
   isUniqueLabel(label: string): boolean;
