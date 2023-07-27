@@ -1,6 +1,5 @@
 import { PresenterTreeNodes } from '@shukun/schema';
 
-import { PresenterContainerEntity } from './container-ref';
 import { ROOT_NODE_ID } from './presenter-store';
 import { PresenterWidgetEntity } from './widget-ref';
 
@@ -56,29 +55,4 @@ export const toWidgetEntityIds = (
     map[`${entity.containerName}:${entity.widgetName}`] = entity.id;
   });
   return map;
-};
-
-export const toWidgetEntityIdTree = (
-  containerName: string,
-  treeNodes: PresenterContainerEntity['tree'],
-  widgetEntityIdMap: widgetEntityIdsMap,
-) => {
-  const newTreeNodes: PresenterContainerEntity['tree'] = {};
-
-  Object.entries(treeNodes).forEach(([parentWidgetName, childWidgetNames]) => {
-    const newParentWidgetName =
-      widgetEntityIdMap[`${containerName}:${parentWidgetName}`];
-    const newChildWidgetNames = childWidgetNames.map(
-      (childWidgetName) =>
-        widgetEntityIdMap[`${containerName}:${childWidgetName}`],
-    );
-
-    if (parentWidgetName === ROOT_NODE_ID) {
-      newTreeNodes[ROOT_NODE_ID] = newChildWidgetNames;
-    } else {
-      newTreeNodes[newParentWidgetName] = newChildWidgetNames;
-    }
-  });
-
-  return newTreeNodes;
 };

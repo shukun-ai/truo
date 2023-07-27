@@ -2,8 +2,6 @@ import { setProps } from '@ngneat/elf';
 import { upsertEntities } from '@ngneat/elf-entities';
 import { PresenterSchema } from '@shukun/schema';
 
-import { nanoid } from 'nanoid';
-
 import { PresenterContainerEntity, containerRef } from './container-ref';
 import { presenterStore } from './presenter-store';
 import {
@@ -17,7 +15,6 @@ import {
   screenRef,
 } from './screen-ref';
 import { ISerializationService } from './serialization-service.interface';
-import { toWidgetEntityIdTree, toWidgetEntityIds } from './tree-convertor';
 import {
   PresenterWatchEntity,
   createWatchEntityId,
@@ -40,15 +37,11 @@ export class SerializationService implements ISerializationService {
     const widgetEntities = this.getWidgetEntities(presenter);
     const repositoryEntities = this.getRepositoryEntities(presenter);
     const watchEntities = this.getWatchEntities(presenter);
-    const parsedContainerEntities = this.toContainerWidgetEntityTree(
-      containerEntities,
-      widgetEntities,
-    );
 
     this.presenterStore.update(
       setProps(() => ({ initialized: true, presenterLabel: presenter.label })),
       upsertEntities(screenEntities, { ref: screenRef }),
-      upsertEntities(parsedContainerEntities, { ref: containerRef }),
+      upsertEntities(containerEntities, { ref: containerRef }),
       upsertEntities(widgetEntities, { ref: widgetRef }),
       upsertEntities(repositoryEntities, { ref: repositoryRef }),
       upsertEntities(watchEntities, { ref: watchRef }),
@@ -100,7 +93,7 @@ export class SerializationService implements ISerializationService {
       for (const [widgetName, widget] of Object.entries(container.widgets)) {
         widgetEntities.push({
           ...widget,
-          id: nanoid(),
+          id: widgetName,
           containerName,
           widgetName,
         });
@@ -150,23 +143,5 @@ export class SerializationService implements ISerializationService {
     }
 
     return watchEntities;
-  }
-
-  private toContainerWidgetEntityTree(
-    containerEntities: PresenterContainerEntity[],
-    widgetEntities: PresenterWidgetEntity[],
-  ): PresenterContainerEntity[] {
-    const widgetEntityIdMap = toWidgetEntityIds(widgetEntities);
-    return containerEntities.map((container) => {
-      const treeNodes = toWidgetEntityIdTree(
-        container.containerName,
-        container.tree,
-        widgetEntityIdMap,
-      );
-      return {
-        ...container,
-        tree: treeNodes,
-      };
-    });
   }
 }
