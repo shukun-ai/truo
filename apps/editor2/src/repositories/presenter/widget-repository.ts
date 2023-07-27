@@ -1,11 +1,11 @@
 import { select } from '@ngneat/elf';
 import {
+  addEntities,
+  deleteEntities,
   getAllEntitiesApply,
   selectAllEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
-
-import { PresenterWidget } from '@shukun/schema';
 
 import { Observable, distinctUntilChanged, map } from 'rxjs';
 
@@ -53,15 +53,44 @@ export class WidgetRepository implements IWidgetRepository {
         }),
       );
 
-  update(entityId: string, entity: Partial<PresenterWidget>): void {
+  create(entity: PresenterWidgetEntity): void {
+    this.validateLabel(entity.containerName, entity.label);
+    this.presenterStore.update(addEntities(entity, { ref: widgetRef }));
+  }
+
+  update(entityId: string, entity: Partial<PresenterWidgetEntity>): void {
     this.presenterStore.update(
       updateEntities(entityId, entity, { ref: widgetRef }),
     );
   }
 
-  rename(entityId: string, label: string): void {
+  remove(entityId: string): void {
+    this.presenterStore.update(deleteEntities(entityId, { ref: widgetRef }));
+  }
+
+  rename(entityId: string, containerName: string, label: string): void {
+    this.validateLabel(containerName, label);
     this.presenterStore.update(
       updateEntities(entityId, { label }, { ref: widgetRef }),
     );
+  }
+
+  getLabels(containerName: string, label: string): string[] {
+    const labels = this.presenterStore.query(
+      getAllEntitiesApply({
+        ref: widgetRef,
+        filterEntity: (entity) =>
+          entity.containerName === containerName && entity.label === label,
+        mapEntity: (entity) => entity.label,
+      }),
+    );
+    return labels;
+  }
+
+  validateLabel(containerName: string, label: string): void {
+    const duplicated = this.getLabels(containerName, label).length > 0;
+    if (duplicated) {
+      throw Error('The label is duplicated.');
+    }
   }
 }

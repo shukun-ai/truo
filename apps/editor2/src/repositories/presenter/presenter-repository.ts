@@ -29,7 +29,7 @@ export class PresenterRepository implements IPresenterRepository {
 
   widgetRepository = new WidgetRepository();
 
-  treeRepository = new TreeRepository();
+  treeRepository = new TreeRepository(this.widgetRepository);
 
   repositoryRepository = new RepositoryRepository();
 

@@ -1,6 +1,5 @@
 import { select } from '@ngneat/elf';
 import {
-  addEntities,
   deleteEntities,
   getEntity,
   selectAllEntities,
@@ -27,10 +26,13 @@ import { presenterStore } from './presenter-store';
 import { ITreeRepository } from './tree-repository.interface';
 import { PresenterTreeCollapse, treeCollapseRef } from './tree-ui-ref';
 
-import { PresenterWidgetEntity, widgetRef } from './widget-ref';
+import { PresenterWidgetEntity } from './widget-ref';
+import { IWidgetRepository } from './widget-repository.interface';
 
 export class TreeRepository implements ITreeRepository {
   private readonly presenterStore = presenterStore;
+
+  constructor(private readonly widgetRepository: IWidgetRepository) {}
 
   selectedTreeNodes$: Observable<PresenterTreeNodes> = this.presenterStore.pipe(
     select((state) => {
@@ -103,10 +105,8 @@ export class TreeRepository implements ITreeRepository {
 
     this.presenterStore.update(
       updateEntities(container.id, { tree }, { ref: containerRef }),
-      deleteEntities(sourceNodeId, {
-        ref: widgetRef,
-      }),
     );
+    this.widgetRepository.remove(sourceNodeId);
   }
 
   closeTreeCollapse(widgetEntityId: string) {
@@ -162,8 +162,8 @@ export class TreeRepository implements ITreeRepository {
     };
     this.presenterStore.update(
       updateEntities(container.id, { tree }, { ref: containerRef }),
-      addEntities(newWidget, { ref: widgetRef }),
     );
+    this.widgetRepository.create(newWidget);
   }
 
   copyWidget(widget: PresenterWidgetEntity, targetNodeId: string): void {
@@ -179,8 +179,8 @@ export class TreeRepository implements ITreeRepository {
     };
     this.presenterStore.update(
       updateEntities(container.id, { tree }, { ref: containerRef }),
-      addEntities(newWidget, { ref: widgetRef }),
     );
+    this.widgetRepository.create(newWidget);
   }
 
   private getSelectedContainer(): PresenterContainerEntity {
