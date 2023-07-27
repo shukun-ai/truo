@@ -16,6 +16,8 @@ import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
 import { useAppContext } from '../../../../../contexts/app-context';
 
+import { RenameMenuItem } from './rename-menu-item';
+
 export type TreeMoreButtonProps = {
   sourceWidgetEntity: PresenterWidgetEntity;
 };
@@ -76,6 +78,17 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
       </Menu.Target>
 
       <Menu.Dropdown>
+        {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
+          <RenameMenuItem widgetEntity={sourceWidgetEntity} />
+        )}
+        {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
+          <Menu.Item
+            icon={<IconPlus size={14} />}
+            onClick={handleSiblingCreate}
+          >
+            复制组件和属性
+          </Menu.Item>
+        )}
         {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
           <Menu.Item
             icon={<IconPlus size={14} />}
