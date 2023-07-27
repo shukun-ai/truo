@@ -5,7 +5,7 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { PresenterWidget, PresenterWidgets } from '@shukun/schema';
+import { PresenterWidget } from '@shukun/schema';
 
 import { Observable, distinctUntilChanged, map } from 'rxjs';
 
@@ -56,6 +56,12 @@ export class WidgetRepository implements IWidgetRepository {
   update(entityId: string, entity: Partial<PresenterWidget>): void {
     this.presenterStore.update(
       updateEntities(entityId, entity, { ref: widgetRef }),
+    );
+  }
+
+  rename(entityId: string, label: string): void {
+    this.presenterStore.update(
+      updateEntities(entityId, { label }, { ref: widgetRef }),
     );
   }
 }
