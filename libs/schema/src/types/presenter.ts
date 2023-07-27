@@ -28,6 +28,7 @@ export interface PresenterSchema {
 export interface PresenterContainer {
   $schema?: string;
   type: 'page';
+  label: string;
   repositories: PresenterRepositories;
   widgets: PresenterWidgets;
   tree: PresenterTreeNodes;

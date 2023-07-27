@@ -15,10 +15,8 @@ export const ContainerCreateButton = () => {
   const app = useAppContext();
 
   const onSubmit = useCallback<ContainerFormProps['onSubmit']>(
-    ({ containerName }) => {
-      app.repositories.presenterRepository.containerRepository.create(
-        containerName,
-      );
+    ({ label }) => {
+      app.repositories.presenterRepository.containerRepository.create(label);
       modals.closeAll();
     },
     [app.repositories.presenterRepository.containerRepository],

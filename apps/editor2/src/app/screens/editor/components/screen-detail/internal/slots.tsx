@@ -33,7 +33,7 @@ export const Slots = ({
   const containerOptions = useMemo<SelectItem[]>(() => {
     return allContainers.map((container) => ({
       value: container.id,
-      label: container.containerName,
+      label: container.label,
     }));
   }, [allContainers]);
 

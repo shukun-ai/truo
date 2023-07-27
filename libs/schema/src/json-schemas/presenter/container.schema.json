@@ -3,7 +3,7 @@
   "title": "PresenterContainer",
   "type": "object",
   "additionalProperties": false,
-  "required": ["type", "repositories", "widgets", "tree", "watches"],
+  "required": ["type", "label", "repositories", "widgets", "tree", "watches"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -11,6 +11,7 @@
     "type": {
       "enum": ["page"]
     },
+    "label": { "type": "string" },
     "repositories": {
       "type": "object",
       "title": "PresenterRepositories",

@@ -7,6 +7,7 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
+import { nanoid } from 'nanoid';
 import { Observable, combineLatest, map } from 'rxjs';
 
 import { write } from '../mutations';
@@ -38,29 +39,31 @@ export class ContainerRepository implements IContainerRepository {
     }),
   );
 
-  isUniqueName(containerName: string): boolean {
+  isUniqueLabel(label: string): boolean {
     const entities = this.presenterStore.query(
       getAllEntitiesApply({
-        filterEntity: (entity) => entity.containerName === containerName,
+        filterEntity: (entity) => entity.label === label,
         ref: containerRef,
       }),
     );
     return entities.length === 0;
   }
 
-  select(containerName: string) {
+  select(entityId: string) {
     this.presenterStore.update(
       write((state) => {
-        state.selectedContainerEntityId = containerName;
+        state.selectedContainerEntityId = entityId;
       }),
     );
   }
 
-  create(containerName: string) {
+  create(label: string) {
+    const id = nanoid();
     const entity: PresenterContainerEntity = {
-      id: containerName,
-      containerName,
+      id: id,
+      containerName: id,
       type: 'page',
+      label,
       tree: {
         root: [],
       },
@@ -69,18 +72,13 @@ export class ContainerRepository implements IContainerRepository {
     this.presenterStore.update(addEntities(entity, { ref: containerRef }));
   }
 
-  update(
-    containerName: string,
-    container: Omit<PresenterContainerEntity, 'id'>,
-  ): void {
+  update(entityId: string, entity: Omit<PresenterContainerEntity, 'id'>): void {
     this.presenterStore.update(
-      updateEntities(containerName, container, { ref: containerRef }),
+      updateEntities(entityId, entity, { ref: containerRef }),
     );
   }
 
-  remove(containerName: string) {
-    this.presenterStore.update(
-      deleteEntities(containerName, { ref: containerRef }),
-    );
+  remove(entityId: string) {
+    this.presenterStore.update(deleteEntities(entityId, { ref: containerRef }));
   }
 }
