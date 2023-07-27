@@ -1,5 +1,6 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
 import { PresenterContainer } from '@shukun/schema';
+import { nanoid } from 'nanoid';
 
 export type PresenterContainerEntity = {
   id: string;
@@ -15,8 +16,8 @@ export const withContainer = () => {
 
 export const containerRef = containerEntitiesRef;
 
-export const createContainerEntityId = (containerName: string): `${string}` => {
-  return `${containerName}`;
+export const createContainerEntityId = (): `${string}` => {
+  return `C-${nanoid()}`;
 };
 
 export const getContainer = (
