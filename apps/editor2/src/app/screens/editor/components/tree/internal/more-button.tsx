@@ -7,13 +7,14 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
-import { IconDots, IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
 import { useObservableState } from 'observable-hooks';
 import { useCallback, useEffect, useMemo } from 'react';
 
 import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter-store';
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
+import { Icon } from '../../../../../components/domain-icons/domain-icons';
 import { useAppContext } from '../../../../../contexts/app-context';
 
 import { RenameMenuItem } from './rename-menu-item';
@@ -73,7 +74,7 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
     <Menu shadow="md" width={200}>
       <Menu.Target>
         <ActionIcon variant="transparent">
-          <IconDots size="1rem" />
+          <Icon type="more" size="1rem" />
         </ActionIcon>
       </Menu.Target>
 
@@ -83,7 +84,7 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
         )}
         {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
           <Menu.Item
-            icon={<IconPlus size={14} />}
+            icon={<Icon type="copy" size={14} />}
             onClick={handleSiblingCreate}
           >
             复制组件和属性
@@ -91,18 +92,21 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
         )}
         {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
           <Menu.Item
-            icon={<IconPlus size={14} />}
+            icon={<Icon type="plus" size={14} />}
             onClick={handleSiblingCreate}
           >
             新建同级组件
           </Menu.Item>
         )}
-        <Menu.Item icon={<IconPlus size={14} />} onClick={handleChildCreate}>
+        <Menu.Item
+          icon={<IconRectangularPrismPlus size={14} />}
+          onClick={handleChildCreate}
+        >
           新建子级组件
         </Menu.Item>
         <Menu.Item
           color="red"
-          icon={<IconTrash size={14} />}
+          icon={<Icon type="trash" size={14} />}
           onClick={() => {
             app.repositories.presenterRepository.treeRepository.removeTreeNode(
               sourceWidgetEntity.id,
