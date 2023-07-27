@@ -85,7 +85,12 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
         {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
           <Menu.Item
             icon={<Icon type="copy" size={14} />}
-            onClick={handleSiblingCreate}
+            onClick={() => {
+              app.repositories.presenterRepository.treeRepository.copyWidget(
+                sourceWidgetEntity,
+                sourceWidgetEntity.id,
+              );
+            }}
           >
             复制组件和属性
           </Menu.Item>

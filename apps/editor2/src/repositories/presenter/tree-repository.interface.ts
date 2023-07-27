@@ -2,6 +2,7 @@ import { PresenterTreeNodes } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
 import { PresenterTreeCollapse } from './tree-ui-ref';
+import { PresenterWidgetEntity } from './widget-ref';
 
 export interface ITreeRepository {
   selectedTreeNodes$: Observable<PresenterTreeNodes>;
@@ -21,4 +22,5 @@ export interface ITreeRepository {
     newWidgetTitle: string,
     targetNodeId: string,
   ): void;
+  copyWidget(widget: PresenterWidgetEntity, targetNodeId: string): void;
 }
