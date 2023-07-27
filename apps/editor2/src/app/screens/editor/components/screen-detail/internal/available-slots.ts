@@ -26,7 +26,7 @@ export const availableSlots: AvailableSlots = {
   ],
 };
 
-type SlotStructure = {
+export type SlotStructure = {
   name: string;
   required: boolean;
 };
