@@ -5,11 +5,7 @@ import {
   IRequestAdaptor,
   SourceRequester,
 } from '@shukun/api';
-import {
-  AuthenticationToken,
-  ConnectorSchema,
-  TaskSchema,
-} from '@shukun/schema';
+import { AuthenticationToken, TaskSchema } from '@shukun/schema';
 import nock from 'nock';
 
 import { WebServer } from '../../src/app';
@@ -49,15 +45,15 @@ describe('Connector API', () => {
 
     const developerRequester = new DeveloperRequester(adaptor);
 
-    await developerRequester.upsertConnector(
-      'real_world',
-      connectorSourceMockJson,
-    );
+    await developerRequester.pushConnectors({
+      real_world: connectorSourceMockJson,
+    });
 
     const sourceQueryTask: TaskSchema = {
       $schema: '../../../../schema/src/json-schemas/task.schema.json',
       scope: 'internal',
       address: baseUrl,
+      withAccessToken: true,
       parameters: {
         atomName: {
           schema: {
