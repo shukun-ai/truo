@@ -1,7 +1,6 @@
 import { select } from '@ngneat/elf';
 import {
   addEntities,
-  deleteEntities,
   getAllEntitiesApply,
   selectAllEntities,
   updateEntities,
@@ -16,6 +15,7 @@ import {
   containerRef,
   createContainerEntityId,
 } from './container-ref';
+import { removeContainer } from './container-remove';
 import { IContainerRepository } from './container-repository.interface';
 import { presenterStore } from './presenter-store';
 
@@ -85,6 +85,6 @@ export class ContainerRepository implements IContainerRepository {
   }
 
   remove(entityId: string) {
-    this.presenterStore.update(deleteEntities(entityId, { ref: containerRef }));
+    removeContainer(entityId);
   }
 }
