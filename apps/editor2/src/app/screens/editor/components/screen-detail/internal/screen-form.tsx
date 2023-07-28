@@ -106,6 +106,7 @@ export const ScreenForm = ({
         availableSlots={availableSlots}
         layout={form.values.layout}
         {...form.getInputProps('slots')}
+        isEditMode={isEditMode}
       />
       <Button type="submit" fullWidth mt="md">
         保存
