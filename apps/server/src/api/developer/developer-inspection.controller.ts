@@ -6,11 +6,12 @@ import { CodebaseService } from '../../core/codebase.service';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
+import { apiPrefix } from '../prefix';
 
 /**
  * @deprecated
  */
-@Controller(`${RoleResourceType.Developer}/:orgName/inspection`)
+@Controller(`${apiPrefix}/${RoleResourceType.Developer}/:orgName/inspection`)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperInspectionController {
   constructor(private readonly codebaseService: CodebaseService) {}

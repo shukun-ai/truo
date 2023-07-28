@@ -15,11 +15,13 @@ import { ParsedHttpQuery } from '../../util/query/decorators/parsed-http-query.d
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
+import { apiPrefix } from '../prefix';
+
 import { AddToManyDto } from './dto/add-to-many.dto';
 import { IncreaseDto } from './dto/increase.dto';
 import { SourceOperationService } from './source-operation.service';
 
-@Controller(`/${RoleResourceType.Source}/:orgName/:atomName`)
+@Controller(`${apiPrefix}/${RoleResourceType.Source}/:orgName/:atomName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class SourceController {
   @Inject()

@@ -19,10 +19,12 @@ import { QueryResponse } from '../../../util/query/interfaces';
 import { RsaHelper } from '../../../util/rsa/rsa-helper';
 import { SystemUserModel } from '../../../util/schema/models/system-users';
 
+import { apiPrefix } from '../../prefix';
+
 import { SignInWithEncryptDto } from './dto/sign-in-with-encrypt.dto';
 import { SignInDto } from './dto/sign-in.dto';
 
-@Controller(`${RoleResourceType.Public}/:orgName/authentication`)
+@Controller(`${apiPrefix}/${RoleResourceType.Public}/:orgName/authentication`)
 @UseInterceptors(QueryResponseInterceptor)
 export class AuthenticationController {
   constructor(

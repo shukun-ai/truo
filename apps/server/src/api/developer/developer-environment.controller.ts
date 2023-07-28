@@ -5,9 +5,11 @@ import { EnvironmentService } from '../../core/environment.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
+import { apiPrefix } from '../prefix';
+
 import { EnvironmentPushDto } from './dto/environment.dto';
 
-@Controller(`/${RoleResourceType.Developer}/:orgName`)
+@Controller(`${apiPrefix}/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperEnvironmentController {
   constructor(private readonly environmentService: EnvironmentService) {}

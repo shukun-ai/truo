@@ -5,8 +5,9 @@ import { RoleResourceType, MigrationDifference } from '@shukun/schema';
 import { MigrationService } from '../../migration/migration.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
+import { apiPrefix } from '../prefix';
 
-@Controller(`/${RoleResourceType.Developer}/:orgName/migration`)
+@Controller(`${apiPrefix}/${RoleResourceType.Developer}/:orgName/migration`)
 @UseInterceptors(QueryResponseInterceptor)
 @ApiBearerAuth()
 export class DeveloperMigrationController {

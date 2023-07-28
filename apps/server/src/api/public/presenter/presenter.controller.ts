@@ -5,8 +5,9 @@ import { PresenterService } from '../../../core/presenter.service';
 
 import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../../util/query/interfaces';
+import { apiPrefix } from '../../prefix';
 
-@Controller(`${RoleResourceType.Public}/:orgName`)
+@Controller(`${apiPrefix}/${RoleResourceType.Public}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class PresenterController {
   constructor(private readonly presenterService: PresenterService) {}

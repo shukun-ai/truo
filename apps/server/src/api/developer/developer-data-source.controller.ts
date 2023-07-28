@@ -6,8 +6,9 @@ import { dataSourceSchemaValidator } from '@shukun/validator';
 import { OrgService } from '../../core/org.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
+import { apiPrefix } from '../prefix';
 
-@Controller(`/${RoleResourceType.Developer}/:orgName/data-source`)
+@Controller(`${apiPrefix}/${RoleResourceType.Developer}/:orgName/data-source`)
 @UseInterceptors(QueryResponseInterceptor)
 @ApiBearerAuth()
 export class DeveloperDataSourceController {

@@ -5,9 +5,11 @@ import { ConnectorTaskService } from '../../core/connector/task.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
+import { apiPrefix } from '../prefix';
+
 import { TaskCreateDto, TaskRemoveDto } from './dto/task.dto';
 
-@Controller(`/${RoleResourceType.Developer}/:orgName`)
+@Controller(`${apiPrefix}/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperTaskController {
   constructor(private readonly connectorTaskService: ConnectorTaskService) {}

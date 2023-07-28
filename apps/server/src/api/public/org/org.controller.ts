@@ -16,9 +16,11 @@ import { TenantService } from '../../../tenant/tenant.service';
 import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../../util/query/interfaces';
 
+import { apiPrefix } from '../../prefix';
+
 import { OrgCreateDto } from './dto';
 
-@Controller(`${RoleResourceType.Public}/:orgName/org`)
+@Controller(`${apiPrefix}/${RoleResourceType.Public}/:orgName/org`)
 @UseInterceptors(QueryResponseInterceptor)
 export class OrgController {
   constructor(

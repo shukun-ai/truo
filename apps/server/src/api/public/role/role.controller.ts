@@ -11,8 +11,9 @@ import { RoleService } from '../../../core/role.service';
 
 import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../../util/query/interfaces';
+import { apiPrefix } from '../../prefix';
 
-@Controller(`${RoleResourceType.Public}/:orgName/roles`)
+@Controller(`${apiPrefix}/${RoleResourceType.Public}/:orgName/roles`)
 @UseInterceptors(QueryResponseInterceptor)
 export class RoleController {
   @Inject()

@@ -6,8 +6,9 @@ import { ConnectorService } from '../../core/connector/connector.service';
 import { ConnectorTaskService } from '../../core/connector/task.service';
 import { EnvironmentService } from '../../core/environment.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
+import { apiPrefix } from '../prefix';
 
-@Controller(`/${RoleResourceType.Connector}/:orgName`)
+@Controller(`${apiPrefix}/${RoleResourceType.Connector}/:orgName`)
 export class ConnectorController {
   constructor(
     private readonly connectorHandlerService: ConnectorHandlerService,

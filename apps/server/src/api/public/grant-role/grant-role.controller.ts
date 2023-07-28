@@ -7,8 +7,9 @@ import { SecurityRequest } from '../../../identity/utils/security-request';
 
 import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../../util/query/interfaces';
+import { apiPrefix } from '../../prefix';
 
-@Controller(`${RoleResourceType.Public}/:orgName/grant-roles`)
+@Controller(`${apiPrefix}/${RoleResourceType.Public}/:orgName/grant-roles`)
 @UseInterceptors(QueryResponseInterceptor)
 export class GrantRoleController {
   constructor(private readonly roleGeneratorService: RoleGeneratorService) {}

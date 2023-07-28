@@ -13,9 +13,11 @@ import { get } from 'lodash';
 import { parseToken } from '../../../identity/utils/security.utils';
 import { QueryResponse } from '../../../util/query/interfaces';
 
+import { apiPrefix } from '../../prefix';
+
 import { AuthorizationService } from './authorization.service';
 
-@Controller(`${RoleResourceType.Public}/any/authorization`)
+@Controller(`${apiPrefix}/${RoleResourceType.Public}/any/authorization`)
 @ApiBearerAuth()
 export class AuthorizationController {
   @Inject()

@@ -22,8 +22,9 @@ import { OrgService } from '../../core/org.service';
 import { ScheduleOrgOperatorService } from '../../schedule/schedule-org-operator.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
+import { apiPrefix } from '../prefix';
 
-@Controller(`/${RoleResourceType.Developer}/:orgName/codebase`)
+@Controller(`${apiPrefix}/${RoleResourceType.Developer}/:orgName/codebase`)
 @UseInterceptors(QueryResponseInterceptor)
 @ApiBearerAuth()
 export class DeveloperCodebaseController {

@@ -5,9 +5,11 @@ import { TenantService } from '../../../tenant/tenant.service';
 import { QueryResponseInterceptor } from '../../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../../util/query/interfaces';
 
+import { apiPrefix } from '../../prefix';
+
 import { SeedCreateDto } from './seed.dto';
 
-@Controller(`/${RoleResourceType.Tenant}/any/seeds`)
+@Controller(`${apiPrefix}/${RoleResourceType.Tenant}/any/seeds`)
 @UseInterceptors(QueryResponseInterceptor)
 export class SeedController {
   constructor(private readonly tenantService: TenantService) {}
