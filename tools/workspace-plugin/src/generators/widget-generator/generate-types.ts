@@ -1,6 +1,7 @@
-import { ValuesType } from 'utility-types';
-import { WidgetSchema } from './widget';
 import { toPascalCase } from 'js-convert-case';
+import { ValuesType } from 'utility-types';
+
+import { WidgetSchema } from './widget';
 
 export class GenerateTypes {
   RESERVED_KEYWORDS = [
@@ -31,7 +32,7 @@ export class GenerateTypes {
   }
 
   private getProperties(properties: WidgetSchema['properties']): string {
-    let text: string = '';
+    let text = '';
     for (const [propertyName, property] of Object.entries(properties)) {
       text += this.getProperty(propertyName, property);
     }

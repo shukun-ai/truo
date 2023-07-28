@@ -1,7 +1,7 @@
-import { ValuesType } from 'utility-types';
+import Ajv from 'ajv';
 import { toPascalCase } from 'js-convert-case';
 import { compile, JSONSchema } from 'json-schema-to-typescript';
-import Ajv from 'ajv';
+import { ValuesType } from 'utility-types';
 
 export interface WidgetSchema {
   $schema?: string;

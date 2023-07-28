@@ -1,7 +1,8 @@
-import { Tree, readProjectConfiguration } from '@nrwl/devkit';
-import { readFile } from 'fs/promises';
 import { writeFileSync } from 'fs';
+import { readFile } from 'fs/promises';
 import { join } from 'path';
+
+import { Tree, readProjectConfiguration } from '@nx/devkit';
 
 import { compileFromFile } from 'json-schema-to-typescript';
 

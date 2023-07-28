@@ -1,12 +1,15 @@
-import { Tree, readProjectConfiguration } from '@nrwl/devkit';
-import { readdir, readFile } from 'fs/promises';
 import { readFileSync, writeFileSync } from 'fs';
+import { readdir, readFile } from 'fs/promises';
+
 import { join } from 'path';
+
+import { Tree, readProjectConfiguration } from '@nx/devkit';
+
+import Ajv from 'ajv';
+import { toCamelCase } from 'js-convert-case';
 import { format } from 'prettier';
 
 import { DefinitionGenerator } from './definition-generator';
-import { toCamelCase } from 'js-convert-case';
-import Ajv from 'ajv';
 
 export default async function (tree: Tree, schema: any) {
   if (schema.name !== 'widget') {

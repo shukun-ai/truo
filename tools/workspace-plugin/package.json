@@ -1,0 +1,6 @@
+{
+  "name": "@shukun/workspace-plugin",
+  "version": "1.28.0",
+  "type": "commonjs",
+  "generators": "./generators.json"
+}
