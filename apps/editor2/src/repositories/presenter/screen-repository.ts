@@ -1,6 +1,5 @@
 import { select } from '@ngneat/elf';
 import {
-  addEntities,
   deleteEntities,
   selectAllEntities,
   updateEntities,
@@ -11,6 +10,7 @@ import { Observable, combineLatest, map } from 'rxjs';
 import { write } from '../mutations';
 
 import { presenterStore } from './presenter-store';
+import { createScreen } from './screen-create';
 import { PresenterScreenEntity, screenRef } from './screen-ref';
 import { IScreenRepository } from './screen-repository.interface';
 
@@ -50,7 +50,7 @@ export class ScreenRepository implements IScreenRepository {
   }
 
   create(entity: PresenterScreenEntity): void {
-    this.presenterStore.update(addEntities(entity, { ref: screenRef }));
+    createScreen(entity);
   }
 
   update(entity: PresenterScreenEntity): void {

@@ -1,4 +1,4 @@
-import { Select, SelectItem } from '@mantine/core';
+import { SelectItem } from '@mantine/core';
 import { PresenterScreen } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 
@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { useAppContext } from '../../../../../contexts/app-context';
 
 import { AvailableSlots } from './available-slots';
+import { Slot } from './slot';
 
 export type SlotsProps = {
   availableSlots: AvailableSlots;
@@ -14,6 +15,7 @@ export type SlotsProps = {
   value: PresenterScreen['slots'];
   onChange: (newValue: PresenterScreen['slots']) => void;
   error?: string;
+  isEditMode: boolean;
 };
 
 export const Slots = ({
@@ -22,6 +24,7 @@ export const Slots = ({
   value,
   onChange,
   error,
+  isEditMode,
 }: SlotsProps) => {
   const app = useAppContext();
 
@@ -41,12 +44,9 @@ export const Slots = ({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {availableSlots?.[layout]?.map((slot) => (
-        <Select
-          key={slot.name}
-          label={`插槽：${slot.name}`}
-          data={containerOptions}
-          withAsterisk={slot.required}
-          clearable
+        <Slot
+          slot={slot}
+          containerOptions={containerOptions}
           value={value?.[slot.name]}
           onChange={(newValue) => {
             if (newValue) {
@@ -58,7 +58,7 @@ export const Slots = ({
             }
           }}
           error={slot.required && error}
-          mb={8}
+          isEditMode={isEditMode}
         />
       ))}
     </>

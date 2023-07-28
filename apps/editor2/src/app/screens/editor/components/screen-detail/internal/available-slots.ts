@@ -8,6 +8,7 @@ export const availableSlots: AvailableSlots = {
     {
       name: 'main',
       required: true,
+      enableAutoCreating: true,
     },
     {
       name: 'menu',
@@ -18,6 +19,7 @@ export const availableSlots: AvailableSlots = {
     {
       name: 'main',
       required: true,
+      enableAutoCreating: true,
     },
     {
       name: 'menu',
@@ -29,4 +31,5 @@ export const availableSlots: AvailableSlots = {
 export type SlotStructure = {
   name: string;
   required: boolean;
+  enableAutoCreating?: boolean;
 };
