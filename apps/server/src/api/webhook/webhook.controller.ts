@@ -24,9 +24,10 @@ import { executeWorkflow } from '../../util/workflow/execution';
 import { ResourceService } from '../../webhook/resource.service';
 
 import { WebhookLogService } from '../../webhook/webhook-log.service';
+import { apiPrefix } from '../prefix';
 
 // TODO must remove @UseInterceptors(QueryResponseInterceptor) next webhook to support free-format http response.
-@Controller(`${RoleResourceType.Webhook}/:orgName`)
+@Controller(`${apiPrefix}/${RoleResourceType.Webhook}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class WebhookController {
   constructor(

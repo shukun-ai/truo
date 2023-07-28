@@ -5,9 +5,11 @@ import { SourceService } from '../../core/source/source.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
 
+import { apiPrefix } from '../prefix';
+
 import { MetadataPushDto } from './dto/metadata.dto';
 
-@Controller(`/${RoleResourceType.Developer}/:orgName`)
+@Controller(`${apiPrefix}/${RoleResourceType.Developer}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperMetadataController {
   constructor(private readonly metadataService: SourceService) {}

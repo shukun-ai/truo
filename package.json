@@ -26,6 +26,8 @@
     "@nx/jest": "16.5.5",
     "@nx/js": "16.5.5",
     "@nx/linter": "16.5.5",
+    "@nx/nest": "16.5.5",
+    "@nx/node": "16.5.5",
     "@nx/plugin": "16.5.5",
     "@nx/react": "16.5.5",
     "@nx/web": "16.5.5",
@@ -77,9 +79,7 @@
     "typescript": "5.1.6",
     "url-loader": "^4.1.1",
     "webpack": "5.88.2",
-    "webpack-merge": "^5.8.0",
-    "@nx/node": "16.5.5",
-    "@nx/nest": "16.5.5"
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.1.8",
@@ -162,7 +162,6 @@
     "mongoose": "7.0.3",
     "mongoose-query-parser": "^1.2.1",
     "nanoid": "^4.0.2",
-    "nest-router": "1.0.9",
     "nest-winston": "1.9.3",
     "npm": "^9.6.3",
     "observable-hooks": "^4.2.0",

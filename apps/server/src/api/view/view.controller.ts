@@ -7,8 +7,9 @@ import { ViewService } from '../../core/view.service';
 import { JsonTemplate } from '../../util/json-template';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
+import { apiPrefix } from '../prefix';
 
-@Controller(`${RoleResourceType.View}/:orgName`)
+@Controller(`${apiPrefix}/${RoleResourceType.View}/:orgName`)
 @UseInterceptors(QueryResponseInterceptor)
 export class ViewController {
   constructor(

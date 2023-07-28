@@ -15,8 +15,11 @@ import { PresenterService } from '../../core/presenter.service';
 
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
+import { apiPrefix } from '../prefix';
 
-@Controller(`${RoleResourceType.Developer}/:orgName/presenters-code`)
+@Controller(
+  `${apiPrefix}/${RoleResourceType.Developer}/:orgName/presenters-code`,
+)
 @UseInterceptors(QueryResponseInterceptor)
 export class DeveloperPresenterCodeController {
   constructor(private readonly presenterService: PresenterService) {}

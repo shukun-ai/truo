@@ -35,6 +35,7 @@ export class DateTimeField implements IElectronInterpreter {
           return value.toISOString();
         } else {
           console.error('value value is not valid Date.');
+          return undefined;
         }
       },
     };
