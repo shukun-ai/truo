@@ -1,4 +1,4 @@
-const { composePlugins } = require('@nrwl/webpack');
+const { composePlugins } = require('@nx/webpack');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 module.exports = composePlugins((config) => {

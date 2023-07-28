@@ -39,7 +39,8 @@
       ],
       "@shukun/schema": ["libs/schema/src/index.ts"],
       "@shukun/util-functions": ["libs/util-functions/src/index.ts"],
-      "@shukun/validator": ["libs/validator/src/index.ts"]
+      "@shukun/validator": ["libs/validator/src/index.ts"],
+      "@shukun/workspace-plugin": ["tools/workspace-plugin/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

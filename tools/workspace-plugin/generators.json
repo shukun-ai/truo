@@ -1,0 +1,14 @@
+{
+  "generators": {
+    "schema-generator": {
+      "implementation": "./src/generators/schema-generator",
+      "schema": "./src/generators/schema-generator/schema.json",
+      "description": "Generator schema-generator"
+    },
+    "widget-generator": {
+      "implementation": "./src/generators/widget-generator",
+      "schema": "./src/generators/widget-generator/schema.json",
+      "description": "Generator widget-generator"
+    }
+  }
+}
