@@ -1,11 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  utilities as nestWinstonModuleUtilities,
-  WinstonModule,
-} from 'nest-winston';
-import winston from 'winston';
 
 import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
@@ -23,16 +18,6 @@ import { WebhookModule } from './webhook/webhook.module';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-    }),
-    WinstonModule.forRoot({
-      transports: [
-        new winston.transports.Console({
-          format: winston.format.combine(
-            winston.format.timestamp(),
-            nestWinstonModuleUtilities.format.nestLike(),
-          ),
-        }),
-      ],
     }),
     MongooseModule.forRootAsync({
       useClass: MongooseConfigService,

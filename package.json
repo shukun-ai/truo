@@ -162,7 +162,6 @@
     "mongoose": "7.0.3",
     "mongoose-query-parser": "^1.2.1",
     "nanoid": "^4.0.2",
-    "nest-winston": "1.9.3",
     "npm": "^9.6.3",
     "observable-hooks": "^4.2.0",
     "passport-jwt": "^4.0.1",
