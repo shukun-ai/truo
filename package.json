@@ -159,7 +159,7 @@
     "lodash": "^4.17.21",
     "mockdate": "^3.0.5",
     "mongodb": "5.2.0",
-    "mongoose": "7.0.3",
+    "mongoose": "7.4.1",
     "mongoose-query-parser": "^1.2.1",
     "nanoid": "^4.0.2",
     "npm": "^9.6.3",
