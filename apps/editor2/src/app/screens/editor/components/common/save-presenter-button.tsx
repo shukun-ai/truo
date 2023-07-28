@@ -26,7 +26,7 @@ export const SavePresenterButton = () => {
     const presenter =
       app.repositories.presenterRepository.deserializationService.build();
     try {
-      app.repositories.presenterRepository.synchronizeService.update(
+      await app.repositories.presenterRepository.synchronizeService.update(
         presenterName,
         presenter,
       );
