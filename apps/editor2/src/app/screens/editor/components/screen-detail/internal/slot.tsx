@@ -59,6 +59,7 @@ export const Slot = ({
           onChange={onChange}
           error={error}
           mb={8}
+          withinPortal
         />
       )}
     </Card>
