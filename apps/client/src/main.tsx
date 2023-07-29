@@ -8,6 +8,8 @@ import './utils/store-provider';
 
 import { App } from './App';
 import { registerExceptionListeners } from './utils/exceptions/registerExceptionListeners';
+import './normalize.css';
+import './styles.less';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

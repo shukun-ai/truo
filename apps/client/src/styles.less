@@ -1,5 +1,3 @@
-@import '~antd/dist/antd.less';
-
 /* TODO: should remove it and add style in workflow DOM */
 .iframe-box {
   width: 100%;
@@ -31,7 +29,7 @@
   @global-side-menu-selected-color: #0e1726;
 
   & {
-    background: @body-background;
+    // background: @body-background;
     border-right: solid 1px #d7e0ea;
     flex-direction: column;
     justify-content: space-between;
@@ -39,7 +37,7 @@
   }
 
   .global-side-menu__menu {
-    background: @body-background;
+    // background: @body-background;
     border: none;
     padding: 0 12px;
     font-size: 13px;
@@ -57,64 +55,64 @@
   .global-side-menu__top,
   .global-side-menu__top .ant-menu-submenu-title {
     transition: none;
-    border-radius: @border-radius-base;
+    // border-radius: @border-radius-base;
   }
 
   /* submenu */
   .global-side-menu__top.ant-menu-submenu-selected .ant-menu-submenu-title,
   .global-side-menu__top.ant-menu-submenu-active .ant-menu-submenu-title {
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
-    color: @global-side-menu-selected-color;
+    // color: @global-side-menu-selected-color;
   }
 
   .global-side-menu__top.ant-menu-submenu-active .ant-menu-submenu-title {
-    background: @global-side-menu-active-background;
+    // background: @global-side-menu-active-background;
   }
 
   .global-side-menu__top.ant-menu-submenu-selected .ant-menu-submenu-title {
-    background: @global-side-menu-selected-background;
+    // background: @global-side-menu-selected-background;
   }
 
   /* menu item */
   .global-side-menu__top.ant-menu-item-selected,
   .global-side-menu__top.ant-menu-item-active {
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
-    color: @global-side-menu-selected-color;
+    // color: @global-side-menu-selected-color;
     font-size: 13px;
 
     .ant-menu-item-icon,
     a,
     a:hover {
-      color: @global-side-menu-selected-color;
+      // color: @global-side-menu-selected-color;
     }
   }
 
   .global-side-menu__top.ant-menu-item-active {
-    background: @global-side-menu-active-background;
+    // background: @global-side-menu-active-background;
   }
 
   .global-side-menu__top.ant-menu-item-selected {
-    background: @global-side-menu-selected-background;
+    // background: @global-side-menu-selected-background;
   }
 
   .global-side-menu__top .ant-menu-submenu-arrow {
-    color: @global-side-menu-selected-color !important;
+    // color: @global-side-menu-selected-color !important;
   }
 
   /* child */
   .global-side-menu__child {
     background: transparent;
     box-shadow: none;
-    color: @global-side-menu-normal-color;
+    // color: @global-side-menu-normal-color;
     font-size: 13px;
 
     .ant-menu-item-icon,
     a {
-      color: @global-side-menu-normal-color;
+      // color: @global-side-menu-normal-color;
     }
 
     a:hover {
-      color: @global-side-menu-selected-color;
+      // color: @global-side-menu-selected-color;
     }
   }
 
@@ -122,13 +120,13 @@
   .global-side-menu__child.ant-menu-item-selected {
     background: transparent;
     box-shadow: none;
-    color: @primary-color;
+    // color: @primary-color;
     font-size: 13px;
 
     .ant-menu-item-icon,
     a,
     a:hover {
-      color: @primary-color;
+      // color: @primary-color;
     }
   }
 }

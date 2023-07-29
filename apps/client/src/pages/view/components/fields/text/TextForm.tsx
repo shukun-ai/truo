@@ -28,7 +28,9 @@ export const TextForm: LegacyFunctionComponent<TextFormProps> = ({
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
       const value = event?.target?.value;
-      form.setFieldsValue({ [electronName]: value ? value.trim() : null });
+      form.setFieldsValue({
+        [electronName]: value ? value.trim() : null,
+      } as any);
     },
     [electronName, form],
   );

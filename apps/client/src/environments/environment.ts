@@ -2,11 +2,11 @@
 // When building for production, this file is replaced with `environment.prod.ts`.
 
 export const environment = {
-  production: false,
+  production: import.meta.env.PROD,
   enableCrossOriginAuth: true,
-  serverDomain: process.env?.['NX_CLIENT_BASE_URL'] ?? '',
-  storageDomain: process.env?.['NX_CLIENT_STORAGE_URL'] ?? '',
-  assetDomain: process.env?.['NX_CLIENT_STORAGE_URL'] ?? '',
-  cryptoPassword: process.env?.['NX_CLIENT_CRYPTO_PASSWORD'] ? true : false,
-  rsaPublicKey: process.env?.['NX_CLIENT_RSA_PUBLIC_KEY'] ?? '',
+  serverDomain: import.meta.env?.VITE_CLIENT_BASE_URL ?? '',
+  storageDomain: import.meta.env?.VITE_CLIENT_STORAGE_URL ?? '',
+  assetDomain: import.meta.env?.VITE_CLIENT_STORAGE_URL ?? '',
+  cryptoPassword: import.meta.env?.VITE_CLIENT_CRYPTO_PASSWORD ? true : false,
+  rsaPublicKey: import.meta.env?.VITE_CLIENT_RSA_PUBLIC_KEY ?? '',
 };

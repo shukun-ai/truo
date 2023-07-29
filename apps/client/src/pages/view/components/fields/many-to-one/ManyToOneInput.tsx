@@ -61,7 +61,7 @@ export const ManyToOneInput: LegacyFunctionComponent<ManyToOneInputProps> = ({
 
   const handleRemove = useCallback(() => {
     setItem(undefined);
-    form.setFieldsValue({ [electronName]: null });
+    form.setFieldsValue({ [electronName]: null } as any);
   }, [setItem, electronName, form]);
 
   const handleFinish = useCallback(
