@@ -50,7 +50,7 @@
       "options": {
         "commands": [
           {
-            "command": "npx nx workspace-generator schema-generator schema"
+            "command": "npx nx generate @shukun/workspace-plugin:schema-generator --name=schema --no-interactive"
           }
         ]
       }
