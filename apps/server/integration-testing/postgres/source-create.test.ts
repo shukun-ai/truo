@@ -101,7 +101,7 @@ describe('Source apis', () => {
     it('should throw error, when make a duplication value input.', async () => {
       const sourceRequester = new SourceRequester(adaptor, 'devices');
       const payload = {
-        number: faker.datatype.string(),
+        number: faker.string.sample(),
         title: 'title',
         type: 'vehicle',
       };
@@ -125,7 +125,7 @@ describe('Source apis', () => {
       const sourceRequester = new SourceRequester(adaptor, 'devices');
       try {
         await sourceRequester.create({
-          number: faker.datatype.string(1200),
+          number: faker.string.sample(1200),
           title: 'title',
           type: 'vehicle',
         });
