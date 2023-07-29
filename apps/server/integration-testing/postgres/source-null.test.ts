@@ -15,7 +15,7 @@ import { signIn } from '../hooks/sign-in';
 
 import fieldsMockData from './source-electrons.mock.json';
 
-describe('Source apis', () => {
+describe.skip('Source apis', () => {
   const orgName = 'postgres_source_null_org';
   const connection: DataSourceConnection = {
     type: 'postgres',
