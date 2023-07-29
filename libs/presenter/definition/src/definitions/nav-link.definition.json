@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../schema/src/json-schemas/widget.schema.json",
+  "$schema": "../../../../schema/src/json-schemas/widget.schema.json",
   "tag": "nav-link",
   "properties": {
     "value": {
