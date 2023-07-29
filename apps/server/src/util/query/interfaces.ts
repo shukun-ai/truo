@@ -1,5 +1,3 @@
-import { QueryOptions } from 'mongoose-query-parser';
-
 export interface QueryResponse<ValueType> {
   value: ValueType;
   count?: number;
@@ -8,5 +6,14 @@ export interface QueryResponse<ValueType> {
 
 /**
  * @deprecated
+ * @remark The type is from mongoose-query-parser
  */
-export type QueryParserOptions = QueryOptions & { count?: boolean };
+export type QueryParserOptions = {
+  filter: any;
+  sort?: string | any;
+  limit?: number;
+  skip?: number;
+  select?: string | any;
+  populate?: string | any;
+  count?: boolean;
+};
