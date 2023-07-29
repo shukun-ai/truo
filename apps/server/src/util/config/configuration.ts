@@ -25,7 +25,7 @@ export const configuration = (): {
 });
 
 const getRegisterMode = () => {
-  switch (process.env.NX_ORG_REGISTER_MODE) {
+  switch (process.env.VITE_ORG_REGISTER_MODE) {
     case 'self-create':
       return 'self-create';
     case 'disabled':

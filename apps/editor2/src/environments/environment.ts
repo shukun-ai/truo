@@ -4,7 +4,7 @@
 import { Environment } from './environment.type';
 
 const getOrgRegisterMode = () => {
-  switch (process.env.NX_ORG_REGISTER_MODE) {
+  switch (import.meta.env?.VITE_ORG_REGISTER_MODE) {
     case 'self-create':
       return 'self-create';
     case 'disabled':
@@ -15,11 +15,11 @@ const getOrgRegisterMode = () => {
 };
 
 export const environment: Environment = {
-  serverDomain: process.env.NX_EDITOR_BASE_URL ?? '',
-  storageDomain: process.env.NX_EDITOR_STORAGE_URL ?? '',
-  assetDomain: process.env.NX_EDITOR_STORAGE_URL ?? '',
-  previewDomain: process.env.NX_EDITOR_PREVIEW_URL ?? '',
-  version: process.env.NX_EDITOR_VERSION ?? '1.0.0',
-  authPersistKey: process.env.NX_EDITOR_AUTH ?? 'SHUKUN_EDITOR_AUTH',
+  serverDomain: import.meta.env?.VITE_EDITOR_BASE_URL ?? '',
+  storageDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
+  assetDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
+  previewDomain: import.meta.env?.VITE_EDITOR_PREVIEW_URL ?? '',
+  version: import.meta.env?.NX_EDITOR_VERSION ?? '1.0.0',
+  authPersistKey: import.meta.env?.NX_EDITOR_AUTH ?? 'SHUKUN_EDITOR_AUTH',
   orgRegisterMode: getOrgRegisterMode(),
 };
