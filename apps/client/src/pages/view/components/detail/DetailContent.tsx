@@ -60,7 +60,7 @@ export const DetailContent: LegacyFunctionComponent<DetailContentProps> = ({
     async (values: UnknownSourceModel) => {
       const result = await detailService.saveOne(metadata, source, values);
       if (result) {
-        form.setFieldsValue(result);
+        form.setFieldsValue(result as any);
         message.success('已为您成功保存。');
 
         if (mode === DetailMode.Create) {
@@ -87,7 +87,7 @@ export const DetailContent: LegacyFunctionComponent<DetailContentProps> = ({
   useDebounceEffect(
     () => {
       if (source) {
-        form.setFieldsValue(source);
+        form.setFieldsValue(source as any);
       }
     },
     [form, source],
