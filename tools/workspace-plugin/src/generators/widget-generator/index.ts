@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { readdir, readFile } from 'fs/promises';
+import { readdir } from 'fs/promises';
 
 import { join } from 'path';
 
@@ -100,6 +100,7 @@ class Generate {
 
     await this.writeJsonIndex(list);
 
+    // eslint-disable-next-line no-console
     console.log('Generate type files successfully.');
   }
 
