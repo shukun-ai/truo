@@ -2,8 +2,7 @@
 // When building for production, this file is replaced with `environment.prod.ts`.
 
 export const environment = {
-  production: false,
-  serverDomain: process.env?.['NX_CLIENT_BASE_URL'] ?? '',
-  storageDomain: process.env?.['NX_CLIENT_STORAGE_URL'] ?? '',
-  assetDomain: process.env?.['NX_CLIENT_STORAGE_URL'] ?? '',
+  serverDomain: import.meta.env?.VITE_EDITOR_BASE_URL ?? '',
+  storageDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
+  assetDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
 };

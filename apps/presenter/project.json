@@ -5,34 +5,14 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/presenter",
-        "index": "apps/presenter/src/index.html",
-        "baseHref": "/presenter/",
-        "deployUrl": "/presenter/",
-        "main": "apps/presenter/src/main.ts",
-        "polyfills": "apps/presenter/src/polyfills.ts",
-        "tsConfig": "apps/presenter/tsconfig.app.json",
-        "assets": [
-          "apps/presenter/src/favicon.ico",
-          "apps/presenter/src/assets"
-        ],
-        "styles": [],
-        "scripts": [],
-        "webpackConfig": "@nx/react/plugins/webpack"
+        "outputPath": "dist/apps/presenter"
       },
       "configurations": {
         "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/presenter/src/environments/environment.ts",
-              "with": "apps/presenter/src/environments/environment.prod.ts"
-            }
-          ],
           "optimization": true,
           "outputHashing": "all",
           "sourceMap": false,
@@ -49,11 +29,10 @@
       }
     },
     "serve": {
-      "executor": "@nx/webpack:dev-server",
+      "executor": "@nx/vite:dev-server",
       "options": {
         "buildTarget": "presenter:build",
-        "hmr": true,
-        "port": 9010
+        "hmr": true
       },
       "configurations": {
         "production": {
@@ -79,6 +58,21 @@
       "options": {
         "jestConfig": "apps/presenter/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "presenter:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "presenter:build:development"
+        },
+        "production": {
+          "buildTarget": "presenter:build:production"
+        }
       }
     }
   },
