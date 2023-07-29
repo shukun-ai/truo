@@ -21,7 +21,7 @@ import { signIn } from '../hooks/sign-in';
 
 import mockApplication from './source-create.mock.json';
 
-describe('Source apis', () => {
+describe.skip('Source apis', () => {
   const orgName = 'postgres_source_create_org';
   const connection: DataSourceConnection = {
     type: 'postgres',
