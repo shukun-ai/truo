@@ -4,7 +4,7 @@
 # npm run build
 # npm run package
 # docker run .
-FROM node:16.13.2
+FROM node:18.17.0
 WORKDIR /usr/src/app
 COPY ./dist/installation/server ./installation
 EXPOSE 3000
