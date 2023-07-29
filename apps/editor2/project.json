@@ -5,21 +5,11 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/editor2",
-        "index": "apps/editor2/src/index.html",
-        "baseHref": "/",
-        "main": "apps/editor2/src/main.tsx",
-        "tsConfig": "apps/editor2/tsconfig.app.json",
-        "assets": ["apps/editor2/src/favicon.ico", "apps/editor2/src/assets"],
-        "styles": [],
-        "scripts": [],
-        "isolatedConfig": true,
-        "webpackConfig": "apps/editor2/webpack.config.js"
+        "outputPath": "dist/apps/editor2"
       },
       "configurations": {
         "development": {
@@ -39,12 +29,11 @@
       }
     },
     "serve": {
-      "executor": "@nx/webpack:dev-server",
+      "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "editor2:build",
-        "hmr": true,
-        "port": 9020
+        "hmr": true
       },
       "configurations": {
         "development": {
@@ -80,6 +69,21 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "editor2:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "editor2:build:development"
+        },
+        "production": {
+          "buildTarget": "editor2:build:production"
         }
       }
     }
