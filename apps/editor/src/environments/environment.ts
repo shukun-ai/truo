@@ -19,7 +19,7 @@ export const environment: Environment = {
   storageDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
   assetDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
   previewDomain: import.meta.env?.VITE_EDITOR_PREVIEW_URL ?? '',
-  version: import.meta.env?.NX_EDITOR_VERSION ?? '1.0.0',
-  authPersistKey: import.meta.env?.NX_EDITOR_AUTH ?? 'SHUKUN_EDITOR_AUTH',
+  version: import.meta.env?.VITE_EDITOR_VERSION ?? '1.0.0',
+  authPersistKey: import.meta.env?.VITE_EDITOR_AUTH ?? 'SHUKUN_EDITOR_AUTH',
   orgRegisterMode: getOrgRegisterMode(),
 };
