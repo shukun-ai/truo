@@ -2,6 +2,9 @@
   "name": "shukun",
   "version": "1.28.0",
   "private": true,
+  "engines": {
+    "node": "18.17.0"
+  },
   "scripts": {
     "start": "nx run-many --target=serve --projects=server,presenter,editor",
     "build": "nx run-many --target=build --all --configuration=production",
@@ -42,7 +45,7 @@
     "@testing-library/react": "14.0.0",
     "@types/is-ci": "^3.0.0",
     "@types/jest": "29.4.4",
-    "@types/node": "18.14.2",
+    "@types/node": "18.17.0",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "@typescript-eslint/eslint-plugin": "5.62.0",
@@ -61,7 +64,7 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-security": "^1.7.0",
     "form-data": "^4.0.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "is-port-reachable": "^3.1.0",
     "jest": "29.4.3",
