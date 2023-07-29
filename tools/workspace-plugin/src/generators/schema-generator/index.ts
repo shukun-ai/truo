@@ -70,6 +70,7 @@ async function generate(treeRoot: string, projectRoot: string) {
   });
 
   return Promise.all(queue).then(() =>
+    // eslint-disable-next-line no-console
     console.log('Generate type files successfully.'),
   );
 }

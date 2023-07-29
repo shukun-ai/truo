@@ -50,7 +50,9 @@ export const ConnectorContainer = () => {
           },
         },
       }}
-      onChange={(value) => console.log('connector changed', value)}
+      onChange={(value) => {
+        //
+      }}
     />
   );
 };
