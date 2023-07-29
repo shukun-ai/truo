@@ -12,11 +12,6 @@ import { format } from 'prettier';
 import { DefinitionGenerator } from './definition-generator';
 
 export default async function (tree: Tree, schema: any) {
-  if (schema.name !== 'widget') {
-    throw new Error(
-      'We only support use this command for @shukun/widget library.',
-    );
-  }
   const projectConfiguration = readProjectConfiguration(tree, schema.name);
   const generator = new Generate(tree.root, projectConfiguration.root);
   await generator.generate();

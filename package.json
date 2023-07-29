@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nx run-many --target=serve --projects=server,presenter,editor",
     "build": "nx run-many --target=build --all --configuration=production",
+    "generate": "nx run-many --target=generate --all",
     "test": "npm run test:unit && npm run test:integrate",
     "test:integrate": "nx run server:integration-test",
     "test:unit": "nx run-many --target=test --all",

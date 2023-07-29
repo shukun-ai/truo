@@ -24,7 +24,7 @@
       "options": {
         "commands": [
           {
-            "command": "npx nx workspace-generator widget-generator widget"
+            "command": "npx nx generate @shukun/workspace-plugin:widget-generator --name=presenter-definition --no-interactive"
           }
         ]
       }

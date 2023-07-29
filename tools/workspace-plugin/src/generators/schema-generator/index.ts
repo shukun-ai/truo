@@ -7,12 +7,6 @@ import { Tree, readProjectConfiguration } from '@nx/devkit';
 import { compileFromFile } from 'json-schema-to-typescript';
 
 export default async function (tree: Tree, schema: any) {
-  if (schema.name !== 'schema') {
-    throw new Error(
-      'We only support use this command for @shukun/schema library.',
-    );
-  }
-
   const projectConfiguration = readProjectConfiguration(tree, schema.name);
   await generate(tree.root, projectConfiguration.root);
 }
