@@ -1,10 +1,9 @@
-import { TypeException } from '@shukun/exception';
 import {
   ITemplateService,
   TemplateEvaluateHelpers,
 } from '@shukun/presenter/definition';
 import { AppProps } from '@shukun/presenter/widget-react';
-import { PresenterWidget, WidgetSchema } from '@shukun/schema';
+import { PresenterWidget } from '@shukun/schema';
 import { Children, cloneElement, ReactElement, useMemo } from 'react';
 
 export type WidgetWrapperProps = {
@@ -27,42 +26,37 @@ export const WidgetWrapper = ({
   index,
 }: WidgetWrapperProps) => {
   const ReactWidget = app.reactWidgets[widget.tag];
-  const widgetDefinition = app.widgetDefinitions[widget.tag];
-
-  if (!widgetDefinition) {
-    console.error(`Did not find tag: ${widget.tag}`);
-  }
 
   const properties = useMemo(() => {
     const properties: Record<string, unknown> = {};
+    const events: Record<string, (payload: unknown) => void> = {};
     const states = { ...app.states, item, index: index ?? 0 };
 
-    for (const [propertyId, property] of Object.entries(
-      getWidgetAndBoxProperties(widgetDefinition, app),
-    )) {
-      if (!property.isEvent) {
-        const template = widget.properties[propertyId];
-        if (template) {
-          properties[propertyId] = evaluateTemplate(
-            template,
-            app.templateService,
-            states,
-            app.helpers,
-          );
-        }
-      } else {
-        properties[propertyId] = (payload: unknown) => {
-          const events = widget.events[propertyId] ?? [];
-          app.eventManager.handleEvents(events, {
-            containerId,
-            index: states.index,
-            item: states.item,
-            payload,
-          });
-        };
+    for (const [propertyId, property] of Object.entries(widget.properties)) {
+      const template = property;
+      if (template) {
+        properties[propertyId] = evaluateTemplate(
+          template,
+          app.templateService,
+          states,
+          app.helpers,
+        );
       }
     }
-    return properties;
+
+    for (const [eventId, event] of Object.entries(widget.events)) {
+      events[eventId] = (payload: unknown) => {
+        const events = event;
+        app.eventManager.handleEvents(events, {
+          containerId,
+          index: states.index,
+          item: states.item,
+          payload,
+        });
+      };
+    }
+
+    return { ...properties, ...events };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [app.states, containerId, index, item]);
 
@@ -93,20 +87,4 @@ const evaluateTemplate = (
 ): unknown => {
   const value = templateService.run(template, states, helpers);
   return value;
-};
-
-const getWidgetAndBoxProperties = (
-  widgetDefinition: WidgetSchema,
-  app: AppProps,
-) => {
-  const boxDefinition = app.widgetDefinitions['sk-base'];
-
-  if (!boxDefinition) {
-    throw new TypeException('The box is base widget, must be registered.');
-  }
-
-  return {
-    ...widgetDefinition.properties,
-    ...boxDefinition.properties,
-  };
 };
