@@ -1,5 +1,5 @@
 import { IRepository, RouterMode } from '@shukun/presenter/definition';
-import { PresenterSchema, WidgetSchema } from '@shukun/schema';
+import { PresenterSchema } from '@shukun/schema';
 import { Class } from 'utility-types';
 
 export interface ILoader {
@@ -12,12 +12,9 @@ export interface ILoader {
 
 export type ConfigDefinitions = {
   presenter: PresenterSchema;
-  widgetDefinitions: WidgetDefinitions;
   reactWidgets: ReactWidgets;
   reactRepositories: ReactRepositories;
 };
-
-export type WidgetDefinitions = Record<string, WidgetSchema>;
 
 export type ReactWidgets = Record<string, ReactWidget>;
 

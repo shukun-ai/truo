@@ -24,7 +24,6 @@ export const createObservable = (
         },
         presenter: injector.definitions.presenter,
         reactWidgets: injector.definitions.reactWidgets,
-        widgetDefinitions: injector.definitions.widgetDefinitions,
         rawStates,
         containerId: null,
         showSignInScreen,
