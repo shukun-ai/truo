@@ -8,7 +8,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["vite/client"],
+    "types": ["vite/client", "vitest"],
     "noEmit": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,

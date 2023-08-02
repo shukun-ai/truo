@@ -46,10 +46,9 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/apps/presenter"],
       "options": {
-        "jestConfig": "apps/presenter/jest.config.ts",
         "passWithNoTests": true
       }
     },
