@@ -13,10 +13,9 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/libs/presenter/widget-react"],
       "options": {
-        "jestConfig": "libs/presenter/widget-react/jest.config.ts",
         "passWithNoTests": true
       }
     }
