@@ -4,7 +4,6 @@ import { WidgetProperty } from '@shukun/schema';
 import { WidgetBooleanInput } from '../../../../../components/widget-editor/widget-boolean-input';
 import { WidgetEnumInput } from '../../../../../components/widget-editor/widget-enum-input';
 import { WidgetNumberInput } from '../../../../../components/widget-editor/widget-number-input';
-import { WidgetObjectInput } from '../../../../../components/widget-editor/widget-object-input';
 import { WidgetStringInput } from '../../../../../components/widget-editor/widget-string-input';
 
 export type PropertyInputProps = {
@@ -18,63 +17,34 @@ export const PropertyInput = ({
   value,
   onChange,
 }: PropertyInputProps) => {
-  const { schema } = widgetProperty;
+  const { type, enums } = widgetProperty;
 
-  if (typeof schema !== 'object') {
-    return <Box>组件定义文件格式不正确</Box>;
-  }
-
-  if (schema.enum && (typeof value === 'string' || value === undefined)) {
+  if (type === 'enum' && (typeof value === 'string' || value === undefined)) {
     return (
-      <WidgetEnumInput
-        value={value}
-        onChange={onChange}
-        widgetProperty={widgetProperty}
-      />
+      <WidgetEnumInput value={value} onChange={onChange} enums={enums ?? []} />
     );
   }
 
-  if (
-    schema.type === 'string' &&
-    (typeof value === 'string' || value === undefined)
-  ) {
+  if (type === 'string' && (typeof value === 'string' || value === undefined)) {
     return <WidgetStringInput value={value} onChange={onChange} />;
   }
 
   if (
-    schema.type === 'integer' &&
+    type === 'integer' &&
     (typeof value === 'number' || value === undefined)
   ) {
     return <WidgetNumberInput value={value} onChange={onChange} isInteger />;
   }
 
-  if (
-    schema.type === 'number' &&
-    (typeof value === 'number' || value === undefined)
-  ) {
+  if (type === 'number' && (typeof value === 'number' || value === undefined)) {
     return <WidgetNumberInput value={value} onChange={onChange} />;
   }
 
   if (
-    schema.type === 'boolean' &&
+    type === 'boolean' &&
     (typeof value === 'boolean' || value === undefined)
   ) {
     return <WidgetBooleanInput value={value} onChange={onChange} />;
-  }
-
-  if (
-    schema.type === 'array' &&
-    (Array.isArray(value) || value === undefined)
-  ) {
-    return <WidgetObjectInput value={value} onChange={onChange} />;
-  }
-
-  if (
-    schema.type === 'object' &&
-    value !== null &&
-    (typeof value === 'object' || value === undefined)
-  ) {
-    return <WidgetObjectInput value={value} onChange={onChange} />;
   }
 
   return (
