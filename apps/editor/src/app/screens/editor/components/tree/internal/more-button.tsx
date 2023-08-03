@@ -7,6 +7,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
+import { WidgetSchema } from '@shukun/schema';
 import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
 import { useObservableState } from 'observable-hooks';
@@ -21,9 +22,13 @@ import { RenameMenuItem } from './rename-menu-item';
 
 export type TreeMoreButtonProps = {
   sourceWidgetEntity: PresenterWidgetEntity;
+  widgetDefinitions: Record<string, WidgetSchema>;
 };
 
-export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
+export const TreeMoreButton = ({
+  sourceWidgetEntity,
+  widgetDefinitions,
+}: TreeMoreButtonProps) => {
   const app = useAppContext();
 
   const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
@@ -70,6 +75,10 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
     });
   }, [onChildSubmit]);
 
+  const widgetDefinition = useMemo(() => {
+    return widgetDefinitions[sourceWidgetEntity.tag];
+  }, [sourceWidgetEntity.tag, widgetDefinitions]);
+
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
@@ -103,12 +112,16 @@ export const TreeMoreButton = ({ sourceWidgetEntity }: TreeMoreButtonProps) => {
             新建同级组件
           </Menu.Item>
         )}
-        <Menu.Item
-          icon={<IconRectangularPrismPlus size={14} />}
-          onClick={handleChildCreate}
-        >
-          新建子级组件
-        </Menu.Item>
+        {widgetDefinition.allowedChildTags &&
+          widgetDefinition.allowedChildTags.length > 0 && (
+            <Menu.Item
+              icon={<IconRectangularPrismPlus size={14} />}
+              onClick={handleChildCreate}
+            >
+              新建子级组件
+            </Menu.Item>
+          )}
+
         <Menu.Item
           color="red"
           icon={<Icon type="trash" size={14} />}
