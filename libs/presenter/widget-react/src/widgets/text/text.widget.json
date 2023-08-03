@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "text",
+  "icon": "",
+  "properties": {
+    "value": {
+      "label": "显示文字",
+      "type": "string"
+    },
+    "align": {
+      "label": "对齐方式",
+      "type": "enum",
+      "enums": ["left", "right", "center", "justify"]
+    }
+  }
+}

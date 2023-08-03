@@ -1,28 +1,23 @@
 import { Group, Radio, SelectItem } from '@mantine/core';
-import { WidgetProperty } from '@shukun/schema';
 import { useMemo } from 'react';
 
 export type WidgetEnumInputProps = {
   value: string | undefined;
   onChange: (newValue: string | undefined) => void;
-  widgetProperty: WidgetProperty;
+  enums: string[];
 };
 
 export const WidgetEnumInput = ({
   value,
   onChange,
-  widgetProperty,
+  enums,
 }: WidgetEnumInputProps) => {
   const options = useMemo<SelectItem[]>(() => {
-    if (typeof widgetProperty.schema !== 'object') {
-      return [];
-    }
-    const value = widgetProperty.schema.enum ?? [];
-    return value.map((item) => ({
+    return enums.map((item) => ({
       value: typeof item === 'string' ? item : '',
       label: typeof item === 'string' ? item : '',
     }));
-  }, [widgetProperty.schema]);
+  }, [enums]);
 
   return (
     <Radio.Group value={value} onChange={(newValue) => onChange(newValue)}>

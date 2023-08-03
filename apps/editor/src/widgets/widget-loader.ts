@@ -1,5 +1,4 @@
-import { webWidgetDefinitions } from '@shukun/presenter/definition';
+import { editorWidgets } from '@shukun/presenter/widget-react';
 import { WidgetSchema } from '@shukun/schema';
 
-export const widgetDefinitions: Record<string, WidgetSchema> =
-  webWidgetDefinitions;
+export const widgetDefinitions: Record<string, WidgetSchema> = editorWidgets;
