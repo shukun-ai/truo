@@ -9,6 +9,11 @@
       "implementation": "./src/generators/widget-generator",
       "schema": "./src/generators/widget-generator/schema.json",
       "description": "Generator widget-generator"
+    },
+    "react-widget-generator": {
+      "implementation": "./src/generators/react-widget-generator",
+      "schema": "./src/generators/react-widget-generator/schema.json",
+      "description": "Generator react-widget-generator"
     }
   }
 }

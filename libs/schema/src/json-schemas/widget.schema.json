@@ -10,29 +10,49 @@
       "type": "string"
     },
     "tag": { "type": "string" },
+    "icon": { "type": "string", "$comment": "icon svg string" },
     "experimental": { "type": "boolean" },
+    "allowedChildTags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "$comment": "The array is empty, then do not allow any child tags. If the value is *, then support any."
+      }
+    },
+    "searchKeywords": { "type": "array", "items": { "type": "string" } },
     "properties": {
       "type": "object",
       "patternProperties": {
         "^(\\w)+$": {
           "type": "object",
           "title": "WidgetProperty",
-          "required": ["label", "schema"],
+          "required": ["label", "type"],
           "additionalProperties": false,
           "properties": {
-            "schema": {
-              "$ref": "reference/reference-data.schema.json"
-            },
-            "defaultValue": {},
-            "isEvent": { "type": "boolean" },
             "label": { "type": "string" },
+            "type": {
+              "enum": [
+                "string",
+                "integer",
+                "number",
+                "boolean",
+                "enum",
+                "stringArray",
+                "optionArray",
+                "unknownObject",
+                "unknownArray",
+                "breakpoints",
+                "attachments"
+              ]
+            },
+            "enums": { "type": "array", "items": { "type": "string" } },
+            "isEvent": { "type": "boolean" },
             "placeholder": { "type": "string" },
             "description": { "type": "string" }
           },
           "default": {
             "label": "",
-            "schema": {},
-            "defaultValue": ""
+            "type": ""
           }
         }
       }
