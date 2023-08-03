@@ -40,6 +40,10 @@ export const TreePane = () => {
     app.repositories.tabRepository.selectedWidgetEntityId$,
     null,
   );
+  const widgetDefinitions = useObservableState(
+    app.repositories.presenterRepository.widgetDefinitions$,
+    {},
+  );
 
   const onlyRoot = useMemo(() => {
     if (!treeNodes.root) {
@@ -69,6 +73,7 @@ export const TreePane = () => {
             selectedContainerEntityId={selectedContainerEntityId}
             level={0}
             index={0}
+            widgetDefinitions={widgetDefinitions}
           />
           {onlyRoot && <TreeRootCreate />}
         </ScrollArea>

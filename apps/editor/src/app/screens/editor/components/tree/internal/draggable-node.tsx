@@ -1,5 +1,5 @@
 import { Box, createStyles } from '@mantine/core';
-import { PresenterTreeNodes } from '@shukun/schema';
+import { PresenterTreeNodes, WidgetSchema } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
@@ -27,6 +27,7 @@ export const TreeDraggableNode = ({
   index,
   selectedWidgetEntityId,
   selectedContainerEntityId,
+  widgetDefinitions,
 }: {
   treeNodes: PresenterTreeNodes;
   widgetEntities: Record<string, PresenterWidgetEntity>;
@@ -36,6 +37,7 @@ export const TreeDraggableNode = ({
   index: number;
   selectedWidgetEntityId?: string;
   selectedContainerEntityId: string;
+  widgetDefinitions: Record<string, WidgetSchema>;
 }) => {
   const app = useAppContext();
 
@@ -94,7 +96,10 @@ export const TreeDraggableNode = ({
             <TreeDroppableLabel targetWidgetEntity={sourceWidgetEntity} />
           </Box>
           <Box sx={{ paddingRight: 6 }}>
-            <TreeMoreButton sourceWidgetEntity={sourceWidgetEntity} />
+            <TreeMoreButton
+              sourceWidgetEntity={sourceWidgetEntity}
+              widgetDefinitions={widgetDefinitions}
+            />
           </Box>
         </Box>
       )}
@@ -111,6 +116,7 @@ export const TreeDraggableNode = ({
               level={level + 1}
               index={index}
               selectedContainerEntityId={selectedContainerEntityId}
+              widgetDefinitions={widgetDefinitions}
             />
           ))}
         </List>
