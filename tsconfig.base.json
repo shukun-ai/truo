@@ -29,6 +29,9 @@
       "@shukun/component": ["libs/component/src/index.ts"],
       "@shukun/connector/handler": ["libs/connector/handler/src/index.ts"],
       "@shukun/connector/task": ["libs/connector/task/src/index.ts"],
+      "@shukun/editor/widget-inputs": [
+        "libs/editor/widget-inputs/src/index.ts"
+      ],
       "@shukun/exception": ["libs/exception/src/index.ts"],
       "@shukun/knex": ["libs/knex/src/index.ts"],
       "@shukun/presenter/definition": [
