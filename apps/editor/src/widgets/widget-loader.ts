@@ -1,50 +1,5 @@
-import {
-  ButtonWidget,
-  CodeWidget,
-  InputWidget,
-  TextWidget,
-  ListWidget,
-  SelectWidget,
-  BoxWidget,
-  NavLinkWidget,
-  TableWidget,
-  FormWidget,
-  searchFormWidget,
-  GridWidget,
-  AlertWidget,
-  RadioSelectWidget,
-  CardWidget,
-  BaseWidget,
-  BadgeWidget,
-  CheckboxSelectWidget,
-  ImageInputWidget,
-  MultipleInputWidget,
-  BooleanSelectWidget,
-  NumberInputWidget,
-} from '@shukun/presenter/widget-react';
+import { webWidgetDefinitions } from '@shukun/presenter/definition';
 import { WidgetSchema } from '@shukun/schema';
 
-export const widgetDefinitions: Record<string, WidgetSchema> = {
-  'sk-base': BaseWidget.definition,
-  'sk-input': InputWidget.definition,
-  'sk-image-input': ImageInputWidget.definition,
-  'sk-multiple-input': MultipleInputWidget.definition,
-  'sk-text': TextWidget.definition,
-  'sk-code': CodeWidget.definition,
-  'sk-button': ButtonWidget.definition,
-  'sk-list': ListWidget.definition,
-  'sk-select': SelectWidget.definition,
-  'sk-box': BoxWidget.definition,
-  'sk-nav-link': NavLinkWidget.definition,
-  'sk-table': TableWidget.definition,
-  'sk-form': FormWidget.definition,
-  'sk-search-form': searchFormWidget.definition,
-  'sk-grid': GridWidget.definition,
-  'sk-alert': AlertWidget.definition,
-  'sk-radio-select': RadioSelectWidget.definition,
-  'sk-checkbox-select': CheckboxSelectWidget.definition,
-  'sk-card': CardWidget.definition,
-  'sk-badge': BadgeWidget.definition,
-  'sk-boolean-select': BooleanSelectWidget.definition,
-  'sk-number-input': NumberInputWidget.definition,
-};
+export const widgetDefinitions: Record<string, WidgetSchema> =
+  webWidgetDefinitions;

@@ -31,3 +31,5 @@ export * from './repositories/implements/router-repository';
 export * from './repositories/implements/simple-repository';
 export * from './repositories/implements/source-query-repository';
 export * from './repositories/definitions';
+
+export * from './web-widget-definitions';
