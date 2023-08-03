@@ -6,49 +6,16 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type ReferenceDataSchema =
-  | boolean
-  | {
-      $id?: string;
-      $schema?: string;
-      $ref?: string;
-      $comment?: string;
-      title?: string;
-      description?: string;
-      items?:
-        | ReferenceDataSchema
-        | [ReferenceDataSchema, ...ReferenceDataSchema[]];
-      required?: string[];
-      additionalProperties?: ReferenceDataSchema;
-      definitions?: {
-        [k: string]: ReferenceDataSchema;
-      };
-      properties?: {
-        [k: string]: ReferenceDataSchema;
-      };
-      patternProperties?: {
-        [k: string]: ReferenceDataSchema;
-      };
-      const?: true;
-      enum?: [true, ...unknown[]];
-      type?:
-        | 'array'
-        | 'boolean'
-        | 'integer'
-        | 'null'
-        | 'number'
-        | 'object'
-        | 'string';
-      [k: string]: unknown;
-    };
-
 /**
  * Define the presenter contained Stores and UI Elements
  */
 export interface WidgetSchema {
   $schema?: string;
   tag: string;
+  icon?: string;
   experimental?: boolean;
+  allowedChildTags?: string[];
+  searchKeywords?: string[];
   properties: {
     [k: string]: WidgetProperty;
   };
@@ -58,10 +25,21 @@ export interface WidgetSchema {
  * via the `patternProperty` "^(\w)+$".
  */
 export interface WidgetProperty {
-  schema: ReferenceDataSchema;
-  defaultValue?: unknown;
-  isEvent?: boolean;
   label: string;
+  type:
+    | 'string'
+    | 'integer'
+    | 'number'
+    | 'boolean'
+    | 'enum'
+    | 'stringArray'
+    | 'optionArray'
+    | 'unknownObject'
+    | 'unknownArray'
+    | 'breakpoints'
+    | 'attachments';
+  enums?: string[];
+  isEvent?: boolean;
   placeholder?: string;
   description?: string;
 }

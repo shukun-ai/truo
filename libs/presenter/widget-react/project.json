@@ -18,6 +18,16 @@
       "options": {
         "passWithNoTests": true
       }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx nx generate @shukun/workspace-plugin:react-widget-generator --name=presenter-widget-react --path=widgets --no-interactive"
+          }
+        ]
+      }
     }
   }
 }
