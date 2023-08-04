@@ -1,4 +1,5 @@
 import { WidgetSchema } from '@shukun/schema';
+import { toPascalCase } from 'js-convert-case';
 
 export const generatorTypes = (
   widgetName: string,
@@ -12,13 +13,11 @@ export const generatorTypes = (
 };
 
 const getTypeName = (widgetName: string): string => {
-  return `${firstUppercase(widgetName)}WidgetProps`;
+  return `${convertName(widgetName)}WidgetProps`;
 };
 
-const firstUppercase = (text: string): string => {
-  const first = text.substring(0, 1).toUpperCase();
-  const other = text.substring(1, text.length);
-  return `${first}${other}`;
+const convertName = (text: string): string => {
+  return toPascalCase(text);
 };
 
 const getProps = (definition: WidgetSchema): string => {
