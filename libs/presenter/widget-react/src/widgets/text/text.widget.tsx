@@ -5,7 +5,11 @@ import { createWidget } from '../../abstracts/create-widget';
 import { TextWidgetProps } from './text.props';
 
 export const TextWidget = createWidget<TextWidgetProps>(
-  ({ value, ...props }) => {
-    return <Text {...props}>{value}</Text>;
+  ({ value, truncate, ...props }) => {
+    return (
+      <Text truncate={truncate === true ? true : undefined} {...props}>
+        {value}
+      </Text>
+    );
   },
 );

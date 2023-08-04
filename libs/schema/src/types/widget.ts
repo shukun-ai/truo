@@ -36,6 +36,7 @@ export interface WidgetProperty {
     | 'optionArray'
     | 'unknownObject'
     | 'unknownArray'
+    | 'dataBinding'
     | 'breakpoints'
     | 'attachments';
   enums?: string[];

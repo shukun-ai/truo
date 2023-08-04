@@ -62,6 +62,10 @@ const getType = (prop: WidgetSchema['properties'][number]): string => {
       return 'breakpoints';
     case 'attachments':
       return 'attachments';
+    case 'dataBinding':
+      return 'unknown';
+  }
+};
 
 const getChildrenProps = (definition: WidgetSchema): string[] => {
   if (definition.allowedChildTags && definition.allowedChildTags.length > 0) {

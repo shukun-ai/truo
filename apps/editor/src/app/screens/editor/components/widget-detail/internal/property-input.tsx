@@ -1,6 +1,7 @@
 import { Box, Code, Text } from '@mantine/core';
 import {
   BooleanInput,
+  DataBindingInput,
   EnumInput,
   NumberInput,
   StringInput,
@@ -86,6 +87,20 @@ export const PropertyInput = ({
   ) {
     return (
       <BooleanInput
+        label={widgetProperty.label}
+        secondaryLabel={widgetPropertyId}
+        value={value}
+        onChange={onChange}
+      />
+    );
+  }
+
+  if (
+    type === 'dataBinding' &&
+    (typeof value === 'string' || value === undefined)
+  ) {
+    return (
+      <DataBindingInput
         label={widgetProperty.label}
         secondaryLabel={widgetPropertyId}
         value={value}
