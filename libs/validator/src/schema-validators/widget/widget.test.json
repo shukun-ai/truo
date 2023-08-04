@@ -4,30 +4,20 @@
   "properties": {
     "value": {
       "label": "Display Text",
-      "schema": {
-        "type": "string"
-      }
+      "type": "string"
     },
     "color": {
       "label": "Text Color",
-      "schema": {
-        "type": "string"
-      },
-      "defaultValue": "#000"
+      "type": "string"
     },
     "fontSize": {
       "label": "Text Size",
-      "schema": {
-        "type": "string"
-      },
-      "defaultValue": "1rem"
+      "type": "number"
     },
     "change": {
       "label": "When change",
       "isEvent": true,
-      "schema": {
-        "type": "string"
-      }
+      "type": "string"
     }
   }
 }
