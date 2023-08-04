@@ -11,6 +11,54 @@
       "label": "对齐方式",
       "type": "enum",
       "enums": ["left", "right", "center", "justify"]
+    },
+    "color": {
+      "label": "自定义颜色",
+      "type": "string"
+    },
+    "italic": {
+      "label": "斜体",
+      "type": "boolean"
+    },
+    "lineClamp": {
+      "label": "行数省略",
+      "type": "number",
+      "description": "CSS -webkit-line-clamp property"
+    },
+    "size": {
+      "label": "字体大小",
+      "type": "enum",
+      "enums": ["xs", "sm", "md", "lg", "xl"]
+    },
+    "strikethrough": {
+      "label": "删除线",
+      "type": "boolean"
+    },
+    "transform": {
+      "label": "变形",
+      "type": "enum",
+      "enums": [
+        "none",
+        "revert",
+        "capitalize",
+        "lowercase",
+        "uppercase",
+        "full-width"
+      ],
+      "description": "full-width 仅作用于中日韩文字"
+    },
+    "truncate": {
+      "label": "长度省略",
+      "type": "boolean"
+    },
+    "underline": {
+      "label": "下划线",
+      "type": "boolean"
+    },
+    "weight": {
+      "label": "字粗",
+      "type": "integer",
+      "description": "400 为正常，700 为粗体"
     }
   }
 }

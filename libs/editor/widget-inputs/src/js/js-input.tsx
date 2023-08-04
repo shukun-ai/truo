@@ -19,7 +19,9 @@ export const JsInput = ({ value, onChange }: JsInputProps) => {
   ]);
 
   const parsedValue = useMemo(() => {
-    return value.substring(CODE_MODE_JS_PREFIX.length, value.length);
+    return typeof value === 'string' && value.startsWith(CODE_MODE_JS_PREFIX)
+      ? value.substring(CODE_MODE_JS_PREFIX.length, value.length)
+      : '';
   }, [value]);
 
   useEffect(() => {

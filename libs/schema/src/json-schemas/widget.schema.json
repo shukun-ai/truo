@@ -41,6 +41,7 @@
                 "optionArray",
                 "unknownObject",
                 "unknownArray",
+                "dataBinding",
                 "breakpoints",
                 "attachments"
               ]
