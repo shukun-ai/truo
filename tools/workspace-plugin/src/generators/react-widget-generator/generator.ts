@@ -22,7 +22,13 @@ const firstUppercase = (text: string): string => {
 };
 
 const getProps = (definition: WidgetSchema): string => {
-  return Object.entries(definition.properties).reduce(getProp, []).join('\r');
+  return [...getCommonProps(definition), ...getChildrenProps(definition)].join(
+    '\r',
+  );
+};
+
+const getCommonProps = (definition: WidgetSchema): string[] => {
+  return Object.entries(definition.properties).reduce(getProp, []);
 };
 
 const getProp = (
@@ -56,5 +62,11 @@ const getType = (prop: WidgetSchema['properties'][number]): string => {
       return 'breakpoints';
     case 'attachments':
       return 'attachments';
+
+const getChildrenProps = (definition: WidgetSchema): string[] => {
+  if (definition.allowedChildTags && definition.allowedChildTags.length > 0) {
+    return [`children?: JSX.Element | JSX.Element[];`];
+  } else {
+    return [];
   }
 };
