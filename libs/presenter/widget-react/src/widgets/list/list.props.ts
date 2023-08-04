@@ -1,4 +1,4 @@
-export type TableWidgetProps = {
+export type ListWidgetProps = {
   data?: unknown;
   children?: JSX.Element[];
 };

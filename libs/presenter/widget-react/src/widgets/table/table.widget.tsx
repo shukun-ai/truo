@@ -27,14 +27,13 @@ export const TableWidget = createWidget<TableWidgetProps>(
         <tbody>
           {parsedData.map((item, index) => (
             <tr key={index}>
-              {Array.isArray(children) &&
-                children.map((child, index) => {
-                  return cloneElement(child, {
-                    item,
-                    index,
-                    key: index,
-                  });
-                })}
+              {children?.map((child, index) => {
+                return cloneElement(child, {
+                  item,
+                  index,
+                  key: index, // TODO get the key from child props
+                });
+              })}
             </tr>
           ))}
         </tbody>
