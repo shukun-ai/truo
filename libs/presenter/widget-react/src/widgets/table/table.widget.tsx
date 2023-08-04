@@ -1,28 +1,40 @@
 import { Table } from '@mantine/core';
 
-import { useMemo } from 'react';
+import { cloneElement, useMemo } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
 
+import { useHeaders } from './internal/use-headers';
 import { TableWidgetProps } from './table.props';
 
 export const TableWidget = createWidget<TableWidgetProps>(
-  ({ data, ...props }) => {
+  ({ data, children, ...props }) => {
     const parsedData = useMemo<unknown[]>(() => {
       return Array.isArray(data) ? data : [];
     }, [data]);
 
+    const headers = useHeaders(children);
+
     return (
       <Table {...props}>
         <thead>
-          <th>
-            <td>测试</td>
-          </th>
+          <tr>
+            {headers.map((header, index) => (
+              <td key={index}>{header.title}</td>
+            ))}
+          </tr>
         </thead>
         <tbody>
           {parsedData.map((item, index) => (
             <tr key={index}>
-              <td>cell</td>
+              {Array.isArray(children) &&
+                children.map((child, index) => {
+                  return cloneElement(child, {
+                    item,
+                    index,
+                    key: index,
+                  });
+                })}
             </tr>
           ))}
         </tbody>
