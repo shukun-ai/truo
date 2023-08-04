@@ -1,18 +1,21 @@
 import { Box, Code, Text } from '@mantine/core';
+import {
+  BooleanInput,
+  EnumInput,
+  NumberInput,
+  StringInput,
+} from '@shukun/editor/widget-inputs';
 import { WidgetProperty } from '@shukun/schema';
 
-import { WidgetBooleanInput } from '../../../../../components/widget-editor/widget-boolean-input';
-import { WidgetEnumInput } from '../../../../../components/widget-editor/widget-enum-input';
-import { WidgetNumberInput } from '../../../../../components/widget-editor/widget-number-input';
-import { WidgetStringInput } from '../../../../../components/widget-editor/widget-string-input';
-
 export type PropertyInputProps = {
+  widgetPropertyId: string;
   widgetProperty: WidgetProperty;
   value: unknown;
   onChange: (newValue: unknown) => void;
 };
 
 export const PropertyInput = ({
+  widgetPropertyId,
   widgetProperty,
   value,
   onChange,
@@ -21,30 +24,74 @@ export const PropertyInput = ({
 
   if (type === 'enum' && (typeof value === 'string' || value === undefined)) {
     return (
-      <WidgetEnumInput value={value} onChange={onChange} enums={enums ?? []} />
+      <EnumInput
+        label={widgetProperty.label}
+        secondaryLabel={widgetPropertyId}
+        value={value}
+        onChange={onChange}
+        enums={enums ?? []}
+      />
     );
   }
 
   if (type === 'string' && (typeof value === 'string' || value === undefined)) {
-    return <WidgetStringInput value={value} onChange={onChange} />;
+    return (
+      <StringInput
+        label={widgetProperty.label}
+        secondaryLabel={widgetPropertyId}
+        value={value}
+        onChange={onChange}
+      />
+    );
   }
 
   if (
     type === 'integer' &&
-    (typeof value === 'number' || value === undefined)
+    (typeof value === 'number' ||
+      typeof value === 'string' ||
+      value === undefined)
   ) {
-    return <WidgetNumberInput value={value} onChange={onChange} isInteger />;
+    return (
+      <NumberInput
+        label={widgetProperty.label}
+        secondaryLabel={widgetPropertyId}
+        value={value}
+        onChange={onChange}
+        isInteger
+      />
+    );
   }
 
-  if (type === 'number' && (typeof value === 'number' || value === undefined)) {
-    return <WidgetNumberInput value={value} onChange={onChange} />;
+  if (
+    type === 'number' &&
+    (typeof value === 'number' ||
+      typeof value === 'string' ||
+      value === undefined)
+  ) {
+    return (
+      <NumberInput
+        label={widgetProperty.label}
+        secondaryLabel={widgetPropertyId}
+        value={value}
+        onChange={onChange}
+      />
+    );
   }
 
   if (
     type === 'boolean' &&
-    (typeof value === 'boolean' || value === undefined)
+    (typeof value === 'boolean' ||
+      typeof value === 'string' ||
+      value === undefined)
   ) {
-    return <WidgetBooleanInput value={value} onChange={onChange} />;
+    return (
+      <BooleanInput
+        label={widgetProperty.label}
+        secondaryLabel={widgetPropertyId}
+        value={value}
+        onChange={onChange}
+      />
+    );
   }
 
   return (
