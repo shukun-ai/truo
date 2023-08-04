@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "table-column",
+  "icon": "",
+  "allowedChildTags": ["*"],
+  "properties": {
+    "title": {
+      "label": "标题",
+      "type": "string"
+    },
+    "data": {
+      "label": "数据绑定",
+      "type": "dataBinding"
+    }
+  }
+}
