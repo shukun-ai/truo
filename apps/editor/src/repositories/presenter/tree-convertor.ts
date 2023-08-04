@@ -26,9 +26,9 @@ export const toWidgetNameTree = (
   Object.entries(treeNodes).forEach(
     ([parentWidgetEntityId, childWidgetEntityIds]) => {
       const newParentWidgetEntityId = widgetNames[parentWidgetEntityId];
-      const newChildWidgetNames = childWidgetEntityIds.map(
-        (childWidgetEntityId) => widgetNames[childWidgetEntityId],
-      );
+      const newChildWidgetNames = childWidgetEntityIds
+        .map((childWidgetEntityId) => widgetNames[childWidgetEntityId])
+        .filter((name) => !!name);
 
       if (parentWidgetEntityId === ROOT_NODE_ID) {
         newTreeNodes[ROOT_NODE_ID] = newChildWidgetNames;
