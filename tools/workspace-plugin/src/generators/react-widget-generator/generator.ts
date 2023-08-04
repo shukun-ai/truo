@@ -68,7 +68,7 @@ const getType = (prop: WidgetSchema['properties'][number]): string => {
 
 const getChildrenProps = (definition: WidgetSchema): string[] => {
   if (definition.allowedChildTags && definition.allowedChildTags.length > 0) {
-    return [`children?: JSX.Element | JSX.Element[];`];
+    return [`children?: JSX.Element[];`];
   } else {
     return [];
   }

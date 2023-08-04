@@ -3,5 +3,5 @@ export type CreateWidget = <T>(
 ) => (props: T & WidgetDefaultProps) => JSX.Element;
 
 type WidgetDefaultProps = {
-  children: JSX.Element | JSX.Element[];
+  //
 };
