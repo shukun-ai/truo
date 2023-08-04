@@ -70,7 +70,7 @@ export const WidgetWrapper = ({
 
   return (
     <ReactWidget
-      composeId={`${containerId}:${widgetId}`}
+      id={`${containerId}:${widgetId}:${index ?? 0}`}
       app={app}
       {...properties}
     >

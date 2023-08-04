@@ -26,6 +26,12 @@ const assembleWidgets = (
   app: AppProps,
 ): JSX.Element[] => {
   return widgetIds.map((widgetId) => {
+    if (!widgetId) {
+      throw new TypeException(
+        'The widgetId is broken, please check the presenter tree.',
+      );
+    }
+
     const widget = container.widgets[widgetId];
     const nextChildrenNodes = container.tree[widgetId];
     let nextElements: JSX.Element[] = [];

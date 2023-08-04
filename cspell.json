@@ -27,7 +27,8 @@
     "ngneat",
     "tabler",
     "codemirror",
-    "metadatas"
+    "metadatas",
+    "composeid"
   ],
   "ignoreWords": [],
   "import": []
