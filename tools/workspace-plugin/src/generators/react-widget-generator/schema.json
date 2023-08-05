@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "$id": "widget-generator",
+  "$id": "react-widget-generator",
   "type": "object",
   "properties": {
     "name": {
