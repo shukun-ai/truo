@@ -1,1 +1,2 @@
-export * from './lib/presenter-input-schema';
+export * from './types/string.editor';
+export * from './types/string.presenter';
