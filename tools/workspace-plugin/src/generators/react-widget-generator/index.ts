@@ -7,11 +7,18 @@ import { Tree, readProjectConfiguration } from '@nx/devkit';
 import { WidgetSchema } from '@shukun/schema';
 import { format } from 'prettier';
 
+import { generateEditor } from './generate-editor';
+import { generatePresenter } from './generate-presenter';
 import { generatorTypes } from './generator';
 
 export default async function (
   tree: Tree,
-  schema: { name: string; path: string },
+  schema: {
+    name: string;
+    path: string;
+    presenterFile: string;
+    editorFile: string;
+  },
 ) {
   const { sourceRoot } = readProjectConfiguration(tree, schema.name);
 
@@ -40,6 +47,16 @@ export default async function (
       code,
     );
   }
+
+  await writeFile(
+    join(sourceRoot, schema.presenterFile),
+    formatCode(join(tree.root, '.prettierrc'), generatePresenter(directories)),
+  );
+
+  await writeFile(
+    join(sourceRoot, schema.editorFile),
+    formatCode(join(tree.root, '.prettierrc'), generateEditor(directories)),
+  );
 }
 
 const readDirectories = async (fullPath: string): Promise<string[]> => {

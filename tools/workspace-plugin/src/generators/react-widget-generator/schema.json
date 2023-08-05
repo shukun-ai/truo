@@ -19,7 +19,13 @@
         "$source": "argv",
         "index": 1
       }
+    },
+    "presenterFile": {
+      "type": "string"
+    },
+    "editorFile": {
+      "type": "string"
     }
   },
-  "required": ["name", "path"]
+  "required": ["name", "path", "presenterFile", "editorFile"]
 }

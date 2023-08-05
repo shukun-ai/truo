@@ -24,7 +24,7 @@
       "options": {
         "commands": [
           {
-            "command": "npx nx generate @shukun/workspace-plugin:react-widget-generator --name=presenter-widget-react --path=widgets --no-interactive"
+            "command": "npx nx generate @shukun/workspace-plugin:react-widget-generator --name=presenter-widget-react --path=widgets --presenterFile=presenter-widgets.ts --editorFile=editor-widgets.ts --no-interactive"
           }
         ]
       }
