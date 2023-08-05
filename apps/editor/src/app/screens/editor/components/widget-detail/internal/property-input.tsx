@@ -21,7 +21,7 @@ export const PropertyInput = ({
   value,
   onChange,
 }: PropertyInputProps) => {
-  const { type, enums } = widgetProperty;
+  const { type, enums, disabledJsMode } = widgetProperty;
 
   if (type === 'enum' && (typeof value === 'string' || value === undefined)) {
     return (
@@ -31,6 +31,7 @@ export const PropertyInput = ({
         value={value}
         onChange={onChange}
         enums={enums ?? []}
+        disabledJsMode={disabledJsMode}
       />
     );
   }
@@ -42,6 +43,7 @@ export const PropertyInput = ({
         secondaryLabel={widgetPropertyId}
         value={value}
         onChange={onChange}
+        disabledJsMode={disabledJsMode}
       />
     );
   }
@@ -59,6 +61,7 @@ export const PropertyInput = ({
         value={value}
         onChange={onChange}
         isInteger
+        disabledJsMode={disabledJsMode}
       />
     );
   }
@@ -75,6 +78,7 @@ export const PropertyInput = ({
         secondaryLabel={widgetPropertyId}
         value={value}
         onChange={onChange}
+        disabledJsMode={disabledJsMode}
       />
     );
   }
@@ -91,6 +95,7 @@ export const PropertyInput = ({
         secondaryLabel={widgetPropertyId}
         value={value}
         onChange={onChange}
+        disabledJsMode={disabledJsMode}
       />
     );
   }
@@ -105,6 +110,7 @@ export const PropertyInput = ({
         secondaryLabel={widgetPropertyId}
         value={value}
         onChange={onChange}
+        disabledJsMode={disabledJsMode}
       />
     );
   }

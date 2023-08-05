@@ -6,7 +6,8 @@
   "properties": {
     "title": {
       "label": "标题",
-      "type": "string"
+      "type": "string",
+      "disabledJsMode": true
     },
     "data": {
       "label": "数据绑定",
