@@ -39,6 +39,16 @@
           "codeCoverage": true
         }
       }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx nx generate @shukun/workspace-plugin:widget-input-generator --name=presenter-input-schema --inputPath=schemas --outputPath=types --no-interactive"
+          }
+        ]
+      }
     }
   },
   "tags": []

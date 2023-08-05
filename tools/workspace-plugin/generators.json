@@ -14,6 +14,11 @@
       "implementation": "./src/generators/react-widget-generator",
       "schema": "./src/generators/react-widget-generator/schema.json",
       "description": "Generator react-widget-generator"
+    },
+    "widget-input-generator": {
+      "implementation": "./src/generators/widget-input-generator",
+      "schema": "./src/generators/widget-input-generator/schema.json",
+      "description": "Generator widget-input-generator"
     }
   }
 }
