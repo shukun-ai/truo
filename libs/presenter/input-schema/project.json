@@ -1,0 +1,45 @@
+{
+  "name": "presenter-input-schema",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/presenter/input-schema/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/presenter/input-schema",
+        "tsConfig": "libs/presenter/input-schema/tsconfig.lib.json",
+        "packageJson": "libs/presenter/input-schema/package.json",
+        "main": "libs/presenter/input-schema/src/index.ts",
+        "assets": ["libs/presenter/input-schema/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs presenter-input-schema {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/presenter/input-schema/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/presenter/input-schema/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

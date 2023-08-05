@@ -34,6 +34,9 @@
       ],
       "@shukun/exception": ["libs/exception/src/index.ts"],
       "@shukun/knex": ["libs/knex/src/index.ts"],
+      "@shukun/presenter-input-schema": [
+        "libs/presenter/input-schema/src/index.ts"
+      ],
       "@shukun/presenter/definition": [
         "libs/presenter/definition/src/index.ts"
       ],
