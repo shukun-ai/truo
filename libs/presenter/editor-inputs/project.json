@@ -1,7 +1,7 @@
 {
-  "name": "editor-widget-inputs",
+  "name": "presenter-editor-inputs",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/editor/widget-inputs/src",
+  "sourceRoot": "libs/presenter/editor-inputs/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,15 +9,17 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/editor/widget-inputs/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/presenter/editor-inputs/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/editor/widget-inputs"],
+      "outputs": ["coverage/libs/presenter/editor-inputs"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../../coverage/libs/editor/widget-inputs"
+        "reportsDirectory": "../../../coverage/libs/presenter/editor-inputs"
       }
     }
   }

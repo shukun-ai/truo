@@ -5,7 +5,7 @@ import {
   EnumInput,
   NumberInput,
   StringInput,
-} from '@shukun/editor/widget-inputs';
+} from '@shukun/presenter/editor-inputs';
 import { WidgetProperty } from '@shukun/schema';
 
 export type PropertyInputProps = {
