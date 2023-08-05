@@ -6,4 +6,6 @@ export type CommonInputProps = {
   description?: string;
   error?: ReactNode;
   disabled?: boolean;
+  disabledSimpleMode?: boolean;
+  disabledJsMode?: boolean;
 };

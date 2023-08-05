@@ -10,8 +10,6 @@ export type InputWrapperProps = {
   value: unknown;
   onChange: (newValue: string | undefined) => void;
   children: ReactNode;
-  disabledSimpleMode?: boolean;
-  disabledJsMode?: boolean;
   tipSection?: ReactNode;
 } & CommonInputProps;
 

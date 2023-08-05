@@ -40,6 +40,7 @@ export interface WidgetProperty {
     | 'breakpoints'
     | 'attachments';
   enums?: string[];
+  disabledJsMode?: boolean;
   isEvent?: boolean;
   placeholder?: string;
   description?: string;

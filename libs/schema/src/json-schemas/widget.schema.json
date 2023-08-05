@@ -47,6 +47,7 @@
               ]
             },
             "enums": { "type": "array", "items": { "type": "string" } },
+            "disabledJsMode": { "type": "boolean" },
             "isEvent": { "type": "boolean" },
             "placeholder": { "type": "string" },
             "description": { "type": "string" }
