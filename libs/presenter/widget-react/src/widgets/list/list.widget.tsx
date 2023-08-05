@@ -14,12 +14,12 @@ export const ListWidget = createWidget<ListWidgetProps>(
 
     return (
       <Box {...props}>
-        {parsedData.map((item, index) => {
-          return children?.map((child) => {
+        {parsedData.map((item, dataIndex) => {
+          return children?.map((child, childIndex) => {
             return cloneElement(child, {
               item,
-              index,
-              key: index, // TODO get the key from child props
+              index: dataIndex,
+              key: `${dataIndex}:${childIndex}`, // TODO get the key from child props
             });
           });
         })}
