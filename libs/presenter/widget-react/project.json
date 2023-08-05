@@ -27,7 +27,13 @@
             "command": "npx nx generate @shukun/workspace-plugin:react-widget-generator --name=presenter-widget-react --path=widgets --presenterFile=presenter-widgets.ts --editorFile=editor-widgets.ts --no-interactive"
           }
         ]
-      }
+      },
+      "dependsOn": [
+        {
+          "projects": ["schema", "presenter-input-schema"],
+          "target": "generate"
+        }
+      ]
     }
   }
 }
