@@ -1,4 +1,3 @@
-import { Container, ScrollArea } from '@mantine/core';
 import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
@@ -54,14 +53,10 @@ export const TabRepository = ({ tab }: TabRepositoryProps) => {
   }
 
   return (
-    <ScrollArea sx={{ width: '100%', height: '100%' }}>
-      <Container fluid>
-        <RepositoryDetail
-          tab={tab}
-          repository={repositoryEntity}
-          definition={definition}
-        />
-      </Container>
-    </ScrollArea>
+    <RepositoryDetail
+      tab={tab}
+      repositoryEntity={repositoryEntity}
+      definition={definition}
+    />
   );
 };
