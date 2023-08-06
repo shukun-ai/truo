@@ -1,5 +1,3 @@
-export * from './constants/code-mode';
-
 export * from './styles/reboot';
 export * from './styles/light-theme';
 export * from './styles/variables';
