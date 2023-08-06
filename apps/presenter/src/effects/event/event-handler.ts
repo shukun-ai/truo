@@ -1,10 +1,9 @@
 import { TypeException } from '@shukun/exception';
 import {
-  CODE_MODE_JS_PREFIX,
   EventManagerContext,
   EventManagerState,
 } from '@shukun/presenter/definition';
-import { PresenterEvent } from '@shukun/schema';
+import { CodeMode, PresenterEvent } from '@shukun/schema';
 
 import { getSyntheticState } from '../store/synthetic-state';
 
@@ -63,7 +62,7 @@ export const handleEvent = (
     payload,
   };
 
-  const template = value ? value : `${CODE_MODE_JS_PREFIX}return $.payload`;
+  const template = value ? value : `${CodeMode.JS}return $.payload`;
   const parsedValue = context.templateService.run(
     template,
     states,

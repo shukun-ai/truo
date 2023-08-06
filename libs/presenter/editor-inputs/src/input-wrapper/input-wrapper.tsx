@@ -1,5 +1,5 @@
 import { ActionIcon, Box, Group, Text, Title, Tooltip } from '@mantine/core';
-import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
+import { CodeMode } from '@shukun/schema';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { ReactNode, useCallback, useMemo } from 'react';
 
@@ -25,7 +25,7 @@ export const InputWrapper = ({
   tipSection,
 }: InputWrapperProps) => {
   const mode = useMemo(() => {
-    if (typeof value === 'string' && value.startsWith(CODE_MODE_JS_PREFIX)) {
+    if (typeof value === 'string' && value.startsWith(CodeMode.JS)) {
       return 'js';
     } else {
       return 'simple';
@@ -37,7 +37,7 @@ export const InputWrapper = ({
       if (mode === 'simple') {
         onChange(undefined);
       } else if (mode === 'js') {
-        onChange(CODE_MODE_JS_PREFIX);
+        onChange(CodeMode.JS);
       }
     },
     [onChange],
