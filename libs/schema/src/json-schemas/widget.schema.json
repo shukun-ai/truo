@@ -43,7 +43,8 @@
                 "unknownArray",
                 "dataBinding",
                 "breakpoints",
-                "attachments"
+                "attachments",
+                "boxModel"
               ]
             },
             "enums": { "type": "array", "items": { "type": "string" } },

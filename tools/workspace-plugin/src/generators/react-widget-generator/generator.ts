@@ -63,6 +63,8 @@ const getType = (prop: WidgetSchema['properties'][number]): string => {
       return 'attachments';
     case 'dataBinding':
       return 'unknown';
+    case 'boxModel':
+      return '{ pt?: string; pr?: string; pb?: string; pl?: string; mt?: string; mr?: string; mb?: string; ml?: string; w?: string; h?: string; }';
   }
 };
 

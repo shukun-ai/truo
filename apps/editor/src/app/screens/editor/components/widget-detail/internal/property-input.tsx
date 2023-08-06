@@ -1,6 +1,7 @@
 import { Box, Code, Text } from '@mantine/core';
 import {
   BooleanInput,
+  BoxModelInput,
   DataBindingInput,
   EnumInput,
   NumberInput,
@@ -109,6 +110,18 @@ export const PropertyInput = ({
         label={widgetProperty.label}
         secondaryLabel={widgetPropertyId}
         value={value}
+        onChange={onChange}
+        disabledJsMode={disabledJsMode}
+      />
+    );
+  }
+
+  if (type === 'boxModel') {
+    return (
+      <BoxModelInput
+        label={widgetProperty.label}
+        secondaryLabel={widgetPropertyId}
+        value={value as any}
         onChange={onChange}
         disabledJsMode={disabledJsMode}
       />

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "EditorBoxModelSchema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "pt": { "type": "string" },
+    "pr": { "type": "string" },
+    "pb": { "type": "string" },
+    "pl": { "type": "string" },
+    "mt": { "type": "string" },
+    "mr": { "type": "string" },
+    "mb": { "type": "string" },
+    "ml": { "type": "string" },
+    "w": { "type": "string" },
+    "h": { "type": "string" }
+  }
+}
