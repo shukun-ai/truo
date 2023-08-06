@@ -29,11 +29,9 @@ export const RepositoryCreateButton = () => {
           'The containerName is null when create repository.',
         );
       }
-
       try {
         app.repositories.presenterRepository.repositoryRepository.create({
           ...values,
-          type: 'simple', // TODO
           parameters: {},
           containerName,
         });
