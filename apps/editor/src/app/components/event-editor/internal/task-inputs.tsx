@@ -182,8 +182,8 @@ export const TaskInputs = ({
             }}
              />
           )} */}
-            {action?.requiredValue}
-            {action?.requiredValue && (
+            {action?.enabledValue}
+            {action?.enabledValue && (
               <CodeInput
                 label="参数"
                 extensions={[javascript()]}
