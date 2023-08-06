@@ -1,7 +1,7 @@
 import { javascript } from '@codemirror/lang-javascript';
 import { ViewUpdate, EditorView } from '@codemirror/view';
 import { Box } from '@mantine/core';
-import { CODE_MODE_JS_PREFIX } from '@shukun/presenter/definition';
+import { CodeMode } from '@shukun/schema';
 import { useEffect, useMemo } from 'react';
 
 import { useCodeMirror } from '../common/use-code-mirror';
@@ -15,12 +15,12 @@ export type JsInputProps = {
 export const JsInput = ({ value, onChange }: JsInputProps) => {
   const { ref, view } = useCodeMirror([
     javascript(),
-    onUpdate((value) => onChange(`${CODE_MODE_JS_PREFIX}${value}`)),
+    onUpdate((value) => onChange(`${CodeMode.JS}${value}`)),
   ]);
 
   const parsedValue = useMemo(() => {
-    return typeof value === 'string' && value.startsWith(CODE_MODE_JS_PREFIX)
-      ? value.substring(CODE_MODE_JS_PREFIX.length, value.length)
+    return typeof value === 'string' && value.startsWith(CodeMode.JS)
+      ? value.substring(CodeMode.JS.length, value.length)
       : '';
   }, [value]);
 
