@@ -1,8 +1,7 @@
+import { Box } from '@mantine/core';
 import { WidgetSchema } from '@shukun/schema';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
-
-import { SchemaTip } from '../../../../../components/schema-tip/schema-tip';
 
 import { EventInput } from './event-input';
 
@@ -35,12 +34,7 @@ export const EventInputs = ({
               value[widgetPropertyId] = newValue as any;
               onChange(value);
             }}
-            tipSection={
-              <SchemaTip
-                title="回调数据的格式"
-                schema={widgetProperty.schema}
-              />
-            }
+            tipSection={<Box>暂无提示</Box>}
           />
         ))}
     </>
