@@ -38,7 +38,8 @@ export interface WidgetProperty {
     | 'unknownArray'
     | 'dataBinding'
     | 'breakpoints'
-    | 'attachments';
+    | 'attachments'
+    | 'boxModel';
   enums?: string[];
   disabledJsMode?: boolean;
   isEvent?: boolean;

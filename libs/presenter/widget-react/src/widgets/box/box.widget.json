@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "box",
+  "icon": "",
+  "allowedChildTags": ["*"],
+  "properties": {
+    "boxModel": {
+      "label": "盒模型",
+      "type": "boxModel"
+    }
+  }
+}
