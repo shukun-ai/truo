@@ -21,6 +21,7 @@ export const ConnectorNameInput = ({
         data={connectorOptions}
         value={value}
         onChange={(event) => onChange(event ?? undefined)}
+        withinPortal
       />
     </SimpleWrapper>
   );
