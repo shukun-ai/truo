@@ -1,15 +1,13 @@
 import { RepositorySchema } from '@shukun/schema';
 
-import flowRepositoryDefinitionJson from './flow.repository.json';
-import routerRepositoryDefinitionJson from './router.repository.json';
-import simpleRepositoryDefinitionJson from './simple.repository.json';
-import sourceQueryRepositoryDefinitionJson from './source-query.repository.json';
+import connectorRepositoryJson from './connector.repository.json';
+import routerRepositoryJson from './router.repository.json';
+import sourceQueryRepositoryJson from './source-query.repository.json';
+import temporaryRepositoryJson from './temporary.repository.json';
 
-export const routerRepositoryDefinition =
-  routerRepositoryDefinitionJson as unknown as RepositorySchema;
-export const flowRepositoryDefinition =
-  flowRepositoryDefinitionJson as unknown as RepositorySchema;
-export const simpleRepositoryDefinition =
-  simpleRepositoryDefinitionJson as unknown as RepositorySchema;
-export const sourceQueryRepositoryDefinition =
-  sourceQueryRepositoryDefinitionJson as unknown as RepositorySchema;
+export const editorRepositories: Record<string, RepositorySchema> = {
+  router: routerRepositoryJson as RepositorySchema,
+  connector: connectorRepositoryJson as RepositorySchema,
+  temporary: temporaryRepositoryJson as RepositorySchema,
+  sourceQuery: sourceQueryRepositoryJson as RepositorySchema,
+};

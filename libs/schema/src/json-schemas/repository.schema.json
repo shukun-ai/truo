@@ -15,22 +15,28 @@
     "scope": {
       "enum": ["app", "container"]
     },
-    "manualJsonSchema": { "type": "boolean" },
     "parameters": {
       "type": "object",
       "patternProperties": {
         "^(.)+$": {
           "type": "object",
           "title": "RepositoryParameter",
-          "required": ["editorType"],
+          "required": ["label", "type"],
           "additionalProperties": false,
           "properties": {
-            "editorType": {
-              "enum": ["jsonSchema", "atomName", "flowName", "connectorName"]
+            "label": {
+              "type": "string"
+            },
+            "type": {
+              "enum": ["jsonSchema", "atomName", "connectorName"],
+              "$comment": "The parameters in repository should be static all. All type is disabledJsMode as true."
             },
             "required": {
               "type": "boolean"
-            }
+            },
+            "enums": { "type": "array", "items": { "type": "string" } },
+            "placeholder": { "type": "string" },
+            "description": { "type": "string" }
           }
         }
       }
@@ -44,8 +50,8 @@
           "required": [],
           "additionalProperties": false,
           "properties": {
-            "requiredPath": { "type": "boolean" },
-            "requiredValue": { "type": "boolean" }
+            "enabledPath": { "type": "boolean" },
+            "enabledValue": { "type": "boolean" }
           }
         }
       }

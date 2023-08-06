@@ -13,7 +13,6 @@ export interface RepositorySchema {
   $schema?: string;
   name: string;
   scope: 'app' | 'container';
-  manualJsonSchema?: boolean;
   parameters: {
     [k: string]: RepositoryParameter;
   };
@@ -26,14 +25,18 @@ export interface RepositorySchema {
  * via the `patternProperty` "^(.)+$".
  */
 export interface RepositoryParameter {
-  editorType: 'jsonSchema' | 'atomName' | 'flowName' | 'connectorName';
+  label: string;
+  type: 'jsonSchema' | 'atomName' | 'connectorName';
   required?: boolean;
+  enums?: string[];
+  placeholder?: string;
+  description?: string;
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
  */
 export interface RepositoryAction {
-  requiredPath?: boolean;
-  requiredValue?: boolean;
+  enabledPath?: boolean;
+  enabledValue?: boolean;
 }

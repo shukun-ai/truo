@@ -3,9 +3,11 @@
   "name": "flow",
   "scope": "container",
   "parameters": {
-    "flowName": {
-      "editorType": "flowName",
+    "connectorName": {
+      "label": "连接器",
+      "type": "connectorName",
       "required": true
     }
-  }
+  },
+  "actions": {}
 }
