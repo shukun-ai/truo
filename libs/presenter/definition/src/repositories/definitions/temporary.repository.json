@@ -1,10 +1,11 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
-  "name": "router",
-  "scope": "app",
+  "name": "temporary",
+  "scope": "container",
   "parameters": {},
   "actions": {
-    "push": {
+    "setValue": {
+      "enabledPath": true,
       "enabledValue": true
     }
   }

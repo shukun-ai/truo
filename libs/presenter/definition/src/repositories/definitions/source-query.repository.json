@@ -4,13 +4,14 @@
   "scope": "container",
   "parameters": {
     "atomName": {
-      "editorType": "atomName",
+      "label": "元数据表",
+      "type": "atomName",
       "required": true
     }
   },
   "actions": {
     "run": {
-      "requiredValue": true
+      "enabledValue": true
     }
   }
 }
