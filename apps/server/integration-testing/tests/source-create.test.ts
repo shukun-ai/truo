@@ -60,7 +60,7 @@ describe('Source apis', () => {
         expect(error).toEqual(
           new ApiResponseException(
             400,
-            '{{electronName}}: should be required.',
+            '{{electronName}}: should be required. -> {"electronName":"number"}',
             { electronName: 'number' },
             'SourceRequiredException',
           ),
@@ -83,7 +83,7 @@ describe('Source apis', () => {
         expect(error).toEqual(
           new ApiResponseException(
             400,
-            '{{electronNames}} should be unique',
+            '{{electronNames}} should be unique -> {"electronNames":"number"}',
             { electronNames: 'number' },
             'SourceDuplicateException',
           ),
@@ -103,7 +103,7 @@ describe('Source apis', () => {
         expect(error).toEqual(
           new ApiResponseException(
             400,
-            '{{electronName}}: should be less than {{maxLength}}.',
+            '{{electronName}}: should be less than {{maxLength}}. -> {"electronName":"number","maxLength":1000} -> {"electronName":"number","maxLength":1000}',
             { electronName: 'number', maxLength: 1000 },
             'SourceValidateException',
           ),

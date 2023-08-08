@@ -103,7 +103,7 @@ describe('PermissionOwnValidator', () => {
           'Did not find matched permissions to check own or all, name is {{name}} and action is {{ action }}',
           {
             name: 'orders',
-            action: 'mock_action',
+            action: 'read',
           },
         ),
       );

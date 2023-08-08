@@ -104,7 +104,9 @@ describe('ResolverService', () => {
       expect(
         resolverService.executeNextEvent(events, compiledCodes, context),
       ).rejects.toThrow(
-        new FlowDefinitionException('Did not find event: {{eventName}}'),
+        new FlowDefinitionException('Did not find event: {{eventName}}', {
+          eventName: 'noThisEvent',
+        }),
       );
     });
 
@@ -145,6 +147,9 @@ describe('ResolverService', () => {
       ).rejects.toThrow(
         new FlowNoCompiledCodeException(
           'Did not find compiled code: {{eventName}}.',
+          {
+            eventName: 'test',
+          },
         ),
       );
     });
@@ -284,6 +289,7 @@ describe('ResolverService', () => {
       ).rejects.toThrow(
         new FlowRepeatCountException(
           'The repeatCount is not number type: {{ repeatCount }}.',
+          { repeatCount: 'this is not a number' },
         ),
       );
     });
@@ -326,6 +332,9 @@ describe('ResolverService', () => {
       ).rejects.toThrow(
         new FlowDefinitionException(
           'The repeat count is more than max value: {{ count }}',
+          {
+            count: 1001,
+          },
         ),
       );
     });
