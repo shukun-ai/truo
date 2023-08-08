@@ -109,7 +109,7 @@ describe('ScheduleRegisterService', () => {
   it('start a wrong name', () => {
     expect(() => scheduleRegisterService.start('mock', schedule)).toThrow(
       new TypeException('Did not find schedule: {{orgScheduleName}}', {
-        orgScheduleName: 'mock',
+        orgScheduleName: 'mock->test',
       }),
     );
   });
