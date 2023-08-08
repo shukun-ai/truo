@@ -2,17 +2,17 @@
   "$schema": "../../../../schema/src/json-schemas/repository.schema.json",
   "name": "simple",
   "scope": "container",
-  "manualJsonSchema": true,
   "parameters": {
     "defaultValue": {
-      "editorType": "jsonSchema",
+      "label": "Connector",
+      "type": "connectorName",
       "required": false
     }
   },
   "actions": {
     "setValue": {
-      "requiredPath": true,
-      "requiredValue": true
+      "enabledPath": true,
+      "enabledValue": true
     }
   }
 }
