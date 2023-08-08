@@ -1,23 +1,25 @@
 import { TypeException } from '@shukun/exception';
 import {
   IApiRequester,
+  IAuth,
   IRepositoryManager,
+  IRouter,
   IStore,
   RepositoryContext,
 } from '@shukun/presenter/definition';
-import {
-  AuthRepository,
-  ConfigDefinitions,
-  RouterRepository,
-} from '@shukun/presenter/widget-react';
+import { ConfigDefinitions } from '@shukun/presenter/widget-react';
 import { PresenterContainer } from '@shukun/schema';
 import { createBrowserHistory } from 'history';
 
+import { selectRouter } from '../selectors/router-selector';
+
 import { ApiRequester } from './apis/requester';
+import { Auth } from './auth/auth';
 import { EffectInjector } from './effect-injector.interface';
 import { EventManager } from './event/event-manager';
 import { ServerLoader } from './loaders/server-loader';
 import { RepositoryManager } from './repository/repository-manager';
+import { Router } from './router/router';
 import { StorageManager } from './storages/storage-manager';
 import { Store } from './store/store';
 import { TemplateService } from './template/template-service';
@@ -26,44 +28,31 @@ import { WatchManager } from './watch/watch-manager';
 export const createBrowserEffect = async () => {
   const store = new Store();
   const history = createBrowserHistory();
+  const auth = new Auth(store);
+  const router = new Router(store, history);
   const storageManager = new StorageManager(store);
   const apiRequester = new ApiRequester(store);
-  const routerRepository = new RouterRepository(
-    {
-      type: 'app',
-      containerId: null,
-      repositoryId: 'router',
-      definition: { type: 'router', parameters: {} },
-      store,
-      apiRequester,
-    },
-    history,
-  );
-  const authRepository = new AuthRepository({
-    type: 'app',
-    containerId: null,
-    repositoryId: 'auth',
-    definition: { type: 'auth', parameters: {} },
-    store,
-    apiRequester,
-  });
   const repositoryManager = new RepositoryManager();
   const templateService = new TemplateService();
   const loader = new ServerLoader(apiRequester);
 
-  const router = routerRepository.getValue();
+  const routerState = selectRouter(store);
   const definitions = await loader.load(
-    router.orgName,
-    router.app,
-    router.mode,
+    routerState.orgName,
+    routerState.app,
+    routerState.mode,
   );
 
   storageManager.register();
 
-  // TODO use repository register table instead
-  repositoryManager.registerAuthRepository(authRepository);
-  repositoryManager.registerRouterRepository(routerRepository);
-  registerContainers(store, apiRequester, repositoryManager, definitions);
+  registerContainers(
+    store,
+    apiRequester,
+    repositoryManager,
+    definitions,
+    auth,
+    router,
+  );
 
   const eventManager = new EventManager({
     store,
@@ -84,6 +73,8 @@ export const createBrowserEffect = async () => {
     watchManager,
     eventManager,
     definitions,
+    auth,
+    router,
   };
 
   return injector;
@@ -94,6 +85,8 @@ const registerContainers = (
   apiRequester: IApiRequester,
   repositoryManager: IRepositoryManager,
   definitions: ConfigDefinitions,
+  auth: IAuth,
+  router: IRouter,
 ) => {
   for (const [containerId, container] of Object.entries(
     definitions.presenter.containers,
@@ -105,6 +98,8 @@ const registerContainers = (
       definitions,
       containerId,
       container,
+      auth,
+      router,
     );
   }
 };
@@ -116,6 +111,8 @@ const registerContainer = (
   definitions: ConfigDefinitions,
   containerId: string,
   container: PresenterContainer,
+  auth: IAuth,
+  router: IRouter,
 ): void => {
   for (const [repositoryId, definition] of Object.entries(
     container.repositories,
@@ -138,6 +135,8 @@ const registerContainer = (
       definition,
       store,
       apiRequester,
+      auth,
+      router,
     };
 
     repositoryManager.register(

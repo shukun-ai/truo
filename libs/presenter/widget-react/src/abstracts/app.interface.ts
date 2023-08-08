@@ -1,7 +1,9 @@
 import {
   IApiRequester,
+  IAuth,
   IEventManager,
   IRepositoryManager,
+  IRouter,
   IStore,
   IWatchManager,
   RouterMode,
@@ -37,4 +39,6 @@ export type AppProps = {
   watchManager: IWatchManager;
   eventManager: IEventManager;
   api: IApiRequester;
+  auth: IAuth;
+  router: IRouter;
 };

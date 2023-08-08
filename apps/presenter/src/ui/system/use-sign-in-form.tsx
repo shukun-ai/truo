@@ -28,7 +28,7 @@ export const useSignInForm = (app: AppProps) => {
         },
       );
 
-      app.repositoryManager.getAuthRepository().signIn(response.data.value);
+      app.auth.signIn(response.data.value);
     } catch (error) {
       setErrorMessage(handleErrorMessage(error));
       throw error;

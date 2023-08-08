@@ -1,4 +1,5 @@
 import { IRepository } from '../interfaces/repository.interface';
+import { RouterRepositoryStates } from '../interfaces/router.interface';
 
 export interface IRouterRepository extends IRepository {
   getValue(): RouterRepositoryStates;
@@ -7,18 +8,4 @@ export interface IRouterRepository extends IRepository {
     page?: string;
     search?: Record<string, unknown>;
   }): void;
-}
-
-export type RouterRepositoryStates = {
-  app: string;
-  orgName: string;
-  page: string;
-  search: Record<string, unknown>;
-  mode: RouterMode;
-};
-
-export enum RouterMode {
-  Local = 'local',
-  Editor = 'Editor',
-  Server = 'server',
 }

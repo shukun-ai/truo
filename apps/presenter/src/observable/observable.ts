@@ -35,6 +35,8 @@ export const createObservable = (
         watchManager: injector.watchManager,
         eventManager: injector.eventManager,
         api: injector.apiRequester,
+        auth: injector.auth,
+        router: injector.router,
       };
 
       return appProps;

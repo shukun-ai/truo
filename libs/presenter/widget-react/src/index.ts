@@ -10,7 +10,3 @@ export * from './presenter-widgets';
 // TODO should move repositories all codes to a new library
 export * from './editor-repositories';
 export * from './presenter-repositories';
-
-// TODO should remove two when refactoring repositories
-export * from './repositories/router/router.repository';
-export * from './repositories/auth/auth.repository';
