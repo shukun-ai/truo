@@ -4,7 +4,7 @@ import {
   StoreScope,
 } from '@shukun/presenter/definition';
 
-import { write } from '../shares/mutation';
+import { write } from './common/mutation';
 
 export class BaseRepository<State> implements IRepository {
   constructor(readonly context: RepositoryContext) {}
