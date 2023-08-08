@@ -2,9 +2,6 @@ import { ConfigService } from '@nestjs/config';
 import { ScheduleSchema } from '@shukun/schema';
 import { CronJob } from 'cron';
 
-import { FlowService } from '../flow/flow.service';
-import { mockEmptyDependencies } from '../util/unit-testing/unit-testing.helper';
-
 import { ScheduleJobService } from './schedule-job.service';
 import { ScheduleLogService } from './schedule-log.service';
 
@@ -12,7 +9,6 @@ describe('', () => {
   let scheduleJobService: ScheduleJobService;
   let scheduleLogService: ScheduleLogService;
   let configService: ConfigService;
-  let flowService: FlowService;
 
   let job: CronJob;
 
@@ -26,30 +22,18 @@ describe('', () => {
   };
 
   beforeAll(() => {
-    flowService = new FlowService(
-      mockEmptyDependencies(),
-      mockEmptyDependencies(),
-      mockEmptyDependencies(),
-      mockEmptyDependencies(),
-    );
     configService = new ConfigService({
       schedule: { disabled: false },
     });
     scheduleLogService = new ScheduleLogService();
     scheduleJobService = new ScheduleJobService(
-      mockEmptyDependencies(),
       scheduleLogService,
       configService,
     );
     scheduleJobService = new ScheduleJobService(
-      flowService,
       scheduleLogService,
       configService,
     );
-
-    jest
-      .spyOn(flowService, 'execute')
-      .mockImplementation(async () => ({ value: true }));
 
     jest.spyOn(scheduleLogService, 'logSuccess').mockImplementation(() => {
       /** */
@@ -87,10 +71,6 @@ describe('', () => {
   });
 
   it('jobOnTick with exception', () => {
-    jest.spyOn(flowService, 'execute').mockImplementation(async () => {
-      throw new Error();
-    });
-
     jest
       .spyOn(scheduleLogService, 'logException')
       .mockImplementation((orgNameLog) => {

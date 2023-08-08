@@ -1,5 +1,3 @@
-import { IncomingHttpHeaders } from 'http';
-
 import {
   Controller,
   NotFoundException,
@@ -15,11 +13,8 @@ import { omit } from 'lodash';
 
 import { EXCEPTION_WEBHOOK_TEST_NAME } from '../../app.constant';
 import { WorkflowService } from '../../core/workflow.service';
-import { ExternalContext } from '../../flow/flow.interface';
-import { FlowService } from '../../flow/flow.service';
 import { SecurityRequest } from '../../identity/utils/security-request';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
-import { QueryResponse } from '../../util/query/interfaces';
 import { executeWorkflow } from '../../util/workflow/execution';
 import { ResourceService } from '../../webhook/resource.service';
 
@@ -34,7 +29,6 @@ export class WebhookController {
     private readonly resourceService: ResourceService,
     private readonly workflowService: WorkflowService,
     private readonly webhookLogService: WebhookLogService,
-    private readonly flowService: FlowService,
   ) {}
 
   // @deprecated for security.
@@ -48,31 +42,6 @@ export class WebhookController {
   //   return await this.webhook(req, orgName, workflowName, isTestMode);
   // }
 
-  isFlowVersion(headers: IncomingHttpHeaders) {
-    return !!headers['x-flow-version'];
-  }
-
-  async handleFlowVersion(
-    req: SecurityRequest,
-    orgName: string,
-    workflowName: string,
-  ): Promise<QueryResponse<unknown>> {
-    const externalContext: ExternalContext = {
-      orgName,
-      operatorId: req.userId,
-    };
-    const output = await this.flowService.execute(
-      orgName,
-      workflowName,
-      req.body,
-      externalContext,
-    );
-
-    return {
-      value: output,
-    };
-  }
-
   @Post(':workflowName')
   async webhook(
     @Req() req: SecurityRequest,
@@ -80,10 +49,6 @@ export class WebhookController {
     @Param('workflowName') workflowName: string,
     isTestMode?: boolean,
   ): Promise<any> {
-    if (this.isFlowVersion(req.headers)) {
-      return await this.handleFlowVersion(req, orgName, workflowName);
-    }
-
     const workflow = await this.workflowService.findOne(orgName, workflowName);
 
     if (!workflow.isEnabledWebhook) {

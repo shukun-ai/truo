@@ -8,8 +8,6 @@ import { EnvironmentDao } from './dao/environment.dao';
 import { DataSourceService } from './data-source.service';
 import { EnvironmentService } from './environment.service';
 
-import { FlowService } from './flow.service';
-
 import { MetadataService } from './metadata.service';
 import { OrgSchema, OrgDocumentName } from './org/org.schema';
 import { OrgService } from './org.service';
@@ -37,7 +35,6 @@ import { WorkflowService } from './workflow.service';
     ViewService,
     WorkflowService,
     RoleService,
-    FlowService,
     ScheduleService,
     EnvironmentService,
     DataSourceService,
@@ -54,7 +51,6 @@ import { WorkflowService } from './workflow.service';
     ViewService,
     WorkflowService,
     RoleService,
-    FlowService,
     ScheduleService,
     EnvironmentService,
     DataSourceService,

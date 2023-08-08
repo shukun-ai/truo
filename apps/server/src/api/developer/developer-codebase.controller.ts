@@ -15,9 +15,7 @@ import {
   applicationSchemaValidator,
 } from '@shukun/validator';
 
-import { CompilerService } from '../../compiler/compiler.service';
 import { CodebaseService } from '../../core/codebase.service';
-import { FlowService } from '../../core/flow.service';
 import { OrgService } from '../../core/org.service';
 import { ScheduleOrgOperatorService } from '../../schedule/schedule-org-operator.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
@@ -30,8 +28,6 @@ import { apiPrefix } from '../prefix';
 export class DeveloperCodebaseController {
   constructor(
     private readonly orgService: OrgService,
-    private readonly flowService: FlowService,
-    private readonly compilerService: CompilerService,
     private readonly scheduleOrgOperatorService: ScheduleOrgOperatorService,
     private readonly codebaseService: CodebaseService,
   ) {}
@@ -87,23 +83,7 @@ export class DeveloperCodebaseController {
 
     await this.codebaseService.update(orgName, merged);
 
-    await this.compileOrgFlowCodes(orgName);
-
     await this.bootstrapOrgSchedules(orgName);
-
-    return {
-      value: null,
-    };
-  }
-
-  async compileOrgFlowCodes(orgName: string): Promise<QueryResponse<null>> {
-    const flows = await this.flowService.findAll(orgName);
-    const flowOrgCompiledCodes = await this.compilerService.compileFlows(flows);
-
-    await this.orgService.updateFlowOrgCompiledCodes(
-      orgName,
-      flowOrgCompiledCodes,
-    );
 
     return {
       value: null,

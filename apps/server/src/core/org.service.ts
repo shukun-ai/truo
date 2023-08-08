@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   ApplicationSchema,
-  FlowOrgCompiledCodes,
   DataSourceSchema,
   IDString,
   MetadataSchema,
@@ -108,39 +107,6 @@ export class OrgService {
 
     const application: ApplicationSchema = JSON.parse(org.codebase.toString());
     return application;
-  }
-
-  async updateFlowOrgCompiledCodes(
-    orgName: IDString,
-    flowOrgCompiledCodes: FlowOrgCompiledCodes,
-  ) {
-    const buffer = Buffer.from(JSON.stringify(flowOrgCompiledCodes));
-
-    await this.orgModel.updateOne(
-      { name: orgName },
-      {
-        compiledCodes: buffer,
-      },
-    );
-  }
-
-  async findFlowOrgCompiledCodesByOrgName(
-    orgName: string,
-  ): Promise<FlowOrgCompiledCodes> {
-    const org = await this.orgModel
-      .findOne({ name: orgName })
-      .select('compiledCodes')
-      .exec();
-
-    if (!org?.compiledCodes) {
-      const flowCompiledCodes: FlowOrgCompiledCodes = {};
-      return flowCompiledCodes;
-    }
-
-    const flowCompiledCodes: FlowOrgCompiledCodes = JSON.parse(
-      org.compiledCodes.toString(),
-    );
-    return flowCompiledCodes;
   }
 
   async updateDataSource(orgName: IDString, dataSource: DataSourceSchema) {
