@@ -1,10 +1,10 @@
-import { RouterRepositoryStates } from '@shukun/presenter/definition';
+import { RepositoryContext } from '@shukun/presenter/definition';
 
 import z from 'zod';
 
-import { BaseRepository } from '../base-repository';
+export class RouterRepository {
+  constructor(private readonly context: RepositoryContext) {}
 
-export class RouterRepository extends BaseRepository<RouterRepositoryStates> {
   go(payload: unknown) {
     const schema = z.object({
       page: z.string().optional(),

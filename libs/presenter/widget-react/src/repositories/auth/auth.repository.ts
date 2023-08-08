@@ -1,8 +1,8 @@
-import { AuthRepositoryStates } from '@shukun/presenter/definition';
+import { RepositoryContext } from '@shukun/presenter/definition';
 
-import { BaseRepository } from '../base-repository';
+export class AuthRepository {
+  constructor(private readonly context: RepositoryContext) {}
 
-export class AuthRepository extends BaseRepository<AuthRepositoryStates> {
   signOut(): void {
     this.context.auth.signOut();
   }

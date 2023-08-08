@@ -4,33 +4,29 @@ import {
 } from '@shukun/presenter/definition';
 import { PresenterEvent } from '@shukun/schema';
 
-import { BaseRepository } from '../base-repository';
+import {
+  createState,
+  removeState,
+  updateState,
+} from '../common/scope-operator';
 
-export class TemporaryRepository extends BaseRepository<unknown> {
-  constructor(override readonly context: RepositoryContext) {
-    super(context);
-    this.setInitialValue();
-  }
+export class TemporaryRepository {
+  constructor(readonly context: RepositoryContext) {}
 
-  setValue(event: PresenterEvent, payload: unknown): void {
-    const { path } = event;
-
-    this.context.store.update(
-      {
-        type: 'container',
-        containerId: this.context.containerId,
-        repositoryId: this.context.repositoryId,
-      },
-      path ?? [],
-      () => payload,
-    );
-  }
-
-  private setInitialValue() {
+  register() {
     const defaultValue = this.context.definition?.parameters?.['defaultValue'];
     const parseDefaultValue: TemporaryState =
       typeof defaultValue === 'undefined' ? {} : defaultValue;
 
-    this.initializeValue(parseDefaultValue);
+    createState(this.context, parseDefaultValue);
+  }
+
+  unregister() {
+    removeState(this.context);
+  }
+
+  setValue(event: PresenterEvent, payload: unknown): void {
+    const { path } = event;
+    updateState(this.context, path ?? [], () => payload);
   }
 }

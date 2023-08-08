@@ -1,16 +1,30 @@
-import { IApiRequester, RepositoryContext } from '@shukun/presenter/definition';
+import {
+  AsyncState,
+  IApiRequester,
+  RepositoryContext,
+} from '@shukun/presenter/definition';
 import { HttpQuerySchema, PresenterEvent } from '@shukun/schema';
 
-import { AsyncRepository } from '../async-repository';
+import { write } from '../common/mutation';
+import { createState, updateState } from '../common/scope-operator';
 
-export class SourceQueryRepository extends AsyncRepository {
-  constructor(override readonly context: RepositoryContext) {
-    super(context);
-    this.setInitialValue();
+export class SourceQueryRepository {
+  constructor(private readonly context: RepositoryContext) {}
+
+  register() {
+    createState(this.context, {
+      loading: false,
+      errorMessage: null,
+      data: {},
+    });
   }
 
   async run(event: PresenterEvent, payload: unknown): Promise<void> {
-    this.updateDraft((draft) => (draft.loading = true));
+    updateState<AsyncState>(
+      this.context,
+      [],
+      write((draft) => (draft.loading = true)),
+    );
 
     const { apiRequester, definition } = this.context;
     const { atomName } = definition.parameters as any;
@@ -23,11 +37,15 @@ export class SourceQueryRepository extends AsyncRepository {
       payload as HttpQuerySchema,
     );
 
-    this.updateDraft((draft) => {
-      draft.loading = false;
-      draft.errorMessage = null;
-      draft.data = response.data;
-    });
+    updateState<AsyncState>(
+      this.context,
+      [],
+      write((draft) => {
+        draft.loading = false;
+        draft.errorMessage = null;
+        draft.data = response.data;
+      }),
+    );
   }
 
   private async sendRequester(
@@ -41,20 +59,16 @@ export class SourceQueryRepository extends AsyncRepository {
         .query(query);
       return response;
     } catch (error) {
-      this.updateDraft((draft) => {
-        draft.loading = false;
-        draft.errorMessage =
-          error instanceof Error ? error.message : '未知错误';
-      });
+      updateState<AsyncState>(
+        this.context,
+        [],
+        write((draft) => {
+          draft.loading = false;
+          draft.errorMessage =
+            error instanceof Error ? error.message : '未知错误';
+        }),
+      );
       throw error;
     }
-  }
-
-  private setInitialValue() {
-    this.initializeValue({
-      loading: false,
-      errorMessage: null,
-      data: {},
-    });
   }
 }
