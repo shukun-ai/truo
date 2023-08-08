@@ -1,13 +1,9 @@
-import {
-  IApiRequester,
-  RouterMode,
-  SimpleRepository,
-  SourceQueryRepository,
-} from '@shukun/presenter/definition';
+import { IApiRequester, RouterMode } from '@shukun/presenter/definition';
 
 import {
   ConfigDefinitions,
   ILoader,
+  presenterRepositories,
   presenterWidgets,
 } from '@shukun/presenter/widget-react';
 
@@ -56,7 +52,5 @@ export class ServerLoader implements ILoader {
 
 const reactWidgets: ConfigDefinitions['reactWidgets'] = presenterWidgets;
 
-const reactRepositories: ConfigDefinitions['reactRepositories'] = {
-  simple: SimpleRepository,
-  sourceQuery: SourceQueryRepository,
-};
+const reactRepositories: ConfigDefinitions['reactRepositories'] =
+  presenterRepositories;

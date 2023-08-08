@@ -1,8 +1,10 @@
+import {
+  AuthRepositoryStates,
+  RepositoryContext,
+} from '@shukun/presenter/definition';
 import { AuthenticationToken } from '@shukun/schema';
 
-import { AuthRepositoryStates } from '../../interfaces/auth-repository.interface';
-import { RepositoryContext } from '../../interfaces/repository.interface';
-import { BaseRepository } from '../abstracts/base-repository';
+import { BaseRepository } from '../base-repository';
 
 export class AuthRepository extends BaseRepository<AuthRepositoryStates> {
   constructor(override readonly context: RepositoryContext) {

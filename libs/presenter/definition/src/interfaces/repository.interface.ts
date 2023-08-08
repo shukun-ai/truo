@@ -1,7 +1,8 @@
 import { PresenterRepository } from '@shukun/schema';
 
-import { IApiRequester } from './requester.interface';
-import { IStore } from './store.interface';
+import { IApiRequester } from '../interfaces/requester.interface';
+
+import { IStore } from '../interfaces/store.interface';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IRepository {}

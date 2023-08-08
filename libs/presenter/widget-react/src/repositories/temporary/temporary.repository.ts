@@ -1,10 +1,12 @@
+import {
+  RepositoryContext,
+  TemporaryState,
+} from '@shukun/presenter/definition';
 import { PresenterEvent } from '@shukun/schema';
 
-import { RepositoryContext } from '../../interfaces/repository.interface';
-import { SimpleState } from '../../interfaces/simple-repository.interface';
-import { BaseRepository } from '../abstracts/base-repository';
+import { BaseRepository } from '../base-repository';
 
-export class SimpleRepository extends BaseRepository<unknown> {
+export class TemporaryRepository extends BaseRepository<unknown> {
   constructor(override readonly context: RepositoryContext) {
     super(context);
     this.setInitialValue();
@@ -26,7 +28,7 @@ export class SimpleRepository extends BaseRepository<unknown> {
 
   private setInitialValue() {
     const defaultValue = this.context.definition?.parameters?.['defaultValue'];
-    const parseDefaultValue: SimpleState =
+    const parseDefaultValue: TemporaryState =
       typeof defaultValue === 'undefined' ? {} : defaultValue;
 
     this.initializeValue(parseDefaultValue);

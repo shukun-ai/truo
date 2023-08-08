@@ -1,13 +1,15 @@
 import { TypeException } from '@shukun/exception';
 import {
-  AuthRepository,
   IApiRequester,
   IRepositoryManager,
   IStore,
   RepositoryContext,
-  RouterRepository,
 } from '@shukun/presenter/definition';
-import { ConfigDefinitions } from '@shukun/presenter/widget-react';
+import {
+  AuthRepository,
+  ConfigDefinitions,
+  RouterRepository,
+} from '@shukun/presenter/widget-react';
 import { PresenterContainer } from '@shukun/schema';
 import { createBrowserHistory } from 'history';
 

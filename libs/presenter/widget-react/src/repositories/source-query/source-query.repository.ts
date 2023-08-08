@@ -1,8 +1,7 @@
+import { IApiRequester, RepositoryContext } from '@shukun/presenter/definition';
 import { HttpQuerySchema, PresenterEvent } from '@shukun/schema';
 
-import { RepositoryContext } from '../../interfaces/repository.interface';
-import { IApiRequester } from '../../interfaces/requester.interface';
-import { AsyncRepository } from '../abstracts/async-repository';
+import { AsyncRepository } from '../async-repository';
 
 export class SourceQueryRepository extends AsyncRepository {
   constructor(override readonly context: RepositoryContext) {

@@ -1,4 +1,4 @@
-import { IRepository } from './repository.interface';
+import { IRepository } from '../interfaces/repository.interface';
 
 export interface IRouterRepository extends IRepository {
   getValue(): RouterRepositoryStates;
