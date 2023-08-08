@@ -3,6 +3,7 @@ import { ExceptionNames } from '@shukun/schema';
 import { InterpolationMap } from './base-exception.type';
 
 export abstract class BaseException extends Error {
+  rawMessage: string;
   interpolationMap?: InterpolationMap;
 
   constructor(
@@ -10,8 +11,12 @@ export abstract class BaseException extends Error {
     message: string,
     interpolationMap?: InterpolationMap,
   ) {
-    super(message);
+    const interpolation = interpolationMap
+      ? ' -> ' + JSON.stringify(interpolationMap)
+      : '';
+    super(message + interpolation);
     this.name = name;
     this.interpolationMap = interpolationMap;
+    this.rawMessage = message;
   }
 }
