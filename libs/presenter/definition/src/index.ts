@@ -1,12 +1,3 @@
-export * from './styles/reboot';
-export * from './styles/light-theme';
-export * from './styles/variables';
-export * from './styles/utilities';
-
-export * from './definitions';
-
-export * from './types';
-
 export * from './interfaces/repository.interface';
 export * from './interfaces/router-repository.interface';
 export * from './interfaces/auth-repository.interface';
@@ -24,10 +15,10 @@ export * from './interfaces/history.interface';
 
 export * from './repositories/abstracts/base-repository';
 export * from './repositories/abstracts/async-repository';
+
+// TODO move those
 export * from './repositories/implements/auth-repository';
 export * from './repositories/implements/router-repository';
 export * from './repositories/implements/simple-repository';
 export * from './repositories/implements/source-query-repository';
 export * from './repositories/definitions';
-
-export * from './web-widget-definitions';
