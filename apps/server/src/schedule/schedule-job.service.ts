@@ -3,14 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { ScheduleSchema } from '@shukun/schema';
 import { CronJob } from 'cron';
 
-import { FlowService } from '../flow/flow.service';
-
 import { ScheduleLogService } from './schedule-log.service';
 
 @Injectable()
 export class ScheduleJobService {
   constructor(
-    private readonly flowService: FlowService,
     private readonly scheduleLogService: ScheduleLogService,
     private readonly configService: ConfigService,
   ) {}
@@ -44,17 +41,8 @@ export class ScheduleJobService {
   createJobOnTick(orgName: string, schedule: ScheduleSchema) {
     return async () => {
       try {
-        const output = await this.flowService.execute(
-          orgName,
-          schedule.flow,
-          schedule.input,
-          {
-            orgName,
-            operatorId: undefined, // TODO set operatorId.
-          },
-        );
-
-        this.scheduleLogService.logSuccess(orgName, schedule, output);
+        // TODO remove flowService, please use connector instead.
+        // Please check the removed code here from GIT.
       } catch (error) {
         this.scheduleLogService.logException(orgName, schedule, error);
       }

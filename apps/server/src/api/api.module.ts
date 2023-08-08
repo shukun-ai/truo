@@ -2,10 +2,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { ConnectorHandlerModule } from '@shukun/connector/handler';
 
-import { CompilerModule } from '../compiler/compiler.module';
-
 import { CoreModule } from '../core/core.module';
-import { FlowModule } from '../flow/flow.module';
 import { IdentityMiddleware } from '../identity/identity.middleware';
 import { IdentityModule } from '../identity/identity.module';
 import { MigrationModule } from '../migration/migration.module';
@@ -51,8 +48,6 @@ import { WebhookController } from './webhook/webhook.controller';
     IdentityModule,
     SourceModule,
     SystemSourceModule,
-    FlowModule,
-    CompilerModule,
     ScheduleModule,
     MigrationModule,
     ConnectorHandlerModule,
