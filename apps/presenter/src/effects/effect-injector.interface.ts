@@ -1,7 +1,9 @@
 import {
   IApiRequester,
+  IAuth,
   IEventManager,
   IRepositoryManager,
+  IRouter,
   IStore,
   IWatchManager,
 } from '@shukun/presenter/definition';
@@ -18,4 +20,6 @@ export type EffectInjector = {
   eventManager: IEventManager;
   templateService: ITemplateService;
   definitions: ConfigDefinitions;
+  auth: IAuth;
+  router: IRouter;
 };

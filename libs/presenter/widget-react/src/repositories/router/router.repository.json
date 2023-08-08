@@ -4,8 +4,9 @@
   "scope": "app",
   "parameters": {},
   "actions": {
-    "push": {
+    "go": {
       "enabledValue": true
-    }
+    },
+    "back": {}
   }
 }
