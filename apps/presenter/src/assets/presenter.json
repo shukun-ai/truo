@@ -34,9 +34,9 @@
           }
         },
         "dispatchPackage": {
-          "type": "flow",
+          "type": "connector",
           "parameters": {
-            "flowName": "dispatchPackage"
+            "connectorName": "dispatchPackage"
           }
         }
       },

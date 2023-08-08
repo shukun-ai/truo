@@ -21,24 +21,6 @@ export class WebhookRequester {
     );
   }
 
-  /**
-   * @experimental
-   * @remarks
-   * POST /apis/v1/webhook/{orgName}/${flowName}
-   */
-  public async runFlow<Model>(flowName: string, input: unknown) {
-    return await this.requestAdaptor.fetch<ApiResponse<Model>>(
-      'POST',
-      this.buildUri(flowName),
-      {
-        body: input,
-        headers: {
-          'x-flow-version': '1',
-        },
-      },
-    );
-  }
-
   private buildUri(suffix: string, orgName?: string) {
     return `${RoleResourceType.Public}/${orgName || ':orgName'}/${suffix}`;
   }

@@ -27,7 +27,6 @@ async function generate(treeRoot: string, projectRoot: string) {
     'attachments',
     'connector',
     'http-query',
-    'flow-compiled-codes',
     'exception',
     'data-source',
     'presenter',

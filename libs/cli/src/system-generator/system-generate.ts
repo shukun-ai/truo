@@ -1,5 +1,4 @@
 import {
-  FlowSchema,
   MetadataSchema,
   RoleSchema,
   ScheduleSchema,
@@ -24,13 +23,11 @@ export class SystemGenerator {
     const views = await readSection<ViewSchema>(inputPath, 'views');
     const workflows = await readSection<WorkflowSchema>(inputPath, 'workflows');
     const roles = await readSection<RoleSchema>(inputPath, 'roles');
-    const flows = await readSection<FlowSchema>(inputPath, 'flows');
     const schedules = await readSection<ScheduleSchema>(inputPath, 'schedules');
     application.metadata = metadata;
     application.views = views;
     application.workflows = workflows;
     application.roles = roles;
-    application.flows = flows;
     application.schedules = schedules;
 
     const validated = disabledValidation
