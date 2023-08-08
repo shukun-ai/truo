@@ -1,12 +1,13 @@
 import { TypeException } from '@shukun/exception';
 
-import { IHistory } from '../../interfaces/history.interface';
-import { RepositoryContext } from '../../interfaces/repository.interface';
 import {
+  IHistory,
+  RepositoryContext,
   RouterMode,
   RouterRepositoryStates,
-} from '../../interfaces/router-repository.interface';
-import { BaseRepository } from '../abstracts/base-repository';
+} from '@shukun/presenter/definition';
+
+import { BaseRepository } from '../base-repository';
 
 export class RouterRepository extends BaseRepository<RouterRepositoryStates> {
   constructor(

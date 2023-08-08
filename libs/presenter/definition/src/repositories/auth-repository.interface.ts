@@ -1,6 +1,6 @@
 import { AuthenticationToken } from '@shukun/schema';
 
-import { IRepository } from './repository.interface';
+import { IRepository } from '../interfaces/repository.interface';
 
 export interface IAuthRepository extends IRepository {
   getValue(): AuthRepositoryStates;

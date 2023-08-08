@@ -1,4 +1,4 @@
-import { AsyncState } from '../../interfaces/async-repository.interface';
+import { AsyncState } from '@shukun/presenter/definition';
 
 import { BaseRepository } from './base-repository';
 

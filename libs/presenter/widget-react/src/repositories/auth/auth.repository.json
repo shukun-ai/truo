@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
+  "name": "auth",
+  "scope": "app",
+  "parameters": {},
+  "actions": {
+    "signIn": {},
+    "signOut": {}
+  }
+}

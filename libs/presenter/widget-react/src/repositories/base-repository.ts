@@ -1,9 +1,10 @@
 import {
-  RepositoryContext,
   IRepository,
-} from '../../interfaces/repository.interface';
-import { StoreScope } from '../../interfaces/store.interface';
-import { write } from '../utils/mutation';
+  RepositoryContext,
+  StoreScope,
+} from '@shukun/presenter/definition';
+
+import { write } from '../shares/mutation';
 
 export class BaseRepository<State> implements IRepository {
   constructor(readonly context: RepositoryContext) {}

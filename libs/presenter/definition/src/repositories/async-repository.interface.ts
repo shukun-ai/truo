@@ -1,6 +1,6 @@
 import { PresenterEvent } from '@shukun/schema';
 
-import { IRepository } from './repository.interface';
+import { IRepository } from '../interfaces/repository.interface';
 
 export type AsyncState = {
   loading: boolean;
