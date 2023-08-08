@@ -33,12 +33,6 @@
         "$ref": "application/workflow.schema.json"
       }
     },
-    "flows": {
-      "type": "array",
-      "items": {
-        "$ref": "application/flow.schema.json"
-      }
-    },
     "roles": {
       "type": "array",
       "items": {

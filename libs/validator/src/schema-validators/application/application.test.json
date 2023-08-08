@@ -2452,44 +2452,5 @@
         "webhook:signin"
       ]
     }
-  ],
-  "flows": [
-    {
-      "name": "test",
-      "description": "测试",
-      "input": {
-        "type": "object",
-        "required": ["taskId", "vehicleId"],
-        "properties": {
-          "taskId": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          }
-        }
-      },
-      "output": {},
-      "startEventName": "queryReceiveTask",
-      "events": {
-        "queryReceiveTask": {
-          "type": "SourceQuery",
-          "atomName": "receive_tasks",
-          "next": "",
-          "query": {
-            "filter": {
-              "_id": { "$eq": "$.input.taskId" },
-              "vehicle": { "$eq": "$.input.vehicleId" },
-              "status": { "$in": "['accepted']" }
-            },
-            "select": {
-              "_id": true
-            },
-            "limit": 1
-          }
-        }
-      },
-      "store": {}
-    }
   ]
 }

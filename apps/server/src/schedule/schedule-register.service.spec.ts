@@ -19,7 +19,6 @@ describe('ScheduleRegisterService', () => {
   const orgName = 'org';
   const schedule: ScheduleSchema = {
     name: 'test',
-    flow: 'test',
     cron: 'mock',
     timezone: 'mock',
     active: true,
@@ -31,7 +30,6 @@ describe('ScheduleRegisterService', () => {
     });
     scheduleLogService = new ScheduleLogService();
     scheduleJobService = new ScheduleJobService(
-      mockEmptyDependencies(),
       scheduleLogService,
       configService,
     );

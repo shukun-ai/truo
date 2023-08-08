@@ -4,7 +4,7 @@
   "description": "Describe Schedule Schema",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "flow", "cron", "timezone", "active"],
+  "required": ["name", "cron", "timezone", "active"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -15,10 +15,6 @@
     },
     "description": {
       "type": "string"
-    },
-    "flow": {
-      "type": "string",
-      "description": "The name of a flow."
     },
     "cron": {
       "type": "string",
@@ -34,7 +30,7 @@
     },
     "input": {
       "type": "object",
-      "description": "The input data for flow."
+      "description": "The input data."
     }
   }
 }

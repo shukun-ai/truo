@@ -173,26 +173,6 @@ export type WorkflowChoices = (WorkflowComparison & {
   next: string;
   [k: string]: unknown;
 })[];
-/**
- * This interface was referenced by `FlowEvents`'s JSON-Schema definition
- * via the `patternProperty` "^(\w)+$".
- */
-export type FlowEvent =
-  | FlowEventSuccess
-  | FlowEventFail
-  | FlowEventSourceQuery
-  | FlowEventSourceCreate
-  | FlowEventSourceUpdate
-  | FlowEventSourceDelete
-  | FlowEventSourceAddToMany
-  | FlowEventSourceRemoveFromMany
-  | FlowEventSourceIncrease
-  | FlowEventChoice
-  | FlowEventRepeat
-  | FlowEventParallel
-  | FlowEventStore
-  | FlowEventFirstOrThrow
-  | FlowEventLastOrThrow;
 
 /**
  * Describe a Shukun Application
@@ -204,7 +184,6 @@ export interface ApplicationSchema {
   metadata?: MetadataSchema[];
   views?: ViewSchema[];
   workflows?: WorkflowSchema[];
-  flows?: FlowSchema[];
   roles?: RoleSchema[];
   schedules?: ScheduleSchema[];
   environments?: EnvironmentSchema[];
@@ -697,217 +676,6 @@ export interface WorkflowFailState {
   [k: string]: unknown;
 }
 /**
- * Describe Flow Schema
- */
-export interface FlowSchema {
-  $schema?: string;
-  name: string;
-  description?: string;
-  /**
-   * The input JSON Schema Rule
-   */
-  input: {
-    [k: string]: unknown;
-  };
-  /**
-   * The output JSON Schema Rule
-   */
-  output: {
-    [k: string]: unknown;
-  };
-  startEventName: string;
-  events: FlowEvents;
-  store: FlowStore;
-}
-export interface FlowEvents {
-  [k: string]: FlowEvent;
-}
-export interface FlowEventSuccess {
-  type: 'Success';
-  output: string;
-  [k: string]: unknown;
-}
-export interface FlowEventFail {
-  type: 'Fail';
-  output: string;
-  [k: string]: unknown;
-}
-export interface FlowEventSourceQuery {
-  type: 'SourceQuery';
-  next: string;
-  atomName: string;
-  query: {
-    /**
-     * The filter should be validate by custom program.
-     */
-    filter?: {
-      [k: string]: unknown;
-    };
-    select?: {
-      /**
-       * The style is like MongoDB.
-       *
-       * This interface was referenced by `undefined`'s JSON-Schema definition
-       * via the `patternProperty` "^(\w)+$".
-       */
-      [k: string]: boolean;
-    };
-    sort?: {
-      /**
-       * The style is like MongoDB.
-       *
-       * This interface was referenced by `undefined`'s JSON-Schema definition
-       * via the `patternProperty` "^(\w)+$".
-       */
-      [k: string]: 'asc' | 'desc';
-    };
-    limit?: number;
-    skip?: number;
-    count?: boolean;
-  };
-  [k: string]: unknown;
-}
-export interface FlowEventSourceCreate {
-  type: 'SourceCreate';
-  next: string;
-  atomName: string;
-  data: {
-    [k: string]: unknown;
-  };
-  [k: string]: unknown;
-}
-export interface FlowEventSourceUpdate {
-  type: 'SourceUpdate';
-  next: string;
-  atomName: string;
-  id: string;
-  data: {
-    [k: string]: unknown;
-  };
-  [k: string]: unknown;
-}
-export interface FlowEventSourceDelete {
-  type: 'SourceDelete';
-  next: string;
-  atomName: string;
-  id: string;
-  [k: string]: unknown;
-}
-export interface FlowEventSourceAddToMany {
-  type: 'SourceAddToMany';
-  next: string;
-  atomName: string;
-  id: string;
-  electronName: string;
-  foreignId: string;
-  [k: string]: unknown;
-}
-export interface FlowEventSourceRemoveFromMany {
-  type: 'SourceRemoveFromMany';
-  next: string;
-  atomName: string;
-  id: string;
-  electronName: string;
-  foreignId: string;
-  [k: string]: unknown;
-}
-export interface FlowEventSourceIncrease {
-  type: 'SourceIncrease';
-  next: string;
-  atomName: string;
-  id: string;
-  electronName: string;
-  increment: string;
-  [k: string]: unknown;
-}
-export interface FlowEventChoice {
-  type: 'Choice';
-  /**
-   * it means default next.
-   */
-  next: string;
-  conditions: {
-    description?: string;
-    condition: string;
-    next: string;
-  }[];
-  [k: string]: unknown;
-}
-export interface FlowEventRepeat {
-  type: 'Repeat';
-  next: string;
-  repeatCount: string;
-  startEventName: string;
-  description?: string;
-  [k: string]: unknown;
-}
-export interface FlowEventParallel {
-  type: 'Parallel';
-  next: string;
-  branches: {
-    startEventName: string;
-    description?: string;
-  }[];
-  [k: string]: unknown;
-}
-export interface FlowEventStore {
-  type: 'Store';
-  next: string;
-  key: string;
-  value: string;
-  [k: string]: unknown;
-}
-export interface FlowEventFirstOrThrow {
-  type: 'FirstOrThrow';
-  next: string;
-  [k: string]: unknown;
-}
-export interface FlowEventLastOrThrow {
-  type: 'LastOrThrow';
-  next: string;
-  [k: string]: unknown;
-}
-export interface FlowStore {
-  /**
-   * This interface was referenced by `FlowStore`'s JSON-Schema definition
-   * via the `patternProperty` "^(\w)+$".
-   */
-  [k: string]:
-    | FlowStoreStringType
-    | FlowStoreNumberType
-    | FlowStoreBooleanType
-    | FlowStoreObjectType
-    | FlowStoreAtomsType
-    | FlowStoreAtomType;
-}
-export interface FlowStoreStringType {
-  type: 'string';
-  [k: string]: unknown;
-}
-export interface FlowStoreNumberType {
-  type: 'number';
-  [k: string]: unknown;
-}
-export interface FlowStoreBooleanType {
-  type: 'boolean';
-  [k: string]: unknown;
-}
-export interface FlowStoreObjectType {
-  type: 'object';
-  validateObject: unknown;
-  [k: string]: unknown;
-}
-export interface FlowStoreAtomsType {
-  type: 'atoms';
-  atomName: string;
-  [k: string]: unknown;
-}
-export interface FlowStoreAtomType {
-  type: 'atom';
-  atomName: string;
-  [k: string]: unknown;
-}
-/**
  * Describe Role Schema
  */
 export interface RoleSchema {
@@ -925,10 +693,6 @@ export interface ScheduleSchema {
   name: string;
   description?: string;
   /**
-   * The name of a flow.
-   */
-  flow: string;
-  /**
    * The cron syntax, like: https://crontab.guru/ or https://cronjob.xyz.
    */
   cron: string;
@@ -941,7 +705,7 @@ export interface ScheduleSchema {
    */
   active: boolean;
   /**
-   * The input data for flow.
+   * The input data.
    */
   input?: {
     [k: string]: unknown;

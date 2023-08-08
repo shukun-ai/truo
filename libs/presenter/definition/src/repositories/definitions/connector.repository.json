@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
-  "name": "flow",
+  "name": "connector",
   "scope": "container",
   "parameters": {
     "connectorName": {

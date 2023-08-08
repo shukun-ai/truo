@@ -15,7 +15,6 @@ describe('', () => {
   const orgName = 'org';
   const schedule: ScheduleSchema = {
     name: 'test',
-    flow: 'test',
     cron: '* * * * *',
     timezone: 'Asia/Shanghai',
     active: true,

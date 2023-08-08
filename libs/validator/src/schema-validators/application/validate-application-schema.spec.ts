@@ -85,26 +85,6 @@ describe('application format check.', () => {
     });
   });
 
-  describe('flowName', () => {
-    const application: ApplicationSchema = {
-      title: 'mock',
-      flows: [
-        {
-          name: 'WrongFlowName',
-          input: {},
-          output: {},
-          startEventName: 'next',
-          events: {},
-          store: {},
-        },
-      ],
-    };
-
-    it('if the flow name is not match rule, then throw.', () => {
-      expect(() => applicationSchemaValidator.validate(application)).toThrow();
-    });
-  });
-
   describe('roleName', () => {
     const application: ApplicationSchema = {
       title: 'mock',
@@ -128,7 +108,6 @@ describe('application format check.', () => {
       schedules: [
         {
           name: 'WrongScheduleName',
-          flow: '',
           timezone: '',
           cron: '',
           active: true,
