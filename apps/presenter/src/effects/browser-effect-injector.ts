@@ -20,7 +20,6 @@ import { EventManager } from './event/event-manager';
 import { ServerLoader } from './loaders/server-loader';
 import { RepositoryManager } from './repository/repository-manager';
 import { Router } from './router/router';
-import { StorageManager } from './storages/storage-manager';
 import { Store } from './store/store';
 import { TemplateService } from './template/template-service';
 import { WatchManager } from './watch/watch-manager';
@@ -30,7 +29,6 @@ export const createBrowserEffect = async () => {
   const history = createBrowserHistory();
   const auth = new Auth(store);
   const router = new Router(store, history);
-  const storageManager = new StorageManager(store);
   const apiRequester = new ApiRequester(store);
   const repositoryManager = new RepositoryManager();
   const templateService = new TemplateService();
@@ -42,8 +40,6 @@ export const createBrowserEffect = async () => {
     routerState.app,
     routerState.mode,
   );
-
-  storageManager.register();
 
   registerContainers(
     store,
