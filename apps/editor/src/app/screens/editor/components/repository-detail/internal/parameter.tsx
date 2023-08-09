@@ -1,5 +1,8 @@
 import { Box } from '@mantine/core';
-import { ConnectorNameInput } from '@shukun/presenter/editor-inputs';
+import {
+  AtomNameInput,
+  ConnectorNameInput,
+} from '@shukun/presenter/editor-inputs';
 import { RepositorySchema } from '@shukun/schema';
 
 export type ParameterProps = {
@@ -23,6 +26,24 @@ export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
           {
             label: 'nihao',
             value: 'nihao',
+          },
+        ]}
+      />
+    );
+  }
+
+  if (
+    type === 'atomName' &&
+    (typeof value === 'string' || value === undefined)
+  ) {
+    return (
+      <AtomNameInput
+        value={value}
+        onChange={(newValue) => onChange(newValue)}
+        atomOptions={[
+          {
+            label: 'airports',
+            value: 'airports',
           },
         ]}
       />

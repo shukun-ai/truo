@@ -52,9 +52,6 @@ export const EventInput = ({
         containerName={containerName}
         repositories={repositories}
         repositoryDefinitions={repositoryDefinitions}
-        repositoryRepository={
-          app.repositories.presenterRepository.repositoryRepository
-        }
         value={value}
         onChange={onChange}
       />

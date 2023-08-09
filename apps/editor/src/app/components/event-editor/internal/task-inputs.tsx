@@ -1,26 +1,17 @@
-import { javascript } from '@codemirror/lang-javascript';
-import {
-  ActionIcon,
-  Alert,
-  Box,
-  Group,
-  NativeSelect,
-  SelectItem,
-} from '@mantine/core';
+import { ActionIcon, Alert, Box, Group } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
-import {
-  IconGripVertical,
-  IconInfoCircle,
-  IconTrash,
-} from '@tabler/icons-react';
-import { useMemo } from 'react';
+import { IconGripVertical, IconTrash } from '@tabler/icons-react';
+import { useEffect } from 'react';
 
 import { ConnectDragSource } from 'react-dnd';
 
-import { IRepositoryRepository } from '../../../../repositories/presenter/repository-repository.interface';
-import { CodeInput } from '../../../components/code-input/code-input';
+import { Icon } from '../../domain-icons/domain-icons';
 
+import { ActionInput } from './action-input';
 import { useEventContext } from './context';
+import { PathInput } from './path-input';
+import { TargetInput } from './target-input';
+import { ValueInput } from './value-input';
 
 export type TaskInputsProps = {
   drag: ConnectDragSource;
@@ -37,83 +28,16 @@ export const TaskInputs = ({
   onRemove,
   disabled,
 }: TaskInputsProps) => {
-  const {
-    containerName,
-    repositories,
-    repositoryDefinitions,
-    repositoryRepository,
-  } = useEventContext();
+  const { noRepositories } = useEventContext();
 
-  const appRepositoryOptions = useMemo<SelectItem[]>(() => {
-    return Object.entries(repositoryDefinitions)
-      .filter(([, definition]) => {
-        return definition.scope === 'app';
-      })
-      .map(([name]) => ({
-        label: name,
-        value: name,
-      }));
-  }, [repositoryDefinitions]);
-
-  const containerRepositoryOptions = useMemo<SelectItem[]>(() => {
-    return repositories
-      .filter((repository) => repository.containerName === containerName)
-      .map((repository) => ({
-        label: repository.repositoryName,
-        value: repository.repositoryName,
-      }));
-  }, [containerName, repositories]);
-
-  const repositoryOptions = useMemo<SelectItem[]>(() => {
-    if (value.scope === 'app') {
-      return appRepositoryOptions;
-    } else if (value.scope === 'container') {
-      return containerRepositoryOptions;
-    } else {
-      return [];
+  useEffect(() => {
+    if (!value.target) {
+      onChange({
+        ...value,
+        action: '',
+      });
     }
-  }, [appRepositoryOptions, containerRepositoryOptions, value.scope]);
-
-  const repositoryActions = useMemo<SelectItem[]>(() => {
-    const repositoryType = getRepositoryType(
-      repositoryRepository,
-      containerName,
-      value,
-    );
-    if (!repositoryType) {
-      return [];
-    }
-    const definition = repositoryDefinitions[repositoryType];
-    if (!definition) {
-      return [];
-    }
-    return Object.entries(definition.actions).map(([actionName]) => {
-      return {
-        label: actionName,
-        value: actionName,
-      };
-    });
-  }, [repositoryRepository, containerName, value, repositoryDefinitions]);
-
-  const action = useMemo(() => {
-    const repositoryType = getRepositoryType(
-      repositoryRepository,
-      containerName,
-      value,
-    );
-    if (!repositoryType) {
-      return null;
-    }
-    const definition = repositoryDefinitions[repositoryType];
-    if (!definition) {
-      return null;
-    }
-    const action = definition.actions[value.action];
-    if (!action) {
-      return null;
-    }
-    return action;
-  }, [repositoryRepository, containerName, value, repositoryDefinitions]);
+  }, [onChange, value]);
 
   return (
     <Box
@@ -130,72 +54,43 @@ export const TaskInputs = ({
         </ActionIcon>
       )}
       <Box sx={{ flex: 1 }}>
-        <NativeSelect
-          data={[
-            { value: 'app', label: 'App 应用级' },
-            { value: 'container', label: 'Container 容器级' },
-          ]}
-          label="数据仓库类型"
-          withAsterisk
-          value={value.scope}
-          onChange={(event) => {
-            value.scope = event.target.value as 'app' | 'container';
+        {noRepositories && (
+          <Alert icon={<Icon type="info" />} color="orange">
+            您当前未创建数据仓库，所以无法选择容器级数据仓库
+          </Alert>
+        )}
+        <Group>
+          <TargetInput
+            value={value.target}
+            onChange={(newValue) => {
+              value.target = newValue;
+              onChange(value);
+            }}
+            scope={value.scope}
+          />
+          <ActionInput
+            value={value.action}
+            onChange={(newValue) => {
+              value.action = newValue;
+              onChange(value);
+            }}
+            target={value.target}
+          />
+        </Group>
+        <PathInput
+          value={value.path}
+          onChange={(newValue) => {
+            value.path = newValue;
             onChange(value);
           }}
         />
-        {value.scope === 'container' &&
-        containerRepositoryOptions.length === 0 ? (
-          <Alert icon={<IconInfoCircle />} color="orange">
-            您当前未创建数据仓库，所以无法选择容器级数据仓库
-          </Alert>
-        ) : (
-          <>
-            <Group>
-              <NativeSelect
-                data={repositoryOptions}
-                label="选择数据仓库"
-                withAsterisk
-                value={value.target}
-                onChange={(event) => {
-                  value.target = event.target.value;
-                  onChange(value);
-                }}
-              />
-              <NativeSelect
-                data={repositoryActions}
-                label="选择方法"
-                withAsterisk
-                value={value.action}
-                onChange={(event) => {
-                  value.action = event.target.value;
-                  onChange(value);
-                }}
-              />
-            </Group>
-            {/* TODO should add PathInput, it's a array inputs */}
-            {/* {action?.requiredPath && (
-            <CodeInput label="路径"
-            value={value.path}
-            onChange={(event) => {
-              value.path = event.target.value;
-              onChange(value);
-            }}
-             />
-          )} */}
-            {action?.enabledValue}
-            {action?.enabledValue && (
-              <CodeInput
-                label="参数"
-                extensions={[javascript()]}
-                value={value.value ?? ''}
-                onChange={(newValue) => {
-                  value.value = newValue;
-                  onChange(value);
-                }}
-              />
-            )}
-          </>
-        )}
+        <ValueInput
+          value={value.value}
+          onChange={(newValue) => {
+            value.value = newValue;
+            onChange(value);
+          }}
+        />
       </Box>
       <ActionIcon
         onClick={() => {
@@ -207,23 +102,4 @@ export const TaskInputs = ({
       </ActionIcon>
     </Box>
   );
-};
-
-const getRepositoryType = (
-  // TODO remove it
-  repositoryRepository: IRepositoryRepository,
-  containerName: string,
-  values: PresenterEvent,
-): string | null => {
-  if (values.scope === 'app') {
-    return values.target;
-  }
-
-  const repositoryName = values.target;
-  const repository = repositoryRepository.getByRepositoryName(
-    containerName,
-    repositoryName,
-  );
-  const repositoryType = repository?.type;
-  return repositoryType ?? null;
 };

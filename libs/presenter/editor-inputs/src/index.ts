@@ -5,3 +5,4 @@ export * from './boolean/boolean-input';
 export * from './data-binding/data-binding.input';
 export * from './box-model/box-model.input';
 export * from './connector-name/connector-name.input';
+export * from './atom-name/atom-name.input';
