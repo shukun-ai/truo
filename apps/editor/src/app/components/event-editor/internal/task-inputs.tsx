@@ -37,7 +37,8 @@ export const TaskInputs = ({
         action: '',
       });
     }
-  }, [onChange, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value.target]);
 
   return (
     <Box
@@ -63,16 +64,20 @@ export const TaskInputs = ({
           <TargetInput
             value={value.target}
             onChange={(newValue) => {
-              value.target = newValue;
-              onChange(value);
+              onChange({
+                ...value,
+                target: newValue,
+              });
             }}
             scope={value.scope}
           />
           <ActionInput
             value={value.action}
             onChange={(newValue) => {
-              value.action = newValue;
-              onChange(value);
+              onChange({
+                ...value,
+                action: newValue,
+              });
             }}
             target={value.target}
           />
@@ -80,15 +85,19 @@ export const TaskInputs = ({
         <PathInput
           value={value.path}
           onChange={(newValue) => {
-            value.path = newValue;
-            onChange(value);
+            onChange({
+              ...value,
+              path: newValue,
+            });
           }}
         />
         <ValueInput
           value={value.value}
           onChange={(newValue) => {
-            value.value = newValue;
-            onChange(value);
+            onChange({
+              ...value,
+              value: newValue,
+            });
           }}
         />
       </Box>
