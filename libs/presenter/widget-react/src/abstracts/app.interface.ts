@@ -13,7 +13,7 @@ import {
 import { ITemplateService } from '@shukun/presenter/definition';
 import { PresenterSchema } from '@shukun/schema';
 
-import { ReactWidgets } from './loader.interface';
+import { ReactRepositories, ReactWidgets } from './loader.interface';
 
 export type AppProps = {
   context: {
@@ -34,6 +34,7 @@ export type AppProps = {
   helpers: TemplateEvaluateHelpers;
   presenter: PresenterSchema;
   reactWidgets: ReactWidgets;
+  reactRepositories: ReactRepositories;
   templateService: ITemplateService;
   repositoryManager: IRepositoryManager;
   watchManager: IWatchManager;
