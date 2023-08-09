@@ -1,8 +1,19 @@
 import { IAuth, IStore, StoreScope } from '@shukun/presenter/definition';
 import { AuthenticationToken } from '@shukun/schema';
 
+import { tap } from 'rxjs';
+
+import {
+  getAuthStorage,
+  requesterSessionPayload,
+  setAuthStorage,
+} from './auth-storage';
+
 export class Auth implements IAuth {
-  constructor(private readonly store: IStore) {}
+  constructor(private readonly store: IStore) {
+    this.initialize();
+    this.listenStateChanged();
+  }
 
   signIn(token: AuthenticationToken): void {
     this.store.update(this.getScope(), [], () => ({
@@ -22,5 +33,22 @@ export class Auth implements IAuth {
       containerId: null,
       repositoryId: 'auth',
     };
+  }
+
+  private initialize() {
+    this.store.update(this.getScope(), [], () => {
+      return getAuthStorage();
+    });
+  }
+
+  private listenStateChanged() {
+    this.store
+      .query(this.getScope(), [])
+      .pipe(
+        tap((value) => {
+          setAuthStorage(value as unknown as requesterSessionPayload);
+        }),
+      )
+      .subscribe();
   }
 }
