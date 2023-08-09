@@ -13,10 +13,9 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/libs/component"],
       "options": {
-        "jestConfig": "libs/component/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -49,6 +48,22 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "test-storybook -c libs/component/.storybook --url=http://localhost:4400"
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/libs/component"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
       }
     }
   }
