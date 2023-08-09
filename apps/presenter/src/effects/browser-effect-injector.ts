@@ -1,14 +1,3 @@
-import { TypeException } from '@shukun/exception';
-import {
-  IApiRequester,
-  IAuth,
-  IRepositoryManager,
-  IRouter,
-  IStore,
-  RepositoryContext,
-} from '@shukun/presenter/definition';
-import { ConfigDefinitions } from '@shukun/presenter/widget-react';
-import { PresenterContainer } from '@shukun/schema';
 import { createBrowserHistory } from 'history';
 
 import { selectRouter } from '../selectors/router-selector';
@@ -41,15 +30,6 @@ export const createBrowserEffect = async () => {
     routerState.mode,
   );
 
-  registerContainers(
-    store,
-    apiRequester,
-    repositoryManager,
-    definitions,
-    auth,
-    router,
-  );
-
   const eventManager = new EventManager({
     store,
     repositoryManager,
@@ -74,70 +54,4 @@ export const createBrowserEffect = async () => {
   };
 
   return injector;
-};
-
-const registerContainers = (
-  store: IStore,
-  apiRequester: IApiRequester,
-  repositoryManager: IRepositoryManager,
-  definitions: ConfigDefinitions,
-  auth: IAuth,
-  router: IRouter,
-) => {
-  for (const [containerId, container] of Object.entries(
-    definitions.presenter.containers,
-  )) {
-    registerContainer(
-      store,
-      apiRequester,
-      repositoryManager,
-      definitions,
-      containerId,
-      container,
-      auth,
-      router,
-    );
-  }
-};
-
-const registerContainer = (
-  store: IStore,
-  apiRequester: IApiRequester,
-  repositoryManager: IRepositoryManager,
-  definitions: ConfigDefinitions,
-  containerId: string,
-  container: PresenterContainer,
-  auth: IAuth,
-  router: IRouter,
-): void => {
-  for (const [repositoryId, definition] of Object.entries(
-    container.repositories,
-  )) {
-    const RepositoryClass = definitions.reactRepositories[definition.type];
-
-    if (!RepositoryClass) {
-      console.error(
-        new TypeException('We did not support this repository type, {{type}}', {
-          type: definition.type,
-        }),
-      );
-      return;
-    }
-
-    const repositoryFactoryContext: RepositoryContext = {
-      type: 'container',
-      containerId,
-      repositoryId,
-      definition,
-      store,
-      apiRequester,
-      auth,
-      router,
-    };
-
-    repositoryManager.register(
-      { scope: 'container', containerId, repositoryId },
-      new RepositoryClass(repositoryFactoryContext),
-    );
-  }
 };
