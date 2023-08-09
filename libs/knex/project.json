@@ -12,7 +12,8 @@
         "tsConfig": "libs/knex/tsconfig.lib.json",
         "packageJson": "libs/knex/package.json",
         "main": "libs/knex/src/index.ts",
-        "assets": ["libs/knex/*.md"]
+        "assets": ["libs/knex/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {}

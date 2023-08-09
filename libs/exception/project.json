@@ -12,7 +12,8 @@
         "tsConfig": "libs/exception/tsconfig.lib.json",
         "packageJson": "libs/exception/package.json",
         "main": "libs/exception/src/index.ts",
-        "assets": ["libs/exception/README.md"]
+        "assets": ["libs/exception/README.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {}

@@ -16,7 +16,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/presenter/editor-inputs"],
+      "outputs": ["{workspaceRoot}/coverage/libs/presenter/editor-inputs"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../../coverage/libs/presenter/editor-inputs"

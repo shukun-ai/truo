@@ -12,7 +12,8 @@
         "tsConfig": "libs/presenter/input-schema/tsconfig.lib.json",
         "packageJson": "libs/presenter/input-schema/package.json",
         "main": "libs/presenter/input-schema/src/index.ts",
-        "assets": ["libs/presenter/input-schema/*.md"]
+        "assets": ["libs/presenter/input-schema/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "publish": {
