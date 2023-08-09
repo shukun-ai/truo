@@ -12,7 +12,8 @@
         "tsConfig": "libs/validator/tsconfig.lib.json",
         "packageJson": "libs/validator/package.json",
         "main": "libs/validator/src/index.ts",
-        "assets": ["libs/validator/README.md"]
+        "assets": ["libs/validator/README.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {}

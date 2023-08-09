@@ -19,7 +19,8 @@
             "output": "src"
           },
           "libs/code-resolver/README.md"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {}

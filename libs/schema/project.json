@@ -19,7 +19,8 @@
             "output": "src"
           },
           "libs/schema/README.md"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "dependsOn": [
         {
