@@ -25,10 +25,10 @@ export const EventInputs = ({
         onChange={(value) => onChange(value)}
         onCreate={() => {
           return {
-            scope: 'app',
-            target: 'router',
-            action: 'push',
-          };
+            scope: 'container',
+            target: '',
+            action: '',
+          } as PresenterEvent;
         }}
         renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
           <TaskInputs

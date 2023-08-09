@@ -41,9 +41,6 @@ export const EventInput = ({
         containerName={watchEntity.containerName}
         repositories={repositories}
         repositoryDefinitions={repositoryDefinitions}
-        repositoryRepository={
-          app.repositories.presenterRepository.repositoryRepository
-        }
         value={value}
         onChange={onChange}
       />

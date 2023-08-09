@@ -1,17 +1,29 @@
 import { TypeException } from '@shukun/exception';
 import { RepositorySchema } from '@shukun/schema';
-import { ReactNode, createContext, useContext } from 'react';
+import { ReactNode, createContext, useContext, useMemo } from 'react';
 
-import { IRepositoryRepository } from '../../../../repositories/presenter/repository-repository.interface';
+import { PresenterRepositoryEntity } from '../../../../repositories/presenter/repository-ref';
 
 export type EventContextProps = {
   containerName: string;
-  repositories: { containerName: string; repositoryName: string }[];
+  repositories: PresenterRepositoryEntity[];
   repositoryDefinitions: Record<string, RepositorySchema>;
-  repositoryRepository: IRepositoryRepository; // TODO remove the interface
 };
 
-const EventContext = createContext<EventContextProps | null>(null);
+export type EventContextInternalProps = {
+  noRepositories: boolean;
+  targetOptions: {
+    label: string;
+    value: string;
+  }[];
+  actionOptions: {
+    label: string;
+    value: string;
+    target: string;
+  }[];
+};
+
+const EventContext = createContext<EventContextInternalProps | null>(null);
 
 export const EventProvider = ({
   children,
@@ -19,9 +31,49 @@ export const EventProvider = ({
 }: {
   children: ReactNode;
   value: EventContextProps;
-}) => <EventContext.Provider value={value}>{children}</EventContext.Provider>;
+}) => {
+  const targetOptions = useMemo<
+    EventContextInternalProps['targetOptions']
+  >(() => {
+    return value.repositories.map((repository) => ({
+      label: repository.repositoryName,
+      value: repository.repositoryName,
+    }));
+  }, [value.repositories]);
 
-export const useEventContext = (): EventContextProps => {
+  const actionOptions = useMemo<
+    EventContextInternalProps['actionOptions']
+  >(() => {
+    const actionOptions: EventContextInternalProps['actionOptions'] = [];
+
+    value.repositories.forEach((repository) => {
+      const { actions } = value.repositoryDefinitions[repository.type];
+      Object.entries(actions).forEach(([actionName, action]) => {
+        actionOptions.push({
+          label: actionName,
+          value: actionName,
+          target: repository.repositoryName,
+        });
+      });
+    });
+
+    return actionOptions;
+  }, [value.repositories, value.repositoryDefinitions]);
+
+  return (
+    <EventContext.Provider
+      value={{
+        noRepositories: targetOptions.length === 0,
+        targetOptions,
+        actionOptions,
+      }}
+    >
+      {children}
+    </EventContext.Provider>
+  );
+};
+
+export const useEventContext = (): EventContextInternalProps => {
   const eventContext = useContext(EventContext);
   if (!eventContext) {
     throw new TypeException('The eventContext is not initialize.');

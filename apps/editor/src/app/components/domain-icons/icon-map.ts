@@ -1,6 +1,7 @@
 import {
   IconCopy,
   IconDots,
+  IconInfoCircle,
   IconPlus,
   IconSignature,
   IconTrash,
@@ -12,4 +13,5 @@ export const iconsMap = {
   copy: IconCopy,
   plus: IconPlus,
   more: IconDots,
+  info: IconInfoCircle,
 } as const;
