@@ -1,11 +1,10 @@
 import { ActionIcon, Box, ColorInput, TextInput } from '@mantine/core';
+import { ArrayInputs } from '@shukun/component';
 import { MetadataOptions } from '@shukun/schema';
 
 import { getUniqueLabel } from '@shukun/util-functions';
 
 import { IconGripVertical, IconTrash } from '@tabler/icons-react';
-
-import { ArrayInputs } from '../../../../../components/array-inputs/array-inputs';
 
 export type ElectronSelectInputsProps = {
   value: MetadataOptions;
