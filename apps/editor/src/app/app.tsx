@@ -1,9 +1,9 @@
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
+import { DndProvider } from '@shukun/component';
 import { StrictMode } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
-import { DndProvider } from './components/dnd/dnd-provider';
 import { AppProvider } from './contexts/app-context';
 import { ThemeProvider } from './contexts/theme-provider';
 
