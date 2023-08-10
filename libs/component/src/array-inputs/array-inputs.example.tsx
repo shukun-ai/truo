@@ -1,10 +1,5 @@
-import { Box, Button, Input } from '@mantine/core';
-import {
-  mutableAppend,
-  mutableMove,
-  mutableRemove,
-  mutableUpdate,
-} from '@shukun/util-functions';
+import { Group, Input, UnstyledButton } from '@mantine/core';
+import { append, move, remove, update } from '@shukun/util-functions';
 import { useState } from 'react';
 
 import { DndProvider } from '../dnd/dnd-provider';
@@ -22,21 +17,20 @@ export const ArrayInputsExample = () => {
       <ArrayInputs<TestItem>
         value={state}
         onUpdate={(index, newValue) => {
-          setState((state) => mutableUpdate(state, index, newValue));
+          setState((state) => update(state, index, newValue));
         }}
         onCreate={() => {
-          setState((state) => mutableAppend(state, { label: 'hi' }));
+          setState((state) => append(state, { label: 'hi' }));
         }}
         onMove={(sourceIndex, targetIndex) => {
-          setState((state) => mutableMove(state, sourceIndex, targetIndex));
+          setState((state) => move(state, sourceIndex, targetIndex));
         }}
         onRemove={(index) => {
-          setState((state) => mutableRemove(state, index));
+          setState((state) => remove(state, index));
         }}
         renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
-          <Box>
-            <Button ref={drag}>drag</Button>
-            <Box>{JSON.stringify(itemValue)}</Box>
+          <Group position="left">
+            <UnstyledButton ref={drag}>|||</UnstyledButton>
             <Input
               value={itemValue.label}
               onChange={(event) => {
@@ -46,14 +40,14 @@ export const ArrayInputsExample = () => {
                 });
               }}
             />
-            <Button
+            <UnstyledButton
               onClick={() => {
                 itemRemove();
               }}
             >
               x
-            </Button>
-          </Box>
+            </UnstyledButton>
+          </Group>
         )}
       />
     </DndProvider>
