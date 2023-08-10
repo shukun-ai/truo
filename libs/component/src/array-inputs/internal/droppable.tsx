@@ -11,13 +11,13 @@ import {
 export type DroppableProps = {
   dropType: string;
   targetIndex: number;
-  onChange: (sourceIndex: number, targetIndex: number) => void;
+  onMove: (sourceIndex: number, targetIndex: number) => void;
 };
 
 export const Droppable = ({
   dropType,
   targetIndex,
-  onChange,
+  onMove,
 }: DroppableProps) => {
   const [{ isOver, canDrop }, drop] = useDrop<
     DroppableItem,
@@ -29,7 +29,7 @@ export const Droppable = ({
       return item.sourceIndex !== targetIndex;
     },
     drop: (item) => {
-      onChange(item.sourceIndex, targetIndex);
+      onMove(item.sourceIndex, targetIndex);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
