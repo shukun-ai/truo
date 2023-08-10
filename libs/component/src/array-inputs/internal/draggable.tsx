@@ -15,7 +15,7 @@ export type DraggableProps<T> = {
       drag: ConnectDragSource;
     },
   ) => JSX.Element;
-  onChange: (newItemValue: T) => void;
+  onUpdate: (newItemValue: T) => void;
   onRemove: () => void;
 };
 
@@ -24,7 +24,7 @@ export const Draggable = <T,>({
   item,
   index,
   renderItem,
-  onChange,
+  onUpdate,
   onRemove,
 }: DraggableProps<T>) => {
   const [, drag, preview] = useDrag<DroppableItem>(() => ({
@@ -37,7 +37,7 @@ export const Draggable = <T,>({
       {renderItem(
         item,
         (newValue) => {
-          onChange(newValue);
+          onUpdate(newValue);
         },
         () => {
           onRemove();

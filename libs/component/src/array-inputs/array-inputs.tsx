@@ -1,11 +1,5 @@
 import { Box, Button } from '@mantine/core';
 
-import {
-  mutableAppend,
-  mutableRemove,
-  mutableUpdate,
-} from '@shukun/util-functions';
-
 import { Fragment, useId } from 'react';
 
 import { ConnectDragSource } from 'react-dnd';
@@ -15,9 +9,10 @@ import { Droppable } from './internal/droppable';
 
 export type ArrayInputProps<T> = {
   value: T[];
-  onChange: (value: T[]) => void;
-  onCreate: () => T;
+  onCreate: () => void;
+  onUpdate: (sourceIndex: number, newValue: T) => void;
   onMove: (sourceIndex: number, targetIndex: number) => void;
+  onRemove: (sourceIndex: number) => void;
   renderItem: (
     itemValue: T,
     itemChange: (itemValue: T) => void,
@@ -31,8 +26,9 @@ export type ArrayInputProps<T> = {
 
 export const ArrayInputs = <T,>({
   value,
-  onChange,
+  onUpdate,
   onMove,
+  onRemove,
   onCreate,
   renderItem,
   disabled,
@@ -49,12 +45,8 @@ export const ArrayInputs = <T,>({
               item={item}
               index={index}
               renderItem={renderItem}
-              onChange={(newItemValue) => {
-                onChange(mutableUpdate(value, index, newItemValue));
-              }}
-              onRemove={() => {
-                onChange(mutableRemove(value, index));
-              }}
+              onUpdate={(newItemValue) => onUpdate(index, newItemValue)}
+              onRemove={() => onRemove(index)}
             />
             <Droppable
               dropType={`DRAG_DROP_${dragDropId}`}
@@ -65,12 +57,7 @@ export const ArrayInputs = <T,>({
         ))}
       </Box>
       <Box>
-        <Button
-          onClick={() => {
-            onChange(mutableAppend(value, onCreate()));
-          }}
-          disabled={disabled}
-        >
+        <Button onClick={() => onCreate()} disabled={disabled}>
           新增
         </Button>
       </Box>
