@@ -1,48 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { DndProvider } from '../dnd/dnd-provider';
+import { ArrayInputsExample } from './array-inputs.example';
 
-import { ArrayInputs } from './array-inputs';
-
-const meta: Meta<typeof ArrayInputs<TestItem>> = {
-  component: ArrayInputs,
-  argTypes: {
-    value: {
-      control: {
-        type: 'object',
-      },
-      defaultValue: [{ label: 'first' }, { label: 'second' }],
-    },
-  },
+const meta: Meta<typeof ArrayInputsExample> = {
+  component: ArrayInputsExample,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof ArrayInputs<TestItem>>;
+type Story = StoryObj<typeof ArrayInputsExample>;
 
 export const Primary: Story = {
-  args: {
-    value: [{ label: 'first' }, { label: 'second' }],
+  render: () => {
+    return <ArrayInputsExample />;
   },
-  render: (args) => {
-    return (
-      <DndProvider>
-        <ArrayInputs<TestItem>
-          value={args.value}
-          onChange={(value) => {
-            // eslint-disable-next-line no-console
-            console.log(value);
-          }}
-          onCreate={() => ({ label: 'hi' })}
-          renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
-            <div>{itemValue.label}</div>
-          )}
-        />
-      </DndProvider>
-    );
-  },
-};
-
-type TestItem = {
-  label: string;
 };
