@@ -1,12 +1,15 @@
+import { Box, Button, Input } from '@mantine/core';
+import {
+  mutableAppend,
+  mutableMove,
+  mutableRemove,
+  mutableUpdate,
+} from '@shukun/util-functions';
 import { useState } from 'react';
 
 import { DndProvider } from '../dnd/dnd-provider';
 
 import { ArrayInputs } from './array-inputs';
-
-export type ArrayInputsExampleProps = {
-  //
-};
 
 export const ArrayInputsExample = () => {
   const [state, setState] = useState<TestItem[]>([
@@ -18,14 +21,39 @@ export const ArrayInputsExample = () => {
     <DndProvider>
       <ArrayInputs<TestItem>
         value={state}
-        onChange={(value) => {
-          // eslint-disable-next-line no-console
-          console.log('value', value);
-          setState(value);
+        onUpdate={(index, newValue) => {
+          setState((state) => mutableUpdate(state, index, newValue));
         }}
-        onCreate={() => ({ label: 'hi' })}
+        onCreate={() => {
+          setState((state) => mutableAppend(state, { label: 'hi' }));
+        }}
+        onMove={(sourceIndex, targetIndex) => {
+          setState((state) => mutableMove(state, sourceIndex, targetIndex));
+        }}
+        onRemove={(index) => {
+          setState((state) => mutableRemove(state, index));
+        }}
         renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
-          <div>{itemValue.label}</div>
+          <Box>
+            <Button ref={drag}>drag</Button>
+            <Box>{JSON.stringify(itemValue)}</Box>
+            <Input
+              value={itemValue.label}
+              onChange={(event) => {
+                itemChange({
+                  ...itemValue,
+                  label: event.target.value,
+                });
+              }}
+            />
+            <Button
+              onClick={() => {
+                itemRemove();
+              }}
+            >
+              x
+            </Button>
+          </Box>
         )}
       />
     </DndProvider>
