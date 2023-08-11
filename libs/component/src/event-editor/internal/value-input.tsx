@@ -1,6 +1,6 @@
 import { PresenterEvent } from '@shukun/schema';
 
-import { CodeInput } from '../../code-input/code-input';
+import { JsInput } from '../../js-input/js-input';
 
 export type ValueInputProps = {
   value: PresenterEvent['value'];
@@ -9,9 +9,6 @@ export type ValueInputProps = {
 
 export const ValueInput = ({ value, onChange }: ValueInputProps) => {
   return (
-    <CodeInput
-      value={value ?? ''}
-      onChange={(newValue) => onChange(newValue)}
-    />
+    <JsInput value={value ?? ''} onChange={(newValue) => onChange(newValue)} />
   );
 };
