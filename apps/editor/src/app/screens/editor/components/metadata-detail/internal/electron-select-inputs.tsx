@@ -2,7 +2,13 @@ import { ActionIcon, Box, ColorInput, TextInput } from '@mantine/core';
 import { ArrayInputs } from '@shukun/component';
 import { MetadataOptions } from '@shukun/schema';
 
-import { getUniqueLabel } from '@shukun/util-functions';
+import {
+  append,
+  getUniqueLabel,
+  move,
+  remove,
+  update,
+} from '@shukun/util-functions';
 
 import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 
@@ -21,16 +27,26 @@ export const ElectronSelectInputs = ({
     <ArrayInputs<MetadataOptions[number]>
       disabled={disabled}
       value={value}
-      onChange={(value) => onChange(value)}
+      onUpdate={(index, newValue) => {
+        onChange(update(value, index, newValue));
+      }}
       onCreate={() => {
         const key = getUniqueLabel(
           'untitle',
           value.map((item) => item.key),
         );
-        return {
-          key: key,
-          label: key,
-        };
+        onChange(
+          append(value, {
+            key: key,
+            label: key,
+          }),
+        );
+      }}
+      onMove={(sourceIndex, targetIndex) => {
+        onChange(move(value, sourceIndex, targetIndex));
+      }}
+      onRemove={(index) => {
+        onChange(remove(value, index));
       }}
       renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>

@@ -1,6 +1,8 @@
 import { ArrayInputs } from '@shukun/component';
 import { PresenterEvent } from '@shukun/schema';
 
+import { append, move, update, remove } from '@shukun/util-functions';
+
 import { EventContextProps, EventProvider } from './internal/context';
 import { TaskInputs } from './internal/task-inputs';
 
@@ -21,13 +23,23 @@ export const EventInputs = ({
       <ArrayInputs<PresenterEvent>
         disabled={disabled}
         value={value}
-        onChange={(value) => onChange(value)}
+        onUpdate={(index, newValue) => {
+          onChange(update(value, index, newValue));
+        }}
         onCreate={() => {
-          return {
-            scope: 'container',
-            target: '',
-            action: '',
-          } as PresenterEvent;
+          onChange(
+            append(value, {
+              scope: 'container',
+              target: '',
+              action: '',
+            }),
+          );
+        }}
+        onMove={(sourceIndex, targetIndex) => {
+          onChange(move(value, sourceIndex, targetIndex));
+        }}
+        onRemove={(index) => {
+          onChange(remove(value, index));
         }}
         renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
           <TaskInputs
