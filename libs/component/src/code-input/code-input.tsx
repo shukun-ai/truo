@@ -3,7 +3,7 @@ import { ViewUpdate, EditorView } from '@codemirror/view';
 import { Box, Input, InputWrapperProps } from '@mantine/core';
 import { useEffect, useMemo } from 'react';
 
-import { useCodeMirror } from '../../hooks/use-code-mirror';
+import { useCodeMirror } from '../use-code-mirror/use-code-mirror';
 
 export type CodeInputProps = {
   value: string;

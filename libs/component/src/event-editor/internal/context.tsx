@@ -2,11 +2,12 @@ import { TypeException } from '@shukun/exception';
 import { RepositorySchema } from '@shukun/schema';
 import { ReactNode, createContext, useContext, useMemo } from 'react';
 
-import { PresenterRepositoryEntity } from '../../../../repositories/presenter/repository-ref';
-
 export type EventContextProps = {
   containerName: string;
-  repositories: PresenterRepositoryEntity[];
+  repositories: {
+    repositoryName: string;
+    type: string;
+  }[];
   repositoryDefinitions: Record<string, RepositorySchema>;
 };
 

@@ -1,11 +1,11 @@
 import { Box, Group, Title } from '@mantine/core';
 
+import { EventInputs } from '@shukun/component';
 import { PresenterWatch } from '@shukun/schema';
 import { useObservableState } from 'observable-hooks';
 
 import { PresenterWatchEntity } from '../../../../../../repositories/presenter/watch-ref';
 
-import { EventInputs } from '../../../../../components/event-editor/event-inputs';
 import { useAppContext } from '../../../../../contexts/app-context';
 
 export type EventInputProps = {

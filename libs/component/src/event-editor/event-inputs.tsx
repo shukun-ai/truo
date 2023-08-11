@@ -1,7 +1,8 @@
-import { ArrayInputs } from '@shukun/component';
 import { PresenterEvent } from '@shukun/schema';
 
 import { append, move, update, remove } from '@shukun/util-functions';
+
+import { ArrayInputs } from '../array-inputs/array-inputs';
 
 import { EventContextProps, EventProvider } from './internal/context';
 import { TaskInputs } from './internal/task-inputs';

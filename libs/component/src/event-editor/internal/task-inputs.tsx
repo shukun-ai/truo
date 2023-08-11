@@ -1,7 +1,6 @@
-import { ActionIcon, Alert, Box, Group } from '@mantine/core';
+import { ActionIcon, Alert, Box, Group, Input } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 import { IconGripVertical, IconTrash } from '@tabler/icons-react';
-import { useEffect } from 'react';
 
 import { ConnectDragSource } from 'react-dnd';
 
@@ -30,15 +29,15 @@ export const TaskInputs = ({
 }: TaskInputsProps) => {
   const { noRepositories } = useEventContext();
 
-  useEffect(() => {
-    if (!value.target) {
-      onChange({
-        ...value,
-        action: '',
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value.target]);
+  // useEffect(() => {
+  //   if (!value.target) {
+  //     onChange({
+  //       ...value,
+  //       action: '',
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value.target]);
 
   return (
     <Box
@@ -97,6 +96,15 @@ export const TaskInputs = ({
             onChange({
               ...value,
               value: newValue,
+            });
+          }}
+        />
+        <Input
+          value={value.value}
+          onChange={(event) => {
+            onChange({
+              ...value,
+              value: event.target.value,
             });
           }}
         />

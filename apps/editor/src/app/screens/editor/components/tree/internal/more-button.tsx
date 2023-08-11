@@ -7,6 +7,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
+import { Icon } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
 import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
@@ -15,7 +16,6 @@ import { useCallback, useEffect, useMemo } from 'react';
 
 import { ROOT_NODE_ID } from '../../../../../../repositories/presenter/presenter-store';
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
-import { Icon } from '../../../../../components/domain-icons/domain-icons';
 import { useAppContext } from '../../../../../contexts/app-context';
 
 import { RenameMenuItem } from './rename-menu-item';

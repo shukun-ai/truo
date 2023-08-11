@@ -1,10 +1,10 @@
 import { Box, Group, Text, Title } from '@mantine/core';
 
+import { EventInputs } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
 import { ReactNode } from 'react';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
-import { EventInputs } from '../../../../../components/event-editor/event-inputs';
 import { useAppContext } from '../../../../../contexts/app-context';
 
 export type EventInputProps = {
