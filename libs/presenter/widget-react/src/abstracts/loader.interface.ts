@@ -1,6 +1,5 @@
-import { IRepository, RouterMode } from '@shukun/presenter/definition';
-import { PresenterSchema } from '@shukun/schema';
-import { Class } from 'utility-types';
+import { RouterMode } from '@shukun/presenter/definition';
+import { PresenterSchema, RepositorySchema } from '@shukun/schema';
 
 export interface ILoader {
   load(
@@ -20,4 +19,4 @@ export type ReactWidgets = Record<string, ReactWidget>;
 
 export type ReactWidget = (props: any) => JSX.Element;
 
-export type ReactRepositories = Record<string, Class<IRepository>>;
+export type ReactRepositories = Record<string, RepositorySchema>;

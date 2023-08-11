@@ -2,25 +2,19 @@ import { Observable } from 'rxjs';
 
 export interface IStore {
   update<SelectedState>(
-    scope: StoreScope,
+    target: string,
     path: string[],
     callback: StoreCallback<SelectedState>,
   ): void;
-  remove(scope: StoreScope, path: string[]): void;
-  getValue<SelectedState>(scope: StoreScope, path: string[]): SelectedState;
+  remove(target: string, path: string[]): void;
+  getValue<SelectedState>(target: string, path: string[]): SelectedState;
   query<SelectedState>(
-    scope: StoreScope,
+    target: string,
     path: string[],
   ): Observable<SelectedState>;
   queryAll(): Observable<unknown>;
   getAllValue(): unknown;
 }
-
-export type StoreScope = {
-  type: 'app' | 'container';
-  containerId: string | null;
-  repositoryId: string;
-};
 
 export type StoreCallback<SelectedState> = (
   previous: SelectedState,

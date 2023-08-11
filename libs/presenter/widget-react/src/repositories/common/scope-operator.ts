@@ -1,8 +1,4 @@
-import {
-  RepositoryContext,
-  StoreCallback,
-  StoreScope,
-} from '@shukun/presenter/definition';
+import { RepositoryContext, StoreCallback } from '@shukun/presenter/definition';
 
 export const createState = <State>(
   context: RepositoryContext,
@@ -30,10 +26,6 @@ export const getState = <State>(
   return context.store.getValue(getScope(context), path ?? []);
 };
 
-export const getScope = (context: RepositoryContext): StoreScope => {
-  return {
-    type: context.type,
-    containerId: context.containerId,
-    repositoryId: context.repositoryId,
-  };
+export const getScope = (context: RepositoryContext): string => {
+  return context.repositoryId;
 };

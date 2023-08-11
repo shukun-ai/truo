@@ -1,12 +1,6 @@
-import { IRepository } from './repository.interface';
+import { PresenterRepository } from '@shukun/schema';
 
 export interface IRepositoryManager {
-  register(identifier: repositoryIdentifier, repository: IRepository): void;
-  get(identifier: repositoryIdentifier): IRepository;
+  register(repositoryId: string, repository: PresenterRepository): void;
+  get(repositoryId: string): PresenterRepository;
 }
-
-export type repositoryIdentifier = {
-  scope: 'app' | 'container';
-  containerId: string;
-  repositoryId: string;
-};
