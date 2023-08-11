@@ -64,10 +64,26 @@ describe('Name of the group', () => {
       expect(sets).toEqual([
         'raw',
         'bound',
-        'synced',
         'accepted',
+        'synced',
         'published',
         'executed',
+      ]);
+    });
+
+    it('should move from 3 to 2', () => {
+      const sets = [
+        { label: 'second' },
+        { label: 'hi1' },
+        { label: 'hi2' },
+        { label: 'first' },
+      ];
+      mutableMove(sets, 3, 2);
+      expect(sets).toEqual([
+        { label: 'second' },
+        { label: 'hi1' },
+        { label: 'first' },
+        { label: 'hi2' },
       ]);
     });
   });
