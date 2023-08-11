@@ -1,4 +1,5 @@
-import { JsInput } from '../js/js-input';
+import { JsInput } from '@shukun/component';
+
 import { CommonInputProps } from '../types';
 
 export type DataBindingInputProps = {
