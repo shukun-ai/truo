@@ -3,24 +3,154 @@
   "title": "PresenterSchema",
   "description": "Define the presenter contained Stores and UI Elements",
   "type": "object",
-  "required": ["label", "containers", "screens"],
+  "required": ["label", "widgets", "tree", "repositories", "watches"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "type": "string" },
     "label": { "type": "string" },
-    "containers": {
+    "widgets": {
       "type": "object",
       "patternProperties": {
         "^(.)+$": {
-          "$ref": "presenter/container.schema.json"
+          "$ref": "#/definitions/PresenterWidget"
         }
       }
     },
-    "screens": {
+    "nodes": {
       "type": "object",
       "patternProperties": {
         "^(.)+$": {
-          "$ref": "presenter/screen.schema.json"
+          "$ref": "#/definitions/PresenterNode"
+        }
+      }
+    },
+    "repositories": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "$ref": "#/definitions/PresenterRepository"
+        }
+      }
+    },
+    "watches": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "$ref": "#/definitions/PresenterWatch"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PresenterParameter": {
+      "title": "PresenterParameter",
+      "type": ["string", "array", "object", "number", "boolean"]
+    },
+    "PresenterWidget": {
+      "title": "PresenterWidget",
+      "type": "object",
+      "required": ["tag", "label", "properties", "events"],
+      "additionalProperties": false,
+      "properties": {
+        "tag": { "type": "string" },
+        "label": { "type": "string" },
+        "parentSlot": { "type": "string" },
+        "properties": {
+          "type": "object",
+          "patternProperties": {
+            "^(.)+$": {
+              "$ref": "#/definitions/PresenterParameter"
+            }
+          }
+        },
+        "events": {
+          "type": "object",
+          "patternProperties": {
+            "^(.)+$": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PresenterEvent"
+              }
+            }
+          }
+        }
+      }
+    },
+    "PresenterNode": {
+      "title": "PresenterNode",
+      "type": "string"
+    },
+    "PresenterRepository": {
+      "title": "PresenterRepository",
+      "type": "object",
+      "required": ["type", "parameters"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string" },
+        "parameters": {
+          "type": "object",
+          "patternProperties": {
+            "^(.)+$": {
+              "$ref": "#/definitions/PresenterParameter"
+            }
+          }
+        }
+      }
+    },
+    "PresenterWatch": {
+      "title": "PresenterWatch",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["triggers", "events"],
+      "properties": {
+        "triggers": {
+          "type": "object",
+          "properties": {
+            "stateChanged": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "interval": {
+              "type": "number",
+              "description": "The unit of interval is milliseconds."
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PresenterEvent"
+          }
+        }
+      }
+    },
+    "PresenterEvent": {
+      "type": "object",
+      "title": "PresenterEvent",
+      "additionalProperties": false,
+      "required": ["target", "action"],
+      "properties": {
+        "target": {
+          "description": "Target for repository",
+          "type": "string"
+        },
+        "action": {
+          "description": "The action from repository",
+          "type": "string"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "value": {
+          "description": "convert the widget payload to repository input.",
+          "type": "string"
         }
       }
     }
