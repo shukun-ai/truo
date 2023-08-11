@@ -40,6 +40,7 @@
       "@shukun/presenter/editor-inputs": [
         "libs/presenter/editor-inputs/src/index.ts"
       ],
+      "@shukun/presenter/editor-ui": ["libs/presenter/editor-ui/src/index.ts"],
       "@shukun/presenter/widget-react": [
         "libs/presenter/widget-react/src/index.ts"
       ],
