@@ -1,3 +1,4 @@
+// import { Editor } from '@shukun/presenter/editor-ui';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { routerMap } from './router-map';
@@ -6,7 +7,6 @@ import { ConnectorContainer } from './screens/connector/connector.container';
 import { Dashboard } from './screens/dashboard/dashboard';
 import { DashboardBackend } from './screens/dashboard/dashboard-backend';
 import { DashboardPresenter } from './screens/dashboard/dashboard-presenter';
-import { Editor } from './screens/editor/editor';
 import { PublicLayout } from './screens/public-layout/public-layout';
 import { CreateOrg } from './screens/sign-in/create-org';
 import { SearchOrg } from './screens/sign-in/search-org';
@@ -46,22 +46,22 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: routerMap.presenter,
-    element: (
-      <AuthLayout>
-        <Editor mode="presenter" />
-      </AuthLayout>
-    ),
-  },
-  {
-    path: routerMap.backend,
-    element: (
-      <AuthLayout>
-        <Editor mode="system" />
-      </AuthLayout>
-    ),
-  },
+  // {
+  //   path: routerMap.presenter,
+  //   element: (
+  //     <AuthLayout>
+  //       <Editor mode="presenter" />
+  //     </AuthLayout>
+  //   ),
+  // },
+  // {
+  //   path: routerMap.backend,
+  //   element: (
+  //     <AuthLayout>
+  //       <Editor mode="system" />
+  //     </AuthLayout>
+  //   ),
+  // },
   {
     path: routerMap.connector,
     element: <ConnectorContainer />,
