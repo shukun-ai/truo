@@ -1,29 +1,30 @@
-import { Extension } from '@codemirror/state';
+import { javascript } from '@codemirror/lang-javascript';
 import { ViewUpdate, EditorView } from '@codemirror/view';
-import { Box, Input, InputWrapperProps } from '@mantine/core';
-import { useEffect, useMemo } from 'react';
+import { Box } from '@mantine/core';
+
+import { CodeMode } from '@shukun/schema';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useCodeMirror } from '../use-code-mirror/use-code-mirror';
 
 export type CodeInputProps = {
   value: string;
-  onChange: (value: string) => void;
-  extensions?: Extension[];
-} & Omit<InputWrapperProps, 'value' | 'onChange' | 'children'>;
+  onChange: (newValue: string) => void;
+  disabled?: boolean;
+};
 
-export const CodeInput = ({
-  value,
-  onChange,
-  extensions = [],
-  ...props
-}: CodeInputProps) => {
+export const CodeInput = ({ value, onChange }: CodeInputProps) => {
+  const { handleChange } = useHandleChange(value, onChange);
+
   const { ref, view } = useCodeMirror([
-    ...extensions,
-    onUpdate((value) => onChange(value)),
+    javascript(),
+    onUpdate((value) => handleChange(`${CodeMode.JS}${value}`)),
   ]);
 
   const parsedValue = useMemo(() => {
-    return value;
+    return typeof value === 'string' && value.startsWith(CodeMode.JS)
+      ? value.substring(CodeMode.JS.length, value.length)
+      : '';
   }, [value]);
 
   useEffect(() => {
@@ -42,11 +43,7 @@ export const CodeInput = ({
     }
   }, [parsedValue, view]);
 
-  return (
-    <Input.Wrapper {...props}>
-      <Box ref={ref}></Box>
-    </Input.Wrapper>
-  );
+  return <Box ref={ref}></Box>;
 };
 
 const onUpdate = (
@@ -59,4 +56,20 @@ const onUpdate = (
       onChange(value, viewUpdate);
     }
   });
+};
+
+const useHandleChange = (
+  initialValue: string,
+  onChange: (newValue: string) => void,
+) => {
+  const [cache, handleChange] = useState<string>(initialValue);
+
+  useEffect(() => {
+    onChange(cache);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cache]);
+
+  return {
+    handleChange,
+  };
 };
