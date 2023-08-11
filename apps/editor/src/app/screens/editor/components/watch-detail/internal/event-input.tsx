@@ -38,7 +38,6 @@ export const EventInput = ({
       </Group>
 
       <EventInputs
-        containerName={watchEntity.containerName}
         repositories={repositories}
         repositoryDefinitions={repositoryDefinitions}
         value={value}

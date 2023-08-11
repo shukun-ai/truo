@@ -49,7 +49,6 @@ export const EventInput = ({
       {tipSection}
 
       <EventInputs
-        containerName={containerName}
         repositories={repositories}
         repositoryDefinitions={repositoryDefinitions}
         value={value}
