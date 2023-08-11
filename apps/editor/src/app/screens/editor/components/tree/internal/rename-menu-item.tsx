@@ -2,10 +2,10 @@ import { Menu } from '@mantine/core';
 import { modals } from '@mantine/modals';
 
 import { notifications } from '@mantine/notifications';
+import { Icon } from '@shukun/component';
 import { useCallback } from 'react';
 
 import { PresenterWidgetEntity } from '../../../../../../repositories/presenter/widget-ref';
-import { Icon } from '../../../../../components/domain-icons/domain-icons';
 import { RenameForm } from '../../../../../components/rename-form/rename-form';
 import { useAppContext } from '../../../../../contexts/app-context';
 
