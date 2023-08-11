@@ -7,13 +7,13 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { useCodeMirror } from '../use-code-mirror/use-code-mirror';
 
-export type CodeInputProps = {
+export type JsInputProps = {
   value: string;
   onChange: (newValue: string) => void;
   disabled?: boolean;
 };
 
-export const CodeInput = ({ value, onChange }: CodeInputProps) => {
+export const JsInput = ({ value, onChange }: JsInputProps) => {
   const { handleChange } = useHandleChange(value, onChange);
 
   const { ref, view } = useCodeMirror([
