@@ -1,13 +1,13 @@
 import { Box } from '@mantine/core';
-import { WidgetSchema } from '@shukun/schema';
+import { PresenterWidget, WidgetSchema } from '@shukun/schema';
 
 import { EventInput } from './event-input';
 
 export type EventInputsProps = {
   containerName: string;
   definition: WidgetSchema;
-  value: PresenterWidgetEntity['events'];
-  onChange: (newValue: PresenterWidgetEntity['events']) => void;
+  value: PresenterWidget['events'];
+  onChange: (newValue: PresenterWidget['events']) => void;
 };
 
 export const EventInputs = ({
