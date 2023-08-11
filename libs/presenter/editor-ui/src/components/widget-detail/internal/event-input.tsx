@@ -1,15 +1,17 @@
 import { Box, Group, Text, Title } from '@mantine/core';
 
 import { EventInputs } from '@shukun/component';
-import { useObservableState } from 'observable-hooks';
+import { PresenterWidget } from '@shukun/schema';
 import { ReactNode } from 'react';
+
+import { useEditorState } from '../../../editor-context';
 
 export type EventInputProps = {
   label: string;
   secondaryLabel?: string;
   containerName: string;
-  value: PresenterWidgetEntity['events'][number];
-  onChange: (newValue: PresenterWidgetEntity['events'][number]) => void;
+  value: PresenterWidget['events'][number];
+  onChange: (newValue: PresenterWidget['events'][number]) => void;
   tipSection?: ReactNode;
 };
 
@@ -21,17 +23,7 @@ export const EventInput = ({
   onChange,
   tipSection,
 }: EventInputProps) => {
-  const app = useAppContext();
-
-  const repositories = useObservableState(
-    app.repositories.presenterRepository.repositoryRepository.all$,
-    [],
-  );
-
-  const repositoryDefinitions = useObservableState(
-    app.repositories.presenterRepository.repositoryDefinitions$,
-    {},
-  );
+  const { repositories, repositoryDefinitions } = useEditorState();
 
   return (
     <Box sx={{ marginBottom: 16 }}>
@@ -46,7 +38,10 @@ export const EventInput = ({
       {tipSection}
 
       <EventInputs
-        repositories={repositories}
+        repositories={Object.entries(repositories).map(([id, item]) => ({
+          repositoryName: id,
+          type: item.type,
+        }))}
         repositoryDefinitions={repositoryDefinitions}
         value={value}
         onChange={onChange}

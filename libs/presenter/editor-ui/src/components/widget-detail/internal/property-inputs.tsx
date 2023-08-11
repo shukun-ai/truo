@@ -1,11 +1,11 @@
-import { WidgetSchema } from '@shukun/schema';
+import { PresenterWidget, WidgetSchema } from '@shukun/schema';
 
 import { PropertyInput } from './property-input';
 
 export type PropertyInputsProps = {
   definition: WidgetSchema;
-  value: PresenterWidgetEntity['properties'];
-  onChange: (newValue: PresenterWidgetEntity['properties']) => void;
+  value: PresenterWidget['properties'];
+  onChange: (newValue: PresenterWidget['properties']) => void;
 };
 
 export const PropertyInputs = ({

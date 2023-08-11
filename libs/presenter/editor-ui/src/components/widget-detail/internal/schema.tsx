@@ -1,15 +1,15 @@
 import { Box } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 
-import { WidgetSchema } from '@shukun/schema';
+import { PresenterWidget, WidgetSchema } from '@shukun/schema';
 
 import { EventInputs } from './event-inputs';
 import { PropertyInputs } from './property-inputs';
 
 export type SchemaProps = {
   form: UseFormReturnType<
-    PresenterWidgetEntity,
-    (values: PresenterWidgetEntity) => PresenterWidgetEntity
+    PresenterWidget,
+    (values: PresenterWidget) => PresenterWidget
   >;
   definition: WidgetSchema;
   containerName: string;
