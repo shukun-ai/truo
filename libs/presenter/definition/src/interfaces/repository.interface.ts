@@ -1,20 +1,13 @@
 import { PresenterRepository } from '@shukun/schema';
 
-import { IApiRequester } from '../interfaces/requester.interface';
-
-import { IStore } from '../interfaces/store.interface';
-
 import { IAuth } from './auth.interface';
+import { IApiRequester } from './requester.interface';
 import { IRouter } from './router.interface';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IRepository {}
+import { IStore } from './store.interface';
 
 export type RepositoryContext = {
-  type: 'app' | 'container';
-  containerId: string | null;
   repositoryId: string;
-  definition: PresenterRepository;
+  repository: PresenterRepository;
   store: IStore;
   apiRequester: IApiRequester;
   auth: IAuth;
