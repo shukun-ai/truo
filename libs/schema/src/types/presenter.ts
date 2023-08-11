@@ -6,7 +6,21 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type PresenterTreeNode = string;
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ *
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export type PresenterParameter =
+  | string
+  | unknown[]
+  | {
+      [k: string]: unknown;
+    }
+  | number
+  | boolean;
 
 /**
  * Define the presenter contained Stores and UI Elements
@@ -14,55 +28,25 @@ export type PresenterTreeNode = string;
 export interface PresenterSchema {
   $schema?: string;
   label: string;
-  containers: {
-    [k: string]: PresenterContainer;
+  widgets: {
+    [k: string]: PresenterWidget;
   };
-  screens: {
-    [k: string]: PresenterScreen;
-  };
-}
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(.)+$".
- */
-export interface PresenterContainer {
-  $schema?: string;
-  type: 'page';
-  label: string;
-  repositories: PresenterRepositories;
-  widgets: PresenterWidgets;
-  tree: PresenterTreeNodes;
-  watches: PresenterWatches;
-}
-export interface PresenterRepositories {
-  [k: string]: PresenterRepository;
-}
-/**
- * This interface was referenced by `PresenterRepositories`'s JSON-Schema definition
- * via the `patternProperty` "^(.)+$".
- */
-export interface PresenterRepository {
-  type: string;
-  parameters: {
+  tree: {
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^(.)+$".
      */
-    [k: string]:
-      | string
-      | unknown[]
-      | {
-          [k: string]: unknown;
-        }
-      | number
-      | boolean;
+    [k: string]: string[];
+  };
+  repositories: {
+    [k: string]: PresenterRepository;
+  };
+  watches: {
+    [k: string]: PresenterWatch;
   };
 }
-export interface PresenterWidgets {
-  [k: string]: PresenterWidget;
-}
 /**
- * This interface was referenced by `PresenterWidgets`'s JSON-Schema definition
+ * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
  */
 export interface PresenterWidget {
@@ -70,18 +54,7 @@ export interface PresenterWidget {
   label: string;
   parentSlot?: string;
   properties: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(.)+$".
-     */
-    [k: string]:
-      | string
-      | unknown[]
-      | {
-          [k: string]: unknown;
-        }
-      | number
-      | boolean;
+    [k: string]: PresenterParameter;
   };
   events: {
     /**
@@ -92,7 +65,6 @@ export interface PresenterWidget {
   };
 }
 export interface PresenterEvent {
-  scope: 'app' | 'container';
   /**
    * Target for repository
    */
@@ -107,24 +79,23 @@ export interface PresenterEvent {
    */
   value?: string;
 }
-export interface PresenterTreeNodes {
-  /**
-   * This interface was referenced by `PresenterTreeNodes`'s JSON-Schema definition
-   * via the `patternProperty` "^(.)+$".
-   */
-  [k: string]: PresenterTreeNode[];
-}
-export interface PresenterWatches {
-  [k: string]: PresenterWatch;
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export interface PresenterRepository {
+  type: string;
+  parameters: {
+    [k: string]: PresenterParameter;
+  };
 }
 /**
- * This interface was referenced by `PresenterWatches`'s JSON-Schema definition
+ * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
  */
 export interface PresenterWatch {
   triggers: {
     stateChanged?: string[][];
-    containerMounted?: boolean;
     /**
      * The unit of interval is milliseconds.
      */
@@ -132,20 +103,4 @@ export interface PresenterWatch {
     [k: string]: unknown;
   };
   events: PresenterEvent[];
-}
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(.)+$".
- */
-export interface PresenterScreen {
-  $schema?: string;
-  layout: string;
-  slots: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(.)+$".
-     */
-    [k: string]: string;
-  };
-  description?: string;
 }
