@@ -11,12 +11,9 @@ import { TypeException } from '@shukun/exception';
 import { Observable } from 'rxjs';
 
 import { ConnectorTab } from './internal/connector-tab';
-import { ContainersTab } from './internal/containers-tab';
 import { EnvironmentTab } from './internal/environment-tab';
 import { MetadataTab } from './internal/metadata-tab';
 import { RepositoryTab } from './internal/repository-tab';
-import { ScreensTab } from './internal/screens-tab';
-import { WatchTab } from './internal/watch-tab';
 import { WidgetTab } from './internal/widget-tab';
 import { TabEntity, tabRef } from './tab-ref';
 
@@ -27,12 +24,9 @@ export class TabRepository implements ITabRepository {
   private readonly tabStore = tabStore;
   private readonly widgetTab = new WidgetTab();
   private readonly repositoryTab = new RepositoryTab();
-  private readonly watchTab = new WatchTab();
   private readonly connectorTab = new ConnectorTab();
   private readonly metadataTab = new MetadataTab();
   private readonly environmentTab = new EnvironmentTab();
-  private readonly screensTab = new ScreensTab();
-  private readonly containersTab = new ContainersTab();
 
   allTabs$: Observable<TabEntity[]> = this.tabStore.pipe(
     selectAllEntities({ ref: tabRef }),
@@ -56,8 +50,6 @@ export class TabRepository implements ITabRepository {
   selectedWidgetEntityId$ = this.widgetTab.selectedWidgetEntityId$;
 
   selectedRepositoryEntityId$ = this.repositoryTab.selectedRepositoryEntityId$;
-
-  selectedWatchEntityId$ = this.watchTab.selectedWatchEntityId$;
 
   selectedConnectorEntityId$ = this.connectorTab.selectedConnectorEntityId$;
 
@@ -86,14 +78,6 @@ export class TabRepository implements ITabRepository {
     );
   }
 
-  previewWatchTab(
-    containerName: string,
-    watchName: string,
-    watchEntityId: string,
-  ): void {
-    this.watchTab.preview(containerName, watchName, watchEntityId);
-  }
-
   previewConnectorTab(connectorName: string, connectorEntityId: string): void {
     this.connectorTab.preview(connectorName, connectorEntityId);
   }
@@ -107,14 +91,6 @@ export class TabRepository implements ITabRepository {
     environmentEntityId: string,
   ): void {
     this.environmentTab.preview(environmentName, environmentEntityId);
-  }
-
-  previewScreensTab(): void {
-    this.screensTab.preview();
-  }
-
-  previewContainersTab(): void {
-    this.containersTab.preview();
   }
 
   fixTab(tabId: string): void {

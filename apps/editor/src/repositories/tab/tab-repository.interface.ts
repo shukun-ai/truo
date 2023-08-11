@@ -8,7 +8,6 @@ export interface ITabRepository {
   selectedTabEntityId$: Observable<string | null>;
   selectedWidgetEntityId$: Observable<string | null>;
   selectedRepositoryEntityId$: Observable<string | null>;
-  selectedWatchEntityId$: Observable<string | null>;
   selectedConnectorEntityId$: Observable<string | null>;
   selectedMetadataEntityId$: Observable<string | null>;
   selectedEnvironmentEntityId$: Observable<string | null>;
@@ -23,19 +22,12 @@ export interface ITabRepository {
     repositoryName: string,
     repositoryEntityId: string,
   ): void;
-  previewWatchTab(
-    containerName: string,
-    watchName: string,
-    watchEntityId: string,
-  ): void;
   previewConnectorTab(connectorName: string, connectorEntityId: string): void;
   previewMetadataTab(metadataName: string, metadataEntityId: string): void;
   previewEnvironmentTab(
     environmentName: string,
     environmentEntityId: string,
   ): void;
-  previewScreensTab(): void;
-  previewContainersTab(): void;
   fixTab(entityId: string): void;
   activeEditTab(entityId: string): void;
   inactiveEditTab(entityId: string): void;

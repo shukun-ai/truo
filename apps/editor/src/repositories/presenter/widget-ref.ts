@@ -4,8 +4,6 @@ import { nanoid } from 'nanoid';
 
 export type PresenterWidgetEntity = {
   id: string;
-  containerName: string;
-  widgetName: string;
 } & PresenterWidget;
 
 const { widgetEntitiesRef, withWidgetEntities } =
@@ -22,6 +20,6 @@ export const createWidgetEntityId = (): `${string}` => {
 };
 
 export const getWidget = (entity: PresenterWidgetEntity): PresenterWidget => {
-  const { id, containerName, widgetName, ...other } = entity;
+  const { id, ...other } = entity;
   return other;
 };

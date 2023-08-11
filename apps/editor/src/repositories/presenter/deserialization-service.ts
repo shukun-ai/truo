@@ -1,11 +1,6 @@
 import { getAllEntities, getAllEntitiesApply } from '@ngneat/elf-entities';
-import {
-  PresenterContainer,
-  PresenterSchema,
-  PresenterTreeNodes,
-} from '@shukun/schema';
+import { PresenterSchema } from '@shukun/schema';
 
-import { containerRef } from './container-ref';
 import { IDeserializationService } from './deserialization-service.interface';
 import { presenterStore } from './presenter-store';
 import { getRepository, repositoryRef } from './repository-ref';
@@ -23,59 +18,16 @@ export class DeserializationService implements IDeserializationService {
     );
     const presenter: PresenterSchema = {
       label: presenterTitle,
-      containers: this.buildContainers(),
-      screens: this.buildScreens(),
+      // containers: this.buildContainers(),
+      // screens: this.buildScreens(),
+      widgets: this.buildWidgets(),
+      nodes: this.buildNodes(),
+      repositories: this.buildRepositories(),
     };
     return presenter;
   }
 
-  private buildContainers(): PresenterSchema['containers'] {
-    const containerEntities = this.presenterStore.query(
-      getAllEntities({ ref: containerRef }),
-    );
-    const containers: PresenterSchema['containers'] = {};
-    containerEntities.forEach((container) => {
-      containers[container.containerName] = {
-        type: container.type,
-        label: container.label,
-        repositories: this.buildRepositories(container.containerName),
-        widgets: this.buildWidgets(container.containerName),
-        tree: this.buildTreeNodes(container.containerName, container.tree),
-        watches: this.buildWatches(container.containerName),
-      };
-    });
-    return containers;
-  }
-
-  private buildTreeNodes(
-    containerName: string,
-    treeNodes: PresenterTreeNodes,
-  ): PresenterTreeNodes {
-    const widgetEntities = this.presenterStore.query(
-      getAllEntitiesApply({
-        filterEntity: (widget) => widget.containerName === containerName,
-        ref: widgetRef,
-      }),
-    );
-    const widgetNames = toWidgetNames(widgetEntities);
-    return toWidgetNameTree(treeNodes, widgetNames);
-  }
-
-  private buildScreens(): PresenterSchema['screens'] {
-    const screenEntities = this.presenterStore.query(
-      getAllEntities({ ref: screenRef }),
-    );
-    const screens: PresenterSchema['screens'] = {};
-    screenEntities.forEach((screen) => {
-      screens[screen.id] = {
-        layout: screen.layout,
-        slots: screen.slots,
-      };
-    });
-    return screens;
-  }
-
-  private buildWidgets(containerName: string): PresenterContainer['widgets'] {
+  private buildWidgets(): PresenterSchema['widgets'] {
     const widgetEntities = this.presenterStore.query(
       getAllEntitiesApply({
         filterEntity: (widget) => widget.containerName === containerName,
@@ -93,6 +45,20 @@ export class DeserializationService implements IDeserializationService {
       };
     });
     return widgets;
+  }
+
+  private buildNodes(
+    containerName: string,
+    treeNodes: PresenterNodes,
+  ): PresenterTreeNodes {
+    const widgetEntities = this.presenterStore.query(
+      getAllEntitiesApply({
+        filterEntity: (widget) => widget.containerName === containerName,
+        ref: widgetRef,
+      }),
+    );
+    const widgetNames = toWidgetNames(widgetEntities);
+    return toWidgetNameTree(treeNodes, widgetNames);
   }
 
   private buildRepositories(
