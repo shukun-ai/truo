@@ -21,6 +21,11 @@ export type PresenterParameter =
     }
   | number
   | boolean;
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export type PresenterNode = string;
 
 /**
  * Define the presenter contained Stores and UI Elements
@@ -31,12 +36,8 @@ export interface PresenterSchema {
   widgets: {
     [k: string]: PresenterWidget;
   };
-  tree: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(.)+$".
-     */
-    [k: string]: string[];
+  nodes?: {
+    [k: string]: PresenterNode;
   };
   repositories: {
     [k: string]: PresenterRepository;
