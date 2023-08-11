@@ -22,17 +22,13 @@ export const mutableMove = <T>(
   sourceIndex: number,
   targetIndex: number,
 ): T[] => {
-  const source = sets[sourceIndex];
-  if (!source) {
-    throw new Error('Did not find source in sets.');
-  }
+  const startIndex = sourceIndex < 0 ? sets.length + sourceIndex : sourceIndex;
 
-  if (sourceIndex > targetIndex) {
-    sets.splice(sourceIndex, 1);
-    sets.splice(targetIndex + 1, 0, source);
-  } else if (sourceIndex < targetIndex) {
-    sets.splice(sourceIndex, 1);
-    sets.splice(targetIndex, 0, source);
+  if (startIndex >= 0 && startIndex < sets.length) {
+    const endIndex = targetIndex < 0 ? sets.length + targetIndex : targetIndex;
+
+    const [item] = sets.splice(sourceIndex, 1);
+    sets.splice(endIndex, 0, item);
   }
 
   return sets;

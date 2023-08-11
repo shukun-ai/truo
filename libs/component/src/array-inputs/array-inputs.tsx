@@ -1,5 +1,6 @@
-import { Box, Button } from '@mantine/core';
+import { Box, Button, UnstyledButton } from '@mantine/core';
 
+import { IconArrowDown, IconArrowUp } from '@tabler/icons-react';
 import { Fragment, useId } from 'react';
 
 import { ConnectDragSource } from 'react-dnd';
@@ -53,6 +54,20 @@ export const ArrayInputs = <T,>({
               targetIndex={index}
               onMove={onMove}
             />
+            <UnstyledButton
+              onClick={() => {
+                onMove(index, index - 1);
+              }}
+            >
+              <IconArrowUp />
+            </UnstyledButton>
+            <UnstyledButton
+              onClick={() => {
+                onMove(index, index + 1);
+              }}
+            >
+              <IconArrowDown />
+            </UnstyledButton>
           </Fragment>
         ))}
       </Box>
