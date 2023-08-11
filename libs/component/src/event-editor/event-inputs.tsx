@@ -1,3 +1,4 @@
+import { Box } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 
 import { append, move, update, remove } from '@shukun/util-functions';
@@ -42,13 +43,32 @@ export const EventInputs = ({
         onRemove={(index) => {
           onChange(remove(value, index));
         }}
-        renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
-          <TaskInputs
-            drag={drag}
-            value={itemValue}
-            onChange={itemChange}
-            onRemove={itemRemove}
-          />
+        renderItem={(itemValue, itemChange, itemRemove, { index }) => (
+          <Box
+            sx={{
+              display: 'flex',
+              width: '100%',
+              alignItems: 'center',
+              minHeight: 0,
+              minWidth: 0,
+            }}
+          >
+            <Box sx={{ marginRight: 12 }}>
+              <ArrayInputs.ArrowHandler
+                index={index}
+                onMove={(sourceIndex, targetIndex) =>
+                  onChange(move(value, sourceIndex, targetIndex))
+                }
+              />
+            </Box>
+            <Box sx={{ flex: 1 }}>
+              <TaskInputs
+                value={itemValue}
+                onChange={itemChange}
+                onRemove={itemRemove}
+              />
+            </Box>
+          </Box>
         )}
       />
     </EventProvider>

@@ -87,9 +87,14 @@ const ArrayInputsExample = ({
           onChange(move(value, sourceIndex, targetIndex))
         }
         onRemove={(index) => onChange(remove(value, index))}
-        renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
+        renderItem={(itemValue, itemChange, itemRemove, { index }) => (
           <Group position="left">
-            <UnstyledButton ref={drag}>|||</UnstyledButton>
+            <ArrayInputs.ArrowHandler
+              index={index}
+              onMove={(sourceIndex, targetIndex) =>
+                onChange(move(value, sourceIndex, targetIndex))
+              }
+            />
             <Input
               value={itemValue.label}
               onChange={(event) => {
