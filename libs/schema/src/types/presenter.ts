@@ -36,14 +36,11 @@ export interface PresenterSchema {
   widgets: {
     [k: string]: PresenterWidget;
   };
-  nodes?: {
+  nodes: {
     [k: string]: PresenterNode;
   };
   repositories: {
     [k: string]: PresenterRepository;
-  };
-  watches: {
-    [k: string]: PresenterWatch;
   };
 }
 /**
@@ -89,19 +86,4 @@ export interface PresenterRepository {
   parameters: {
     [k: string]: PresenterParameter;
   };
-}
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(.)+$".
- */
-export interface PresenterWatch {
-  triggers: {
-    stateChanged?: string[][];
-    /**
-     * The unit of interval is milliseconds.
-     */
-    interval?: number;
-    [k: string]: unknown;
-  };
-  events: PresenterEvent[];
 }

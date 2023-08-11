@@ -3,7 +3,7 @@
   "title": "PresenterSchema",
   "description": "Define the presenter contained Stores and UI Elements",
   "type": "object",
-  "required": ["label", "widgets", "tree", "repositories", "watches"],
+  "required": ["label", "widgets", "nodes", "repositories"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "type": "string" },
@@ -29,14 +29,6 @@
       "patternProperties": {
         "^(.)+$": {
           "$ref": "#/definitions/PresenterRepository"
-        }
-      }
-    },
-    "watches": {
-      "type": "object",
-      "patternProperties": {
-        "^(.)+$": {
-          "$ref": "#/definitions/PresenterWatch"
         }
       }
     }
