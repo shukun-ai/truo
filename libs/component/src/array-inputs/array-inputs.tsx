@@ -1,12 +1,12 @@
-import { Box, Button, UnstyledButton } from '@mantine/core';
+import { Box, Button } from '@mantine/core';
 
-import { IconArrowDown, IconArrowUp } from '@tabler/icons-react';
 import { Fragment, useId } from 'react';
 
 import { ConnectDragSource } from 'react-dnd';
 
 import { Draggable } from './internal/draggable';
 import { Droppable } from './internal/droppable';
+import { ArrowHandler } from './sub/arrow-handler';
 
 export type ArrayInputProps<T> = {
   value: T[];
@@ -20,6 +20,7 @@ export type ArrayInputProps<T> = {
     itemRemove: () => void,
     options: {
       drag: ConnectDragSource;
+      index: number;
     },
   ) => JSX.Element;
   disabled?: boolean;
@@ -54,20 +55,6 @@ export const ArrayInputs = <T,>({
               targetIndex={index}
               onMove={onMove}
             />
-            <UnstyledButton
-              onClick={() => {
-                onMove(index, index - 1);
-              }}
-            >
-              <IconArrowUp />
-            </UnstyledButton>
-            <UnstyledButton
-              onClick={() => {
-                onMove(index, index + 1);
-              }}
-            >
-              <IconArrowDown />
-            </UnstyledButton>
           </Fragment>
         ))}
       </Box>
@@ -79,3 +66,5 @@ export const ArrayInputs = <T,>({
     </Box>
   );
 };
+
+ArrayInputs.ArrowHandler = ArrowHandler;
