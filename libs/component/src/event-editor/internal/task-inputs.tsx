@@ -13,7 +13,7 @@ import { TargetInput } from './target-input';
 import { ValueInput } from './value-input';
 
 export type TaskInputsProps = {
-  drag: ConnectDragSource;
+  drag?: ConnectDragSource;
   value: PresenterEvent;
   onChange: (newValue: PresenterEvent) => void;
   onRemove: () => void;
@@ -28,7 +28,6 @@ export const TaskInputs = ({
   disabled,
 }: TaskInputsProps) => {
   const { noRepositories } = useEventContext();
-
   // useEffect(() => {
   //   if (!value.target) {
   //     onChange({
@@ -48,7 +47,7 @@ export const TaskInputs = ({
         alignItems: 'center',
       }}
     >
-      {!disabled && (
+      {!disabled && drag && (
         <ActionIcon sx={{ cursor: 'move' }} ref={drag}>
           <IconGripVertical size="1rem" />
         </ActionIcon>

@@ -3,7 +3,6 @@ import { RepositorySchema } from '@shukun/schema';
 import { ReactNode, createContext, useContext, useMemo } from 'react';
 
 export type EventContextProps = {
-  containerName: string;
   repositories: {
     repositoryName: string;
     type: string;
