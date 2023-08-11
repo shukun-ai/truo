@@ -62,8 +62,8 @@ describe('Name of the group', () => {
       expect(output).toEqual([
         'raw',
         'bound',
-        'synced',
         'accepted',
+        'synced',
         'published',
         'executed',
       ]);
