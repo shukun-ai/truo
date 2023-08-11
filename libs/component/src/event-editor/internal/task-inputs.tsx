@@ -38,7 +38,7 @@ export const TaskInputs = ({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [value.target]);
 
   return (
     <Box
