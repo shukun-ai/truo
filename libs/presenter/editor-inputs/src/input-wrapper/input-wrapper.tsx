@@ -1,9 +1,9 @@
 import { ActionIcon, Box, Group, Text, Title, Tooltip } from '@mantine/core';
+import { JsInput } from '@shukun/component';
 import { CodeMode } from '@shukun/schema';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { ReactNode, useCallback, useMemo } from 'react';
 
-import { JsInput } from '../js/js-input';
 import { CommonInputProps } from '../types';
 
 export type InputWrapperProps = {
