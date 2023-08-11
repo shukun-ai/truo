@@ -1,4 +1,4 @@
-import { Group, Input, UnstyledButton } from '@mantine/core';
+import { Group, Input, Select, UnstyledButton } from '@mantine/core';
 import { append, move, remove, update } from '@shukun/util-functions';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
@@ -12,18 +12,23 @@ type TestSchema = {
   events: {
     test: {
       label: string;
+      type: string;
     }[];
   };
 };
 
 type TestItem = {
   label: string;
+  type: string;
 };
 
 const defaultTestSchema = {
   type: 'test',
   events: {
-    test: [{ label: 'first' }, { label: 'second' }],
+    test: [
+      { label: 'first', type: 'country' },
+      { label: 'second', type: 'city' },
+    ],
   },
 };
 
@@ -75,7 +80,9 @@ const ArrayInputsExample = ({
       <ArrayInputs<TestItem>
         value={value}
         onUpdate={(index, newValue) => onChange(update(value, index, newValue))}
-        onCreate={() => onChange(append(value, { label: 'hi' }))}
+        onCreate={() =>
+          onChange(append(value, { label: 'hi', type: 'country' }))
+        }
         onMove={(sourceIndex, targetIndex) =>
           onChange(move(value, sourceIndex, targetIndex))
         }
@@ -89,6 +96,18 @@ const ArrayInputsExample = ({
                 itemChange({
                   ...itemValue,
                   label: event.target.value,
+                });
+              }}
+            />
+            <Select
+              withinPortal
+              clearable
+              data={['country', 'city', 'village', 'street']}
+              value={itemValue.type}
+              onChange={(newValue) => {
+                itemChange({
+                  ...itemValue,
+                  type: newValue ?? 'default',
                 });
               }}
             />
