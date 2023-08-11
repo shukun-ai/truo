@@ -8,21 +8,11 @@ export type TabEntity = {
 } & (
   | {
       tabType: 'widget';
-      containerName: string;
-      widgetName: string;
-      widgetEntityId: string;
+      widgetId: string;
     }
   | {
       tabType: 'repository';
-      containerName: string;
-      repositoryName: string;
-      repositoryEntityId: string;
-    }
-  | {
-      tabType: 'watch';
-      containerName: string;
-      watchName: string;
-      watchEntityId: string;
+      repositoryId: string;
     }
   | {
       tabType: 'connector';
@@ -38,12 +28,6 @@ export type TabEntity = {
       tabType: 'environment';
       environmentName: string;
       environmentEntityId: string;
-    }
-  | {
-      tabType: 'screens';
-    }
-  | {
-      tabType: 'containers';
     }
 );
 
