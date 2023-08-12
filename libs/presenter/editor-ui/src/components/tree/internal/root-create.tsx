@@ -29,9 +29,14 @@ export const TreeRootCreate = () => {
   const handleChildCreate = useCallback(() => {
     modals.open({
       title: '新建子级组件',
-      children: <NodeCreateForm onSubmit={onChildSubmit} />,
+      children: (
+        <NodeCreateForm
+          widgetDefinitions={state.widgetDefinitions}
+          onSubmit={onChildSubmit}
+        />
+      ),
     });
-  }, [onChildSubmit]);
+  }, [onChildSubmit, state.widgetDefinitions]);
 
   return (
     <Box sx={{ padding: 12 }}>

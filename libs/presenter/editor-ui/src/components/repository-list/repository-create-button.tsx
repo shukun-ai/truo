@@ -13,7 +13,7 @@ export type RepositoryCreateButtonProps = {
 };
 
 export const RepositoryCreateButton = () => {
-  const { dispatch } = useEditorContext();
+  const { state, dispatch } = useEditorContext();
 
   const onSubmit = useCallback<(values: RepositoryFormValues) => void>(
     (values) => {
@@ -37,9 +37,15 @@ export const RepositoryCreateButton = () => {
   const open = useCallback(() => {
     modals.open({
       title: '新建数据仓库',
-      children: <RepositoryForm onSubmit={onSubmit} />,
+      children: (
+        <RepositoryForm
+          onSubmit={onSubmit}
+          repositoryDefinitions={state.repositoryDefinitions}
+          isUniqueId={dispatch.repository.isUniqueId}
+        />
+      ),
     });
-  }, [onSubmit]);
+  }, [dispatch.repository.isUniqueId, onSubmit, state.repositoryDefinitions]);
 
   return (
     <Button

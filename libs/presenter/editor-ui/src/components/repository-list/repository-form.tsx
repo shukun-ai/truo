@@ -1,11 +1,12 @@
 import { Button, NativeSelect, SelectItem, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 
+import { RepositorySchema } from '@shukun/schema';
 import { useMemo } from 'react';
 
 import { z } from 'zod';
 
-import { RepositoryEntity, useEditorContext } from '../../editor-context';
+import { RepositoryEntity } from '../../editor-context';
 
 export type RepositoryFormValues = {
   repositoryName: string;
@@ -15,16 +16,16 @@ export type RepositoryFormValues = {
 export type RepositoryFormProps = {
   initialValues?: RepositoryFormValues;
   onSubmit: (values: RepositoryFormValues) => void;
+  repositoryDefinitions: Record<string, RepositorySchema>;
+  isUniqueId(repositoryId: string): boolean;
 };
 
 export const RepositoryForm = ({
   initialValues,
   onSubmit,
+  repositoryDefinitions,
+  isUniqueId,
 }: RepositoryFormProps) => {
-  const { state, dispatch } = useEditorContext();
-
-  const { repositoryDefinitions } = state;
-
   const typeOptions = useMemo<SelectItem[]>(() => {
     return Object.entries(repositoryDefinitions)
       .filter(([, definition]) => definition.scope === 'container')
@@ -44,7 +45,7 @@ export const RepositoryForm = ({
           .max(20)
           .refine(
             (value) => {
-              if (dispatch.repository.isUniqueId(value)) {
+              if (isUniqueId(value)) {
                 return false;
               }
               return true;
