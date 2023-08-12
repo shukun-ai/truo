@@ -9,3 +9,6 @@ export * from './use-code-mirror/use-code-mirror';
 export * from './domain-icons/domain-icons';
 export * from './js-input/js-input';
 export * from './event-editor/event-inputs';
+export * from './overflow-area/overflow-area';
+export * from './editor-tabs/editor-tabs';
+export * from './editor-tabs/editor-tab-wrapper';
