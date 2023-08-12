@@ -2,11 +2,7 @@ import { useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
-import {
-  WidgetEntity,
-  useEditorDispatch,
-  useEditorState,
-} from '../../../editor-context';
+import { WidgetEntity, useEditorContext } from '../../../editor-context';
 
 import {
   ACTIVE_DROPPABLE_HEIGHT,
@@ -25,9 +21,9 @@ export const TreeDroppableDivider = ({
   position: 'before' | 'after';
   level: number;
 }) => {
-  const { rootNodeId } = useEditorState();
-
-  const { node } = useEditorDispatch();
+  const { state, dispatch } = useEditorContext();
+  const { rootNodeId } = state;
+  const { node } = dispatch;
 
   const [{ isOver, canDrop }, drop] = useDrop<
     TreeDroppableItem,

@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 
-import { useEditorState } from '../editor-context';
+import { useEditorContext } from '../editor-context';
 
 export const usePreviewUrl = (screenName: string) => {
-  const { previewDomain } = useEditorState();
+  const { state } = useEditorContext();
 
   const { orgName, presenterName } = useParams();
-  return `${previewDomain}/presenter/${orgName}/${presenterName}/${screenName}`;
+  return `${state.previewDomain}/presenter/${orgName}/${presenterName}/${screenName}`;
 };

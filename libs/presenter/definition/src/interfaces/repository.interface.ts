@@ -12,4 +12,5 @@ export type RepositoryContext = {
   apiRequester: IApiRequester;
   auth: IAuth;
   router: IRouter;
+  definition: PresenterRepository;
 };

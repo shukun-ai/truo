@@ -4,7 +4,7 @@ import { EventInputs } from '@shukun/component';
 import { PresenterWidget } from '@shukun/schema';
 import { ReactNode } from 'react';
 
-import { useEditorState } from '../../../editor-context';
+import { useEditorContext } from '../../../editor-context';
 
 export type EventInputProps = {
   label: string;
@@ -23,7 +23,8 @@ export const EventInput = ({
   onChange,
   tipSection,
 }: EventInputProps) => {
-  const { repositories, repositoryDefinitions } = useEditorState();
+  const { state } = useEditorContext();
+  const { repositories, repositoryDefinitions } = state;
 
   return (
     <Box sx={{ marginBottom: 16 }}>

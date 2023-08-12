@@ -5,7 +5,6 @@ import {
   IRepositoryManager,
   IRouter,
   IStore,
-  IWatchManager,
   RouterMode,
   TemplateEvaluateHelpers,
 } from '@shukun/presenter/definition';
@@ -37,7 +36,6 @@ export type AppProps = {
   reactRepositories: ReactRepositories;
   templateService: ITemplateService;
   repositoryManager: IRepositoryManager;
-  watchManager: IWatchManager;
   eventManager: IEventManager;
   api: IApiRequester;
   auth: IAuth;

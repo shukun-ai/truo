@@ -5,7 +5,7 @@ import { PresenterWidget, WidgetSchema } from '@shukun/schema';
 import {
   TabEntity,
   WidgetEntity,
-  useEditorDispatch,
+  useEditorContext,
 } from '../../editor-context';
 import { useDebounceSave } from '../../hooks/use-debounce-save';
 
@@ -22,7 +22,8 @@ export const WidgetDetail = ({
   widgetEntity,
   widgetDefinition,
 }: WidgetDetailProps) => {
-  const { widget } = useEditorDispatch();
+  const { dispatch } = useEditorContext();
+  const { widget } = dispatch;
 
   const form = useForm<PresenterWidget>({
     initialValues: structuredClone(widgetEntity),

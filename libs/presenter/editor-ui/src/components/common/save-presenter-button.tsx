@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { useEditorDispatch } from '../../editor-context';
+import { useEditorContext } from '../../editor-context';
 import { refreshPreview } from '../../events/preview-event';
 
 export type SavePresenterButtonProps = {
@@ -12,7 +12,8 @@ export type SavePresenterButtonProps = {
 };
 
 export const SavePresenterButton = () => {
-  const { deserialization, synchronize } = useEditorDispatch();
+  const { dispatch } = useEditorContext();
+  const { deserialization, synchronize } = dispatch;
 
   const [loading, setLoading] = useState(false);
 

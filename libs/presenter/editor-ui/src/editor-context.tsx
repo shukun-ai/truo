@@ -165,18 +165,9 @@ export const EditorContext = createContext<EditorContextProps | null>(null);
 
 export const useEditorContext = (): EditorContextProps => {
   const editorContext = useContext(EditorContext);
+
   if (!editorContext) {
     throw new Error('The editorContext is not initialize.');
   }
   return editorContext;
-};
-
-export const useEditorState = (): EditorContextProps['state'] => {
-  const editorContext = useEditorContext();
-  return editorContext.state;
-};
-
-export const useEditorDispatch = (): EditorContextProps['dispatch'] => {
-  const editorContext = useEditorContext();
-  return editorContext.dispatch;
 };

@@ -5,14 +5,14 @@ import { notifications } from '@mantine/notifications';
 import { Icon, RenameForm } from '@shukun/component';
 import { useCallback } from 'react';
 
-import { WidgetEntity, useEditorDispatch } from '../../../editor-context';
+import { WidgetEntity, useEditorContext } from '../../../editor-context';
 
 export type RenameMenuItemProps = {
   widgetEntity: WidgetEntity;
 };
 
 export const RenameMenuItem = ({ widgetEntity }: RenameMenuItemProps) => {
-  const dispatch = useEditorDispatch();
+  const { dispatch } = useEditorContext();
   const openModal = useCallback(() => {
     modals.open({
       title: '重命名',

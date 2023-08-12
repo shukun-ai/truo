@@ -29,13 +29,14 @@ export const EventInputs = ({
           onChange(update(value, index, newValue));
         }}
         onCreate={() => {
-          onChange(
-            append(value, {
-              scope: 'container',
-              target: '',
-              action: '',
-            }),
-          );
+          // TODO recover
+          // onChange(
+          //   append(value, {
+          //     scope: 'container',
+          //     target: '',
+          //     action: '',
+          //   }),
+          // );
         }}
         onMove={(sourceIndex, targetIndex) => {
           onChange(move(value, sourceIndex, targetIndex));

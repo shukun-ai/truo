@@ -13,11 +13,7 @@ import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
 import { useCallback, useEffect, useMemo } from 'react';
 
-import {
-  WidgetEntity,
-  useEditorDispatch,
-  useEditorState,
-} from '../../../editor-context';
+import { WidgetEntity, useEditorContext } from '../../../editor-context';
 
 import { RenameMenuItem } from './rename-menu-item';
 
@@ -30,8 +26,9 @@ export const TreeMoreButton = ({
   sourceWidgetEntity,
   widgetDefinitions,
 }: TreeMoreButtonProps) => {
-  const { rootNodeId } = useEditorState();
-  const { node } = useEditorDispatch();
+  const { state, dispatch } = useEditorContext();
+  const { rootNodeId } = state;
+  const { node } = dispatch;
 
   const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
@@ -151,7 +148,8 @@ export const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
     },
   });
 
-  const { widgetDefinitions } = useEditorState();
+  const { state } = useEditorContext();
+  const { widgetDefinitions } = state;
 
   const options = useMemo(() => {
     const options = Object.entries(widgetDefinitions).map(([id]) => ({

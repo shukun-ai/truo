@@ -1,7 +1,6 @@
-import { IRepository } from '../interfaces/repository.interface';
 import { RouterRepositoryStates } from '../interfaces/router.interface';
 
-export interface IRouterRepository extends IRepository {
+export interface IRouterRepository {
   getValue(): RouterRepositoryStates;
   trigger(payload: {
     action?: 'push' | 'pop' | 'replace';
