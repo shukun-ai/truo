@@ -1,46 +1,45 @@
 import { useForm } from '@mantine/form';
-import { WidgetSchema } from '@shukun/schema';
+import { EditorTabWrapper } from '@shukun/component';
+import { PresenterWidget, WidgetSchema } from '@shukun/schema';
 
+import {
+  TabEntity,
+  WidgetEntity,
+  useEditorDispatch,
+} from '../../editor-context';
 import { useDebounceSave } from '../../hooks/use-debounce-save';
 
 import { Schema } from './internal/schema';
 
 export type WidgetDetailProps = {
-  tab: TabEntity;
-  widgetEntity: PresenterWidgetEntity;
-  definition: WidgetSchema;
+  tabEntity: TabEntity;
+  widgetEntity: WidgetEntity;
+  widgetDefinition: WidgetSchema;
 };
 
 export const WidgetDetail = ({
-  tab,
+  tabEntity,
   widgetEntity,
-  definition,
+  widgetDefinition,
 }: WidgetDetailProps) => {
-  const app = useAppContext();
+  const { widget } = useEditorDispatch();
 
-  const form = useForm<PresenterWidgetEntity>({
+  const form = useForm<PresenterWidget>({
     initialValues: structuredClone(widgetEntity),
   });
 
   useDebounceSave(form.values, (debounced) => {
-    app.repositories.presenterRepository.widgetRepository.update(
-      widgetEntity.id,
-      debounced,
-    );
+    widget.update(widgetEntity.id, debounced);
   });
 
-  if (tab.tabType !== 'widget') {
+  if (tabEntity.tabType !== 'widget') {
     return null;
   }
 
   return (
     <EditorTabWrapper>
       <form>
-        <Schema
-          form={form}
-          definition={definition}
-          containerName={tab.containerName}
-        />
+        <Schema form={form} definition={widgetDefinition} />
       </form>
     </EditorTabWrapper>
   );

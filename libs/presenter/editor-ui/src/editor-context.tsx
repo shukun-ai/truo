@@ -8,19 +8,27 @@ import {
 } from '@shukun/schema';
 import { createContext, useContext } from 'react';
 
-export type KeyMap<T> = Record<string, T>;
+export type Entity<T> = T & { id: string };
+
+export type Tab = { tabType: 'widget' };
+
+export type TabEntity = Entity<Tab>;
+export type WidgetEntity = Entity<PresenterWidget>;
+export type NodeEntity = Entity<PresenterNode>;
+export type RepositoryEntity = Entity<PresenterRepository>;
 
 export type EditorContextProps = {
   disabledPresenter: boolean;
   disabledSystem: boolean;
   state: {
+    tabs: Record<string, TabEntity>;
     previewDomain: string;
     presenterLabel: string;
-    widgets: KeyMap<PresenterWidget>;
-    nodes: KeyMap<PresenterNode>;
-    repositories: KeyMap<PresenterRepository>;
-    widgetDefinitions: KeyMap<WidgetSchema>;
-    repositoryDefinitions: KeyMap<RepositorySchema>;
+    widgets: Record<string, WidgetEntity>;
+    nodes: Record<string, NodeEntity>;
+    repositories: Record<string, RepositoryEntity>;
+    widgetDefinitions: Record<string, WidgetSchema>;
+    repositoryDefinitions: Record<string, RepositorySchema>;
   };
   dispatch: {
     deserialization: {
@@ -31,6 +39,9 @@ export type EditorContextProps = {
         presenterName: string,
         presenter: PresenterSchema,
       ) => Promise<void>;
+    };
+    widget: {
+      update: (entityId: string, entity: PresenterWidget) => void;
     };
   };
 };
