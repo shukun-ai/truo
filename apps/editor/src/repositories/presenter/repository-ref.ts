@@ -4,8 +4,6 @@ import { nanoid } from 'nanoid';
 
 export type PresenterRepositoryEntity = {
   id: string;
-  containerName: string;
-  repositoryName: string;
 } & PresenterRepository;
 
 const { repositoryEntitiesRef, withRepositoryEntities } =
@@ -22,6 +20,6 @@ export const createRepositoryEntityId = (): string => {
 };
 
 export const getRepository = (repositoryEntity: PresenterRepositoryEntity) => {
-  const { id, containerName, repositoryName, ...repository } = repositoryEntity;
+  const { id, ...repository } = repositoryEntity;
   return repository;
 };

@@ -26,7 +26,7 @@ export enum ActivityTab {
 export type Entity<T> = T & { id: string };
 
 export type WidgetEntity = Entity<PresenterWidget>;
-export type NodeEntity = Entity<PresenterNode>;
+// export type NodeEntity = Entity<PresenterNode>;
 export type RepositoryEntity = Entity<PresenterRepository>;
 export type MetadataEntity = Entity<MetadataReviseSchema>;
 export type ConnectorEntity = Entity<ConnectorSchema>;
@@ -59,7 +59,7 @@ export type EditorContextProps = {
   state: {
     tabs: Record<string, TabEntity>;
     widgets: Record<string, WidgetEntity>;
-    nodes: Record<string, NodeEntity>;
+    nodes: Record<string, PresenterNode>;
     repositories: Record<string, RepositoryEntity>;
     metadatas: Record<string, MetadataEntity>;
     connectors: Record<string, ConnectorEntity>;
@@ -119,8 +119,8 @@ export type EditorContextProps = {
       openTreeCollapse: (sourceNodeId: string) => void;
       addWidget: (
         type: 'sibling' | 'insert',
-        newWidgetTag: string,
-        newWidgetTitle: string,
+        widgetTag: string,
+        widgetLabel: string,
         targetNodeId: string,
       ) => void;
       copyWidget(widget: WidgetEntity, targetNodeId: string): void;

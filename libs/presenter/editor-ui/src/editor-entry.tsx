@@ -1,37 +1,29 @@
 import { Box, Divider } from '@mantine/core';
 
-import { useObservableState } from 'observable-hooks';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-
 import { ActivityBar } from './components/activity-bar';
 import { EditorGroups } from './components/editor-groups';
 import { PreviewArea } from './components/preview-area';
 
 export const EditorEntry = () => {
-  const app = useAppContext();
+  // const app = useAppContext();
+  // const { state, dispatch } = useEditorContext();
 
-  const { presenterName } = useParams();
+  // const { presenterName } = useParams();
 
-  const selectedTab = useObservableState(
-    app.repositories.tabRepository.selectedTab$,
-    null,
-  );
+  // useEffect(() => {
+  //   if (presenterName) {
+  //     app.repositories.presenterRepository.initialize(presenterName);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [presenterName]);
 
-  useEffect(() => {
-    if (presenterName) {
-      app.repositories.presenterRepository.initialize(presenterName);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presenterName]);
-
-  useEffect(() => {
-    app.repositories.connectorRepository.initialize();
-    app.repositories.taskRepository.initialize();
-    app.repositories.metadataRepository.initialize();
-    app.repositories.environmentRepository.initialize();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   app.repositories.connectorRepository.initialize();
+  //   app.repositories.taskRepository.initialize();
+  //   app.repositories.metadataRepository.initialize();
+  //   app.repositories.environmentRepository.initialize();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <Box
@@ -74,13 +66,13 @@ export const EditorEntry = () => {
         id="editor__preview_area"
         sx={{
           // TODO refactor ActivityTabs and TabEntity to use universal constants
-          display:
-            selectedTab === null ||
-            ['widget', 'repository', 'watch', 'screens', 'containers'].includes(
-              selectedTab.tabType as string,
-            )
-              ? 'flex'
-              : 'none',
+          // display:
+          // selectedTabId === null ||
+          //   ['widget', 'repository', 'watch', 'screens', 'containers'].includes(
+          //     selectedTabId.tabType as string,
+          //   )
+          //     ? 'flex'
+          //     : 'none',
           flex: 2,
           minWidth: 0,
           minHeight: 0,
