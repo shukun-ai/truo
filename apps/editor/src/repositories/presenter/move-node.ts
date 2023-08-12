@@ -1,9 +1,9 @@
 import { TypeException } from '@shukun/exception';
-import { PresenterTreeNode, PresenterTreeNodes } from '@shukun/schema';
+import { PresenterNode } from '@shukun/schema';
 import { cloneDeep } from 'lodash';
 
 export const moveToInside = (
-  tree: PresenterTreeNodes,
+  tree: Record<string, PresenterNode>,
   sourceNodeId: string,
   targetNodeId: string,
 ) => {
@@ -29,7 +29,7 @@ export const moveToInside = (
 };
 
 export const moveToBeside = (
-  tree: PresenterTreeNodes,
+  tree: Record<string, PresenterNode>,
   sourceNodeId: string,
   targetNodeId: string,
   position: 'before' | 'after',
@@ -58,9 +58,9 @@ export const moveToBeside = (
 };
 
 export const removeNode = (
-  tree: PresenterTreeNodes,
+  tree: Record<string, PresenterNode>,
   sourceNodeId: string,
-): PresenterTreeNodes => {
+): Record<string, PresenterNode> => {
   let cloneTree = cloneDeep(tree);
 
   const sourceNode = cloneTree[sourceNodeId];
@@ -79,7 +79,7 @@ export const removeNode = (
 };
 
 export const addSiblingNode = (
-  tree: PresenterTreeNodes,
+  tree: Record<string, PresenterNode>,
   newNodeId: string,
   targetNodeId: string,
 ) => {
@@ -95,7 +95,7 @@ export const addSiblingNode = (
 };
 
 export const insertNode = (
-  tree: PresenterTreeNodes,
+  tree: Record<string, PresenterNode>,
   newNodeId: string,
   targetNodeId: string,
 ) => {
@@ -107,7 +107,7 @@ export const insertNode = (
 };
 
 const getNodeOrCreate = (
-  tree: PresenterTreeNodes,
+  tree: Record<string, PresenterNode>,
   nodeId: string,
 ): string[] => {
   const node = tree[nodeId];
@@ -119,9 +119,9 @@ const getNodeOrCreate = (
 };
 
 const getParentNode = (
-  tree: PresenterTreeNodes,
+  tree: Record<string, PresenterNode>,
   childNodeId: string,
-): [string, PresenterTreeNode[]] => {
+): [string, PresenterNode] => {
   const entriesNode = Object.entries(tree).find(
     ([, node]) => node.indexOf(childNodeId) > -1,
   );

@@ -1,11 +1,10 @@
 import { Box, createStyles } from '@mantine/core';
-import { WidgetSchema } from '@shukun/schema';
+import { PresenterNode, WidgetSchema } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 
 import {
   NodeCollapseEntity,
-  NodeEntity,
   WidgetEntity,
   useEditorDispatch,
 } from '../../../editor-context';
@@ -30,7 +29,7 @@ export const TreeDraggableNode = ({
   selectedWidgetEntityId,
   widgetDefinitions,
 }: {
-  treeNodes: Record<string, NodeEntity>;
+  treeNodes: Record<string, PresenterNode>;
   widgetEntities: Record<string, WidgetEntity>;
   treeCollapses: Record<string, NodeCollapseEntity>;
   sourceNodeId: string;

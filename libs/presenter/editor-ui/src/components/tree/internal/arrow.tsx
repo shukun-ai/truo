@@ -1,13 +1,14 @@
 import { Box } from '@mantine/core';
+import { PresenterNode } from '@shukun/schema';
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
-import { NodeEntity, useEditorDispatch } from '../../../editor-context';
+import { useEditorDispatch } from '../../../editor-context';
 
 export type TreeArrowProps = {
   isOpen: boolean;
   sourceNodeId: string;
-  treeNodes: Record<string, NodeEntity>;
+  treeNodes: Record<string, PresenterNode>;
 };
 
 export const TreeArrow = ({

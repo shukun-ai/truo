@@ -1,19 +1,8 @@
-import { EditorContext } from './editor-context';
+import { EditorContext, EditorContextProps } from './editor-context';
 import { EditorEntry } from './editor-entry';
 
-export const EditorProvider = ({
-  mode,
-  children,
-}: {
-  mode: 'presenter' | 'system';
-  children: JSX.Element;
-}) => (
-  <EditorContext.Provider
-    value={{
-      disabledPresenter: mode === 'system',
-      disabledSystem: mode === 'presenter',
-    }}
-  >
+export const Editor = ({ value }: { value: EditorContextProps }) => (
+  <EditorContext.Provider value={value}>
     <EditorEntry />
   </EditorContext.Provider>
 );

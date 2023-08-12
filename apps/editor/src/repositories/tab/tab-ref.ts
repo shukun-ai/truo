@@ -5,31 +5,15 @@ export type TabEntity = {
   isPreview: boolean;
   isEdit: boolean;
   hasError: boolean;
-} & (
-  | {
-      tabType: 'widget';
-      widgetId: string;
-    }
-  | {
-      tabType: 'repository';
-      repositoryId: string;
-    }
-  | {
-      tabType: 'connector';
-      connectorName: string;
-      connectorEntityId: string;
-    }
-  | {
-      tabType: 'metadata';
-      metadataName: string;
-      metadataEntityId: string;
-    }
-  | {
-      tabType: 'environment';
-      environmentName: string;
-      environmentEntityId: string;
-    }
-);
+  tabType:
+    | 'widget'
+    | 'repository'
+    | 'watch'
+    | 'connector'
+    | 'metadata'
+    | 'environment';
+  foreignId: string;
+};
 
 const { tabEntitiesRef, withTabEntities } = entitiesPropsFactory('tab');
 

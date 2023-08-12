@@ -1,14 +1,11 @@
 import { createStore, withProps } from '@ngneat/elf';
-import { RepositorySchema, WidgetSchema } from '@shukun/schema';
+import { PresenterNode, RepositorySchema, WidgetSchema } from '@shukun/schema';
 
 import { repositoryDefinitions } from '../../widgets/repository-loader';
 import { widgetDefinitions } from '../../widgets/widget-loader';
 
-import { withContainer } from './container-ref';
 import { withRepository } from './repository-ref';
-import { withScreen } from './screen-ref';
 import { withTreeCollapse } from './tree-ui-ref';
-import { withWatch } from './watch-ref';
 import { withWidget } from './widget-ref';
 
 export type PresenterProps = {
@@ -18,10 +15,11 @@ export type PresenterProps = {
   repositoryDefinitions: Record<string, RepositorySchema>;
   selectedScreenEntityId: string | null;
   selectedContainerEntityId: string | null;
-  selectedActivityTab: ActivityTabs | null;
+  selectedActivityTab: ActivityTab | null;
+  nodes: Record<string, PresenterNode>;
 };
 
-export enum ActivityTabs {
+export enum ActivityTab {
   Screens = 'Screens',
   Widgets = 'Widgets',
   Repositories = 'Repositories',
@@ -32,16 +30,16 @@ export enum ActivityTabs {
 }
 
 export const presenterActivityTabs = [
-  ActivityTabs.Screens,
-  ActivityTabs.Widgets,
-  ActivityTabs.Repositories,
-  ActivityTabs.Watches,
+  ActivityTab.Screens,
+  ActivityTab.Widgets,
+  ActivityTab.Repositories,
+  ActivityTab.Watches,
 ];
 
 export const systemActivityTabs = [
-  ActivityTabs.Metadatas,
-  ActivityTabs.Connectors,
-  ActivityTabs.Environments,
+  ActivityTab.Metadatas,
+  ActivityTab.Connectors,
+  ActivityTab.Environments,
 ];
 
 export const ROOT_NODE_ID = 'root';
@@ -56,12 +54,10 @@ export const presenterStore = createStore(
     repositoryDefinitions,
     selectedScreenEntityId: null,
     selectedContainerEntityId: null,
-    selectedActivityTab: ActivityTabs.Widgets,
+    selectedActivityTab: ActivityTab.Widgets,
+    nodes: {},
   }),
-  withScreen(),
-  withContainer(),
   withTreeCollapse(),
   withWidget(),
   withRepository(),
-  withWatch(),
 );

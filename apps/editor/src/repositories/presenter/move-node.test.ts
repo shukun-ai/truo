@@ -1,4 +1,4 @@
-import { PresenterTreeNodes } from '@shukun/schema';
+import { PresenterNode } from '@shukun/schema';
 
 import {
   insertNode,
@@ -10,13 +10,13 @@ import {
 describe('move-after-node', () => {
   describe('moveToBeside', () => {
     it('When move after sibling, return new tree.', () => {
-      const tree: PresenterTreeNodes = {
+      const tree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b1', 'b2'],
       };
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a2'],
         b: ['b1', 'a1', 'b2'],
@@ -26,13 +26,13 @@ describe('move-after-node', () => {
     });
 
     it('When move before sibling, return new tree.', () => {
-      const tree: PresenterTreeNodes = {
+      const tree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b1', 'b2'],
       };
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a2'],
         b: ['a1', 'b1', 'b2'],
@@ -42,13 +42,13 @@ describe('move-after-node', () => {
     });
 
     it('When move before sibling, return new tree.', () => {
-      const tree: PresenterTreeNodes = {
+      const tree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b1', 'b2'],
       };
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b2', 'b1'],
@@ -58,13 +58,13 @@ describe('move-after-node', () => {
     });
 
     it('When move from same position, throw error.', () => {
-      const tree: PresenterTreeNodes = {
+      const tree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b1', 'b2'],
       };
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b1', 'b2'],
@@ -76,13 +76,13 @@ describe('move-after-node', () => {
 
   describe('moveToInside', () => {
     it('When move a node into other node, return new tree.', () => {
-      const tree: PresenterTreeNodes = {
+      const tree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b1', 'b2'],
       };
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a2'],
         b: ['b1', 'b2'],
@@ -95,14 +95,14 @@ describe('move-after-node', () => {
 
   describe('removeNode', () => {
     it('When remove a node, return new tree.', () => {
-      const tree: PresenterTreeNodes = {
+      const tree: Record<string, PresenterNode> = {
         root: ['a', 'b', 'c'],
         a: ['a1', 'a2'],
         b: ['b1', 'b2'],
         b1: ['b11', 'b12'],
       };
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['a', 'c'],
         a: ['a1', 'a2'],
       };
@@ -113,12 +113,12 @@ describe('move-after-node', () => {
 
   describe('insertNode', () => {
     it('When insert a node, return new tree.', () => {
-      const tree: PresenterTreeNodes = {
+      const tree: Record<string, PresenterNode> = {
         root: ['a'],
         a: ['a1', 'a2'],
       };
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['a', 'b'],
         a: ['a1', 'a2'],
         b: [],
@@ -128,9 +128,9 @@ describe('move-after-node', () => {
     });
 
     it('When insert a empty node, return new tree.', () => {
-      const tree: PresenterTreeNodes = {};
+      const tree: Record<string, PresenterNode> = {};
 
-      const newTree: PresenterTreeNodes = {
+      const newTree: Record<string, PresenterNode> = {
         root: ['b'],
         b: [],
       };

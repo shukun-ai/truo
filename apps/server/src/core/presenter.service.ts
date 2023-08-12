@@ -49,7 +49,6 @@ export class PresenterService {
       widgets: {},
       nodes: {},
       repositories: {},
-      watches: {},
     };
     const entity = new this.presenterModel({
       ...createDto,
