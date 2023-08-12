@@ -4,19 +4,27 @@ import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
 import {
+  WidgetEntity,
+  useEditorDispatch,
+  useEditorState,
+} from '../../../editor-context';
+
+import {
   SHOW_WIDGET_TAG,
   TREE_NODE_TYPE,
   TreeDroppableItem,
 } from './constants';
 
 export type TreeDroppableLabelProps = {
-  targetWidgetEntity: PresenterWidgetEntity;
+  targetWidgetEntity: WidgetEntity;
 };
 
 export const TreeDroppableLabel = ({
   targetWidgetEntity,
 }: TreeDroppableLabelProps) => {
-  const app = useAppContext();
+  const { rootNodeId } = useEditorState();
+
+  const { node } = useEditorDispatch();
 
   const [{ isOver, canDrop }, drop] = useDrop<
     TreeDroppableItem,
@@ -27,16 +35,12 @@ export const TreeDroppableLabel = ({
     canDrop: (item) => {
       return (
         item.sourceNodeId !== targetWidgetEntity.id &&
-        targetWidgetEntity.widgetName !== ROOT_NODE_ID
+        targetWidgetEntity.id !== rootNodeId
       );
     },
     drop: (item) => {
       const { sourceNodeId } = item;
-
-      app.repositories.presenterRepository.treeRepository.moveToInside(
-        sourceNodeId,
-        targetWidgetEntity.id,
-      );
+      node.moveToInside(sourceNodeId, targetWidgetEntity.id);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -59,7 +63,7 @@ export const TreeDroppableLabel = ({
   }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius, theme.white]);
 
   const labelComponent = useMemo(() => {
-    if (targetWidgetEntity.widgetName === ROOT_NODE_ID) {
+    if (targetWidgetEntity.id === rootNodeId) {
       return <Text size="sm">组件树</Text>;
     }
     return (
@@ -72,7 +76,12 @@ export const TreeDroppableLabel = ({
         )}
       </Group>
     );
-  }, [targetWidgetEntity]);
+  }, [
+    rootNodeId,
+    targetWidgetEntity.id,
+    targetWidgetEntity.label,
+    targetWidgetEntity.tag,
+  ]);
 
   return (
     <Box ref={drop} sx={{ ...style }}>

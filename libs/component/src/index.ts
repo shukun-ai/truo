@@ -12,3 +12,4 @@ export * from './event-editor/event-inputs';
 export * from './overflow-area/overflow-area';
 export * from './editor-tabs/editor-tabs';
 export * from './editor-tabs/editor-tab-wrapper';
+export * from './rename-form/rename-form';

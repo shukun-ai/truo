@@ -70,7 +70,10 @@
     },
     "PresenterNode": {
       "title": "PresenterNode",
-      "type": "string"
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "PresenterRepository": {
       "title": "PresenterRepository",

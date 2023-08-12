@@ -1,9 +1,8 @@
 import { Box, Divider, Title, createStyles } from '@mantine/core';
-import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
 
-import { ScreenTip } from '../screen-tip/screen-tip';
+import { useEditorContext } from '../../editor-context';
 
 import { TreeDraggableNode } from './internal/draggable-node';
 import { TreeRootCreate } from './internal/root-create';
@@ -15,68 +14,46 @@ export type TreePaneProps = {
 
 export const TreePane = () => {
   const { classes, cx } = useStyles();
-  const app = useAppContext();
-  const treeNodes = useObservableState(
-    app.repositories.presenterRepository.treeRepository.selectedTreeNodes$,
-    {},
-  );
-  const selectedWidgetEntities = useObservableState(
-    app.repositories.presenterRepository.widgetRepository
-      .selectedWidgetEntities$,
-    {},
-  );
-  const selectedContainerEntityId = useObservableState(
-    app.repositories.presenterRepository.selectedContainerEntityId$,
-    null,
-  );
-  const treeCollapses = useObservableState(
-    app.repositories.presenterRepository.treeRepository.selectedTreeCollapses$,
-    {},
-  );
-  const selectedWidgetEntityId = useObservableState(
-    app.repositories.tabRepository.selectedWidgetEntityId$,
-    null,
-  );
-  const widgetDefinitions = useObservableState(
-    app.repositories.presenterRepository.widgetDefinitions$,
-    {},
-  );
+
+  const { state } = useEditorContext();
+
+  const {
+    nodes,
+    widgets,
+    nodeCollapses,
+    selectedWidgetEntityId,
+    widgetDefinitions,
+  } = state;
 
   const onlyRoot = useMemo(() => {
-    if (!treeNodes.root) {
+    if (!nodes.root) {
       return true;
     }
-    if (treeNodes.root.length === 0) {
+    if (nodes.root.length === 0) {
       return true;
     }
     return false;
-  }, [treeNodes.root]);
+  }, [nodes.root]);
 
   return (
     <Box className={cx(classes.wrapper)}>
-      <ScreenTip />
       <Title order={4} p={12}>
         查看组件
       </Title>
       <Divider />
-      {selectedContainerEntityId ? (
-        <ScrollArea>
-          <TreeDraggableNode
-            treeNodes={treeNodes}
-            widgetEntities={selectedWidgetEntities}
-            treeCollapses={treeCollapses}
-            selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
-            sourceNodeId="root"
-            selectedContainerEntityId={selectedContainerEntityId}
-            level={0}
-            index={0}
-            widgetDefinitions={widgetDefinitions}
-          />
-          {onlyRoot && <TreeRootCreate />}
-        </ScrollArea>
-      ) : (
-        <NonContainerTip />
-      )}
+      <ScrollArea>
+        <TreeDraggableNode
+          treeNodes={nodes}
+          widgetEntities={widgets}
+          treeCollapses={nodeCollapses}
+          selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
+          sourceNodeId="root"
+          level={0}
+          index={0}
+          widgetDefinitions={widgetDefinitions}
+        />
+        {onlyRoot && <TreeRootCreate />}
+      </ScrollArea>
     </Box>
   );
 };

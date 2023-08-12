@@ -1,4 +1,5 @@
 import { Box } from '@mantine/core';
+import { OverflowArea } from '@shukun/component';
 
 import { ReactNode } from 'react';
 

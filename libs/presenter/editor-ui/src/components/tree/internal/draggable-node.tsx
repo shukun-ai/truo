@@ -1,7 +1,14 @@
 import { Box, createStyles } from '@mantine/core';
-import { PresenterTreeNodes, WidgetSchema } from '@shukun/schema';
+import { WidgetSchema } from '@shukun/schema';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
+
+import {
+  NodeCollapseEntity,
+  NodeEntity,
+  WidgetEntity,
+  useEditorDispatch,
+} from '../../../editor-context';
 
 import { TreeArrow } from './arrow';
 import {
@@ -21,20 +28,18 @@ export const TreeDraggableNode = ({
   level,
   index,
   selectedWidgetEntityId,
-  selectedContainerEntityId,
   widgetDefinitions,
 }: {
-  treeNodes: PresenterTreeNodes;
-  widgetEntities: Record<string, PresenterWidgetEntity>;
-  treeCollapses: Record<string, PresenterTreeCollapse>;
+  treeNodes: Record<string, NodeEntity>;
+  widgetEntities: Record<string, WidgetEntity>;
+  treeCollapses: Record<string, NodeCollapseEntity>;
   sourceNodeId: string;
   level: number;
   index: number;
   selectedWidgetEntityId?: string;
-  selectedContainerEntityId: string;
   widgetDefinitions: Record<string, WidgetSchema>;
 }) => {
-  const app = useAppContext();
+  const { tab } = useEditorDispatch();
 
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
     type: TREE_NODE_TYPE,
@@ -48,7 +53,7 @@ export const TreeDraggableNode = ({
 
   const { classes, cx } = useStyles();
 
-  const sourceWidgetEntity = useMemo<PresenterWidgetEntity | null>(() => {
+  const sourceWidgetEntity = useMemo<WidgetEntity | null>(() => {
     const widgetEntity = widgetEntities[sourceNodeId];
     return widgetEntity ? widgetEntity : null;
   }, [sourceNodeId, widgetEntities]);
@@ -74,11 +79,7 @@ export const TreeDraggableNode = ({
             if (!sourceWidgetEntity) {
               return;
             }
-            app.repositories.tabRepository.previewWidgetTab(
-              selectedContainerEntityId,
-              sourceWidgetEntity.widgetName,
-              sourceWidgetEntity.id,
-            );
+            tab.previewWidget(sourceWidgetEntity.id);
           }}
         >
           <Box style={{ width: LEFT_INDENT_WIDTH * level }}></Box>
@@ -110,7 +111,6 @@ export const TreeDraggableNode = ({
               sourceNodeId={childNode}
               level={level + 1}
               index={index}
-              selectedContainerEntityId={selectedContainerEntityId}
               widgetDefinitions={widgetDefinitions}
             />
           ))}
