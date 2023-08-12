@@ -1,7 +1,6 @@
-import { useObservableState } from 'observable-hooks';
-
 import { useMemo } from 'react';
 
+import { TabEntity, useEditorContext } from '../../../editor-context';
 import { ConnectorDetail } from '../../connector-detail/connector-detail';
 
 export type TabConnectorProps = {
@@ -9,25 +8,16 @@ export type TabConnectorProps = {
 };
 
 export const TabConnector = ({ tab }: TabConnectorProps) => {
-  const app = useAppContext();
+  const { state } = useEditorContext();
 
-  const allConnectorEntities = useObservableState(
-    app.repositories.connectorRepository.all$,
-    [],
-  );
+  const { connectors } = state;
 
   const connectorEntity = useMemo(() => {
     if (tab.tabType !== 'connector') {
       return null;
     }
-    const { connectorName } = tab;
-    if (!connectorName) {
-      return null;
-    }
-    return allConnectorEntities.find(
-      (connectorEntity) => connectorEntity.id === tab.connectorEntityId,
-    );
-  }, [allConnectorEntities, tab]);
+    return connectors[tab.foreignId];
+  }, [connectors, tab.foreignId, tab.tabType]);
 
   if (!connectorEntity) {
     return null;

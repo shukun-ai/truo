@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { getPreviewRefreshObservable } from '../../events/preview-event';
 
+import { usePreviewUrl } from '../../hooks/use-preview-url';
+
 import { devices } from './device';
 import { PreviewToolBar } from './preview-tool-bar';
 
@@ -12,12 +14,8 @@ export type PreviewFrameProps = {
 };
 
 export const PreviewFrame = () => {
-  const app = useAppContext();
-  const screen = useObservableState(
-    app.repositories.presenterRepository.screenRepository.selectedScreenEntity$,
-    null,
-  );
-  const previewUrl = usePreviewUrl(screen?.screenName ?? '');
+  // const previewUrl = usePreviewUrl(screen?.screenName ?? '');
+  const previewUrl = usePreviewUrl('');
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const previewRefresh = useObservableState(getPreviewRefreshObservable());
 

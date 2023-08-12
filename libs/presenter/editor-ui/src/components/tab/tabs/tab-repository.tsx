@@ -1,7 +1,6 @@
-import { useObservableState } from 'observable-hooks';
-
 import { useMemo } from 'react';
 
+import { TabEntity, useEditorContext } from '../../../editor-context';
 import { RepositoryDetail } from '../../repository-detail/repository-detail';
 
 export type TabRepositoryProps = {
@@ -9,41 +8,26 @@ export type TabRepositoryProps = {
 };
 
 export const TabRepository = ({ tab }: TabRepositoryProps) => {
-  const app = useAppContext();
-
-  const allRepositoryEntities = useObservableState(
-    app.repositories.presenterRepository.repositoryRepository.all$,
-    [],
-  );
-  const repositoryDefinitions = useObservableState(
-    app.repositories.presenterRepository.repositoryDefinitions$,
-    {},
-  );
+  const { state } = useEditorContext();
 
   const repositoryEntity = useMemo(() => {
     if (tab.tabType !== 'repository') {
       return null;
     }
-    const { repositoryName } = tab;
-    if (!repositoryName) {
-      return null;
-    }
-    return allRepositoryEntities.find(
-      (repositoryEntity) => repositoryEntity.id === tab.repositoryEntityId,
-    );
-  }, [allRepositoryEntities, tab]);
+    return state.repositories[tab.foreignId];
+  }, [state.repositories, tab.foreignId, tab.tabType]);
 
   const definition = useMemo(() => {
     const { type } = repositoryEntity ?? {};
     if (!type) {
       return null;
     }
-    const definition = repositoryDefinitions[type];
+    const definition = state.repositoryDefinitions[type];
     if (!definition) {
       return null;
     }
     return definition;
-  }, [repositoryEntity, repositoryDefinitions]);
+  }, [repositoryEntity, state.repositoryDefinitions]);
 
   if (!repositoryEntity || !definition) {
     return null;

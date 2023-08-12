@@ -2,6 +2,13 @@ import { Box, Container, ScrollArea } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 
+import {
+  MetadataEntity,
+  TabEntity,
+  useEditorContext,
+} from '../../editor-context';
+import { TabAlert } from '../tab-alert/tab-alert';
+
 import { Schema } from './internal/schema';
 
 export type MetadataDetailProps = {
@@ -13,7 +20,7 @@ export const MetadataDetail = ({
   tab,
   metadataEntity,
 }: MetadataDetailProps) => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   const form = useForm<MetadataEntity>({
     initialValues: structuredClone(metadataEntity),
@@ -35,7 +42,7 @@ export const MetadataDetail = ({
         formValue={form.values}
         entity={metadataEntity}
         onSubmit={async () => {
-          app.repositories.metadataRepository.update(form.values);
+          dispatch.metadata.update(form.values);
           return true;
         }}
       />

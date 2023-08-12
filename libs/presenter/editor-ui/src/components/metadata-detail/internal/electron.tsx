@@ -10,8 +10,9 @@ import {
   Tooltip,
 } from '@mantine/core';
 
-import { useObservableState } from 'observable-hooks';
 import { useMemo } from 'react';
+
+import { MetadataEntity, useEditorContext } from '../../../editor-context';
 
 import { ElectronForeignNameInputs } from './electron-foreign-name-inputs';
 import { ElectronReferenceToInputs } from './electron-reference-to-inputs';
@@ -30,12 +31,9 @@ export const Electron = ({
   onChange,
   disabled,
 }: ElectronProps) => {
-  const app = useAppContext();
+  const { state } = useEditorContext();
 
-  const allowedFieldType = useObservableState(
-    app.repositories.metadataRepository.allowedFieldType$,
-    [],
-  );
+  const { allowedFieldType } = state;
 
   const filedTypeOptions = useMemo<SelectItem[]>(() => {
     return allowedFieldType.map((fieldType) => ({

@@ -19,9 +19,9 @@ export const ElectronReferenceToInputs = ({
   const { metadatas } = useSchemaContext();
 
   const atoms = useMemo<SelectItem[]>(() => {
-    return metadatas?.map((atom) => ({
-      value: atom.metadataName,
-      label: `${atom.label} (${atom.metadataName})`,
+    return Object.values(metadatas).map((atom) => ({
+      value: atom.id,
+      label: `${atom.label} (${atom.label})`,
     }));
   }, [metadatas]);
 

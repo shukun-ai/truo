@@ -11,32 +11,23 @@ import {
   IconBuildingWarehouse,
   IconDatabaseCog,
   IconGizmo,
-  Icon3dCubeSphere,
   IconVariable,
 } from '@tabler/icons-react';
 
-import { useObservableState } from 'observable-hooks';
-
 import { ReactNode, useMemo } from 'react';
 
-import {
-  ActivityTabs,
-  systemActivityTabs,
-} from '../../../../../apps/editor/src/repositories/presenter/presenter-store';
-
-import { useEditorContext } from '../editor-context';
+import { ActivityTab, useEditorContext } from '../editor-context';
 
 import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
 import { RepositoryList } from './repository-list/repository-list';
 import { TreePane } from './tree/tree-pane';
-import { WatchPane } from './watch-list/watch-pane';
 
 export const ActivityBar = () => {
   const { classes, cx } = useStyles();
 
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   const activeTab = useActiveTab();
 
@@ -50,8 +41,8 @@ export const ActivityBar = () => {
       orientation="vertical"
       value={activeTab}
       onTabChange={(value) => {
-        app.repositories.presenterRepository.chooseActivityTab(
-          value === activeTab ? null : (value as ActivityTabs),
+        dispatch.editor.chooseActivityTab(
+          value === activeTab ? null : (value as ActivityTab),
         );
       }}
     >
@@ -124,7 +115,7 @@ const useStyles = createStyles(() => ({
 
 const useActivityTabs = (): {
   label: string;
-  value: ActivityTabs;
+  value: ActivityTab;
   icon: ReactNode;
   disabled?: boolean;
   pane: ReactNode;
@@ -134,40 +125,33 @@ const useActivityTabs = (): {
   return [
     {
       label: '组件树',
-      value: ActivityTabs.Widgets,
+      value: ActivityTab.Widgets,
       icon: <IconBinaryTree size="1.2rem" />,
       disabled: disabledPresenter,
       pane: <TreePane />,
     },
     {
       label: '数据仓库',
-      value: ActivityTabs.Repositories,
+      value: ActivityTab.Repositories,
       icon: <IconBuildingWarehouse size="1.2rem" />,
       disabled: disabledPresenter,
       pane: <RepositoryList />,
     },
     {
-      label: '观察器',
-      value: ActivityTabs.Watches,
-      icon: <Icon3dCubeSphere size="1.2rem" />,
-      disabled: disabledPresenter,
-      pane: <WatchPane />,
-    },
-    {
       label: '数据表',
-      value: ActivityTabs.Metadatas,
+      value: ActivityTab.Metadatas,
       icon: <IconDatabaseCog size="1.2rem" />,
       pane: <MetadataListPane />,
     },
     {
       label: '函数流',
-      value: ActivityTabs.Connectors,
+      value: ActivityTab.Connectors,
       icon: <IconGizmo size="1.2rem" />,
       pane: <ConnectorListPane />,
     },
     {
       label: '环境变量',
-      value: ActivityTabs.Environments,
+      value: ActivityTab.Environments,
       icon: <IconVariable size="1.2rem" />,
       pane: <EnvironmentListPane />,
     },
@@ -175,24 +159,19 @@ const useActivityTabs = (): {
 };
 
 const useActiveTab = () => {
-  const app = useAppContext();
+  const { state } = useEditorContext();
   const { disabledPresenter } = useEditorContext();
 
-  const selectedActivityTab = useObservableState(
-    app.repositories.presenterRepository.selectedActivityTab$,
-    null,
-  );
-
   return useMemo(() => {
-    if (selectedActivityTab === null) {
+    if (state.selectedActivityTab === null) {
       return null;
     } else if (
       disabledPresenter &&
-      !systemActivityTabs.includes(selectedActivityTab)
+      !state.systemActivityTabs.includes(state.selectedActivityTab)
     ) {
-      return ActivityTabs.Metadatas;
+      return ActivityTab.Metadatas;
     } else {
-      return selectedActivityTab;
+      return state.selectedActivityTab;
     }
-  }, [disabledPresenter, selectedActivityTab]);
+  }, [disabledPresenter, state.selectedActivityTab, state.systemActivityTabs]);
 };

@@ -1,7 +1,6 @@
-import { useObservableState } from 'observable-hooks';
-
 import { useMemo } from 'react';
 
+import { TabEntity, useEditorContext } from '../../../editor-context';
 import { WidgetDetail } from '../../widget-detail/widget-detail';
 
 export type TabWidgetProps = {
@@ -9,41 +8,26 @@ export type TabWidgetProps = {
 };
 
 export const TabWidget = ({ tab }: TabWidgetProps) => {
-  const app = useAppContext();
-
-  const allWidgetEntities = useObservableState(
-    app.repositories.presenterRepository.widgetRepository.allWidgets$,
-    [],
-  );
-  const widgetDefinitions = useObservableState(
-    app.repositories.presenterRepository.widgetDefinitions$,
-    {},
-  );
+  const { state } = useEditorContext();
 
   const widgetEntity = useMemo(() => {
     if (tab.tabType !== 'widget') {
       return null;
     }
-    const { widgetEntityId } = tab;
-    if (!widgetEntityId) {
-      return null;
-    }
-    return allWidgetEntities.find(
-      (widgetEntity) => widgetEntity.id === tab.widgetEntityId,
-    );
-  }, [allWidgetEntities, tab]);
+    return state.widgets[tab.foreignId];
+  }, [state.widgets, tab.foreignId, tab.tabType]);
 
   const definition = useMemo(() => {
     const { tag } = widgetEntity ?? {};
     if (!tag) {
       return null;
     }
-    const definition = widgetDefinitions[tag];
+    const definition = state.widgetDefinitions[tag];
     if (!definition) {
       return null;
     }
     return definition;
-  }, [widgetEntity, widgetDefinitions]);
+  }, [widgetEntity, state.widgetDefinitions]);
 
   if (!widgetEntity || !definition) {
     return null;
@@ -51,9 +35,9 @@ export const TabWidget = ({ tab }: TabWidgetProps) => {
 
   return (
     <WidgetDetail
-      tab={tab}
+      tabEntity={tab}
       widgetEntity={widgetEntity}
-      definition={definition}
+      widgetDefinition={definition}
     />
   );
 };

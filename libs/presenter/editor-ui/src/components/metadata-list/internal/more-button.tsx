@@ -4,21 +4,19 @@ import { IconDots, IconTrash } from '@tabler/icons-react';
 
 import { useMemo } from 'react';
 
-import { useEditorContext } from '../../../editor-context';
+import { MetadataEntity, useEditorContext } from '../../../editor-context';
 
 export type MoreButtonProps = {
   metadataEntity: MetadataEntity;
 };
 
 export const MoreButton = ({ metadataEntity }: MoreButtonProps) => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
   const { disabledSystem } = useEditorContext();
 
   const disabled = useMemo(() => {
-    return metadataEntity.metadataName.startsWith('system__')
-      ? true
-      : disabledSystem;
-  }, [disabledSystem, metadataEntity.metadataName]);
+    return metadataEntity.id.startsWith('system__') ? true : disabledSystem;
+  }, [disabledSystem, metadataEntity.id]);
 
   if (disabled) {
     return null;
@@ -39,7 +37,7 @@ export const MoreButton = ({ metadataEntity }: MoreButtonProps) => {
           onClick={(event) => {
             event.stopPropagation();
             event.preventDefault();
-            app.repositories.metadataRepository.remove(metadataEntity.id);
+            dispatch.metadata.remove(metadataEntity.id);
           }}
         >
           删除

@@ -1,7 +1,6 @@
-import { useObservableState } from 'observable-hooks';
-
 import { useMemo } from 'react';
 
+import { TabEntity, useEditorContext } from '../../../editor-context';
 import { MetadataDetail } from '../../metadata-detail/metadata-detail';
 
 export type TabMetadataProps = {
@@ -9,25 +8,14 @@ export type TabMetadataProps = {
 };
 
 export const TabMetadata = ({ tab }: TabMetadataProps) => {
-  const app = useAppContext();
-
-  const allMetadataEntities = useObservableState(
-    app.repositories.metadataRepository.all$,
-    [],
-  );
+  const { state } = useEditorContext();
 
   const metadataEntity = useMemo(() => {
     if (tab.tabType !== 'metadata') {
       return null;
     }
-    const { metadataName } = tab;
-    if (!metadataName) {
-      return null;
-    }
-    return allMetadataEntities.find(
-      (metadataEntity) => metadataEntity.id === tab.metadataEntityId,
-    );
-  }, [allMetadataEntities, tab]);
+    return state.metadatas[tab.foreignId];
+  }, [state, tab.foreignId, tab.tabType]);
 
   if (!metadataEntity) {
     return null;

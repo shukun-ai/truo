@@ -2,6 +2,8 @@ import { Card, TextInput } from '@mantine/core';
 
 import { UseFormReturnType } from '@mantine/form';
 
+import { MetadataEntity } from '../../../editor-context';
+
 export type BasicProps = {
   form: UseFormReturnType<
     MetadataEntity,

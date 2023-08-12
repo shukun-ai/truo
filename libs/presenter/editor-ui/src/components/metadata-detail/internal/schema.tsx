@@ -2,11 +2,9 @@ import { Box, Text } from '@mantine/core';
 
 import { UseFormReturnType } from '@mantine/form';
 
-import { useObservableState } from 'observable-hooks';
-
 import { useMemo } from 'react';
 
-import { useEditorContext } from '../../../editor-context';
+import { MetadataEntity, useEditorContext } from '../../../editor-context';
 
 import { Basic } from './basic';
 import { Electrons } from './electrons';
@@ -20,23 +18,17 @@ export type SchemaProps = {
 };
 
 export const Schema = ({ form }: SchemaProps) => {
-  const app = useAppContext();
+  const { state } = useEditorContext();
+  const { metadatas } = state;
   const { disabledSystem } = useEditorContext();
 
-  const allMetadatas = useObservableState(
-    app.repositories.metadataRepository.all$,
-    [],
-  );
-
   const disabled = useMemo(() => {
-    return form.values.metadataName.startsWith('system__')
-      ? true
-      : disabledSystem;
-  }, [disabledSystem, form.values.metadataName]);
+    return form.values.id.startsWith('system__') ? true : disabledSystem;
+  }, [disabledSystem, form.values.id]);
 
   return (
     <Box>
-      <SchemaProvider metadatas={allMetadatas}>
+      <SchemaProvider metadatas={metadatas}>
         <Text fz="md" fw="bold">
           表基础设置
         </Text>

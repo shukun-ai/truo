@@ -2,14 +2,14 @@ import { ActionIcon, Menu } from '@mantine/core';
 
 import { IconDots, IconTrash } from '@tabler/icons-react';
 
-import { useEditorContext } from '../../../editor-context';
+import { ConnectorEntity, useEditorContext } from '../../../editor-context';
 
 export type MoreButtonProps = {
   connectorEntity: ConnectorEntity;
 };
 
 export const MoreButton = ({ connectorEntity }: MoreButtonProps) => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
   const { disabledSystem } = useEditorContext();
 
   if (disabledSystem) {
@@ -29,7 +29,7 @@ export const MoreButton = ({ connectorEntity }: MoreButtonProps) => {
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            app.repositories.connectorRepository.remove(connectorEntity.id);
+            dispatch.connector.remove(connectorEntity.id);
           }}
         >
           删除

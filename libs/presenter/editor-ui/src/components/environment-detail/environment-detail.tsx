@@ -2,6 +2,13 @@ import { Box, Container, ScrollArea } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 
+import {
+  EnvironmentEntity,
+  TabEntity,
+  useEditorContext,
+} from '../../editor-context';
+import { TabAlert } from '../tab-alert/tab-alert';
+
 import { Schema } from './internal/schema';
 
 export type EnvironmentDetailProps = {
@@ -13,7 +20,7 @@ export const EnvironmentDetail = ({
   tab,
   environmentEntity,
 }: EnvironmentDetailProps) => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   const form = useForm<EnvironmentEntity>({
     initialValues: structuredClone(environmentEntity),
@@ -35,7 +42,7 @@ export const EnvironmentDetail = ({
         formValue={form.values}
         entity={environmentEntity}
         onSubmit={async () => {
-          app.repositories.environmentRepository.update(form.values);
+          dispatch.environment.update(form.values);
           return true;
         }}
       />
