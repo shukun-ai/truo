@@ -25,7 +25,7 @@ export type PresenterParameter =
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
  */
-export type PresenterNode = string;
+export type PresenterNode = string[];
 
 /**
  * Define the presenter contained Stores and UI Elements

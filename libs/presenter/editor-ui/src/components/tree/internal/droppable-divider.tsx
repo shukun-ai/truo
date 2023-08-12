@@ -3,6 +3,12 @@ import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
 import {
+  WidgetEntity,
+  useEditorDispatch,
+  useEditorState,
+} from '../../../editor-context';
+
+import {
   ACTIVE_DROPPABLE_HEIGHT,
   INACTIVE_DROPPABLE_HEIGHT,
   LEFT_INDENT_WIDTH,
@@ -15,11 +21,13 @@ export const TreeDroppableDivider = ({
   position,
   level,
 }: {
-  targetWidgetEntity: PresenterWidgetEntity;
+  targetWidgetEntity: WidgetEntity;
   position: 'before' | 'after';
   level: number;
 }) => {
-  const app = useAppContext();
+  const { rootNodeId } = useEditorState();
+
+  const { node } = useEditorDispatch();
 
   const [{ isOver, canDrop }, drop] = useDrop<
     TreeDroppableItem,
@@ -30,17 +38,12 @@ export const TreeDroppableDivider = ({
     canDrop: (item) => {
       return (
         item.sourceNodeId !== targetWidgetEntity.id &&
-        targetWidgetEntity.widgetName !== ROOT_NODE_ID
+        targetWidgetEntity.id !== rootNodeId
       );
     },
     drop: (item) => {
       const { sourceNodeId } = item;
-
-      app.repositories.presenterRepository.treeRepository.moveToBeside(
-        sourceNodeId,
-        targetWidgetEntity.id,
-        position,
-      );
+      node.moveToBeside(sourceNodeId, targetWidgetEntity.id, position);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),

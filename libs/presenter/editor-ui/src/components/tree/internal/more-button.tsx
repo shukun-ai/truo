@@ -11,13 +11,18 @@ import { Icon } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
 import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
-import { useObservableState } from 'observable-hooks';
 import { useCallback, useEffect, useMemo } from 'react';
+
+import {
+  WidgetEntity,
+  useEditorDispatch,
+  useEditorState,
+} from '../../../editor-context';
 
 import { RenameMenuItem } from './rename-menu-item';
 
 export type TreeMoreButtonProps = {
-  sourceWidgetEntity: PresenterWidgetEntity;
+  sourceWidgetEntity: WidgetEntity;
   widgetDefinitions: Record<string, WidgetSchema>;
 };
 
@@ -25,21 +30,19 @@ export const TreeMoreButton = ({
   sourceWidgetEntity,
   widgetDefinitions,
 }: TreeMoreButtonProps) => {
-  const app = useAppContext();
+  const { rootNodeId } = useEditorState();
+  const { node } = useEditorDispatch();
 
   const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      app.repositories.presenterRepository.treeRepository.addWidget(
+      node.addWidget(
         'sibling',
         values.widgetTag,
         values.widgetTitle,
         sourceWidgetEntity.id,
       );
     },
-    [
-      app.repositories.presenterRepository.treeRepository,
-      sourceWidgetEntity.id,
-    ],
+    [node, sourceWidgetEntity.id],
   );
 
   const handleSiblingCreate = useCallback(() => {
@@ -51,17 +54,14 @@ export const TreeMoreButton = ({
 
   const onChildSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      app.repositories.presenterRepository.treeRepository.addWidget(
+      node.addWidget(
         'insert',
         values.widgetTag,
         values.widgetTitle,
         sourceWidgetEntity.id,
       );
     },
-    [
-      app.repositories.presenterRepository.treeRepository,
-      sourceWidgetEntity.id,
-    ],
+    [node, sourceWidgetEntity.id],
   );
 
   const handleChildCreate = useCallback(() => {
@@ -84,23 +84,20 @@ export const TreeMoreButton = ({
       </Menu.Target>
 
       <Menu.Dropdown>
-        {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
+        {sourceWidgetEntity.id !== rootNodeId && (
           <RenameMenuItem widgetEntity={sourceWidgetEntity} />
         )}
-        {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
+        {sourceWidgetEntity.id !== rootNodeId && (
           <Menu.Item
             icon={<Icon type="copy" size={14} />}
             onClick={() => {
-              app.repositories.presenterRepository.treeRepository.copyWidget(
-                sourceWidgetEntity,
-                sourceWidgetEntity.id,
-              );
+              node.copyWidget(sourceWidgetEntity, sourceWidgetEntity.id);
             }}
           >
             复制组件和属性
           </Menu.Item>
         )}
-        {sourceWidgetEntity.widgetName !== ROOT_NODE_ID && (
+        {sourceWidgetEntity.id !== rootNodeId && (
           <Menu.Item
             icon={<Icon type="plus" size={14} />}
             onClick={handleSiblingCreate}
@@ -122,9 +119,7 @@ export const TreeMoreButton = ({
           color="red"
           icon={<Icon type="trash" size={14} />}
           onClick={() => {
-            app.repositories.presenterRepository.treeRepository.removeTreeNode(
-              sourceWidgetEntity.id,
-            );
+            node.removeTreeNode(sourceWidgetEntity.id);
           }}
         >
           删除
@@ -156,12 +151,7 @@ export const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
     },
   });
 
-  const app = useAppContext();
-
-  const widgetDefinitions = useObservableState(
-    app.repositories.presenterRepository.widgetDefinitions$,
-    {},
-  );
+  const { widgetDefinitions } = useEditorState();
 
   const options = useMemo(() => {
     const options = Object.entries(widgetDefinitions).map(([id]) => ({

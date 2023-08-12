@@ -2,15 +2,17 @@ import { Menu } from '@mantine/core';
 import { modals } from '@mantine/modals';
 
 import { notifications } from '@mantine/notifications';
-import { Icon } from '@shukun/component';
+import { Icon, RenameForm } from '@shukun/component';
 import { useCallback } from 'react';
 
+import { WidgetEntity, useEditorDispatch } from '../../../editor-context';
+
 export type RenameMenuItemProps = {
-  widgetEntity: PresenterWidgetEntity;
+  widgetEntity: WidgetEntity;
 };
 
 export const RenameMenuItem = ({ widgetEntity }: RenameMenuItemProps) => {
-  const app = useAppContext();
+  const dispatch = useEditorDispatch();
   const openModal = useCallback(() => {
     modals.open({
       title: '重命名',
@@ -23,11 +25,7 @@ export const RenameMenuItem = ({ widgetEntity }: RenameMenuItemProps) => {
               return;
             }
             try {
-              app.repositories.presenterRepository.widgetRepository.rename(
-                widgetEntity.id,
-                widgetEntity.containerName,
-                newValue.label,
-              );
+              dispatch.widget.rename(widgetEntity.id, newValue.label);
               modals.closeAll();
             } catch {
               notifications.show({
@@ -39,12 +37,7 @@ export const RenameMenuItem = ({ widgetEntity }: RenameMenuItemProps) => {
         />
       ),
     });
-  }, [
-    app.repositories.presenterRepository.widgetRepository,
-    widgetEntity.containerName,
-    widgetEntity.id,
-    widgetEntity.label,
-  ]);
+  }, [dispatch.widget, widgetEntity.id, widgetEntity.label]);
 
   return (
     <Menu.Item icon={<Icon type="rename" size={14} />} onClick={openModal}>

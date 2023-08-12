@@ -1,13 +1,19 @@
 import { useForm } from '@mantine/form';
-import { RepositorySchema } from '@shukun/schema';
+import { EditorTabWrapper } from '@shukun/component';
+import { PresenterRepository, RepositorySchema } from '@shukun/schema';
 
+import {
+  RepositoryEntity,
+  TabEntity,
+  useEditorContext,
+} from '../../editor-context';
 import { useDebounceSave } from '../../hooks/use-debounce-save';
 
 import { Schema } from './internal/schema';
 
 export type RepositoryDetailProps = {
   tab: TabEntity;
-  repositoryEntity: PresenterRepositoryEntity;
+  repositoryEntity: RepositoryEntity;
   definition: RepositorySchema;
 };
 
@@ -16,17 +22,14 @@ export const RepositoryDetail = ({
   repositoryEntity,
   definition,
 }: RepositoryDetailProps) => {
-  const form = useForm<PresenterRepositoryEntity>({
+  const { dispatch } = useEditorContext();
+
+  const form = useForm<PresenterRepository>({
     initialValues: structuredClone(repositoryEntity),
   });
 
-  const app = useAppContext();
-
   useDebounceSave(form.values, (debounced) => {
-    app.repositories.presenterRepository.repositoryRepository.update(
-      repositoryEntity.id,
-      debounced,
-    );
+    dispatch.repository.update(repositoryEntity.id, debounced);
   });
 
   return (

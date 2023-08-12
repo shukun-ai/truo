@@ -12,36 +12,25 @@ import {
   IconDots,
   IconTrash,
 } from '@tabler/icons-react';
-import { useObservableState } from 'observable-hooks';
 
-import { ScreenTip } from '../screen-tip/screen-tip';
+import { RepositoryEntity, useEditorContext } from '../../editor-context';
 
 import { RepositoryCreateButton } from './repository-create-button';
 
 export const RepositoryList = () => {
   const { classes, cx } = useStyles();
 
-  const app = useAppContext();
+  const { state, dispatch } = useEditorContext();
 
-  const selectedRepositoryEntityId = useObservableState(
-    app.repositories.tabRepository.selectedRepositoryEntityId$,
-    null,
-  );
-
-  const allRepositories = useObservableState(
-    app.repositories.presenterRepository.repositoryRepository.all$,
-    [],
-  );
+  const { selectedRepositoryEntityId, repositories } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
-      <ScreenTip />
       <Box pl={4} pr={4} mb={8}>
         <RepositoryCreateButton />
       </Box>
-      {allRepositories.length === 0 && <NonContainerTip />}
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {allRepositories.map((repositoryEntity) => (
+        {Object.values(repositories).map((repositoryEntity) => (
           <Box
             key={repositoryEntity.id}
             className={cx(
@@ -50,16 +39,12 @@ export const RepositoryList = () => {
                 classes.active,
             )}
             onClick={() => {
-              app.repositories.tabRepository.previewRepositoryTab(
-                repositoryEntity.containerName,
-                repositoryEntity.repositoryName,
-                repositoryEntity.id,
-              );
+              dispatch.tab.previewRepository(repositoryEntity.id);
             }}
           >
             <Group>
               <IconBuildingWarehouse size="1rem" />
-              <Text size="sm">{repositoryEntity.repositoryName}</Text>
+              <Text size="sm">{repositoryEntity.id}</Text>
             </Group>
             <MoreButton repositoryEntity={repositoryEntity} />
           </Box>
@@ -72,9 +57,9 @@ export const RepositoryList = () => {
 const MoreButton = ({
   repositoryEntity,
 }: {
-  repositoryEntity: PresenterRepositoryEntity;
+  repositoryEntity: RepositoryEntity;
 }) => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   return (
     <Menu shadow="md" width={200}>
@@ -89,9 +74,7 @@ const MoreButton = ({
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            app.repositories.presenterRepository.repositoryRepository.remove(
-              repositoryEntity.id,
-            );
+            dispatch.repository.remove(repositoryEntity.id);
           }}
         >
           删除

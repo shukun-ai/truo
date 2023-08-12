@@ -1,12 +1,13 @@
 import { Box } from '@mantine/core';
-import { PresenterTreeNodes } from '@shukun/schema';
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useCallback } from 'react';
+
+import { NodeEntity, useEditorDispatch } from '../../../editor-context';
 
 export type TreeArrowProps = {
   isOpen: boolean;
   sourceNodeId: string;
-  treeNodes: PresenterTreeNodes;
+  treeNodes: Record<string, NodeEntity>;
 };
 
 export const TreeArrow = ({
@@ -14,19 +15,15 @@ export const TreeArrow = ({
   sourceNodeId,
   treeNodes,
 }: TreeArrowProps) => {
-  const app = useAppContext();
+  const { node } = useEditorDispatch();
 
   const closeCollapse = useCallback(() => {
-    app.repositories.presenterRepository.treeRepository.closeTreeCollapse(
-      sourceNodeId,
-    );
-  }, [app.repositories.presenterRepository, sourceNodeId]);
+    node.closeTreeCollapse(sourceNodeId);
+  }, [node, sourceNodeId]);
 
   const openCollapse = useCallback(() => {
-    app.repositories.presenterRepository.treeRepository.openTreeCollapse(
-      sourceNodeId,
-    );
-  }, [app.repositories.presenterRepository, sourceNodeId]);
+    node.openTreeCollapse(sourceNodeId);
+  }, [node, sourceNodeId]);
 
   if (!treeNodes[sourceNodeId] || treeNodes[sourceNodeId].length === 0) {
     return <Box sx={{ width: 16 }}></Box>;

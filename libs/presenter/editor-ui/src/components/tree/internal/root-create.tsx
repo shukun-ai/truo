@@ -3,6 +3,8 @@ import { modals } from '@mantine/modals';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
+import { useEditorContext } from '../../../editor-context';
+
 import { NodeCreateForm, NodeCreateFormProps } from './more-button';
 
 export type TreeRootCreateProps = {
@@ -10,18 +12,18 @@ export type TreeRootCreateProps = {
 };
 
 export const TreeRootCreate = () => {
-  const app = useAppContext();
+  const { state, dispatch } = useEditorContext();
 
   const onChildSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
-      app.repositories.presenterRepository.treeRepository.addWidget(
+      dispatch.node.addWidget(
         'insert',
         values.widgetTag,
         values.widgetTitle,
-        ROOT_NODE_ID,
+        state.rootNodeId,
       );
     },
-    [app.repositories.presenterRepository.treeRepository],
+    [dispatch.node, state.rootNodeId],
   );
 
   const handleChildCreate = useCallback(() => {
