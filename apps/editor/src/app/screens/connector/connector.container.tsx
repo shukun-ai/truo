@@ -1,4 +1,4 @@
-import { ConnectorEditor } from '../../components/connector-editor/connector-editor';
+import { ConnectorEditor } from '@shukun/component';
 
 export type ConnectorContainerProps = {
   //

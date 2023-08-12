@@ -13,3 +13,5 @@ export * from './overflow-area/overflow-area';
 export * from './editor-tabs/editor-tabs';
 export * from './editor-tabs/editor-tab-wrapper';
 export * from './rename-form/rename-form';
+export * from './connector-editor/connector-editor';
+export * from './connector-editor/connector-editor-context';
