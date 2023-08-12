@@ -17,8 +17,6 @@ import { MetadataRepository } from '../../repositories/metadata/metadata-reposit
 import { IMetadataRepository } from '../../repositories/metadata/metadata-repository.interface';
 import { PresenterRepository } from '../../repositories/presenter/presenter-repository';
 import { IPresenterRepository } from '../../repositories/presenter/presenter-repository.interface';
-import { TabRepository } from '../../repositories/tab/tab-repository';
-import { ITabRepository } from '../../repositories/tab/tab-repository.interface';
 import { TaskRepository } from '../../repositories/task/task-repository';
 import { ITaskRepository } from '../../repositories/task/task-repository.interface';
 import { RouterMap, routerMap } from '../router-map';
@@ -32,7 +30,6 @@ export type AppContextProps = {
     globalRepository: IGlobalRepository;
     presenterRepository: IPresenterRepository;
     connectorRepository: IConnectorRepository;
-    tabRepository: ITabRepository;
     taskRepository: ITaskRepository;
     metadataRepository: IMetadataRepository;
     environmentRepository: IEnvironmentRepository;
@@ -45,7 +42,6 @@ export const initializeAppContextProps = (): AppContextProps => {
   const globalRepository = new GlobalRepository(apiRequester);
   const presenterRepository = new PresenterRepository(apiRequester);
   const connectorRepository = new ConnectorRepository(apiRequester);
-  const tabRepository = new TabRepository();
   const taskRepository = new TaskRepository(apiRequester);
   const metadataRepository = new MetadataRepository(apiRequester);
   const environmentRepository = new EnvironmentRepository(apiRequester);
@@ -59,7 +55,6 @@ export const initializeAppContextProps = (): AppContextProps => {
       globalRepository,
       presenterRepository,
       connectorRepository,
-      tabRepository,
       taskRepository,
       metadataRepository,
       environmentRepository,

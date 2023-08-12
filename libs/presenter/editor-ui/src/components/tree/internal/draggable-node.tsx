@@ -6,7 +6,7 @@ import { useDrag } from 'react-dnd';
 import {
   NodeCollapseEntity,
   WidgetEntity,
-  useEditorDispatch,
+  useEditorContext,
 } from '../../../editor-context';
 
 import { TreeArrow } from './arrow';
@@ -38,7 +38,8 @@ export const TreeDraggableNode = ({
   selectedWidgetEntityId?: string;
   widgetDefinitions: Record<string, WidgetSchema>;
 }) => {
-  const { tab } = useEditorDispatch();
+  const { dispatch } = useEditorContext();
+  const { tab } = dispatch;
 
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
     type: TREE_NODE_TYPE,

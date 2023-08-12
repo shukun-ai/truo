@@ -3,7 +3,7 @@ import { PresenterNode } from '@shukun/schema';
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
-import { useEditorDispatch } from '../../../editor-context';
+import { useEditorContext } from '../../../editor-context';
 
 export type TreeArrowProps = {
   isOpen: boolean;
@@ -16,7 +16,8 @@ export const TreeArrow = ({
   sourceNodeId,
   treeNodes,
 }: TreeArrowProps) => {
-  const { node } = useEditorDispatch();
+  const { dispatch } = useEditorContext();
+  const { node } = dispatch;
 
   const closeCollapse = useCallback(() => {
     node.closeTreeCollapse(sourceNodeId);

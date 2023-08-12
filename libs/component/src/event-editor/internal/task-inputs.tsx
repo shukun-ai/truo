@@ -61,7 +61,8 @@ export const TaskInputs = ({
           </Alert>
         )}
         <Group>
-          <TargetInput
+          {/* TODO recover */}
+          {/* <TargetInput
             value={value.target}
             onChange={(newValue) => {
               onChange({
@@ -70,7 +71,7 @@ export const TaskInputs = ({
               });
             }}
             scope={value.scope}
-          />
+          /> */}
           <ActionInput
             value={value.action}
             onChange={(newValue) => {

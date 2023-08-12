@@ -3,11 +3,7 @@ import { Badge, Box, Group, Text, useMantineTheme } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
-import {
-  WidgetEntity,
-  useEditorDispatch,
-  useEditorState,
-} from '../../../editor-context';
+import { WidgetEntity, useEditorContext } from '../../../editor-context';
 
 import {
   SHOW_WIDGET_TAG,
@@ -22,9 +18,9 @@ export type TreeDroppableLabelProps = {
 export const TreeDroppableLabel = ({
   targetWidgetEntity,
 }: TreeDroppableLabelProps) => {
-  const { rootNodeId } = useEditorState();
-
-  const { node } = useEditorDispatch();
+  const { state, dispatch } = useEditorContext();
+  const { rootNodeId } = state;
+  const { node } = dispatch;
 
   const [{ isOver, canDrop }, drop] = useDrop<
     TreeDroppableItem,

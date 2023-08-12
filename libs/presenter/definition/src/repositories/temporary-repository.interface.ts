@@ -1,9 +1,7 @@
 import { PresenterEvent } from '@shukun/schema';
 
-import { IRepository } from '../interfaces/repository.interface';
-
 export type TemporaryState = unknown;
 
-export interface ITemporaryRepository extends IRepository {
+export interface ITemporaryRepository {
   setValue(event: PresenterEvent, value: unknown): void;
 }
