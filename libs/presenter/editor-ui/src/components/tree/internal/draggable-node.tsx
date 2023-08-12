@@ -38,7 +38,7 @@ export const TreeDraggableNode = ({
   selectedWidgetEntityId?: string;
   widgetDefinitions: Record<string, WidgetSchema>;
 }) => {
-  const { dispatch } = useEditorContext();
+  const { state, dispatch } = useEditorContext();
   const { tab } = dispatch;
 
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
@@ -95,6 +95,8 @@ export const TreeDraggableNode = ({
             <TreeMoreButton
               sourceWidgetEntity={sourceWidgetEntity}
               widgetDefinitions={widgetDefinitions}
+              rootNodeId={state.rootNodeId}
+              node={dispatch.node}
             />
           </Box>
         </Box>

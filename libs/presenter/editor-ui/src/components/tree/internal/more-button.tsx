@@ -13,23 +13,23 @@ import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
 import { useCallback, useEffect, useMemo } from 'react';
 
-import { WidgetEntity, useEditorContext } from '../../../editor-context';
+import { EditorContextProps, WidgetEntity } from '../../../editor-context';
 
 import { RenameMenuItem } from './rename-menu-item';
 
 export type TreeMoreButtonProps = {
   sourceWidgetEntity: WidgetEntity;
   widgetDefinitions: Record<string, WidgetSchema>;
+  rootNodeId: string;
+  node: EditorContextProps['dispatch']['node'];
 };
 
 export const TreeMoreButton = ({
   sourceWidgetEntity,
   widgetDefinitions,
+  rootNodeId,
+  node,
 }: TreeMoreButtonProps) => {
-  const { state, dispatch } = useEditorContext();
-  const { rootNodeId } = state;
-  const { node } = dispatch;
-
   const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
       node.addWidget(
@@ -45,9 +45,14 @@ export const TreeMoreButton = ({
   const handleSiblingCreate = useCallback(() => {
     modals.open({
       title: '新建同级组件',
-      children: <NodeCreateForm onSubmit={onSiblingSubmit} />,
+      children: (
+        <NodeCreateForm
+          widgetDefinitions={widgetDefinitions}
+          onSubmit={onSiblingSubmit}
+        />
+      ),
     });
-  }, [onSiblingSubmit]);
+  }, [onSiblingSubmit, widgetDefinitions]);
 
   const onChildSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
     (values) => {
@@ -64,9 +69,14 @@ export const TreeMoreButton = ({
   const handleChildCreate = useCallback(() => {
     modals.open({
       title: '新建子级组件',
-      children: <NodeCreateForm onSubmit={onChildSubmit} />,
+      children: (
+        <NodeCreateForm
+          widgetDefinitions={widgetDefinitions}
+          onSubmit={onChildSubmit}
+        />
+      ),
     });
-  }, [onChildSubmit]);
+  }, [onChildSubmit, widgetDefinitions]);
 
   const widgetDefinition = useMemo(() => {
     return widgetDefinitions[sourceWidgetEntity.tag];
@@ -127,10 +137,14 @@ export const TreeMoreButton = ({
 };
 
 export type NodeCreateFormProps = {
+  widgetDefinitions: Record<string, WidgetSchema>;
   onSubmit: (values: { widgetTag: string; widgetTitle: string }) => void;
 };
 
-export const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
+export const NodeCreateForm = ({
+  widgetDefinitions,
+  onSubmit,
+}: NodeCreateFormProps) => {
   const form = useForm({
     initialValues: {
       widgetTag: '',
@@ -147,9 +161,6 @@ export const NodeCreateForm = ({ onSubmit }: NodeCreateFormProps) => {
       widgetTitle: (value) => (value ? null : '请输入组件显示名'),
     },
   });
-
-  const { state } = useEditorContext();
-  const { widgetDefinitions } = state;
 
   const options = useMemo(() => {
     const options = Object.entries(widgetDefinitions).map(([id]) => ({
