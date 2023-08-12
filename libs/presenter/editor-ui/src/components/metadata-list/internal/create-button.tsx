@@ -13,14 +13,14 @@ export type CreateButtonProps = {
 };
 
 export const CreateButton = () => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   const { disabledSystem } = useEditorContext();
 
   const onSubmit = useCallback<(values: CreateFormValues) => void>(
     (values) => {
       try {
-        app.repositories.metadataRepository.create(values.metadataName);
+        dispatch.metadata.create(values.metadataName);
         modals.closeAll();
       } catch {
         notifications.show({
@@ -30,7 +30,7 @@ export const CreateButton = () => {
         });
       }
     },
-    [app.repositories.metadataRepository],
+    [dispatch.metadata],
   );
 
   const open = useCallback(() => {

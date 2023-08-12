@@ -7,10 +7,12 @@ import {
   SelectItem,
   Text,
 } from '@mantine/core';
+import { useConnectorEditorContext } from '@shukun/component';
 import { ConnectorTask } from '@shukun/schema';
-import { useObservableState } from 'observable-hooks';
 
 import { useMemo } from 'react';
+
+import { TaskEntity, useEditorContext } from '../../../editor-context';
 
 import { Parameters } from './parameters';
 import { TaskMoreButton } from './task-more-button';
@@ -20,32 +22,22 @@ export type TaskProps = {
   name: string;
   value: ConnectorTask;
   onChange: (value: ConnectorTask | null) => void;
-  taskEntities: TaskEntity[];
   disabled?: boolean;
 };
 
-export const Task = ({
-  name,
-  value,
-  onChange,
-  taskEntities,
-  disabled,
-}: TaskProps) => {
-  const app = useAppContext();
-  const allTasks = useObservableState(app.repositories.taskRepository.all$, []);
+export const Task = ({ name, value, onChange, disabled }: TaskProps) => {
+  const { state } = useEditorContext();
+  const allTasks = Object.values(state.tasks);
 
   const typeOptions = useMemo<SelectItem[]>(
-    () =>
-      allTasks.map((task) => ({ label: task.taskName, value: task.taskName })),
+    () => allTasks.map((task) => ({ label: task.id, value: task.id })),
     [allTasks],
   );
 
   const taskEntity = useMemo<TaskEntity | null>(() => {
-    const taskEntity = taskEntities.find(
-      (taskEntity) => taskEntity.taskName === value.type,
-    );
+    const taskEntity = state.tasks[value.type];
     return taskEntity ?? null;
-  }, [taskEntities, value.type]);
+  }, [state.tasks, value.type]);
 
   const { selectedTaskName, setSelectedTaskName } = useConnectorEditorContext();
 

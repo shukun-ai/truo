@@ -1,8 +1,7 @@
 import { Box, Button, Group, Text, useMantineTheme } from '@mantine/core';
 import { useCallback, useEffect, useState } from 'react';
 
-import { TabEntity } from '../../../repositories/tab/tab-ref';
-import { useAppContext } from '../../contexts/app-context';
+import { TabEntity, useEditorContext } from '../../editor-context';
 
 export type TabAlertProps = {
   tab: TabEntity;
@@ -21,14 +20,14 @@ export const TabAlert = ({
 }: TabAlertProps) => {
   const theme = useMantineTheme();
 
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   const [fixedCache, setFixedCache] = useState(false);
 
   useEffect(() => {
     if (JSON.stringify(formValue) !== JSON.stringify(entity) && !fixedCache) {
-      app.repositories.tabRepository.fixTab(tab.id);
-      app.repositories.tabRepository.activeEditTab(tab.id);
+      dispatch.tab.fix(tab.id);
+      dispatch.tab.activeEditing(tab.id);
       setFixedCache(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,10 +36,10 @@ export const TabAlert = ({
   const handleSubmit = useCallback(async () => {
     const result = await onSubmit();
     if (result) {
-      app.repositories.tabRepository.inactiveEditTab(tab.id);
+      dispatch.tab.inactiveEditing(tab.id);
       setFixedCache(false);
     }
-  }, [app.repositories.tabRepository, onSubmit, tab.id]);
+  }, [dispatch.tab, onSubmit, tab.id]);
 
   if (!tab.isEdit) {
     return <Box sx={{ height: 16 }}></Box>;

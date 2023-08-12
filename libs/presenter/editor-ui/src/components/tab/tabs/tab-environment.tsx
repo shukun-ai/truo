@@ -1,7 +1,6 @@
-import { useObservableState } from 'observable-hooks';
-
 import { useMemo } from 'react';
 
+import { TabEntity, useEditorContext } from '../../../editor-context';
 import { EnvironmentDetail } from '../../environment-detail/environment-detail';
 
 export type TabEnvironmentProps = {
@@ -9,25 +8,14 @@ export type TabEnvironmentProps = {
 };
 
 export const TabEnvironment = ({ tab }: TabEnvironmentProps) => {
-  const app = useAppContext();
-
-  const allEnvironmentEntities = useObservableState(
-    app.repositories.environmentRepository.all$,
-    [],
-  );
+  const { state } = useEditorContext();
 
   const environmentEntity = useMemo(() => {
     if (tab.tabType !== 'environment') {
       return null;
     }
-    const { environmentName } = tab;
-    if (!environmentName) {
-      return null;
-    }
-    return allEnvironmentEntities.find(
-      (environmentEntity) => environmentEntity.id === tab.environmentEntityId,
-    );
-  }, [allEnvironmentEntities, tab]);
+    return state.environments[tab.foreignId];
+  }, [state.environments, tab.foreignId, tab.tabType]);
 
   if (!environmentEntity) {
     return null;

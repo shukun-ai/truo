@@ -2,7 +2,10 @@ import { Card, NativeSelect, SelectItem, Text, TextInput } from '@mantine/core';
 
 import { UseFormReturnType } from '@mantine/form';
 
+import { useConnectorEditorContext } from '@shukun/component';
 import { useMemo } from 'react';
+
+import { ConnectorEntity } from '../../../editor-context';
 
 export type BasicProps = {
   form: UseFormReturnType<

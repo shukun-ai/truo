@@ -1,5 +1,8 @@
 import { Box } from '@mantine/core';
+import { EditorInputs } from '@shukun/component';
 import { ConnectorTask } from '@shukun/schema';
+
+import { TaskEntity } from '../../../editor-context';
 
 export type ParametersProps = {
   taskEntity: TaskEntity;

@@ -5,6 +5,8 @@ import { MetadataElectron } from '@shukun/schema';
 
 import { useCallback } from 'react';
 
+import { MetadataEntity } from '../../../editor-context';
+
 import { CreateElectronForm } from './create-electron-form';
 import { Electron } from './electron';
 
@@ -21,7 +23,8 @@ export const Electrons = ({ value, onChange, disabled }: ElectronsProps) => {
       children: (
         <CreateElectronForm
           onSubmit={(formValue) => {
-            const exist = value[formValue.electronName];
+            const electronName = formValue.electronName;
+            const exist = value[electronName];
 
             if (exist) {
               notifications.show({

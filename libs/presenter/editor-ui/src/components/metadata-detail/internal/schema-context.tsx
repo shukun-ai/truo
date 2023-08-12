@@ -1,7 +1,9 @@
 import { ReactNode, createContext, useContext } from 'react';
 
+import { MetadataEntity } from '../../../editor-context';
+
 export type SchemaContextProps = {
-  metadatas: MetadataEntity[];
+  metadatas: Record<string, MetadataEntity>;
 };
 
 const SchemaContext = createContext<SchemaContextProps | null>(null);
@@ -10,7 +12,7 @@ export const SchemaProvider = ({
   metadatas,
   children,
 }: {
-  metadatas: MetadataEntity[];
+  metadatas: Record<string, MetadataEntity>;
   children: ReactNode;
 }) => (
   <SchemaContext.Provider value={{ metadatas }}>

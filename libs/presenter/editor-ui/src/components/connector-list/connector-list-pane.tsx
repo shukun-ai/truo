@@ -7,7 +7,8 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
-import { useObservableState } from 'observable-hooks';
+
+import { useEditorContext } from '../../editor-context';
 
 import { CreateButton } from './internal/create-button';
 import { MoreButton } from './internal/more-button';
@@ -15,17 +16,9 @@ import { MoreButton } from './internal/more-button';
 export const ConnectorListPane = () => {
   const { classes, cx } = useStyles();
 
-  const app = useAppContext();
+  const { state, dispatch } = useEditorContext();
 
-  const selectedConnectorEntityId = useObservableState(
-    app.repositories.tabRepository.selectedConnectorEntityId$,
-    null,
-  );
-
-  const allConnectors = useObservableState(
-    app.repositories.connectorRepository.all$,
-    [],
-  );
+  const { selectedConnectorEntityId, connectors } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
@@ -34,7 +27,7 @@ export const ConnectorListPane = () => {
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {allConnectors.map((connectorEntity) => (
+        {Object.values(connectors).map((connectorEntity) => (
           <Box
             key={connectorEntity.id}
             className={cx(
@@ -43,14 +36,11 @@ export const ConnectorListPane = () => {
                 classes.active,
             )}
             onClick={() => {
-              app.repositories.tabRepository.previewConnectorTab(
-                connectorEntity.connectorName,
-                connectorEntity.id,
-              );
+              dispatch.tab.previewConnector(connectorEntity.id);
             }}
           >
             <Group>
-              <Text size="sm">{connectorEntity.connectorName}</Text>
+              <Text size="sm">{connectorEntity.id}</Text>
               <Badge
                 variant="gradient"
                 gradient={{ from: 'orange', to: 'red' }}

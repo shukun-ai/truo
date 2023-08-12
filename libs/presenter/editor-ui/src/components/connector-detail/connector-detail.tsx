@@ -2,7 +2,16 @@ import { Box, Container, ScrollArea } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
 
+import { ConnectorEditor, ConnectorEditorProvider } from '@shukun/component';
 import { useMemo } from 'react';
+
+import {
+  ConnectorEntity,
+  TabEntity,
+  useEditorContext,
+} from '../../editor-context';
+
+import { TabAlert } from '../tab-alert/tab-alert';
 
 import { Schema } from './internal/schema';
 
@@ -15,7 +24,7 @@ export const ConnectorDetail = ({
   tab,
   connectorEntity,
 }: ConnectorDetailProps) => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   const form = useForm<ConnectorEntity>({
     initialValues: structuredClone(connectorEntity),
@@ -45,7 +54,7 @@ export const ConnectorDetail = ({
           formValue={form.values}
           entity={connectorEntity}
           onSubmit={async () => {
-            app.repositories.connectorRepository.update(form.values);
+            dispatch.connector.update(form.values);
             return true;
           }}
         />

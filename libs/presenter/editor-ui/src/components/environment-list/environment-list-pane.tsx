@@ -7,7 +7,8 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
-import { useObservableState } from 'observable-hooks';
+
+import { useEditorContext } from '../../editor-context';
 
 import { CreateButton } from './internal/create-button';
 import { MoreButton } from './internal/more-button';
@@ -15,17 +16,9 @@ import { MoreButton } from './internal/more-button';
 export const EnvironmentListPane = () => {
   const { classes, cx } = useStyles();
 
-  const app = useAppContext();
+  const { state, dispatch } = useEditorContext();
 
-  const selectedEnvironmentEntityId = useObservableState(
-    app.repositories.tabRepository.selectedEnvironmentEntityId$,
-    null,
-  );
-
-  const allEnvironments = useObservableState(
-    app.repositories.environmentRepository.all$,
-    [],
-  );
+  const { selectedEnvironmentEntityId, environments } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
@@ -34,7 +27,7 @@ export const EnvironmentListPane = () => {
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {allEnvironments.map((environmentEntity) => (
+        {Object.values(environments).map((environmentEntity) => (
           <Box
             key={environmentEntity.id}
             className={cx(
@@ -43,15 +36,12 @@ export const EnvironmentListPane = () => {
                 classes.active,
             )}
             onClick={() => {
-              app.repositories.tabRepository.previewEnvironmentTab(
-                environmentEntity.environmentName,
-                environmentEntity.id,
-              );
+              dispatch.tab.previewEnvironment(environmentEntity.id);
             }}
           >
             <Group>
               <Text size="sm" truncate w={100}>
-                {environmentEntity.environmentName}
+                {environmentEntity.id}
               </Text>
               {environmentEntity.isPublic ? (
                 <Badge color="orange">公开</Badge>

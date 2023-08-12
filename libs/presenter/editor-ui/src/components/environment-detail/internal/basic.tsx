@@ -2,6 +2,8 @@ import { Card, Switch, TextInput } from '@mantine/core';
 
 import { UseFormReturnType } from '@mantine/form';
 
+import { EnvironmentEntity } from '../../../editor-context';
+
 export type BasicProps = {
   form: UseFormReturnType<
     EnvironmentEntity,

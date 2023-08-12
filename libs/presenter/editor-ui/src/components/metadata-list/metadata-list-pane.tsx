@@ -7,7 +7,8 @@ import {
   createStyles,
 } from '@mantine/core';
 import { IconDatabaseCog } from '@tabler/icons-react';
-import { useObservableState } from 'observable-hooks';
+
+import { useEditorContext } from '../../editor-context';
 
 import { CreateButton } from './internal/create-button';
 import { MoreButton } from './internal/more-button';
@@ -16,17 +17,9 @@ import { MoreTag } from './internal/more-tag';
 export const MetadataListPane = () => {
   const { classes, cx } = useStyles();
 
-  const app = useAppContext();
+  const { state, dispatch } = useEditorContext();
 
-  const selectedMetadataEntityId = useObservableState(
-    app.repositories.tabRepository.selectedMetadataEntityId$,
-    null,
-  );
-
-  const allMetadatas = useObservableState(
-    app.repositories.metadataRepository.all$,
-    [],
-  );
+  const { selectedMetadataEntityId, metadatas } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
@@ -35,7 +28,7 @@ export const MetadataListPane = () => {
         <Divider />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {allMetadatas.map((metadataEntity) => (
+        {Object.values(metadatas).map((metadataEntity) => (
           <Box
             key={metadataEntity.id}
             className={cx(
@@ -43,15 +36,12 @@ export const MetadataListPane = () => {
               selectedMetadataEntityId === metadataEntity.id && classes.active,
             )}
             onClick={() => {
-              app.repositories.tabRepository.previewMetadataTab(
-                metadataEntity.metadataName,
-                metadataEntity.id,
-              );
+              dispatch.tab.previewMetadata(metadataEntity.id);
             }}
           >
             <Group>
               <IconDatabaseCog size="1rem" />
-              <Text size="sm">{metadataEntity.metadataName}</Text>
+              <Text size="sm">{metadataEntity.id}</Text>
               <MoreTag metadataEntity={metadataEntity} />
             </Group>
             <MoreButton metadataEntity={metadataEntity} />

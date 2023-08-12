@@ -21,7 +21,7 @@ export const ElectronForeignNameInputs = ({
   const { metadatas } = useSchemaContext();
 
   const atomOptions = useMemo<SelectItem[]>(() => {
-    const atom = metadatas.find((atom) => atom.metadataName === atomName);
+    const atom = metadatas[atomName];
 
     return Object.entries(atom?.electrons ?? {}).map(
       ([electronName, electron]) => ({

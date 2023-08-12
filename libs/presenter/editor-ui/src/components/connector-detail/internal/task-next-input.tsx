@@ -1,4 +1,5 @@
 import { NativeSelect, SelectItem } from '@mantine/core';
+import { useConnectorEditorContext } from '@shukun/component';
 import { ConnectorTask } from '@shukun/schema';
 import { useMemo } from 'react';
 

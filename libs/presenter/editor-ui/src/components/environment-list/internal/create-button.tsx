@@ -13,12 +13,12 @@ export type CreateButtonProps = {
 };
 
 export const CreateButton = () => {
-  const app = useAppContext();
+  const { dispatch } = useEditorContext();
 
   const onSubmit = useCallback<(values: CreateFormValues) => void>(
     (values) => {
       try {
-        app.repositories.environmentRepository.create(values.environmentName);
+        dispatch.environment.create(values.environmentName);
         modals.closeAll();
       } catch {
         notifications.show({
@@ -28,7 +28,7 @@ export const CreateButton = () => {
         });
       }
     },
-    [app.repositories.environmentRepository],
+    [dispatch.environment],
   );
 
   const open = useCallback(() => {

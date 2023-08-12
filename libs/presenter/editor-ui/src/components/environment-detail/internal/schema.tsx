@@ -2,7 +2,7 @@ import { Box, Text } from '@mantine/core';
 
 import { UseFormReturnType } from '@mantine/form';
 
-import { useEditorContext } from '../../../editor-context';
+import { EnvironmentEntity, useEditorContext } from '../../../editor-context';
 
 import { Basic } from './basic';
 
