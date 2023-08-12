@@ -12,7 +12,6 @@ export type SchemaProps = {
     (values: PresenterWidget) => PresenterWidget
   >;
   definition: WidgetSchema;
-  containerName: string;
 };
 
 export const Schema = ({ form, definition }: SchemaProps) => {
