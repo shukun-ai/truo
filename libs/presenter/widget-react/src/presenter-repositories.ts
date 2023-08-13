@@ -1,11 +1,13 @@
-import { AuthRepository } from './repositories/auth/auth.repository';
-import { RouterRepository } from './repositories/router/router.repository';
-import { SourceQueryRepository } from './repositories/source-query/source-query.repository';
-import { TemporaryRepository } from './repositories/temporary/temporary.repository';
+import { Repository } from '@shukun/presenter/definition';
 
-export const presenterRepositories: Record<string, any> = {
-  auth: AuthRepository,
-  router: RouterRepository,
-  temporary: SourceQueryRepository,
-  sourceQuery: TemporaryRepository,
+import { authRepository } from './repositories/auth/auth.repository';
+import { routerRepository } from './repositories/router/router.repository';
+import { sourceQueryRepository } from './repositories/source-query/source-query.repository';
+import { temporaryRepository } from './repositories/temporary/temporary.repository';
+
+export const presenterRepositories: Record<string, Repository> = {
+  auth: authRepository,
+  router: routerRepository,
+  temporary: sourceQueryRepository,
+  sourceQuery: temporaryRepository,
 };
