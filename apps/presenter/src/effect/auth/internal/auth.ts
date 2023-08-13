@@ -1,8 +1,7 @@
+import { Injector } from '@shukun/presenter/definition';
 import { AuthenticationToken } from '@shukun/schema';
 
 import { tap } from 'rxjs';
-
-import { Injector } from '../../../interfaces/injector';
 
 import {
   getAuthStorage,

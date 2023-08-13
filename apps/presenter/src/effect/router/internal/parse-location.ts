@@ -1,6 +1,6 @@
 import { TypeException } from '@shukun/exception';
 
-import { RouterMode, RouterState } from '../../../interfaces/injector';
+import { RouterMode, RouterState } from '@shukun/presenter/definition';
 
 import { IHistory } from './history.interface';
 

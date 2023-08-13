@@ -1,6 +1,5 @@
+import { Injector } from '@shukun/presenter/definition';
 import { BehaviorSubject, Observable, distinctUntilChanged, map } from 'rxjs';
-
-import { Injector } from '../../../interfaces/injector';
 
 import { get, set } from './store-utils';
 

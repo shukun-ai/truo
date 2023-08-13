@@ -1,4 +1,4 @@
-import { Injector } from '../../interfaces/injector';
+import { Injector } from '@shukun/presenter/definition';
 
 import { Auth } from './internal/auth';
 
