@@ -3,7 +3,7 @@ import {
   PublicRequester,
   SourceRequester,
 } from '@shukun/api';
-import { UnknownSourceModel } from '@shukun/schema';
+import { AuthenticationToken, UnknownSourceModel } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
 export type Injector = {
@@ -30,5 +30,9 @@ export type Injector = {
     createSourceRequester: <Model extends UnknownSourceModel>(
       atomName: string,
     ) => SourceRequester<Model>;
+  };
+  auth: {
+    signIn: (token: AuthenticationToken) => void;
+    signOut: () => void;
   };
 };
