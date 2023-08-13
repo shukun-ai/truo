@@ -1,7 +1,7 @@
-import { IApiRequester } from '@shukun/presenter/definition';
 import { createContext, useContext } from 'react';
 
 import { ApiRequester } from '../../apis/requester';
+import { IApiRequester } from '../../apis/requester.interface';
 import { environment } from '../../environments/environment';
 import { Environment } from '../../environments/environment.type';
 import { AuthRepository } from '../../repositories/auth/auth-repository';
