@@ -1,12 +1,15 @@
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import { initializeApi } from './effect/api/api';
+import { initializeDevtool } from './effect/devtool/devtool';
+import { initializeStore } from './effect/store/store';
 import { environment } from './environments/environment';
 
-// const debugger = initializeDebugger();
-// const store = initializeStore(debugger);
+const devtool = initializeDevtool(environment);
+const store = initializeStore(environment, devtool);
 
-// const api = initializeApi(store);
+const api = initializeApi(environment, devtool, store);
 // const auth = initializeAuth(store);
 // const router = initializeBrowserRouter(store);
 
