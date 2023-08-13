@@ -1,9 +1,7 @@
-import { RepositoryContext } from '@shukun/presenter/definition';
+import { Repository } from '@shukun/presenter/definition';
 
-export class AuthRepository {
-  constructor(private readonly context: RepositoryContext) {}
-
-  signOut(): void {
-    this.context.auth.signOut();
-  }
-}
+export const authRepository: Repository = {
+  signOut: (payload, event, injector) => {
+    injector.auth.signOut();
+  },
+};

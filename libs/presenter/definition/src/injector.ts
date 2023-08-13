@@ -16,6 +16,10 @@ export type Injector = {
   devtool: {
     send: (action: string, scope: string, state: unknown) => void;
   };
+  logger: {
+    info: (message: string, payload?: unknown) => void;
+    error: (message: string, payload?: unknown) => void;
+  };
   store: {
     update: <T>(path: string[], callback: (previous: T) => T) => void;
     remove: (path: string[]) => void;

@@ -1,74 +1,33 @@
 import {
-  AsyncState,
-  IApiRequester,
-  RepositoryContext,
+  Repository,
+  initialAsyncState,
+  setAsyncState,
+  setAsyncError,
+  setAsyncPending,
+  setAsyncSuccess,
 } from '@shukun/presenter/definition';
-import { HttpQuerySchema, PresenterEvent } from '@shukun/schema';
+import { HttpQuerySchema } from '@shukun/schema';
 
-import { write } from '../common/mutation';
-import { createState, updateState } from '../common/scope-operator';
+export const sourceQueryRepository: Repository = {
+  register: (payload, event, injector, repository) => {
+    injector.store.update([event.target], initialAsyncState());
+  },
 
-export class SourceQueryRepository {
-  constructor(private readonly context: RepositoryContext) {}
+  run: async (payload, event, injector, repository): Promise<void> => {
+    injector.store.update([event.target], setAsyncState({ loading: true }));
+    const atomName: string = repository.parameters.atomName as any;
+    const query: HttpQuerySchema = payload as any;
 
-  register() {
-    createState(this.context, {
-      loading: false,
-      errorMessage: null,
-      data: {},
-    });
-  }
+    injector.store.update([event.target], setAsyncPending());
 
-  async run(event: PresenterEvent, payload: unknown): Promise<void> {
-    updateState<AsyncState>(
-      this.context,
-      [],
-      write((draft) => (draft.loading = true)),
-    );
-
-    const { apiRequester, definition } = this.context;
-    const { atomName } = definition.parameters as any;
-
-    // TODO Validate the parsedQuery is HttpQuerySchema in development mode.
-
-    const response = await this.sendRequester(
-      apiRequester,
-      atomName,
-      payload as HttpQuerySchema,
-    );
-
-    updateState<AsyncState>(
-      this.context,
-      [],
-      write((draft) => {
-        draft.loading = false;
-        draft.errorMessage = null;
-        draft.data = response.data;
-      }),
-    );
-  }
-
-  private async sendRequester(
-    apiRequester: IApiRequester,
-    atomName: string,
-    query: HttpQuerySchema,
-  ) {
     try {
-      const response = await apiRequester
+      const response = await injector.api
         .createSourceRequester(atomName)
         .query(query);
-      return response;
+      injector.store.update([event.target], setAsyncSuccess(response.data));
     } catch (error) {
-      updateState<AsyncState>(
-        this.context,
-        [],
-        write((draft) => {
-          draft.loading = false;
-          draft.errorMessage =
-            error instanceof Error ? error.message : '未知错误';
-        }),
-      );
-      throw error;
+      injector.store.update([event.target], setAsyncError(error));
+      injector.logger.error('sourceQueryRepository.run', error);
     }
-  }
-}
+  },
+};

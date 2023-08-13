@@ -1,11 +1,9 @@
-import { RepositoryContext } from '@shukun/presenter/definition';
+import { Repository } from '@shukun/presenter/definition';
 
 import z from 'zod';
 
-export class RouterRepository {
-  constructor(private readonly context: RepositoryContext) {}
-
-  go(payload: unknown) {
+export const routerRepository: Repository = {
+  go: (payload, event, injector) => {
     const schema = z.object({
       page: z.string().optional(),
       search: z.record(z.unknown()).optional(),
@@ -13,11 +11,13 @@ export class RouterRepository {
     const { success } = schema.safeParse(payload);
 
     if (success) {
-      this.context.router.go(payload as z.infer<typeof schema>);
+      injector.router.go(payload as z.infer<typeof schema>);
+    } else {
+      injector.logger.error('routerRepository.go', payload);
     }
-  }
+  },
 
-  back() {
-    this.context.router.back();
-  }
-}
+  back: (payload, event, injector) => {
+    injector.router.back();
+  },
+};
