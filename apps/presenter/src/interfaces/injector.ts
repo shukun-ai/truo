@@ -35,4 +35,26 @@ export type Injector = {
     signIn: (token: AuthenticationToken) => void;
     signOut: () => void;
   };
+  router: {
+    go: (payload: { page?: string; search?: Record<string, unknown> }) => void;
+    replace: (payload: {
+      page?: string;
+      search?: Record<string, unknown>;
+    }) => void;
+    back: () => void;
+  };
 };
+
+export type RouterState = {
+  app: string;
+  orgName: string;
+  page: string;
+  search: Record<string, unknown>;
+  mode: RouterMode;
+};
+
+export enum RouterMode {
+  Local = 'local',
+  Editor = 'Editor',
+  Server = 'server',
+}
