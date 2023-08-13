@@ -5,7 +5,7 @@ import {
   SourceRequester,
 } from '@shukun/api';
 
-import { Injector } from '../../interfaces/injector';
+import { Injector } from '@shukun/presenter/definition';
 
 export const initializeApi = (
   environments: Injector['environments'],

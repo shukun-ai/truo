@@ -1,6 +1,5 @@
+import { Injector } from '@shukun/presenter/definition';
 import { createBrowserHistory } from 'history';
-
-import { Injector } from '../../interfaces/injector';
 
 import { Router } from './internal/router';
 

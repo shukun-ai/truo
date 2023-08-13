@@ -1,6 +1,5 @@
 import { TypeException } from '@shukun/exception';
-
-import { Injector, RouterState } from '../../../interfaces/injector';
+import { Injector, RouterState } from '@shukun/presenter/definition';
 
 import { IHistory } from './history.interface';
 import { parseLocation } from './parse-location';
