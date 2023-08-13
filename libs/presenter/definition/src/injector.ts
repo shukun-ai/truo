@@ -3,8 +3,15 @@ import {
   PublicRequester,
   SourceRequester,
 } from '@shukun/api';
-import { AuthenticationToken, UnknownSourceModel } from '@shukun/schema';
+
+import {
+  AuthenticationToken,
+  PresenterSchema,
+  UnknownSourceModel,
+} from '@shukun/schema';
 import { Observable } from 'rxjs';
+
+import { Repository } from './repository';
 
 export type Injector = {
   environments: {
@@ -27,6 +34,13 @@ export type Injector = {
     query: <T>(path: string[]) => Observable<T>;
     queryAll: () => Observable<unknown>;
     getAllValue: () => unknown;
+  };
+  loader: {
+    loadPresenter: (router: RouterState) => Promise<PresenterSchema>;
+    loadWidgets: (router: RouterState) => Promise<Record<string, any>>;
+    loadRepositories: (
+      router: RouterState,
+    ) => Promise<Record<string, Repository>>;
   };
   api: {
     publicRequester: PublicRequester;
@@ -62,3 +76,7 @@ export enum RouterMode {
   Editor = 'Editor',
   Server = 'server',
 }
+
+export type AuthState = {
+  current: AuthenticationToken | null;
+};
