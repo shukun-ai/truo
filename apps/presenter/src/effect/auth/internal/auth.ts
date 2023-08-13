@@ -16,26 +16,26 @@ export class Auth {
   }
 
   signIn(token: AuthenticationToken): void {
-    this.store.update(['router'], () => ({
+    this.store.update(['auth', 'current'], () => ({
       current: token,
     }));
   }
 
   signOut(): void {
-    this.store.update(['router'], () => ({
+    this.store.update(['auth', 'current'], () => ({
       current: null,
     }));
   }
 
   private initialize() {
-    this.store.update(['router'], () => {
+    this.store.update(['auth', 'current'], () => {
       return getAuthStorage();
     });
   }
 
   private listenStateChanged() {
     this.store
-      .query(['router'])
+      .query(['auth', 'current'])
       .pipe(
         tap((value) => {
           setAuthStorage(value as unknown as requesterSessionPayload);
