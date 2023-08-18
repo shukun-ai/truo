@@ -71,7 +71,8 @@
             "command": "ncc build dist/apps/server/main.js -o dist/installation/server/ -m"
           }
         ]
-      }
+      },
+      "dependsOn": ["build"]
     }
   },
   "tags": []

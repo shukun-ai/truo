@@ -52,6 +52,17 @@
         "passWithNoTests": true
       }
     },
+    "package": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "cp -r dist/apps/client dist/installation/client"
+          }
+        ]
+      },
+      "dependsOn": ["build"]
+    },
     "preview": {
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
