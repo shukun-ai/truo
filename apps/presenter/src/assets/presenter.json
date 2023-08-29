@@ -1,157 +1,16 @@
 {
+  "$schema": "../../../../libs/schema/src/json-schemas/presenter.schema.json",
   "label": "test",
-  "containers": {
-    "操作台": {
-      "type": "page",
-      "repositories": {
-        "searchForm": {
-          "type": "simple",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "keyword": { "type": "string" }
-            }
-          },
-          "parameters": {
-            "defaultValue": {
-              "keyword": "w"
-            }
-          }
-        },
-        "table": {
-          "type": "simple",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "page": { "type": "number" }
-            }
-          }
-        },
-        "airportSearch": {
-          "type": "sourceQuery",
-          "parameters": {
-            "atomName": "airports"
-          }
-        },
-        "dispatchPackage": {
-          "type": "connector",
-          "parameters": {
-            "connectorName": "dispatchPackage"
-          }
-        }
-      },
-      "widgets": {
-        "欢迎说明": {
-          "tag": "sk-text",
-          "properties": { "value": "欢迎使用操作台" },
-          "events": {}
-        },
-        "信息查询": {
-          "tag": "sk-form",
-          "properties": {
-            "submitButtonText": "搜索",
-            "resetButtonText": "重置",
-            "value": "$$_js:return $.searchForm;"
-          },
-          "events": {
-            "submit": [
-              {
-                "scope": "container",
-                "target": "searchForm",
-                "action": "setValue"
-              }
-            ]
-          }
-        },
-        "输入关键词": {
-          "tag": "sk-input",
-          "properties": {
-            "name": "keyword",
-            "placeholder": "",
-            "label": "查询关键词"
-          },
-          "events": {}
-        },
-        "查询内容": {
-          "tag": "sk-text",
-          "properties": {
-            "value": "$$_js:return `查询为：${$.searchForm.keyword}`;"
-          },
-          "events": {}
-        },
-        "表格": {
-          "tag": "sk-table",
-          "properties": {
-            "columns": [
-              {
-                "label": "机场编号",
-                "type": "text",
-                "field": "code"
-              },
-              {
-                "label": "机场名称",
-                "type": "text",
-                "field": "title"
-              },
-              {
-                "label": "城市名称",
-                "type": "text",
-                "field": "cityCode"
-              },
-              {
-                "label": "创建时间",
-                "type": "text",
-                "field": "createdAt"
-              }
-            ],
-            "value": "$$_js:return $.airportSearch.data.value",
-            "totalCounts": "$$_js:return $.airportSearch.data.count"
-          },
-          "events": {
-            "changePage": [
-              {
-                "scope": "container",
-                "target": "table",
-                "action": "setValue",
-                "path": ["page"]
-              }
-            ]
-          }
-        }
-      },
-      "tree": {
-        "root": ["欢迎说明", "信息查询", "查询内容", "表格"],
-        "欢迎说明": [],
-        "信息查询": ["输入关键词"],
-        "输入关键词": [],
-        "查询内容": [],
-        "表格": []
-      },
-      "watches": {
-        "fetchAirports": {
-          "triggers": {
-            "stateChanged": [
-              ["searchForm", "keyword"],
-              ["table", "page"]
-            ],
-            "containerMounted": true
-          },
-          "events": [
-            {
-              "scope": "container",
-              "target": "airportSearch",
-              "action": "run",
-              "value": "$$_js:return { filter: { code: { $like: $.searchForm.keyword } }, limit: 10, skip: (($.table.page || 1) - 1) * 10, count: true };"
-            }
-          ]
-        }
-      }
+  "repositories": {},
+  "widgets": {
+    "欢迎说明": {
+      "label": "欢迎说明",
+      "tag": "text",
+      "properties": { "value": "欢迎使用操作台" },
+      "events": {}
     }
   },
-  "screens": {
-    "home": {
-      "layout": "Dashboard",
-      "slots": { "main": "操作台" }
-    }
+  "nodes": {
+    "root": ["欢迎说明"]
   }
 }
