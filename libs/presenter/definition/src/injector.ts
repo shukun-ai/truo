@@ -61,9 +61,6 @@ export type Injector = {
     }) => void;
     back: () => void;
   };
-  template: {
-    run: (template: unknown, state: unknown) => unknown;
-  };
 };
 
 export type RouterState = {

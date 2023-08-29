@@ -1,4 +1,4 @@
-import { TemplateHelpers } from '@shukun/presenter/definition';
+import { TemplateHelpers } from './types';
 
 export const runSandbox = (
   code: string,

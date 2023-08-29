@@ -4,6 +4,7 @@ import { Children, cloneElement, useMemo } from 'react';
 import { AppProps } from '../interfaces/app';
 
 import { handleEvents } from './handle-events';
+import { runTemplate } from './template/template';
 
 export type WrappedWidgetProps = {
   widgetId: string;
@@ -34,7 +35,7 @@ export const WrappedWidget = ({
     for (const [propertyId, property] of Object.entries(widget.properties)) {
       const template = property;
       if (template) {
-        properties[propertyId] = injector.template.run(template, states);
+        properties[propertyId] = runTemplate(template, states);
       }
     }
 
