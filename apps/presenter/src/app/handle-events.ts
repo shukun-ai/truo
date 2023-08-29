@@ -2,6 +2,8 @@ import { TypeException } from '@shukun/exception';
 import { Injector, Repository } from '@shukun/presenter/definition';
 import { CodeMode, PresenterEvent, PresenterSchema } from '@shukun/schema';
 
+import { runTemplate } from './template/template';
+
 export type EventState = {
   index: number;
   item: unknown;
@@ -53,7 +55,7 @@ const handleEvent = (
   }
 
   const template = value ? value : `${CodeMode.JS}return $.payload`;
-  const parsedValue = injector.template.run(template, state);
+  const parsedValue = runTemplate(template, state);
 
   const callback = repositoryDefinition[action];
   callback(parsedValue, event, injector, repository);

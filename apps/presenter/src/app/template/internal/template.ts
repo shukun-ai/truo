@@ -1,14 +1,9 @@
 import { TypeException } from '@shukun/exception';
 
-import { TemplateHelpers } from '@shukun/presenter/definition';
 import { CodeMode } from '@shukun/schema';
 
 import { runSandbox } from './sandbox';
-
-export type HandlerContext = {
-  state: unknown;
-  helpers: TemplateHelpers;
-};
+import { TemplateHelpers } from './types';
 
 export const parseParameters = (
   parameters: unknown,
@@ -51,4 +46,9 @@ const parseStringOrCode = (
 
   const code = template.slice(CodeMode.JS.length, template.length);
   return runSandbox(code, context.state, context.helpers);
+};
+
+type HandlerContext = {
+  state: unknown;
+  helpers: TemplateHelpers;
 };
