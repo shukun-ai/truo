@@ -3,6 +3,7 @@ import {
   deleteEntities,
   getEntity,
   updateEntities,
+  upsertEntities,
 } from '@ngneat/elf-entities';
 
 import { TypeException } from '@shukun/exception';
@@ -12,10 +13,32 @@ import { TabEntity, tabRef } from './tab-ref';
 import { tabStore } from './tab-store';
 
 export const tabRepository = {
+  selectedTabEntityId$: tabStore.pipe(
+    select((state) => state.selectedTabEntityId),
+  ),
+
   tabs$: tabStore.pipe(select((state) => state.tabEntities)),
 
   preview(tabType: TabEntity['tabType'], foreignId: string): void {
-    // widgetTab.preview(widgetEntityId);
+    const tabId = `${tabType}:${foreignId}`;
+    tabStore.update(
+      upsertEntities(
+        {
+          id: tabId,
+          isPreview: true,
+          isEdit: false,
+          hasError: false,
+          tabType,
+          foreignId,
+        },
+        {
+          ref: tabRef,
+        },
+      ),
+      setProps({
+        selectedTabEntityId: tabId,
+      }),
+    );
   },
 
   fix(tabId: string): void {
