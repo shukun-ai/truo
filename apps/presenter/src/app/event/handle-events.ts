@@ -2,7 +2,7 @@ import { TypeException } from '@shukun/exception';
 import { Injector, Repository } from '@shukun/presenter/definition';
 import { CodeMode, PresenterEvent, PresenterSchema } from '@shukun/schema';
 
-import { runTemplate } from './template/template';
+import { runTemplate } from '../template/template';
 
 export type EventState = {
   index: number;
