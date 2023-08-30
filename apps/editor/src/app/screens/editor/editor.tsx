@@ -21,6 +21,10 @@ export const Editor = ({ mode }: EditorProps) => {
 
   const presenter = useObservableState(widgetRepository.presenter$);
   const tabs = useObservableState(tabRepository.tabs$, {});
+  const selectedTabId = useObservableState(
+    tabRepository.selectedTabEntityId$,
+    null,
+  );
   const allowedFieldType = useObservableState(
     app.repositories.metadataRepository.allowedFieldType$,
     [],
@@ -52,7 +56,7 @@ export const Editor = ({ mode }: EditorProps) => {
           selectedConnectorEntityId: null,
           selectedMetadataEntityId: null,
           selectedEnvironmentEntityId: null,
-          selectedTabId: null,
+          selectedTabId,
           selectedActivityTab: presenter.selectedActivityTab,
           previewDomain: environment.previewDomain,
           presenterLabel: presenter.presenterLabel,
