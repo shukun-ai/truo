@@ -122,9 +122,9 @@ export type EditorContextProps = {
     };
     repository: {
       isUniqueId(repositoryId: string): boolean;
-      create(entity: PresenterRepository): void;
-      update(entityId: string, entity: PresenterRepository): void;
-      remove(entityId: string): void;
+      create(repositoryId: string, repository: PresenterRepository): void;
+      update(repositoryId: string, repository: PresenterRepository): void;
+      remove(repositoryId: string): void;
     };
     metadata: {
       create(metadataName: string): void;

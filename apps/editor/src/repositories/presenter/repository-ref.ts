@@ -1,6 +1,5 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
 import { PresenterRepository } from '@shukun/schema';
-import { nanoid } from 'nanoid';
 
 export type PresenterRepositoryEntity = {
   id: string;
@@ -15,8 +14,8 @@ export const withRepository = () => {
 
 export const repositoryRef = repositoryEntitiesRef;
 
-export const createRepositoryEntityId = (): string => {
-  return nanoid();
+export const createRepositoryEntityId = (repositoryId: string): string => {
+  return repositoryId;
 };
 
 export const getRepository = (repositoryEntity: PresenterRepositoryEntity) => {

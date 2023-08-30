@@ -18,8 +18,8 @@ export const RepositoryCreateButton = () => {
   const onSubmit = useCallback<(values: RepositoryFormValues) => void>(
     (values) => {
       try {
-        dispatch.repository.create({
-          ...values,
+        dispatch.repository.create(values.repositoryId, {
+          type: values.type,
           parameters: {},
         });
         modals.closeAll();

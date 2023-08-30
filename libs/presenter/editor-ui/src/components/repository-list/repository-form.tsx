@@ -1,4 +1,4 @@
-import { Button, NativeSelect, SelectItem, TextInput } from '@mantine/core';
+import { Button, Select, SelectItem, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 
 import { RepositorySchema } from '@shukun/schema';
@@ -9,7 +9,7 @@ import { z } from 'zod';
 import { RepositoryEntity } from '../../editor-context';
 
 export type RepositoryFormValues = {
-  repositoryName: string;
+  repositoryId: string;
   type: RepositoryEntity['type'];
 };
 
@@ -39,7 +39,7 @@ export const RepositoryForm = ({
     initialValues,
     validate: zodResolver(
       z.object({
-        repositoryName: z
+        repositoryId: z
           .string()
           .min(1)
           .max(20)
@@ -69,13 +69,14 @@ export const RepositoryForm = ({
         data-autofocus
         withAsterisk
         description="数据仓库标识符用于 Repository 识别，请使用符合如下格式：字母 a-z、数字 0-9、下划线和中文，推荐使用中文。"
-        {...form.getInputProps('repositoryName')}
+        {...form.getInputProps('repositoryId')}
       />
-      <NativeSelect
+      <Select
         label="选择数据仓库类型"
         placeholder="Repository Type"
         data={typeOptions}
         withAsterisk
+        withinPortal
         {...form.getInputProps('type')}
       />
       <Button type="submit" fullWidth mt="md">
