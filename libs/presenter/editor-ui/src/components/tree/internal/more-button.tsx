@@ -1,19 +1,17 @@
-import {
-  ActionIcon,
-  Button,
-  Menu,
-  NativeSelect,
-  TextInput,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { ActionIcon, Menu } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { Icon } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
 import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { EditorContextProps, WidgetEntity } from '../../../editor-context';
+
+import {
+  WidgetCreation,
+  WidgetCreationProps,
+} from '../../widget-creation/widget-creation';
 
 import { RenameMenuItem } from './rename-menu-item';
 
@@ -30,7 +28,7 @@ export const TreeMoreButton = ({
   rootNodeId,
   node,
 }: TreeMoreButtonProps) => {
-  const onSiblingSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
+  const onSiblingSubmit = useCallback<WidgetCreationProps['onSubmit']>(
     (values) => {
       node.addWidget(
         'sibling',
@@ -46,7 +44,7 @@ export const TreeMoreButton = ({
     modals.open({
       title: '新建同级组件',
       children: (
-        <NodeCreateForm
+        <WidgetCreation
           widgetDefinitions={widgetDefinitions}
           onSubmit={onSiblingSubmit}
         />
@@ -54,7 +52,7 @@ export const TreeMoreButton = ({
     });
   }, [onSiblingSubmit, widgetDefinitions]);
 
-  const onChildSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
+  const onChildSubmit = useCallback<WidgetCreationProps['onSubmit']>(
     (values) => {
       node.addWidget(
         'insert',
@@ -70,7 +68,7 @@ export const TreeMoreButton = ({
     modals.open({
       title: '新建子级组件',
       children: (
-        <NodeCreateForm
+        <WidgetCreation
           widgetDefinitions={widgetDefinitions}
           onSubmit={onChildSubmit}
         />
@@ -133,74 +131,5 @@ export const TreeMoreButton = ({
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
-  );
-};
-
-export type NodeCreateFormProps = {
-  widgetDefinitions: Record<string, WidgetSchema>;
-  onSubmit: (values: { widgetTag: string; widgetTitle: string }) => void;
-};
-
-export const NodeCreateForm = ({
-  widgetDefinitions,
-  onSubmit,
-}: NodeCreateFormProps) => {
-  const form = useForm({
-    initialValues: {
-      widgetTag: '',
-      widgetTitle: '',
-    },
-    validate: {
-      widgetTag: (value) => {
-        if (!value) {
-          return '请选择新建组件的类型';
-        } else {
-          return null;
-        }
-      },
-      widgetTitle: (value) => (value ? null : '请输入组件显示名'),
-    },
-  });
-
-  const options = useMemo(() => {
-    const options = Object.entries(widgetDefinitions).map(([id]) => ({
-      value: id,
-      label: id,
-    }));
-    return [{ value: '', label: '请选择组件' }, ...options];
-  }, [widgetDefinitions]);
-
-  useEffect(() => {
-    if (!form.values.widgetTitle) {
-      form.setFieldValue('widgetTitle', form.values.widgetTag);
-    }
-    // @remark The form.values.widgetTag is changed, we just give this field a recommend name.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.values.widgetTag]);
-
-  return (
-    <form
-      onSubmit={form.onSubmit((values) => {
-        onSubmit(values);
-        modals.closeAll();
-      })}
-    >
-      <NativeSelect
-        label="选择组件"
-        placeholder="选择组件"
-        data={options}
-        withAsterisk
-        {...form.getInputProps('widgetTag')}
-      />
-      <TextInput
-        label="组件显示名"
-        placeholder="Widget title"
-        withAsterisk
-        {...form.getInputProps('widgetTitle')}
-      />
-      <Button type="submit" fullWidth mt="md">
-        新建组件
-      </Button>
-    </form>
   );
 };
