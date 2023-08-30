@@ -68,12 +68,7 @@ export type EditorContextProps = {
     widgetDefinitions: Record<string, WidgetSchema>;
     repositoryDefinitions: Record<string, RepositorySchema>;
     nodeCollapses: Record<string, NodeCollapseEntity>;
-    selectedWidgetEntityId: string | null;
-    selectedRepositoryEntityId: string | null;
-    selectedConnectorEntityId: string | null;
-    selectedMetadataEntityId: string | null;
-    selectedEnvironmentEntityId: string | null;
-    selectedTabId: string | null;
+    selectedTab: TabEntity | null;
     selectedActivityTab: ActivityTab | null;
     previewDomain: string;
     presenterLabel: string;

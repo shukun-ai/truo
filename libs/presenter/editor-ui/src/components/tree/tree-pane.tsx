@@ -4,6 +4,8 @@ import { useMemo } from 'react';
 
 import { useEditorContext } from '../../editor-context';
 
+import { extractTabForeignId } from '../../helpers/extract-tab-foreign-id';
+
 import { TreeDraggableNode } from './internal/draggable-node';
 import { TreeRootCreate } from './internal/root-create';
 import { ScrollArea } from './internal/scroll-area';
@@ -17,13 +19,8 @@ export const TreePane = () => {
 
   const { state } = useEditorContext();
 
-  const {
-    nodes,
-    widgets,
-    nodeCollapses,
-    selectedWidgetEntityId,
-    widgetDefinitions,
-  } = state;
+  const { nodes, widgets, nodeCollapses, selectedTab, widgetDefinitions } =
+    state;
 
   const onlyRoot = useMemo(() => {
     if (!nodes.root) {
@@ -46,7 +43,9 @@ export const TreePane = () => {
           treeNodes={nodes}
           widgetEntities={widgets}
           treeCollapses={nodeCollapses}
-          selectedWidgetEntityId={selectedWidgetEntityId ?? undefined}
+          selectedWidgetEntityId={
+            extractTabForeignId(selectedTab, 'widget') ?? undefined
+          }
           sourceNodeId="root"
           level={0}
           index={0}

@@ -10,6 +10,8 @@ import {
 
 import { useEditorContext } from '../../editor-context';
 
+import { extractTabForeignId } from '../../helpers/extract-tab-foreign-id';
+
 import { CreateButton } from './internal/create-button';
 import { MoreButton } from './internal/more-button';
 
@@ -18,7 +20,7 @@ export const ConnectorListPane = () => {
 
   const { state, dispatch } = useEditorContext();
 
-  const { selectedConnectorEntityId, connectors } = state;
+  const { selectedTab, connectors } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
@@ -32,8 +34,8 @@ export const ConnectorListPane = () => {
             key={connectorEntity.id}
             className={cx(
               classes.button,
-              selectedConnectorEntityId === connectorEntity.id &&
-                classes.active,
+              extractTabForeignId(selectedTab, 'connector') ===
+                connectorEntity.id && classes.active,
             )}
             onClick={() => {
               dispatch.tab.previewConnector(connectorEntity.id);

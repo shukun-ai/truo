@@ -14,7 +14,7 @@ export const TabPane = () => {
 
   return (
     <EditorTabs
-      selectedTabId={state.selectedTabId}
+      selectedTabId={state.selectedTab?.id ?? null}
       tabs={Object.values(state.tabs)}
       fixTab={dispatch.tab.fix}
       chooseTab={dispatch.tab.choose}

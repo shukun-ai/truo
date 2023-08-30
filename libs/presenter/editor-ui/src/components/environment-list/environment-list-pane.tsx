@@ -10,6 +10,8 @@ import {
 
 import { useEditorContext } from '../../editor-context';
 
+import { extractTabForeignId } from '../../helpers/extract-tab-foreign-id';
+
 import { CreateButton } from './internal/create-button';
 import { MoreButton } from './internal/more-button';
 
@@ -18,7 +20,7 @@ export const EnvironmentListPane = () => {
 
   const { state, dispatch } = useEditorContext();
 
-  const { selectedEnvironmentEntityId, environments } = state;
+  const { selectedTab, environments } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
@@ -32,8 +34,8 @@ export const EnvironmentListPane = () => {
             key={environmentEntity.id}
             className={cx(
               classes.button,
-              selectedEnvironmentEntityId === environmentEntity.id &&
-                classes.active,
+              extractTabForeignId(selectedTab, 'environment') ===
+                environmentEntity.id && classes.active,
             )}
             onClick={() => {
               dispatch.tab.previewEnvironment(environmentEntity.id);

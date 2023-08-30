@@ -13,11 +13,17 @@ import { TabEntity, tabRef } from './tab-ref';
 import { tabStore } from './tab-store';
 
 export const tabRepository = {
-  selectedTabEntityId$: tabStore.pipe(
-    select((state) => state.selectedTabEntityId),
-  ),
-
   tabs$: tabStore.pipe(select((state) => state.tabEntities)),
+
+  selectedTab$: tabStore.pipe(
+    select((state) => {
+      const { selectedTabEntityId } = state;
+      if (!selectedTabEntityId) {
+        return null;
+      }
+      return state.tabEntities[selectedTabEntityId];
+    }),
+  ),
 
   preview(tabType: TabEntity['tabType'], foreignId: string): void {
     const tabId = `${tabType}:${foreignId}`;
