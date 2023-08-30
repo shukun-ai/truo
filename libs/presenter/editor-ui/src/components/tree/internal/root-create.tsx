@@ -4,8 +4,10 @@ import { IconAlertCircle } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
 import { useEditorContext } from '../../../editor-context';
-
-import { NodeCreateForm, NodeCreateFormProps } from './more-button';
+import {
+  WidgetCreation,
+  WidgetCreationProps,
+} from '../../widget-creation/widget-creation';
 
 export type TreeRootCreateProps = {
   //
@@ -14,7 +16,7 @@ export type TreeRootCreateProps = {
 export const TreeRootCreate = () => {
   const { state, dispatch } = useEditorContext();
 
-  const onChildSubmit = useCallback<NodeCreateFormProps['onSubmit']>(
+  const onChildSubmit = useCallback<WidgetCreationProps['onSubmit']>(
     (values) => {
       dispatch.node.addWidget(
         'insert',
@@ -30,7 +32,7 @@ export const TreeRootCreate = () => {
     modals.open({
       title: '新建子级组件',
       children: (
-        <NodeCreateForm
+        <WidgetCreation
           widgetDefinitions={state.widgetDefinitions}
           onSubmit={onChildSubmit}
         />
