@@ -1,10 +1,15 @@
 import {
+  IconBinaryTree,
+  IconBuildingWarehouse,
   IconCopy,
+  IconDatabaseCog,
   IconDots,
+  IconGizmo,
   IconInfoCircle,
   IconPlus,
   IconSignature,
   IconTrash,
+  IconVariable,
 } from '@tabler/icons-react';
 
 export const iconsMap = {
@@ -14,4 +19,9 @@ export const iconsMap = {
   plus: IconPlus,
   more: IconDots,
   info: IconInfoCircle,
+  activityBarNodes: IconBinaryTree,
+  activityBarRepositories: IconBuildingWarehouse,
+  activityBarMetadatas: IconDatabaseCog,
+  activityBarConnectors: IconGizmo,
+  activityBarEnvironments: IconVariable,
 } as const;
