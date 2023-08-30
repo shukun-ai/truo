@@ -3,7 +3,7 @@ import { Children, cloneElement, useMemo } from 'react';
 
 import { AppProps } from '../interfaces/app';
 
-import { handleEvents } from './handle-events';
+import { handleEvents } from './event/handle-events';
 import { runTemplate } from './template/template';
 
 export type WrappedWidgetProps = {
