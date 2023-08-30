@@ -10,6 +10,8 @@ import { IconDatabaseCog } from '@tabler/icons-react';
 
 import { useEditorContext } from '../../editor-context';
 
+import { extractTabForeignId } from '../../helpers/extract-tab-foreign-id';
+
 import { CreateButton } from './internal/create-button';
 import { MoreButton } from './internal/more-button';
 import { MoreTag } from './internal/more-tag';
@@ -19,7 +21,7 @@ export const MetadataListPane = () => {
 
   const { state, dispatch } = useEditorContext();
 
-  const { selectedMetadataEntityId, metadatas } = state;
+  const { selectedTab, metadatas } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
@@ -33,7 +35,8 @@ export const MetadataListPane = () => {
             key={metadataEntity.id}
             className={cx(
               classes.button,
-              selectedMetadataEntityId === metadataEntity.id && classes.active,
+              extractTabForeignId(selectedTab, 'metadata') ===
+                metadataEntity.id && classes.active,
             )}
             onClick={() => {
               dispatch.tab.previewMetadata(metadataEntity.id);

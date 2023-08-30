@@ -15,6 +15,8 @@ import {
 
 import { RepositoryEntity, useEditorContext } from '../../editor-context';
 
+import { extractTabForeignId } from '../../helpers/extract-tab-foreign-id';
+
 import { RepositoryCreateButton } from './repository-create-button';
 
 export const RepositoryList = () => {
@@ -22,7 +24,7 @@ export const RepositoryList = () => {
 
   const { state, dispatch } = useEditorContext();
 
-  const { selectedRepositoryEntityId, repositories } = state;
+  const { selectedTab, repositories } = state;
 
   return (
     <Box className={cx(classes.wrapper)}>
@@ -35,8 +37,8 @@ export const RepositoryList = () => {
             key={repositoryEntity.id}
             className={cx(
               classes.button,
-              selectedRepositoryEntityId === repositoryEntity.id &&
-                classes.active,
+              extractTabForeignId(selectedTab, 'repository') ===
+                repositoryEntity.id && classes.active,
             )}
             onClick={() => {
               dispatch.tab.previewRepository(repositoryEntity.id);
