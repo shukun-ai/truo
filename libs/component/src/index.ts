@@ -16,3 +16,4 @@ export * from './rename-form/rename-form';
 export * from './connector-editor/connector-editor';
 export * from './connector-editor/connector-editor-context';
 export * from './editor-inputs/editor-inputs';
+export * from './widget-gallery-input/widget-gallery-input';
