@@ -24,12 +24,15 @@ export const repositoryRepository = {
     return existEntity.length === 1;
   },
 
-  create: (entity: Omit<PresenterRepositoryEntity, 'id'>): void => {
+  create: (
+    repositoryId: string,
+    repository: Omit<PresenterRepositoryEntity, 'id'>,
+  ): void => {
     presenterStore.update(
       addEntities(
         {
-          ...entity,
-          id: createRepositoryEntityId(),
+          ...repository,
+          id: createRepositoryEntityId(repositoryId),
         },
         { ref: repositoryRef },
       ),
