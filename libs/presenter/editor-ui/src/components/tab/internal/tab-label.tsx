@@ -1,5 +1,6 @@
-import { Text } from '@mantine/core';
+import { Group, Text } from '@mantine/core';
 
+import { Icon } from '@shukun/component';
 import { TypeException } from '@shukun/exception';
 
 import { useMemo } from 'react';
@@ -15,15 +16,40 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
 
   const tabLabel = useMemo(() => {
     if (tab.tabType === 'widget') {
-      return '组件: ' + state.widgets[tab.foreignId]?.label;
+      return (
+        <Group>
+          <Icon type="activityBarNodes" size="0.8rem" />{' '}
+          {state.widgets[tab.foreignId]?.label}
+        </Group>
+      );
     } else if (tab.tabType === 'repository') {
-      return '数据仓库: ' + state.repositories[tab.foreignId]?.id;
+      return (
+        <Group>
+          <Icon type="activityBarRepositories" size="0.8rem" />{' '}
+          {state.repositories[tab.foreignId]?.id}
+        </Group>
+      );
     } else if (tab.tabType === 'connector') {
-      return '函数流: ' + state.connectors[tab.foreignId]?.label;
+      return (
+        <Group>
+          <Icon type="activityBarConnectors" size="0.8rem" />{' '}
+          {state.connectors[tab.foreignId]?.label}
+        </Group>
+      );
     } else if (tab.tabType === 'metadata') {
-      return '数据表: ' + state.metadatas[tab.foreignId]?.label;
+      return (
+        <Group>
+          <Icon type="activityBarMetadatas" size="0.8rem" />{' '}
+          {state.metadatas[tab.foreignId]?.label}
+        </Group>
+      );
     } else if (tab.tabType === 'environment') {
-      return '环境变量: ' + state.environments[tab.foreignId]?.id;
+      return (
+        <Group>
+          <Icon type="activityBarEnvironments" size="0.8rem" />{' '}
+          {state.environments[tab.foreignId]?.id}
+        </Group>
+      );
     }
 
     throw new TypeException('Did not find specific tab');

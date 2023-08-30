@@ -5,14 +5,7 @@ import {
   createStyles,
   useMantineTheme,
 } from '@mantine/core';
-import { ShukunLogo } from '@shukun/component';
-import {
-  IconBinaryTree,
-  IconBuildingWarehouse,
-  IconDatabaseCog,
-  IconGizmo,
-  IconVariable,
-} from '@tabler/icons-react';
+import { Icon, ShukunLogo } from '@shukun/component';
 
 import { ReactNode, useMemo } from 'react';
 
@@ -126,33 +119,33 @@ const useActivityTabs = (): {
     {
       label: '组件树',
       value: ActivityTab.Widgets,
-      icon: <IconBinaryTree size="1.2rem" />,
+      icon: <Icon type="activityBarNodes" size="1.2rem" />,
       disabled: disabledPresenter,
       pane: <TreePane />,
     },
     {
       label: '数据仓库',
       value: ActivityTab.Repositories,
-      icon: <IconBuildingWarehouse size="1.2rem" />,
+      icon: <Icon type="activityBarRepositories" size="1.2rem" />,
       disabled: disabledPresenter,
       pane: <RepositoryList />,
     },
     {
       label: '数据表',
       value: ActivityTab.Metadatas,
-      icon: <IconDatabaseCog size="1.2rem" />,
+      icon: <Icon type="activityBarMetadatas" size="1.2rem" />,
       pane: <MetadataListPane />,
     },
     {
       label: '函数流',
       value: ActivityTab.Connectors,
-      icon: <IconGizmo size="1.2rem" />,
+      icon: <Icon type="activityBarConnectors" size="1.2rem" />,
       pane: <ConnectorListPane />,
     },
     {
       label: '环境变量',
       value: ActivityTab.Environments,
-      icon: <IconVariable size="1.2rem" />,
+      icon: <Icon type="activityBarEnvironments" size="1.2rem" />,
       pane: <EnvironmentListPane />,
     },
   ];
