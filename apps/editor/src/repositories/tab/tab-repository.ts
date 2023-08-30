@@ -1,9 +1,9 @@
 import { select, setProps } from '@ngneat/elf';
 import {
+  addEntities,
   deleteEntities,
   getEntity,
   updateEntities,
-  upsertEntities,
 } from '@ngneat/elf-entities';
 
 import { TypeException } from '@shukun/exception';
@@ -21,20 +21,30 @@ export const tabRepository = {
 
   preview(tabType: TabEntity['tabType'], foreignId: string): void {
     const tabId = `${tabType}:${foreignId}`;
+    const tab = tabStore.query(getEntity(tabId, { ref: tabRef }));
+
     tabStore.update(
-      upsertEntities(
-        {
-          id: tabId,
-          isPreview: true,
-          isEdit: false,
-          hasError: false,
-          tabType,
-          foreignId,
-        },
-        {
-          ref: tabRef,
-        },
-      ),
+      tab
+        ? updateEntities(
+            tabId,
+            {},
+            {
+              ref: tabRef,
+            },
+          )
+        : addEntities(
+            {
+              id: tabId,
+              isPreview: true,
+              isEdit: false,
+              hasError: false,
+              tabType,
+              foreignId,
+            },
+            {
+              ref: tabRef,
+            },
+          ),
       setProps({
         selectedTabEntityId: tabId,
       }),
