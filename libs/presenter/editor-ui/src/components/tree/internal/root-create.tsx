@@ -9,6 +9,7 @@ import {
   WidgetCreationProps,
 } from '../../widget-creation/widget-creation';
 
+import { getAutoWidgetTitle } from './auto-widget-title';
 import { WIDGET_CREATION_MODAL_SIZE } from './constants';
 
 export type TreeRootCreateProps = {
@@ -17,17 +18,18 @@ export type TreeRootCreateProps = {
 
 export const TreeRootCreate = () => {
   const { state, dispatch } = useEditorContext();
+  const { widgets } = state;
 
   const onChildSubmit = useCallback<WidgetCreationProps['onSubmit']>(
     (values) => {
       dispatch.node.addWidget(
         'insert',
         values.widgetTag,
-        values.widgetTitle,
+        getAutoWidgetTitle(values.widgetTag, values.widgetTitle, widgets),
         state.rootNodeId,
       );
     },
-    [dispatch.node, state.rootNodeId],
+    [dispatch.node, state.rootNodeId, widgets],
   );
 
   const handleChildCreate = useCallback(() => {

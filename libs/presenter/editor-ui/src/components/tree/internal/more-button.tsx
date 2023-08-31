@@ -6,13 +6,18 @@ import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
 import { useCallback } from 'react';
 
-import { EditorContextProps, WidgetEntity } from '../../../editor-context';
+import {
+  EditorContextProps,
+  WidgetEntity,
+  useEditorContext,
+} from '../../../editor-context';
 
 import {
   WidgetCreation,
   WidgetCreationProps,
 } from '../../widget-creation/widget-creation';
 
+import { getAutoWidgetTitle } from './auto-widget-title';
 import { WIDGET_CREATION_MODAL_SIZE } from './constants';
 import { RenameMenuItem } from './rename-menu-item';
 
@@ -33,16 +38,19 @@ export const TreeMoreButton = ({
   rootNodeId,
   node,
 }: TreeMoreButtonProps) => {
+  const { state } = useEditorContext();
+  const { widgets } = state;
+
   const onSiblingSubmit = useCallback<WidgetCreationProps['onSubmit']>(
     (values) => {
       node.addWidget(
         'sibling',
         values.widgetTag,
-        values.widgetTitle,
+        getAutoWidgetTitle(values.widgetTag, values.widgetTitle, widgets),
         sourceWidgetEntity.id,
       );
     },
-    [node, sourceWidgetEntity.id],
+    [node, sourceWidgetEntity.id, widgets],
   );
 
   const handleSiblingCreate = useCallback(() => {
@@ -70,11 +78,11 @@ export const TreeMoreButton = ({
       node.addWidget(
         'insert',
         values.widgetTag,
-        values.widgetTitle,
+        getAutoWidgetTitle(values.widgetTag, values.widgetTitle, widgets),
         sourceWidgetEntity.id,
       );
     },
-    [node, sourceWidgetEntity.id],
+    [node, sourceWidgetEntity.id, widgets],
   );
 
   const handleChildCreate = useCallback(() => {

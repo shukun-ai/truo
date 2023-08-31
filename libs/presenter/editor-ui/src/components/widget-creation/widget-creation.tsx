@@ -1,15 +1,16 @@
-import { Box, Button, TextInput } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { Box, Button, Divider, Group, Switch, TextInput } from '@mantine/core';
+import { useForm, zodResolver } from '@mantine/form';
 import { modals } from '@mantine/modals';
 import { WidgetGallery, WidgetGalleryInput } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
-import { useEffect } from 'react';
+import { useMemo } from 'react';
+import { z } from 'zod';
 
 export type WidgetCreationProps = {
   parentWidgetDefinition: WidgetSchema | null;
   widgetDefinitions: Record<string, WidgetSchema>;
   widgetGallery: WidgetGallery;
-  onSubmit: (values: { widgetTag: string; widgetTitle: string }) => void;
+  onSubmit: (values: { widgetTag: string; widgetTitle?: string }) => void;
 };
 
 export const WidgetCreation = ({
@@ -23,25 +24,20 @@ export const WidgetCreation = ({
       widgetTag: '',
       widgetTitle: '',
     },
-    validate: {
-      widgetTag: (value) => {
-        if (!value) {
-          return '请选择新建组件的类型';
-        } else {
-          return null;
-        }
-      },
-      widgetTitle: (value) => (value ? null : '请输入组件显示名'),
-    },
+    validate: zodResolver(
+      z
+        .object({
+          widgetTag: z.string(),
+        })
+        .required(),
+    ),
   });
 
-  useEffect(() => {
-    if (!form.values.widgetTitle) {
-      form.setFieldValue('widgetTitle', form.values.widgetTag);
-    }
-    // @remark The form.values.widgetTag is changed, we just give this field a recommend name.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.values.widgetTag]);
+  const widgetTitleProps = form.getInputProps('widgetTitle');
+
+  const switchStatus = useMemo<boolean>(() => {
+    return !widgetTitleProps.value;
+  }, [widgetTitleProps.value]);
 
   return (
     <form
@@ -67,12 +63,24 @@ export const WidgetCreation = ({
           {...form.getInputProps('widgetTag')}
         />
       </Box>
-      <TextInput
-        label="组件显示名"
-        placeholder="Widget title"
-        withAsterisk
-        {...form.getInputProps('widgetTitle')}
-      />
+      <Group>
+        <Switch
+          label="自增显示名"
+          checked={switchStatus}
+          onChange={(checked) => {
+            if (checked) {
+              form.setFieldValue('widgetTitle', '');
+            }
+          }}
+        />
+        <Divider orientation="vertical" />
+        <TextInput
+          label="自定义显示名"
+          placeholder="输入显示名进行自定义，为空保持自增"
+          sx={{ minWidth: 300 }}
+          {...form.getInputProps('widgetTitle')}
+        />
+      </Group>
       <Button type="submit" fullWidth mt="md">
         新建组件
       </Button>
