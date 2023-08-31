@@ -12,6 +12,8 @@ import { widgetRepository } from '../../../repositories/presenter/widget-reposit
 import { tabRepository } from '../../../repositories/tab/tab-repository';
 import { useAppContext } from '../../contexts/app-context';
 
+import { useLoadPresenter } from './use-load-presenter';
+
 export type EditorProps = {
   mode: 'presenter' | 'system';
 };
@@ -27,7 +29,9 @@ export const Editor = ({ mode }: EditorProps) => {
     [],
   );
 
-  if (!presenter) {
+  const { loading } = useLoadPresenter(app);
+
+  if (!presenter || loading) {
     return 'loading';
   }
 
