@@ -70,7 +70,13 @@ export const ButtonCard = ({
             c={color}
             onClick={onClick}
             disabled={disabled}
-            sx={{ width: '100%', borderRadius: theme.radius.md, padding: 12 }}
+            sx={{
+              width: '100%',
+              borderRadius: theme.radius.md,
+              padding: 12,
+              border:
+                active || disabled ? 'solid 1px transparent' : 'solid 1px #eee',
+            }}
           >
             {children}
           </UnstyledButton>

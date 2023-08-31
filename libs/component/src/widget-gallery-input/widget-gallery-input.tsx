@@ -65,8 +65,10 @@ const Section = ({
 }) => {
   return (
     <Box mb={6}>
-      <Box mb={6}>{section.label}</Box>
-      <SimpleGrid cols={3}>
+      <Text mb={6} size="sm">
+        {section.label}
+      </Text>
+      <SimpleGrid cols={6}>
         {section.widgets.map((widget) => (
           <WidgetCard
             key={widget.tag}
@@ -130,8 +132,8 @@ const WidgetCard = ({
     >
       <Stack align="center" spacing={0}>
         <WidgetIcon icon={widget.icon} active={active} disabled={disabled} />
-        <Text fw="bold">{widget.label}</Text>
-        <Text size="xs">
+        <Text fw="500">{widget.label}</Text>
+        <Text size="xs" c="gray">
           {'<'}
           {widget.tag}
           {'>'}
