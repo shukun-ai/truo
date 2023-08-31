@@ -61,7 +61,7 @@ export const ButtonCard = ({
       withinPortal
       shadow="md"
       opened={opened}
-      disabled={widgetDescription || disabled ? false : true}
+      disabled={widgetDescription && disabled ? false : true}
     >
       <Popover.Target>
         <Box onMouseEnter={open} onMouseLeave={close}>
@@ -83,9 +83,7 @@ export const ButtonCard = ({
         </Box>
       </Popover.Target>
       <Popover.Dropdown sx={{ pointerEvents: 'none' }}>
-        <Text size="sm">
-          {disabled ? '该父组件下不支持创建该类型的子组件' : widgetDescription}
-        </Text>
+        <Text size="sm">{widgetDescription}</Text>
       </Popover.Dropdown>
     </Popover>
   );
