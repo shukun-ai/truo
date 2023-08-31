@@ -1,0 +1,6 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "root",
+  "allowedChildTags": ["*"],
+  "properties": {}
+}
