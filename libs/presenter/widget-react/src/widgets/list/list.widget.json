@@ -2,7 +2,7 @@
   "$schema": "../../../../../schema/src/json-schemas/widget.schema.json",
   "tag": "list",
   "icon": "",
-  "allowedChildTags": ["list-item"],
+  "allowedChildTags": ["listItem"],
   "properties": {
     "data": {
       "label": "数据",

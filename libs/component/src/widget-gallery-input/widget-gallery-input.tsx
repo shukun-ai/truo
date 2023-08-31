@@ -2,6 +2,7 @@ import { Box, SimpleGrid, Stack, Text } from '@mantine/core';
 import { WidgetSchema } from '@shukun/schema';
 import { useMemo } from 'react';
 
+import { getDisabledByTags } from './internal/allowed-child-tags';
 import { ButtonCard } from './internal/button-card';
 import { WidgetIcon } from './internal/widget-icon';
 
@@ -101,20 +102,10 @@ const WidgetCard = ({
     if (!parentWidgetDefinition) {
       return false;
     }
-    const { allowedChildTags } = parentWidgetDefinition;
-    if (!allowedChildTags) {
-      return false;
-    }
-    if (allowedChildTags.length === 0) {
-      return true;
-    }
-    if (allowedChildTags.includes('*')) {
-      return false;
-    }
-    if (allowedChildTags.includes(widget.tag)) {
-      return false;
-    }
-    return true;
+    return getDisabledByTags(
+      parentWidgetDefinition?.allowedChildTags ?? [],
+      widget.tag,
+    );
   }, [parentWidgetDefinition, widget.tag]);
 
   const active = useMemo(() => {
