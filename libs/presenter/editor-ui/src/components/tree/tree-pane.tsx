@@ -26,6 +26,7 @@ export const TreePane = () => {
     selectedTab,
     widgetDefinitions,
     widgetGallery,
+    rootNodeId,
   } = state;
 
   const onlyRoot = useMemo(() => {
@@ -52,11 +53,12 @@ export const TreePane = () => {
           selectedWidgetEntityId={
             extractTabForeignId(selectedTab, 'widget') ?? undefined
           }
-          sourceNodeId="root"
+          sourceNodeId={rootNodeId}
           level={0}
           index={0}
           widgetDefinitions={widgetDefinitions}
           widgetGallery={widgetGallery}
+          parentWidgetDefinition={null}
         />
         {onlyRoot && <TreeRootCreate />}
       </ScrollArea>

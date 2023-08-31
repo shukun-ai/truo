@@ -4,7 +4,7 @@ import { Icon, WidgetGallery } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
 import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { EditorContextProps, WidgetEntity } from '../../../editor-context';
 
@@ -19,6 +19,7 @@ import { RenameMenuItem } from './rename-menu-item';
 export type TreeMoreButtonProps = {
   sourceWidgetEntity: WidgetEntity;
   widgetDefinitions: Record<string, WidgetSchema>;
+  parentWidgetDefinition: WidgetSchema | null;
   widgetGallery: WidgetGallery;
   rootNodeId: string;
   node: EditorContextProps['dispatch']['node'];
@@ -27,6 +28,7 @@ export type TreeMoreButtonProps = {
 export const TreeMoreButton = ({
   sourceWidgetEntity,
   widgetDefinitions,
+  parentWidgetDefinition,
   widgetGallery,
   rootNodeId,
   node,
@@ -49,14 +51,19 @@ export const TreeMoreButton = ({
       size: WIDGET_CREATION_MODAL_SIZE,
       children: (
         <WidgetCreation
-          parentWidgetDefinition={null}
+          parentWidgetDefinition={parentWidgetDefinition}
           widgetGallery={widgetGallery}
           widgetDefinitions={widgetDefinitions}
           onSubmit={onSiblingSubmit}
         />
       ),
     });
-  }, [onSiblingSubmit, widgetDefinitions, widgetGallery]);
+  }, [
+    onSiblingSubmit,
+    parentWidgetDefinition,
+    widgetDefinitions,
+    widgetGallery,
+  ]);
 
   const onChildSubmit = useCallback<WidgetCreationProps['onSubmit']>(
     (values) => {
@@ -84,10 +91,6 @@ export const TreeMoreButton = ({
       ),
     });
   }, [onChildSubmit, sourceWidgetEntity.tag, widgetDefinitions, widgetGallery]);
-
-  const widgetDefinition = useMemo(() => {
-    return widgetDefinitions[sourceWidgetEntity.tag];
-  }, [sourceWidgetEntity.tag, widgetDefinitions]);
 
   return (
     <Menu shadow="md" width={200}>
@@ -119,16 +122,12 @@ export const TreeMoreButton = ({
             新建同级组件
           </Menu.Item>
         )}
-        {widgetDefinition.allowedChildTags &&
-          widgetDefinition.allowedChildTags.length > 0 && (
-            <Menu.Item
-              icon={<IconRectangularPrismPlus size={14} />}
-              onClick={handleChildCreate}
-            >
-              新建子级组件
-            </Menu.Item>
-          )}
-
+        <Menu.Item
+          icon={<IconRectangularPrismPlus size={14} />}
+          onClick={handleChildCreate}
+        >
+          新建子级组件
+        </Menu.Item>
         <Menu.Item
           color="red"
           icon={<Icon type="trash" size={14} />}
