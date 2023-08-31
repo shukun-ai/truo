@@ -49,6 +49,7 @@ export const TreeMoreButton = ({
       size: WIDGET_CREATION_MODAL_SIZE,
       children: (
         <WidgetCreation
+          parentWidgetDefinition={null}
           widgetGallery={widgetGallery}
           widgetDefinitions={widgetDefinitions}
           onSubmit={onSiblingSubmit}
@@ -75,13 +76,14 @@ export const TreeMoreButton = ({
       size: WIDGET_CREATION_MODAL_SIZE,
       children: (
         <WidgetCreation
+          parentWidgetDefinition={widgetDefinitions[sourceWidgetEntity.tag]}
           widgetGallery={widgetGallery}
           widgetDefinitions={widgetDefinitions}
           onSubmit={onChildSubmit}
         />
       ),
     });
-  }, [onChildSubmit, widgetDefinitions, widgetGallery]);
+  }, [onChildSubmit, sourceWidgetEntity.tag, widgetDefinitions, widgetGallery]);
 
   const widgetDefinition = useMemo(() => {
     return widgetDefinitions[sourceWidgetEntity.tag];

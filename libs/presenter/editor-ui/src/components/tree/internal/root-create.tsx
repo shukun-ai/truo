@@ -32,10 +32,11 @@ export const TreeRootCreate = () => {
 
   const handleChildCreate = useCallback(() => {
     modals.open({
-      title: '新建子级组件',
+      title: '新建根级组件',
       size: WIDGET_CREATION_MODAL_SIZE,
       children: (
         <WidgetCreation
+          parentWidgetDefinition={null}
           widgetGallery={state.widgetGallery}
           widgetDefinitions={state.widgetDefinitions}
           onSubmit={onChildSubmit}

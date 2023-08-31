@@ -6,12 +6,14 @@ import { WidgetSchema } from '@shukun/schema';
 import { useEffect } from 'react';
 
 export type WidgetCreationProps = {
+  parentWidgetDefinition: WidgetSchema | null;
   widgetDefinitions: Record<string, WidgetSchema>;
   widgetGallery: WidgetGallery;
   onSubmit: (values: { widgetTag: string; widgetTitle: string }) => void;
 };
 
 export const WidgetCreation = ({
+  parentWidgetDefinition,
   widgetDefinitions,
   widgetGallery,
   onSubmit,
@@ -59,7 +61,7 @@ export const WidgetCreation = ({
         mb={12}
       >
         <WidgetGalleryInput
-          parentWidgetDefinition={null}
+          parentWidgetDefinition={parentWidgetDefinition}
           widgetDefinitions={widgetDefinitions}
           widgetGallery={widgetGallery}
           {...form.getInputProps('widgetTag')}
