@@ -76,13 +76,16 @@ export const nodeRepository = {
     widgetRepository.create(newWidget);
   },
   copyWidget: (widget: PresenterWidgetEntity, targetNodeId: string): void => {
-    const { nodes } = presenterStore.getValue();
+    const { nodes, widgetEntities } = presenterStore.getValue();
     const entityId = createWidgetEntityId();
     const newNodes = addSiblingNode(nodes, entityId, targetNodeId);
     const newWidget: PresenterWidgetEntity = {
       ...widget,
       id: entityId,
-      label: getUniqueLabel(widget.label, [widget.label]),
+      label: getUniqueLabel(
+        widget.label,
+        Object.values(widgetEntities).map((widget) => widget.label),
+      ),
     };
     presenterStore.update(setProp('nodes', newNodes));
     widgetRepository.create(newWidget);

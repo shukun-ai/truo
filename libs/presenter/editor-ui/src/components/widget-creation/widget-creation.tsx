@@ -1,7 +1,16 @@
-import { Box, Button, Divider, Group, Switch, TextInput } from '@mantine/core';
+import {
+  Alert,
+  Box,
+  Button,
+  Divider,
+  Group,
+  Switch,
+  Text,
+  TextInput,
+} from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { modals } from '@mantine/modals';
-import { WidgetGallery, WidgetGalleryInput } from '@shukun/component';
+import { Icon, WidgetGallery, WidgetGalleryInput } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
 import { useMemo } from 'react';
 import { z } from 'zod';
@@ -25,11 +34,9 @@ export const WidgetCreation = ({
       widgetTitle: '',
     },
     validate: zodResolver(
-      z
-        .object({
-          widgetTag: z.string(),
-        })
-        .required(),
+      z.object({
+        widgetTag: z.string().min(1, { message: '请选择一个组件' }),
+      }),
     ),
   });
 
@@ -56,12 +63,20 @@ export const WidgetCreation = ({
         }}
         mb={12}
       >
+        {parentWidgetDefinition?.allowedChildTags?.includes('*') || (
+          <Alert color="orange" icon={<Icon type="info" />} mb={8}>
+            置灰组件无法被选择，因为当前父组件不支持置灰组件作为下级组件。
+          </Alert>
+        )}
         <WidgetGalleryInput
           parentWidgetDefinition={parentWidgetDefinition}
           widgetDefinitions={widgetDefinitions}
           widgetGallery={widgetGallery}
           {...form.getInputProps('widgetTag')}
         />
+        <Text color="red" size="sm">
+          {form.getInputProps('widgetTag').error}
+        </Text>
       </Box>
       <Group>
         <Switch
