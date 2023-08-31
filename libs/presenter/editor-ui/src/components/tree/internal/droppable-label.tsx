@@ -59,9 +59,6 @@ export const TreeDroppableLabel = ({
   }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius, theme.white]);
 
   const labelComponent = useMemo(() => {
-    if (targetWidgetEntity.id === rootNodeId) {
-      return <Text size="sm">组件树</Text>;
-    }
     return (
       <Group>
         <Text size="sm">{targetWidgetEntity.label}</Text>
@@ -72,12 +69,7 @@ export const TreeDroppableLabel = ({
         )}
       </Group>
     );
-  }, [
-    rootNodeId,
-    targetWidgetEntity.id,
-    targetWidgetEntity.label,
-    targetWidgetEntity.tag,
-  ]);
+  }, [targetWidgetEntity.label, targetWidgetEntity.tag]);
 
   return (
     <Box ref={drop} sx={{ ...style }}>
