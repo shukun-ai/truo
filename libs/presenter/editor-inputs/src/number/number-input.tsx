@@ -28,6 +28,7 @@ export const NumberInput = ({
         onChange={(value) => {
           onChange(value === '' ? undefined : value);
         }}
+        placeholder={props.secondaryLabel}
       />
     </InputWrapper>
   );

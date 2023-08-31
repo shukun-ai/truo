@@ -19,6 +19,7 @@ export const PropertyInputs = ({
         .filter(([, widgetProperty]) => !widgetProperty.isEvent)
         .map(([widgetPropertyId, widgetProperty]) => (
           <PropertyInput
+            key={widgetPropertyId}
             widgetPropertyId={widgetPropertyId}
             widgetProperty={widgetProperty}
             value={value?.[widgetPropertyId]}
