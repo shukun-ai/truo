@@ -1,6 +1,9 @@
-import { Box, Card, SimpleGrid, Stack, Text, Tooltip } from '@mantine/core';
+import { Box, SimpleGrid, Stack, Text } from '@mantine/core';
 import { WidgetSchema } from '@shukun/schema';
-import { IconBraces } from '@tabler/icons-react';
+import { useMemo } from 'react';
+
+import { ButtonCard } from './internal/button-card';
+import { WidgetIcon } from './internal/widget-icon';
 
 export type WidgetGallery = {
   sectionId: string;
@@ -15,6 +18,7 @@ export type WidgetGallery = {
 }[];
 
 export type WidgetGalleryInputProps = {
+  parentWidgetDefinition: WidgetSchema | null;
   widgetDefinitions: Record<string, WidgetSchema>;
   widgetGallery: WidgetGallery;
   value: string | null;
@@ -22,6 +26,7 @@ export type WidgetGalleryInputProps = {
 };
 
 export const WidgetGalleryInput = ({
+  parentWidgetDefinition,
   widgetDefinitions,
   widgetGallery,
   value,
@@ -32,8 +37,10 @@ export const WidgetGalleryInput = ({
       {widgetGallery.map((section) => {
         return (
           <Section
+            key={section.sectionId}
             section={section}
             widgetDefinitions={widgetDefinitions}
+            parentWidgetDefinition={parentWidgetDefinition}
             value={value}
             onChange={onChange}
           />
@@ -46,11 +53,13 @@ export const WidgetGalleryInput = ({
 const Section = ({
   section,
   widgetDefinitions,
+  parentWidgetDefinition,
   value,
   onChange,
 }: {
   section: WidgetGallery[number];
   widgetDefinitions: Record<string, WidgetSchema>;
+  parentWidgetDefinition: WidgetSchema | null;
   value: string | null;
   onChange: (newValue: string | null) => void;
 }) => {
@@ -60,8 +69,10 @@ const Section = ({
       <SimpleGrid cols={3}>
         {section.widgets.map((widget) => (
           <WidgetCard
+            key={widget.tag}
             widget={widget}
             widgetDefinitions={widgetDefinitions}
+            parentWidgetDefinition={parentWidgetDefinition}
             value={value}
             onChange={onChange}
           />
@@ -74,50 +85,58 @@ const Section = ({
 const WidgetCard = ({
   widget,
   widgetDefinitions,
+  parentWidgetDefinition,
   value,
   onChange,
 }: {
   widget: WidgetGallery[number]['widgets'][number];
   widgetDefinitions: Record<string, WidgetSchema>;
+  parentWidgetDefinition: WidgetSchema | null;
   value: string | null;
   onChange: (newValue: string | null) => void;
 }) => {
+  const disabled = useMemo(() => {
+    if (!parentWidgetDefinition) {
+      return false;
+    }
+    const { allowedChildTags } = parentWidgetDefinition;
+    if (!allowedChildTags) {
+      return false;
+    }
+    if (allowedChildTags.length === 0) {
+      return true;
+    }
+    if (allowedChildTags.includes('*')) {
+      return false;
+    }
+    if (allowedChildTags.includes(widget.tag)) {
+      return false;
+    }
+    return true;
+  }, [parentWidgetDefinition, widget.tag]);
+
+  const active = useMemo(() => {
+    return value === widget.tag;
+  }, [value, widget.tag]);
+
   return (
-    <Card
-      padding="xs"
-      withBorder
-      bg={value === widget.tag ? 'blue.5' : undefined}
-      c={value === widget.tag ? 'white' : undefined}
-      sx={{
-        cursor: 'pointer',
-      }}
+    <ButtonCard
+      active={active}
+      disabled={disabled}
+      widgetDescription={widget.description}
       onClick={() => {
         onChange(widget.tag);
       }}
     >
       <Stack align="center" spacing={0}>
-        <Box c={value === widget.tag ? 'white' : 'blue.5'}>
-          {widget.icon
-            ? widget.icon({ size: '5rem' })
-            : createDefaultIcon({ size: '5rem' })}
-        </Box>
-        {widget.description ? (
-          <Tooltip label={widget.description} withinPortal>
-            <Text fw="bold">{widget.label}</Text>
-          </Tooltip>
-        ) : (
-          <Text fw="bold">{widget.label}</Text>
-        )}
+        <WidgetIcon icon={widget.icon} active={active} disabled={disabled} />
+        <Text fw="bold">{widget.label}</Text>
         <Text size="xs">
           {'<'}
           {widget.tag}
           {'>'}
         </Text>
       </Stack>
-    </Card>
+    </ButtonCard>
   );
-};
-
-const createDefaultIcon = ({ size }: { size: string }) => {
-  return <IconBraces size={size} />;
 };

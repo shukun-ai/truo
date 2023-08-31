@@ -8,6 +8,12 @@ import { useState } from 'react';
 import { WidgetGalleryInput, WidgetGallery } from './widget-gallery-input';
 
 const WidgetGalleryInputExample = () => {
+  const parentWidgetDefinition: WidgetSchema = {
+    tag: 'parent',
+    experimental: true,
+    allowedChildTags: ['text', 'box'],
+    properties: {},
+  };
   const widgetDefinitions: Record<string, WidgetSchema> = {
     box: {
       tag: 'box',
@@ -70,6 +76,7 @@ const WidgetGalleryInputExample = () => {
     <Box w={540} sx={{ border: 'solid 1px #eee', padding: 12 }}>
       <WidgetGalleryInput
         widgetDefinitions={widgetDefinitions}
+        parentWidgetDefinition={parentWidgetDefinition}
         widgetGallery={widgetGallery}
         value={value}
         onChange={(newValue) => setValue(newValue)}
