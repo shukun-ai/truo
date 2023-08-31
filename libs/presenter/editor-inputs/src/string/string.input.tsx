@@ -22,6 +22,7 @@ export const StringInput = ({
       <TextInput
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        placeholder={props.secondaryLabel}
       />
     </InputWrapper>
   );

@@ -21,6 +21,7 @@ export const BoxModelInput = ({
       <Card withBorder>
         <StringInput
           label="宽度"
+          secondaryLabel="width"
           value={value?.w}
           onChange={(newValue) => {
             onChange({
@@ -31,6 +32,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="高度"
+          secondaryLabel="height"
           value={value?.h}
           onChange={(newValue) => {
             onChange({
@@ -41,6 +43,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="上内边距"
+          secondaryLabel="padding-top"
           value={value?.pt}
           onChange={(newValue) => {
             onChange({
@@ -51,6 +54,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="右内边距"
+          secondaryLabel="padding-right"
           value={value?.pr}
           onChange={(newValue) => {
             onChange({
@@ -61,6 +65,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="下内边距"
+          secondaryLabel="padding-bottom"
           value={value?.pb}
           onChange={(newValue) => {
             onChange({
@@ -71,6 +76,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="左内边距"
+          secondaryLabel="padding-left"
           value={value?.pl}
           onChange={(newValue) => {
             onChange({
@@ -82,6 +88,7 @@ export const BoxModelInput = ({
 
         <StringInput
           label="上外边距"
+          secondaryLabel="margin-top"
           value={value?.mt}
           onChange={(newValue) => {
             onChange({
@@ -92,6 +99,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="右外边距"
+          secondaryLabel="margin-right"
           value={value?.mr}
           onChange={(newValue) => {
             onChange({
@@ -102,6 +110,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="下外边距"
+          secondaryLabel="margin-bottom"
           value={value?.mb}
           onChange={(newValue) => {
             onChange({
@@ -112,6 +121,7 @@ export const BoxModelInput = ({
         />
         <StringInput
           label="左外边距"
+          secondaryLabel="margin-left"
           value={value?.ml}
           onChange={(newValue) => {
             onChange({
