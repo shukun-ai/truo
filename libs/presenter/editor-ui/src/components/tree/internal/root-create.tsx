@@ -9,6 +9,8 @@ import {
   WidgetCreationProps,
 } from '../../widget-creation/widget-creation';
 
+import { WIDGET_CREATION_MODAL_SIZE } from './constants';
+
 export type TreeRootCreateProps = {
   //
 };
@@ -31,14 +33,16 @@ export const TreeRootCreate = () => {
   const handleChildCreate = useCallback(() => {
     modals.open({
       title: '新建子级组件',
+      size: WIDGET_CREATION_MODAL_SIZE,
       children: (
         <WidgetCreation
+          widgetGallery={state.widgetGallery}
           widgetDefinitions={state.widgetDefinitions}
           onSubmit={onChildSubmit}
         />
       ),
     });
-  }, [onChildSubmit, state.widgetDefinitions]);
+  }, [onChildSubmit, state.widgetDefinitions, state.widgetGallery]);
 
   return (
     <Box sx={{ padding: 12 }}>

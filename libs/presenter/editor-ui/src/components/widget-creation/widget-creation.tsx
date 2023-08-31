@@ -1,16 +1,19 @@
-import { Button, Select, TextInput } from '@mantine/core';
+import { Box, Button, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
+import { WidgetGallery, WidgetGalleryInput } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 export type WidgetCreationProps = {
   widgetDefinitions: Record<string, WidgetSchema>;
+  widgetGallery: WidgetGallery;
   onSubmit: (values: { widgetTag: string; widgetTitle: string }) => void;
 };
 
 export const WidgetCreation = ({
   widgetDefinitions,
+  widgetGallery,
   onSubmit,
 }: WidgetCreationProps) => {
   const form = useForm({
@@ -30,14 +33,6 @@ export const WidgetCreation = ({
     },
   });
 
-  const options = useMemo(() => {
-    const options = Object.entries(widgetDefinitions).map(([id]) => ({
-      value: id,
-      label: id,
-    }));
-    return [{ value: '', label: '请选择组件' }, ...options];
-  }, [widgetDefinitions]);
-
   useEffect(() => {
     if (!form.values.widgetTitle) {
       form.setFieldValue('widgetTitle', form.values.widgetTag);
@@ -53,14 +48,23 @@ export const WidgetCreation = ({
         modals.closeAll();
       })}
     >
-      <Select
-        label="选择组件"
-        placeholder="选择组件"
-        data={options}
-        withAsterisk
-        withinPortal
-        {...form.getInputProps('widgetTag')}
-      />
+      <Box
+        sx={{
+          border: 'solid 1px #eee',
+          padding: 12,
+          borderRadius: 4,
+          maxHeight: '80%',
+          overflowY: 'scroll',
+        }}
+        mb={12}
+      >
+        <WidgetGalleryInput
+          parentWidgetDefinition={null}
+          widgetDefinitions={widgetDefinitions}
+          widgetGallery={widgetGallery}
+          {...form.getInputProps('widgetTag')}
+        />
+      </Box>
       <TextInput
         label="组件显示名"
         placeholder="Widget title"
