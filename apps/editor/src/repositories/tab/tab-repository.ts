@@ -2,6 +2,7 @@ import { select, setProps } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
+  getAllEntitiesApply,
   getEntity,
   updateEntities,
 } from '@ngneat/elf-entities';
@@ -27,9 +28,29 @@ export const tabRepository = {
 
   preview(tabType: TabEntity['tabType'], foreignId: string): void {
     const tabId = `${tabType}:${foreignId}`;
+    const existPreviewTabs = tabStore.query(
+      getAllEntitiesApply({
+        filterEntity: (entity) => entity.isPreview,
+        ref: tabRef,
+      }),
+    );
     const tab = tabStore.query(getEntity(tabId, { ref: tabRef }));
 
     tabStore.update(
+      tab
+        ? updateEntities(
+            tabId,
+            {},
+            {
+              ref: tabRef,
+            },
+          )
+        : deleteEntities(
+            existPreviewTabs.map((tab) => tab.id),
+            {
+              ref: tabRef,
+            },
+          ),
       tab
         ? updateEntities(
             tabId,
