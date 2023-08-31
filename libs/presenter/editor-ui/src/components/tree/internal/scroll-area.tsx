@@ -11,9 +11,7 @@ export const ScrollArea = ({ children }: ScrollAreaProps) => {
   return (
     <Box>
       <OverflowArea x="scroll" y="scroll">
-        <Box pl={4} pr={4}>
-          {children}
-        </Box>
+        <Box>{children}</Box>
       </OverflowArea>
     </Box>
   );

@@ -50,20 +50,23 @@ export const TreeDroppableLabel = ({
   const style = useMemo(() => {
     if (isOver && canDrop) {
       return {
-        background: theme.colors.blue[8],
+        background: theme.colors.blue[3],
         color: theme.white,
-        borderRadius: theme.defaultRadius,
+        borderRadius: theme.radius.sm,
+        paddingTop: 6,
+        paddingBottom: 6,
+        paddingLeft: 6,
       };
     }
     return {};
-  }, [canDrop, isOver, theme.colors.blue, theme.defaultRadius, theme.white]);
+  }, [canDrop, isOver, theme.colors.blue, theme.radius.sm, theme.white]);
 
   const labelComponent = useMemo(() => {
     return (
       <Group>
-        <Text size="sm">{targetWidgetEntity.label}</Text>
+        <Text size="xs">{targetWidgetEntity.label}</Text>
         {SHOW_WIDGET_TAG && (
-          <Badge size="sm" sx={{ textTransform: 'lowercase' }}>
+          <Badge size="xs" sx={{ textTransform: 'lowercase' }}>
             {targetWidgetEntity.tag}
           </Badge>
         )}

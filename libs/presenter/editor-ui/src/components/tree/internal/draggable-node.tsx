@@ -97,7 +97,7 @@ export const TreeDraggableNode = ({
           <Box style={{ flex: 1 }}>
             <TreeDroppableLabel targetWidgetEntity={sourceWidgetEntity} />
           </Box>
-          <Box sx={{ paddingRight: 6 }}>
+          <Box sx={{ paddingRight: 0 }}>
             <TreeMoreButton
               sourceWidgetEntity={sourceWidgetEntity}
               widgetDefinitions={widgetDefinitions}
@@ -159,20 +159,19 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.colors.blue[8],
-    borderRadius: theme.radius.md,
+    color: theme.colors.blue[9],
+    borderRadius: 0,
     flexWrap: 'nowrap',
 
     '&:hover': {
-      background: theme.colors.blue[1],
+      background: theme.colors.gray[1],
     },
   },
   nodeItemActive: {
-    color: theme.white,
-    background: theme.colors.blue[8],
+    background: theme.fn.rgba(theme.colors.blue[2], 0.5),
 
     '&:hover': {
-      background: theme.colors.blue[8],
+      background: theme.fn.rgba(theme.colors.blue[2], 0.5),
     },
   },
 }));
