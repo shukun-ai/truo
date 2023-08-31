@@ -30,6 +30,7 @@ export const TreeDraggableNode = ({
   selectedWidgetEntityId,
   widgetDefinitions,
   widgetGallery,
+  parentWidgetDefinition,
 }: {
   treeNodes: Record<string, PresenterNode>;
   widgetEntities: Record<string, WidgetEntity>;
@@ -40,8 +41,10 @@ export const TreeDraggableNode = ({
   selectedWidgetEntityId?: string;
   widgetDefinitions: Record<string, WidgetSchema>;
   widgetGallery: WidgetGallery;
+  parentWidgetDefinition: WidgetSchema | null;
 }) => {
   const { state, dispatch } = useEditorContext();
+  const { rootNodeId } = state;
   const { tab } = dispatch;
 
   const [, drag] = useDrag<TreeDroppableItem>(() => ({
@@ -101,6 +104,7 @@ export const TreeDraggableNode = ({
               widgetGallery={widgetGallery}
               rootNodeId={state.rootNodeId}
               node={dispatch.node}
+              parentWidgetDefinition={parentWidgetDefinition}
             />
           </Box>
         </Box>
@@ -119,6 +123,11 @@ export const TreeDraggableNode = ({
               index={index}
               widgetDefinitions={widgetDefinitions}
               widgetGallery={widgetGallery}
+              parentWidgetDefinition={
+                sourceNodeId === rootNodeId
+                  ? null
+                  : widgetDefinitions[widgetEntities[sourceNodeId].tag]
+              }
             />
           ))}
         </List>
