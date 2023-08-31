@@ -19,8 +19,14 @@ export const TreePane = () => {
 
   const { state } = useEditorContext();
 
-  const { nodes, widgets, nodeCollapses, selectedTab, widgetDefinitions } =
-    state;
+  const {
+    nodes,
+    widgets,
+    nodeCollapses,
+    selectedTab,
+    widgetDefinitions,
+    widgetGallery,
+  } = state;
 
   const onlyRoot = useMemo(() => {
     if (!nodes.root) {
@@ -50,6 +56,7 @@ export const TreePane = () => {
           level={0}
           index={0}
           widgetDefinitions={widgetDefinitions}
+          widgetGallery={widgetGallery}
         />
         {onlyRoot && <TreeRootCreate />}
       </ScrollArea>

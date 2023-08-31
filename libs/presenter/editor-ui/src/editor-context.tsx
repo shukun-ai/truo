@@ -1,3 +1,4 @@
+import { WidgetGallery } from '@shukun/component';
 import {
   ConnectorSchema,
   EnvironmentSchema,
@@ -80,6 +81,7 @@ export type EditorContextProps = {
     }[];
     systemActivityTabs: ActivityTab[];
     presenterActivityTabs: ActivityTab[];
+    widgetGallery: WidgetGallery;
   };
   dispatch: {
     editor: {

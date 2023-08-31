@@ -1,6 +1,6 @@
 import { ActionIcon, Menu } from '@mantine/core';
 import { modals } from '@mantine/modals';
-import { Icon } from '@shukun/component';
+import { Icon, WidgetGallery } from '@shukun/component';
 import { WidgetSchema } from '@shukun/schema';
 import { IconRectangularPrismPlus } from '@tabler/icons-react';
 
@@ -13,11 +13,13 @@ import {
   WidgetCreationProps,
 } from '../../widget-creation/widget-creation';
 
+import { WIDGET_CREATION_MODAL_SIZE } from './constants';
 import { RenameMenuItem } from './rename-menu-item';
 
 export type TreeMoreButtonProps = {
   sourceWidgetEntity: WidgetEntity;
   widgetDefinitions: Record<string, WidgetSchema>;
+  widgetGallery: WidgetGallery;
   rootNodeId: string;
   node: EditorContextProps['dispatch']['node'];
 };
@@ -25,6 +27,7 @@ export type TreeMoreButtonProps = {
 export const TreeMoreButton = ({
   sourceWidgetEntity,
   widgetDefinitions,
+  widgetGallery,
   rootNodeId,
   node,
 }: TreeMoreButtonProps) => {
@@ -43,14 +46,16 @@ export const TreeMoreButton = ({
   const handleSiblingCreate = useCallback(() => {
     modals.open({
       title: '新建同级组件',
+      size: WIDGET_CREATION_MODAL_SIZE,
       children: (
         <WidgetCreation
+          widgetGallery={widgetGallery}
           widgetDefinitions={widgetDefinitions}
           onSubmit={onSiblingSubmit}
         />
       ),
     });
-  }, [onSiblingSubmit, widgetDefinitions]);
+  }, [onSiblingSubmit, widgetDefinitions, widgetGallery]);
 
   const onChildSubmit = useCallback<WidgetCreationProps['onSubmit']>(
     (values) => {
@@ -67,14 +72,16 @@ export const TreeMoreButton = ({
   const handleChildCreate = useCallback(() => {
     modals.open({
       title: '新建子级组件',
+      size: WIDGET_CREATION_MODAL_SIZE,
       children: (
         <WidgetCreation
+          widgetGallery={widgetGallery}
           widgetDefinitions={widgetDefinitions}
           onSubmit={onChildSubmit}
         />
       ),
     });
-  }, [onChildSubmit, widgetDefinitions]);
+  }, [onChildSubmit, widgetDefinitions, widgetGallery]);
 
   const widgetDefinition = useMemo(() => {
     return widgetDefinitions[sourceWidgetEntity.tag];

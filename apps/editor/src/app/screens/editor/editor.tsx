@@ -46,6 +46,7 @@ export const Editor = ({ mode }: EditorProps) => {
           environments: {},
           tasks: {},
           widgetDefinitions: presenter.widgetDefinitions,
+          widgetGallery: presenter.widgetGallery,
           repositoryDefinitions: presenter.repositoryDefinitions,
           nodeCollapses: presenter.treeCollapseEntities,
           selectedTab,
