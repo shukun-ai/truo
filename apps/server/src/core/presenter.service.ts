@@ -46,8 +46,17 @@ export class PresenterService {
 
     const emptyPresenterDefinition: PresenterSchema = {
       label: createDto.name,
-      widgets: {},
-      nodes: {},
+      widgets: {
+        root: {
+          tag: 'root',
+          label: 'root',
+          properties: {},
+          events: {},
+        },
+      },
+      nodes: {
+        root: [],
+      },
       repositories: {},
     };
     const entity = new this.presenterModel({
