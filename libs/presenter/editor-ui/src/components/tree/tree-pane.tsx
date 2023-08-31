@@ -32,11 +32,9 @@ export const TreePane = () => {
   const onlyRoot = useMemo(() => {
     if (!nodes.root) {
       return true;
+    } else {
+      return false;
     }
-    if (nodes.root.length === 0) {
-      return true;
-    }
-    return false;
   }, [nodes.root]);
 
   return (
@@ -60,7 +58,8 @@ export const TreePane = () => {
           widgetGallery={widgetGallery}
           parentWidgetDefinition={null}
         />
-        {onlyRoot && <TreeRootCreate />}
+        {/* Please remove false if you want to enable this feature, but remember to update TreeRootCreate allowChildTags for root widget. */}
+        {onlyRoot && false && <TreeRootCreate />}
       </ScrollArea>
     </Box>
   );
