@@ -1,6 +1,6 @@
 import { Box } from '@mantine/core';
 import { PresenterNode } from '@shukun/schema';
-import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
+import { IconCaretDownFilled, IconCaretRightFilled } from '@tabler/icons-react';
 import { useCallback } from 'react';
 
 import { useEditorContext } from '../../../editor-context';
@@ -36,12 +36,12 @@ export const TreeArrow = ({
       onClick={() => {
         isOpen ? closeCollapse() : openCollapse();
       }}
-      sx={{ width: 16, cursor: 'pointer' }}
+      sx={{ width: 16, cursor: 'pointer', marginTop: -2 }}
     >
       {isOpen ? (
-        <IconChevronDown size="0.9rem" />
+        <IconCaretDownFilled size="0.7rem" />
       ) : (
-        <IconChevronRight size="0.9rem" />
+        <IconCaretRightFilled size="0.7rem" />
       )}
     </Box>
   );
