@@ -5,7 +5,7 @@
   "allowedChildTags": ["tableColumn"],
   "properties": {
     "data": {
-      "label": "数据",
+      "label": "表格数据",
       "type": "dataBinding"
     }
   }
