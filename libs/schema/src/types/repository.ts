@@ -38,6 +38,7 @@ export interface RepositoryParameter {
  * via the `patternProperty` "^(.)+$".
  */
 export interface RepositoryAction {
+  description?: string;
   enabledPath?: boolean;
   enabledValue?: boolean;
 }
