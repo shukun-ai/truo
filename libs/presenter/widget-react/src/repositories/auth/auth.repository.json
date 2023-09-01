@@ -5,6 +5,8 @@
   "scope": "app",
   "parameters": {},
   "actions": {
-    "signOut": {}
+    "signOut": {
+      "description": "登出当前账号"
+    }
   }
 }

@@ -6,8 +6,11 @@
   "parameters": {},
   "actions": {
     "go": {
+      "description": "前往下个路由",
       "enabledValue": true
     },
-    "back": {}
+    "back": {
+      "description": "返回上个路由"
+    }
   }
 }
