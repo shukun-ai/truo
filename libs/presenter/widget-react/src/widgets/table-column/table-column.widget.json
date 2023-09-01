@@ -7,11 +7,13 @@
     "title": {
       "label": "标题",
       "type": "string",
-      "disabledJsMode": true
+      "disabledJsMode": true,
+      "description": "该属性用作表格头部标题，仅支持静态字符串，不支持动态变量"
     },
     "data": {
       "label": "数据绑定",
-      "type": "dataBinding"
+      "type": "dataBinding",
+      "description": "可以使用 $.item 来获取父表格上的数据"
     }
   }
 }
