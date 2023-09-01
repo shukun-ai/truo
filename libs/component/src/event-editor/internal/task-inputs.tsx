@@ -57,12 +57,11 @@ export const TaskInputs = ({
       <Box sx={{ flex: 1 }}>
         {noRepositories && (
           <Alert icon={<Icon type="info" />} color="orange">
-            您当前未创建数据仓库，所以无法选择容器级数据仓库
+            您当前未创建数据仓库，所以无法选择数据仓库
           </Alert>
         )}
         <Group>
-          {/* TODO recover */}
-          {/* <TargetInput
+          <TargetInput
             value={value.target}
             onChange={(newValue) => {
               onChange({
@@ -70,8 +69,7 @@ export const TaskInputs = ({
                 target: newValue,
               });
             }}
-            scope={value.scope}
-          /> */}
+          />
           <ActionInput
             value={value.action}
             onChange={(newValue) => {

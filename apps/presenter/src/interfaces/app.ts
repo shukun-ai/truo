@@ -11,9 +11,14 @@ export type AppProps = {
   presenter: PresenterSchema;
   widgets: Record<string, (props: any) => JSX.Element | JSX.Element[]>;
   repositories: Record<string, Repository>;
-  state: {
-    router: RouterState;
-    auth: AuthState;
-    [repositoryId: string]: unknown;
-  };
+  state: StandardState;
+};
+
+export type StandardState = {
+  router: RouterState;
+  auth: AuthState;
+  payload: unknown;
+  index: number;
+  item: unknown;
+  [repositoryId: string]: unknown;
 };

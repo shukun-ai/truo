@@ -1,7 +1,7 @@
 import { PresenterWidget } from '@shukun/schema';
 import { Children, cloneElement, useMemo } from 'react';
 
-import { AppProps } from '../interfaces/app';
+import { AppProps, StandardState } from '../interfaces/app';
 
 import { handleEvents } from './event/handle-events';
 import { runTemplate } from './template/template';
@@ -30,12 +30,12 @@ export const WrappedWidget = ({
   const properties = useMemo(() => {
     const properties: Record<string, unknown> = {};
     const events: Record<string, (payload: unknown) => void> = {};
-    const states = { state, item, index: index ?? 0 };
+    const standardState: StandardState = { ...state, item, index: index ?? 0 };
 
     for (const [propertyId, property] of Object.entries(widget.properties)) {
       const template = property;
       if (template) {
-        properties[propertyId] = runTemplate(template, states);
+        properties[propertyId] = runTemplate(template, standardState);
       }
     }
 
@@ -44,12 +44,7 @@ export const WrappedWidget = ({
         const events = event;
         handleEvents(
           events,
-          {
-            state,
-            index: states.index,
-            item: states.item,
-            payload,
-          },
+          state,
           injector,
           appProps.presenter,
           appProps.repositories,

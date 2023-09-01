@@ -1,7 +1,7 @@
 import { Select, SelectItem } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { useEventContext } from './context';
 
@@ -23,6 +23,13 @@ export const ActionInput = ({ value, onChange, target }: ActionInputProps) => {
       ...actionOptions.filter((item) => item.target === target),
     ];
   }, [actionOptions, target]);
+
+  useEffect(() => {
+    const exist = allowedActionOptions.find((item) => item.value === value);
+    if (!exist) {
+      onChange('');
+    }
+  }, [allowedActionOptions, onChange, value]);
 
   return (
     <Select

@@ -34,7 +34,17 @@ const getProp = (
   total: string[],
   [name, prop]: [string, WidgetSchema['properties'][number]],
 ): string[] => {
-  return [...total, `${name}?:${getType(prop)};`];
+  return [...total, `${name}?:${getPropertyOrEvent(prop)};`];
+};
+
+const getPropertyOrEvent = (
+  prop: WidgetSchema['properties'][number],
+): string => {
+  if (prop.isEvent) {
+    return `(payload: ${getType(prop)}) => Promise<void>`;
+  } else {
+    return getType(prop);
+  }
 };
 
 const getType = (prop: WidgetSchema['properties'][number]): string => {
@@ -65,6 +75,8 @@ const getType = (prop: WidgetSchema['properties'][number]): string => {
       return 'unknown';
     case 'boxModel':
       return '{ pt?: string; pr?: string; pb?: string; pl?: string; mt?: string; mr?: string; mb?: string; ml?: string; w?: string; h?: string; }';
+    case 'void':
+      return 'undefined';
   }
 };
 

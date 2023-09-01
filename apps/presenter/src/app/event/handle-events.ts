@@ -2,18 +2,12 @@ import { TypeException } from '@shukun/exception';
 import { Injector, Repository } from '@shukun/presenter/definition';
 import { CodeMode, PresenterEvent, PresenterSchema } from '@shukun/schema';
 
+import { StandardState } from '../../interfaces/app';
 import { runTemplate } from '../template/template';
-
-export type EventState = {
-  index: number;
-  item: unknown;
-  payload: unknown;
-  state: unknown;
-};
 
 export const handleEvents = (
   events: PresenterEvent[],
-  state: EventState,
+  state: StandardState,
   injector: Injector,
   presenter: PresenterSchema,
   repositories: Record<string, Repository>,
@@ -25,17 +19,16 @@ export const handleEvents = (
 
 const handleEvent = (
   event: PresenterEvent,
-  state: EventState,
+  state: StandardState,
   injector: Injector,
   presenter: PresenterSchema,
   repositories: Record<string, Repository>,
 ): void => {
   const { action, target, value } = event;
 
-  const repositoryDefinition = repositories[target];
   const repository = presenter.repositories[target];
 
-  if (!repositoryDefinition || !repository) {
+  if (!repository) {
     throw new TypeException(
       'The repository is not defined, target is {{target}}',
       {
@@ -44,7 +37,18 @@ const handleEvent = (
     );
   }
 
-  if (!(action in repositoryDefinition)) {
+  const repositoryCallback = repositories[repository.type];
+
+  if (!repositoryCallback) {
+    throw new TypeException(
+      'The repository definition is not defined, type is {{type}}',
+      {
+        type: repository.type,
+      },
+    );
+  }
+
+  if (!(action in repositoryCallback)) {
     throw new TypeException(
       'The repository did not has specific action, action is {{action}} and target is {{target}}',
       {
@@ -57,6 +61,6 @@ const handleEvent = (
   const template = value ? value : `${CodeMode.JS}return $.payload`;
   const parsedValue = runTemplate(template, state);
 
-  const callback = repositoryDefinition[action];
+  const callback = repositoryCallback[action];
   callback(parsedValue, event, injector, repository);
 };
