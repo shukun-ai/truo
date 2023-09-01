@@ -35,6 +35,8 @@ export const Actions = ({ definition }: ActionsProps) => {
         <Tooltip
           key={actionName}
           label="此处操作仅为查阅手册，请在组件的事件中进行配置和使用"
+          position="top-start"
+          withArrow
           withinPortal
         >
           <Group>
