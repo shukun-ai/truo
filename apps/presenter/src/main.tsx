@@ -9,7 +9,9 @@ import { initializeLogger } from './effect/logger/logger';
 import { initializeRouter } from './effect/router/router';
 import { initializeStore } from './effect/store/store';
 import { environments } from './environments/environment';
+import { IdentityProvider } from './observable/identity-provider';
 import { ObservableApp } from './observable/observable-app';
+import { ThemeProvider } from './observable/theme-provider';
 
 const devtool = initializeDevtool(environments);
 const logger = initializeLogger(environments, devtool);
@@ -38,6 +40,12 @@ root.render(
       auth,
       router,
     }}
-    render={(app) => <App {...app} />}
+    render={(app) => (
+      <ThemeProvider>
+        <IdentityProvider {...app}>
+          <App {...app} />
+        </IdentityProvider>
+      </ThemeProvider>
+    )}
   />,
 );
