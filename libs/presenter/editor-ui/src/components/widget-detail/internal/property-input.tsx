@@ -22,30 +22,29 @@ export const PropertyInput = ({
   value,
   onChange,
 }: PropertyInputProps) => {
-  const { type, enums, disabledJsMode } = widgetProperty;
+  const { type, enums, disabledJsMode, description } = widgetProperty;
+
+  const commonInputProps = {
+    label: widgetProperty.label,
+    secondaryLabel: widgetPropertyId,
+    description,
+    disabledJsMode,
+  };
 
   if (type === 'enum' && (typeof value === 'string' || value === undefined)) {
     return (
       <EnumInput
-        label={widgetProperty.label}
-        secondaryLabel={widgetPropertyId}
         value={value}
         onChange={onChange}
         enums={enums ?? []}
-        disabledJsMode={disabledJsMode}
+        {...commonInputProps}
       />
     );
   }
 
   if (type === 'string' && (typeof value === 'string' || value === undefined)) {
     return (
-      <StringInput
-        label={widgetProperty.label}
-        secondaryLabel={widgetPropertyId}
-        value={value}
-        onChange={onChange}
-        disabledJsMode={disabledJsMode}
-      />
+      <StringInput value={value} onChange={onChange} {...commonInputProps} />
     );
   }
 
@@ -57,12 +56,10 @@ export const PropertyInput = ({
   ) {
     return (
       <NumberInput
-        label={widgetProperty.label}
-        secondaryLabel={widgetPropertyId}
         value={value}
         onChange={onChange}
         isInteger
-        disabledJsMode={disabledJsMode}
+        {...commonInputProps}
       />
     );
   }
@@ -74,13 +71,7 @@ export const PropertyInput = ({
       value === undefined)
   ) {
     return (
-      <NumberInput
-        label={widgetProperty.label}
-        secondaryLabel={widgetPropertyId}
-        value={value}
-        onChange={onChange}
-        disabledJsMode={disabledJsMode}
-      />
+      <NumberInput value={value} onChange={onChange} {...commonInputProps} />
     );
   }
 
@@ -91,13 +82,7 @@ export const PropertyInput = ({
       value === undefined)
   ) {
     return (
-      <BooleanInput
-        label={widgetProperty.label}
-        secondaryLabel={widgetPropertyId}
-        value={value}
-        onChange={onChange}
-        disabledJsMode={disabledJsMode}
-      />
+      <BooleanInput value={value} onChange={onChange} {...commonInputProps} />
     );
   }
 
@@ -107,11 +92,9 @@ export const PropertyInput = ({
   ) {
     return (
       <DataBindingInput
-        label={widgetProperty.label}
-        secondaryLabel={widgetPropertyId}
         value={value}
         onChange={onChange}
-        disabledJsMode={disabledJsMode}
+        {...commonInputProps}
       />
     );
   }
@@ -119,11 +102,9 @@ export const PropertyInput = ({
   if (type === 'boxModel') {
     return (
       <BoxModelInput
-        label={widgetProperty.label}
-        secondaryLabel={widgetPropertyId}
         value={value as any}
         onChange={onChange}
-        disabledJsMode={disabledJsMode}
+        {...commonInputProps}
       />
     );
   }
