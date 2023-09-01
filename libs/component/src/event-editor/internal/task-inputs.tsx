@@ -9,7 +9,6 @@ import { Icon } from '../../domain-icons/domain-icons';
 
 import { ActionInput } from './action-input';
 import { useEventContext } from './context';
-import { PathInput } from './path-input';
 import { TargetInput } from './target-input';
 import { ValueInput } from './value-input';
 
@@ -60,7 +59,7 @@ export const TaskInputs = ({
             您当前未创建数据仓库，所以无法选择数据仓库
           </Alert>
         )}
-        <Group>
+        <Group mb={8}>
           <TargetInput
             value={value.target}
             onChange={(newValue) => {
@@ -81,7 +80,8 @@ export const TaskInputs = ({
             target={value.target}
           />
         </Group>
-        <PathInput
+        {/* TODO enable PathInput */}
+        {/* <PathInput
           value={value.path}
           onChange={(newValue) => {
             onChange({
@@ -89,7 +89,7 @@ export const TaskInputs = ({
               path: newValue,
             });
           }}
-        />
+        /> */}
         <ValueInput
           value={value.value}
           onChange={(newValue) =>

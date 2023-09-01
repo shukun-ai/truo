@@ -11,7 +11,12 @@ export type ValueInputProps = {
 export const ValueInput = ({ value, onChange }: ValueInputProps) => {
   return (
     <Box>
-      <Text>值</Text>
+      <Text size="sm" mb={4}>
+        事件表达式
+      </Text>
+      <Text size="sm" mb={4} c="gray">
+        用于执行数据仓库的操作，$.payload 是数据仓库的回调数据
+      </Text>
       <JsInput
         value={value ?? ''}
         onChange={(newValue) => onChange(newValue)}
