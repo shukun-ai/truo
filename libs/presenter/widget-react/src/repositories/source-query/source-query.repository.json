@@ -12,6 +12,7 @@
   },
   "actions": {
     "run": {
+      "description": "运行查询",
       "enabledValue": true
     }
   }

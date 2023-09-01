@@ -6,6 +6,7 @@
   "parameters": {},
   "actions": {
     "setValue": {
+      "description": "为临时存储设置值",
       "enabledPath": true,
       "enabledValue": true
     }
