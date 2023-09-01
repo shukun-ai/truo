@@ -36,6 +36,7 @@ export const RepositoryDetail = ({
     <EditorTabWrapper>
       <form>
         <Schema
+          repositoryId={repositoryEntity.id}
           value={form.values}
           onChange={(newValue) => form.setValues(newValue)}
           definition={definition}
