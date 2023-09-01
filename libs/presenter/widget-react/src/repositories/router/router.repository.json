@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
   "name": "router",
+  "description": "用于获取和操作页面路由信息",
   "scope": "app",
   "parameters": {},
   "actions": {
