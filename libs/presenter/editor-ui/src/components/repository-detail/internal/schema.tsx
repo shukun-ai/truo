@@ -4,7 +4,9 @@ import { PresenterRepository, RepositorySchema } from '@shukun/schema';
 
 import { useEditorContext } from '../../../editor-context';
 
+import { Actions } from './actions';
 import { Parameters } from './parameters';
+import { State } from './state';
 
 export type SchemaProps = {
   repositoryId: string;
@@ -24,30 +26,28 @@ export const Schema = ({
 
   return (
     <Box>
-      <Stack spacing={0} mb={8}>
-        <Group align="center">
-          <Title order={2}>{value.type}</Title>
-          <Badge size="xs">{definition.scope}</Badge>
+      <Stack spacing={0} mb={16}>
+        <Group align="center" mb={8} spacing={4}>
+          <Title order={2}>$.{repositoryId}</Title>
+          {/* TODO enable copy button */}
+          {/* <ActionIcon>
+            <Icon type="copy" size="0.8rem" />
+          </ActionIcon> */}
+          <Badge size="md" sx={{ textTransform: 'none' }}>
+            {value.type}
+          </Badge>
         </Group>
         <Text size="sm" c="gray">
           {repositoryDefinitions[value.type].description}
         </Text>
       </Stack>
-      <Group spacing={2} mb={8}>
-        <Text>编程中获取：</Text>
-        <Badge size="lg" sx={{ textTransform: 'none' }}>
-          $.{repositoryId}
-        </Badge>
-        {/* TODO enable copy button */}
-        {/* <ActionIcon>
-          <Icon type="copy" size="0.8rem" />
-        </ActionIcon> */}
-      </Group>
       <Parameters
         value={value.parameters}
         onChange={(newValue) => onChange({ ...value, parameters: newValue })}
         definition={definition}
       />
+      <Actions definition={definition} />
+      <State />
     </Box>
   );
 };
