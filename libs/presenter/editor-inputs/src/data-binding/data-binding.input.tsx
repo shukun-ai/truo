@@ -1,5 +1,6 @@
 import { JsInput } from '@shukun/component';
 
+import { SimpleWrapper } from '../simple-wrapper/simple-wrapper';
 import { CommonInputProps } from '../types';
 
 export type DataBindingInputProps = {
@@ -12,5 +13,9 @@ export const DataBindingInput = ({
   onChange,
   ...props
 }: DataBindingInputProps) => {
-  return <JsInput {...props} value={value ?? ''} onChange={onChange} />;
+  return (
+    <SimpleWrapper {...props}>
+      <JsInput {...props} value={value ?? ''} onChange={onChange} />
+    </SimpleWrapper>
+  );
 };
