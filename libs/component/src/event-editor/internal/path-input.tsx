@@ -10,7 +10,7 @@ export const PathInput = ({ value, onChange }: PathInputProps) => {
   return (
     <Box>
       <Text>路径</Text>
-      <Box>No path</Box>
+      <Box>路径配置器开发中</Box>
     </Box>
   );
 };
