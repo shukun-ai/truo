@@ -12,6 +12,7 @@
 export interface RepositorySchema {
   $schema?: string;
   name: string;
+  description?: string;
   scope: 'app' | 'container';
   parameters: {
     [k: string]: RepositoryParameter;
