@@ -1,4 +1,11 @@
-import { Button, Select, SelectItem, TextInput } from '@mantine/core';
+import {
+  Button,
+  Select,
+  SelectItem,
+  Text,
+  TextInput,
+  Tooltip,
+} from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 
 import { RepositorySchema } from '@shukun/schema';
@@ -66,14 +73,17 @@ export const RepositoryForm = ({
         onSubmit(values);
       })}
     >
-      <TextInput
-        label="数据仓库标识符"
-        placeholder="建议使用中文命名方便记忆"
-        data-autofocus
-        withAsterisk
-        description="数据仓库标识符用于编写程序，所以请使用符合如下格式：字母 a-z、数字 0-9、下划线和中文，推荐使用中文。"
-        {...form.getInputProps('repositoryId')}
-      />
+      <Tooltip label="$. 表示">
+        <TextInput
+          label="数据仓库标识符"
+          placeholder="建议使用中文命名方便记忆"
+          data-autofocus
+          withAsterisk
+          description="数据仓库标识符用于编写程序，所以请使用符合如下格式：字母 a-z、数字 0-9、下划线和中文，推荐使用中文。"
+          icon={<Text c="black">$.</Text>}
+          {...form.getInputProps('repositoryId')}
+        />
+      </Tooltip>
       <Select
         label="选择数据仓库类型"
         placeholder="Repository Type"
