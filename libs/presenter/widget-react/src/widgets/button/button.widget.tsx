@@ -6,6 +6,10 @@ import { ButtonWidgetProps } from './button.props';
 
 export const ButtonWidget = createWidget<ButtonWidgetProps>(
   ({ text, onClick, ...props }) => {
-    return <Button {...props}>{text}</Button>;
+    return (
+      <Button onClick={() => onClick && onClick(undefined)} {...props}>
+        {text}
+      </Button>
+    );
   },
 );

@@ -5,6 +5,7 @@ import { append, move, update, remove } from '@shukun/util-functions';
 
 import { ArrayInputs } from '../array-inputs/array-inputs';
 
+import { DEFAULT_EVENT } from './constants';
 import { EventContextProps, EventProvider } from './internal/context';
 import { TaskInputs } from './internal/task-inputs';
 
@@ -29,14 +30,7 @@ export const EventInputs = ({
           onChange(update(value, index, newValue));
         }}
         onCreate={() => {
-          // TODO recover
-          // onChange(
-          //   append(value, {
-          //     scope: 'container',
-          //     target: '',
-          //     action: '',
-          //   }),
-          // );
+          onChange(append(value, DEFAULT_EVENT));
         }}
         onMove={(sourceIndex, targetIndex) => {
           onChange(move(value, sourceIndex, targetIndex));

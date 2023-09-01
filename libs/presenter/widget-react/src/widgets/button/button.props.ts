@@ -13,5 +13,5 @@ export type ButtonWidgetProps = {
   disabled?: boolean;
   fullWidth?: boolean;
   loading?: boolean;
-  onClick?: undefined;
+  onClick?: (payload: undefined) => Promise<void>;
 };

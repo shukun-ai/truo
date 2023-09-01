@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core';
+import { Box, Text } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 
 export type PathInputProps = {
@@ -7,5 +7,10 @@ export type PathInputProps = {
 };
 
 export const PathInput = ({ value, onChange }: PathInputProps) => {
-  return <Box>路径</Box>;
+  return (
+    <Box>
+      <Text>路径</Text>
+      <Box>No path</Box>
+    </Box>
+  );
 };

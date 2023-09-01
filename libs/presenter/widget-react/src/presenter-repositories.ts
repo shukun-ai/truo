@@ -8,6 +8,6 @@ import { temporaryRepository } from './repositories/temporary/temporary.reposito
 export const presenterRepositories: Record<string, Repository> = {
   auth: authRepository,
   router: routerRepository,
-  temporary: sourceQueryRepository,
-  sourceQuery: temporaryRepository,
+  temporary: temporaryRepository,
+  sourceQuery: sourceQueryRepository,
 };

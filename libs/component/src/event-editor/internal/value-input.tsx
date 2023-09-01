@@ -1,3 +1,4 @@
+import { Box, Text } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 
 import { JsInput } from '../../js-input/js-input';
@@ -9,6 +10,12 @@ export type ValueInputProps = {
 
 export const ValueInput = ({ value, onChange }: ValueInputProps) => {
   return (
-    <JsInput value={value ?? ''} onChange={(newValue) => onChange(newValue)} />
+    <Box>
+      <Text>值</Text>
+      <JsInput
+        value={value ?? ''}
+        onChange={(newValue) => onChange(newValue)}
+      />
+    </Box>
   );
 };

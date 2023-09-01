@@ -4,10 +4,6 @@ export const temporaryRepository: Repository = {
   setValue(payload, event, injector, repository): void {
     const { path } = event;
     const fullPath = path ? [event.target].concat(path) : [event.target];
-
-    injector.store.update<any>(fullPath, (previous) => ({
-      ...previous,
-      ...(payload as any),
-    }));
+    injector.store.update<any>(fullPath, () => payload);
   },
 };

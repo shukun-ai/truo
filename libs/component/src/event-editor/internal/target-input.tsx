@@ -1,5 +1,5 @@
 import { Select } from '@mantine/core';
-import { PresenterEvent, RepositorySchema } from '@shukun/schema';
+import { PresenterEvent } from '@shukun/schema';
 
 import { useMemo } from 'react';
 
@@ -8,10 +8,9 @@ import { useEventContext } from './context';
 export type TargetInputProps = {
   value: PresenterEvent['target'];
   onChange: (newValue: PresenterEvent['target']) => void;
-  scope: RepositorySchema['scope'];
 };
 
-export const TargetInput = ({ value, onChange, scope }: TargetInputProps) => {
+export const TargetInput = ({ value, onChange }: TargetInputProps) => {
   const { targetOptions } = useEventContext();
 
   const allowedTargetOptions = useMemo(() => {
