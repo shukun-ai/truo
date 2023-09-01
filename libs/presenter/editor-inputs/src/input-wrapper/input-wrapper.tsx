@@ -4,6 +4,7 @@ import { CodeMode } from '@shukun/schema';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { ReactNode, useCallback, useMemo } from 'react';
 
+import { InputDescription } from '../input-description/input-description';
 import { CommonInputProps } from '../types';
 
 export type InputWrapperProps = {
@@ -23,6 +24,7 @@ export const InputWrapper = ({
   disabledSimpleMode,
   disabledJsMode,
   tipSection,
+  description,
 }: InputWrapperProps) => {
   const mode = useMemo(() => {
     if (typeof value === 'string' && value.startsWith(CodeMode.JS)) {
@@ -102,6 +104,7 @@ export const InputWrapper = ({
           children
         )}
       </Box>
+      <InputDescription description={description} />
     </Box>
   );
 };

@@ -1,6 +1,8 @@
 import { Box, Group, Text, Title } from '@mantine/core';
+import { Icon } from '@shukun/component';
 import { ReactNode } from 'react';
 
+import { InputDescription } from '../input-description/input-description';
 import { CommonInputProps } from '../types';
 
 export type SimpleWrapperProps = {
@@ -10,6 +12,7 @@ export type SimpleWrapperProps = {
 export const SimpleWrapper = ({
   label,
   secondaryLabel,
+  description,
   children,
 }: SimpleWrapperProps) => {
   return (
@@ -32,6 +35,7 @@ export const SimpleWrapper = ({
         </Group>
       </Box>
       <Box>{children}</Box>
+      <InputDescription description={description} />
     </Box>
   );
 };
