@@ -3,7 +3,7 @@ import { Injector, RouterState } from '@shukun/presenter/definition';
 import { useObservableState } from 'observable-hooks';
 import { useEffect, useState } from 'react';
 
-import { AppProps } from '../interfaces/app';
+import { AppProps, StandardState } from '../interfaces/app';
 
 export type ObservableAppProps = {
   injector: Injector;
@@ -38,12 +38,19 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
     return <div>loading...</div>;
   }
 
+  const standardState: StandardState = {
+    ...state,
+    item: undefined,
+    index: 0,
+    payload: undefined,
+  };
+
   const app: AppProps = {
     injector,
     presenter,
     widgets,
     repositories,
-    state,
+    state: standardState,
   };
   return render(app);
 };

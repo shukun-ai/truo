@@ -27,10 +27,11 @@ export const WrappedWidget = ({
 
   const ReactWidget = widgets[widget.tag];
 
+  const standardState: StandardState = { ...state, item, index: index ?? 0 };
+
   const properties = useMemo(() => {
     const properties: Record<string, unknown> = {};
     const events: Record<string, (payload: unknown) => void> = {};
-    const standardState: StandardState = { ...state, item, index: index ?? 0 };
 
     for (const [propertyId, property] of Object.entries(widget.properties)) {
       const template = property;
@@ -54,11 +55,10 @@ export const WrappedWidget = ({
 
     return { ...properties, ...events };
   }, [
-    state,
-    item,
-    index,
     widget.properties,
     widget.events,
+    standardState,
+    state,
     injector,
     appProps.presenter,
     appProps.repositories,
@@ -74,8 +74,9 @@ export const WrappedWidget = ({
 
   return (
     <ReactWidget
-      id={`${widgetId}:${index ?? 0}`}
+      id={`${widgetId}:${standardState.index}`}
       app={appProps}
+      name={widget.label}
       {...properties}
     >
       {children
