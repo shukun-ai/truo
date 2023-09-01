@@ -1,0 +1,51 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "button",
+  "icon": "",
+  "allowedChildTags": [],
+  "properties": {
+    "text": {
+      "label": "文本",
+      "type": "string"
+    },
+    "variant": {
+      "label": "样式",
+      "type": "enum",
+      "enums": [
+        "outline",
+        "white",
+        "light",
+        "default",
+        "filled",
+        "gradient",
+        "subtle"
+      ]
+    },
+    "size": {
+      "label": "尺寸",
+      "type": "enum",
+      "enums": ["xs", "sm", "md", "lg", "xl"]
+    },
+    "color": {
+      "label": "颜色",
+      "type": "string"
+    },
+    "disabled": {
+      "label": "禁用",
+      "type": "boolean"
+    },
+    "fullWidth": {
+      "label": "撑满宽度",
+      "type": "boolean"
+    },
+    "loading": {
+      "label": "是否加载状态",
+      "type": "boolean"
+    },
+    "onClick": {
+      "label": "点击事件",
+      "isEvent": true,
+      "type": "void"
+    }
+  }
+}

@@ -36,6 +36,7 @@
                 "integer",
                 "number",
                 "boolean",
+                "void",
                 "enum",
                 "stringArray",
                 "optionArray",

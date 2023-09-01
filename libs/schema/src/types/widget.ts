@@ -31,6 +31,7 @@ export interface WidgetProperty {
     | 'integer'
     | 'number'
     | 'boolean'
+    | 'void'
     | 'enum'
     | 'stringArray'
     | 'optionArray'

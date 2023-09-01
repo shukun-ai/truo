@@ -5,6 +5,7 @@ import {
   IconBoxModel2,
   IconColumns,
   IconListTree,
+  IconPointer,
 } from '@tabler/icons-react';
 
 export const editorWidgetGallery: WidgetGallery = [
@@ -25,13 +26,18 @@ export const editorWidgetGallery: WidgetGallery = [
     ],
   },
   {
-    sectionId: 'typography',
-    label: '文本',
+    sectionId: 'basic',
+    label: '基础',
     widgets: [
       {
         tag: 'text',
         icon: () => <IconAlphabetLatin />,
         label: '文字',
+      },
+      {
+        tag: 'button',
+        icon: () => <IconPointer />,
+        label: '按钮',
       },
     ],
   },
