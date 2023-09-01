@@ -58,7 +58,16 @@ export const WrappedWidget = ({
     }
 
     return { ...properties, ...events };
-  }, [state, item, index, widget.properties, widget.events]);
+  }, [
+    state,
+    item,
+    index,
+    widget.properties,
+    widget.events,
+    injector,
+    appProps.presenter,
+    appProps.repositories,
+  ]);
 
   if (!ReactWidget) {
     return <div data-error="NOT_FOUND_WIDGET">{children}</div>;
