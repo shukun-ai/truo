@@ -1,4 +1,4 @@
-import { Card } from '@mantine/core';
+import { Alert, Card } from '@mantine/core';
 import { PresenterRepository, RepositorySchema } from '@shukun/schema';
 
 import { Parameter } from './parameter';
@@ -14,23 +14,29 @@ export const Parameters = ({
   onChange,
   definition,
 }: ParametersProps) => {
+  const parameters = Object.entries(definition.parameters);
+
   return (
     <Card withBorder>
-      {Object.entries(definition.parameters).map(
-        ([parameterName, parameter]) => (
-          <Parameter
-            key={parameterName}
-            value={value[parameterName]}
-            onChange={(newValue) => {
-              onChange({
-                ...value,
-                [parameterName]: newValue as any,
-              });
-            }}
-            parameter={parameter}
-          />
-        ),
+      {parameters.length === 0 && (
+        <Alert title="当前数据仓库暂无配置项">
+          您无须为当前数据仓库进行配置，您可以直接在编码模式里使用
+        </Alert>
       )}
+
+      {parameters.map(([parameterName, parameter]) => (
+        <Parameter
+          key={parameterName}
+          value={value[parameterName]}
+          onChange={(newValue) => {
+            onChange({
+              ...value,
+              [parameterName]: newValue as any,
+            });
+          }}
+          parameter={parameter}
+        />
+      ))}
     </Card>
   );
 };
