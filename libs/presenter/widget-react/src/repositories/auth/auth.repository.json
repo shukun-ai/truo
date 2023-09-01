@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
   "name": "auth",
+  "description": "用于获取和操作用户认证",
   "scope": "app",
   "parameters": {},
   "actions": {

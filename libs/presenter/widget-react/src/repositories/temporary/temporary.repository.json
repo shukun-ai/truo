@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
   "name": "temporary",
+  "description": "用于存储临时数据",
   "scope": "container",
   "parameters": {},
   "actions": {

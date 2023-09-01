@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../../schema/src/json-schemas/repository.schema.json",
   "name": "sourceQuery",
+  "description": "用于查询SHUKUN平台数据",
   "scope": "container",
   "parameters": {
     "atomName": {
