@@ -27,11 +27,12 @@ export interface RepositorySchema {
  */
 export interface RepositoryParameter {
   label: string;
-  type: 'jsonSchema' | 'atomName' | 'connectorName';
+  type: 'json' | 'jsonSchema' | 'atomName' | 'connectorName';
   required?: boolean;
   enums?: string[];
   placeholder?: string;
   description?: string;
+  defaultValue?: unknown;
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition

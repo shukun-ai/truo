@@ -3,7 +3,13 @@
   "name": "temporary",
   "description": "用于存储临时数据",
   "scope": "container",
-  "parameters": {},
+  "parameters": {
+    "defaultValue": {
+      "label": "默认值",
+      "type": "json",
+      "defaultValue": {}
+    }
+  },
   "actions": {
     "setValue": {
       "description": "为临时存储设置值",

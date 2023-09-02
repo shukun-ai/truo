@@ -31,7 +31,7 @@
               "type": "string"
             },
             "type": {
-              "enum": ["jsonSchema", "atomName", "connectorName"],
+              "enum": ["json", "jsonSchema", "atomName", "connectorName"],
               "$comment": "The parameters in repository should be static all. All type is disabledJsMode as true."
             },
             "required": {
@@ -39,7 +39,8 @@
             },
             "enums": { "type": "array", "items": { "type": "string" } },
             "placeholder": { "type": "string" },
-            "description": { "type": "string" }
+            "description": { "type": "string" },
+            "defaultValue": {}
           }
         }
       }
