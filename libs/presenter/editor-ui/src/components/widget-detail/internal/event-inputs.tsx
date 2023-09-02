@@ -32,7 +32,6 @@ export const EventInputs = ({
               value[widgetPropertyId] = newValue as any;
               onChange(value);
             }}
-            tipSection={<Box>暂无提示</Box>}
           />
         ))}
     </>
