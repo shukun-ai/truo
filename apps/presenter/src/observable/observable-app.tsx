@@ -1,4 +1,4 @@
-import { Injector, RouterState } from '@shukun/presenter/definition';
+import { Injector } from '@shukun/presenter/definition';
 
 import { useObservableState } from 'observable-hooks';
 import { useEffect, useState } from 'react';
@@ -15,9 +15,15 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
   const [widgets, setWidgets] = useState<AppProps['widgets']>();
   const [repositories, setRepositories] = useState<AppProps['repositories']>();
 
-  useEffect(() => {
-    const router = injector.store.getValue(['router']) as RouterState;
+  const state = useObservableState(injector.store.queryAll()) as
+    | AppProps['state']
+    | undefined;
 
+  useEffect(() => {
+    const router = state?.router;
+    if (!router) {
+      return;
+    }
     injector.loader.loadPresenter(router).then((presenter) => {
       setPresenter(presenter);
     });
@@ -27,12 +33,16 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
     injector.loader.loadRepositories(router).then((repositories) => {
       setRepositories(repositories);
     });
+  }, [injector.loader, state?.router]);
+
+  useEffect(() => {
+    const sync = injector.editor.register((payload) => {
+      setPresenter(payload.presenter);
+    });
+
+    return () => sync.unregister();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const state = useObservableState(injector.store.queryAll()) as
-    | AppProps['state']
-    | undefined;
 
   if (!presenter || !widgets || !repositories || !state) {
     return <div>loading...</div>;

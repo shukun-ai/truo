@@ -4,6 +4,7 @@ import { App } from './app/app';
 import { initializeApi } from './effect/api/api';
 import { initializeAuth } from './effect/auth/auth';
 import { initializeDevtool } from './effect/devtool/devtool';
+import { initializeEditor } from './effect/editor/editor';
 import { initializeLoader } from './effect/loader/loader';
 import { initializeLogger } from './effect/logger/logger';
 import { initializeRouter } from './effect/router/router';
@@ -20,6 +21,7 @@ const api = initializeApi(environments, devtool, store);
 const loader = initializeLoader(environments, devtool, store, api);
 const auth = initializeAuth(environments, devtool, store);
 const router = initializeRouter(environments, devtool, store);
+const editor = initializeEditor(environments, devtool, store);
 const domNode = document.getElementById('root');
 
 if (!domNode) {
@@ -39,6 +41,7 @@ root.render(
       loader,
       auth,
       router,
+      editor,
     }}
     render={(app) => (
       <ThemeProvider>

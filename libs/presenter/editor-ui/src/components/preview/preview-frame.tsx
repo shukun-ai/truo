@@ -1,7 +1,12 @@
 import { Box, useMantineTheme } from '@mantine/core';
+import {
+  POST_MESSAGE_EDITOR_PREVIEW,
+  RouterMode,
+} from '@shukun/presenter/definition';
 import { useObservableState } from 'observable-hooks';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { useEditorContext } from '../../editor-context';
 import { getPreviewRefreshObservable } from '../../events/preview-event';
 
 import { usePreviewUrl } from '../../hooks/use-preview-url';
@@ -14,16 +19,30 @@ export type PreviewFrameProps = {
 };
 
 export const PreviewFrame = () => {
-  // const previewUrl = usePreviewUrl(screen?.screenName ?? '');
+  const { dispatch } = useEditorContext();
+  const { deserialization } = dispatch;
   const previewUrl = usePreviewUrl('');
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const previewRefresh = useObservableState(getPreviewRefreshObservable());
 
+  const editorModePreviewUrl = useMemo(() => {
+    // @remark the Editor PostMessage only active in Editor RouterMode for security reason
+    return previewUrl + `?mode=${RouterMode.Editor}`;
+  }, [previewUrl]);
+
   useEffect(() => {
     if (iframeRef.current && previewRefresh) {
-      iframeRef.current.src = previewUrl;
+      const presenter = deserialization.build();
+      iframeRef.current.contentWindow?.postMessage(
+        {
+          shukunType: POST_MESSAGE_EDITOR_PREVIEW,
+          presenter,
+        },
+        '*',
+      );
     }
-  }, [previewRefresh, previewUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewRefresh]);
 
   const [selectedDevice, setSelectedDevice] = useState<string>('monitor');
 
@@ -78,7 +97,7 @@ export const PreviewFrame = () => {
         >
           <iframe
             ref={iframeRef}
-            src={previewUrl}
+            src={editorModePreviewUrl}
             title="Preview"
             style={{
               border: 'none',
