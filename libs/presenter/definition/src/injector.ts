@@ -19,6 +19,7 @@ export type Injector = {
     serverDomain: string;
     storageDomain: string;
     assetDomain: string;
+    postMessageCrossOrigin: boolean;
   };
   devtool: {
     send: (action: string, scope: string, state: unknown) => void;
@@ -60,6 +61,11 @@ export type Injector = {
       search?: Record<string, unknown>;
     }) => void;
     back: () => void;
+  };
+  editor: {
+    register: (callback: (payload: { presenter: PresenterSchema }) => void) => {
+      unregister: () => void;
+    };
   };
 };
 
