@@ -3,8 +3,9 @@ import { Repository } from '@shukun/presenter/definition';
 export const temporaryRepository: Repository = {
   register(payload, event, injector, repository): void {
     const defaultValue = repository.parameters['defaultValue'];
+    const fullPath = [event.target];
     if (defaultValue) {
-      injector.store.update<any>([], () => defaultValue);
+      injector.store.update<any>(fullPath, () => defaultValue);
     }
   },
 
