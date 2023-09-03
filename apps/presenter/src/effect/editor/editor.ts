@@ -1,7 +1,7 @@
 import { Injector } from '@shukun/presenter/definition';
 
+import { createListenDevtool } from './internal/listen-devtool';
 import { createListenPresenter } from './internal/listen-presenter';
-import { createListenState } from './internal/listen-state';
 
 export const initializeEditor = (
   environments: Injector['environments'],
@@ -10,6 +10,6 @@ export const initializeEditor = (
 ): Injector['editor'] => {
   return {
     listenPresenter: createListenPresenter(environments, store),
-    listenState: createListenState(environments, store),
+    listenDevtool: createListenDevtool(environments, devtool, store),
   };
 };

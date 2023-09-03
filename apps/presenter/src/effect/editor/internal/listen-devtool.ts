@@ -1,13 +1,14 @@
 import {
   Injector,
-  POST_MESSAGE_EDITOR_STATE,
+  POST_MESSAGE_EDITOR_DEVTOOL,
   RouterMode,
 } from '@shukun/presenter/definition';
 
-export const createListenState = (
+export const createListenDevtool = (
   environments: Injector['environments'],
+  devtool: Injector['devtool'],
   store: Injector['store'],
-): Injector['editor']['listenState'] => {
+): Injector['editor']['listenDevtool'] => {
   return () => {
     const state: any = store.getAllValue();
     if (state?.router?.mode !== RouterMode.Editor) {
@@ -19,11 +20,11 @@ export const createListenState = (
       return;
     }
 
-    const subscription = store.queryAll().subscribe((state) => {
+    const subscription = devtool.query().subscribe((logs) => {
       window.parent.postMessage(
         {
-          shukunType: POST_MESSAGE_EDITOR_STATE,
-          payload: { state },
+          shukunType: POST_MESSAGE_EDITOR_DEVTOOL,
+          payload: logs,
         },
         '*',
       );

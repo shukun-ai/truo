@@ -32,11 +32,11 @@ export const logWidget = (
     ...previous,
     widgetState: {
       ...previous.widgetState,
-      [widgetId]: state,
+      [widgetId]: JSON.parse(JSON.stringify(state)),
     },
     widgetProperties: {
       ...previous.widgetProperties,
-      [widgetId]: properties,
+      [widgetId]: JSON.parse(JSON.stringify(properties)),
     },
     lastDescription: `[widget] ${description}`,
   });

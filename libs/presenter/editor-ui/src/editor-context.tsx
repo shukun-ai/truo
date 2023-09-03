@@ -54,6 +54,12 @@ export type NodeCollapseEntity = {
   collapse: true;
 };
 
+export type DevtoolLogs = {
+  state: Record<string, unknown>;
+  widgetState: Record<string, { index: number; item: unknown }>;
+  widgetProperties: Record<string, unknown>;
+};
+
 export type EditorContextProps = {
   disabledPresenter: boolean;
   disabledSystem: boolean;
@@ -156,9 +162,9 @@ export type EditorContextProps = {
       close(entityId: string): void;
     };
   };
-  monitor: {
-    previewState: unknown;
-    updatePreviewState: (state: unknown) => void;
+  devtool: {
+    logs: DevtoolLogs;
+    update: (logs: DevtoolLogs) => void;
   };
 };
 

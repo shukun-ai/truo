@@ -44,7 +44,7 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
   }, []);
 
   useEffect(() => {
-    const listener = injector.editor.listenState();
+    const listener = injector.editor.listenDevtool();
     return () => listener?.unregister();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

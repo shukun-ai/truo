@@ -16,5 +16,6 @@ export const initializeDevtool = (
   return {
     logState,
     logWidget,
+    query,
   };
 };

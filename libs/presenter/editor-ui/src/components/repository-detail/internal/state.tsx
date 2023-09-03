@@ -7,9 +7,9 @@ export type StateProps = {
 };
 
 export const State = ({ repositoryId }: StateProps) => {
-  const { monitor } = useEditorContext();
-  const { previewState } = monitor;
-  const state = (previewState as any)?.[repositoryId];
+  const { devtool } = useEditorContext();
+  const { logs } = devtool;
+  const state = (logs.state as any)?.[repositoryId];
 
   return (
     <Card withBorder>
