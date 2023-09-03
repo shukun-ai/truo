@@ -1,3 +1,4 @@
+import { useSetState } from '@mantine/hooks';
 import { Editor as BaseEditor } from '@shukun/presenter/editor-ui';
 
 import { useObservableState } from 'observable-hooks';
@@ -28,6 +29,9 @@ export const Editor = ({ mode }: EditorProps) => {
     app.repositories.metadataRepository.allowedFieldType$,
     [],
   );
+  const [monitorState, setMonitorState] = useSetState<{
+    previewState: unknown;
+  }>({ previewState: {} });
 
   const { loading } = useLoadPresenter(app);
 
@@ -139,6 +143,11 @@ export const Editor = ({ mode }: EditorProps) => {
             choose: tabRepository.choose,
             close: tabRepository.close,
           },
+        },
+        monitor: {
+          previewState: monitorState.previewState,
+          updatePreviewState: (state: unknown) =>
+            setMonitorState({ previewState: state }),
         },
       }}
     />

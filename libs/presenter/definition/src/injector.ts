@@ -63,9 +63,14 @@ export type Injector = {
     back: () => void;
   };
   editor: {
-    register: (callback: (payload: { presenter: PresenterSchema }) => void) => {
-      unregister: () => void;
-    };
+    listenPresenter: (
+      callback: (payload: { presenter: PresenterSchema }) => void,
+    ) =>
+      | {
+          unregister: () => void;
+        }
+      | undefined;
+    listenState: () => { unregister: () => void } | undefined;
   };
 };
 

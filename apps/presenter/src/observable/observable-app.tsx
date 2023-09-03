@@ -36,11 +36,16 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
   }, [injector.loader, state?.router]);
 
   useEffect(() => {
-    const sync = injector.editor.register((payload) => {
+    const listener = injector.editor.listenPresenter((payload) => {
       setPresenter(payload.presenter);
     });
+    return () => listener?.unregister();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    return () => sync.unregister();
+  useEffect(() => {
+    const listener = injector.editor.listenState();
+    return () => listener?.unregister();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
