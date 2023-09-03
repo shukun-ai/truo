@@ -23,7 +23,7 @@ export const createListenState = (
       window.parent.postMessage(
         {
           shukunType: POST_MESSAGE_EDITOR_STATE,
-          payload: state,
+          payload: { state },
         },
         '*',
       );
