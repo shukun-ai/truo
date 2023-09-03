@@ -36,7 +36,9 @@ export const PreviewFrame = () => {
       iframeRef.current.contentWindow?.postMessage(
         {
           shukunType: POST_MESSAGE_EDITOR_PREVIEW,
-          presenter,
+          payload: {
+            presenter,
+          },
         },
         '*',
       );

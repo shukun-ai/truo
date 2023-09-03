@@ -156,6 +156,10 @@ export type EditorContextProps = {
       close(entityId: string): void;
     };
   };
+  monitor: {
+    previewState: unknown;
+    updatePreviewState: (state: unknown) => void;
+  };
 };
 
 export const EditorContext = createContext<EditorContextProps | null>(null);
