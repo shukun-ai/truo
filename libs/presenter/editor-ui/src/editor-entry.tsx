@@ -3,7 +3,7 @@ import { Box, Divider } from '@mantine/core';
 import { ActivityBar } from './components/activity-bar';
 import { EditorGroups } from './components/editor-groups';
 import { PreviewArea } from './components/preview-area';
-import { useMonitorPreview } from './hooks/use-monitor-preview';
+import { useDevtool } from './hooks/use-devtool';
 
 export const EditorEntry = () => {
   // const app = useAppContext();
@@ -26,7 +26,7 @@ export const EditorEntry = () => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  useMonitorPreview();
+  useDevtool();
 
   return (
     <Box

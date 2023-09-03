@@ -29,6 +29,7 @@ export type Injector = {
       state: { index: number; item: unknown },
       properties: Record<string, unknown>,
     ) => void;
+    query: () => Observable<DevtoolLogs>;
   };
   logger: {
     info: (message: string, payload?: unknown) => void;
@@ -76,7 +77,7 @@ export type Injector = {
           unregister: () => void;
         }
       | undefined;
-    listenState: () => { unregister: () => void } | undefined;
+    listenDevtool: () => { unregister: () => void } | undefined;
   };
 };
 
@@ -96,4 +97,10 @@ export enum RouterMode {
 
 export type AuthState = {
   current: AuthenticationToken | null;
+};
+
+export type DevtoolLogs = {
+  state: Record<string, unknown>;
+  widgetState: Record<string, { index: number; item: unknown }>;
+  widgetProperties: Record<string, unknown>;
 };

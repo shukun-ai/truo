@@ -1,7 +1,8 @@
-import { useSetState } from '@mantine/hooks';
 import { Editor as BaseEditor } from '@shukun/presenter/editor-ui';
 
 import { useObservableState } from 'observable-hooks';
+
+import { useState } from 'react';
 
 import { environment } from '../../../environments/environment';
 import { deserialization } from '../../../repositories/presenter/deserialization-service';
@@ -19,6 +20,12 @@ export type EditorProps = {
   mode: 'presenter' | 'system';
 };
 
+export type DevtoolLogs = {
+  state: Record<string, unknown>;
+  widgetState: Record<string, { index: number; item: unknown }>;
+  widgetProperties: Record<string, unknown>;
+};
+
 export const Editor = ({ mode }: EditorProps) => {
   const app = useAppContext();
 
@@ -29,9 +36,11 @@ export const Editor = ({ mode }: EditorProps) => {
     app.repositories.metadataRepository.allowedFieldType$,
     [],
   );
-  const [monitorState, setMonitorState] = useSetState<{
-    previewState: unknown;
-  }>({ previewState: {} });
+  const [devtoolLogs, setDevtoolLogs] = useState<DevtoolLogs>({
+    state: {},
+    widgetState: {},
+    widgetProperties: {},
+  });
 
   const { loading } = useLoadPresenter(app);
 
@@ -144,10 +153,9 @@ export const Editor = ({ mode }: EditorProps) => {
             close: tabRepository.close,
           },
         },
-        monitor: {
-          previewState: monitorState.previewState,
-          updatePreviewState: (state: unknown) =>
-            setMonitorState({ previewState: state }),
+        devtool: {
+          logs: devtoolLogs,
+          update: setDevtoolLogs,
         },
       }}
     />
