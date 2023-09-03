@@ -14,7 +14,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/presenter/editor-ui"],
+      "outputs": ["{workspaceRoot}/coverage/libs/presenter/editor-ui"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../../coverage/libs/presenter/editor-ui"
