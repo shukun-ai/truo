@@ -22,7 +22,13 @@ export type Injector = {
     postMessageCrossOrigin: boolean;
   };
   devtool: {
-    send: (action: string, scope: string, state: unknown) => void;
+    logState: (description: string, state: unknown) => void;
+    logWidget: (
+      description: string,
+      widgetId: string,
+      state: { index: number; item: unknown },
+      properties: Record<string, unknown>,
+    ) => void;
   };
   logger: {
     info: (message: string, payload?: unknown) => void;
