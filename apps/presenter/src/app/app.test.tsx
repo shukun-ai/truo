@@ -1,3 +1,4 @@
+import { Injector } from '@shukun/presenter/definition';
 import { PresenterSchema } from '@shukun/schema';
 import { render, screen } from '@testing-library/react';
 
@@ -7,7 +8,11 @@ import { App } from './app';
 
 describe('app', () => {
   it('render', () => {
-    const injector = {} as any;
+    const devtool: Injector['devtool'] = {
+      logState: () => null,
+      logWidget: () => null,
+    };
+    const injector = { devtool } as any;
     const presenter = presenterJson as unknown as PresenterSchema;
 
     render(
