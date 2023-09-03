@@ -2,6 +2,7 @@ import { Box } from '@mantine/core';
 import {
   AtomNameInput,
   ConnectorNameInput,
+  JsonInput,
 } from '@shukun/presenter/editor-inputs';
 import { RepositorySchema } from '@shukun/schema';
 
@@ -13,6 +14,13 @@ export type ParameterProps = {
 
 export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
   const { type } = parameter;
+
+  const commonInputProps = {
+    label: parameter.label,
+    secondaryLabel: parameter.type,
+    description: parameter.description,
+    required: parameter.required,
+  };
 
   if (
     type === 'connectorName' &&
@@ -28,6 +36,7 @@ export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
             value: 'nihao',
           },
         ]}
+        {...commonInputProps}
       />
     );
   }
@@ -46,6 +55,17 @@ export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
             value: 'airports',
           },
         ]}
+        {...commonInputProps}
+      />
+    );
+  }
+
+  if (type === 'json' && (typeof value === 'string' || value === undefined)) {
+    return (
+      <JsonInput
+        value={value}
+        onChange={(newValue) => onChange(newValue)}
+        {...commonInputProps}
       />
     );
   }
