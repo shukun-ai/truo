@@ -2,6 +2,7 @@ import { TypeException } from '@shukun/exception';
 
 import { CodeMode } from '@shukun/schema';
 
+import { runJson } from './json';
 import { runSandbox } from './sandbox';
 import { TemplateHelpers } from './types';
 
@@ -40,12 +41,17 @@ const parseStringOrCode = (
   template: string,
   context: HandlerContext,
 ): unknown => {
-  if (!template.startsWith(CodeMode.JS)) {
-    return template;
+  if (template.startsWith(CodeMode.JS)) {
+    const code = template.slice(CodeMode.JS.length, template.length);
+    return runSandbox(code, context.state, context.helpers);
   }
 
-  const code = template.slice(CodeMode.JS.length, template.length);
-  return runSandbox(code, context.state, context.helpers);
+  if (template.startsWith(CodeMode.JSON)) {
+    const code = template.slice(CodeMode.JSON.length, template.length);
+    return runJson(code);
+  }
+
+  return template;
 };
 
 type HandlerContext = {
