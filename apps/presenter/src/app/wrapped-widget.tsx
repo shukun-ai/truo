@@ -1,5 +1,5 @@
 import { PresenterWidget } from '@shukun/schema';
-import { Children, cloneElement, useMemo } from 'react';
+import { Children, cloneElement, useEffect, useMemo } from 'react';
 
 import { AppProps, StandardState } from '../interfaces/app';
 
@@ -63,6 +63,16 @@ export const WrappedWidget = ({
     appProps.presenter,
     appProps.repositories,
   ]);
+
+  useEffect(() => {
+    injector.devtool.logWidget(
+      widget.label,
+      widgetId,
+      { index: standardState.index, item: standardState.item },
+      properties,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [properties, standardState.index, standardState.item]);
 
   if (!ReactWidget) {
     return <div data-error="NOT_FOUND_WIDGET">{children}</div>;

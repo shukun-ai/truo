@@ -55,10 +55,7 @@ export class Store {
   }
 
   private sendDevtool(action: string, path: string[]) {
-    if (!this.environments.production) {
-      return;
-    }
     const description = `${action} -> ${path.join('.')}`;
-    this.devtool.send(description, 'store', this.getAllValue());
+    this.devtool.logState(description, this.getAllValue());
   }
 }
