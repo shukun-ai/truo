@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 
 import { AppProps, StandardState } from '../interfaces/app';
 
+import { useDiffRepositories } from './use-diff-repositories';
+
 export type ObservableAppProps = {
   injector: Injector;
   render: (app: AppProps) => JSX.Element;
@@ -48,6 +50,8 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
     return () => listener?.unregister();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useDiffRepositories(injector, presenter, repositories);
 
   if (!presenter || !widgets || !repositories || !state) {
     return <div>loading...</div>;
