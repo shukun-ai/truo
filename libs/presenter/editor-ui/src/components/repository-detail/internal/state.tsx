@@ -1,22 +1,24 @@
-import { Alert, Card, Divider, Title } from '@mantine/core';
-import { Icon } from '@shukun/component';
+import { Card, Code, Divider, Title } from '@mantine/core';
+
+import { useEditorContext } from '../../../editor-context';
 
 export type StateProps = {
-  //
+  repositoryId: string;
 };
 
-export const State = () => {
+export const State = ({ repositoryId }: StateProps) => {
+  const { monitor } = useEditorContext();
+  const { previewState } = monitor;
+  const state = (previewState as any)?.[repositoryId];
+
   return (
     <Card withBorder>
       <Title order={4}>当前状态</Title>
       <Divider mt={8} mb={8} />
 
-      <Alert
-        title="暂未开放，用于展示预览应用中的当前数据仓库的状态"
-        icon={<Icon type="info" />}
-        mb={8}
-        children={null}
-      />
+      <Code block>
+        $.{repositoryId}: {state ? JSON.stringify(state) : 'undefined'}
+      </Code>
     </Card>
   );
 };

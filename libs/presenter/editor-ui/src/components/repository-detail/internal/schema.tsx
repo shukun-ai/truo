@@ -47,7 +47,7 @@ export const Schema = ({
         definition={definition}
       />
       <Actions definition={definition} />
-      <State />
+      <State repositoryId={repositoryId} />
     </Box>
   );
 };
