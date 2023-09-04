@@ -192,6 +192,7 @@
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.15.3",
     "react-icons": "^4.3.1",
+    "react-inspector": "^6.0.2",
     "react-is": "18.0.0",
     "react-jss": "^10.10.0",
     "react-photo-view": "^0.5.7",
