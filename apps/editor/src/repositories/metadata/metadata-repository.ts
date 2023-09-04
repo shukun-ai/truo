@@ -2,42 +2,31 @@ import { select, setProps } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
-  selectAllEntities,
   selectEntitiesCount,
   setEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { Observable } from 'rxjs';
-
-import { ApiRequester } from '../../apis/requester';
+import { IApiRequester } from '../../apis/requester.interface';
 
 import {
   MetadataEntity,
   metadataRef,
   createMetadataEntityId,
 } from './metadata-ref';
-import { IMetadataRepository } from './metadata-repository.interface';
-import { MetadataProps, metadataStore } from './metadata-store';
+import { metadataStore } from './metadata-store';
 
-export class MetadataRepository implements IMetadataRepository {
-  private readonly metadataStore = metadataStore;
+export const metadataRepository = {
+  all$: metadataStore.pipe(select((state) => state.metadataEntities)),
 
-  all$: Observable<MetadataEntity[]> = this.metadataStore.pipe(
-    selectAllEntities({ ref: metadataRef }),
-  );
+  count$: metadataStore.pipe(selectEntitiesCount({ ref: metadataRef })),
 
-  count$: Observable<number> = this.metadataStore.pipe(
-    selectEntitiesCount({ ref: metadataRef }),
-  );
+  allowedFieldType$: metadataStore.pipe(
+    select((state) => state.allowedFieldType),
+  ),
 
-  allowedFieldType$: Observable<MetadataProps['allowedFieldType']> =
-    this.metadataStore.pipe(select((state) => state.allowedFieldType));
-
-  constructor(private readonly apiRequester: ApiRequester) {}
-
-  async initialize() {
-    const response = await this.apiRequester.developerRequester.pullMetadatas();
+  initialize: async (apiRequester: IApiRequester) => {
+    const response = await apiRequester.developerRequester.pullMetadatas();
 
     const entities: MetadataEntity[] = Object.entries(response.data.value).map(
       ([metadataName, metadata]) => ({
@@ -46,26 +35,26 @@ export class MetadataRepository implements IMetadataRepository {
         ...metadata,
       }),
     );
-    this.metadataStore.update(
+    metadataStore.update(
       setEntities(entities, { ref: metadataRef }),
       setProps(() => ({
         initialized: true,
       })),
     );
-  }
+  },
 
-  create(metadataName: string): void {
+  create: (metadataName: string): void => {
     const entity: MetadataEntity = {
       id: createMetadataEntityId(metadataName),
       metadataName,
       label: metadataName,
       electrons: {},
     };
-    this.metadataStore.update(addEntities(entity, { ref: metadataRef }));
-  }
+    metadataStore.update(addEntities(entity, { ref: metadataRef }));
+  },
 
-  update(entity: MetadataEntity): void {
-    this.metadataStore.update(
+  update: (entity: MetadataEntity): void => {
+    metadataStore.update(
       updateEntities(
         entity.id,
         {
@@ -74,9 +63,9 @@ export class MetadataRepository implements IMetadataRepository {
         { ref: metadataRef },
       ),
     );
-  }
+  },
 
-  remove(entityId: string): void {
-    this.metadataStore.update(deleteEntities(entityId, { ref: metadataRef }));
-  }
-}
+  remove: (entityId: string): void => {
+    metadataStore.update(deleteEntities(entityId, { ref: metadataRef }));
+  },
+};

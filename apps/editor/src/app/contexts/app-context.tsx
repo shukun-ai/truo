@@ -13,8 +13,7 @@ import { EnvironmentRepository } from '../../repositories/environment/environmen
 import { IEnvironmentRepository } from '../../repositories/environment/environment-repository.interface';
 import { GlobalRepository } from '../../repositories/global/global-repository';
 import { IGlobalRepository } from '../../repositories/global/global-repository.interface';
-import { MetadataRepository } from '../../repositories/metadata/metadata-repository';
-import { IMetadataRepository } from '../../repositories/metadata/metadata-repository.interface';
+import { metadataRepository } from '../../repositories/metadata/metadata-repository';
 import { PresenterRepository } from '../../repositories/presenter/presenter-repository';
 import { IPresenterRepository } from '../../repositories/presenter/presenter-repository.interface';
 import { TaskRepository } from '../../repositories/task/task-repository';
@@ -31,7 +30,7 @@ export type AppContextProps = {
     presenterRepository: IPresenterRepository;
     connectorRepository: IConnectorRepository;
     taskRepository: ITaskRepository;
-    metadataRepository: IMetadataRepository;
+    metadataRepository: typeof metadataRepository;
     environmentRepository: IEnvironmentRepository;
   };
 };
@@ -43,7 +42,6 @@ export const initializeAppContextProps = (): AppContextProps => {
   const presenterRepository = new PresenterRepository(apiRequester);
   const connectorRepository = new ConnectorRepository(apiRequester);
   const taskRepository = new TaskRepository(apiRequester);
-  const metadataRepository = new MetadataRepository(apiRequester);
   const environmentRepository = new EnvironmentRepository(apiRequester);
 
   return {

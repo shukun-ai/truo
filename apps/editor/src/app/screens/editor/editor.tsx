@@ -5,6 +5,7 @@ import { useObservableState } from 'observable-hooks';
 import { useState } from 'react';
 
 import { environment } from '../../../environments/environment';
+import { metadataRepository } from '../../../repositories/metadata/metadata-repository';
 import { deserialization } from '../../../repositories/presenter/deserialization-service';
 import { editorRepository } from '../../../repositories/presenter/editor-repository';
 import { nodeRepository } from '../../../repositories/presenter/node-repository';
@@ -32,8 +33,9 @@ export const Editor = ({ mode }: EditorProps) => {
   const presenter = useObservableState(widgetRepository.presenter$);
   const tabs = useObservableState(tabRepository.tabs$, {});
   const selectedTab = useObservableState(tabRepository.selectedTab$, null);
+  const metadatas = useObservableState(metadataRepository.all$, {});
   const allowedFieldType = useObservableState(
-    app.repositories.metadataRepository.allowedFieldType$,
+    metadataRepository.allowedFieldType$,
     [],
   );
   const [devtoolLogs, setDevtoolLogs] = useState<DevtoolLogs>({
@@ -58,7 +60,7 @@ export const Editor = ({ mode }: EditorProps) => {
           widgets: presenter.widgetEntities,
           nodes: presenter.nodes,
           repositories: presenter.repositoryEntities,
-          metadatas: {},
+          metadatas,
           connectors: {},
           environments: {},
           tasks: {},
@@ -121,9 +123,9 @@ export const Editor = ({ mode }: EditorProps) => {
             remove: repositoryRepository.remove,
           },
           metadata: {
-            create: {} as any,
-            update: {} as any,
-            remove: {} as any,
+            create: metadataRepository.create,
+            update: metadataRepository.update,
+            remove: metadataRepository.remove,
           },
           connector: {
             create: {} as any,
