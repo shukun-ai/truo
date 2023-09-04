@@ -25,12 +25,10 @@ export const DashboardBackend = () => {
   const app = useAppContext();
 
   useEffect(() => {
-    app.repositories.metadataRepository.initialize();
+    app.repositories.metadataRepository.initialize(app.apiRequester);
     app.repositories.connectorRepository.initialize();
-  }, [
-    app.repositories.connectorRepository,
-    app.repositories.metadataRepository,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const routeOrgName = useRouteOrgName();
 
