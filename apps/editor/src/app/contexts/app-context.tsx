@@ -7,8 +7,7 @@ import { Environment } from '../../environments/environment.type';
 import { AuthRepository } from '../../repositories/auth/auth-repository';
 import { IAuthRepository } from '../../repositories/auth/auth-repository.interface';
 import { authStore } from '../../repositories/auth/auth-store';
-import { ConnectorRepository } from '../../repositories/connector/connector-repository';
-import { IConnectorRepository } from '../../repositories/connector/connector-repository.interface';
+import { connectorRepository } from '../../repositories/connector/connector-repository';
 import { EnvironmentRepository } from '../../repositories/environment/environment-repository';
 import { IEnvironmentRepository } from '../../repositories/environment/environment-repository.interface';
 import { GlobalRepository } from '../../repositories/global/global-repository';
@@ -28,7 +27,7 @@ export type AppContextProps = {
     authRepository: IAuthRepository;
     globalRepository: IGlobalRepository;
     presenterRepository: IPresenterRepository;
-    connectorRepository: IConnectorRepository;
+    connectorRepository: typeof connectorRepository;
     taskRepository: ITaskRepository;
     metadataRepository: typeof metadataRepository;
     environmentRepository: IEnvironmentRepository;
@@ -40,7 +39,6 @@ export const initializeAppContextProps = (): AppContextProps => {
   const authRepository = new AuthRepository(apiRequester);
   const globalRepository = new GlobalRepository(apiRequester);
   const presenterRepository = new PresenterRepository(apiRequester);
-  const connectorRepository = new ConnectorRepository(apiRequester);
   const taskRepository = new TaskRepository(apiRequester);
   const environmentRepository = new EnvironmentRepository(apiRequester);
 

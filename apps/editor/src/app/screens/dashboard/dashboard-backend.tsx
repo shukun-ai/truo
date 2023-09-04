@@ -26,7 +26,7 @@ export const DashboardBackend = () => {
 
   useEffect(() => {
     app.repositories.metadataRepository.initialize(app.apiRequester);
-    app.repositories.connectorRepository.initialize();
+    app.repositories.connectorRepository.initialize(app.apiRequester);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
