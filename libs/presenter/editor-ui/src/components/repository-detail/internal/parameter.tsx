@@ -5,6 +5,9 @@ import {
   JsonInput,
 } from '@shukun/presenter/editor-inputs';
 import { RepositorySchema } from '@shukun/schema';
+import { useMemo } from 'react';
+
+import { useEditorContext } from '../../../editor-context';
 
 export type ParameterProps = {
   value: unknown;
@@ -22,6 +25,23 @@ export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
     required: parameter.required,
   };
 
+  const { state } = useEditorContext();
+  const { metadatas, connectors } = state;
+
+  const atomOptions = useMemo<{ label: string; value: string }[]>(() => {
+    return Object.entries(metadatas).map(([atomName, atom]) => ({
+      label: `${atom.label} (${atomName})`,
+      value: atomName,
+    }));
+  }, [metadatas]);
+
+  const connectorOptions = useMemo<{ label: string; value: string }[]>(() => {
+    return Object.entries(connectors).map(([connectorName, connector]) => ({
+      label: `${connector.label} (${connectorName})`,
+      value: connectorName,
+    }));
+  }, [connectors]);
+
   if (
     type === 'connectorName' &&
     (typeof value === 'string' || value === undefined)
@@ -30,12 +50,7 @@ export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
       <ConnectorNameInput
         value={value}
         onChange={(newValue) => onChange(newValue)}
-        connectorOptions={[
-          {
-            label: 'nihao',
-            value: 'nihao',
-          },
-        ]}
+        connectorOptions={connectorOptions}
         {...commonInputProps}
       />
     );
@@ -49,12 +64,7 @@ export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
       <AtomNameInput
         value={value}
         onChange={(newValue) => onChange(newValue)}
-        atomOptions={[
-          {
-            label: 'airports',
-            value: 'airports',
-          },
-        ]}
+        atomOptions={atomOptions}
         {...commonInputProps}
       />
     );
