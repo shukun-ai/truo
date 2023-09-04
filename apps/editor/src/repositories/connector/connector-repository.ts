@@ -1,40 +1,28 @@
+import { select } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
-  selectAllEntities,
   selectEntitiesCount,
   setEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { Observable } from 'rxjs';
-
-import { ApiRequester } from '../../apis/requester';
+import { IApiRequester } from '../../apis/requester.interface';
 
 import {
   ConnectorEntity,
   connectorRef,
   createConnectorEntityId,
 } from './connector-ref';
-import { IConnectorRepository } from './connector-repository.interface';
 import { connectorStore } from './connector-store';
 
-export class ConnectorRepository implements IConnectorRepository {
-  private readonly connectorStore = connectorStore;
+export const connectorRepository = {
+  all$: connectorStore.pipe(select((state) => state.connectorEntities)),
 
-  all$: Observable<ConnectorEntity[]> = this.connectorStore.pipe(
-    selectAllEntities({ ref: connectorRef }),
-  );
+  count$: connectorStore.pipe(selectEntitiesCount({ ref: connectorRef })),
 
-  count$: Observable<number> = this.connectorStore.pipe(
-    selectEntitiesCount({ ref: connectorRef }),
-  );
-
-  constructor(private readonly apiRequester: ApiRequester) {}
-
-  async initialize() {
-    const response =
-      await this.apiRequester.developerRequester.pullConnectors();
+  initialize: async (apiRequester: IApiRequester) => {
+    const response = await apiRequester.developerRequester.pullConnectors();
 
     const entities: ConnectorEntity[] = Object.entries(response.data.value).map(
       ([connectorName, connector]) => ({
@@ -43,10 +31,10 @@ export class ConnectorRepository implements IConnectorRepository {
         ...connector,
       }),
     );
-    this.connectorStore.update(setEntities(entities, { ref: connectorRef }));
-  }
+    connectorStore.update(setEntities(entities, { ref: connectorRef }));
+  },
 
-  create(connectorName: string): void {
+  create: (connectorName: string): void => {
     const entity: ConnectorEntity = {
       id: createConnectorEntityId(connectorName),
       connectorName,
@@ -61,11 +49,11 @@ export class ConnectorRepository implements IConnectorRepository {
         },
       },
     };
-    this.connectorStore.update(addEntities(entity, { ref: connectorRef }));
-  }
+    connectorStore.update(addEntities(entity, { ref: connectorRef }));
+  },
 
-  update(entity: ConnectorEntity): void {
-    this.connectorStore.update(
+  update: (entity: ConnectorEntity): void => {
+    connectorStore.update(
       updateEntities(
         entity.id,
         {
@@ -74,9 +62,9 @@ export class ConnectorRepository implements IConnectorRepository {
         { ref: connectorRef },
       ),
     );
-  }
+  },
 
-  remove(entityId: string): void {
-    this.connectorStore.update(deleteEntities(entityId, { ref: connectorRef }));
-  }
-}
+  remove: (entityId: string): void => {
+    connectorStore.update(deleteEntities(entityId, { ref: connectorRef }));
+  },
+};

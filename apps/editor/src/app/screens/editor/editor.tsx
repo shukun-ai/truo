@@ -5,6 +5,7 @@ import { useObservableState } from 'observable-hooks';
 import { useState } from 'react';
 
 import { environment } from '../../../environments/environment';
+import { connectorRepository } from '../../../repositories/connector/connector-repository';
 import { metadataRepository } from '../../../repositories/metadata/metadata-repository';
 import { deserialization } from '../../../repositories/presenter/deserialization-service';
 import { editorRepository } from '../../../repositories/presenter/editor-repository';
@@ -34,6 +35,7 @@ export const Editor = ({ mode }: EditorProps) => {
   const tabs = useObservableState(tabRepository.tabs$, {});
   const selectedTab = useObservableState(tabRepository.selectedTab$, null);
   const metadatas = useObservableState(metadataRepository.all$, {});
+  const connectors = useObservableState(connectorRepository.all$, {});
   const allowedFieldType = useObservableState(
     metadataRepository.allowedFieldType$,
     [],
@@ -61,7 +63,7 @@ export const Editor = ({ mode }: EditorProps) => {
           nodes: presenter.nodes,
           repositories: presenter.repositoryEntities,
           metadatas,
-          connectors: {},
+          connectors,
           environments: {},
           tasks: {},
           widgetDefinitions: presenter.widgetDefinitions,
@@ -128,9 +130,9 @@ export const Editor = ({ mode }: EditorProps) => {
             remove: metadataRepository.remove,
           },
           connector: {
-            create: {} as any,
-            update: {} as any,
-            remove: {} as any,
+            create: connectorRepository.create,
+            update: connectorRepository.update,
+            remove: connectorRepository.remove,
           },
           environment: {
             create: {} as any,
