@@ -1,36 +1,25 @@
-import { setProps } from '@ngneat/elf';
+import { select, setProps } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
-  selectAllEntities,
   setEntities,
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { Observable } from 'rxjs';
-
-import { ApiRequester } from '../../apis/requester';
+import { IApiRequester } from '../../apis/requester.interface';
 
 import {
   EnvironmentEntity,
   environmentRef,
   createEnvironmentEntityId,
 } from './environment-ref';
-import { IEnvironmentRepository } from './environment-repository.interface';
 import { environmentStore } from './environment-store';
 
-export class EnvironmentRepository implements IEnvironmentRepository {
-  private readonly environmentStore = environmentStore;
+export const environmentRepository = {
+  all$: environmentStore.pipe(select((state) => state.environmentEntities)),
 
-  all$: Observable<EnvironmentEntity[]> = this.environmentStore.pipe(
-    selectAllEntities({ ref: environmentRef }),
-  );
-
-  constructor(private readonly apiRequester: ApiRequester) {}
-
-  async initialize() {
-    const response =
-      await this.apiRequester.developerRequester.pullEnvironments();
+  initialize: async (apiRequester: IApiRequester) => {
+    const response = await apiRequester.developerRequester.pullEnvironments();
 
     const entities: EnvironmentEntity[] = Object.entries(
       response.data.value,
@@ -39,15 +28,15 @@ export class EnvironmentRepository implements IEnvironmentRepository {
       environmentName,
       ...environment,
     }));
-    this.environmentStore.update(
+    environmentStore.update(
       setEntities(entities, { ref: environmentRef }),
       setProps(() => ({
         initialized: true,
       })),
     );
-  }
+  },
 
-  create(environmentName: string): void {
+  create: (environmentName: string): void => {
     const entity: EnvironmentEntity = {
       id: createEnvironmentEntityId(environmentName),
       environmentName,
@@ -55,11 +44,11 @@ export class EnvironmentRepository implements IEnvironmentRepository {
       value: '',
       isPublic: false,
     };
-    this.environmentStore.update(addEntities(entity, { ref: environmentRef }));
-  }
+    environmentStore.update(addEntities(entity, { ref: environmentRef }));
+  },
 
-  update(entity: EnvironmentEntity): void {
-    this.environmentStore.update(
+  update: (entity: EnvironmentEntity): void => {
+    environmentStore.update(
       updateEntities(
         entity.id,
         {
@@ -68,11 +57,9 @@ export class EnvironmentRepository implements IEnvironmentRepository {
         { ref: environmentRef },
       ),
     );
-  }
+  },
 
-  remove(entityId: string): void {
-    this.environmentStore.update(
-      deleteEntities(entityId, { ref: environmentRef }),
-    );
-  }
-}
+  remove: (entityId: string): void => {
+    environmentStore.update(deleteEntities(entityId, { ref: environmentRef }));
+  },
+};

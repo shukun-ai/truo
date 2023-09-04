@@ -8,8 +8,7 @@ import { AuthRepository } from '../../repositories/auth/auth-repository';
 import { IAuthRepository } from '../../repositories/auth/auth-repository.interface';
 import { authStore } from '../../repositories/auth/auth-store';
 import { connectorRepository } from '../../repositories/connector/connector-repository';
-import { EnvironmentRepository } from '../../repositories/environment/environment-repository';
-import { IEnvironmentRepository } from '../../repositories/environment/environment-repository.interface';
+import { environmentRepository } from '../../repositories/environment/environment-repository';
 import { GlobalRepository } from '../../repositories/global/global-repository';
 import { IGlobalRepository } from '../../repositories/global/global-repository.interface';
 import { metadataRepository } from '../../repositories/metadata/metadata-repository';
@@ -30,7 +29,7 @@ export type AppContextProps = {
     connectorRepository: typeof connectorRepository;
     taskRepository: ITaskRepository;
     metadataRepository: typeof metadataRepository;
-    environmentRepository: IEnvironmentRepository;
+    environmentRepository: typeof environmentRepository;
   };
 };
 
@@ -40,7 +39,6 @@ export const initializeAppContextProps = (): AppContextProps => {
   const globalRepository = new GlobalRepository(apiRequester);
   const presenterRepository = new PresenterRepository(apiRequester);
   const taskRepository = new TaskRepository(apiRequester);
-  const environmentRepository = new EnvironmentRepository(apiRequester);
 
   return {
     apiRequester,

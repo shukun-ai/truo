@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import { environment } from '../../../environments/environment';
 import { connectorRepository } from '../../../repositories/connector/connector-repository';
+import { environmentRepository } from '../../../repositories/environment/environment-repository';
 import { metadataRepository } from '../../../repositories/metadata/metadata-repository';
 import { deserialization } from '../../../repositories/presenter/deserialization-service';
 import { editorRepository } from '../../../repositories/presenter/editor-repository';
@@ -36,6 +37,7 @@ export const Editor = ({ mode }: EditorProps) => {
   const selectedTab = useObservableState(tabRepository.selectedTab$, null);
   const metadatas = useObservableState(metadataRepository.all$, {});
   const connectors = useObservableState(connectorRepository.all$, {});
+  const environments = useObservableState(environmentRepository.all$, {});
   const allowedFieldType = useObservableState(
     metadataRepository.allowedFieldType$,
     [],
@@ -64,7 +66,7 @@ export const Editor = ({ mode }: EditorProps) => {
           repositories: presenter.repositoryEntities,
           metadatas,
           connectors,
-          environments: {},
+          environments,
           tasks: {},
           widgetDefinitions: presenter.widgetDefinitions,
           widgetGallery: presenter.widgetGallery,
@@ -135,9 +137,9 @@ export const Editor = ({ mode }: EditorProps) => {
             remove: connectorRepository.remove,
           },
           environment: {
-            create: {} as any,
-            update: {} as any,
-            remove: {} as any,
+            create: environmentRepository.create,
+            update: environmentRepository.update,
+            remove: environmentRepository.remove,
           },
           tab: {
             previewWidget: (foreignId: string) =>
