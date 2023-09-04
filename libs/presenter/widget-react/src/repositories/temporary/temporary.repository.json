@@ -7,7 +7,8 @@
     "defaultValue": {
       "label": "默认值",
       "type": "json",
-      "defaultValue": {}
+      "defaultValue": {},
+      "description": "默认值仅支持 JSON 格式编辑"
     }
   },
   "actions": {
