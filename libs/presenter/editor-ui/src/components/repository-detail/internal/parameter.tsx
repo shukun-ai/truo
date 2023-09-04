@@ -13,14 +13,20 @@ export type ParameterProps = {
   value: unknown;
   onChange: (newValue: unknown) => void;
   parameter: RepositorySchema['parameters'][number];
+  parameterName: string;
 };
 
-export const Parameter = ({ value, onChange, parameter }: ParameterProps) => {
+export const Parameter = ({
+  value,
+  onChange,
+  parameter,
+  parameterName,
+}: ParameterProps) => {
   const { type } = parameter;
 
   const commonInputProps = {
     label: parameter.label,
-    secondaryLabel: parameter.type,
+    secondaryLabel: parameterName,
     description: parameter.description,
     required: parameter.required,
   };

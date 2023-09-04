@@ -42,6 +42,7 @@ export const Parameters = ({
             });
           }}
           parameter={parameter}
+          parameterName={parameterName}
         />
       ))}
     </Card>
