@@ -77,6 +77,8 @@ const getType = (prop: WidgetSchema['properties'][number]): string => {
       return '{ pt?: string; pr?: string; pb?: string; pl?: string; mt?: string; mr?: string; mb?: string; ml?: string; w?: string; h?: string; }';
     case 'void':
       return 'undefined';
+    case 'multipleState':
+      return 'string[][]';
   }
 };
 
