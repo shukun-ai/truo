@@ -1,4 +1,6 @@
-import { Card, Code, Divider, Title } from '@mantine/core';
+import { Card, Divider, Title } from '@mantine/core';
+
+import { JsonViewer } from '@shukun/component';
 
 import { useEditorContext } from '../../../editor-context';
 
@@ -16,9 +18,14 @@ export const State = ({ repositoryId }: StateProps) => {
       <Title order={4}>当前状态</Title>
       <Divider mt={8} mb={8} />
 
-      <Code block>
-        $.{repositoryId}: {state ? JSON.stringify(state) : 'undefined'}
-      </Code>
+      <JsonViewer
+        data={{ [`$.${repositoryId}`]: state }}
+        rootLabel={`当前状态`}
+        selected={[]}
+        onClick={() => {
+          //
+        }}
+      />
     </Card>
   );
 };
