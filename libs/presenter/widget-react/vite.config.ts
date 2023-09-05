@@ -48,6 +48,7 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     coverage: {
       enabled: true,
+      reporter: 'html',
       provider: 'istanbul',
       reportsDirectory: '../../../coverage/libs/presenter/widget-react',
     },
