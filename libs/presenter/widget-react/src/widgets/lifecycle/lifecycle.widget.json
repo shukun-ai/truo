@@ -1,0 +1,28 @@
+{
+  "$schema": "../../../../../schema/src/json-schemas/widget.schema.json",
+  "tag": "lifecycle",
+  "icon": "",
+  "allowedChildTags": [],
+  "properties": {
+    "interval": {
+      "label": "定时器执行",
+      "type": "integer",
+      "disabledJsMode": true
+    },
+    "stateChanged": {
+      "label": "监听状态执行",
+      "type": "multipleState",
+      "disabledJsMode": true
+    },
+    "mounted": {
+      "label": "是否初始化时执行",
+      "type": "boolean",
+      "disabledJsMode": true
+    },
+    "onRun": {
+      "label": "被执行的事件",
+      "type": "void",
+      "isEvent": true
+    }
+  }
+}
