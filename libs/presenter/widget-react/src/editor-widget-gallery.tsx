@@ -6,6 +6,7 @@ import {
   IconColumns,
   IconListTree,
   IconPointer,
+  IconRefreshDot,
 } from '@tabler/icons-react';
 
 export const editorWidgetGallery: WidgetGallery = [
@@ -38,6 +39,11 @@ export const editorWidgetGallery: WidgetGallery = [
         tag: 'button',
         icon: () => <IconPointer />,
         label: '按钮',
+      },
+      {
+        tag: 'lifecycle',
+        icon: () => <IconRefreshDot />,
+        label: '生命周期',
       },
     ],
   },
