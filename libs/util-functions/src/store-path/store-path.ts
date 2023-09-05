@@ -1,6 +1,6 @@
-import { set as lodashSet } from 'lodash';
+import { set } from 'lodash';
 
-export const get = (state: unknown, fullPath: string[]) => {
+export const getStorePath = (state: unknown, fullPath: string[]) => {
   let newState: any = state;
 
   for (let index = 0; index < fullPath.length; index++) {
@@ -22,12 +22,12 @@ export const get = (state: unknown, fullPath: string[]) => {
   return newState;
 };
 
-export const set = <T>(
+export const setStorePath = <T>(
   previousState: T,
   fullPath: string[],
   value: unknown,
 ): T => {
   const cloned = structuredClone(previousState);
-  lodashSet(cloned as any, fullPath.join('.'), value);
+  set(cloned as any, fullPath.join('.'), value);
   return cloned;
 };
