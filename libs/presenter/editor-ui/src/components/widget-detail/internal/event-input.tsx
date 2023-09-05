@@ -23,8 +23,9 @@ export const EventInput = ({
   onChange,
   tipSection,
 }: EventInputProps) => {
-  const { state } = useEditorContext();
+  const { state, devtool } = useEditorContext();
   const { repositories, repositoryDefinitions } = state;
+  const { logs } = devtool;
 
   return (
     <Box sx={{ marginBottom: 16 }}>
@@ -46,6 +47,7 @@ export const EventInput = ({
         repositoryDefinitions={repositoryDefinitions}
         value={value}
         onChange={onChange}
+        devtoolLogs={logs}
       />
     </Box>
   );

@@ -2,12 +2,19 @@ import { TypeException } from '@shukun/exception';
 import { RepositorySchema } from '@shukun/schema';
 import { ReactNode, createContext, useContext, useMemo } from 'react';
 
+export type DevtoolLogs = {
+  state: Record<string, unknown>;
+  widgetState: Record<string, { index: number; item: unknown }>;
+  widgetProperties: Record<string, unknown>;
+};
+
 export type EventContextProps = {
   repositories: {
     repositoryName: string;
     type: string;
   }[];
   repositoryDefinitions: Record<string, RepositorySchema>;
+  devtoolLogs: DevtoolLogs;
 };
 
 export type EventContextInternalProps = {
@@ -21,6 +28,12 @@ export type EventContextInternalProps = {
     value: string;
     target: string;
   }[];
+  repositories: {
+    repositoryName: string;
+    type: string;
+  }[];
+  repositoryDefinitions: Record<string, RepositorySchema>;
+  devtoolLogs: DevtoolLogs;
 };
 
 const EventContext = createContext<EventContextInternalProps | null>(null);
@@ -66,6 +79,9 @@ export const EventProvider = ({
         noRepositories: targetOptions.length === 0,
         targetOptions,
         actionOptions,
+        repositories: value.repositories,
+        repositoryDefinitions: value.repositoryDefinitions,
+        devtoolLogs: value.devtoolLogs,
       }}
     >
       {children}

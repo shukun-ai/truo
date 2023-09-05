@@ -1,14 +1,15 @@
-import { ActionIcon, Alert, Box, Group } from '@mantine/core';
+import { ActionIcon, Alert, Box, Group, Text } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ConnectDragSource } from 'react-dnd';
 
 import { Icon } from '../../domain-icons/domain-icons';
 
 import { ActionInput } from './action-input';
 import { useEventContext } from './context';
+import { PathInput } from './path-input';
 import { TargetInput } from './target-input';
 import { ValueInput } from './value-input';
 
@@ -27,17 +28,59 @@ export const TaskInputs = ({
   onRemove,
   disabled,
 }: TaskInputsProps) => {
-  const { noRepositories } = useEventContext();
+  const { noRepositories, repositories, repositoryDefinitions } =
+    useEventContext();
+
+  const [targetCache, setTargetCache] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!value.target) {
-      onChange({
-        ...value,
-        action: '',
-      });
+    if (targetCache === null) {
+      return;
     }
+    if (targetCache === value.target) {
+      return;
+    }
+    onChange({
+      ...value,
+      action: '',
+      path: undefined,
+    });
+    setTargetCache(value.target);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value.target]);
+  }, [value.target, targetCache]);
+
+  const repositoryDefinition = useMemo(() => {
+    const { target } = value;
+    if (!target) {
+      return null;
+    }
+    const repository = repositories.find(
+      (item) => item.repositoryName === target,
+    );
+    if (!repository) {
+      return null;
+    }
+    const definition = repositoryDefinitions[repository.type];
+    if (!definition) {
+      return null;
+    }
+    return definition;
+  }, [repositories, repositoryDefinitions, value]);
+
+  const actionDefinition = useMemo(() => {
+    const { action } = value;
+    if (!action) {
+      return null;
+    }
+    if (!repositoryDefinition) {
+      return null;
+    }
+    const parameter = repositoryDefinition.actions[action];
+    if (!parameter) {
+      return null;
+    }
+    return parameter;
+  }, [repositoryDefinition, value]);
 
   return (
     <Box
@@ -80,25 +123,29 @@ export const TaskInputs = ({
             target={value.target}
           />
         </Group>
-        {/* TODO enable PathInput */}
-        {/* <PathInput
-          value={value.path}
-          onChange={(newValue) => {
-            onChange({
-              ...value,
-              path: newValue,
-            });
-          }}
-        /> */}
-        <ValueInput
-          value={value.value}
-          onChange={(newValue) =>
-            onChange({
-              ...value,
-              value: newValue,
-            })
-          }
-        />
+        {actionDefinition?.enabledPath && (
+          <PathInput
+            value={value.path}
+            onChange={(newValue) => {
+              onChange({
+                ...value,
+                path: newValue,
+              });
+            }}
+            target={value.target}
+          />
+        )}
+        {actionDefinition?.enabledValue && (
+          <ValueInput
+            value={value.value}
+            onChange={(newValue) =>
+              onChange({
+                ...value,
+                value: newValue,
+              })
+            }
+          />
+        )}
       </Box>
       <ActionIcon
         onClick={() => {
