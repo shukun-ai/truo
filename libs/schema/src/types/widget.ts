@@ -40,7 +40,8 @@ export interface WidgetProperty {
     | 'dataBinding'
     | 'breakpoints'
     | 'attachments'
-    | 'boxModel';
+    | 'boxModel'
+    | 'multipleState';
   enums?: string[];
   disabledJsMode?: boolean;
   isEvent?: boolean;

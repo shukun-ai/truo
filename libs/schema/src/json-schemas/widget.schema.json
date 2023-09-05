@@ -45,7 +45,8 @@
                 "dataBinding",
                 "breakpoints",
                 "attachments",
-                "boxModel"
+                "boxModel",
+                "multipleState"
               ]
             },
             "enums": { "type": "array", "items": { "type": "string" } },
