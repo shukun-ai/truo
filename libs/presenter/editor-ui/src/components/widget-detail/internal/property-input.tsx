@@ -4,10 +4,13 @@ import {
   BoxModelInput,
   DataBindingInput,
   EnumInput,
+  MultipleState,
   NumberInput,
   StringInput,
 } from '@shukun/presenter/editor-inputs';
 import { WidgetProperty } from '@shukun/schema';
+
+import { useEditorContext } from '../../../editor-context';
 
 export type PropertyInputProps = {
   widgetPropertyId: string;
@@ -22,6 +25,9 @@ export const PropertyInput = ({
   value,
   onChange,
 }: PropertyInputProps) => {
+  const { devtool } = useEditorContext();
+  const { logs } = devtool;
+
   const { type, enums, disabledJsMode, description } = widgetProperty;
 
   const commonInputProps = {
@@ -104,6 +110,20 @@ export const PropertyInput = ({
       <BoxModelInput
         value={value as any}
         onChange={onChange}
+        {...commonInputProps}
+      />
+    );
+  }
+
+  if (
+    (type === 'multipleState' && Array.isArray(value)) ||
+    value === undefined
+  ) {
+    return (
+      <MultipleState
+        value={value}
+        onChange={onChange}
+        logs={logs}
         {...commonInputProps}
       />
     );
