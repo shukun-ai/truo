@@ -1,6 +1,6 @@
 export type LifecycleWidgetProps = {
   interval?: number;
-  stateChanged?: undefined;
+  stateChanged?: string[][];
   mounted?: boolean;
   onRun?: (payload: undefined) => Promise<void>;
 };

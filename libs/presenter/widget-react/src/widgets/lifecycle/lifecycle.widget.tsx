@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 
 import { createWidget } from '../../abstracts/create-widget';
 
+import { useStateChanged } from './internal/use-state-changed';
 import { LifecycleWidgetProps } from './lifecycle.props';
 
 export const LifecycleWidget = createWidget<LifecycleWidgetProps>(
   ({ ...props }) => {
+    useStateChanged(props);
     useSetInterval(props);
     useMount(props);
 
