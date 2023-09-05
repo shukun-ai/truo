@@ -19,7 +19,7 @@ export const State = ({ repositoryId }: StateProps) => {
       <Divider mt={8} mb={8} />
 
       <JsonViewer
-        data={{ [`$.${repositoryId}`]: state }}
+        data={{ [repositoryId]: state }}
         rootLabel={`当前状态`}
         selected={[]}
         onClick={() => {
