@@ -12,6 +12,12 @@ export default defineConfig({
     },
     environment: 'jsdom',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    coverage: {
+      enabled: true,
+      reporter: 'html',
+      provider: 'istanbul',
+      reportsDirectory: '../../coverage/apps/presenter',
+    },
   },
 
   cacheDir: '../../node_modules/.vite/presenter',
