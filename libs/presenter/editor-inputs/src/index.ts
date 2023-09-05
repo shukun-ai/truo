@@ -7,3 +7,4 @@ export * from './box-model/box-model.input';
 export * from './connector-name/connector-name.input';
 export * from './atom-name/atom-name.input';
 export * from './json/json.input';
+export * from './multiple-state/multiple-state';
