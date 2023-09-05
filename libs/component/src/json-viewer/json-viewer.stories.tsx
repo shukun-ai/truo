@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { JsonViewer } from './json-viewer';
 
 const JsonViewerExample = () => {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState<string[]>([]);
 
   const data = {
     router: { name: 'home' },
@@ -26,12 +26,13 @@ const JsonViewerExample = () => {
       <JsonViewer
         data={data}
         rootLabel="ROOT"
-        onClick={({ path }) => {
-          setSelected(path);
+        selected={selected}
+        onClick={(selected) => {
+          setSelected(selected);
         }}
       />
       <Text mt={12} size="sm">
-        selected: {selected}
+        selected: {selected.join(', ')}
       </Text>
     </Box>
   );
