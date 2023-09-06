@@ -44,7 +44,7 @@ export const SignInForm = ({
     ),
   });
 
-  const org = useOrg();
+  const { org, orgError } = useOrg();
 
   return (
     <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
@@ -57,7 +57,7 @@ export const SignInForm = ({
       <Text mb={24} fz="sm" c="gray">
         请输入账号密码登录您的开发平台，开始您的项目
       </Text>
-      {errorMessage && (
+      {(errorMessage || orgError) && (
         <Alert
           title="查询失败"
           icon={<IconInfoCircle />}
@@ -65,7 +65,7 @@ export const SignInForm = ({
           mt={-12}
           mb={12}
         >
-          {errorMessage}
+          {errorMessage || orgError}
         </Alert>
       )}
       <form onSubmit={form.onSubmit(onSubmit)}>
@@ -103,16 +103,26 @@ const useOrg = () => {
   const routeOrgName = useRouteOrgName();
 
   const [org, setOrg] = useState<SystemPublicOrgModel | null>(null);
+  const [orgError, setOrgError] = useState('');
 
   useEffect(() => {
-    app.apiRequester.publicRequester.getOrg(routeOrgName).then((response) => {
-      setOrg(response.data.value);
-    });
+    app.apiRequester.publicRequester
+      .getOrg(routeOrgName)
+      .then((response) => {
+        setOrg(response.data.value);
+      })
+      .catch((error) => {
+        if (error instanceof Error) {
+          setOrgError(error.message);
+        } else {
+          throw error;
+        }
+      });
 
     return () => {
       setOrg(null);
     };
   }, [app.apiRequester.publicRequester, routeOrgName]);
 
-  return org;
+  return { org, orgError };
 };
