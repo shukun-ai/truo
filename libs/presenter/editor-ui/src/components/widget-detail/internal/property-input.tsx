@@ -35,6 +35,7 @@ export const PropertyInput = ({
     secondaryLabel: widgetPropertyId,
     description,
     disabledJsMode,
+    logs,
   };
 
   if (type === 'enum' && (typeof value === 'string' || value === undefined)) {
@@ -120,12 +121,7 @@ export const PropertyInput = ({
     value === undefined
   ) {
     return (
-      <MultipleState
-        value={value}
-        onChange={onChange}
-        logs={logs}
-        {...commonInputProps}
-      />
+      <MultipleState value={value} onChange={onChange} {...commonInputProps} />
     );
   }
 

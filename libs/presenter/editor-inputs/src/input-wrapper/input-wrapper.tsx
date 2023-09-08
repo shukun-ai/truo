@@ -1,5 +1,5 @@
 import { ActionIcon, Box, Group, Text, Title, Tooltip } from '@mantine/core';
-import { JsInput } from '@shukun/component';
+import { JsInput, useCompletionState } from '@shukun/component';
 import { CodeMode } from '@shukun/schema';
 import { IconBrandJavascript, IconLetterCase } from '@tabler/icons-react';
 import { ReactNode, useCallback, useMemo } from 'react';
@@ -25,6 +25,7 @@ export const InputWrapper = ({
   disabledJsMode,
   tipSection,
   description,
+  logs,
 }: InputWrapperProps) => {
   const mode = useMemo(() => {
     if (typeof value === 'string' && value.startsWith(CodeMode.JS)) {
@@ -44,6 +45,8 @@ export const InputWrapper = ({
     },
     [onChange],
   );
+
+  const { state } = useCompletionState(logs);
 
   return (
     <Box mb={32}>
@@ -99,7 +102,12 @@ export const InputWrapper = ({
       {tipSection && mode !== 'simple' && <Box>{tipSection}</Box>}
       <Box>
         {mode === 'js' && typeof value === 'string' ? (
-          <JsInput value={value} onChange={onChange} disabled={disabled} />
+          <JsInput
+            value={value}
+            onChange={onChange}
+            disabled={disabled}
+            completionState={state}
+          />
         ) : (
           children
         )}

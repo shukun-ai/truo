@@ -1,7 +1,13 @@
 import { Box, Text } from '@mantine/core';
 import { PresenterEvent } from '@shukun/schema';
 
+import { useMemo } from 'react';
+
 import { JsInput } from '../../js-input/js-input';
+
+import { useCompletionState } from '../../use-completion-state/use-completion-state';
+
+import { useEventContext } from './context';
 
 export type ValueInputProps = {
   value: PresenterEvent['value'];
@@ -9,6 +15,11 @@ export type ValueInputProps = {
 };
 
 export const ValueInput = ({ value, onChange }: ValueInputProps) => {
+  const { devtoolLogs } = useEventContext();
+  const { state } = useCompletionState(devtoolLogs);
+
+  const completionState = useMemo(() => ({ ...state, payload: {} }), [state]);
+
   return (
     <Box>
       <Text size="sm" mb={4}>
@@ -20,6 +31,7 @@ export const ValueInput = ({ value, onChange }: ValueInputProps) => {
       <JsInput
         value={value ?? ''}
         onChange={(newValue) => onChange(newValue)}
+        completionState={completionState}
       />
     </Box>
   );

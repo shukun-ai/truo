@@ -12,7 +12,6 @@ import {
 import { modals } from '@mantine/modals';
 import { Icon, JsonViewer } from '@shukun/component';
 
-import { DevtoolLogs } from '@shukun/presenter/definition';
 import {
   arrayPathToString,
   multipleArrayPathToMultipleString,
@@ -26,7 +25,6 @@ import { CommonInputProps } from '../types';
 export type MultipleStateProps = {
   value: string[][] | undefined;
   onChange: (newValue: string[][]) => void;
-  logs: DevtoolLogs;
 } & CommonInputProps;
 
 export const MultipleState = ({
@@ -49,15 +47,15 @@ export const MultipleState = ({
       children: (
         <Popup
           onSubmit={onSubmit}
-          data={logs.state}
+          data={(logs ?? {}).state}
           multipleArrayPath={value ?? []}
         />
       ),
     });
-  }, [logs.state, onSubmit, value]);
+  }, [logs, onSubmit, value]);
 
   return (
-    <SimpleWrapper {...props}>
+    <SimpleWrapper logs={logs} {...props}>
       <Group spacing={4}>
         {value.length === 0 && <Text>未监听状态</Text>}
         {value.map((item) => (
