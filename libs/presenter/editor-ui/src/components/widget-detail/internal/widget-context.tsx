@@ -1,22 +1,16 @@
-import { createFormContext } from '@mantine/form';
-import { PresenterWidget } from '@shukun/schema';
+import { createContext, useContext } from 'react';
 
-export type WidgetFormValue = {
-  properties: PresenterWidget['properties'];
-  events: PresenterWidget['events'];
+export type WidgetContextProps = {
+  widgetId?: string;
 };
 
-const [FormProvider, useFormContext, useForm] =
-  createFormContext<WidgetFormValue>();
+export const WidgetContext = createContext<WidgetContextProps | null>(null);
 
-export const WidgetFormProvider = FormProvider;
-export const useWidgetFormContext = useFormContext;
-export const useWidgetForm = useForm;
+export const useWidgetContext = (): WidgetContextProps => {
+  const widgetContext = useContext(WidgetContext);
 
-export const composeFormPropertyName = (definitionPropertyName: string) => {
-  return `properties.${definitionPropertyName}`;
-};
-
-export const composeFormEventName = (definitionEventName: string) => {
-  return `events.${definitionEventName}`;
+  if (!widgetContext) {
+    throw new Error('The widgetContext is not initialize.');
+  }
+  return widgetContext;
 };

@@ -10,4 +10,5 @@ export type CommonInputProps = {
   disabledSimpleMode?: boolean;
   disabledJsMode?: boolean;
   logs?: DevtoolLogs;
+  widgetId?: string;
 };

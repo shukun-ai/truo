@@ -12,6 +12,8 @@ import { WidgetProperty } from '@shukun/schema';
 
 import { useEditorContext } from '../../../editor-context';
 
+import { useWidgetContext } from './widget-context';
+
 export type PropertyInputProps = {
   widgetPropertyId: string;
   widgetProperty: WidgetProperty;
@@ -27,6 +29,7 @@ export const PropertyInput = ({
 }: PropertyInputProps) => {
   const { devtool } = useEditorContext();
   const { logs } = devtool;
+  const { widgetId } = useWidgetContext();
 
   const { type, enums, disabledJsMode, description } = widgetProperty;
 
@@ -36,6 +39,7 @@ export const PropertyInput = ({
     description,
     disabledJsMode,
     logs,
+    widgetId,
   };
 
   if (type === 'enum' && (typeof value === 'string' || value === undefined)) {

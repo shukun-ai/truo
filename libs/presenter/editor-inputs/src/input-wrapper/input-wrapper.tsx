@@ -26,6 +26,7 @@ export const InputWrapper = ({
   tipSection,
   description,
   logs,
+  widgetId,
 }: InputWrapperProps) => {
   const mode = useMemo(() => {
     if (typeof value === 'string' && value.startsWith(CodeMode.JS)) {
@@ -46,7 +47,7 @@ export const InputWrapper = ({
     [onChange],
   );
 
-  const { state } = useCompletionState(logs);
+  const { state } = useCompletionState(logs, widgetId);
 
   return (
     <Box mb={32}>

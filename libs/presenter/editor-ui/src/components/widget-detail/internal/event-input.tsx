@@ -6,6 +6,8 @@ import { ReactNode } from 'react';
 
 import { useEditorContext } from '../../../editor-context';
 
+import { useWidgetContext } from './widget-context';
+
 export type EventInputProps = {
   label: string;
   secondaryLabel?: string;
@@ -26,6 +28,7 @@ export const EventInput = ({
   const { state, devtool } = useEditorContext();
   const { repositories, repositoryDefinitions } = state;
   const { logs } = devtool;
+  const { widgetId } = useWidgetContext();
 
   return (
     <Box sx={{ marginBottom: 16 }}>
@@ -48,6 +51,7 @@ export const EventInput = ({
         value={value}
         onChange={onChange}
         devtoolLogs={logs}
+        widgetId={widgetId}
       />
     </Box>
   );
