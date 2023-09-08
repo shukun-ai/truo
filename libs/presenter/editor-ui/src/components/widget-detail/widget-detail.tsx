@@ -10,6 +10,7 @@ import {
 import { useDebounceSave } from '../../hooks/use-debounce-save';
 
 import { Schema } from './internal/schema';
+import { WidgetContext } from './internal/widget-context';
 
 export type WidgetDetailProps = {
   tabEntity: TabEntity;
@@ -39,9 +40,11 @@ export const WidgetDetail = ({
 
   return (
     <EditorTabWrapper>
-      <form>
-        <Schema form={form} definition={widgetDefinition} />
-      </form>
+      <WidgetContext.Provider value={{ widgetId: widgetEntity.id }}>
+        <form>
+          <Schema form={form} definition={widgetDefinition} />
+        </form>
+      </WidgetContext.Provider>
     </EditorTabWrapper>
   );
 };

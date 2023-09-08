@@ -15,6 +15,7 @@ export type EventContextProps = {
   }[];
   repositoryDefinitions: Record<string, RepositorySchema>;
   devtoolLogs: DevtoolLogs;
+  widgetId?: string;
 };
 
 export type EventContextInternalProps = {
@@ -34,6 +35,7 @@ export type EventContextInternalProps = {
   }[];
   repositoryDefinitions: Record<string, RepositorySchema>;
   devtoolLogs: DevtoolLogs;
+  widgetId?: string;
 };
 
 const EventContext = createContext<EventContextInternalProps | null>(null);
@@ -82,6 +84,7 @@ export const EventProvider = ({
         repositories: value.repositories,
         repositoryDefinitions: value.repositoryDefinitions,
         devtoolLogs: value.devtoolLogs,
+        widgetId: value.widgetId,
       }}
     >
       {children}

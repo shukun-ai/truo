@@ -15,8 +15,8 @@ export type ValueInputProps = {
 };
 
 export const ValueInput = ({ value, onChange }: ValueInputProps) => {
-  const { devtoolLogs } = useEventContext();
-  const { state } = useCompletionState(devtoolLogs);
+  const { devtoolLogs, widgetId } = useEventContext();
+  const { state } = useCompletionState(devtoolLogs, widgetId);
 
   const completionState = useMemo(() => ({ ...state, payload: {} }), [state]);
 

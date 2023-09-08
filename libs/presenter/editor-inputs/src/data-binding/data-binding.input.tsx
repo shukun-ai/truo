@@ -12,12 +12,13 @@ export const DataBindingInput = ({
   value,
   onChange,
   logs,
+  widgetId,
   ...props
 }: DataBindingInputProps) => {
-  const { state } = useCompletionState(logs);
+  const { state } = useCompletionState(logs, widgetId);
 
   return (
-    <SimpleWrapper logs={logs} {...props}>
+    <SimpleWrapper {...props}>
       <JsInput
         {...props}
         value={value ?? ''}
