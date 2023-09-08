@@ -1,3 +1,4 @@
+import { DevtoolLogs } from '@shukun/presenter/definition';
 import { ReactNode } from 'react';
 
 export type CommonInputProps = {
@@ -8,4 +9,5 @@ export type CommonInputProps = {
   disabled?: boolean;
   disabledSimpleMode?: boolean;
   disabledJsMode?: boolean;
+  logs?: DevtoolLogs;
 };

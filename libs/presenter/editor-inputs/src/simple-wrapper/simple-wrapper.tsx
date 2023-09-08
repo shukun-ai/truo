@@ -1,5 +1,4 @@
 import { Box, Group, Text, Title } from '@mantine/core';
-import { Icon } from '@shukun/component';
 import { ReactNode } from 'react';
 
 import { InputDescription } from '../input-description/input-description';

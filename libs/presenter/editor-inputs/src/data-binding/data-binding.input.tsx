@@ -1,4 +1,4 @@
-import { JsInput } from '@shukun/component';
+import { JsInput, useCompletionState } from '@shukun/component';
 
 import { SimpleWrapper } from '../simple-wrapper/simple-wrapper';
 import { CommonInputProps } from '../types';
@@ -11,11 +11,19 @@ export type DataBindingInputProps = {
 export const DataBindingInput = ({
   value,
   onChange,
+  logs,
   ...props
 }: DataBindingInputProps) => {
+  const { state } = useCompletionState(logs);
+
   return (
-    <SimpleWrapper {...props}>
-      <JsInput {...props} value={value ?? ''} onChange={onChange} />
+    <SimpleWrapper logs={logs} {...props}>
+      <JsInput
+        {...props}
+        value={value ?? ''}
+        onChange={onChange}
+        completionState={state}
+      />
     </SimpleWrapper>
   );
 };
