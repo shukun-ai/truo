@@ -1,47 +1,35 @@
 import { javascript } from '@codemirror/lang-javascript';
 import { ViewUpdate, EditorView } from '@codemirror/view';
 import { Box } from '@mantine/core';
-
 import { CodeMode } from '@shukun/schema';
-import { useEffect, useMemo, useState } from 'react';
 
+import { useCodeChange } from '../use-code-change/use-code-change';
 import { useCodeMirror } from '../use-code-mirror/use-code-mirror';
+import { useCodeValue } from '../use-code-value/use-code-value';
+import { useCompletionStateRef } from '../use-completion-state-ref/use-completion-state-ref';
+
+import { createJsStateCompletions } from './internal/create-js-state-completions';
 
 export type JsInputProps = {
   value: string;
   onChange: (newValue: string) => void;
   disabled?: boolean;
+  completionState?: Record<string, unknown>;
 };
 
-export const JsInput = ({ value, onChange }: JsInputProps) => {
-  const { handleChange } = useHandleChange(value, onChange);
-
+export const JsInput = ({
+  value,
+  onChange,
+  completionState = {},
+}: JsInputProps) => {
+  const { completionStateRef } = useCompletionStateRef(completionState);
+  const { handleChange } = useCodeChange(value, onChange, CodeMode.JS);
   const { ref, view } = useCodeMirror([
     javascript(),
-    onUpdate((value) => handleChange(`${CodeMode.JS}${value}`)),
+    createJsStateCompletions(completionStateRef),
+    onUpdate((value) => handleChange(value)),
   ]);
-
-  const parsedValue = useMemo(() => {
-    return typeof value === 'string' && value.startsWith(CodeMode.JS)
-      ? value.substring(CodeMode.JS.length, value.length)
-      : '';
-  }, [value]);
-
-  useEffect(() => {
-    if (view) {
-      const editorValue = view.state.doc.toString();
-
-      if (parsedValue !== editorValue) {
-        view.dispatch({
-          changes: {
-            from: 0,
-            to: editorValue.length,
-            insert: parsedValue || '',
-          },
-        });
-      }
-    }
-  }, [parsedValue, view]);
+  useCodeValue(value, CodeMode.JS, view);
 
   return <Box ref={ref}></Box>;
 };
@@ -56,20 +44,4 @@ const onUpdate = (
       onChange(value, viewUpdate);
     }
   });
-};
-
-const useHandleChange = (
-  initialValue: string,
-  onChange: (newValue: string) => void,
-) => {
-  const [cache, handleChange] = useState<string>(initialValue);
-
-  useEffect(() => {
-    onChange(cache);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cache]);
-
-  return {
-    handleChange,
-  };
 };
