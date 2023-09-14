@@ -13,7 +13,7 @@ import { replaceCode } from './helpers/replace-code';
 import { stringify } from './helpers/stringify';
 import { validate } from './helpers/validate';
 import { SystemGeneratorOptions } from './system-generator.interface';
-
+//
 export class SystemGenerator {
   async generate(options: SystemGeneratorOptions) {
     const { inputPath, disabledValidation } = options;

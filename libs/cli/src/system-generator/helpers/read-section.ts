@@ -6,7 +6,7 @@ export async function readSection<T>(
   moduleName: string,
 ): Promise<T[]> {
   const path = join(inputPath, moduleName);
-  const files = await readdir(path);
+  const files = await getDirectoryFiles(path);
   const jsonFiles = files.filter((file) => file.endsWith('.json'));
 
   const section: T[] = [];
@@ -25,3 +25,12 @@ export async function readSection<T>(
 
   return section;
 }
+
+const getDirectoryFiles = async (path: string): Promise<string[]> => {
+  try {
+    const files = await readdir(path);
+    return files;
+  } catch (error) {
+    return [];
+  }
+};
