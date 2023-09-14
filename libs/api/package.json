@@ -2,5 +2,14 @@
   "name": "@shukun/api",
   "version": "1.28.0",
   "author": "SHUKUN TECHNOLOGY",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "@shukun/exception": "1.28.0",
+    "@shukun/schema": "1.28.0",
+    "axios": "<=2.0.0",
+    "axios-retry": "^3.2.4"
+  }
 }
