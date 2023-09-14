@@ -13,3 +13,13 @@ export interface ApiResponseData<Value> {
   count?: number;
   value: Value;
 }
+
+export type AddToManyDto = {
+  electronName: string;
+  foreignId: string;
+};
+
+export type IncreaseDto = {
+  electronName: string;
+  increment: number;
+};
