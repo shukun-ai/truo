@@ -5,7 +5,6 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
-import { InternalServerCode } from '@shukun/api';
 import {
   BaseException,
   GatewayForbiddenException,
@@ -88,7 +87,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       exception,
       message,
       statusCode,
-      InternalServerCode.Unknown,
+      'Unknown',
     );
   }
 
@@ -105,7 +104,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       exception,
       message,
       statusCode,
-      InternalServerCode.Unknown,
+      'Unknown',
     );
   }
 
@@ -117,7 +116,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     exception: any,
     message: string,
     statusCode: HttpStatus,
-    internalServerCode: InternalServerCode,
+    internalServerCode: string,
   ) {
     const { workflowTestMode, workflowLog, stack } = exception;
     return response.status(statusCode).json({

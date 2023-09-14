@@ -1,9 +1,11 @@
 {
-  "name": "@shukun/api",
+  "name": "@shukun/legacy-api",
   "version": "1.28.0",
   "author": "SHUKUN TECHNOLOGY",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "peerDependencies": {
     "axios": "<=2.0.0",
     "axios-retry": "^3.2.4"

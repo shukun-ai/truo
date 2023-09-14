@@ -1,4 +1,4 @@
-import { UnknownSourceModel } from '@shukun/api';
+import { UnknownSourceModel } from '@shukun/schema';
 import {
   MetadataAttachmentOptions,
   MetadataCurrencyOptions,

@@ -1,0 +1,39 @@
+{
+  "name": "legacy-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/legacy-api/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/legacy-api",
+        "tsConfig": "libs/legacy-api/tsconfig.lib.json",
+        "packageJson": "libs/legacy-api/package.json",
+        "main": "libs/legacy-api/src/index.ts",
+        "assets": ["libs/legacy-api/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/legacy-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/legacy-api"],
+      "options": {
+        "jestConfig": "libs/legacy-api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
