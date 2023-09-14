@@ -1,5 +1,5 @@
-import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
 import { LegacyFunctionComponent } from '@shukun/component';
+import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/postmate';
 import { MetadataSchema, ViewSchema, ViewDetailGroup } from '@shukun/schema';
 import React, { FunctionComponent, useCallback, useContext } from 'react';
 

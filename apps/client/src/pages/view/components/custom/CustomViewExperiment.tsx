@@ -1,3 +1,4 @@
+import { LegacyFunctionComponent } from '@shukun/component';
 import {
   PostMessageCustomModeType,
   callChild,
@@ -9,8 +10,7 @@ import {
   PostMessageEnvironment,
   listenChild,
   PostMessageNotificationProps,
-} from '@shukun/api';
-import { LegacyFunctionComponent } from '@shukun/component';
+} from '@shukun/postmate';
 import { UnknownSourceModel } from '@shukun/schema';
 import { useUnmount } from 'ahooks';
 import { message } from 'antd';

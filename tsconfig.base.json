@@ -31,6 +31,7 @@
       "@shukun/connector/task": ["libs/connector/task/src/index.ts"],
       "@shukun/exception": ["libs/exception/src/index.ts"],
       "@shukun/knex": ["libs/knex/src/index.ts"],
+      "@shukun/postmate": ["libs/postmate/src/index.ts"],
       "@shukun/presenter-input-schema": [
         "libs/presenter/input-schema/src/index.ts"
       ],

@@ -1,5 +1,5 @@
-import { PostMessageCustomModeType } from '@shukun/api';
 import { LegacyFunctionComponent } from '@shukun/component';
+import { PostMessageCustomModeType } from '@shukun/postmate';
 import {
   ViewRibbon,
   ViewSchema,

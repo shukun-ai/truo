@@ -1,9 +1,5 @@
 export * from './legacy/controller/inspection-response.interface';
 
-export * from './legacy/post-message/post-message.interface';
-export * from './legacy/post-message/post-message.service';
-export * from './legacy/post-message/post-message-parent.util';
-
 export * from './legacy/http-request/http-request.service';
 export * from './legacy/http-request/restful-request.service';
 export * from './legacy/http-request/metadata-request.service';
