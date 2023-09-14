@@ -1,5 +1,5 @@
-import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/api';
 import { LegacyFunctionComponent } from '@shukun/component';
+import { PostMessageCustomModeType, PostMessageEvent } from '@shukun/postmate';
 import { message, Modal } from 'antd';
 import { useObservableState } from 'observable-hooks';
 import React, { FunctionComponent, useCallback, useState } from 'react';

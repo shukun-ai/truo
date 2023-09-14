@@ -1,0 +1,39 @@
+{
+  "name": "postmate",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/postmate/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/postmate",
+        "tsConfig": "libs/postmate/tsconfig.lib.json",
+        "packageJson": "libs/postmate/package.json",
+        "main": "libs/postmate/src/index.ts",
+        "assets": ["libs/postmate/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/postmate/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/postmate"],
+      "options": {
+        "jestConfig": "libs/postmate/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

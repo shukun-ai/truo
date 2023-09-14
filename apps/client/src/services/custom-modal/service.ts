@@ -1,4 +1,4 @@
-import { PostMessageCustomModeType } from '@shukun/api';
+import { PostMessageCustomModeType } from '@shukun/postmate';
 import { MetadataSchema, UnknownSourceModel, ViewSchema } from '@shukun/schema';
 
 import { SearchModel } from '../search';
