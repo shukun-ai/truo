@@ -24,11 +24,11 @@ export class SystemGenerator {
     const workflows = await readSection<WorkflowSchema>(inputPath, 'workflows');
     const roles = await readSection<RoleSchema>(inputPath, 'roles');
     const schedules = await readSection<ScheduleSchema>(inputPath, 'schedules');
-    application.metadata = metadata;
-    application.views = views;
-    application.workflows = workflows;
-    application.roles = roles;
-    application.schedules = schedules;
+    application.metadata = metadata.length > 0 ? metadata : undefined;
+    application.views = views.length > 0 ? views : undefined;
+    application.workflows = workflows.length > 0 ? workflows : undefined;
+    application.roles = roles.length > 0 ? roles : undefined;
+    application.schedules = schedules.length > 0 ? schedules : undefined;
 
     const validated = disabledValidation
       ? application
