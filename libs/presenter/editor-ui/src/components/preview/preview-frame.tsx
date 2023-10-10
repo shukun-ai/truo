@@ -1,4 +1,4 @@
-import { Box, useMantineTheme } from '@mantine/core';
+import { Box } from '@mantine/core';
 import {
   POST_MESSAGE_EDITOR_PREVIEW,
   RouterMode,
@@ -12,6 +12,8 @@ import { getPreviewRefreshObservable } from '../../events/preview-event';
 import { usePreviewUrl } from '../../hooks/use-preview-url';
 
 import { devices } from './device';
+
+import { DeviceFrame } from './internal/device-frame';
 import { PreviewToolBar } from './preview-tool-bar';
 
 export type PreviewFrameProps = {
@@ -53,8 +55,6 @@ export const PreviewFrame = () => {
     return device ? device : devices[devices.length - 1];
   }, [selectedDevice]);
 
-  const theme = useMantineTheme();
-
   return (
     <Box
       sx={{
@@ -65,7 +65,6 @@ export const PreviewFrame = () => {
         minWidth: 0,
         minHeight: 0,
         overflow: 'hidden',
-        background: theme.colors.gray[1],
       }}
     >
       <Box>
@@ -80,23 +79,9 @@ export const PreviewFrame = () => {
           width: '100%',
           flex: 1,
           overflow: 'scroll',
-          padding: 12,
-          paddingTop: 0,
         }}
       >
-        <Box
-          sx={{
-            boxSizing: 'content-box',
-            width: device.width,
-            height: device.height,
-            minWidth: device.width,
-            minHeight: device.height,
-            border: 'solid 1px',
-            borderColor: theme.colors.gray[4],
-            borderRadius: 12,
-            overflow: 'hidden',
-          }}
-        >
+        <DeviceFrame device={device}>
           <iframe
             ref={iframeRef}
             src={editorModePreviewUrl}
@@ -107,7 +92,7 @@ export const PreviewFrame = () => {
               height: device.height,
             }}
           />
-        </Box>
+        </DeviceFrame>
       </Box>
     </Box>
   );
