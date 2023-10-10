@@ -29,7 +29,7 @@ export const PreviewToolBar = ({
       sx={{
         display: 'flex',
         alignItems: 'center',
-        padding: '4px 12px',
+        padding: 4,
       }}
     >
       <NativeSelect
