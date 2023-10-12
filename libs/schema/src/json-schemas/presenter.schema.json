@@ -92,36 +92,6 @@
         }
       }
     },
-    "PresenterWatch": {
-      "title": "PresenterWatch",
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["triggers", "events"],
-      "properties": {
-        "triggers": {
-          "type": "object",
-          "properties": {
-            "stateChanged": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": { "type": "string" }
-              }
-            },
-            "interval": {
-              "type": "number",
-              "description": "The unit of interval is milliseconds."
-            }
-          }
-        },
-        "events": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PresenterEvent"
-          }
-        }
-      }
-    },
     "PresenterEvent": {
       "type": "object",
       "title": "PresenterEvent",
