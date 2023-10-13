@@ -1,16 +1,28 @@
 {
   "$schema": "../../../../libs/schema/src/json-schemas/presenter.schema.json",
   "label": "test",
-  "repositories": {},
   "widgets": {
     "欢迎说明": {
       "label": "欢迎说明",
       "tag": "text",
-      "properties": { "value": "欢迎使用操作台" },
+      "properties": { "value": "$$_js:return $.header.title;" },
       "events": {}
     }
   },
   "nodes": {
     "root": ["欢迎说明"]
+  },
+  "variables": {
+    "header": {
+      "defaultValue": "$$_json:{\n  \"title\": \"Hello Variable!\"\n}"
+    }
+  },
+  "repositories": {
+    "header": {
+      "type": "temporary",
+      "parameters": {
+        "defaultValue": "$$_json:{\n  \"title\": \"Hello Repository!\"\n}"
+      }
+    }
   }
 }
