@@ -39,6 +39,9 @@ export interface PresenterSchema {
   nodes: {
     [k: string]: PresenterNode;
   };
+  variables?: {
+    [k: string]: PresenterVariable;
+  };
   repositories: {
     [k: string]: PresenterRepository;
   };
@@ -76,6 +79,16 @@ export interface PresenterEvent {
    * convert the widget payload to repository input.
    */
   value?: string;
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export interface PresenterVariable {
+  schema?: {
+    [k: string]: unknown;
+  };
+  defaultValue?: string;
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition

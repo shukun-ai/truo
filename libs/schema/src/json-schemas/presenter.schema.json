@@ -24,6 +24,14 @@
         }
       }
     },
+    "variables": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "$ref": "#/definitions/PresenterVariable"
+        }
+      }
+    },
     "repositories": {
       "type": "object",
       "patternProperties": {
@@ -73,6 +81,21 @@
       "type": "array",
       "items": {
         "type": "string"
+      }
+    },
+    "PresenterVariable": {
+      "title": "PresenterVariable",
+      "type": "object",
+      "required": [],
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "type": "object",
+          "$comment": "JSON Schema"
+        },
+        "defaultValue": {
+          "type": "string"
+        }
       }
     },
     "PresenterRepository": {
