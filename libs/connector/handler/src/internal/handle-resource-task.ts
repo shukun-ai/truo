@@ -3,13 +3,14 @@ import { ConnectorTask } from '@shukun/schema';
 
 import { getDefinition } from '../helpers/get-definition';
 import { createRequesterAdaptor } from '../helpers/requester-adaptor';
-import { HandlerContext } from '../types';
+import { HandlerContext, HandlerInjector } from '../types';
 
 export const handleResourceTask = async (
   task: ConnectorTask,
   context: HandlerContext,
-) => {
-  const adaptor = createAdaptor(task, context);
+  injector: HandlerInjector,
+): Promise<HandlerContext> => {
+  const adaptor = createAdaptor(task, context, injector);
 
   const response = await adaptor.fetch<{ value: unknown }>('POST', '', {
     body: task.parameters,
@@ -25,8 +26,9 @@ export const handleResourceTask = async (
 const createAdaptor = (
   task: ConnectorTask,
   context: HandlerContext,
+  injector: HandlerInjector,
 ): IRequestAdaptor => {
-  const definition = getDefinition(task, context);
+  const definition = getDefinition(task, injector.taskDefinitions);
 
   // @remark if the address and defaultAddress is not defined, will throw error
   // It will help us to recognize what task definition is not defined address.

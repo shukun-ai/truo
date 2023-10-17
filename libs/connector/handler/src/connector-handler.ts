@@ -2,13 +2,11 @@ import { TypeException } from '@shukun/exception';
 
 import { ConnectorTask } from '@shukun/schema';
 
-import { internalHandlerMaps } from './handlers-map';
-import { handleResourceTask } from './internal/handle-resource-task';
-import { parseParameters } from './template/template';
-import { HandlerContext } from './types';
+import { HandlerContext, HandlerInjector } from './types';
 
 export const execute = async (
   context: HandlerContext,
+  injector: HandlerInjector,
 ): Promise<HandlerContext> => {
   const current = context.next;
 
@@ -16,7 +14,7 @@ export const execute = async (
     return context;
   }
 
-  const nextTask = context.connector.tasks[current];
+  const nextTask = injector.connector.tasks[current];
 
   if (!nextTask) {
     throw new TypeException('Did not find the specific task: {{task}}', {
@@ -24,33 +22,40 @@ export const execute = async (
     });
   }
 
+  const newInjector: HandlerInjector = {
+    ...injector,
+    executeTask: execute,
+  };
+
   // @remark: handle next task
   const newContext = await handleTask(
     {
       ...nextTask,
-      parameters: parseParameters(nextTask.parameters, context) as Record<
-        string,
-        unknown
-      >,
+      parameters: injector.parseParameters(
+        nextTask.parameters,
+        context,
+        injector,
+      ) as Record<string, unknown>,
     },
-    {
-      ...context,
-      executeTask: execute,
-    },
+    context,
+    newInjector,
   );
 
-  return execute(newContext);
+  return execute(newContext, newInjector);
 };
 
 const handleTask = async (
   task: ConnectorTask,
   context: HandlerContext,
+  injector: HandlerInjector,
 ): Promise<HandlerContext> => {
-  if (internalHandlerMaps[task.type]) {
-    const handleInternalTask = internalHandlerMaps[task.type];
-    return await handleInternalTask(task, context);
-  } else if (Object.keys(context.taskDefinitions).includes(task.type)) {
-    return await handleResourceTask(task, context);
+  if (injector.taskHandlers[task.type]) {
+    const handleInternalTask = injector.taskHandlers[task.type];
+    return await handleInternalTask(task, context, injector);
+  } else if (Object.keys(injector.taskDefinitions).includes(task.type)) {
+    const defaultTaskType = 'default';
+    const handleInternalTask = injector.taskHandlers[defaultTaskType];
+    return await handleInternalTask(task, context, injector);
   } else {
     throw new TypeException(
       'We did not support the specific task type: {{type}}',

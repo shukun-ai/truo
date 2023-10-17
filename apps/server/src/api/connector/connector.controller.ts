@@ -28,20 +28,21 @@ export class ConnectorController {
     const taskDefinitions = await this.connectorTaskService.query(orgName);
     const env = await this.environmentService.findAllEnvironments(orgName);
 
-    const output = await this.connectorHandlerService.execute({
-      input: dto,
-      next: connector.start,
-      index: 0,
-      env,
-      temps: {},
-      params: dto,
-      orgName,
-      operatorId: req.userId,
-      accessToken: req.accessToken,
-      taskDefinitions,
+    const output = await this.connectorHandlerService.execute(
+      {
+        input: dto,
+        next: connector.start,
+        index: 0,
+        env,
+        temps: {},
+        params: dto,
+        orgName,
+        operatorId: req.userId,
+        accessToken: req.accessToken,
+      },
       connector,
-      executeTask: null,
-    });
+      taskDefinitions,
+    );
 
     return output.input;
   }

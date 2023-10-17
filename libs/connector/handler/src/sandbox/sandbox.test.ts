@@ -16,9 +16,6 @@ describe('sandbox', () => {
         orgName: 'shukun',
         operatorId: undefined,
         accessToken: undefined,
-        taskDefinitions: {},
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        connector: undefined as any,
       };
       const output = runSandbox(code, context);
       expect(output).toEqual(1);

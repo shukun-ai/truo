@@ -1,13 +1,14 @@
 import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext, ParallelParameters } from '../types';
+import { HandlerContext, HandlerInjector, ParallelParameters } from '../types';
 
 export const handleParallelTask = async (
   task: ConnectorTask,
   context: HandlerContext,
+  injector: HandlerInjector,
 ): Promise<HandlerContext> => {
-  const { executeTask } = context;
+  const { executeTask } = injector;
 
   if (!executeTask) {
     throw new TypeException('Did not find executeTask');
@@ -16,11 +17,14 @@ export const handleParallelTask = async (
   const { branches } = task.parameters as ParallelParameters;
 
   const branchesPromise = branches.map(async (branch, index) => {
-    const computedContext = await executeTask({
-      ...context,
-      next: branch.start,
-      index,
-    });
+    const computedContext = await executeTask(
+      {
+        ...context,
+        next: branch.start,
+        index,
+      },
+      injector,
+    );
     return computedContext.input;
   });
 

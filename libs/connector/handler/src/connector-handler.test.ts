@@ -1,5 +1,8 @@
 import { execute } from './connector-handler';
-import { HandlerContext } from './types';
+import { taskHandlers } from './handlers-map';
+import { runSandbox } from './sandbox/sandbox';
+import { parseParameters } from './template/template';
+import { HandlerContext, HandlerInjector } from './types';
 
 describe('connector-handler', () => {
   describe('repeat', () => {
@@ -13,6 +16,9 @@ describe('connector-handler', () => {
       orgName: 'shukun',
       operatorId: undefined,
       accessToken: undefined,
+    };
+
+    const defaultInjector: HandlerInjector = {
       taskDefinitions: {},
       connector: {
         label: 'test',
@@ -47,15 +53,26 @@ describe('connector-handler', () => {
           },
         },
       },
+      executeTask: null,
+      executeSandbox: null,
+      parseParameters,
+      taskHandlers,
     };
 
     it('should handle repeat', async () => {
-      const output = await execute({
-        ...defaultContext,
-        input: {
-          repeat: 2,
+      const output = await execute(
+        {
+          ...defaultContext,
+          input: {
+            repeat: 2,
+          },
         },
-      });
+        {
+          ...defaultInjector,
+          executeTask: execute,
+          executeSandbox: runSandbox,
+        },
+      );
       expect(output.input).toEqual({
         say: ['Hello World!', 'Hello World!'],
       });
@@ -73,6 +90,9 @@ describe('connector-handler', () => {
       orgName: 'shukun',
       operatorId: undefined,
       accessToken: undefined,
+    };
+
+    const defaultInjector: HandlerInjector = {
       taskDefinitions: {},
       connector: {
         label: 'test',
@@ -112,12 +132,23 @@ describe('connector-handler', () => {
           },
         },
       },
+      executeTask: null,
+      executeSandbox: null,
+      parseParameters,
+      taskHandlers,
     };
 
     it('should handle parallel', async () => {
-      const output = await execute({
-        ...defaultContext,
-      });
+      const output = await execute(
+        {
+          ...defaultContext,
+        },
+        {
+          ...defaultInjector,
+          executeTask: execute,
+          executeSandbox: runSandbox,
+        },
+      );
       expect(output.input).toEqual({
         say: ['Hello', 'World!'],
       });
@@ -127,7 +158,7 @@ describe('connector-handler', () => {
   describe('choice', () => {
     const defaultContext: HandlerContext = {
       input: null,
-      next: 'choice',
+      next: 'isEnglish',
       index: 0,
       env: {},
       temps: {},
@@ -135,25 +166,28 @@ describe('connector-handler', () => {
       orgName: 'shukun',
       operatorId: undefined,
       accessToken: undefined,
+    };
+
+    const defaultInjector: HandlerInjector = {
       taskDefinitions: {},
       connector: {
         label: 'test',
-        start: 'choice',
+        start: 'isEnglish',
         tasks: {
-          choice: {
-            type: 'choice',
-            next: 'handleDefaultLanguage',
+          isEnglish: {
+            type: 'either',
+            next: 'handleEnglish',
             parameters: {
-              conditions: [
-                {
-                  condition: "$$_js:return $.input.language === 'EN'",
-                  next: 'handleEnglish',
-                },
-                {
-                  condition: "$$_js:return $.input.language === 'CN'",
-                  next: 'handleChinese',
-                },
-              ],
+              condition: "$$_js:return $.input.language === 'EN'",
+              right: 'isChinese',
+            },
+          },
+          isChinese: {
+            type: 'either',
+            next: 'handleChinese',
+            parameters: {
+              condition: "$$_js:return $.input.language === 'CN'",
+              right: 'handleDefaultLanguage',
             },
           },
           handleEnglish: {
@@ -176,39 +210,64 @@ describe('connector-handler', () => {
           },
         },
       },
+      executeTask: null,
+      executeSandbox: null,
+      parseParameters,
+      taskHandlers,
     };
 
     it('should return English, when set EN choice', async () => {
-      const output = await execute({
-        ...defaultContext,
-        input: {
-          language: 'EN',
+      const output = await execute(
+        {
+          ...defaultContext,
+          input: {
+            language: 'EN',
+          },
         },
-      });
+        {
+          ...defaultInjector,
+          executeTask: execute,
+          executeSandbox: runSandbox,
+        },
+      );
       expect(output.input).toEqual({
         language: 'English',
       });
     });
 
     it('should return Chinese, when set CN choice', async () => {
-      const output = await execute({
-        ...defaultContext,
-        input: {
-          language: 'CN',
+      const output = await execute(
+        {
+          ...defaultContext,
+          input: {
+            language: 'CN',
+          },
         },
-      });
+        {
+          ...defaultInjector,
+          executeTask: execute,
+          executeSandbox: runSandbox,
+        },
+      );
       expect(output.input).toEqual({
         language: 'Chinese',
       });
     });
 
     it('should return Default, when set FR choice', async () => {
-      const output = await execute({
-        ...defaultContext,
-        input: {
-          language: 'FR',
+      const output = await execute(
+        {
+          ...defaultContext,
+          input: {
+            language: 'FR',
+          },
         },
-      });
+        {
+          ...defaultInjector,
+          executeTask: execute,
+          executeSandbox: runSandbox,
+        },
+      );
       expect(output.input).toEqual({
         language: 'Default',
       });

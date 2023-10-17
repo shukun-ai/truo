@@ -2,13 +2,14 @@ import { TypeException } from '@shukun/exception';
 
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext, RepeatParameters } from '../types';
+import { HandlerContext, HandlerInjector, RepeatParameters } from '../types';
 
 export const handleRepeatTask = async (
   task: ConnectorTask,
   context: HandlerContext,
+  injector: HandlerInjector,
 ): Promise<HandlerContext> => {
-  const { executeTask } = context;
+  const { executeTask } = injector;
 
   if (!executeTask) {
     throw new TypeException('Did not find executeTask');
@@ -26,11 +27,14 @@ export const handleRepeatTask = async (
   }
 
   for (let index = 0; index < repeatCount; index++) {
-    const { input: output } = await executeTask({
-      ...context,
-      next: start,
-      index,
-    });
+    const { input: output } = await executeTask(
+      {
+        ...context,
+        next: start,
+        index,
+      },
+      injector,
+    );
     outputArray.push(output);
   }
 

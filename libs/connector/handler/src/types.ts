@@ -1,5 +1,6 @@
 import {
   ConnectorSchema,
+  ConnectorTask,
   DataSourceEnvironments,
   IDString,
   TaskSchema,
@@ -15,9 +16,31 @@ export type HandlerContext = {
   orgName: string;
   operatorId: IDString | undefined;
   accessToken: string | undefined;
+};
+
+export type HandlerInjector = {
   connector: ConnectorSchema;
   taskDefinitions: Record<string, TaskSchema>;
-  executeTask?: null | ((context: HandlerContext) => Promise<HandlerContext>);
+  executeTask:
+    | null
+    | ((
+        context: HandlerContext,
+        injector: HandlerInjector,
+      ) => Promise<HandlerContext>);
+  executeSandbox: null | ((code: string, context: HandlerContext) => unknown);
+  parseParameters: (
+    parameters: unknown,
+    context: HandlerContext,
+    injector: HandlerInjector,
+  ) => unknown;
+  taskHandlers: Record<
+    string,
+    (
+      task: ConnectorTask,
+      context: HandlerContext,
+      injector: HandlerInjector,
+    ) => Promise<HandlerContext>
+  >;
 };
 
 export type ParallelParameters = {

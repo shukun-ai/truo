@@ -1,10 +1,11 @@
 import { TypeException } from '@shukun/exception';
-import { ConnectorTask } from '@shukun/schema';
+import { ConnectorTask, TaskSchema } from '@shukun/schema';
 
-import { HandlerContext } from '../types';
-
-export const getDefinition = (task: ConnectorTask, context: HandlerContext) => {
-  const definition = context.taskDefinitions[task.type];
+export const getDefinition = (
+  task: ConnectorTask,
+  taskDefinitions: Record<string, TaskSchema>,
+) => {
+  const definition = taskDefinitions[task.type];
 
   if (!definition) {
     throw new TypeException('Did not find task definition.');
