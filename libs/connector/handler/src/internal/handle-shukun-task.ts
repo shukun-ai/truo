@@ -4,15 +4,16 @@ import { ConnectorTask } from '@shukun/schema';
 
 import { getDefinition } from '../helpers/get-definition';
 import { createRequesterAdaptor } from '../helpers/requester-adaptor';
-import { HandlerContext } from '../types';
+import { HandlerContext, HandlerInjector } from '../types';
 
 export const handleShukunTask = async (
   task: ConnectorTask,
   context: HandlerContext,
+  injector: HandlerInjector,
 ): Promise<HandlerContext> => {
   switch (task.type) {
     case 'sourceQuery':
-      return await handleSourceQueryTask(task, context);
+      return await handleSourceQueryTask(task, context, injector);
     default:
       throw new TypeException('This type is not supported by shukun task.');
   }
@@ -21,11 +22,12 @@ export const handleShukunTask = async (
 const handleSourceQueryTask = async (
   task: ConnectorTask,
   context: HandlerContext,
+  injector: HandlerInjector,
 ): Promise<HandlerContext> => {
   const { atomName, query } = task.parameters as any;
 
   const requester = new SourceRequester(
-    createShukunAdaptor(task, context),
+    createShukunAdaptor(task, context, injector),
     atomName,
   );
   const response = await requester.query(query);
@@ -40,8 +42,9 @@ const handleSourceQueryTask = async (
 const createShukunAdaptor = (
   task: ConnectorTask,
   context: HandlerContext,
+  injector: HandlerInjector,
 ): IRequestAdaptor => {
-  const definition = getDefinition(task, context);
+  const definition = getDefinition(task, injector.taskDefinitions);
 
   const defaultAddress = `http://127.0.0.1:${
     process.env.PORT ?? '3000'

@@ -1,4 +1,5 @@
-import { HandlerContext } from '../types';
+import { runSandbox } from '../sandbox/sandbox';
+import { HandlerContext, HandlerInjector } from '../types';
 
 import { parseParameters } from './template';
 describe('template', () => {
@@ -14,9 +15,17 @@ describe('template', () => {
         orgName: 'shukun',
         operatorId: undefined,
         accessToken: undefined,
+      };
+      const injector: HandlerInjector = {
         taskDefinitions: {},
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         connector: undefined as any,
+        executeTask: null,
+        executeSandbox: runSandbox,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        parseParameters: undefined as any,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        taskHandlers: undefined as any,
       };
       const parameters = {
         key: '$$_js:return $.index + 1;',
@@ -30,7 +39,7 @@ describe('template', () => {
           mock: '$$_js:return $.index + 1;',
         },
       };
-      const output = parseParameters(parameters, context);
+      const output = parseParameters(parameters, context, injector);
       expect(output).toEqual({
         key: 1,
         atomName: 'airlines',
