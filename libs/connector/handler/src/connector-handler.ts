@@ -2,12 +2,8 @@ import { TypeException } from '@shukun/exception';
 
 import { ConnectorTask } from '@shukun/schema';
 
-import { handleChoiceTask } from './internal/handle-choice-task';
-import { handleParallelTask } from './internal/handle-parallel-task';
-import { handleRepeatTask } from './internal/handle-repeat.task';
+import { internalHandlerMaps } from './handlers-map';
 import { handleResourceTask } from './internal/handle-resource-task';
-import { handleShukunTask } from './internal/handle-shukun-task';
-import { handleTransformerTask } from './internal/handle-transformer-task';
 import { parseParameters } from './template/template';
 import { HandlerContext } from './types';
 
@@ -50,22 +46,10 @@ const handleTask = async (
   task: ConnectorTask,
   context: HandlerContext,
 ): Promise<HandlerContext> => {
-  switch (task.type) {
-    case 'transformer':
-      return handleTransformerTask(task, context);
-    case 'choice':
-      return handleChoiceTask(task, context);
-    case 'parallel':
-      return await handleParallelTask(task, context);
-    case 'repeat':
-      return await handleRepeatTask(task, context);
-  }
-
-  if (['sourceQuery'].includes(task.type)) {
-    return await handleShukunTask(task, context);
-  }
-
-  if (Object.keys(context.taskDefinitions).includes(task.type)) {
+  if (internalHandlerMaps[task.type]) {
+    const handleInternalTask = internalHandlerMaps[task.type];
+    return await handleInternalTask(task, context);
+  } else if (Object.keys(context.taskDefinitions).includes(task.type)) {
     return await handleResourceTask(task, context);
   } else {
     throw new TypeException(
