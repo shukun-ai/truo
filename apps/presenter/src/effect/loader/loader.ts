@@ -4,10 +4,7 @@ import {
   RouterMode,
   RouterState,
 } from '@shukun/presenter/definition';
-import {
-  presenterRepositories,
-  presenterWidgets,
-} from '@shukun/presenter/widget-react';
+import { presenterWidgets } from '@shukun/presenter/widget-react';
 
 import { LocalPresenterLoader } from './internal/local-presenter-loader';
 import { ServerPresenterLoader } from './internal/server-presenter-loader';
@@ -40,6 +37,9 @@ const loadWidgets = async (): Promise<
   return presenterWidgets;
 };
 
+/**
+ * @deprecated
+ */
 const loadRepositories = async (): Promise<Record<string, Repository>> => {
-  return presenterRepositories;
+  return {};
 };

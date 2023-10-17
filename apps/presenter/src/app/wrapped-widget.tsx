@@ -3,7 +3,7 @@ import { Children, cloneElement, useEffect, useMemo } from 'react';
 
 import { AppProps, StandardState } from '../interfaces/app';
 
-import { handleEvents } from './event/handle-events';
+import { handleEvent } from './event/handle-events';
 import { runTemplate } from './template/template';
 
 export type WrappedWidgetProps = {
@@ -42,9 +42,8 @@ export const WrappedWidget = ({
 
     for (const [eventId, event] of Object.entries(widget.events)) {
       events[eventId] = (payload: unknown) => {
-        const events = event;
-        handleEvents(
-          events,
+        handleEvent(
+          event,
           state,
           injector,
           appProps.presenter,
