@@ -32,6 +32,14 @@
         }
       }
     },
+    "processes": {
+      "type": "object",
+      "patternProperties": {
+        "^(.)+$": {
+          "$ref": "#/definitions/PresenterProcess"
+        }
+      }
+    },
     "repositories": {
       "type": "object",
       "patternProperties": {
@@ -67,10 +75,7 @@
           "type": "object",
           "patternProperties": {
             "^(.)+$": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PresenterEvent"
-              }
+              "$ref": "#/definitions/PresenterEvent"
             }
           }
         }
@@ -119,26 +124,62 @@
       "type": "object",
       "title": "PresenterEvent",
       "additionalProperties": false,
-      "required": ["target", "action"],
+      "required": ["process", "value"],
       "properties": {
-        "target": {
-          "description": "Target for repository",
+        "process": {
+          "description": "Process Id",
           "type": "string"
-        },
-        "action": {
-          "description": "The action from repository",
-          "type": "string"
-        },
-        "path": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "default": []
         },
         "value": {
-          "description": "convert the widget payload to repository input.",
+          "description": "convert the widget payload to process input.",
           "type": "string"
+        }
+      }
+    },
+    "PresenterProcess": {
+      "title": "PresenterProcess",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "inputSchema", "start", "actions"],
+      "properties": {
+        "label": { "type": "string" },
+        "inputSchema": {
+          "type": "object",
+          "$comment": "The input JSON Schema Rule"
+        },
+        "start": {
+          "type": "string",
+          "$comment": "Start task name"
+        },
+        "actions": {
+          "type": "object",
+          "patternProperties": {
+            "^(.)+$": {
+              "type": "object",
+              "title": "PresenterAction",
+              "required": ["type", "parameters"],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "$comment": "task name from task list defined by TaskSchema."
+                },
+                "parameters": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^(.)+$": {
+                      "tsType": "unknown",
+                      "$comment": "The value and structure is defined by task list by TaskSchema."
+                    }
+                  }
+                },
+                "next": {
+                  "type": "string",
+                  "$comment": "Next task name."
+                }
+              }
+            }
+          }
         }
       }
     }
