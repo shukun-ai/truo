@@ -40,6 +40,7 @@ export class ConnectorController {
       accessToken: req.accessToken,
       taskDefinitions,
       connector,
+      executeTask: null,
     });
 
     return output.input;

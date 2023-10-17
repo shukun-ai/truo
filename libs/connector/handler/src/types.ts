@@ -17,6 +17,7 @@ export type HandlerContext = {
   accessToken: string | undefined;
   connector: ConnectorSchema;
   taskDefinitions: Record<string, TaskSchema>;
+  executeTask?: null | ((context: HandlerContext) => Promise<HandlerContext>);
 };
 
 export type ParallelParameters = {
