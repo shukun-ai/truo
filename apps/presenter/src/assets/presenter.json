@@ -7,14 +7,40 @@
       "tag": "text",
       "properties": { "value": "$$_js:return $.header.title;" },
       "events": {}
+    },
+    "按钮": {
+      "label": "按钮",
+      "tag": "button",
+      "properties": {
+        "text": "点击"
+      },
+      "events": {
+        "onClick": {
+          "process": "buttonOnClick",
+          "value": ""
+        }
+      }
     }
   },
   "nodes": {
-    "root": ["欢迎说明"]
+    "root": ["欢迎说明", "按钮"]
   },
   "variables": {
     "header": {
       "defaultValue": "$$_json:{\n  \"title\": \"Hello Variable!\"\n}"
+    }
+  },
+  "processes": {
+    "buttonOnClick": {
+      "label": "buttonOnClick",
+      "inputSchema": {},
+      "start": "message",
+      "actions": {
+        "message": {
+          "type": "message",
+          "parameters": {}
+        }
+      }
     }
   },
   "repositories": {
