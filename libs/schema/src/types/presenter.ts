@@ -42,6 +42,9 @@ export interface PresenterSchema {
   variables?: {
     [k: string]: PresenterVariable;
   };
+  processes?: {
+    [k: string]: PresenterProcess;
+  };
   repositories: {
     [k: string]: PresenterRepository;
   };
@@ -58,27 +61,22 @@ export interface PresenterWidget {
     [k: string]: PresenterParameter;
   };
   events: {
-    /**
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^(.)+$".
-     */
-    [k: string]: PresenterEvent[];
+    [k: string]: PresenterEvent;
   };
 }
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
 export interface PresenterEvent {
   /**
-   * Target for repository
+   * Process Id
    */
-  target: string;
+  process: string;
   /**
-   * The action from repository
+   * convert the widget payload to process input.
    */
-  action: string;
-  path?: string[];
-  /**
-   * convert the widget payload to repository input.
-   */
-  value?: string;
+  value: string;
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
@@ -89,6 +87,35 @@ export interface PresenterVariable {
     [k: string]: unknown;
   };
   defaultValue?: string;
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export interface PresenterProcess {
+  label: string;
+  inputSchema: {
+    [k: string]: unknown;
+  };
+  start: string;
+  actions: {
+    [k: string]: PresenterAction;
+  };
+}
+/**
+ * This interface was referenced by `undefined`'s JSON-Schema definition
+ * via the `patternProperty` "^(.)+$".
+ */
+export interface PresenterAction {
+  type: string;
+  parameters: {
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^(.)+$".
+     */
+    [k: string]: unknown;
+  };
+  next?: string;
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
