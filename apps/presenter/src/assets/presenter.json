@@ -17,7 +17,7 @@
       "events": {
         "onClick": {
           "process": "buttonOnClick",
-          "value": ""
+          "value": "$$_js:return $.payload;"
         }
       }
     }
