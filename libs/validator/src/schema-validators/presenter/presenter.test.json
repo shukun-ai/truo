@@ -17,13 +17,10 @@
         "value": "{{$.form1.deviceNumber}}"
       },
       "events": {
-        "value-changed": [
-          {
-            "target": "form1",
-            "action": "setValue",
-            "path": ["deviceNumber"]
-          }
-        ]
+        "value-changed": {
+          "process": "w2OnValueChanged",
+          "value": ""
+        }
       }
     },
     "w3": {
@@ -37,6 +34,21 @@
   },
   "nodes": {
     "root": ["w1", "w2", "w3"]
+  },
+  "processes": {
+    "w2OnValueChanged": {
+      "label": "w2OnValueChanged",
+      "start": "setValue",
+      "tasks": {
+        "setValue": {
+          "type": "assign",
+          "parameters": {
+            "variable": "test",
+            "expression": "test"
+          }
+        }
+      }
+    }
   },
   "repositories": {
     "form1": {
