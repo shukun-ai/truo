@@ -1,6 +1,5 @@
+import { HandlerContext } from '@shukun/connector/handler';
 import { NodeVM } from 'vm2';
-
-import { HandlerContext } from '../types';
 
 export const runSandbox = (code: string, context: HandlerContext): unknown => {
   const vm = new NodeVM();

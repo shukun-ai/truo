@@ -1,5 +1,5 @@
 import { Body, Controller, Param, Post, Req } from '@nestjs/common';
-import { ConnectorHandlerService } from '@shukun/connector/handler';
+import { ConnectorHandlerService } from '@shukun/connector/node-runtime';
 import { RoleResourceType } from '@shukun/schema';
 
 import { ConnectorService } from '../../core/connector/connector.service';

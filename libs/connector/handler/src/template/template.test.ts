@@ -1,7 +1,7 @@
-import { runSandbox } from '../sandbox/sandbox';
 import { HandlerContext, HandlerInjector } from '../types';
 
 import { parseParameters } from './template';
+
 describe('template', () => {
   describe('parseParameters', () => {
     it('return parsed parameters.', () => {
@@ -21,7 +21,9 @@ describe('template', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         connector: undefined as any,
         executeTask: null,
-        executeSandbox: runSandbox,
+        executeSandbox: (code: string) => {
+          return code;
+        },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         parseParameters: undefined as any,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,15 +43,15 @@ describe('template', () => {
       };
       const output = parseParameters(parameters, context, injector);
       expect(output).toEqual({
-        key: 1,
+        key: 'return $.index + 1;',
         atomName: 'airlines',
         number: 1,
         turnOn: true,
         light: null,
         dark: undefined,
-        items: [1],
+        items: ['return $.index + 1;'],
         map: {
-          mock: 1,
+          mock: 'return $.index + 1;',
         },
       });
     });
