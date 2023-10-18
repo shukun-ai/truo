@@ -8,6 +8,7 @@ export type TabEntity = {
   tabType:
     | 'widget'
     | 'repository'
+    | 'process'
     | 'watch'
     | 'connector'
     | 'metadata'

@@ -14,6 +14,7 @@ import { ActivityTab, useEditorContext } from '../editor-context';
 import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
+import { ProcessList } from './process-list/process-list';
 import { RepositoryList } from './repository-list/repository-list';
 import { TreePane } from './tree/tree-pane';
 
@@ -129,6 +130,13 @@ const useActivityTabs = (): {
       icon: <Icon type="activityBarRepositories" size="1.2rem" />,
       disabled: disabledPresenter,
       pane: <RepositoryList />,
+    },
+    {
+      label: '事件流程',
+      value: ActivityTab.Processes,
+      icon: <Icon type="activityBarProcesses" size="1.2rem" />,
+      disabled: disabledPresenter,
+      pane: <ProcessList />,
     },
     {
       label: '数据表',

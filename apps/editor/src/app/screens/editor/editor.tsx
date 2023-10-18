@@ -12,6 +12,7 @@ import { deserialization } from '../../../repositories/presenter/deserialization
 import { editorRepository } from '../../../repositories/presenter/editor-repository';
 import { nodeRepository } from '../../../repositories/presenter/node-repository';
 import { ActivityTab } from '../../../repositories/presenter/presenter-store';
+import { processRepository } from '../../../repositories/presenter/process-repository';
 import { repositoryRepository } from '../../../repositories/presenter/repository-repository';
 import { widgetRepository } from '../../../repositories/presenter/widget-repository';
 import { tabRepository } from '../../../repositories/tab/tab-repository';
@@ -64,6 +65,7 @@ export const Editor = ({ mode }: EditorProps) => {
           widgets: presenter.widgetEntities,
           nodes: presenter.nodes,
           repositories: presenter.repositoryEntities,
+          processes: presenter.processEntities,
           metadatas,
           connectors,
           environments,
@@ -126,6 +128,11 @@ export const Editor = ({ mode }: EditorProps) => {
             update: repositoryRepository.update,
             remove: repositoryRepository.remove,
           },
+          process: {
+            create: processRepository.create,
+            update: processRepository.update,
+            remove: processRepository.remove,
+          },
           metadata: {
             create: metadataRepository.create,
             update: metadataRepository.update,
@@ -146,6 +153,8 @@ export const Editor = ({ mode }: EditorProps) => {
               tabRepository.preview('widget', foreignId),
             previewRepository: (foreignId: string) =>
               tabRepository.preview('repository', foreignId),
+            previewProcess: (foreignId: string) =>
+              tabRepository.preview('process', foreignId),
             previewConnector: (foreignId: string) =>
               tabRepository.preview('connector', foreignId),
             previewMetadata: (foreignId: string) =>

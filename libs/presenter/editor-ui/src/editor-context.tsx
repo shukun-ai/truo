@@ -5,6 +5,7 @@ import {
   MetadataElectron,
   MetadataReviseSchema,
   PresenterNode,
+  PresenterProcess,
   PresenterRepository,
   PresenterSchema,
   PresenterWidget,
@@ -18,6 +19,7 @@ export enum ActivityTab {
   Screens = 'Screens',
   Widgets = 'Widgets',
   Repositories = 'Repositories',
+  Processes = 'Processes',
   Watches = 'Watches',
   Metadatas = 'Metadatas',
   Connectors = 'Connectors',
@@ -27,8 +29,8 @@ export enum ActivityTab {
 export type Entity<T> = T & { id: string };
 
 export type WidgetEntity = Entity<PresenterWidget>;
-// export type NodeEntity = Entity<PresenterNode>;
 export type RepositoryEntity = Entity<PresenterRepository>;
+export type ProcessEntity = Entity<PresenterProcess>;
 export type MetadataEntity = Entity<MetadataReviseSchema>;
 export type ConnectorEntity = Entity<ConnectorSchema>;
 export type EnvironmentEntity = Entity<EnvironmentSchema>;
@@ -42,6 +44,7 @@ export type TabEntity = {
   tabType:
     | 'widget'
     | 'repository'
+    | 'process'
     | 'watch'
     | 'connector'
     | 'metadata'
@@ -68,6 +71,7 @@ export type EditorContextProps = {
     widgets: Record<string, WidgetEntity>;
     nodes: Record<string, PresenterNode>;
     repositories: Record<string, RepositoryEntity>;
+    processes: Record<string, ProcessEntity>;
     metadatas: Record<string, MetadataEntity>;
     connectors: Record<string, ConnectorEntity>;
     environments: Record<string, EnvironmentEntity>;
@@ -134,6 +138,11 @@ export type EditorContextProps = {
       update(repositoryId: string, repository: PresenterRepository): void;
       remove(repositoryId: string): void;
     };
+    process: {
+      create(processId: string, process: PresenterProcess): void;
+      update(processId: string, process: PresenterProcess): void;
+      remove(processId: string): void;
+    };
     metadata: {
       create(metadataName: string): void;
       update(entity: MetadataEntity): void;
@@ -152,6 +161,7 @@ export type EditorContextProps = {
     tab: {
       previewWidget: (widgetEntityId: string) => void;
       previewRepository(repositoryEntityId: string): void;
+      previewProcess(processEntityId: string): void;
       previewConnector(connectorEntityId: string): void;
       previewMetadata(metadataEntityId: string): void;
       previewEnvironment(environmentEntityId: string): void;

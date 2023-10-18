@@ -5,6 +5,7 @@ import { PresenterNode, RepositorySchema, WidgetSchema } from '@shukun/schema';
 import { repositoryDefinitions } from '../../widgets/repository-loader';
 import { widgetDefinitions, widgetGallery } from '../../widgets/widget-loader';
 
+import { withProcess } from './process-ref';
 import { withRepository } from './repository-ref';
 import { withTreeCollapse } from './tree-ui-ref';
 import { withWidget } from './widget-ref';
@@ -25,6 +26,7 @@ export enum ActivityTab {
   Screens = 'Screens',
   Widgets = 'Widgets',
   Repositories = 'Repositories',
+  Processes = 'Processes',
   Watches = 'Watches',
   Metadatas = 'Metadatas',
   Connectors = 'Connectors',
@@ -63,4 +65,5 @@ export const presenterStore = createStore(
   withTreeCollapse(),
   withWidget(),
   withRepository(),
+  withProcess(),
 );
