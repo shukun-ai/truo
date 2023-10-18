@@ -29,6 +29,13 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           {state.repositories[tab.foreignId]?.id}
         </Group>
       );
+    } else if (tab.tabType === 'process') {
+      return (
+        <Group>
+          <Icon type="activityBarProcesses" size="0.8rem" />{' '}
+          {state.processes[tab.foreignId]?.label}
+        </Group>
+      );
     } else if (tab.tabType === 'connector') {
       return (
         <Group>
@@ -58,6 +65,7 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
     tab.foreignId,
     state.widgets,
     state.repositories,
+    state.processes,
     state.connectors,
     state.metadatas,
     state.environments,

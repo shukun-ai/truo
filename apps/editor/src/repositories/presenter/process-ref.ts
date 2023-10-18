@@ -1,5 +1,6 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
 import { PresenterProcess } from '@shukun/schema';
+import { nanoid } from 'nanoid';
 
 export type PresenterProcessEntity = {
   id: string;
@@ -14,8 +15,8 @@ export const withProcess = () => {
 
 export const processRef = processEntitiesRef;
 
-export const createProcessEntityId = (processId: string): string => {
-  return processId;
+export const createProcessEntityId = (): string => {
+  return `P-${nanoid()}`;
 };
 
 export const getProcess = (processEntity: PresenterProcessEntity) => {

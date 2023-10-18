@@ -139,7 +139,7 @@ export type EditorContextProps = {
       remove(repositoryId: string): void;
     };
     process: {
-      create(processId: string, process: PresenterProcess): void;
+      create(process: PresenterProcess): string;
       update(processId: string, process: PresenterProcess): void;
       remove(processId: string): void;
     };

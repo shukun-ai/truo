@@ -16,6 +16,7 @@ export * from './editor-tabs/editor-tab-wrapper';
 export * from './rename-form/rename-form';
 export * from './connector-editor/connector-editor';
 export * from './connector-editor/connector-editor-context';
+// TODO remove this component because the business comes more simple
 export * from './editor-inputs/editor-inputs';
 export * from './widget-gallery-input/widget-gallery-input';
 export * from './json-viewer/json-viewer';

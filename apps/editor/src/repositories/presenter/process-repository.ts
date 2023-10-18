@@ -12,19 +12,18 @@ import {
 } from './process-ref';
 
 export const processRepository = {
-  create: (
-    processId: string,
-    process: Omit<PresenterProcessEntity, 'id'>,
-  ): void => {
+  create: (process: Omit<PresenterProcessEntity, 'id'>): string => {
+    const id = createProcessEntityId();
     presenterStore.update(
       addEntities(
         {
           ...process,
-          id: createProcessEntityId(processId),
+          id,
         },
         { ref: processRef },
       ),
     );
+    return id;
   },
 
   update: (
