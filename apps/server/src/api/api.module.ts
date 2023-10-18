@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 
-import { ConnectorHandlerModule } from '@shukun/connector/handler';
+import { ConnectorHandlerModule } from '@shukun/connector/node-runtime';
 
 import { CoreModule } from '../core/core.module';
 import { IdentityMiddleware } from '../identity/identity.middleware';

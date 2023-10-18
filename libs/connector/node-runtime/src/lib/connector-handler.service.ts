@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
+import {
+  execute,
+  parseParameters,
+  HandlerContext,
+} from '@shukun/connector/handler';
 import { ConnectorSchema, TaskSchema } from '@shukun/schema';
 
-import { execute } from './connector-handler';
 import { taskHandlers } from './handlers-map';
 import { runSandbox } from './sandbox/sandbox';
-import { parseParameters } from './template/template';
-import { HandlerContext } from './types';
 
 @Injectable()
 export class ConnectorHandlerService {

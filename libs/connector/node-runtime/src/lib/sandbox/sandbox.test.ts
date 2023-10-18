@@ -1,4 +1,4 @@
-import { HandlerContext } from '../types';
+import { HandlerContext } from '@shukun/connector/handler';
 
 import { runSandbox } from './sandbox';
 
