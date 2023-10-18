@@ -1,1 +1,1 @@
-export * from './lib/connector-web-runtime';
+export * from './connector-handler';
