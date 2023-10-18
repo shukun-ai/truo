@@ -1,4 +1,4 @@
-import { HandlerContext, HandlerInjector } from '../types';
+import { HandlerContext, HandlerInjector } from '../connector-types';
 
 import { parseParameters } from './template';
 

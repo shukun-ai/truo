@@ -1,7 +1,11 @@
 import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext, HandlerInjector, ParallelParameters } from '../types';
+import {
+  HandlerContext,
+  HandlerInjector,
+  ParallelParameters,
+} from '../connector-types';
 
 export const handleParallelTask = async (
   task: ConnectorTask,
