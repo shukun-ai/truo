@@ -2,11 +2,12 @@ import {
   handleEitherTask,
   handleParallelTask,
   handleRepeatTask,
-  handleResourceTask,
-  handleShukunTask,
   handleTransformerTask,
   HandlerInjector,
 } from '@shukun/connector/handler';
+
+import { handleResourceTask } from './tasks/handle-resource-task';
+import { handleShukunTask } from './tasks/handle-shukun-task';
 
 export const taskHandlers: HandlerInjector['taskHandlers'] = {
   transformer: handleTransformerTask,
