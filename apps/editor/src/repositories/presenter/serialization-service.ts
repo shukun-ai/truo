@@ -3,6 +3,7 @@ import { upsertEntities } from '@ngneat/elf-entities';
 import { PresenterSchema } from '@shukun/schema';
 
 import { presenterStore } from './presenter-store';
+import { PresenterProcessEntity, processRef } from './process-ref';
 import { PresenterRepositoryEntity, repositoryRef } from './repository-ref';
 import { PresenterWidgetEntity, widgetRef } from './widget-ref';
 
@@ -16,11 +17,13 @@ export const serialization = {
 
     const widgetEntities = getWidgetEntities(presenter);
     const repositoryEntities = getRepositoryEntities(presenter);
+    const processEntities = getProcessEntities(presenter);
 
     presenterStore.update(
       setProps(() => ({ initialized: true, presenterLabel: presenter.label })),
       upsertEntities(widgetEntities, { ref: widgetRef }),
       upsertEntities(repositoryEntities, { ref: repositoryRef }),
+      upsertEntities(processEntities, { ref: processRef }),
       setProp('nodes', presenter.nodes),
     );
   },
@@ -56,4 +59,21 @@ const getRepositoryEntities = (
   }
 
   return repositoryEntities;
+};
+
+const getProcessEntities = (
+  presenter: PresenterSchema,
+): PresenterProcessEntity[] => {
+  const processEntities: PresenterProcessEntity[] = [];
+
+  for (const [processId, process] of Object.entries(
+    presenter.processes ?? {},
+  )) {
+    processEntities.push({
+      ...process,
+      id: processId,
+    });
+  }
+
+  return processEntities;
 };
