@@ -26,11 +26,18 @@ export const EventInputs = ({
             label={widgetProperty.label}
             secondaryLabel={widgetPropertyId}
             containerName={containerName}
-            value={value?.[widgetPropertyId] ?? []}
+            value={value?.[widgetPropertyId] ?? undefined}
             onChange={(newValue) => {
-              // @remark update mutable values here for data sync
-              value[widgetPropertyId] = newValue as any;
-              onChange(value);
+              if (newValue) {
+                onChange({
+                  ...value,
+                  [widgetPropertyId]: newValue,
+                });
+              } else {
+                const cloned = structuredClone(value);
+                delete cloned[widgetPropertyId];
+                onChange(cloned);
+              }
             }}
           />
         ))}

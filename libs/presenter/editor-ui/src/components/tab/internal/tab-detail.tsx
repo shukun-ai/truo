@@ -19,6 +19,9 @@ export const TabDetail = ({ tab }: TabDetailProps) => {
   if (tab.tabType === 'repository') {
     return <TabRepository tab={tab} />;
   }
+  if (tab.tabType === 'process') {
+    return <div>process</div>;
+  }
   if (tab.tabType === 'connector') {
     return <TabConnector tab={tab} />;
   }
