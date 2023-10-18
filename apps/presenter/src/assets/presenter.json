@@ -35,10 +35,12 @@
       "label": "buttonOnClick",
       "inputSchema": {},
       "start": "message",
-      "actions": {
+      "tasks": {
         "message": {
           "type": "message",
-          "parameters": {}
+          "parameters": {
+            "message": "Alert test"
+          }
         }
       }
     }
