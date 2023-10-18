@@ -2,7 +2,7 @@ import { TypeException } from '@shukun/exception';
 
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext, HandlerInjector } from './types';
+import { HandlerContext, HandlerInjector } from './connector-types';
 
 export const execute = async (
   context: HandlerContext,
