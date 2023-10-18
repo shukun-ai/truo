@@ -32,6 +32,9 @@
         "libs/connector/node-runtime/src/index.ts"
       ],
       "@shukun/connector/task": ["libs/connector/task/src/index.ts"],
+      "@shukun/connector/web-runtime": [
+        "libs/connector/web-runtime/src/index.ts"
+      ],
       "@shukun/exception": ["libs/exception/src/index.ts"],
       "@shukun/knex": ["libs/knex/src/index.ts"],
       "@shukun/legacy-api": ["libs/legacy-api/src/index.ts"],
