@@ -42,13 +42,7 @@ export const WrappedWidget = ({
 
     for (const [eventId, event] of Object.entries(widget.events)) {
       events[eventId] = (payload: unknown) => {
-        handleEvent(
-          event,
-          state,
-          injector,
-          appProps.presenter,
-          appProps.repositories,
-        );
+        handleEvent(event, state, injector, appProps.presenter);
       };
     }
 
@@ -60,7 +54,6 @@ export const WrappedWidget = ({
     state,
     injector,
     appProps.presenter,
-    appProps.repositories,
   ]);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { TaskSchema } from '@shukun/schema';
 
 import eitherTaskJson from './either.task.json';
+import messageTaskJson from './message.task.json';
 import parallelTaskJson from './parallel.task.json';
 import repeatTaskJson from './repeat.task.json';
 import sourceQueryTaskJson from './source-query.task.json';
@@ -11,3 +12,4 @@ export const parallelTask = parallelTaskJson as TaskSchema;
 export const repeatTask = repeatTaskJson as TaskSchema;
 export const transformerTask = transformerTaskJson as TaskSchema;
 export const sourceQueryTask = sourceQueryTaskJson as TaskSchema;
+export const messageTask = messageTaskJson as TaskSchema;
