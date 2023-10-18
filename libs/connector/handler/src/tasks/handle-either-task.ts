@@ -1,7 +1,7 @@
 import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext } from '../types';
+import { HandlerContext } from '../connector-types';
 
 export type EitherParameters = {
   condition: unknown;

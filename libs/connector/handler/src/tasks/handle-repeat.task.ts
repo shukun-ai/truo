@@ -2,7 +2,11 @@ import { TypeException } from '@shukun/exception';
 
 import { ConnectorTask } from '@shukun/schema';
 
-import { HandlerContext, HandlerInjector, RepeatParameters } from '../types';
+import {
+  HandlerContext,
+  HandlerInjector,
+  RepeatParameters,
+} from '../connector-types';
 
 export const handleRepeatTask = async (
   task: ConnectorTask,

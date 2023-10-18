@@ -2,9 +2,9 @@ import { IRequestAdaptor, SourceRequester } from '@shukun/api';
 import { TypeException } from '@shukun/exception';
 import { ConnectorTask } from '@shukun/schema';
 
+import { HandlerContext, HandlerInjector } from '../connector-types';
 import { getDefinition } from '../helpers/get-definition';
 import { createRequesterAdaptor } from '../requester/requester-adaptor';
-import { HandlerContext, HandlerInjector } from '../types';
 
 export const handleShukunTask = async (
   task: ConnectorTask,
