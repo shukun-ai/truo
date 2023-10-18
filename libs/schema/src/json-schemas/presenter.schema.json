@@ -140,23 +140,27 @@
       "title": "PresenterProcess",
       "type": "object",
       "additionalProperties": false,
-      "required": ["label", "inputSchema", "start", "actions"],
+      "required": ["label", "start", "tasks"],
       "properties": {
         "label": { "type": "string" },
         "inputSchema": {
           "type": "object",
           "$comment": "The input JSON Schema Rule"
         },
+        "outputSchema": {
+          "type": "object",
+          "$comment": "The output JSON Schema Rule"
+        },
         "start": {
           "type": "string",
           "$comment": "Start task name"
         },
-        "actions": {
+        "tasks": {
           "type": "object",
           "patternProperties": {
             "^(.)+$": {
               "type": "object",
-              "title": "PresenterAction",
+              "title": "PresenterTask",
               "required": ["type", "parameters"],
               "additionalProperties": false,
               "properties": {

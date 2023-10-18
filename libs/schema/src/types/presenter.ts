@@ -94,19 +94,22 @@ export interface PresenterVariable {
  */
 export interface PresenterProcess {
   label: string;
-  inputSchema: {
+  inputSchema?: {
+    [k: string]: unknown;
+  };
+  outputSchema?: {
     [k: string]: unknown;
   };
   start: string;
-  actions: {
-    [k: string]: PresenterAction;
+  tasks: {
+    [k: string]: PresenterTask;
   };
 }
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
  */
-export interface PresenterAction {
+export interface PresenterTask {
   type: string;
   parameters: {
     /**
