@@ -1,5 +1,4 @@
-import { editorRepositories } from '@shukun/presenter/widget-react';
 import { RepositorySchema } from '@shukun/schema';
 
-export const repositoryDefinitions: Record<string, RepositorySchema> =
-  editorRepositories;
+// TODO remove this file
+export const repositoryDefinitions: Record<string, RepositorySchema> = {};
