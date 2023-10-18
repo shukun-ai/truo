@@ -2,7 +2,7 @@ import { IRequestAdaptor } from '@shukun/api';
 import { ConnectorTask } from '@shukun/schema';
 
 import { getDefinition } from '../helpers/get-definition';
-import { createRequesterAdaptor } from '../helpers/requester-adaptor';
+import { createRequesterAdaptor } from '../requester/requester-adaptor';
 import { HandlerContext, HandlerInjector } from '../types';
 
 export const handleResourceTask = async (
