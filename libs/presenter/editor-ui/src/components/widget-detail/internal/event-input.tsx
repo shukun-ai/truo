@@ -31,7 +31,7 @@ export const EventInput = ({
       start: 'first',
       tasks: {
         first: {
-          type: 'placeholder',
+          type: 'transformer',
           parameters: {},
         },
       },

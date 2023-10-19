@@ -16,6 +16,7 @@ import { processRepository } from '../../../repositories/presenter/process-repos
 import { repositoryRepository } from '../../../repositories/presenter/repository-repository';
 import { widgetRepository } from '../../../repositories/presenter/widget-repository';
 import { tabRepository } from '../../../repositories/tab/tab-repository';
+import { taskRepository } from '../../../repositories/task/task-repository';
 import { useAppContext } from '../../contexts/app-context';
 
 import { useLoadPresenter } from './use-load-presenter';
@@ -39,6 +40,7 @@ export const Editor = ({ mode }: EditorProps) => {
   const metadatas = useObservableState(metadataRepository.all$, {});
   const connectors = useObservableState(connectorRepository.all$, {});
   const environments = useObservableState(environmentRepository.all$, {});
+  const tasks = useObservableState(taskRepository.all$, {});
   const allowedFieldType = useObservableState(
     metadataRepository.allowedFieldType$,
     [],
@@ -69,7 +71,7 @@ export const Editor = ({ mode }: EditorProps) => {
           metadatas,
           connectors,
           environments,
-          tasks: {},
+          tasks,
           widgetDefinitions: presenter.widgetDefinitions,
           widgetGallery: presenter.widgetGallery,
           repositoryDefinitions: presenter.repositoryDefinitions,
