@@ -1,4 +1,4 @@
-import { NativeSelect, SelectItem } from '@mantine/core';
+import { Select, SelectItem } from '@mantine/core';
 import { useConnectorEditorContext } from '@shukun/component';
 import { ConnectorTask } from '@shukun/schema';
 import { useMemo } from 'react';
@@ -26,12 +26,15 @@ export const TaskNextInput = ({
   }, [currentTaskName, taskOptions]);
 
   return (
-    <NativeSelect
+    <Select
       label="下一任务"
       data={nextOptions}
-      value={value.next}
-      onChange={(event) => onChange({ ...value, next: event.target.value })}
+      value={value.next || ''}
+      onChange={(newValue) =>
+        onChange({ ...value, next: newValue || undefined })
+      }
       disabled={disabled}
+      withinPortal
     />
   );
 };
