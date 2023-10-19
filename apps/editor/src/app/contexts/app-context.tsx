@@ -14,8 +14,7 @@ import { IGlobalRepository } from '../../repositories/global/global-repository.i
 import { metadataRepository } from '../../repositories/metadata/metadata-repository';
 import { PresenterRepository } from '../../repositories/presenter/presenter-repository';
 import { IPresenterRepository } from '../../repositories/presenter/presenter-repository.interface';
-import { TaskRepository } from '../../repositories/task/task-repository';
-import { ITaskRepository } from '../../repositories/task/task-repository.interface';
+import { taskRepository } from '../../repositories/task/task-repository';
 import { RouterMap, routerMap } from '../router-map';
 
 export type AppContextProps = {
@@ -27,7 +26,7 @@ export type AppContextProps = {
     globalRepository: IGlobalRepository;
     presenterRepository: IPresenterRepository;
     connectorRepository: typeof connectorRepository;
-    taskRepository: ITaskRepository;
+    taskRepository: typeof taskRepository;
     metadataRepository: typeof metadataRepository;
     environmentRepository: typeof environmentRepository;
   };
@@ -38,7 +37,6 @@ export const initializeAppContextProps = (): AppContextProps => {
   const authRepository = new AuthRepository(apiRequester);
   const globalRepository = new GlobalRepository(apiRequester);
   const presenterRepository = new PresenterRepository(apiRequester);
-  const taskRepository = new TaskRepository(apiRequester);
 
   return {
     apiRequester,

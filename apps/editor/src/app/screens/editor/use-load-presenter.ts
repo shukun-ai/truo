@@ -25,7 +25,7 @@ export const useLoadPresenter = (app: AppContextProps) => {
     setOtherLoading(true);
     Promise.all([
       app.repositories.connectorRepository.initialize(app.apiRequester),
-      app.repositories.taskRepository.initialize(),
+      app.repositories.taskRepository.initialize(app.apiRequester),
       app.repositories.metadataRepository.initialize(app.apiRequester),
       app.repositories.environmentRepository.initialize(app.apiRequester),
     ]).finally(() => {
