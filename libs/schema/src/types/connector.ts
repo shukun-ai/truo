@@ -28,6 +28,7 @@ export interface ConnectorSchema {
  * via the `patternProperty` "^(.)+$".
  */
 export interface ConnectorTask {
+  label: string;
   type: string;
   parameters: {
     /**

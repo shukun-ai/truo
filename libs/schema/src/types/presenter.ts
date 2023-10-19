@@ -110,6 +110,7 @@ export interface PresenterProcess {
  * via the `patternProperty` "^(.)+$".
  */
 export interface PresenterTask {
+  label: string;
   type: string;
   parameters: {
     /**

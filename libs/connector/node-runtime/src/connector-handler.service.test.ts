@@ -25,6 +25,7 @@ describe('connector-handler', () => {
       start: 'repeat',
       tasks: {
         repeat: {
+          label: 'repeat',
           type: 'repeat',
           next: 'show',
           parameters: {
@@ -33,6 +34,7 @@ describe('connector-handler', () => {
           },
         },
         repeat1: {
+          label: 'repeat1',
           type: 'transformer',
           next: 'repeat2',
           parameters: {
@@ -40,12 +42,14 @@ describe('connector-handler', () => {
           },
         },
         repeat2: {
+          label: 'repeat2',
           type: 'transformer',
           parameters: {
             fullWord: "$$_js:return $.input.firstWord + ' ' + 'World!'",
           },
         },
         show: {
+          label: 'show',
           type: 'transformer',
           parameters: {
             say: '$$_js:return $.input.map(item => item.fullWord)',
@@ -91,6 +95,7 @@ describe('connector-handler', () => {
       start: 'parallel',
       tasks: {
         parallel: {
+          label: 'parallel',
           type: 'parallel',
           next: 'show',
           parameters: {
@@ -105,18 +110,21 @@ describe('connector-handler', () => {
           },
         },
         parallel1: {
+          label: 'parallel1',
           type: 'transformer',
           parameters: {
             word: 'Hello',
           },
         },
         parallel2: {
+          label: 'parallel2',
           type: 'transformer',
           parameters: {
             word: 'World!',
           },
         },
         show: {
+          label: 'show',
           type: 'transformer',
           parameters: {
             say: '$$_js:return $.input.map(item => item.word)',
@@ -159,6 +167,7 @@ describe('connector-handler', () => {
       start: 'isEnglish',
       tasks: {
         isEnglish: {
+          label: 'isEnglish',
           type: 'either',
           next: 'handleEnglish',
           parameters: {
@@ -167,6 +176,7 @@ describe('connector-handler', () => {
           },
         },
         isChinese: {
+          label: 'isChinese',
           type: 'either',
           next: 'handleChinese',
           parameters: {
@@ -175,18 +185,21 @@ describe('connector-handler', () => {
           },
         },
         handleEnglish: {
+          label: 'handleEnglish',
           type: 'transformer',
           parameters: {
             language: 'English',
           },
         },
         handleChinese: {
+          label: 'handleChinese',
           type: 'transformer',
           parameters: {
             language: 'Chinese',
           },
         },
         handleDefaultLanguage: {
+          label: 'handleDefaultLanguage',
           type: 'transformer',
           parameters: {
             language: 'Default',

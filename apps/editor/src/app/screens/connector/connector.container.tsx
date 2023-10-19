@@ -12,6 +12,7 @@ export const ConnectorContainer = () => {
         start: '获得机场数据',
         tasks: {
           获得机场数据: {
+            label: '获得机场数据',
             type: 'sourceQuery',
             next: '检查机场数据长度',
             parameters: {
@@ -26,6 +27,7 @@ export const ConnectorContainer = () => {
             },
           },
           检查机场数据长度: {
+            label: '检查机场数据长度',
             type: 'either',
             next: '重映射数据',
             parameters: {
@@ -34,6 +36,7 @@ export const ConnectorContainer = () => {
             },
           },
           重映射数据: {
+            label: '重映射数据',
             type: 'repeat',
             parameters: {
               connectorName: '映射机场数据',
@@ -42,6 +45,7 @@ export const ConnectorContainer = () => {
             },
           },
           提示用户失败: {
+            label: '提示用户失败',
             type: 'fail',
             parameters: {
               code: 'NotFoundException',
