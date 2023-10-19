@@ -2,6 +2,7 @@ import { Box, Button } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { ConnectorSchema, ConnectorTask } from '@shukun/schema';
 
+import { nanoid } from 'nanoid';
 import { useCallback } from 'react';
 
 import { CreateTaskForm } from './create-task-form';
@@ -20,9 +21,11 @@ export const Tasks = ({ value, onChange, disabled }: TasksProps) => {
       children: (
         <CreateTaskForm
           onSubmit={(formValue) => {
+            const taskId = nanoid();
             onChange({
               ...value,
-              [formValue.taskName]: {
+              [taskId]: {
+                label: formValue.taskName,
                 type: 'transformer',
                 parameters: {},
               },

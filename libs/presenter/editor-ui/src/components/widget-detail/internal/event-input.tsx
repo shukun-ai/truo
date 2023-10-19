@@ -1,6 +1,7 @@
 import { Badge, Box, Button, Group, Text, Title } from '@mantine/core';
 
 import { PresenterEvent } from '@shukun/schema';
+import { nanoid } from 'nanoid';
 import { ReactNode, useCallback, useMemo } from 'react';
 
 import { useEditorContext } from '../../../editor-context';
@@ -26,11 +27,13 @@ export const EventInput = ({
   const { processes } = state;
 
   const onCreate = useCallback(() => {
+    const taskId = nanoid();
     const processId = dispatch.process.create({
       label: secondaryLabel ?? 'untitle',
-      start: 'first',
+      start: taskId,
       tasks: {
-        first: {
+        [taskId]: {
+          label: 'First',
           type: 'transformer',
           parameters: {},
         },

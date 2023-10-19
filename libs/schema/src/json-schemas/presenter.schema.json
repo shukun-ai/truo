@@ -161,9 +161,12 @@
             "^(.)+$": {
               "type": "object",
               "title": "PresenterTask",
-              "required": ["type", "parameters"],
+              "required": ["label", "type", "parameters"],
               "additionalProperties": false,
               "properties": {
+                "label": {
+                  "type": "string"
+                },
                 "type": {
                   "type": "string",
                   "$comment": "task name from task list defined by TaskSchema."

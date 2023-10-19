@@ -7,6 +7,8 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
+import { nanoid } from 'nanoid';
+
 import { IApiRequester } from '../../apis/requester.interface';
 
 import {
@@ -35,13 +37,15 @@ export const connectorRepository = {
   },
 
   create: (connectorName: string): void => {
+    const taskId = nanoid();
     const entity: ConnectorEntity = {
       id: createConnectorEntityId(connectorName),
       connectorName,
       label: 'connectorName',
-      start: 'example',
+      start: taskId,
       tasks: {
-        example: {
+        [taskId]: {
+          label: '范例',
           type: 'transformer',
           parameters: {
             data: 'welcome to connector!',
