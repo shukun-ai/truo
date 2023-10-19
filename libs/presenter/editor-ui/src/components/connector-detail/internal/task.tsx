@@ -3,7 +3,7 @@ import {
   Box,
   Card,
   Group,
-  NativeSelect,
+  Select,
   SelectItem,
   Text,
 } from '@mantine/core';
@@ -67,17 +67,14 @@ export const Task = ({ name, value, onChange, disabled }: TaskProps) => {
           <TaskMoreButton onRemove={() => onChange(null)} disabled={disabled} />
         </Group>
       </Box>
-      <Box
-        // withBorder
-
-        p={6}
-        display={selectedTaskName === name ? 'block' : 'none'}
-      >
-        <NativeSelect
+      <Box p={6} display={selectedTaskName === name ? 'block' : 'none'}>
+        <Select
           label="类型"
           data={typeOptions}
           value={value.type}
-          onChange={(event) => onChange({ ...value, type: event.target.value })}
+          onChange={(newValue) =>
+            newValue && onChange({ ...value, type: newValue })
+          }
           withAsterisk
           disabled={disabled}
         />

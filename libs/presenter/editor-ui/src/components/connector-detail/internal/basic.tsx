@@ -20,7 +20,7 @@ export const Basic = ({ value, onChange, disabled }: BasicProps) => {
   return (
     <Card withBorder mt={12} mb={6}>
       <Text fz="lg" fw="bold">
-        基础设置
+        开始
       </Text>
       <TextInput
         label="函数流名称"

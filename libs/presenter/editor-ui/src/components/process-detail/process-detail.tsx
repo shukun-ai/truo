@@ -45,22 +45,31 @@ export const ProcessDetail = ({ tab, processEntity }: ProcessDetailProps) => {
 
   return (
     <ConnectorEditorProvider taskOptions={taskOptions}>
-      <EditorTabWrapper>
-        <Box>
-          <form>
-            <Schema
-              value={form.values}
-              onChange={(newValue) => form.setValues(newValue)}
-            />
-          </form>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+        }}
+      >
+        <Box sx={{ flex: 1 }}>
+          <EditorTabWrapper>
+            <form>
+              <Schema
+                value={form.values}
+                onChange={(newValue) => form.setValues(newValue)}
+              />
+            </form>
+          </EditorTabWrapper>
         </Box>
-        <Box sx={{ width: '100%', height: 300 }}>
+        <Box sx={{ flex: 2, width: '100%', height: '100%' }}>
           <ConnectorEditor
             value={form.values}
             onChange={(newValue) => form.setValues(newValue)}
           ></ConnectorEditor>
         </Box>
-      </EditorTabWrapper>
+      </Box>
     </ConnectorEditorProvider>
   );
 };

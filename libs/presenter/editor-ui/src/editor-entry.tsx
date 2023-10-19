@@ -3,28 +3,12 @@ import { Box, Divider } from '@mantine/core';
 import { ActivityBar } from './components/activity-bar';
 import { EditorGroups } from './components/editor-groups';
 import { PreviewArea } from './components/preview-area';
+import { ActivityTab, useEditorContext } from './editor-context';
 import { useDevtool } from './hooks/use-devtool';
 
 export const EditorEntry = () => {
-  // const app = useAppContext();
-  // const { state, dispatch } = useEditorContext();
-
-  // const { presenterName } = useParams();
-
-  // useEffect(() => {
-  //   if (presenterName) {
-  //     app.repositories.presenterRepository.initialize(presenterName);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [presenterName]);
-
-  // useEffect(() => {
-  //   app.repositories.connectorRepository.initialize();
-  //   app.repositories.taskRepository.initialize();
-  //   app.repositories.metadataRepository.initialize();
-  //   app.repositories.environmentRepository.initialize();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const { state } = useEditorContext();
+  const { selectedActivityTab } = state;
 
   useDevtool();
 
@@ -68,14 +52,11 @@ export const EditorEntry = () => {
       <Box
         id="editor__preview_area"
         sx={{
-          // TODO refactor ActivityTabs and TabEntity to use universal constants
-          // display:
-          // selectedTabId === null ||
-          //   ['widget', 'repository', 'watch', 'screens', 'containers'].includes(
-          //     selectedTabId.tabType as string,
-          //   )
-          //     ? 'flex'
-          //     : 'none',
+          display:
+            selectedActivityTab === null ||
+            [ActivityTab.Widgets].includes(selectedActivityTab)
+              ? 'flex'
+              : 'none',
           flex: 2,
           minWidth: 0,
           minHeight: 0,
