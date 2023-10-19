@@ -4,6 +4,7 @@ import { TabEntity } from '../../../editor-context';
 import { TabConnector } from '../tabs/tab-connector';
 import { TabEnvironment } from '../tabs/tab-environment';
 import { TabMetadata } from '../tabs/tab-metadata';
+import { TabProcess } from '../tabs/tab-process';
 import { TabRepository } from '../tabs/tab-repository';
 
 import { TabWidget } from '../tabs/tab-widget';
@@ -20,7 +21,7 @@ export const TabDetail = ({ tab }: TabDetailProps) => {
     return <TabRepository tab={tab} />;
   }
   if (tab.tabType === 'process') {
-    return <div>process</div>;
+    return <TabProcess tab={tab} />;
   }
   if (tab.tabType === 'connector') {
     return <TabConnector tab={tab} />;

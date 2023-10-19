@@ -1,21 +1,16 @@
-import { Card, NativeSelect, SelectItem, Text, TextInput } from '@mantine/core';
-
-import { UseFormReturnType } from '@mantine/form';
+import { Card, Select, SelectItem, Text, TextInput } from '@mantine/core';
 
 import { useConnectorEditorContext } from '@shukun/component';
+import { ConnectorSchema } from '@shukun/schema';
 import { useMemo } from 'react';
 
-import { ConnectorEntity } from '../../../editor-context';
-
 export type BasicProps = {
-  form: UseFormReturnType<
-    ConnectorEntity,
-    (values: ConnectorEntity) => ConnectorEntity
-  >;
+  value: ConnectorSchema;
+  onChange: (value: ConnectorSchema) => void;
   disabled?: boolean;
 };
 
-export const Basic = ({ form, disabled }: BasicProps) => {
+export const Basic = ({ value, onChange, disabled }: BasicProps) => {
   const { taskOptions } = useConnectorEditorContext();
 
   const nextOptions = useMemo<SelectItem[]>(() => {
@@ -29,14 +24,31 @@ export const Basic = ({ form, disabled }: BasicProps) => {
       </Text>
       <TextInput
         label="函数流名称"
-        {...form.getInputProps('label')}
+        value={value.label}
+        onChange={(event) =>
+          onChange({
+            ...value,
+            label: event.target.value,
+          })
+        }
         disabled={disabled}
+        required
       />
-      <NativeSelect
+      <Select
         label="开始任务"
         data={nextOptions}
-        {...form.getInputProps('start')}
+        value={value.start}
+        onChange={(newValue) =>
+          newValue &&
+          onChange({
+            ...value,
+            start: newValue,
+          })
+        }
         disabled={disabled}
+        clearable={false}
+        withinPortal
+        required
       />
     </Card>
   );

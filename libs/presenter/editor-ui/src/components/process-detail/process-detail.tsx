@@ -11,43 +11,37 @@ import { ConnectorSchema } from '@shukun/schema';
 import { useMemo } from 'react';
 
 import {
-  ConnectorEntity,
+  ProcessEntity,
   TabEntity,
   useEditorContext,
 } from '../../editor-context';
 
 import { useDebounceSave } from '../../hooks/use-debounce-save';
 
-import { Schema } from './internal/schema';
+import { Schema } from '../connector-detail/internal/schema';
 
-export type ConnectorDetailProps = {
+export type ProcessDetailProps = {
   tab: TabEntity;
-  connectorEntity: ConnectorEntity;
+  processEntity: ProcessEntity;
 };
 
-export const ConnectorDetail = ({
-  tab,
-  connectorEntity,
-}: ConnectorDetailProps) => {
+export const ProcessDetail = ({ tab, processEntity }: ProcessDetailProps) => {
   const { dispatch } = useEditorContext();
 
   const form = useForm<ConnectorSchema>({
-    initialValues: structuredClone(connectorEntity),
+    initialValues: structuredClone(processEntity),
   });
 
   useDebounceSave(form.values, (debounced) => {
-    dispatch.connector.update({
-      ...debounced,
-      id: connectorEntity.id,
-    });
+    dispatch.process.update(processEntity.id, debounced);
   });
 
   const taskOptions = useMemo(() => {
-    return Object.entries(connectorEntity.tasks).map(([taskName, task]) => ({
+    return Object.entries(processEntity.tasks).map(([taskName, task]) => ({
       value: taskName,
       label: taskName,
     }));
-  }, [connectorEntity.tasks]);
+  }, [processEntity.tasks]);
 
   return (
     <ConnectorEditorProvider taskOptions={taskOptions}>
