@@ -202,7 +202,7 @@ export class DeveloperRequester {
    * POST /apis/v1/developer/{orgName}/query-task
    */
   public async queryTask() {
-    return await this.requestAdaptor.fetch<TaskSchema>(
+    return await this.requestAdaptor.fetch<Record<string, TaskSchema>>(
       'POST',
       this.buildUri(`query-task`),
     );
