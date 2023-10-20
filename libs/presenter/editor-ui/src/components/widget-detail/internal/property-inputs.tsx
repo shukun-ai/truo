@@ -1,6 +1,6 @@
 import { PresenterWidget, WidgetSchema } from '@shukun/schema';
 
-import { PropertyInput } from './property-input';
+import { EditorInputs } from '../../common/editor-inputs';
 
 export type PropertyInputsProps = {
   definition: WidgetSchema;
@@ -18,10 +18,9 @@ export const PropertyInputs = ({
       {Object.entries(definition.properties)
         .filter(([, widgetProperty]) => !widgetProperty.isEvent)
         .map(([widgetPropertyId, widgetProperty]) => (
-          <PropertyInput
+          <EditorInputs
+            {...widgetProperty}
             key={widgetPropertyId}
-            widgetPropertyId={widgetPropertyId}
-            widgetProperty={widgetProperty}
             value={value?.[widgetPropertyId]}
             onChange={(newValue) => {
               onChange({
@@ -29,6 +28,7 @@ export const PropertyInputs = ({
                 [widgetPropertyId]: newValue as any,
               });
             }}
+            secondaryLabel={widgetPropertyId}
           />
         ))}
     </>
