@@ -67,6 +67,7 @@ export interface TaskParameter {
     | 'atomName'
     | 'sourceQuery'
     | 'connectorName'
+    | 'variableName'
     | 'parallelBranches'
     | 'choiceConditions'
     | 'literalTemplate'

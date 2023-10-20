@@ -20,6 +20,8 @@ export type HandlerContext = {
 
 export type HandlerInjector = {
   connector: ConnectorSchema;
+  // @remark allow taskDefinitions equal {}
+  // TODO refactor taskDefinitions, because we would not pass taskDefinitions in presenter
   taskDefinitions: Record<string, TaskSchema>;
   executeTask:
     | null

@@ -1,0 +1,21 @@
+{
+  "$schema": "../../../../schema/src/json-schemas/task.schema.json",
+  "scope": "internal",
+  "withAccessToken": false,
+  "parameters": {
+    "variable": {
+      "schema": {
+        "type": "string"
+      },
+      "required": true,
+      "editorType": "variableName"
+    },
+    "expression": {
+      "schema": {
+        "type": "string"
+      },
+      "required": true,
+      "editorType": "jsCode"
+    }
+  }
+}
