@@ -28,7 +28,7 @@ export const CustomTask = (props: NodeProps<NodeData>) => {
             {getIcon(props.data.task.type)}
             <Box>
               <Text c="blue" fw="bold" truncate>
-                {props.data.taskName}
+                {props.data.task.label}
               </Text>
               <Text c="gray" fz="sm">
                 {props.data.task.type}
