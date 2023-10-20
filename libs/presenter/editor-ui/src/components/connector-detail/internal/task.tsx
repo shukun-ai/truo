@@ -19,13 +19,20 @@ import { TaskMoreButton } from './task-more-button';
 import { TaskNextInput } from './task-next-input';
 
 export type TaskProps = {
-  name: string;
+  taskName: string;
+  taskLabel: string;
   value: ConnectorTask;
   onChange: (value: ConnectorTask | null) => void;
   disabled?: boolean;
 };
 
-export const Task = ({ name, value, onChange, disabled }: TaskProps) => {
+export const Task = ({
+  taskName,
+  taskLabel,
+  value,
+  onChange,
+  disabled,
+}: TaskProps) => {
   const { state } = useEditorContext();
   const allTasks = Object.values(state.tasks);
 
@@ -48,26 +55,26 @@ export const Task = ({ name, value, onChange, disabled }: TaskProps) => {
       padding="xs"
       sx={{
         overflow: 'visible',
-        cursor: selectedTaskName !== name ? 'pointer' : 'default',
+        cursor: selectedTaskName !== taskName ? 'pointer' : 'default',
       }}
     >
       <Box
         p={6}
         onClick={() => {
-          setSelectedTaskName(name);
+          setSelectedTaskName(taskName);
         }}
       >
         <Group position="apart">
           <Group spacing="xs">
             <Text fz="lg" fw="bold">
-              {name}
+              {taskLabel}
             </Text>
             <Badge tt="none">{value.type}</Badge>
           </Group>
           <TaskMoreButton onRemove={() => onChange(null)} disabled={disabled} />
         </Group>
       </Box>
-      <Box p={6} display={selectedTaskName === name ? 'block' : 'none'}>
+      <Box p={6} display={selectedTaskName === taskName ? 'block' : 'none'}>
         <Select
           label="类型"
           data={typeOptions}
@@ -79,7 +86,7 @@ export const Task = ({ name, value, onChange, disabled }: TaskProps) => {
           disabled={disabled}
         />
         <TaskNextInput
-          currentTaskName={name}
+          currentTaskName={taskName}
           value={value}
           onChange={onChange}
           disabled={disabled}
