@@ -39,7 +39,7 @@ export const ProcessDetail = ({ tab, processEntity }: ProcessDetailProps) => {
   const taskOptions = useMemo(() => {
     return Object.entries(processEntity.tasks).map(([taskName, task]) => ({
       value: taskName,
-      label: taskName,
+      label: task.label,
     }));
   }, [processEntity.tasks]);
 

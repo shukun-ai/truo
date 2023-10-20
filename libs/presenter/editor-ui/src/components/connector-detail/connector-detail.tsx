@@ -45,7 +45,7 @@ export const ConnectorDetail = ({
   const taskOptions = useMemo(() => {
     return Object.entries(connectorEntity.tasks).map(([taskName, task]) => ({
       value: taskName,
-      label: taskName,
+      label: task.label,
     }));
   }, [connectorEntity.tasks]);
 

@@ -55,7 +55,7 @@ export const Tasks = ({ value, onChange, disabled }: TasksProps) => {
       {Object.entries(value).map(([taskName, task]) => (
         <Task
           key={taskName}
-          name={taskName}
+          name={task.label}
           value={task}
           onChange={(newTask) => handleChange(taskName, newTask)}
           disabled={disabled}
