@@ -63,19 +63,25 @@ export interface TaskParameter {
   schema: _InternalTaskReference;
   required: boolean;
   editorType:
+    | 'string'
+    | 'integer'
+    | 'number'
+    | 'boolean'
+    | 'void'
+    | 'enum'
+    | 'stringArray'
+    | 'optionArray'
+    | 'unknownObject'
+    | 'unknownArray'
+    | 'dataBinding'
     | 'taskName'
     | 'atomName'
     | 'sourceQuery'
     | 'connectorName'
     | 'variableName'
-    | 'parallelBranches'
-    | 'choiceConditions'
-    | 'literalTemplate'
-    | 'jsCode'
-    | 'description'
-    | 'temporaryKey'
-    | 'string'
-    | 'number'
-    | 'integer'
-    | 'boolean';
+    | 'parallelBranches';
+  enums?: string[];
+  disabledJsMode?: boolean;
+  placeholder?: string;
+  description?: string;
 }

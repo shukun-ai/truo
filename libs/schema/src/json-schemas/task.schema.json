@@ -37,23 +37,29 @@
             },
             "editorType": {
               "enum": [
+                "string",
+                "integer",
+                "number",
+                "boolean",
+                "void",
+                "enum",
+                "stringArray",
+                "optionArray",
+                "unknownObject",
+                "unknownArray",
+                "dataBinding",
                 "taskName",
                 "atomName",
                 "sourceQuery",
                 "connectorName",
                 "variableName",
-                "parallelBranches",
-                "choiceConditions",
-                "literalTemplate",
-                "jsCode",
-                "description",
-                "temporaryKey",
-                "string",
-                "number",
-                "integer",
-                "boolean"
+                "parallelBranches"
               ]
-            }
+            },
+            "enums": { "type": "array", "items": { "type": "string" } },
+            "disabledJsMode": { "type": "boolean" },
+            "placeholder": { "type": "string" },
+            "description": { "type": "string" }
           }
         }
       }

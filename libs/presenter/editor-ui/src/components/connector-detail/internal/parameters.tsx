@@ -1,8 +1,9 @@
 import { Box } from '@mantine/core';
-import { EditorInputs } from '@shukun/component';
+
 import { ConnectorTask } from '@shukun/schema';
 
 import { TaskEntity } from '../../../editor-context';
+import { EditorInputs } from '../../common/editor-inputs';
 
 export type ParametersProps = {
   taskEntity: TaskEntity;
@@ -22,17 +23,18 @@ export const Parameters = ({
       {Object.entries(taskEntity.parameters).map(
         ([parameterName, parameter]) => (
           <EditorInputs
-            editorType={parameter.editorType}
+            {...parameter}
+            key={parameterName}
             value={value[parameterName]}
-            onChange={(newValue) =>
+            onChange={(newValue) => {
               onChange({
                 ...value,
-                [parameterName]: newValue,
-              })
-            }
-            required={parameter.required}
-            schema={parameter.schema}
-            disabled={disabled}
+                [parameterName]: newValue as any,
+              });
+            }}
+            label={parameterName}
+            secondaryLabel={''}
+            type={parameter.editorType}
           />
         ),
       )}
