@@ -6,6 +6,7 @@ import {
   HandlerInjector,
 } from '@shukun/connector/handler';
 
+import { handleAssignTask } from './handle-assign-task';
 import { handleMessageTask } from './handle-message-task';
 
 export const taskHandlers: HandlerInjector['taskHandlers'] = {
@@ -14,4 +15,10 @@ export const taskHandlers: HandlerInjector['taskHandlers'] = {
   repeat: handleRepeatTask,
   either: handleEitherTask,
   message: handleMessageTask,
+  assign: handleAssignTask,
+  // RunConnector
+  // RunSource
+  // Raise exception
+  // Destination (navigation)
+  // Download
 };

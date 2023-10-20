@@ -1,11 +1,4 @@
 import { HandlerContext } from '@shukun/connector/handler';
-import {
-  eitherTask,
-  messageTask,
-  parallelTask,
-  repeatTask,
-  transformerTask,
-} from '@shukun/connector/task';
 import { executeConnector } from '@shukun/connector/web-runtime';
 import { Injector } from '@shukun/presenter/definition';
 import { PresenterEvent, PresenterSchema, TaskSchema } from '@shukun/schema';
@@ -48,12 +41,9 @@ export const handleEvent = (
     accessToken: state.auth.current?.accessToken,
   };
 
+  // @remark pass empty taskDefinitions because the tasks is built-in in presenter runtime
   const taskDefinitions: Record<string, TaskSchema> = {
-    either: eitherTask,
-    parallel: parallelTask,
-    repeat: repeatTask,
-    transformer: transformerTask,
-    message: messageTask,
+    //
   };
 
   executeConnector(context, process, taskDefinitions, taskHandlers).then(
