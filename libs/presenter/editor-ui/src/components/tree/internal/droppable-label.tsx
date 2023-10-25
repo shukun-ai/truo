@@ -64,7 +64,7 @@ export const TreeDroppableLabel = ({
   const labelComponent = useMemo(() => {
     return (
       <Group>
-        <Text size="xs">{targetWidgetEntity.label}</Text>
+        <Text size="sm">{targetWidgetEntity.label}</Text>
         {SHOW_WIDGET_TAG && (
           <Badge size="xs" sx={{ textTransform: 'lowercase' }}>
             {targetWidgetEntity.tag}

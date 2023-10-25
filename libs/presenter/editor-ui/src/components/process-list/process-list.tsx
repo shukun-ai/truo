@@ -1,5 +1,5 @@
 import { Box, Divider, Group, ScrollArea, Text, Title } from '@mantine/core';
-import { IconBuildingWarehouse } from '@tabler/icons-react';
+import { Icon } from '@shukun/component';
 
 import { useEditorContext } from '../../editor-context';
 
@@ -36,7 +36,7 @@ export const ProcessList = () => {
             }}
           >
             <Group>
-              <IconBuildingWarehouse size="1rem" />
+              <Icon type="activityBarProcesses" size="1rem" />
               <Text size="sm">$.{processEntity.label}</Text>
             </Group>
           </Box>
