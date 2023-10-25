@@ -1,4 +1,11 @@
-import { ActionIcon, Box, Group, Select, TextInput } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Group,
+  Select,
+  TextInput,
+  Tooltip,
+} from '@mantine/core';
 
 import { Icon } from '../domain-icons/domain-icons';
 
@@ -25,7 +32,7 @@ export const SchemaEditor = ({
     <Box>
       <Group mb="md">
         <TextInput
-          value={filedLevel === 0 ? 'ROOT' : fieldName}
+          value={filedLevel === 0 ? '根节点' : fieldName}
           disabled={filedLevel === 0 || isItemField}
         />
         <Select
@@ -39,27 +46,31 @@ export const SchemaEditor = ({
           }}
         />
         {fields.type === 'object' && (
-          <ActionIcon
-            onClick={() => {
-              onChange({
-                ...value,
-                properties: {
-                  untitle: {},
-                },
-              });
-            }}
-          >
-            <Icon type="plus" size="0.8rem" />
-          </ActionIcon>
+          <Tooltip label="点击新建子属性">
+            <ActionIcon
+              onClick={() => {
+                onChange({
+                  ...value,
+                  properties: {
+                    untitle: {},
+                  },
+                });
+              }}
+            >
+              <Icon type="plus" size="0.8rem" />
+            </ActionIcon>
+          </Tooltip>
         )}
         {!isItemField && (
-          <ActionIcon
-            onClick={() => {
-              onChange(null);
-            }}
-          >
-            <Icon type="trash" size="0.8rem" />
-          </ActionIcon>
+          <Tooltip label="点击删除属性">
+            <ActionIcon
+              onClick={() => {
+                onChange(null);
+              }}
+            >
+              <Icon type="trash" size="0.8rem" />
+            </ActionIcon>
+          </Tooltip>
         )}
       </Group>
       {fields.type === 'object' && fields.properties && (
@@ -103,7 +114,7 @@ export const SchemaEditor = ({
                 });
               }
             }}
-            fieldName={'item'}
+            fieldName={'数组子项'}
             filedLevel={filedLevel + 1}
             isItemField
           />
@@ -114,11 +125,11 @@ export const SchemaEditor = ({
 };
 
 const fieldTypeOptions = [
-  { label: 'string', value: 'string' },
-  { label: 'number', value: 'number' },
-  { label: 'integer', value: 'integer' },
-  { label: 'boolean', value: 'boolean' },
-  { label: 'object', value: 'object' },
-  { label: 'array', value: 'array' },
-  { label: 'null', value: 'null' },
+  { label: '字符串（string）', value: 'string' },
+  { label: '数字（number）', value: 'number' },
+  { label: '整数（integer）', value: 'integer' },
+  { label: '布尔（boolean）', value: 'boolean' },
+  { label: '对象（object）', value: 'object' },
+  { label: '数组（array）', value: 'array' },
+  { label: '空值（null）', value: 'null' },
 ];
