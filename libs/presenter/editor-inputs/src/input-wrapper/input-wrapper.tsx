@@ -50,7 +50,7 @@ export const InputWrapper = ({
   const { state } = useCompletionState(logs, widgetId);
 
   return (
-    <Box mb={32}>
+    <Box mb="lg">
       <Box
         sx={{
           display: 'flex',
