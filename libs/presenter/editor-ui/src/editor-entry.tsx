@@ -3,12 +3,12 @@ import { Box, Divider } from '@mantine/core';
 import { ActivityBar } from './components/activity-bar';
 import { EditorGroups } from './components/editor-groups';
 import { PreviewArea } from './components/preview-area';
-import { ActivityTab, useEditorContext } from './editor-context';
+import { useEditorContext } from './editor-context';
 import { useDevtool } from './hooks/use-devtool';
 
 export const EditorEntry = () => {
   const { state } = useEditorContext();
-  const { selectedActivityTab } = state;
+  const { selectedTab } = state;
 
   useDevtool();
 
@@ -53,8 +53,7 @@ export const EditorEntry = () => {
         id="editor__preview_area"
         sx={{
           display:
-            selectedActivityTab === null ||
-            [ActivityTab.Widgets].includes(selectedActivityTab)
+            selectedTab === null || ['widget'].includes(selectedTab.tabType)
               ? 'flex'
               : 'none',
           flex: 2,
