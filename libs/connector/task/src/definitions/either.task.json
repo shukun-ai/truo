@@ -8,7 +8,7 @@
         "type": "string"
       },
       "required": true,
-      "editorType": "jsCode"
+      "editorType": "boolean"
     },
     "right": {
       "schema": {

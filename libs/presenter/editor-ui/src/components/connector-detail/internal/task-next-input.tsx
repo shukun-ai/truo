@@ -1,7 +1,6 @@
-import { Select, SelectItem } from '@mantine/core';
-import { useConnectorEditorContext } from '@shukun/component';
+import { Select } from '@mantine/core';
+import { useNextOptions } from '@shukun/component';
 import { ConnectorTask } from '@shukun/schema';
-import { useMemo } from 'react';
 
 export type TaskNextInputProps = {
   currentTaskName: string;
@@ -16,14 +15,7 @@ export const TaskNextInput = ({
   onChange,
   disabled,
 }: TaskNextInputProps) => {
-  const { taskOptions } = useConnectorEditorContext();
-
-  const nextOptions = useMemo<SelectItem[]>(() => {
-    const options = taskOptions.filter(
-      (task) => task.value !== currentTaskName,
-    );
-    return [{ label: '结束函数流', value: '' }].concat(options);
-  }, [currentTaskName, taskOptions]);
+  const { nextOptions } = useNextOptions(currentTaskName);
 
   return (
     <Select
