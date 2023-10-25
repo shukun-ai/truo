@@ -1,13 +1,18 @@
 import { Box, Code, Text } from '@mantine/core';
 import {
+  AtomNameInput,
   BooleanInput,
   BoxModelInput,
+  ConnectorNameInput,
   DataBindingInput,
   EnumInput,
   MultipleState,
   NumberInput,
   StringInput,
+  TaskNameInput,
 } from '@shukun/presenter/editor-inputs';
+
+import { useMemo } from 'react';
 
 import { useEditorContext } from '../../editor-context';
 
@@ -54,7 +59,8 @@ export const EditorInputs = ({
   disabledJsMode,
   description,
 }: EditorInputsProps) => {
-  const { devtool } = useEditorContext();
+  const { state, devtool } = useEditorContext();
+  const { metadatas, connectors } = state;
   const { logs } = devtool;
 
   const commonInputProps = {
@@ -65,6 +71,20 @@ export const EditorInputs = ({
     logs,
     widgetId: undefined,
   };
+
+  const atomOptions = useMemo<{ label: string; value: string }[]>(() => {
+    return Object.entries(metadatas).map(([atomName, atom]) => ({
+      label: `${atom.label} (${atomName})`,
+      value: atomName,
+    }));
+  }, [metadatas]);
+
+  const connectorOptions = useMemo<{ label: string; value: string }[]>(() => {
+    return Object.entries(connectors).map(([connectorName, connector]) => ({
+      label: `${connector.label} (${connectorName})`,
+      value: connectorName,
+    }));
+  }, [connectors]);
 
   if (type === 'enum' && (typeof value === 'string' || value === undefined)) {
     return (
@@ -145,11 +165,52 @@ export const EditorInputs = ({
   }
 
   if (
-    (type === 'multipleState' && Array.isArray(value)) ||
-    value === undefined
+    type === 'multipleState' &&
+    (Array.isArray(value) || value === undefined)
   ) {
     return (
       <MultipleState value={value} onChange={onChange} {...commonInputProps} />
+    );
+  }
+
+  if (
+    type === 'connectorName' &&
+    (typeof value === 'string' || value === undefined)
+  ) {
+    return (
+      <ConnectorNameInput
+        value={value}
+        onChange={(newValue) => onChange(newValue)}
+        connectorOptions={connectorOptions}
+        {...commonInputProps}
+      />
+    );
+  }
+
+  if (
+    type === 'atomName' &&
+    (typeof value === 'string' || value === undefined)
+  ) {
+    return (
+      <AtomNameInput
+        value={value}
+        onChange={(newValue) => onChange(newValue)}
+        atomOptions={atomOptions}
+        {...commonInputProps}
+      />
+    );
+  }
+
+  if (
+    type === 'taskName' &&
+    (typeof value === 'string' || value === undefined)
+  ) {
+    return (
+      <TaskNameInput
+        value={value}
+        onChange={(newValue) => onChange(newValue)}
+        {...commonInputProps}
+      />
     );
   }
 

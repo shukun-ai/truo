@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react';
+import { SelectItem } from '@mantine/core';
+import { createContext, useContext, useMemo, useState } from 'react';
 
 export type ConnectorEditorContextProps = {
   selectedTaskName: string | null;
@@ -38,4 +39,17 @@ export const useConnectorEditorContext = (): ConnectorEditorContextProps => {
     throw new Error('The connectorEditorContext is not initialize.');
   }
   return connectorEditorContext;
+};
+
+export const useNextOptions = (currentTaskName: string) => {
+  const { taskOptions } = useConnectorEditorContext();
+
+  const nextOptions = useMemo<SelectItem[]>(() => {
+    const options = taskOptions.filter(
+      (task) => task.value !== currentTaskName,
+    );
+    return [{ label: '结束函数流', value: '' }].concat(options);
+  }, [currentTaskName, taskOptions]);
+
+  return { nextOptions };
 };

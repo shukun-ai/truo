@@ -5,8 +5,6 @@ import {
   assignTask,
   eitherTask,
   messageTask,
-  parallelTask,
-  repeatTask,
   transformerTask,
 } from '@shukun/connector/task';
 
@@ -48,8 +46,6 @@ const loadWebTasks = async (
 ): Promise<Record<string, TaskSchema>> => {
   return {
     either: eitherTask,
-    parallel: parallelTask,
-    repeat: repeatTask,
     transformer: transformerTask,
     message: messageTask,
     assign: assignTask,
