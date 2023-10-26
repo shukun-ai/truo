@@ -14,6 +14,7 @@ import { nodeRepository } from '../../../repositories/presenter/node-repository'
 import { ActivityTab } from '../../../repositories/presenter/presenter-store';
 import { processRepository } from '../../../repositories/presenter/process-repository';
 import { repositoryRepository } from '../../../repositories/presenter/repository-repository';
+import { variableRepository } from '../../../repositories/presenter/variable-repository';
 import { widgetRepository } from '../../../repositories/presenter/widget-repository';
 import { tabRepository } from '../../../repositories/tab/tab-repository';
 import { taskRepository } from '../../../repositories/task/task-repository';
@@ -67,6 +68,7 @@ export const Editor = ({ mode }: EditorProps) => {
           widgets: presenter.widgetEntities,
           nodes: presenter.nodes,
           repositories: presenter.repositoryEntities,
+          variables: presenter.variableEntities,
           processes: presenter.processEntities,
           metadatas,
           connectors,
@@ -130,6 +132,12 @@ export const Editor = ({ mode }: EditorProps) => {
             update: repositoryRepository.update,
             remove: repositoryRepository.remove,
           },
+          variable: {
+            isUniqueId: variableRepository.isUniqueId,
+            create: variableRepository.create,
+            update: variableRepository.update,
+            remove: variableRepository.remove,
+          },
           process: {
             create: processRepository.create,
             update: processRepository.update,
@@ -155,6 +163,8 @@ export const Editor = ({ mode }: EditorProps) => {
               tabRepository.preview('widget', foreignId),
             previewRepository: (foreignId: string) =>
               tabRepository.preview('repository', foreignId),
+            previewVariable: (foreignId: string) =>
+              tabRepository.preview('variable', foreignId),
             previewProcess: (foreignId: string) =>
               tabRepository.preview('process', foreignId),
             previewConnector: (foreignId: string) =>
