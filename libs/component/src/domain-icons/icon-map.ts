@@ -24,6 +24,7 @@ export const iconsMap = {
   edit: IconEdit,
   activityBarNodes: IconBinaryTree,
   activityBarRepositories: IconBuildingWarehouse,
+  activityBarVariables: IconBuildingWarehouse,
   activityBarProcesses: IconJumpRope,
   activityBarMetadatas: IconDatabaseCog,
   activityBarConnectors: IconGizmo,

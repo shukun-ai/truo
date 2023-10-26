@@ -8,6 +8,7 @@ import { widgetDefinitions, widgetGallery } from '../../widgets/widget-loader';
 import { withProcess } from './process-ref';
 import { withRepository } from './repository-ref';
 import { withTreeCollapse } from './tree-ui-ref';
+import { withVariable } from './variable-ref';
 import { withWidget } from './widget-ref';
 
 export type PresenterProps = {
@@ -26,6 +27,7 @@ export enum ActivityTab {
   Screens = 'Screens',
   Widgets = 'Widgets',
   Repositories = 'Repositories',
+  Variables = 'Variables',
   Processes = 'Processes',
   Watches = 'Watches',
   Metadatas = 'Metadatas',
@@ -65,5 +67,6 @@ export const presenterStore = createStore(
   withTreeCollapse(),
   withWidget(),
   withRepository(),
+  withVariable(),
   withProcess(),
 );

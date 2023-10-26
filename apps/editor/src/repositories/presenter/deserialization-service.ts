@@ -11,6 +11,7 @@ export const deserialization = {
       widgets: omitEntityId(state.widgetEntities),
       nodes: state.nodes,
       repositories: omitEntityId(state.repositoryEntities),
+      variables: omitEntityId(state.variableEntities),
       processes: omitEntityId(state.processEntities),
     };
     return presenter;

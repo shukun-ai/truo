@@ -5,6 +5,7 @@ import { PresenterSchema } from '@shukun/schema';
 import { presenterStore } from './presenter-store';
 import { PresenterProcessEntity, processRef } from './process-ref';
 import { PresenterRepositoryEntity, repositoryRef } from './repository-ref';
+import { PresenterVariableEntity, variableRef } from './variable-ref';
 import { PresenterWidgetEntity, widgetRef } from './widget-ref';
 
 export const serialization = {
@@ -17,12 +18,14 @@ export const serialization = {
 
     const widgetEntities = getWidgetEntities(presenter);
     const repositoryEntities = getRepositoryEntities(presenter);
+    const variableEntities = getVariableEntities(presenter);
     const processEntities = getProcessEntities(presenter);
 
     presenterStore.update(
       setProps(() => ({ initialized: true, presenterLabel: presenter.label })),
       upsertEntities(widgetEntities, { ref: widgetRef }),
       upsertEntities(repositoryEntities, { ref: repositoryRef }),
+      upsertEntities(variableEntities, { ref: variableRef }),
       upsertEntities(processEntities, { ref: processRef }),
       setProp('nodes', presenter.nodes),
     );
@@ -59,6 +62,23 @@ const getRepositoryEntities = (
   }
 
   return repositoryEntities;
+};
+
+const getVariableEntities = (
+  presenter: PresenterSchema,
+): PresenterVariableEntity[] => {
+  const variableEntities: PresenterVariableEntity[] = [];
+
+  for (const [variableId, variable] of Object.entries(
+    presenter.variables ?? {},
+  )) {
+    variableEntities.push({
+      ...variable,
+      id: variableId,
+    });
+  }
+
+  return variableEntities;
 };
 
 const getProcessEntities = (
