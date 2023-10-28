@@ -14,8 +14,8 @@ export const TabVariable = ({ tab }: TabVariableProps) => {
     if (tab.tabType !== 'variable') {
       return null;
     }
-    return state.repositories[tab.foreignId];
-  }, [state.repositories, tab.foreignId, tab.tabType]);
+    return state.variables[tab.foreignId];
+  }, [state.variables, tab.foreignId, tab.tabType]);
 
   if (!variableEntity) {
     return null;

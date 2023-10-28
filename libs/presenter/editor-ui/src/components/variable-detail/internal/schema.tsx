@@ -3,6 +3,8 @@ import { Alert, Box, List, Title } from '@mantine/core';
 import { SchemaEditor } from '@shukun/component';
 import { PresenterVariable } from '@shukun/schema';
 
+import { EditorInputs } from '../../common/editor-inputs';
+
 export type SchemaProps = {
   value: PresenterVariable;
   onChange: (newValue: PresenterVariable) => void;
@@ -33,6 +35,18 @@ export const Schema = ({ value, onChange }: SchemaProps) => {
             schema: newValue ? (newValue as any) : undefined,
           });
         }}
+      />
+      <EditorInputs
+        value={value.defaultValue ?? undefined}
+        onChange={(newValue) => {
+          onChange({
+            ...value,
+            defaultValue: newValue ? (newValue as any) : undefined,
+          });
+        }}
+        label="默认值"
+        secondaryLabel="JSON"
+        type="jsonBinding"
       />
     </Box>
   );

@@ -6,6 +6,7 @@ import {
   ConnectorNameInput,
   DataBindingInput,
   EnumInput,
+  JsonInput,
   MultipleState,
   NumberInput,
   StringInput,
@@ -33,6 +34,7 @@ export type EditorInputsProps = {
     | 'unknownObject'
     | 'unknownArray'
     | 'dataBinding'
+    | 'jsonBinding'
     | 'breakpoints'
     | 'attachments'
     | 'boxModel'
@@ -149,6 +151,19 @@ export const EditorInputs = ({
       <DataBindingInput
         value={value}
         onChange={onChange}
+        {...commonInputProps}
+      />
+    );
+  }
+
+  if (
+    type === 'jsonBinding' &&
+    (typeof value === 'string' || value === undefined)
+  ) {
+    return (
+      <JsonInput
+        value={value}
+        onChange={(newValue) => onChange(newValue)}
         {...commonInputProps}
       />
     );
