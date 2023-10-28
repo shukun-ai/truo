@@ -1,8 +1,11 @@
 import { select } from '@ngneat/elf';
 
+import { PresenterSchema } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
 import { ApiRequester } from '../../apis/requester';
+
+import presenterJson from '../../assets/presenter.json';
 
 import { IPresenterRepository } from './presenter-repository.interface';
 import { ActivityTab, presenterStore } from './presenter-store';
@@ -35,6 +38,11 @@ export class PresenterRepository implements IPresenterRepository {
     if (!presenter) {
       throw new Error('Did not find presenter.');
     }
+    serialization.parse(presenter);
+  }
+
+  async resetLocal() {
+    const presenter = presenterJson as unknown as PresenterSchema;
     serialization.parse(presenter);
   }
 }
