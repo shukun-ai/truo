@@ -29,7 +29,11 @@ const SchemaEditorExample = () => {
   return (
     <SchemaEditor
       value={schema}
-      onChange={(newValue) => newValue && updateSchema(newValue)}
+      onChange={(newValue) => {
+        if (newValue) {
+          updateSchema(newValue);
+        }
+      }}
     />
   );
 };

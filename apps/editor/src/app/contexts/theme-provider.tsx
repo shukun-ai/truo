@@ -73,6 +73,11 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
               size: 'xs',
             },
           },
+          Select: {
+            defaultProps: {
+              size: 'xs',
+            },
+          },
         },
       }}
       withGlobalStyles
