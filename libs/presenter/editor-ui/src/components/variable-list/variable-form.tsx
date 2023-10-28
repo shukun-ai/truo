@@ -29,7 +29,6 @@ export const VariableForm = ({
           .refine((value) => !isUniqueId(value), {
             message: '变量标识符需要保持唯一，建议更换标识符',
           }),
-        type: z.string(),
       }),
     ),
   });
