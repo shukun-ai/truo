@@ -39,14 +39,6 @@
           "$ref": "#/definitions/PresenterProcess"
         }
       }
-    },
-    "repositories": {
-      "type": "object",
-      "patternProperties": {
-        "^(.)+$": {
-          "$ref": "#/definitions/PresenterRepository"
-        }
-      }
     }
   },
   "definitions": {
@@ -100,23 +92,6 @@
         },
         "defaultValue": {
           "type": "string"
-        }
-      }
-    },
-    "PresenterRepository": {
-      "title": "PresenterRepository",
-      "type": "object",
-      "required": ["type", "parameters"],
-      "additionalProperties": false,
-      "properties": {
-        "type": { "type": "string" },
-        "parameters": {
-          "type": "object",
-          "patternProperties": {
-            "^(.)+$": {
-              "$ref": "#/definitions/PresenterParameter"
-            }
-          }
         }
       }
     },

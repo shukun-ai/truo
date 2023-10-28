@@ -22,7 +22,6 @@ import dataSourceSchemaJson from './json-schemas/data-source.schema.json';
 import httpQuerySchemaJson from './json-schemas/http-query.schema.json';
 import presenterSchemaJson from './json-schemas/presenter.schema.json';
 import ReferenceDataSchemaJson from './json-schemas/reference/reference-data.schema.json';
-import repositorySchemaJson from './json-schemas/repository.schema.json';
 import taskSchemaJson from './json-schemas/task.schema.json';
 import widgetSchemaJson from './json-schemas/widget.schema.json';
 
@@ -51,5 +50,4 @@ export const connectorSchema = connectorSchemaJson;
 export const taskSchema = taskSchemaJson;
 export const presenterSchema = presenterSchemaJson;
 export const widgetSchema = widgetSchemaJson;
-export const repositorySchema = repositorySchemaJson;
 export const referenceDataSchema = ReferenceDataSchemaJson;
