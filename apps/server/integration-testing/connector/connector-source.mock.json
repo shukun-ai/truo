@@ -5,6 +5,7 @@
   "tasks": {
     "findAirline": {
       "type": "sourceQuery",
+      "label": "findAirline",
       "parameters": {
         "atomName": "airports",
         "query": {
