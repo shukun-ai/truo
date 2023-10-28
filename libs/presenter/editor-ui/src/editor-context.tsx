@@ -6,11 +6,9 @@ import {
   MetadataReviseSchema,
   PresenterNode,
   PresenterProcess,
-  PresenterRepository,
   PresenterSchema,
   PresenterVariable,
   PresenterWidget,
-  RepositorySchema,
   TaskSchema,
   WidgetSchema,
 } from '@shukun/schema';
@@ -31,7 +29,6 @@ export enum ActivityTab {
 export type Entity<T> = T & { id: string };
 
 export type WidgetEntity = Entity<PresenterWidget>;
-export type RepositoryEntity = Entity<PresenterRepository>;
 export type VariableEntity = Entity<PresenterVariable>;
 export type ProcessEntity = Entity<PresenterProcess>;
 export type MetadataEntity = Entity<MetadataReviseSchema>;
@@ -46,7 +43,6 @@ export type TabEntity = {
   hasError: boolean;
   tabType:
     | 'widget'
-    | 'repository'
     | 'variable'
     | 'process'
     | 'watch'
@@ -74,7 +70,6 @@ export type EditorContextProps = {
     tabs: Record<string, TabEntity>;
     widgets: Record<string, WidgetEntity>;
     nodes: Record<string, PresenterNode>;
-    repositories: Record<string, RepositoryEntity>;
     variables: Record<string, VariableEntity>;
     processes: Record<string, ProcessEntity>;
     metadatas: Record<string, MetadataEntity>;
@@ -82,7 +77,6 @@ export type EditorContextProps = {
     environments: Record<string, EnvironmentEntity>;
     tasks: Record<string, TaskEntity>;
     widgetDefinitions: Record<string, WidgetSchema>;
-    repositoryDefinitions: Record<string, RepositorySchema>;
     nodeCollapses: Record<string, NodeCollapseEntity>;
     selectedTab: TabEntity | null;
     selectedActivityTab: ActivityTab | null;
@@ -137,12 +131,6 @@ export type EditorContextProps = {
       ) => void;
       copyWidget(widget: WidgetEntity, targetNodeId: string): void;
     };
-    repository: {
-      isUniqueId(repositoryId: string): boolean;
-      create(repositoryId: string, repository: PresenterRepository): void;
-      update(repositoryId: string, repository: PresenterRepository): void;
-      remove(repositoryId: string): void;
-    };
     variable: {
       isUniqueId(variableId: string): boolean;
       create(variableId: string, variable: PresenterVariable): void;
@@ -170,8 +158,7 @@ export type EditorContextProps = {
       remove(entityId: string): void;
     };
     tab: {
-      previewWidget: (widgetEntityId: string) => void;
-      previewRepository(repositoryEntityId: string): void;
+      previewWidget(widgetEntityId: string): void;
       previewVariable(variableEntityId: string): void;
       previewProcess(processEntityId: string): void;
       previewConnector(connectorEntityId: string): void;

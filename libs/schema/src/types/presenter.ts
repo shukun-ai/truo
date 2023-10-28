@@ -45,7 +45,7 @@ export interface PresenterSchema {
   processes?: {
     [k: string]: PresenterProcess;
   };
-  repositories: {
+  repositories?: {
     [k: string]: PresenterRepository;
   };
 }

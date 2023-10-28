@@ -15,7 +15,6 @@ import { ConnectorListPane } from './connector-list/connector-list-pane';
 import { EnvironmentListPane } from './environment-list/environment-list-pane';
 import { MetadataListPane } from './metadata-list/metadata-list-pane';
 import { ProcessList } from './process-list/process-list';
-import { RepositoryList } from './repository-list/repository-list';
 import { TreePane } from './tree/tree-pane';
 import { VariableList } from './variable-list/variable-list';
 
@@ -124,13 +123,6 @@ const useActivityTabs = (): {
       icon: <Icon type="activityBarNodes" size="1.2rem" />,
       disabled: disabledPresenter,
       pane: <TreePane />,
-    },
-    {
-      label: '数据仓库',
-      value: ActivityTab.Repositories,
-      icon: <Icon type="activityBarRepositories" size="1.2rem" />,
-      disabled: disabledPresenter,
-      pane: <RepositoryList />,
     },
     {
       label: '变量',

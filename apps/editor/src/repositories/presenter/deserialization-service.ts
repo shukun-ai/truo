@@ -10,7 +10,6 @@ export const deserialization = {
       label: state.presenterLabel,
       widgets: omitEntityId(state.widgetEntities),
       nodes: state.nodes,
-      repositories: omitEntityId(state.repositoryEntities),
       variables: omitEntityId(state.variableEntities),
       processes: omitEntityId(state.processEntities),
     };

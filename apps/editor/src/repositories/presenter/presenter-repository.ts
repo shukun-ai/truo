@@ -22,10 +22,6 @@ export class PresenterRepository implements IPresenterRepository {
     select((state) => state.widgetDefinitions),
   );
 
-  repositoryDefinitions$ = this.presenterStore.pipe(
-    select((state) => state.repositoryDefinitions),
-  );
-
   selectedActivityTab$: Observable<ActivityTab | null> =
     this.presenterStore.pipe(select((state) => state.selectedActivityTab));
 

@@ -1,12 +1,10 @@
 import { createStore, withProps } from '@ngneat/elf';
 import { WidgetGallery } from '@shukun/component';
-import { PresenterNode, RepositorySchema, WidgetSchema } from '@shukun/schema';
+import { PresenterNode, WidgetSchema } from '@shukun/schema';
 
-import { repositoryDefinitions } from '../../widgets/repository-loader';
 import { widgetDefinitions, widgetGallery } from '../../widgets/widget-loader';
 
 import { withProcess } from './process-ref';
-import { withRepository } from './repository-ref';
 import { withTreeCollapse } from './tree-ui-ref';
 import { withVariable } from './variable-ref';
 import { withWidget } from './widget-ref';
@@ -16,7 +14,6 @@ export type PresenterProps = {
   presenterLabel: string;
   widgetDefinitions: Record<string, WidgetSchema>;
   widgetGallery: WidgetGallery;
-  repositoryDefinitions: Record<string, RepositorySchema>;
   selectedScreenEntityId: string | null;
   selectedContainerEntityId: string | null;
   selectedActivityTab: ActivityTab | null;
@@ -58,7 +55,6 @@ export const presenterStore = createStore(
     presenterLabel: '未命名',
     widgetDefinitions,
     widgetGallery,
-    repositoryDefinitions,
     selectedScreenEntityId: null,
     selectedContainerEntityId: null,
     selectedActivityTab: ActivityTab.Widgets,
@@ -66,7 +62,6 @@ export const presenterStore = createStore(
   }),
   withTreeCollapse(),
   withWidget(),
-  withRepository(),
   withVariable(),
   withProcess(),
 );
