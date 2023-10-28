@@ -7,7 +7,6 @@ export type TabEntity = {
   hasError: boolean;
   tabType:
     | 'widget'
-    | 'repository'
     | 'variable'
     | 'process'
     | 'watch'

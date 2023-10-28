@@ -22,13 +22,6 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           {state.widgets[tab.foreignId]?.label}
         </Group>
       );
-    } else if (tab.tabType === 'repository') {
-      return (
-        <Group>
-          <Icon type="activityBarRepositories" size="0.8rem" />{' '}
-          {state.repositories[tab.foreignId]?.id}
-        </Group>
-      );
     } else if (tab.tabType === 'variable') {
       return (
         <Group>
@@ -71,7 +64,6 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
     tab.tabType,
     tab.foreignId,
     state.widgets,
-    state.repositories,
     state.variables,
     state.processes,
     state.connectors,

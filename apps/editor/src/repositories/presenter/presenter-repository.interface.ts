@@ -1,4 +1,4 @@
-import { RepositorySchema, WidgetSchema } from '@shukun/schema';
+import { WidgetSchema } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
 import { ActivityTab } from './presenter-store';
@@ -8,7 +8,6 @@ export interface IPresenterRepository {
   synchronizeService: ISynchronizeService;
 
   widgetDefinitions$: Observable<Record<string, WidgetSchema>>;
-  repositoryDefinitions$: Observable<Record<string, RepositorySchema>>;
   selectedActivityTab$: Observable<ActivityTab | null>;
 
   initialize(presenterName: string): Promise<void>;

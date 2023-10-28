@@ -13,7 +13,6 @@ import { editorRepository } from '../../../repositories/presenter/editor-reposit
 import { nodeRepository } from '../../../repositories/presenter/node-repository';
 import { ActivityTab } from '../../../repositories/presenter/presenter-store';
 import { processRepository } from '../../../repositories/presenter/process-repository';
-import { repositoryRepository } from '../../../repositories/presenter/repository-repository';
 import { variableRepository } from '../../../repositories/presenter/variable-repository';
 import { widgetRepository } from '../../../repositories/presenter/widget-repository';
 import { tabRepository } from '../../../repositories/tab/tab-repository';
@@ -67,7 +66,6 @@ export const Editor = ({ mode }: EditorProps) => {
           tabs,
           widgets: presenter.widgetEntities,
           nodes: presenter.nodes,
-          repositories: presenter.repositoryEntities,
           variables: presenter.variableEntities,
           processes: presenter.processEntities,
           metadatas,
@@ -76,7 +74,6 @@ export const Editor = ({ mode }: EditorProps) => {
           tasks,
           widgetDefinitions: presenter.widgetDefinitions,
           widgetGallery: presenter.widgetGallery,
-          repositoryDefinitions: presenter.repositoryDefinitions,
           nodeCollapses: presenter.treeCollapseEntities,
           selectedTab,
           selectedActivityTab: presenter.selectedActivityTab,
@@ -126,12 +123,6 @@ export const Editor = ({ mode }: EditorProps) => {
             addWidget: nodeRepository.addWidget,
             copyWidget: nodeRepository.copyWidget,
           },
-          repository: {
-            isUniqueId: repositoryRepository.isUniqueId,
-            create: repositoryRepository.create,
-            update: repositoryRepository.update,
-            remove: repositoryRepository.remove,
-          },
           variable: {
             isUniqueId: variableRepository.isUniqueId,
             create: variableRepository.create,
@@ -161,8 +152,6 @@ export const Editor = ({ mode }: EditorProps) => {
           tab: {
             previewWidget: (foreignId: string) =>
               tabRepository.preview('widget', foreignId),
-            previewRepository: (foreignId: string) =>
-              tabRepository.preview('repository', foreignId),
             previewVariable: (foreignId: string) =>
               tabRepository.preview('variable', foreignId),
             previewProcess: (foreignId: string) =>
