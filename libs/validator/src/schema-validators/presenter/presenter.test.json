@@ -50,11 +50,5 @@
         }
       }
     }
-  },
-  "repositories": {
-    "form1": {
-      "type": "Simple",
-      "parameters": {}
-    }
   }
 }
