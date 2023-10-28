@@ -15,6 +15,7 @@ export * from './types/task';
 export * from './types/utils';
 export * from './types/presenter';
 export * from './types/repository';
+export * from './types/variable-schema';
 export * from './types/widget';
 
 export * from './json-schema-exports';

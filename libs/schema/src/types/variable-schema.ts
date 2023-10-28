@@ -33,7 +33,7 @@ export interface VariableSchema {
 
 // Workaround for infinite type recursion
 // https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540
-export interface VariableSchemaArray extends Array<VariableSchemaType> {}
+export type VariableSchemaArray = Array<VariableSchemaType>;
 /**
  * JSON Schema v7
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01

@@ -1,9 +1,9 @@
+import { VariableSchema } from '@shukun/schema';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
 import { SchemaEditor } from './schema-editor';
-import { VariableSchema } from './variable-schema';
 
 const SchemaEditorExample = () => {
   const [schema, updateSchema] = useState<VariableSchema>({

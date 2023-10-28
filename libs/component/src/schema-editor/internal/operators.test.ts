@@ -1,4 +1,4 @@
-import { VariableSchema } from '../variable-schema';
+import { VariableSchema } from '@shukun/schema';
 
 import { updateProperty, updatePropertyName } from './operators';
 
