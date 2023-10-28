@@ -15,7 +15,6 @@ export type ObservableAppProps = {
 export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
   const [presenter, setPresenter] = useState<AppProps['presenter']>();
   const [widgets, setWidgets] = useState<AppProps['widgets']>();
-  const [repositories, setRepositories] = useState<AppProps['repositories']>();
 
   const state = useObservableState(injector.store.queryAll()) as
     | AppProps['state']
@@ -31,9 +30,6 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
     });
     injector.loader.loadWidgets(router).then((widgets) => {
       setWidgets(widgets);
-    });
-    injector.loader.loadRepositories(router).then((repositories) => {
-      setRepositories(repositories);
     });
   }, [injector.loader, state?.router]);
 
@@ -53,7 +49,7 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
 
   useDiffVariables(injector, presenter);
 
-  if (!presenter || !widgets || !repositories || !state) {
+  if (!presenter || !widgets || !state) {
     return <div>loading...</div>;
   }
 
@@ -68,7 +64,6 @@ export const ObservableApp = ({ injector, render }: ObservableAppProps) => {
     injector,
     presenter,
     widgets,
-    repositories,
     state: standardState,
   };
   return render(app);

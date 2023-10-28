@@ -37,19 +37,12 @@
       "start": "message",
       "tasks": {
         "message": {
+          "label": "message",
           "type": "message",
           "parameters": {
             "message": "Alert test"
           }
         }
-      }
-    }
-  },
-  "repositories": {
-    "header": {
-      "type": "temporary",
-      "parameters": {
-        "defaultValue": "$$_json:{\n  \"title\": \"Hello Repository!\"\n}"
       }
     }
   }

@@ -11,8 +11,6 @@ import {
 } from '@shukun/schema';
 import { Observable } from 'rxjs';
 
-import { Repository } from './repository';
-
 export type Injector = {
   environments: {
     production: boolean;
@@ -46,9 +44,6 @@ export type Injector = {
   loader: {
     loadPresenter: (router: RouterState) => Promise<PresenterSchema>;
     loadWidgets: (router: RouterState) => Promise<Record<string, any>>;
-    loadRepositories: (
-      router: RouterState,
-    ) => Promise<Record<string, Repository>>;
   };
   api: {
     publicRequester: PublicRequester;
