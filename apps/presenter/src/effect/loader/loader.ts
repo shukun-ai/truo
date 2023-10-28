@@ -1,6 +1,5 @@
 import {
   Injector,
-  Repository,
   RouterMode,
   RouterState,
 } from '@shukun/presenter/definition';
@@ -27,7 +26,6 @@ export const initializeLoader = (
       }
     },
     loadWidgets,
-    loadRepositories,
   };
 };
 
@@ -35,11 +33,4 @@ const loadWidgets = async (): Promise<
   Record<string, (props: any) => JSX.Element | JSX.Element[]>
 > => {
   return presenterWidgets;
-};
-
-/**
- * @deprecated
- */
-const loadRepositories = async (): Promise<Record<string, Repository>> => {
-  return {};
 };
