@@ -53,7 +53,8 @@ export const EditorEntry = () => {
         id="editor__preview_area"
         sx={{
           display:
-            selectedTab === null || ['widget'].includes(selectedTab.tabType)
+            selectedTab === null ||
+            ['widget', 'variable'].includes(selectedTab.tabType)
               ? 'flex'
               : 'none',
           flex: 2,

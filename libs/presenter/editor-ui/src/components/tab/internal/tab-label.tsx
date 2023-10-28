@@ -29,6 +29,13 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           {state.repositories[tab.foreignId]?.id}
         </Group>
       );
+    } else if (tab.tabType === 'variable') {
+      return (
+        <Group>
+          <Icon type="activityBarVariables" size="0.8rem" />{' '}
+          {state.variables[tab.foreignId]?.id}
+        </Group>
+      );
     } else if (tab.tabType === 'process') {
       return (
         <Group>
@@ -65,6 +72,7 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
     tab.foreignId,
     state.widgets,
     state.repositories,
+    state.variables,
     state.processes,
     state.connectors,
     state.metadatas,

@@ -1,19 +1,23 @@
-import {
-  ActionIcon,
-  Box,
-  Group,
-  Select,
-  TextInput,
-  Tooltip,
-} from '@mantine/core';
+import { ActionIcon, Box, Group, Select, Tooltip } from '@mantine/core';
+
+import { notifications } from '@mantine/notifications';
 
 import { Icon } from '../domain-icons/domain-icons';
 
+import { FieldNameInput } from './internal/field-name-input';
+import {
+  createProperty,
+  removeProperty,
+  updateArrayItems,
+  updateProperty,
+  updatePropertyName,
+} from './internal/operators';
 import { VariableSchema, VariableSchemaTypeName } from './variable-schema';
 
 export type SchemaEditorProps = {
   value: VariableSchema;
   onChange: (newValue: VariableSchema | null) => void;
+  onFieldNameChange?: (newValue: string) => void;
   fieldName?: string;
   filedLevel?: number;
   isItemField?: true;
@@ -22,7 +26,8 @@ export type SchemaEditorProps = {
 export const SchemaEditor = ({
   value,
   onChange,
-  fieldName,
+  onFieldNameChange = () => undefined,
+  fieldName = '根节点',
   filedLevel = 0,
   isItemField,
 }: SchemaEditorProps) => {
@@ -31,9 +36,10 @@ export const SchemaEditor = ({
   return (
     <Box>
       <Group mb="md">
-        <TextInput
-          value={filedLevel === 0 ? '根节点' : fieldName}
+        <FieldNameInput
+          value={fieldName}
           disabled={filedLevel === 0 || isItemField}
+          onChange={onFieldNameChange}
         />
         <Select
           value={fields.type}
@@ -49,12 +55,14 @@ export const SchemaEditor = ({
           <Tooltip label="点击新建子属性">
             <ActionIcon
               onClick={() => {
-                onChange({
-                  ...value,
-                  properties: {
-                    untitle: {},
-                  },
-                });
+                if (value.properties && value.properties['untitle']) {
+                  notifications.show({
+                    color: 'red',
+                    message: '已经创建名为 untitle 的属性，建议先改名后再新建',
+                  });
+                  return;
+                }
+                onChange(createProperty(value));
               }}
             >
               <Icon type="plus" size="0.8rem" />
@@ -63,11 +71,7 @@ export const SchemaEditor = ({
         )}
         {!isItemField && (
           <Tooltip label="点击删除属性">
-            <ActionIcon
-              onClick={() => {
-                onChange(null);
-              }}
-            >
+            <ActionIcon onClick={() => onChange(removeProperty())}>
               <Icon type="trash" size="0.8rem" />
             </ActionIcon>
           </Tooltip>
@@ -76,26 +80,25 @@ export const SchemaEditor = ({
       {fields.type === 'object' && fields.properties && (
         <Box pl="lg">
           {Object.entries(fields.properties).map(
-            ([nextFieldName, nextSchema]) => (
+            ([currentFieldName, nextSchema]) => (
               <SchemaEditor
+                key={currentFieldName}
                 value={nextSchema}
-                onChange={(newValue) => {
-                  if (newValue) {
-                    onChange({
-                      ...value,
-                      properties: {
-                        [nextFieldName]: newValue,
-                      },
+                onChange={(newValue) =>
+                  onChange(updateProperty(value, newValue, currentFieldName))
+                }
+                onFieldNameChange={(newValue) => {
+                  if (Object.keys(fields.properties ?? {}).includes(newValue)) {
+                    notifications.show({
+                      message: '新属性名重复，请换一个名称',
                     });
-                  } else {
-                    const cloned = structuredClone(value);
-                    if (cloned.properties) {
-                      delete cloned.properties[nextFieldName];
-                      onChange(cloned);
-                    }
+                    return;
                   }
+                  onChange(
+                    updatePropertyName(value, currentFieldName, newValue),
+                  );
                 }}
-                fieldName={nextFieldName}
+                fieldName={currentFieldName}
                 filedLevel={filedLevel + 1}
               />
             ),
@@ -106,12 +109,9 @@ export const SchemaEditor = ({
         <Box pl="lg">
           <SchemaEditor
             value={fields.items ?? {}}
-            onChange={(newValue) => {
-              if (newValue) {
-                onChange({
-                  ...value,
-                  items: newValue,
-                });
+            onChange={(newItems) => {
+              if (newItems) {
+                onChange(updateArrayItems(value, newItems));
               }
             }}
             fieldName={'数组子项'}
