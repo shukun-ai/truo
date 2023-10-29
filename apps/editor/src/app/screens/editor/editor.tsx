@@ -85,7 +85,6 @@ export const Editor = ({ mode }: EditorProps) => {
             ActivityTab.Screens,
             ActivityTab.Widgets,
             ActivityTab.Repositories,
-            ActivityTab.Watches,
           ],
           presenterActivityTabs: [
             ActivityTab.Metadatas,
