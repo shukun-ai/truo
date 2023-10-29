@@ -7,6 +7,7 @@ export const useSelectionColumn = () => {
     return [
       {
         id: '_$_selection',
+        size: 10,
         header: ({ table }) => (
           <Checkbox
             onChange={table.getToggleAllRowsSelectedHandler()}
