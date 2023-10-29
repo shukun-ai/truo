@@ -56,9 +56,11 @@ export const MetadataDetail = ({
       >
         <ScrollArea sx={{ width: '100%', height: '100%' }}>
           <Container fluid>
-            <form>
-              <Schema form={form} />
-            </form>
+            <Box sx={{ maxWidth: 1000 }}>
+              <form>
+                <Schema form={form} />
+              </form>
+            </Box>
           </Container>
         </ScrollArea>
       </Box>

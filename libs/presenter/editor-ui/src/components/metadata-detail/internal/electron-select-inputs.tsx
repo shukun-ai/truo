@@ -1,4 +1,4 @@
-import { ActionIcon, Box, ColorInput, TextInput } from '@mantine/core';
+import { ActionIcon, ColorInput, Group, TextInput } from '@mantine/core';
 import { ArrayInputs } from '@shukun/component';
 import { MetadataOptions } from '@shukun/schema';
 
@@ -49,7 +49,7 @@ export const ElectronSelectInputs = ({
         onChange(remove(value, index));
       }}
       renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Group>
           {!disabled && (
             <ActionIcon sx={{ cursor: 'move' }} ref={drag} mt={22}>
               <IconGripVertical size="1rem" />
@@ -95,7 +95,7 @@ export const ElectronSelectInputs = ({
           >
             <IconTrash size="1rem" />
           </ActionIcon>
-        </Box>
+        </Group>
       )}
     />
   );

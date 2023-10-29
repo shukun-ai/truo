@@ -78,6 +78,21 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
               size: 'xs',
             },
           },
+          NativeSelect: {
+            defaultProps: {
+              size: 'xs',
+            },
+          },
+          Checkbox: {
+            defaultProps: {
+              size: 'xs',
+            },
+          },
+          ColorInput: {
+            defaultProps: {
+              size: 'xs',
+            },
+          },
         },
       }}
       withGlobalStyles
