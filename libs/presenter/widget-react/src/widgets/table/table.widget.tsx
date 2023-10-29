@@ -31,7 +31,7 @@ export const TableWidget = createWidget<TableWidgetProps>(
     });
 
     return (
-      <Table {...props}>
+      <Table {...props} horizontalSpacing="xs" verticalSpacing="xs">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -40,7 +40,7 @@ export const TableWidget = createWidget<TableWidgetProps>(
                   <th
                     key={header.id}
                     colSpan={header.colSpan}
-                    style={{ width: header.getSize() }}
+                    style={{ width: header.getSize(), background: '#fafafa' }}
                   >
                     {header.isPlaceholder ? null : (
                       <div
