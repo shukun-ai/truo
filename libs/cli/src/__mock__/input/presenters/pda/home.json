@@ -43,7 +43,6 @@
       "events": {}
     }
   },
-  "watches": {},
   "tree": {
     "root": ["w1", "w2", "w3"]
   }

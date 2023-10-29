@@ -20,7 +20,6 @@ export enum ActivityTab {
   Repositories = 'Repositories',
   Variables = 'Variables',
   Processes = 'Processes',
-  Watches = 'Watches',
   Metadatas = 'Metadatas',
   Connectors = 'Connectors',
   Environments = 'Environments',
