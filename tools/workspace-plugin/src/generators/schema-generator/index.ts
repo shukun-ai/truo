@@ -30,7 +30,6 @@ async function generate(treeRoot: string, projectRoot: string) {
     'exception',
     'data-source',
     'presenter',
-    'repository',
     'task',
     'widget',
   ];

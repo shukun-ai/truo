@@ -9,9 +9,6 @@
 /**
  * This interface was referenced by `undefined`'s JSON-Schema definition
  * via the `patternProperty` "^(.)+$".
- *
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(.)+$".
  */
 export type PresenterParameter =
   | string
@@ -44,9 +41,6 @@ export interface PresenterSchema {
   };
   processes?: {
     [k: string]: PresenterProcess;
-  };
-  repositories?: {
-    [k: string]: PresenterRepository;
   };
 }
 /**
@@ -120,14 +114,4 @@ export interface PresenterTask {
     [k: string]: unknown;
   };
   next?: string;
-}
-/**
- * This interface was referenced by `undefined`'s JSON-Schema definition
- * via the `patternProperty` "^(.)+$".
- */
-export interface PresenterRepository {
-  type: string;
-  parameters: {
-    [k: string]: PresenterParameter;
-  };
 }
