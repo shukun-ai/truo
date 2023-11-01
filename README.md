@@ -1,4 +1,6 @@
-# Shukun Low-code platform
+<h1 align="center">
+  Shukun System (SS)
+</h1>
 
 ## How to Develop and Debug
 
