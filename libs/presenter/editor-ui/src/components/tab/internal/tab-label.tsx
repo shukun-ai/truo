@@ -57,6 +57,13 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
           {state.environments[tab.foreignId]?.id}
         </Group>
       );
+    } else if (tab.tabType === 'view') {
+      return (
+        <Group>
+          <Icon type="activityBarViews" size="0.8rem" />{' '}
+          {state.views[tab.foreignId]?.label}
+        </Group>
+      );
     }
 
     throw new TypeException('Did not find specific tab');
@@ -69,6 +76,7 @@ export const TabLabel = ({ tab }: TabLabelProps) => {
     state.connectors,
     state.metadatas,
     state.environments,
+    state.views,
   ]);
 
   return <Text fs={tab.isPreview ? 'italic' : undefined}>{tabLabel}</Text>;
