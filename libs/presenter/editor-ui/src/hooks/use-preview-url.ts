@@ -6,5 +6,5 @@ export const usePreviewUrl = (screenName: string) => {
   const { state } = useEditorContext();
 
   const { orgName, presenterName } = useParams();
-  return `${state.previewDomain}/presenter/${orgName}/${presenterName}/${screenName}`;
+  return `${state.presenterDomain}/presenter/${orgName}/${presenterName}/${screenName}`;
 };

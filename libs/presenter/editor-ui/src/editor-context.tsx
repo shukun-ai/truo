@@ -83,7 +83,8 @@ export type EditorContextProps = {
     nodeCollapses: Record<string, NodeCollapseEntity>;
     selectedTab: TabEntity | null;
     selectedActivityTab: ActivityTab | null;
-    previewDomain: string;
+    clientDomain: string;
+    presenterDomain: string;
     presenterLabel: string;
     rootNodeId: 'root';
     allowedFieldType: {
@@ -165,6 +166,10 @@ export type EditorContextProps = {
       create(entityId: string): void;
       update(entity: ViewEntity): void;
       remove(entityId: string): void;
+      /**
+       * @experimental
+       */
+      push(): Promise<void>;
     };
     tab: {
       previewWidget(widgetEntityId: string): void;

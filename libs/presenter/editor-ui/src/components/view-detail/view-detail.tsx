@@ -6,6 +6,7 @@ import { ViewEntity, TabEntity, useEditorContext } from '../../editor-context';
 import { useDebounceSave } from '../../hooks/use-debounce-save';
 
 import { Schema } from './internal/schema';
+import { SaveButton } from './save/save-button';
 
 export type ViewDetailProps = {
   tab: TabEntity;
@@ -26,6 +27,7 @@ export const ViewDetail = ({ tab, viewEntity, viewId }: ViewDetailProps) => {
 
   return (
     <EditorTabWrapper>
+      <SaveButton viewName={viewEntity.name} />
       <form>
         <Title order={3} mb="md">
           {viewEntity.label}
