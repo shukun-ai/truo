@@ -9,7 +9,6 @@ export type TabEntity = {
     | 'widget'
     | 'variable'
     | 'process'
-    | 'watch'
     | 'connector'
     | 'metadata'
     | 'environment'
