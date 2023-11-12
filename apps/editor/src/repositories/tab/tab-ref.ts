@@ -12,7 +12,8 @@ export type TabEntity = {
     | 'watch'
     | 'connector'
     | 'metadata'
-    | 'environment';
+    | 'environment'
+    | 'view';
   foreignId: string;
 };
 

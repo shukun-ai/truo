@@ -10,6 +10,7 @@ import {
   PresenterVariable,
   PresenterWidget,
   TaskSchema,
+  ViewSchema,
   WidgetSchema,
 } from '@shukun/schema';
 import { createContext, useContext } from 'react';
@@ -23,6 +24,7 @@ export enum ActivityTab {
   Metadatas = 'Metadatas',
   Connectors = 'Connectors',
   Environments = 'Environments',
+  Views = 'Views',
 }
 
 export type Entity<T> = T & { id: string };
@@ -33,6 +35,7 @@ export type ProcessEntity = Entity<PresenterProcess>;
 export type MetadataEntity = Entity<MetadataReviseSchema>;
 export type ConnectorEntity = Entity<ConnectorSchema>;
 export type EnvironmentEntity = Entity<EnvironmentSchema>;
+export type ViewEntity = Entity<ViewSchema>;
 export type TaskEntity = Entity<TaskSchema>;
 
 export type TabEntity = {
@@ -47,7 +50,8 @@ export type TabEntity = {
     | 'watch'
     | 'connector'
     | 'metadata'
-    | 'environment';
+    | 'environment'
+    | 'view';
   foreignId: string;
 };
 
@@ -74,6 +78,7 @@ export type EditorContextProps = {
     metadatas: Record<string, MetadataEntity>;
     connectors: Record<string, ConnectorEntity>;
     environments: Record<string, EnvironmentEntity>;
+    views: Record<string, ViewEntity>;
     tasks: Record<string, TaskEntity>;
     widgetDefinitions: Record<string, WidgetSchema>;
     nodeCollapses: Record<string, NodeCollapseEntity>;
@@ -156,6 +161,12 @@ export type EditorContextProps = {
       update(entity: EnvironmentEntity): void;
       remove(entityId: string): void;
     };
+    view: {
+      isUnique(entityId: string): boolean;
+      create(entityId: string): void;
+      update(entity: ViewEntity): void;
+      remove(entityId: string): void;
+    };
     tab: {
       previewWidget(widgetEntityId: string): void;
       previewVariable(variableEntityId: string): void;
@@ -163,6 +174,7 @@ export type EditorContextProps = {
       previewConnector(connectorEntityId: string): void;
       previewMetadata(metadataEntityId: string): void;
       previewEnvironment(environmentEntityId: string): void;
+      previewView(viewEntityId: string): void;
       fix(entityId: string): void;
       activeEditing(entityId: string): void;
       inactiveEditing(entityId: string): void;

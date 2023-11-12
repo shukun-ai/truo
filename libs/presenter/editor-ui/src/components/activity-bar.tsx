@@ -17,6 +17,7 @@ import { MetadataListPane } from './metadata-list/metadata-list-pane';
 import { ProcessList } from './process-list/process-list';
 import { TreePane } from './tree/tree-pane';
 import { VariableList } from './variable-list/variable-list';
+import { ViewList } from './view-list/view-list';
 
 export const ActivityBar = () => {
   const { classes, cx } = useStyles();
@@ -156,23 +157,23 @@ const useActivityTabs = (): {
       icon: <Icon type="activityBarEnvironments" size="1.2rem" />,
       pane: <EnvironmentListPane />,
     },
+    {
+      label: '管理台',
+      value: ActivityTab.Views,
+      icon: <Icon type="activityBarViews" size="1.2rem" />,
+      pane: <ViewList />,
+    },
   ];
 };
 
 const useActiveTab = () => {
   const { state } = useEditorContext();
-  const { disabledPresenter } = useEditorContext();
 
   return useMemo(() => {
     if (state.selectedActivityTab === null) {
       return null;
-    } else if (
-      disabledPresenter &&
-      !state.systemActivityTabs.includes(state.selectedActivityTab)
-    ) {
-      return ActivityTab.Metadatas;
     } else {
       return state.selectedActivityTab;
     }
-  }, [disabledPresenter, state.selectedActivityTab, state.systemActivityTabs]);
+  }, [state.selectedActivityTab]);
 };
