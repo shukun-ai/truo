@@ -17,6 +17,7 @@ import { variableRepository } from '../../../repositories/presenter/variable-rep
 import { widgetRepository } from '../../../repositories/presenter/widget-repository';
 import { tabRepository } from '../../../repositories/tab/tab-repository';
 import { taskRepository } from '../../../repositories/task/task-repository';
+import { viewRepository } from '../../../repositories/view/view-repository';
 import { useAppContext } from '../../contexts/app-context';
 
 import { useLoadPresenter } from './use-load-presenter';
@@ -40,6 +41,7 @@ export const Editor = ({ mode }: EditorProps) => {
   const metadatas = useObservableState(metadataRepository.all$, {});
   const connectors = useObservableState(connectorRepository.all$, {});
   const environments = useObservableState(environmentRepository.all$, {});
+  const views = useObservableState(viewRepository.all$, {});
   const tasks = useObservableState(taskRepository.all$, {});
   const allowedFieldType = useObservableState(
     metadataRepository.allowedFieldType$,
@@ -71,6 +73,7 @@ export const Editor = ({ mode }: EditorProps) => {
           metadatas,
           connectors,
           environments,
+          views,
           tasks,
           widgetDefinitions: presenter.widgetDefinitions,
           widgetGallery: presenter.widgetGallery,
@@ -148,6 +151,12 @@ export const Editor = ({ mode }: EditorProps) => {
             update: environmentRepository.update,
             remove: environmentRepository.remove,
           },
+          view: {
+            isUnique: viewRepository.isUnique,
+            create: viewRepository.create,
+            update: viewRepository.update,
+            remove: viewRepository.remove,
+          },
           tab: {
             previewWidget: (foreignId: string) =>
               tabRepository.preview('widget', foreignId),
@@ -161,6 +170,8 @@ export const Editor = ({ mode }: EditorProps) => {
               tabRepository.preview('metadata', foreignId),
             previewEnvironment: (foreignId: string) =>
               tabRepository.preview('environment', foreignId),
+            previewView: (foreignId: string) =>
+              tabRepository.preview('view', foreignId),
             fix: tabRepository.fix,
             activeEditing: tabRepository.activeEditing,
             inactiveEditing: tabRepository.inactiveEditing,

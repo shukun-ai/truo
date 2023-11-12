@@ -2,6 +2,7 @@ import { select, setProps } from '@ngneat/elf';
 import {
   addEntities,
   deleteEntities,
+  getAllEntitiesApply,
   selectEntitiesCount,
   setEntities,
   updateEntities,
@@ -21,7 +22,7 @@ export const viewRepository = {
 
   initialize: async (apiRequester: IApiRequester) => {
     const response = await apiRequester.developerRequester.pullViews();
-    console.log('res', response);
+
     const entities: ViewEntity[] = Object.entries(response.data.value).map(
       ([viewName, view]) => ({
         id: createViewEntityId(viewName),
@@ -35,6 +36,17 @@ export const viewRepository = {
         initialized: true,
       })),
     );
+  },
+
+  isUnique: (viewName: string): boolean => {
+    const existEntity = viewStore.query(
+      getAllEntitiesApply({
+        filterEntity: (item) => item.viewName === viewName,
+        ref: viewRef,
+      }),
+    );
+
+    return existEntity.length === 1;
   },
 
   create: (viewName: string): void => {

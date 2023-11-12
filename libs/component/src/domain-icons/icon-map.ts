@@ -9,6 +9,7 @@ import {
   IconGizmo,
   IconInfoCircle,
   IconJumpRope,
+  IconLayoutDashboard,
   IconPlus,
   IconSignature,
   IconTrash,
@@ -33,4 +34,5 @@ export const iconsMap = {
   activityBarMetadatas: IconDatabaseCog,
   activityBarConnectors: IconGizmo,
   activityBarEnvironments: IconVariable,
+  activityBarViews: IconLayoutDashboard,
 } as const;

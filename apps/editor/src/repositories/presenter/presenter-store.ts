@@ -29,6 +29,7 @@ export enum ActivityTab {
   Metadatas = 'Metadatas',
   Connectors = 'Connectors',
   Environments = 'Environments',
+  Views = 'Views',
 }
 
 export const presenterActivityTabs = [
