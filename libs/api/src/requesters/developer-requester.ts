@@ -8,6 +8,7 @@ import {
   TaskSchema,
   MetadataReviseSchema,
   EnvironmentSchema,
+  ViewSchema,
 } from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
@@ -262,6 +263,33 @@ export class DeveloperRequester {
       {
         body: {
           definition: metadatas,
+        },
+      },
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/pull-views
+   */
+  public async pullViews() {
+    return await this.requestAdaptor.fetch<Record<string, ViewSchema>>(
+      'POST',
+      this.buildUri(`pull-views`),
+    );
+  }
+
+  /**
+   * @remarks
+   * POST /apis/v1/developer/{orgName}/push-views
+   */
+  public async pushViews(views: Record<string, ViewSchema>) {
+    return await this.requestAdaptor.fetch<null>(
+      'POST',
+      this.buildUri(`push-views`),
+      {
+        body: {
+          definition: views,
         },
       },
     );

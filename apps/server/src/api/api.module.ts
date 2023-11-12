@@ -23,6 +23,7 @@ import { DeveloperMigrationController } from './developer/developer-migration.co
 import { DeveloperPresenterCodeController } from './developer/developer-presenter-code.controller';
 import { DeveloperPresenterController } from './developer/developer-presenter.controller';
 import { DeveloperTaskController } from './developer/developer-task.controller';
+import { DeveloperViewController } from './developer/developer-view.controller';
 import { AuthenticationController } from './public/authentication/authentication.controller';
 import { AuthorizationController } from './public/authorization/authorization.controller';
 import { AuthorizationService } from './public/authorization/authorization.service';
@@ -73,6 +74,7 @@ import { WebhookController } from './webhook/webhook.controller';
     DeveloperConnectorController,
     DeveloperTaskController,
     DeveloperMetadataController,
+    DeveloperViewController,
     DeveloperEnvironmentController,
   ],
   providers: [
