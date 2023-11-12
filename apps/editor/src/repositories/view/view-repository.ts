@@ -8,11 +8,11 @@ import {
   updateEntities,
 } from '@ngneat/elf-entities';
 
-import { ViewType } from '@shukun/schema';
+import { ViewSchema, ViewType } from '@shukun/schema';
 
 import { IApiRequester } from '../../apis/requester.interface';
 
-import { ViewEntity, viewRef, createViewEntityId } from './view-ref';
+import { ViewEntity, viewRef, createViewEntityId, getView } from './view-ref';
 import { viewStore } from './view-store';
 
 export const viewRepository = {
@@ -36,6 +36,28 @@ export const viewRepository = {
         initialized: true,
       })),
     );
+  },
+
+  createPush: (apiRequester: IApiRequester): (() => Promise<void>) => {
+    return async (): Promise<void> => {
+      const entities = viewStore.query(
+        getAllEntitiesApply({
+          ref: viewRef,
+        }),
+      );
+
+      const views: Record<string, ViewSchema> = entities.reduce(
+        (total, current) => {
+          return {
+            ...total,
+            [current.name]: getView(current),
+          };
+        },
+        {},
+      );
+
+      await apiRequester.developerRequester.pushViews(views);
+    };
   },
 
   isUnique: (viewName: string): boolean => {

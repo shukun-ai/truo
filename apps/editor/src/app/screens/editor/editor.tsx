@@ -80,7 +80,8 @@ export const Editor = ({ mode }: EditorProps) => {
           nodeCollapses: presenter.treeCollapseEntities,
           selectedTab,
           selectedActivityTab: presenter.selectedActivityTab,
-          previewDomain: environment.previewDomain,
+          clientDomain: environment.clientDomain,
+          presenterDomain: environment.previewDomain,
           presenterLabel: presenter.presenterLabel,
           rootNodeId: 'root',
           allowedFieldType: allowedFieldType,
@@ -156,6 +157,7 @@ export const Editor = ({ mode }: EditorProps) => {
             create: viewRepository.create,
             update: viewRepository.update,
             remove: viewRepository.remove,
+            push: viewRepository.createPush(app.apiRequester),
           },
           tab: {
             previewWidget: (foreignId: string) =>

@@ -16,6 +16,7 @@ const getOrgRegisterMode = () => {
 
 export const environment: Environment = {
   serverDomain: import.meta.env?.VITE_EDITOR_BASE_URL ?? '',
+  clientDomain: import.meta.env?.VITE_EDITOR_CLIENT_URL ?? '',
   storageDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
   assetDomain: import.meta.env?.VITE_EDITOR_STORAGE_URL ?? '',
   previewDomain: import.meta.env?.VITE_EDITOR_PREVIEW_URL ?? '',
