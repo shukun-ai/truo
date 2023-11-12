@@ -28,7 +28,7 @@ export const ViewDetail = ({ tab, viewEntity, viewId }: ViewDetailProps) => {
     <EditorTabWrapper>
       <form>
         <Title order={3} mb="md">
-          $.{viewId}
+          {viewEntity.label}
         </Title>
         <Schema
           value={form.values}

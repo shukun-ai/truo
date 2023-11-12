@@ -1,6 +1,8 @@
-import { Box, Title } from '@mantine/core';
+import { Box } from '@mantine/core';
 
 import { ViewEntity } from '../../../editor-context';
+
+import { ConfigurationsForm } from './configuration-form';
 
 export type SchemaProps = {
   value: ViewEntity;
@@ -10,9 +12,15 @@ export type SchemaProps = {
 export const Schema = ({ value, onChange }: SchemaProps) => {
   return (
     <Box>
-      <Title order={5} mb="md">
-        定义变量类型表（Schema）
-      </Title>
+      <ConfigurationsForm
+        value={value.configurations ?? {}}
+        onChange={(newValue) => {
+          onChange({
+            ...value,
+            configurations: newValue,
+          });
+        }}
+      />
     </Box>
   );
 };
