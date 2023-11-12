@@ -57,7 +57,6 @@ export class PresenterService {
       nodes: {
         root: [],
       },
-      repositories: {},
     };
     const entity = new this.presenterModel({
       ...createDto,

@@ -15,6 +15,7 @@ import { metadataRepository } from '../../repositories/metadata/metadata-reposit
 import { PresenterRepository } from '../../repositories/presenter/presenter-repository';
 import { IPresenterRepository } from '../../repositories/presenter/presenter-repository.interface';
 import { taskRepository } from '../../repositories/task/task-repository';
+import { viewRepository } from '../../repositories/view/view-repository';
 import { RouterMap, routerMap } from '../router-map';
 
 export type AppContextProps = {
@@ -28,6 +29,7 @@ export type AppContextProps = {
     connectorRepository: typeof connectorRepository;
     taskRepository: typeof taskRepository;
     metadataRepository: typeof metadataRepository;
+    viewRepository: typeof viewRepository;
     environmentRepository: typeof environmentRepository;
   };
 };
@@ -49,6 +51,7 @@ export const initializeAppContextProps = (): AppContextProps => {
       connectorRepository,
       taskRepository,
       metadataRepository,
+      viewRepository,
       environmentRepository,
     },
   };

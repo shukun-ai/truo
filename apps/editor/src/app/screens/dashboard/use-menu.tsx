@@ -36,6 +36,11 @@ export const useMenu = (): {
           path: routerMap.dashboard.replace(':orgName', routeOrgName),
         },
         {
+          label: '管理台应用',
+          icon: <IconCloud size="1rem" stroke={1.5} />,
+          path: routerMap.dashboardView.replace(':orgName', routeOrgName),
+        },
+        {
           label: '服务器应用',
           icon: <IconCloud size="1rem" stroke={1.5} />,
           path: routerMap.dashboardBackend.replace(':orgName', routeOrgName),

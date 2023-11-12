@@ -19,31 +19,29 @@ import { useAppContext } from '../../contexts/app-context';
 import { useRouteOrgName } from '../../hooks/use-route-org-name';
 import { routerMap } from '../../router-map';
 
-export const DashboardBackend = () => {
+export const DashboardView = () => {
   const metric = useMetric();
 
   const app = useAppContext();
 
   useEffect(() => {
-    app.repositories.metadataRepository.initialize(app.apiRequester);
-    app.repositories.connectorRepository.initialize(app.apiRequester);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    app.repositories.viewRepository.initialize(app.apiRequester);
+  }, [app.apiRequester, app.repositories.viewRepository]);
 
   const routeOrgName = useRouteOrgName();
 
   return (
     <Box>
       <Title order={4} mb={24}>
-        服务器应用
+        管理台应用
       </Title>
       <Group position="apart" mb={24}>
         <Group>
           <Button
             component={Link}
-            to={routerMap.editorBackend.replace(':orgName', routeOrgName)}
+            to={routerMap.editorView.replace(':orgName', routeOrgName)}
           >
-            编辑服务器应用
+            编辑管理台应用
           </Button>
         </Group>
         <Group>
@@ -81,38 +79,16 @@ const useMetric = (): {
   description: string;
 }[] => {
   const app = useAppContext();
-  const metadataCount = useObservableState(
-    app.repositories.metadataRepository.count$,
-    0,
-  );
-  const connectorCount = useObservableState(
-    app.repositories.connectorRepository.count$,
+  const viewCount = useObservableState(
+    app.repositories.viewRepository.count$,
     0,
   );
 
   return [
     {
-      label: '数据表',
-      count: metadataCount,
-      description:
-        '定义数据表的表结构，数据表是描述数据的数据，数据表的表结构帮助客户存储数据，组织数据。',
-    },
-    {
-      label: '函数流',
-      count: connectorCount,
-      description:
-        '函数流可调用多种逻辑结构、数昆数据库和其他的外部资源，如电子邮件、支付回调、队列事件等。',
-    },
-    {
-      label: '定时器',
-      count: 0,
-      description: '设置定时器的方式来触发函数流。',
-    },
-    {
-      label: '接口',
-      count: 0,
-      description:
-        '将部分函数流暴露在公共网络，以接口的形式在多个系统保持统一性。',
+      label: '视图',
+      count: viewCount,
+      description: '定义管理台视图，方便客户操作。',
     },
   ];
 };

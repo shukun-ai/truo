@@ -6,6 +6,7 @@ import { ConnectorContainer } from './screens/connector/connector.container';
 import { Dashboard } from './screens/dashboard/dashboard';
 import { DashboardBackend } from './screens/dashboard/dashboard-backend';
 import { DashboardPresenter } from './screens/dashboard/dashboard-presenter';
+import { DashboardView } from './screens/dashboard/dashboard-view';
 import { Editor } from './screens/editor/editor';
 import { PublicLayout } from './screens/public-layout/public-layout';
 import { CreateOrg } from './screens/sign-in/create-org';
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
         path: routerMap.dashboardBackend,
         element: <DashboardBackend />,
       },
+      {
+        path: routerMap.dashboardView,
+        element: <DashboardView />,
+      },
     ],
   },
   {
@@ -55,7 +60,15 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: routerMap.backend,
+    path: routerMap.editorBackend,
+    element: (
+      <AuthLayout>
+        <Editor mode="system" />
+      </AuthLayout>
+    ),
+  },
+  {
+    path: routerMap.editorView,
     element: (
       <AuthLayout>
         <Editor mode="system" />
