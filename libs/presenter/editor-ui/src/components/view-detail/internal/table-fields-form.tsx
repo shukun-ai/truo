@@ -43,8 +43,14 @@ export const TableFieldsForm = ({ value, onChange }: TableFieldsFormProps) => {
       onRemove={(index) => {
         onChange(remove(value, index));
       }}
-      renderItem={(itemValue, itemChange, itemRemove, { drag }) => (
+      renderItem={(itemValue, itemChange, itemRemove, { index }) => (
         <Group>
+          <ArrayInputs.ArrowHandler
+            index={index}
+            onMove={(sourceIndex, targetIndex) =>
+              onChange(move(value, sourceIndex, targetIndex))
+            }
+          />
           <TableFieldForm
             value={itemValue}
             onChange={(newValue) => {
