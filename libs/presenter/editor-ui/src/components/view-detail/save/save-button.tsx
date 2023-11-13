@@ -33,7 +33,7 @@ export const SaveButton = ({ viewName }: SaveButtonProps) => {
   }, [dispatch.view, url]);
 
   return (
-    <Alert>
+    <Alert mb={12}>
       <Group>
         <Text>编辑视图的配置，点此可保存并预览</Text>
         <Button size="xs" variant="outline" onClick={onSave} loading={loading}>
