@@ -1,15 +1,14 @@
 import { setProp } from '@ngneat/elf';
 import { deleteEntities, upsertEntities } from '@ngneat/elf-entities';
 
-import { getUniqueLabel } from '@shukun/util-functions';
-
 import {
+  getUniqueLabel,
   addSiblingNode,
   insertNode,
   moveToBeside,
   moveToInside,
   removeNode,
-} from './move-node';
+} from '@shukun/util-functions';
 
 import { presenterStore } from './presenter-store';
 import { treeCollapseRef } from './tree-ui-ref';
