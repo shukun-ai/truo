@@ -49,6 +49,12 @@ export const ActivityBar = () => {
             alignItems: 'center',
             marginTop: 8,
             marginBottom: 8,
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            if (window.confirm('请确保数据已保存后再要返回首页')) {
+              dispatch.editor.clickLogo();
+            }
           }}
         >
           <ShukunLogo />

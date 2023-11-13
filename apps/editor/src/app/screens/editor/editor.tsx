@@ -4,6 +4,8 @@ import { useObservableState } from 'observable-hooks';
 
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { environment } from '../../../environments/environment';
 import { connectorRepository } from '../../../repositories/connector/connector-repository';
 import { environmentRepository } from '../../../repositories/environment/environment-repository';
@@ -20,6 +22,8 @@ import { taskRepository } from '../../../repositories/task/task-repository';
 import { viewRepository } from '../../../repositories/view/view-repository';
 import { useAppContext } from '../../contexts/app-context';
 
+import { routerMap } from '../../router-map';
+
 import { useLoadPresenter } from './use-load-presenter';
 
 export type EditorProps = {
@@ -33,6 +37,7 @@ export type DevtoolLogs = {
 };
 
 export const Editor = ({ mode }: EditorProps) => {
+  const navigate = useNavigate();
   const app = useAppContext();
 
   const presenter = useObservableState(widgetRepository.presenter$);
@@ -99,6 +104,9 @@ export const Editor = ({ mode }: EditorProps) => {
         dispatch: {
           editor: {
             chooseActivityTab: editorRepository.chooseActivityTab,
+            clickLogo: () => {
+              navigate(routerMap.dashboard);
+            },
           },
           deserialization: {
             build: deserialization.build,
