@@ -1,13 +1,19 @@
-import { ActionIcon, Box, Group, Menu, ScrollArea, Text } from '@mantine/core';
-import { Icon } from '@shukun/component';
+import { ActionIcon, Box, Menu, ScrollArea } from '@mantine/core';
+import {
+  TreeMenu,
+  TreeMenuCollapses,
+  TreeMenuSelections,
+} from '@shukun/component';
+import { closeCollapse, openCollapse } from '@shukun/util-functions';
 import { IconDots, IconTrash } from '@tabler/icons-react';
 
-import { ViewEntity, useEditorContext } from '../../editor-context';
+import { useMemo, useState } from 'react';
 
-import { extractTabForeignId } from '../../helpers/extract-tab-foreign-id';
+import { useEditorContext } from '../../editor-context';
 
 import { useListStyles } from '../common/list-style';
 
+import { useViewStructure } from './internal/use-view-structure';
 import { ViewCreateButton } from './view-create-button';
 
 export const ViewList = () => {
@@ -17,41 +23,79 @@ export const ViewList = () => {
 
   const { selectedTab, views } = state;
 
+  const list = useMemo(() => {
+    const list = Object.entries(views).reduce((total, [key, value]) => {
+      return {
+        ...total,
+        [value.id]: {
+          key: value.id,
+          label: value.label,
+        },
+      };
+    }, {});
+
+    return list;
+  }, [views]);
+
+  const structure = useViewStructure(views);
+  const [collapses, setCollapses] = useState<TreeMenuCollapses>({});
+  const selections: TreeMenuSelections = useMemo(() => {
+    if (!selectedTab) {
+      return {};
+    } else {
+      return {
+        [selectedTab?.foreignId]: true,
+      };
+    }
+  }, [selectedTab]);
+
   return (
     <Box className={cx(classes.wrapper)}>
       <Box pl={4} pr={4} mb={8}>
         <ViewCreateButton />
       </Box>
       <ScrollArea sx={{ flex: 1, overflow: 'hidden' }}>
-        {Object.values(views).map((viewEntity) => (
-          <Box
-            key={viewEntity.id}
-            className={cx(
-              classes.button,
-              extractTabForeignId(selectedTab, 'view') === viewEntity.id &&
-                classes.active,
-            )}
-            onClick={() => {
-              dispatch.tab.previewView(viewEntity.id);
-            }}
-          >
-            <Group>
-              <Icon type="activityBarViews" size="1rem" />
-              <Text size="sm">{viewEntity.label}</Text>
-            </Group>
-            <MoreButton viewEntity={viewEntity} />
-          </Box>
-        ))}
+        <TreeMenu
+          list={list}
+          structure={structure}
+          collapses={collapses}
+          selections={selections}
+          rootNodeKey={'root'}
+          moreSection={MoreButton}
+          // moveToBeside={(sourceKey, targetKey, position) =>
+          //   setStructure(
+          //     moveToBeside(structure, sourceKey, targetKey, position),
+          //   )
+          // }
+          // moveToInside={(sourceKey, targetKey) =>
+          //   setStructure(moveToInside(structure, sourceKey, targetKey))
+          // }
+          // removeNode={(sourceKey) =>
+          //   setStructure(removeNode(structure, sourceKey))
+          // }
+          openCollapse={(sourceKey) =>
+            setCollapses(openCollapse(collapses, sourceKey))
+          }
+          closeCollapse={(sourceKey) =>
+            setCollapses(closeCollapse(collapses, sourceKey))
+          }
+          clickNode={(node) => {
+            dispatch.tab.previewView(node.key);
+          }}
+        />
       </ScrollArea>
     </Box>
   );
 };
 
-const MoreButton = ({ viewEntity }: { viewEntity: ViewEntity }) => {
+const MoreButton = (props: {
+  sourceNode: { key: string; label: string };
+  rootNodeKey: string;
+}) => {
   const { dispatch } = useEditorContext();
 
   return (
-    <Menu shadow="md" width={200}>
+    <Menu shadow="md" width={200} withinPortal>
       <Menu.Target>
         <ActionIcon variant="transparent">
           <IconDots size="1rem" />
@@ -63,7 +107,7 @@ const MoreButton = ({ viewEntity }: { viewEntity: ViewEntity }) => {
           color="red"
           icon={<IconTrash size={14} />}
           onClick={() => {
-            dispatch.view.remove(viewEntity.id);
+            dispatch.view.remove(props.sourceNode.key);
           }}
         >
           删除
