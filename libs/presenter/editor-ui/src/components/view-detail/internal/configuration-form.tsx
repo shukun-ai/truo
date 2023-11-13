@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { CollapseSection } from './collapse-section';
 import { RibbonsForm } from './ribbons-form';
+import { TableCustomActionsForm } from './table-custom-actions-form';
 import { TableFieldsForm } from './table-fields-form';
 
 export type ConfigurationsFormProps = {
@@ -22,7 +23,7 @@ export const ConfigurationsForm = ({
     <Box>
       <CollapseSection
         name="tableFields"
-        label="列表字段配置"
+        label="表格字段"
         selected={selected}
         onSelect={setSelected}
         mb={8}
@@ -39,7 +40,7 @@ export const ConfigurationsForm = ({
       </CollapseSection>
       <CollapseSection
         name="tableRibbons"
-        label="列表按钮配置"
+        label="表格按钮"
         selected={selected}
         onSelect={setSelected}
         mb={8}
@@ -50,6 +51,23 @@ export const ConfigurationsForm = ({
             onChange({
               ...value,
               tableRibbons: newValue,
+            });
+          }}
+        />
+      </CollapseSection>
+      <CollapseSection
+        name="tableCustomActions"
+        label="表格自定义操作"
+        selected={selected}
+        onSelect={setSelected}
+        mb={8}
+      >
+        <TableCustomActionsForm
+          value={value.tableCustomActions ?? []}
+          onChange={(newValue) => {
+            onChange({
+              ...value,
+              tableCustomActions: newValue,
             });
           }}
         />
