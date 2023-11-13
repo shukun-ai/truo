@@ -99,6 +99,7 @@ export type EditorContextProps = {
   dispatch: {
     editor: {
       chooseActivityTab: (tab: ActivityTab | null) => void;
+      clickLogo: () => void;
     };
     deserialization: {
       build: () => PresenterSchema;
