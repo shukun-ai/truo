@@ -27,11 +27,11 @@ export const ViewDetail = ({ tab, viewEntity, viewId }: ViewDetailProps) => {
 
   return (
     <EditorTabWrapper>
-      <SaveButton viewName={viewEntity.name} />
       <form>
         <Title order={3} mb="md">
           {viewEntity.label}
         </Title>
+        <SaveButton viewName={viewEntity.name} />
         <Schema
           value={form.values}
           onChange={(newValue) => form.setValues(newValue)}
