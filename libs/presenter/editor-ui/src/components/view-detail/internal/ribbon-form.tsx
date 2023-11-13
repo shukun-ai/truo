@@ -1,6 +1,7 @@
-import { Box, ColorInput, Group, Select, TextInput } from '@mantine/core';
+import { ColorInput, Group, Select, TextInput } from '@mantine/core';
 import { ViewLinkType, ViewRibbon } from '@shukun/schema';
 
+import { Bordered } from './bordered';
 import { viewLinkTypeOptions } from './view-link-type-options';
 
 export type RibbonFormProps = {
@@ -10,7 +11,7 @@ export type RibbonFormProps = {
 
 export const RibbonForm = ({ value, onChange }: RibbonFormProps) => {
   return (
-    <Box>
+    <Bordered>
       <Group>
         <TextInput
           label="按钮标识符"
@@ -107,6 +108,6 @@ export const RibbonForm = ({ value, onChange }: RibbonFormProps) => {
           }
         />
       </Group>
-    </Box>
+    </Bordered>
   );
 };
