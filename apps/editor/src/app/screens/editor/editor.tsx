@@ -22,6 +22,7 @@ import { taskRepository } from '../../../repositories/task/task-repository';
 import { viewRepository } from '../../../repositories/view/view-repository';
 import { useAppContext } from '../../contexts/app-context';
 
+import { useRouteOrgName } from '../../hooks/use-route-org-name';
 import { routerMap } from '../../router-map';
 
 import { useLoadPresenter } from './use-load-presenter';
@@ -38,6 +39,7 @@ export type DevtoolLogs = {
 
 export const Editor = ({ mode }: EditorProps) => {
   const navigate = useNavigate();
+  const routeOrgName = useRouteOrgName();
   const app = useAppContext();
 
   const presenter = useObservableState(widgetRepository.presenter$);
@@ -105,7 +107,7 @@ export const Editor = ({ mode }: EditorProps) => {
           editor: {
             chooseActivityTab: editorRepository.chooseActivityTab,
             clickLogo: () => {
-              navigate(routerMap.dashboard);
+              navigate(routerMap.dashboard.replace(':orgName', routeOrgName));
             },
           },
           deserialization: {
