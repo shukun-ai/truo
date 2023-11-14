@@ -15,6 +15,7 @@ export type BasicProps = {
 export const Basic = ({ form, disabled }: BasicProps) => {
   return (
     <Card withBorder mt={12} mb={6}>
+      <TextInput label="表标识符" {...form.getInputProps('name')} disabled />
       <TextInput
         label="表显示名称"
         {...form.getInputProps('label')}

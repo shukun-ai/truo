@@ -51,22 +51,26 @@ export const ConnectorDetail = ({
 
   return (
     <ConnectorEditorProvider taskOptions={taskOptions}>
-      <EditorTabWrapper>
-        <Box>
-          <form>
-            <Schema
-              value={form.values}
-              onChange={(newValue) => form.setValues(newValue)}
-            />
-          </form>
+      <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
+        <Box sx={{ flex: 1, height: '100%' }}>
+          <EditorTabWrapper>
+            <Box>
+              <form>
+                <Schema
+                  value={form.values}
+                  onChange={(newValue) => form.setValues(newValue)}
+                />
+              </form>
+            </Box>
+          </EditorTabWrapper>
         </Box>
-        <Box sx={{ width: '100%', height: 300 }}>
+        <Box sx={{ flex: 1, height: '100%' }}>
           <ConnectorEditor
             value={form.values}
             onChange={(newValue) => form.setValues(newValue)}
           ></ConnectorEditor>
         </Box>
-      </EditorTabWrapper>
+      </Box>
     </ConnectorEditorProvider>
   );
 };
