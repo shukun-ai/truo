@@ -1,9 +1,9 @@
 import { Box } from '@mantine/core';
+import { CollapseSection } from '@shukun/component';
 import { ViewSchema } from '@shukun/schema';
 
 import { useState } from 'react';
 
-import { CollapseSection } from './collapse-section';
 import { RibbonsForm } from './ribbons-form';
 import { TableCustomActionsForm } from './table-custom-actions-form';
 import { TableFieldsForm } from './table-fields-form';
