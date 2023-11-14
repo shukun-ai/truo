@@ -3,6 +3,8 @@ export * from './utils/legacy-function-component';
 export * from './brand/shukun-brand';
 export * from './brand/shukun-logo';
 export * from './brand/org-brand';
+export * from './collapse-arrow/collapse-arrow';
+export * from './collapse-section/collapse-section';
 export * from './array-inputs/array-inputs';
 export * from './dnd/dnd-provider';
 export * from './use-code-mirror/use-code-mirror';
