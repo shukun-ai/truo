@@ -44,7 +44,7 @@ export const MetadataListPane = () => {
           >
             <Group>
               <IconDatabaseCog size="1rem" />
-              <Text size="sm">{metadataEntity.id}</Text>
+              <Text size="sm">{metadataEntity.label}</Text>
               <MoreTag metadataEntity={metadataEntity} />
             </Group>
             <MoreButton metadataEntity={metadataEntity} />

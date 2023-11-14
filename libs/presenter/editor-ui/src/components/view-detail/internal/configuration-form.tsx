@@ -17,7 +17,7 @@ export const ConfigurationsForm = ({
   value,
   onChange,
 }: ConfigurationsFormProps) => {
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string | undefined>('tableFields');
 
   return (
     <Box>
