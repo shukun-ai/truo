@@ -1,5 +1,5 @@
 import { InterpolationMap, TypeException } from '@shukun/exception';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios';
 import axiosRetry from 'axios-retry';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
@@ -68,7 +68,7 @@ export class AxiosAdaptor implements IRequestAdaptor {
           config.headers = {
             ...config.headers,
             Authorization: `bearer ${accessToken}`,
-          };
+          } as AxiosRequestHeaders;
         }
 
         return config;

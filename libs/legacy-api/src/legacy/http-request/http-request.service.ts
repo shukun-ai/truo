@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
 import axiosRetry from 'axios-retry';
 
 export interface HttpRequestServiceOptions {
@@ -44,7 +44,7 @@ export class HttpRequestService {
           config.headers = {
             ...config.headers,
             Authorization: `bearer ${accessToken}`,
-          };
+          } as AxiosRequestHeaders;
         }
 
         return config;

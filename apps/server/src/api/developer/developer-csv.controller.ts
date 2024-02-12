@@ -37,10 +37,10 @@ export class DeveloperCsvController {
             // eslint-disable-next-line security/detect-object-injection
             const cell = (value as UnknownSourceModel)[electronName];
 
-            if (typeof cell === undefined) {
+            if (typeof cell === 'undefined') {
               return '';
             }
-            if (typeof cell === null) {
+            if (cell === null) {
               return '';
             }
             if (cell instanceof Date) {
