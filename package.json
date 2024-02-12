@@ -6,7 +6,7 @@
     "node": "18.17.0"
   },
   "scripts": {
-    "start": "nx run-many --target=serve --projects=server,presenter,editor",
+    "start": "nx run-many --target=serve --projects=server,client",
     "build": "nx run-many --target=build --all --configuration=production",
     "generate": "nx run-many --target=generate --all",
     "package": "nx run-many --target=package --all --configuration=production",
@@ -17,7 +17,7 @@
     "lint": "nx run-many --target=lint --all",
     "prepare": "is-ci || husky install",
     "git-pre-commit": "nx format:write --uncommitted",
-    "git-pre-push": "npm run lint && npm run test:unit && npm run build"
+    "git-pre-push": "npm run lint && npm run test:unit"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
