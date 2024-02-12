@@ -33,7 +33,7 @@ function handleHttpException(error: unknown) {
 
     if (error.status >= 400) {
       const errorMessage = error.message || '网络请求异常';
-      message.error({ content: errorMessage, duration: 2000 });
+      message.error({ content: errorMessage, duration: 2 });
       return;
     }
   }
