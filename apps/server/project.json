@@ -7,14 +7,17 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
+        "target": "node",
+        "compiler": "tsc",
         "outputPath": "dist/apps/server",
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
-        "target": "node",
-        "compiler": "tsc"
+        "webpackConfig": "apps/server/webpack.config.js"
       },
       "configurations": {
+        "development": {},
         "production": {
           "sourceMap": false,
           "optimization": true,
@@ -31,18 +34,24 @@
     },
     "serve": {
       "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
       "options": {
         "buildTarget": "server:build",
         "port": 9229,
         "inspect": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "server:build:development"
+        },
+        "production": {
+          "buildTarget": "server:build:production"
+        }
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/server/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -60,7 +69,9 @@
         "passWithNoTests": true
       },
       "configurations": {
-        "debug": "watch"
+        "debug": {
+          "watch": true
+        }
       }
     },
     "package": {
