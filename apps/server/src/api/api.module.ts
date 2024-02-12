@@ -16,6 +16,7 @@ import { WebhookModule } from '../webhook/webhook.module';
 import { ConnectorController } from './connector/connector.controller';
 import { DeveloperCodebaseController } from './developer/developer-codebase.controller';
 import { DeveloperConnectorController } from './developer/developer-connector.controller';
+import { DeveloperCsvController } from './developer/developer-csv.controller';
 import { DeveloperDataSourceController } from './developer/developer-data-source.controller';
 import { DeveloperEnvironmentController } from './developer/developer-environment.controller';
 import { DeveloperMetadataController } from './developer/developer-metadata.controller';
@@ -76,6 +77,7 @@ import { WebhookController } from './webhook/webhook.controller';
     DeveloperMetadataController,
     DeveloperViewController,
     DeveloperEnvironmentController,
+    DeveloperCsvController,
   ],
   providers: [
     SourceAccessControlService,
