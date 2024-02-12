@@ -32,9 +32,11 @@ export class SourceReferenceService {
       // TODO 这里的请求数量会存在问题，因为不是为每列平均分配 reference id，所以会产生请求不均匀的问题。
       // 现在的数据是由 ManyToMany 字段一次性返回的，这种方式对大量 ManyToMany 数据将会存在问题，将禁止 ManyToMany 字段返回值。
       // 必须通过接口去获得。
+      // Now, we use limit: 0 to get all values to fix temporarily
       const response = await requester.query({
         filter: { _id: { $in: ids } },
         select: { [foreignName]: true },
+        limit: 0,
       });
 
       this.sourceService.add(referenceTo, response.data.value);
