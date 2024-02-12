@@ -14,7 +14,7 @@
       "name": "Launch Chrome",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:9020/editor",
+      "url": "http://localhost:9000",
       "webRoot": "${workspaceFolder}",
       "userDataDir": "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
     },
