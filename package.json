@@ -174,7 +174,7 @@
     "lodash": "^4.17.21",
     "mockdate": "^3.0.5",
     "mongodb": "5.2.0",
-    "mongoose": "7.4.1",
+    "mongoose": "^7.6.8",
     "nanoid": "^4.0.2",
     "npm": "^9.6.3",
     "observable-hooks": "^4.2.0",
@@ -211,7 +211,7 @@
     "uglify-js": "^3.15.0",
     "url-parse": "^1.5.10",
     "utility-types": "^3.10.0",
-    "vm2": "3.9.16",
+    "vm2": "^3.9.19",
     "write": "^2.0.0",
     "zod": "^3.21.4"
   }
