@@ -8,6 +8,7 @@ export enum RoutePath {
   ViewCreate = '/:orgName/views/:viewName/create',
   ViewDetail = '/:orgName/views/:viewName/source/:sourceId',
   Plugin = '/:orgName/plugins',
+  IframePlayground = '/:orgName/iframe-playground',
 }
 
 export const replaceList = [

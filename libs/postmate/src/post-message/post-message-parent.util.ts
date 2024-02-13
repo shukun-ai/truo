@@ -1,21 +1,41 @@
-import Postmate from 'postmate';
-
 import { PostMessageEvent } from './post-message.interface';
 
 export function callChild<T>(
-  postmate: Postmate | undefined | null,
+  iframe: HTMLIFrameElement | null,
+  sessionId: string,
   event: PostMessageEvent,
   value: T,
 ) {
-  postmate?.then((parent) => parent.call(event, value as T));
+  const listener = () => {
+    iframe?.contentWindow?.postMessage({
+      type: 'application/x-shukun-v1+json',
+      eventName: event,
+      payload: value,
+      sessionId,
+    });
+  };
+  iframe?.addEventListener('load', listener);
+
+  return () => {
+    iframe?.removeEventListener('load', listener);
+  };
 }
 
 export function listenChild<T>(
-  postmate: Postmate | undefined | null,
-  event: PostMessageEvent,
-  callback: T,
+  sessionId: string,
+  callback: (eventName: PostMessageEvent, payload: T) => void,
 ) {
-  postmate?.then((child) => {
-    child.on(event, callback as any);
-  });
+  const listener = (event: MessageEvent) => {
+    if (
+      event.data?.type === 'application/x-shukun-v1+json' &&
+      event.data?.sessionId === sessionId
+    ) {
+      callback(event.data.eventName, event.data.payload);
+    }
+  };
+  window.addEventListener('message', listener);
+
+  return () => {
+    window.removeEventListener('message', listener);
+  };
 }

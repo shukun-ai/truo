@@ -1,11 +1,10 @@
-// TODO Postmate's types is not consistent with export and must set allowSyntheticDefaultImports as true
-import Postmate from 'postmate';
 import { BehaviorSubject } from 'rxjs';
 
 import {
   IPostMessageService,
   PostMessageEvent,
   PostMessageNotificationProps,
+  PostMessageSessionId,
 } from './post-message.interface';
 
 import {
@@ -15,10 +14,9 @@ import {
   PostMessageSearch,
   PostMessageSources,
 } from './post-message.interface';
-import {} from './post-message.interface';
 
 export class PostMessageService implements IPostMessageService {
-  protected handshake: Promise<Postmate.ChildAPI>;
+  protected _sessionId$ = new BehaviorSubject<PostMessageSessionId>(null);
 
   protected _auth$ = new BehaviorSubject<PostMessageAuth>(null);
 
@@ -41,63 +39,106 @@ export class PostMessageService implements IPostMessageService {
   public environment$ = this._environment$.asObservable();
 
   constructor() {
-    this.handshake = new Postmate.Model({
-      [PostMessageEvent.ON_AUTH]: (value: PostMessageAuth) => {
-        this._auth$.next(value);
+    if (!window) {
+      return;
+    }
+
+    const listener = (event: MessageEvent) => {
+      if (event.data?.type !== 'application/x-shukun-v1+json') {
+        return;
+      }
+      if (!event.data?.sessionId) {
+        return;
+      }
+
+      this._sessionId$.next(event.data.sessionId);
+
+      switch (event.data?.eventName) {
+        case PostMessageEvent.ON_AUTH:
+          this._auth$.next(event.data.payload);
+          break;
+        case PostMessageEvent.ON_SOURCES:
+          this._sources$.next(event.data.payload);
+          break;
+        case PostMessageEvent.ON_SEARCH:
+          this._search$.next(event.data.payload);
+          break;
+        case PostMessageEvent.ON_CUSTOM_MODE:
+          this._customMode$.next(event.data.payload);
+          break;
+        case PostMessageEvent.ON_ENVIRONMENT:
+          this._environment$.next(event.data.payload);
+          break;
+      }
+    };
+
+    window.addEventListener('message', listener, false);
+  }
+
+  private postMessageToParent(eventName: PostMessageEvent, payload: unknown) {
+    if (!window?.parent) {
+      return;
+    }
+    const sessionId = this._sessionId$.getValue();
+    if (!sessionId) {
+      return;
+    }
+    window.parent.postMessage(
+      {
+        type: 'application/x-shukun-v1+json',
+        eventName,
+        payload,
+        sessionId,
       },
-      [PostMessageEvent.ON_SOURCES]: (value: PostMessageSources) => {
-        this._sources$.next(value);
-      },
-      [PostMessageEvent.ON_SEARCH]: (value: PostMessageSearch) => {
-        this._search$.next(value);
-      },
-      [PostMessageEvent.ON_CUSTOM_MODE]: (value: PostMessageCustomMode) => {
-        this._customMode$.next(value);
-      },
-      [PostMessageEvent.ON_ENVIRONMENT]: (value: PostMessageEnvironment) => {
-        this._environment$.next(value);
-      },
-    });
+      '*',
+    );
+  }
+
+  public getAuth() {
+    return this._auth$.getValue();
+  }
+
+  public getSources() {
+    return this._sources$.getValue();
+  }
+
+  public getSearch() {
+    return this._search$.getValue();
+  }
+
+  public getCustomMode() {
+    return this._customMode$.getValue();
+  }
+
+  public getEnvironment() {
+    return this._environment$.getValue();
   }
 
   public async emitFinish() {
-    const parent = await this.handshake;
-    parent.emit(PostMessageEvent.EMIT_FINISH);
+    this.postMessageToParent(PostMessageEvent.EMIT_FINISH, null);
   }
 
   public async emitRefresh() {
-    const parent = await this.handshake;
-    parent.emit(PostMessageEvent.EMIT_REFRESH);
+    this.postMessageToParent(PostMessageEvent.EMIT_REFRESH, null);
   }
 
   public async emitSearch(search: PostMessageSearch) {
-    const parent = await this.handshake;
-    parent.emit(PostMessageEvent.EMIT_SEARCH, search);
+    this.postMessageToParent(PostMessageEvent.EMIT_SEARCH, search);
   }
 
-  /**
-   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
-   */
   public async emitWidth(width: string | null) {
-    const parent = await this.handshake;
-    parent.emit(PostMessageEvent.EMIT_WIDTH, width);
+    this.postMessageToParent(PostMessageEvent.EMIT_WIDTH, width);
   }
 
-  /**
-   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
-   */
   public async emitHeight(height: string | null) {
-    const parent = await this.handshake;
-    parent.emit(PostMessageEvent.EMIT_HEIGHT, height);
+    this.postMessageToParent(PostMessageEvent.EMIT_HEIGHT, height);
   }
 
   public async emitNotification(props: PostMessageNotificationProps) {
-    const parent = await this.handshake;
-    parent.emit(PostMessageEvent.EMIT_NOTIFICATION, props);
+    this.postMessageToParent(PostMessageEvent.EMIT_NOTIFICATION, props);
   }
 
   public async emitLoading(loading: boolean) {
-    const parent = await this.handshake;
-    parent.emit(PostMessageEvent.EMIT_LOADING, loading);
+    this.postMessageToParent(PostMessageEvent.EMIT_LOADING, loading);
   }
 }

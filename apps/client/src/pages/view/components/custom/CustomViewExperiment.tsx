@@ -12,19 +12,13 @@ import {
   PostMessageNotificationProps,
 } from '@shukun/postmate';
 import { UnknownSourceModel } from '@shukun/schema';
-import { useUnmount } from 'ahooks';
 import { message } from 'antd';
 import { useObservableState } from 'observable-hooks';
-import Postmate from 'postmate';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { environment } from '../../../../environments';
 import { SearchModel } from '../../../../services/search';
 import { validAuth$ } from '../../../../services/session';
-import {
-  POSTMATE_IFRAME_CLASS,
-  POSTMATE_NAME_VIEW_CUSTOM,
-} from '../../../../utils/postmate-helpers';
 
 export interface CustomViewExperimentProps {
   customMode: PostMessageCustomModeType | null;
@@ -53,65 +47,60 @@ export const CustomViewExperiment: LegacyFunctionComponent<
   defaultWidth = '100%',
   defaultHeight = '100%',
 }) => {
-  const frameRef = useRef<HTMLDivElement | null>(null);
-  const [frameUrl, setFrameUrl] = useState<string | null>(null);
-  const [handshake, setHandshake] = useState<Postmate | null>(null);
+  const sessionId = useId();
+  const frameRef = useRef<HTMLIFrameElement | null>(null);
   const [width, setWidth] = useState<string | null>(null);
   const [height, setHeight] = useState<string | null>(null);
   const auth = useObservableState(validAuth$, null);
 
-  useEffect(() => {
-    if (!url || !frameRef) {
-      return;
-    }
-
-    if (frameUrl !== url) {
-      setFrameUrl(url);
-
-      handshake?.then((child) => child.destroy());
-
-      const builtUrl = addTimeStampForRefresh(buildUrl(url));
-      const newHandshake = new Postmate({
-        container: frameRef.current,
-        url: builtUrl,
-        name: POSTMATE_NAME_VIEW_CUSTOM,
-        classListArray: [POSTMATE_IFRAME_CLASS],
-      });
-      setHandshake(newHandshake);
-    }
-  }, [frameRef, frameUrl, handshake, url]);
-
-  useUnmount(() => {
-    handshake?.then((child) => child.destroy);
-  });
+  const securityUrl = useMemo(() => {
+    return url ? addTimeStampForRefresh(buildUrl(url)) : null;
+  }, [url]);
 
   useEffect(() => {
-    callChild<PostMessageAuth>(handshake, PostMessageEvent.ON_AUTH, auth);
-  }, [auth, handshake]);
+    const cancel = callChild<PostMessageAuth>(
+      frameRef.current,
+      sessionId,
+      PostMessageEvent.ON_AUTH,
+      auth,
+    );
+    return () => cancel();
+  }, [auth, sessionId]);
 
   useEffect(() => {
-    callChild<PostMessageSearch>(handshake, PostMessageEvent.ON_SEARCH, search);
-  }, [handshake, search]);
+    const cancel = callChild<PostMessageSearch>(
+      frameRef.current,
+      sessionId,
+      PostMessageEvent.ON_SEARCH,
+      search,
+    );
+    return () => cancel();
+  }, [search, sessionId]);
 
   useEffect(() => {
-    callChild<PostMessageSources>(
-      handshake,
+    const cancel = callChild<PostMessageSources>(
+      frameRef.current,
+      sessionId,
       PostMessageEvent.ON_SOURCES,
       sources,
     );
-  }, [handshake, sources]);
+    return () => cancel();
+  }, [sessionId, sources]);
 
   useEffect(() => {
-    callChild<PostMessageCustomMode>(
-      handshake,
+    const cancel = callChild<PostMessageCustomMode>(
+      frameRef.current,
+      sessionId,
       PostMessageEvent.ON_CUSTOM_MODE,
       customMode,
     );
-  }, [customMode, handshake]);
+    return () => cancel();
+  }, [customMode, sessionId]);
 
   useEffect(() => {
-    callChild<PostMessageEnvironment>(
-      handshake,
+    const cancel = callChild<PostMessageEnvironment>(
+      frameRef.current,
+      sessionId,
       PostMessageEvent.ON_ENVIRONMENT,
       {
         serverDomain: environment.serverDomain,
@@ -119,60 +108,59 @@ export const CustomViewExperiment: LegacyFunctionComponent<
         assetDomain: environment.assetDomain,
       },
     );
-  }, [customMode, handshake]);
+    return () => cancel();
+  }, [customMode, sessionId]);
 
   useEffect(() => {
-    listenChild(handshake, PostMessageEvent.EMIT_FINISH, onFinish);
-  }, [handshake, onFinish]);
-
-  useEffect(() => {
-    listenChild(handshake, PostMessageEvent.EMIT_REFRESH, onRefresh);
-  }, [handshake, onRefresh]);
-
-  useEffect(() => {
-    listenChild(handshake, PostMessageEvent.EMIT_SEARCH, onSearch);
-  }, [handshake, onSearch]);
-
-  useEffect(() => {
-    listenChild(
-      handshake,
-      PostMessageEvent.EMIT_WIDTH,
-      (width: string | null) => {
-        setWidth(width);
-      },
-    );
-    listenChild(
-      handshake,
-      PostMessageEvent.EMIT_HEIGHT,
-      (height: string | null) => {
-        setHeight(height);
-      },
-    );
-  }, [handshake]);
-
-  useEffect(() => {
-    listenChild(
-      handshake,
-      PostMessageEvent.EMIT_NOTIFICATION,
-      (props: PostMessageNotificationProps) => {
-        message.open({
-          content: props.message,
-          type: props.type || 'info',
-          duration: props.duration,
-        });
-      },
-    );
-  }, [handshake]);
-
-  useEffect(() => {
-    listenChild(handshake, PostMessageEvent.EMIT_LOADING, onLoading);
-  }, [handshake, onLoading]);
+    const cancel = listenChild(sessionId, (eventName, payload) => {
+      switch (eventName) {
+        case PostMessageEvent.EMIT_FINISH:
+          onFinish();
+          break;
+        case PostMessageEvent.EMIT_REFRESH:
+          onRefresh();
+          break;
+        case PostMessageEvent.EMIT_SEARCH:
+          onSearch(payload as SearchModel);
+          break;
+        case PostMessageEvent.EMIT_WIDTH:
+          setWidth(payload as string | null);
+          break;
+        case PostMessageEvent.EMIT_HEIGHT:
+          setHeight(payload as string | null);
+          break;
+        case PostMessageEvent.EMIT_NOTIFICATION:
+          // eslint-disable-next-line no-case-declarations
+          const props = payload as PostMessageNotificationProps;
+          message.open({
+            content: props.message,
+            type: props.type || 'info',
+            duration: props.duration,
+          });
+          break;
+        case PostMessageEvent.EMIT_LOADING:
+          onLoading(payload as boolean);
+          break;
+      }
+    });
+    return () => cancel();
+  }, [onFinish, onLoading, onRefresh, onSearch, sessionId]);
 
   return (
     <div
-      ref={frameRef}
       style={{ width: width ?? defaultWidth, height: height ?? defaultHeight }}
-    />
+    >
+      <iframe
+        ref={frameRef}
+        src={securityUrl ?? ''}
+        title="custom view"
+        style={{
+          border: 'none',
+          width: width ?? defaultWidth,
+          height: height ?? defaultHeight,
+        }}
+      />
+    </div>
   );
 };
 
@@ -180,6 +168,9 @@ const isHttpLink = (value: string) =>
   value.startsWith('https://') || value.startsWith('http://');
 
 const buildUrl = (value: string) => {
+  // TODO only allow same origin, same org name and contents from web-engines.
+  // TODO bypass the rule if enable develop mode
+
   if (isHttpLink(value)) {
     return value;
   }
