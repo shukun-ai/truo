@@ -107,7 +107,7 @@ describe('Source apis', () => {
         integer: 1,
         float: 2.0000088888888881,
         currency: 7.9999,
-        password: null,
+        password: '',
         mixed: { title: 'Hello World!' },
         attachment: [
           {

@@ -48,7 +48,7 @@ export class PasswordField implements IElectronInterpreter {
     // TODO remove MongooseSchema, use afterQuery to implement it.
     return {
       type: Schema.Types.String,
-      transform: () => null,
+      transform: () => '',
     };
   }
 

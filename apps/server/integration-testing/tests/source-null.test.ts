@@ -66,7 +66,7 @@ describe('Source null search', () => {
 
       const entities1 = response1.data.value;
       expect(response1.data.value.length).toBe(2);
-      expect(entities1[0].text).toEqual(null);
+      expect(entities1[0].text).toEqual(undefined);
       expect(entities1[1].text).toEqual(undefined);
 
       const response2 = await requester.query({
