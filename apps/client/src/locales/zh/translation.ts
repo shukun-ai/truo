@@ -31,4 +31,8 @@ export const zhTranslation = {
   fields: {
     requiredError: '请务必填写"{{label}}"字段',
   },
+  customView: {
+    noSupport: '{{customMode}}类型下不提供{{eventName}}事件。',
+    valueIsNotSet: 'view 的 value 值没有设置',
+  },
 };
