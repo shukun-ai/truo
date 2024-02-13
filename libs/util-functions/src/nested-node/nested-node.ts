@@ -1,5 +1,5 @@
 import { TypeException } from '@shukun/exception';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const moveToInside = (
   tree: Record<string, string[]>,

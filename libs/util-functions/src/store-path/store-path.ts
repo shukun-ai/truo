@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import set from 'lodash/set';
 
 export const getStorePath = (state: unknown, fullPath: string[]) => {
   let newState: any = state;
