@@ -46,11 +46,16 @@ export const IframePlayground = () => {
           Set height auto
         </Button>
       </div>
-      <pre>{JSON.stringify(auth, null, 2)}</pre>
-      <pre>{JSON.stringify(sources, null, 2)}</pre>
-      <pre>{JSON.stringify(search, null, 2)}</pre>
-      <pre>{JSON.stringify(customMode, null, 2)}</pre>
-      <pre>{JSON.stringify(environment, null, 2)}</pre>
+      <h5>auth$</h5>
+      <code>{JSON.stringify(auth, null, 2)}</code>
+      <h5>sources$</h5>
+      <code>{JSON.stringify(sources, null, 2)}</code>
+      <h5>search$</h5>
+      <code>{JSON.stringify(search, null, 2)}</code>
+      <h5>customMode$</h5>
+      <code>{JSON.stringify(customMode, null, 2)}</code>
+      <h5>environment$</h5>
+      <code>{JSON.stringify(environment, null, 2)}</code>
     </div>
   );
 };
