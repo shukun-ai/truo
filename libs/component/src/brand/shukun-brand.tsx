@@ -7,7 +7,7 @@ export type ShukunBrandProps = {
 
 export const ShukunBrand = ({
   theme,
-  title = 'Shukun System',
+  title = 'SHUKUN AI',
 }: ShukunBrandProps) => {
   return (
     <div style={{ display: 'flex' }}>

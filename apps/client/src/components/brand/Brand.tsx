@@ -10,7 +10,7 @@ export interface BrandProps {
 
 export const Brand: LegacyFunctionComponent<BrandProps> = ({
   theme,
-  title = 'Shukun System',
+  title = 'SHUKUN AI',
 }) => {
   return (
     <Flex>
@@ -40,8 +40,7 @@ export const Brand: LegacyFunctionComponent<BrandProps> = ({
           borderRadius: 8,
           color: theme === 'dark' ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
           fontSize: 14,
-
-          paddingTop: 4,
+          paddingTop: 6,
         }}
       >
         {title}

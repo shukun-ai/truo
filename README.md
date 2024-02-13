@@ -1,5 +1,5 @@
 <h1 align="center">
-  Shukun System (SS)
+  SHUKUN AI
 </h1>
 
 ## How to Develop and Debug
