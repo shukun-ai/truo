@@ -36,7 +36,7 @@ export const getAttachmentUrl = (
   attachment: AttachmentValue,
   imageSharpOptions?: ImageSharpOptions,
 ) => {
-  const url = `${environment.assetDomain}/oss`;
+  const url = `${environment.VITE_CLIENT_ASSET_URL}/oss`;
   const prefix = attachment.mime.startsWith('image/') ? 'images' : 'assets';
   const path = attachment.path;
 

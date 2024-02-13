@@ -103,9 +103,9 @@ export const CustomViewExperiment: LegacyFunctionComponent<
       sessionId,
       PostMessageEvent.ON_ENVIRONMENT,
       {
-        serverDomain: environment.serverDomain,
-        storageDomain: environment.storageDomain,
-        assetDomain: environment.assetDomain,
+        serverDomain: environment.VITE_CLIENT_BASE_URL,
+        storageDomain: environment.VITE_CLIENT_STORAGE_URL,
+        assetDomain: environment.VITE_CLIENT_ASSET_URL,
       },
     );
     return () => cancel();
