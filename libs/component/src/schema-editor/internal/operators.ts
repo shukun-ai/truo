@@ -1,5 +1,5 @@
 import { VariableSchema } from '@shukun/schema';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 
 export const createProperty = (parent: VariableSchema): VariableSchema => {
   return {

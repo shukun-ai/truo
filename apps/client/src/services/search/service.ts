@@ -1,6 +1,6 @@
 import { ViewSearch } from '@shukun/schema';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import { defaultSearchValue } from './constant';
 import { SearchModel, SearchSort } from './model';

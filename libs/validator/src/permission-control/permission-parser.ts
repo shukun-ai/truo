@@ -1,5 +1,5 @@
 import { RoleSchema } from '@shukun/schema';
-import { union } from 'lodash';
+import union from 'lodash/union';
 
 import { PermissionNodes } from './permission-control.type';
 import { PermissionConvertor } from './permission-convertor';
