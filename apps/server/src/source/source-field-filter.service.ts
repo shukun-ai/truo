@@ -18,7 +18,10 @@ export class SourceFieldFilterService {
 
     for (const [key, value] of Object.entries(json)) {
       if (fieldNames.includes(key)) {
-        newJson[key] = value;
+        // We should convert null to undefined for unified response.
+        // Please see https://github.com/shukun-ai/shukun/issues/85
+        const parsedValue = value === null ? undefined : value;
+        newJson[key] = parsedValue;
       }
     }
 
