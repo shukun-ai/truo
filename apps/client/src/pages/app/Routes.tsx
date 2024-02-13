@@ -1,6 +1,5 @@
 import { LegacyFunctionComponent } from '@shukun/component';
 import { useObservableState } from 'observable-hooks';
-import React, { FunctionComponent } from 'react';
 import {
   Routes as ReactRoutes,
   Route,
@@ -15,6 +14,7 @@ import { adaptNestedRoute } from '../../utils/history-provider/nested';
 import { Dashboard } from '../dashboard';
 import { Home } from '../home';
 import { Hub } from '../hub';
+import { IframePlayground } from '../iframe';
 import { ViewLayout } from '../layout/ViewLayout';
 import { SignIn } from '../sign';
 import { Upload } from '../upload';
@@ -30,6 +30,10 @@ export const Routes: LegacyFunctionComponent<RoutesProps> = () => {
       <ReactRoutes>
         <Route path={RoutePath.Hub} element={<Hub />} />
         <Route path={RoutePath.SignIn} element={<SignIn />} />
+        <Route
+          path={RoutePath.IframePlayground}
+          element={<IframePlayground />}
+        />
         <Route
           path={RoutePath.Plugin}
           element={

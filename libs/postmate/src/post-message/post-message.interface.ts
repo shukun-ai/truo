@@ -50,6 +50,8 @@ export enum PostMessageEvent {
   EMIT_LOADING = 'EMIT_LOADING',
 }
 
+export type PostMessageSessionId = string | null;
+
 export type PostMessageAuth = AuthModel | null;
 
 export type PostMessageSources = UnknownSourceModel[] | null;
@@ -76,16 +78,15 @@ export interface IPostMessageService {
   search$: Observable<PostMessageSearch>;
   customMode$: Observable<PostMessageCustomMode>;
   environment$: Observable<PostMessageEnvironment>;
+  getAuth(): PostMessageAuth;
+  getSources(): PostMessageSources;
+  getSearch(): PostMessageSearch;
+  getCustomMode(): PostMessageCustomMode;
+  getEnvironment(): PostMessageEnvironment;
   emitFinish(): Promise<void>;
   emitRefresh(): Promise<void>;
   emitSearch(search: PostMessageSearch): Promise<void>;
-  /**
-   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
-   */
   emitWidth(width: string | null): Promise<void>;
-  /**
-   * @deprecated Because there is a conflict when there are more than one iframe in a same page.
-   */
   emitHeight(height: string | null): Promise<void>;
   emitNotification(props: PostMessageNotificationProps): Promise<void>;
   emitLoading(loading: boolean): Promise<void>;
