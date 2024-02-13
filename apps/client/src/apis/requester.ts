@@ -11,7 +11,7 @@ import { environment } from '../environments';
 import { sessionService } from '../services/session';
 
 export const axiosAdaptor = new AxiosAdaptor({
-  baseUrl: `${environment.serverDomain}/apis/v1`,
+  baseUrl: `${environment.VITE_CLIENT_BASE_URL}/apis/v1`,
   onOrgName: () => sessionService.getOrgName(),
   onAccessToken: () =>
     sessionService.getSessionValidAuth()?.accessToken ?? null,

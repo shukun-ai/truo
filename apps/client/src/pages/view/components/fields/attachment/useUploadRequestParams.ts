@@ -18,7 +18,7 @@ export function useUploadRequestParams() {
     const auth = sessionService.getSessionValidAuth();
     if (auth) {
       setParams({
-        action: `${environment.storageDomain}/oss/upload`,
+        action: `${environment.VITE_CLIENT_STORAGE_URL}/oss/upload`,
         orgId: auth.orgId,
         orgName: auth.orgName,
         token: auth.accessToken,
