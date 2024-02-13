@@ -1,4 +1,3 @@
-import { LegacyFunctionComponent } from '@shukun/component';
 import {
   MetadataSchema,
   ViewSchema,
@@ -6,9 +5,17 @@ import {
   UnknownSourceModel,
 } from '@shukun/schema';
 import { useDebounceEffect } from 'ahooks';
-import { Button, Form, FormInstance, FormProps, message, Tabs } from 'antd';
+import {
+  Button,
+  Form,
+  FormInstance,
+  FormProps,
+  message,
+  Tabs,
+  TabsProps,
+} from 'antd';
 import { useObservableState } from 'observable-hooks';
-import React, { FunctionComponent, useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router';
 
@@ -26,12 +33,12 @@ export interface DetailContentProps {
   source: UnknownSourceModel | null;
 }
 
-export const DetailContent: LegacyFunctionComponent<DetailContentProps> = ({
+export const DetailContent = ({
   form,
   metadata,
   view,
   source,
-}) => {
+}: DetailContentProps) => {
   const classes = useStyles();
 
   const mode = useObservableState(mode$);
@@ -104,6 +111,21 @@ export const DetailContent: LegacyFunctionComponent<DetailContentProps> = ({
     { wait: 300 },
   );
 
+  const items: TabsProps['items'] = useMemo(() => {
+    return viewFieldGroups.map((group) => ({
+      key: group.name,
+      label: group.label,
+      children: (
+        <DetailGroup
+          key={group.name}
+          metadata={metadata}
+          view={view}
+          viewFieldGroup={group}
+        />
+      ),
+    }));
+  }, [metadata, view, viewFieldGroups]);
+
   return (
     <Form<UnknownSourceModel>
       id={DETAIL_FORM_ID}
@@ -114,18 +136,7 @@ export const DetailContent: LegacyFunctionComponent<DetailContentProps> = ({
       style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
       className="global-view-detail"
     >
-      <Tabs className={classes.tabs}>
-        {viewFieldGroups.map((group) => (
-          <Tabs.TabPane tab={group.label} key={group.name}>
-            <DetailGroup
-              key={group.name}
-              metadata={metadata}
-              view={view}
-              viewFieldGroup={group}
-            />
-          </Tabs.TabPane>
-        ))}
-      </Tabs>
+      <Tabs className={classes.tabs} items={items} />
       <Button htmlType="submit" style={{ display: 'none' }} />
     </Form>
   );
