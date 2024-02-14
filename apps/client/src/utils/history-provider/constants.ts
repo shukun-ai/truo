@@ -1,14 +1,14 @@
 export enum RoutePath {
   HomePage = '/',
   Hub = '/hub',
-  Dashboard = '/:orgName',
-  SignIn = '/:orgName/sign-in',
-  ViewPrefix = '/:orgName/views',
-  ViewPage = '/:orgName/views/:viewName',
-  ViewCreate = '/:orgName/views/:viewName/create',
-  ViewDetail = '/:orgName/views/:viewName/source/:sourceId',
-  Plugin = '/:orgName/plugins',
-  IframePlayground = '/:orgName/iframe-playground',
+  Dashboard = '/hub/:orgName',
+  SignIn = '/hub/:orgName/sign-in',
+  ViewPrefix = '/hub/:orgName/views',
+  ViewPage = '/hub/:orgName/views/:viewName',
+  ViewCreate = '/hub/:orgName/views/:viewName/create',
+  ViewDetail = '/hub/:orgName/views/:viewName/source/:sourceId',
+  Plugin = '/hub/:orgName/plugins',
+  IframePlayground = '/hub/:orgName/iframe-playground',
 }
 
 export const replaceList = [
