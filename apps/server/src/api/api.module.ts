@@ -33,6 +33,7 @@ import { GrantRoleController } from './public/grant-role/grant-role.controller';
 import { OrgController } from './public/org/org.controller';
 import { PresenterController } from './public/presenter/presenter.controller';
 import { RoleController } from './public/role/role.controller';
+import { VersionController } from './public/version/version.controller';
 import { SourceAccessControlService } from './source/source-access-control.service';
 import { SourceOperationService } from './source/source-operation.service';
 import { SourceQueryPermissionService } from './source/source-query-permission.service';
@@ -67,6 +68,7 @@ import { WebhookController } from './webhook/webhook.controller';
     RoleController,
     PresenterController,
     ConnectorController,
+    VersionController,
     DeveloperCodebaseController,
     DeveloperDataSourceController,
     DeveloperMigrationController,
