@@ -16,6 +16,7 @@ import { Home } from '../home';
 import { Hub } from '../hub';
 import { IframePlayground } from '../iframe';
 import { ViewLayout } from '../layout/ViewLayout';
+import { RedirectHub } from '../redirect-hub';
 import { SignIn } from '../sign';
 import { Upload } from '../upload';
 import { View } from '../view';
@@ -58,6 +59,7 @@ export const Routes: LegacyFunctionComponent<RoutesProps> = () => {
             </ProtectedRoutes>
           }
         />
+        <Route path="/:orgName/views/*" element={<RedirectHub />} />
         <Route path={RoutePath.HomePage} element={<Home />} />
       </ReactRoutes>
     </BrowserRouter>
