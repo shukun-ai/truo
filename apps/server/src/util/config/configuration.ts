@@ -11,6 +11,10 @@ export const configuration = (): {
   org: {
     registerMode: 'self-create' | 'disabled';
   };
+  version: {
+    version: string;
+    commitHash: string;
+  };
 } => ({
   port: parseInt(process.env.PORT || '3000', 10),
   mongo: {
@@ -21,6 +25,10 @@ export const configuration = (): {
   },
   org: {
     registerMode: getRegisterMode(),
+  },
+  version: {
+    version: process.env.VERSION || '',
+    commitHash: process.env.COMMIT_HASH || '',
   },
 });
 
