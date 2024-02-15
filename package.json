@@ -1,9 +1,9 @@
 {
   "name": "shukun",
-  "version": "1.29.0",
+  "version": "2.0.0-alpha.0",
   "private": true,
   "engines": {
-    "node": "18.17.0"
+    "node": ">=18"
   },
   "scripts": {
     "start": "nx run-many --target=serve --projects=server,client",
