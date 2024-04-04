@@ -1,57 +1,13 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DataSourceSchema } from '@shukun/schema';
-import { Document } from 'mongoose';
+import { ObjectId } from 'mongodb';
+import { Schema, model } from 'mongoose';
 
-/**
- * @deprecated
- */
 export const OrgDocumentName = 'orgs';
 
-/**
- * @deprecated
- */
-export type OrgDocument = Org & Document;
-
-/**
- * @deprecated
- */
-@Schema({ collection: OrgDocumentName, timestamps: true })
-export class Org {
-  @Prop({ required: true, unique: true })
-  name!: string;
-
-  @Prop({ required: true })
-  label!: string;
-
-  @Prop()
-  lightLogo?: string;
-
-  @Prop()
-  darkLogo?: string;
-
-  @Prop()
-  mainColor?: string;
-
-  @Prop({ type: 'Buffer' })
-  codebase?: Buffer;
-
-  @Prop({ type: 'Buffer' })
-  compiledCodes?: Buffer;
-
-  @Prop({ type: 'Mixed' })
-  dataSource?: DataSourceSchema;
-
-  @Prop({ type: 'Buffer' })
-  migrated?: Buffer;
-
-  @Prop({ type: 'Buffer' })
-  presenters?: Buffer;
-}
-
-export const OrgSchema = SchemaFactory.createForClass(Org);
-
-// TODO Rename it when refactor the OrgDocument
-export type OrgDocumentRevise = {
+export interface IOrg {
+  _id: ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
   name: string;
   label: string;
   lightLogo?: string;
@@ -62,4 +18,25 @@ export type OrgDocumentRevise = {
   dataSource?: DataSourceSchema;
   migrated?: Buffer;
   presenters?: Buffer;
-};
+}
+
+export const orgSchema = new Schema<IOrg>(
+  {
+    name: { type: String, required: true, unique: true },
+    label: { type: String, required: true },
+    lightLogo: { type: String },
+    darkLogo: { type: String },
+    mainColor: { type: String },
+    codebase: { type: 'Buffer' },
+    compiledCodes: { type: 'Buffer' },
+    dataSource: { type: 'Mixed' },
+    migrated: { type: 'Buffer' },
+    presenters: { type: 'Buffer' },
+  },
+  {
+    timestamps: true,
+    collection: OrgDocumentName,
+  },
+);
+
+export const OrgModel = model<IOrg>(OrgDocumentName, orgSchema);

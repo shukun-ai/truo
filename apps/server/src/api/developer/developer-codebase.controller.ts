@@ -16,7 +16,6 @@ import {
 } from '@shukun/validator';
 
 import { CodebaseService } from '../../core/codebase.service';
-import { OrgService } from '../../core/org.service';
 import { ScheduleOrgOperatorService } from '../../schedule/schedule-org-operator.service';
 import { QueryResponseInterceptor } from '../../util/query/interceptors/query-response.interceptor';
 import { QueryResponse } from '../../util/query/interfaces';
@@ -27,7 +26,6 @@ import { apiPrefix } from '../prefix';
 @ApiBearerAuth()
 export class DeveloperCodebaseController {
   constructor(
-    private readonly orgService: OrgService,
     private readonly scheduleOrgOperatorService: ScheduleOrgOperatorService,
     private readonly codebaseService: CodebaseService,
   ) {}

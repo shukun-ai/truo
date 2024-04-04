@@ -7,7 +7,7 @@ import {
 } from '@shukun/schema';
 
 import { CodebaseService } from '../core/codebase.service';
-import { OrgDocumentRevise } from '../core/org/org.schema';
+import { IOrg } from '../core/org/org.schema';
 import { OrgService } from '../core/org.service';
 import { SourceService } from '../source/source.service';
 
@@ -61,10 +61,8 @@ export class TenantService {
     return null;
   }
 
-  private async createOrg(
-    createDto: SeedCreateDto,
-  ): Promise<OrgDocumentRevise> {
-    let org: OrgDocumentRevise;
+  private async createOrg(createDto: SeedCreateDto): Promise<IOrg> {
+    let org: IOrg;
 
     try {
       org = await this.orgService.createOne(createDto);
