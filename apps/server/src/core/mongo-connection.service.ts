@@ -9,12 +9,15 @@ import { TypeException } from '@shukun/exception';
 import Mongoose, { connect } from 'mongoose';
 
 import { OrgModel } from './org/org.schema';
+import { PresenterModel } from './presenter/presenter.schema';
 
 @Injectable()
 export class MongoConnectionService
   implements OnApplicationBootstrap, OnApplicationShutdown
 {
   orgModel = OrgModel;
+
+  presenterModel = PresenterModel;
 
   private client?: typeof Mongoose;
 

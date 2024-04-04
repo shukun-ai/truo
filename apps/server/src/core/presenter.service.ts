@@ -1,14 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { SourceNotFoundException, TypeException } from '@shukun/exception';
 import { PresenterSchema } from '@shukun/schema';
-import { Model } from 'mongoose';
 
+import { MongoConnectionService } from './mongo-connection.service';
 import { OrgService } from './org.service';
-import {
-  PresenterDocument,
-  PresenterDocumentName,
-} from './presenter/presenter.schema';
 import { CreateDto } from './presenter/presenter.types';
 
 export type PresenterEntity = {
@@ -19,15 +14,12 @@ export type PresenterEntity = {
 
 @Injectable()
 export class PresenterService {
-  @InjectModel(PresenterDocumentName)
-  private readonly presenterModel!: Model<PresenterDocument>;
-
-  // TODO should remove orgService when removing old presenter save
   constructor(
     /**
      * @deprecated
      */
     private readonly orgService: OrgService,
+    private readonly mongoConnectionService: MongoConnectionService,
   ) {}
 
   private async checkExist(orgName: string, presenterName: string) {
@@ -58,12 +50,12 @@ export class PresenterService {
         root: [],
       },
     };
-    const entity = new this.presenterModel({
+    const entity = new this.mongoConnectionService.presenterModel({
       ...createDto,
       definition: JSON.stringify(emptyPresenterDefinition),
     });
     const value = await entity.save();
-    return { _id: value._id };
+    return { _id: value._id.toString() };
   }
 
   async updateOne(
@@ -72,7 +64,7 @@ export class PresenterService {
     presenter: PresenterSchema,
   ): Promise<void> {
     const buffer = Buffer.from(JSON.stringify(presenter));
-    await this.presenterModel.updateOne(
+    await this.mongoConnectionService.presenterModel.updateOne(
       {
         name: presenterName,
         orgName,
@@ -84,14 +76,17 @@ export class PresenterService {
   }
 
   async deleteOne(orgName: string, presenterName: string): Promise<void> {
-    await this.presenterModel.deleteOne({ name: presenterName, orgName });
+    await this.mongoConnectionService.presenterModel.deleteOne({
+      name: presenterName,
+      orgName,
+    });
   }
 
   async findOne(
     orgName: string,
     presenterName: string,
   ): Promise<PresenterSchema> {
-    const presenter = await this.presenterModel.findOne({
+    const presenter = await this.mongoConnectionService.presenterModel.findOne({
       orgName,
       name: presenterName,
     });
@@ -113,7 +108,7 @@ export class PresenterService {
   }
 
   async findMany(orgName: string): Promise<Record<string, PresenterSchema>> {
-    const presenters = await this.presenterModel.find({
+    const presenters = await this.mongoConnectionService.presenterModel.find({
       orgName,
     });
 
