@@ -1,29 +1,30 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { ObjectId } from 'mongodb';
+import { Schema, model } from 'mongoose';
 
-/**
- * @deprecated
- */
 export const PresenterDocumentName = 'presenters';
 
-/**
- * @deprecated
- */
-export type PresenterDocument = Presenter & Document;
-
-/**
- * @deprecated
- */
-@Schema({ collection: PresenterDocumentName, timestamps: true })
-export class Presenter {
-  @Prop({ required: true })
-  name!: string;
-
-  @Prop({ required: true })
-  orgName!: string;
-
-  @Prop({ required: true, type: 'Buffer' })
-  definition!: Buffer;
+export interface IPresenter {
+  _id: ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  orgName: string;
+  definition: Buffer;
 }
 
-export const PresenterSchema = SchemaFactory.createForClass(Presenter);
+export const presenterSchema = new Schema<IPresenter>(
+  {
+    name: { type: String, required: true },
+    orgName: { type: String, required: true },
+    definition: { type: 'Buffer', required: true },
+  },
+  {
+    timestamps: true,
+    collection: PresenterDocumentName,
+  },
+);
+
+export const PresenterModel = model<IPresenter>(
+  PresenterDocumentName,
+  presenterSchema,
+);
