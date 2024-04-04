@@ -9,7 +9,7 @@ import { DataSourceService } from './data-source.service';
 import { EnvironmentService } from './environment.service';
 
 import { MetadataService } from './metadata.service';
-import { OrgSchema, OrgDocumentName } from './org/org.schema';
+import { MongoConnectionService } from './mongo-connection.service';
 import { OrgService } from './org.service';
 import {
   PresenterDocumentName,
@@ -25,11 +25,11 @@ import { WorkflowService } from './workflow.service';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: OrgDocumentName, schema: OrgSchema },
       { name: PresenterDocumentName, schema: PresenterSchema },
     ]),
   ],
   providers: [
+    MongoConnectionService,
     OrgService,
     MetadataService,
     ViewService,
