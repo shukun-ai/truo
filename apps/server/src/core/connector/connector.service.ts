@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
 import { TypeException } from '@shukun/exception';
 import { ConnectorSchema } from '@shukun/schema';
-import { Connection } from 'mongoose';
 
-import { ConnectorDocument, connectorMongoSchema } from './connector.schema';
+import { MongoConnectionService } from '../mongo-connection.service';
+
+import { IConnector, connectorSchema } from './connector.schema';
 
 @Injectable()
 export class ConnectorService {
-  constructor(@InjectConnection() private connection: Connection) {}
+  constructor(
+    private readonly mongoConnectionService: MongoConnectionService,
+  ) {}
 
   async get(orgName: string, connectorName: string): Promise<ConnectorSchema> {
     const connectors = await this.pull(orgName);
@@ -53,10 +55,9 @@ export class ConnectorService {
   }
 
   private getCollection(orgName: string) {
-    const collection = this.connection.model<ConnectorDocument>(
-      this.buildCollectionName(orgName),
-      connectorMongoSchema,
-    );
+    const collection = this.mongoConnectionService
+      .getClient()
+      .model<IConnector>(this.buildCollectionName(orgName), connectorSchema);
     return collection;
   }
 
