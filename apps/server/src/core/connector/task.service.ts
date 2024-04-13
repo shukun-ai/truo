@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
 import {
   eitherTask,
   parallelTask,
@@ -8,13 +7,16 @@ import {
   transformerTask,
 } from '@shukun/connector/task';
 import { TaskSchema } from '@shukun/schema';
-import { Connection } from 'mongoose';
 
-import { TaskDocument, taskMongoSchema } from './task.schema';
+import { MongoConnectionService } from '../mongo-connection.service';
+
+import { ITask, taskSchema } from './task.schema';
 
 @Injectable()
 export class ConnectorTaskService {
-  constructor(@InjectConnection() private connection: Connection) {}
+  constructor(
+    private readonly mongoConnectionService: MongoConnectionService,
+  ) {}
 
   async query(orgName: string): Promise<Record<string, TaskSchema>> {
     const entity = await this.getCollection(orgName).find();
@@ -73,10 +75,9 @@ export class ConnectorTaskService {
   }
 
   private getCollection(orgName: string) {
-    const collection = this.connection.model<TaskDocument>(
-      this.buildCollectionName(orgName),
-      taskMongoSchema,
-    );
+    const collection = this.mongoConnectionService
+      .getClient()
+      .model<ITask>(this.buildCollectionName(orgName), taskSchema);
     return collection;
   }
 
