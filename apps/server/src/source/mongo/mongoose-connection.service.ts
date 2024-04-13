@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { IDString, MetadataElectron, MetadataSchema } from '@shukun/schema';
-import { Schema, Document, Model as MongooseModel } from 'mongoose';
+import { Schema, Document, Model as MongooseModel, Connection } from 'mongoose';
 
 import { OrgService } from '../../core/org.service';
 
@@ -34,16 +34,23 @@ export class MongooseConnectionService {
 
     const schemaName = this.buildSchemaName(orgId, metadata);
 
-    const schema = await this.buildAtomSchema(metadata);
+    const connection = await this.mongoConnectionService.getConnection(orgName);
 
-    const ModelClass = this.mongoConnectionService
-      .getConnection()
-      .model<Model & Document>(schemaName, schema, schemaName);
+    const schema = await this.buildAtomSchema(metadata, connection);
+
+    const ModelClass = connection.model<Model & Document>(
+      schemaName,
+      schema,
+      schemaName,
+    );
 
     return ModelClass;
   }
 
-  protected async buildAtomSchema(metadata: MetadataSchema): Promise<Schema> {
+  protected async buildAtomSchema(
+    metadata: MetadataSchema,
+    connection: Connection,
+  ): Promise<Schema> {
     const atomSchema: Record<
       string,
       MongooseSchema & MongooseConstraintSchema
@@ -54,7 +61,10 @@ export class MongooseConnectionService {
     }
 
     for (const electron of metadata.electrons) {
-      atomSchema[electron.name] = this.buildElectronSchema(electron);
+      atomSchema[electron.name] = this.buildElectronSchema(
+        electron,
+        connection,
+      );
     }
 
     atomSchema.owner = this.buildOwnerSchema();
@@ -64,11 +74,10 @@ export class MongooseConnectionService {
 
   protected buildElectronSchema(
     electron: MetadataElectron,
+    connection: Connection,
   ): MongooseSchema & MongooseConstraintSchema {
     const field = getFieldInstance(electron);
-    const fieldSchema = field.buildSchema(
-      this.mongoConnectionService.getConnection(),
-    );
+    const fieldSchema = field.buildSchema(connection);
 
     return {
       ...fieldSchema,

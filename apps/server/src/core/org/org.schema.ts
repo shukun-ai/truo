@@ -18,6 +18,7 @@ export interface IOrg {
   dataSource?: DataSourceSchema;
   migrated?: Buffer;
   presenters?: Buffer;
+  database?: string;
 }
 
 export const orgSchema = new Schema<IOrg>(
@@ -32,6 +33,7 @@ export const orgSchema = new Schema<IOrg>(
     dataSource: { type: 'Mixed' },
     migrated: { type: 'Buffer' },
     presenters: { type: 'Buffer' },
+    database: { type: String },
   },
   {
     timestamps: true,

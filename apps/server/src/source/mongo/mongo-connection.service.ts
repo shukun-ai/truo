@@ -1,42 +1,45 @@
-import {
-  Injectable,
-  OnApplicationBootstrap,
-  OnApplicationShutdown,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { TypeException } from '@shukun/exception';
-import Mongoose, { connect } from 'mongoose';
+import { Injectable, OnApplicationShutdown } from '@nestjs/common';
+import Mongoose, { Connection, connect } from 'mongoose';
+
+import { OrgService } from '../../core/org.service';
 
 @Injectable()
-export class MongoConnectionService
-  implements OnApplicationBootstrap, OnApplicationShutdown
-{
-  private client?: typeof Mongoose;
+export class MongoConnectionService implements OnApplicationShutdown {
+  private clients = new Map<string, typeof Mongoose>();
 
-  constructor(private readonly configService: ConfigService) {}
-
-  async onApplicationBootstrap() {
-    const uri = this.configService.get('mongo.uri');
-    if (!uri) {
-      throw new TypeException('Did not configure source db uri');
-    }
-    this.client = await connect(uri, {
-      autoCreate: true,
-    });
-  }
+  constructor(private readonly orgService: OrgService) {}
 
   async onApplicationShutdown() {
-    this.client?.disconnect();
-  }
-
-  getClient() {
-    if (!this.client) {
-      throw new TypeException('Did not connect to source db');
+    for (const [key, client] of this.clients.entries()) {
+      await client?.disconnect();
+      this.clients.delete(key);
     }
-    return this.client;
   }
 
-  getConnection() {
-    return this.getClient().connection;
+  async getClient(orgName: string): Promise<typeof Mongoose> {
+    const client = this.clients.get(orgName);
+
+    if (client) {
+      return client;
+    }
+
+    const newClient = await this.createClient(orgName);
+    this.clients.set(orgName, newClient);
+    return newClient;
+  }
+
+  async createClient(orgName: string): Promise<typeof Mongoose> {
+    const uri = await this.orgService.getDatabase(orgName);
+
+    const client = await connect(uri, {
+      autoCreate: true,
+    });
+
+    return client;
+  }
+
+  async getConnection(orgName: string): Promise<Connection> {
+    const client = await this.getClient(orgName);
+    return client.connection;
   }
 }

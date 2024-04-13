@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { TypeException } from '@shukun/exception';
 import {
   ApplicationSchema,
   DataSourceSchema,
@@ -191,5 +192,20 @@ export class OrgService {
       org.presenters.toString(),
     );
     return presenters;
+  }
+
+  async getDatabase(orgName: string): Promise<string> {
+    const org = await this.mongoConnectionService.orgModel
+      .findOne({ name: orgName })
+      .select('database')
+      .exec();
+
+    if (!org?.database) {
+      throw new TypeException('Did not configure database for org: {{org}}', {
+        org: orgName,
+      });
+    }
+
+    return org.database;
   }
 }
