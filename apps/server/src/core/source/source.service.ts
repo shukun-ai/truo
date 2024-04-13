@@ -1,14 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
 import { MetadataReviseSchema } from '@shukun/schema';
-import { Connection } from 'mongoose';
 
-import { SourceDocument, sourceMongoSchema } from './source.schema';
+import { MongoConnectionService } from '../mongo-connection.service';
+
+import { ISource, sourceSchema } from './source.schema';
 
 // TODO rename SourceService to MetadataService when extract editor from core
+/**
+ * @deprecated this is a editor feature
+ */
 @Injectable()
 export class SourceService {
-  constructor(@InjectConnection() private connection: Connection) {}
+  constructor(
+    private readonly mongoConnectionService: MongoConnectionService,
+  ) {}
 
   async pull(orgName: string): Promise<Record<string, MetadataReviseSchema>> {
     const entity = await this.getCollection(orgName).findOne(
@@ -42,10 +47,9 @@ export class SourceService {
   }
 
   private getCollection(orgName: string) {
-    const collection = this.connection.model<SourceDocument>(
-      this.buildCollectionName(orgName),
-      sourceMongoSchema,
-    );
+    const collection = this.mongoConnectionService
+      .getClient()
+      .model<ISource>(this.buildCollectionName(orgName), sourceSchema);
     return collection;
   }
 

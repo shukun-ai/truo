@@ -3,22 +3,14 @@ import {
   OnApplicationBootstrap,
   OnApplicationShutdown,
 } from '@nestjs/common';
-
 import { ConfigService } from '@nestjs/config';
 import { TypeException } from '@shukun/exception';
 import Mongoose, { connect } from 'mongoose';
-
-import { OrgModel } from './org/org.schema';
-import { PresenterModel } from './presenter/presenter.schema';
 
 @Injectable()
 export class MongoConnectionService
   implements OnApplicationBootstrap, OnApplicationShutdown
 {
-  orgModel = OrgModel;
-
-  presenterModel = PresenterModel;
-
   private client?: typeof Mongoose;
 
   constructor(private readonly configService: ConfigService) {}
@@ -26,7 +18,7 @@ export class MongoConnectionService
   async onApplicationBootstrap() {
     const uri = this.configService.get('mongo.uri');
     if (!uri) {
-      throw new TypeException('Did not configure core db uri');
+      throw new TypeException('Did not configure source db uri');
     }
     this.client = await connect(uri, {
       autoCreate: true,
@@ -39,8 +31,12 @@ export class MongoConnectionService
 
   getClient() {
     if (!this.client) {
-      throw new TypeException('Did not connect to core db');
+      throw new TypeException('Did not connect to source db');
     }
     return this.client;
+  }
+
+  getConnection() {
+    return this.getClient().connection;
   }
 }

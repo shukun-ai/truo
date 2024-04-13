@@ -9,6 +9,7 @@ import { KnexElectronConvertorService } from './knex/knex-electron-convertor.ser
 import { KnexExceptionHandlerService } from './knex/knex-exception-handler.service';
 import { KnexQueryConvertorService } from './knex/knex-query-convertor.service';
 import { MongoAdaptorService } from './mongo/mongo-adaptor.service';
+import { MongoConnectionService } from './mongo/mongo-connection.service';
 import { MongoQueryConvertorService } from './mongo/mongo-query-convertor.service';
 import { MongooseConnectionService } from './mongo/mongoose-connection.service';
 import { MongoExceptionHandlerService } from './mongo/monogo-exception-handler.service';
@@ -32,6 +33,7 @@ import { SourceService } from './source.service';
     MongoAdaptorService,
     MongoQueryConvertorService,
     MongooseConnectionService,
+    MongoConnectionService,
     MongoExceptionHandlerService,
     KnexAdaptorService,
     KnexConnectionService,

@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
 import { IDString, MetadataElectron, MetadataSchema } from '@shukun/schema';
-import { Connection, Schema, Document, Model as MongooseModel } from 'mongoose';
+import { Schema, Document, Model as MongooseModel } from 'mongoose';
 
 import { OrgService } from '../../core/org.service';
 
@@ -11,11 +10,13 @@ import {
 } from '../electron/electron-field.interface';
 import { getFieldInstance } from '../electron/fields-map';
 
+import { MongoConnectionService } from './mongo-connection.service';
+
 @Injectable()
 export class MongooseConnectionService {
   constructor(
     private readonly orgService: OrgService,
-    @InjectConnection() private readonly connection: Connection,
+    private readonly mongoConnectionService: MongoConnectionService,
   ) {}
 
   async getAtomModel<Model>(
@@ -35,11 +36,9 @@ export class MongooseConnectionService {
 
     const schema = await this.buildAtomSchema(metadata);
 
-    const ModelClass = this.connection.model<Model & Document>(
-      schemaName,
-      schema,
-      schemaName,
-    );
+    const ModelClass = this.mongoConnectionService
+      .getConnection()
+      .model<Model & Document>(schemaName, schema, schemaName);
 
     return ModelClass;
   }
@@ -67,7 +66,9 @@ export class MongooseConnectionService {
     electron: MetadataElectron,
   ): MongooseSchema & MongooseConstraintSchema {
     const field = getFieldInstance(electron);
-    const fieldSchema = field.buildSchema(this.connection);
+    const fieldSchema = field.buildSchema(
+      this.mongoConnectionService.getConnection(),
+    );
 
     return {
       ...fieldSchema,
