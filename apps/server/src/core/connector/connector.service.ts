@@ -59,7 +59,7 @@ export class ConnectorService {
 
   private getCollection(orgName: string) {
     const collection = this.mongoConnectionService
-      .getClient()
+      .getConnection()
       .model<IConnector>(this.buildCollectionName(orgName), connectorSchema);
     return collection;
   }

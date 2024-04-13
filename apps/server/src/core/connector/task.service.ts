@@ -79,7 +79,7 @@ export class ConnectorTaskService {
 
   private getCollection(orgName: string) {
     const collection = this.mongoConnectionService
-      .getClient()
+      .getConnection()
       .model<ITask>(this.buildCollectionName(orgName), taskSchema);
     return collection;
   }

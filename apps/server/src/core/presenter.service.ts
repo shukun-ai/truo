@@ -50,7 +50,8 @@ export class PresenterService {
         root: [],
       },
     };
-    const entity = new this.mongoConnectionService.presenterModel({
+    const PresenterModel = this.mongoConnectionService.getPresenterModel();
+    const entity = new PresenterModel({
       ...createDto,
       definition: JSON.stringify(emptyPresenterDefinition),
     });
@@ -64,7 +65,7 @@ export class PresenterService {
     presenter: PresenterSchema,
   ): Promise<void> {
     const buffer = Buffer.from(JSON.stringify(presenter));
-    await this.mongoConnectionService.presenterModel.updateOne(
+    await this.mongoConnectionService.getPresenterModel().updateOne(
       {
         name: presenterName,
         orgName,
@@ -76,7 +77,7 @@ export class PresenterService {
   }
 
   async deleteOne(orgName: string, presenterName: string): Promise<void> {
-    await this.mongoConnectionService.presenterModel.deleteOne({
+    await this.mongoConnectionService.getPresenterModel().deleteOne({
       name: presenterName,
       orgName,
     });
@@ -86,10 +87,12 @@ export class PresenterService {
     orgName: string,
     presenterName: string,
   ): Promise<PresenterSchema> {
-    const presenter = await this.mongoConnectionService.presenterModel.findOne({
-      orgName,
-      name: presenterName,
-    });
+    const presenter = await this.mongoConnectionService
+      .getPresenterModel()
+      .findOne({
+        orgName,
+        name: presenterName,
+      });
 
     if (!presenter) {
       throw new SourceNotFoundException(
@@ -108,9 +111,11 @@ export class PresenterService {
   }
 
   async findMany(orgName: string): Promise<Record<string, PresenterSchema>> {
-    const presenters = await this.mongoConnectionService.presenterModel.find({
-      orgName,
-    });
+    const presenters = await this.mongoConnectionService
+      .getPresenterModel()
+      .find({
+        orgName,
+      });
 
     const presenterSchemas: Record<string, PresenterSchema> = {};
 
