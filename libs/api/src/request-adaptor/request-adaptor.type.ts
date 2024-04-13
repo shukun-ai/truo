@@ -35,6 +35,8 @@ export type SeedCreateDto = {
   label: string;
   username: string;
   password: string;
+  dbUri: string;
+  dbPrefix?: string;
 };
 
 export type EncryptSignInDto = {
