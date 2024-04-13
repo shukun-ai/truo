@@ -34,4 +34,11 @@ export class MongoConnectionService
   async onApplicationShutdown() {
     this.client?.disconnect();
   }
+
+  getClient() {
+    if (!this.client) {
+      throw new TypeException('Did not connect to core db');
+    }
+    return this.client;
+  }
 }
