@@ -20,6 +20,7 @@ import { SourceFieldFilterService } from './source-field-filter.service';
 import { SourceForeignQueryService } from './source-foreign-query.service';
 import { SourceFoundationService } from './source-foundation.service';
 
+import { SourceMainDbTestService } from './source-main-db-test.service';
 import { SourceParamUtilService } from './source-param-util.service';
 import { SourceService } from './source.service';
 
@@ -44,7 +45,8 @@ import { SourceService } from './source.service';
     SourceForeignQueryService,
     SourceFieldFilterService,
     SourceExceptionService,
+    SourceMainDbTestService,
   ],
-  exports: [SourceService],
+  exports: [SourceService, SourceMainDbTestService],
 })
 export class SourceModule {}

@@ -5,6 +5,8 @@ services:
     image: mongo:4.4
     ports:
       - 20000:27017
+    volumes:
+      - $PWD/.docker/testing/mongo/db:/data/db
 
   postgres:
     image: postgres:13

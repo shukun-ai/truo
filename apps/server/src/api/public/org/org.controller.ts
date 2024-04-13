@@ -46,6 +46,10 @@ export class OrgController {
     };
   }
 
+  /**
+   * @deprecated
+   * This is editor feature, we should deprecate
+   */
   @Post('create')
   async createNewOrg(
     @Body() createDto: OrgCreateDto,
