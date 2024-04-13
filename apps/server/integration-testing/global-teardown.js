@@ -1,13 +1,13 @@
 const dockerCompose = require('docker-compose');
-const isCI = require('is-ci');
 const MongoClient = require('mongodb').MongoClient;
 
 module.exports = async () => {
   await cleanDatabase('mongodb://localhost:20000/shukun_test');
   await cleanDatabase('mongodb://localhost:20000/shukun_test_project');
-  if (isCI) {
-    await dockerCompose.down();
-  }
+  await dockerCompose.down({
+    cwd: __dirname,
+    log: true,
+  });
   // TODO clean database occasionally
 };
 
