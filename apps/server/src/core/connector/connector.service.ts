@@ -6,6 +6,9 @@ import { MongoConnectionService } from '../mongo-connection.service';
 
 import { IConnector, connectorSchema } from './connector.schema';
 
+/**
+ * @deprecated this is a editor feature
+ */
 @Injectable()
 export class ConnectorService {
   constructor(

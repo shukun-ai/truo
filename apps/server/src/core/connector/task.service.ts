@@ -12,6 +12,9 @@ import { MongoConnectionService } from '../mongo-connection.service';
 
 import { ITask, taskSchema } from './task.schema';
 
+/**
+ * @deprecated this is a editor feature
+ */
 @Injectable()
 export class ConnectorTaskService {
   constructor(
