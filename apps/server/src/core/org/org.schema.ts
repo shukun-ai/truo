@@ -1,6 +1,6 @@
 import { DataSourceSchema } from '@shukun/schema';
 import { ObjectId } from 'mongodb';
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const OrgDocumentName = 'orgs';
 
@@ -18,7 +18,10 @@ export interface IOrg {
   dataSource?: DataSourceSchema;
   migrated?: Buffer;
   presenters?: Buffer;
-  database?: string;
+  dbUri?: string;
+  dbPrefix?: string;
+  dbMinPoolSize?: number;
+  dbMaxPoolSize?: number;
 }
 
 export const orgSchema = new Schema<IOrg>(
@@ -33,12 +36,13 @@ export const orgSchema = new Schema<IOrg>(
     dataSource: { type: 'Mixed' },
     migrated: { type: 'Buffer' },
     presenters: { type: 'Buffer' },
-    database: { type: String },
+    dbUri: { type: String },
+    dbPrefix: { type: String },
+    dbMinPoolSize: { type: Number },
+    dbMaxPoolSize: { type: Number },
   },
   {
     timestamps: true,
     collection: OrgDocumentName,
   },
 );
-
-export const OrgModel = model<IOrg>(OrgDocumentName, orgSchema);

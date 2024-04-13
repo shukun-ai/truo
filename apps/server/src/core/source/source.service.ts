@@ -48,7 +48,7 @@ export class SourceService {
 
   private getCollection(orgName: string) {
     const collection = this.mongoConnectionService
-      .getClient()
+      .getConnection()
       .model<ISource>(this.buildCollectionName(orgName), sourceSchema);
     return collection;
   }

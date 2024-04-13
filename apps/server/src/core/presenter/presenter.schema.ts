@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const PresenterDocumentName = 'presenters';
 
@@ -22,9 +22,4 @@ export const presenterSchema = new Schema<IPresenter>(
     timestamps: true,
     collection: PresenterDocumentName,
   },
-);
-
-export const PresenterModel = model<IPresenter>(
-  PresenterDocumentName,
-  presenterSchema,
 );

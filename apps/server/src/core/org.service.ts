@@ -22,7 +22,8 @@ export class OrgService {
   ) {}
 
   async findOrgId(orgName: string): Promise<IDString> {
-    const org = await this.mongoConnectionService.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select({ _id: 1 })
       .exec();
@@ -36,7 +37,8 @@ export class OrgService {
   }
 
   async findAll(query: QueryParserOptions): Promise<IOrg[]> {
-    const value = await this.mongoConnectionService.orgModel
+    const value = await this.mongoConnectionService
+      .getOrgModel()
       .find(query.filter)
       .select(query.select)
       .populate(query.populate)
@@ -48,7 +50,8 @@ export class OrgService {
   }
 
   async findOne(query: QueryParserOptions): Promise<IOrg> {
-    const value = await this.mongoConnectionService.orgModel
+    const value = await this.mongoConnectionService
+      .getOrgModel()
       .findOne(query.filter)
       .select(query.select)
       .populate(query.populate)
@@ -63,7 +66,8 @@ export class OrgService {
   }
 
   async count(query: QueryParserOptions): Promise<number> {
-    const value = await this.mongoConnectionService.orgModel
+    const value = await this.mongoConnectionService
+      .getOrgModel()
       .find(query.filter)
       .select(query.select)
       .countDocuments()
@@ -72,20 +76,23 @@ export class OrgService {
   }
 
   async createOne(createDto: CreateDto): Promise<IOrg> {
-    const entity = new this.mongoConnectionService.orgModel(createDto);
+    const OrgModel = this.mongoConnectionService.getOrgModel();
+    const entity = new OrgModel(createDto);
     const value = await entity.save();
     return value;
   }
 
   async deleteOne(orgName: string): Promise<null> {
-    await this.mongoConnectionService.orgModel.deleteOne({ name: orgName });
+    await this.mongoConnectionService
+      .getOrgModel()
+      .deleteOne({ name: orgName });
     return null;
   }
 
   async updateCodebase(orgName: string, codebase: ApplicationSchema) {
     const buffer = Buffer.from(JSON.stringify(codebase));
 
-    await this.mongoConnectionService.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         codebase: buffer,
@@ -94,7 +101,8 @@ export class OrgService {
   }
 
   async findCodebaseByOrgName(orgName: string): Promise<ApplicationSchema> {
-    const org = await this.mongoConnectionService.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('codebase')
       .exec();
@@ -111,7 +119,7 @@ export class OrgService {
   }
 
   async updateDataSource(orgName: IDString, dataSource: DataSourceSchema) {
-    await this.mongoConnectionService.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         dataSource,
@@ -120,7 +128,8 @@ export class OrgService {
   }
 
   async findDataSource(orgName: string): Promise<DataSourceSchema> {
-    const org = await this.mongoConnectionService.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('dataSource')
       .exec();
@@ -136,7 +145,8 @@ export class OrgService {
   }
 
   async findMigrated(orgName: string): Promise<MetadataSchema[]> {
-    const org = await this.mongoConnectionService.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('migrated')
       .exec();
@@ -154,7 +164,7 @@ export class OrgService {
   ): Promise<void> {
     const buffer = Buffer.from(JSON.stringify(metadata));
 
-    await this.mongoConnectionService.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         migrated: buffer,
@@ -168,7 +178,7 @@ export class OrgService {
   ) {
     const buffer = Buffer.from(JSON.stringify(presenters));
 
-    await this.mongoConnectionService.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         presenters: buffer,
@@ -179,7 +189,8 @@ export class OrgService {
   async findPresenters(
     orgName: string,
   ): Promise<Record<string, PresenterSchema>> {
-    const org = await this.mongoConnectionService.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('presenters')
       .exec();
@@ -194,18 +205,29 @@ export class OrgService {
     return presenters;
   }
 
-  async getDatabase(orgName: string): Promise<string> {
-    const org = await this.mongoConnectionService.orgModel
+  async getDatabase(orgName: string): Promise<{
+    uri: string;
+    prefix: string;
+    minPoolSize: number;
+    maxPoolSize: number;
+  }> {
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
-      .select('database')
+      .select('dbUri dbPrefix dbMinPoolSize dbMaxPoolSize')
       .exec();
 
-    if (!org?.database) {
-      throw new TypeException('Did not configure database for org: {{org}}', {
+    if (!org?.dbUri) {
+      throw new TypeException('Did not configure dbUri for org: {{org}}', {
         org: orgName,
       });
     }
 
-    return org.database;
+    return {
+      uri: org.dbUri,
+      prefix: org.dbPrefix ?? '',
+      minPoolSize: org.dbMinPoolSize ?? 1,
+      maxPoolSize: org.dbMaxPoolSize ?? 10,
+    };
   }
 }

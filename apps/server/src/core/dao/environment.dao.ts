@@ -62,7 +62,7 @@ export class EnvironmentDao {
 
   private getCollection(orgName: string) {
     const collection = this.mongoConnectionService
-      .getClient()
+      .getConnection()
       .model<IEnvironment>(
         this.buildCollectionName(orgName),
         environmentSchema,

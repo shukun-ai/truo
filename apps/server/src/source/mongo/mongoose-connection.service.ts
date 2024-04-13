@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { IDString, MetadataElectron, MetadataSchema } from '@shukun/schema';
+import { MetadataElectron, MetadataSchema } from '@shukun/schema';
 import { Schema, Document, Model as MongooseModel, Connection } from 'mongoose';
 
 import { OrgService } from '../../core/org.service';
@@ -30,9 +30,9 @@ export class MongooseConnectionService {
     orgName: string,
     metadata: MetadataSchema,
   ): Promise<MongooseModel<Model & Document>> {
-    const orgId = await this.orgService.findOrgId(orgName);
+    const { prefix } = await this.orgService.getDatabase(orgName);
 
-    const schemaName = this.buildSchemaName(orgId, metadata);
+    const schemaName = this.buildSchemaName(prefix, metadata);
 
     const connection = await this.mongoConnectionService.getConnection(orgName);
 
@@ -87,12 +87,8 @@ export class MongooseConnectionService {
     };
   }
 
-  private buildSchemaName(orgId: IDString, metadata: MetadataSchema): string {
-    if (orgId.length !== 24) {
-      throw new BadRequestException('The length of orgId should be 24.');
-    }
-
-    return `org_${orgId}_${metadata.name}`;
+  private buildSchemaName(dbPrefix: string, metadata: MetadataSchema): string {
+    return `${dbPrefix}${metadata.name}`;
   }
 
   private buildOwnerSchema(): MongooseSchema & MongooseConstraintSchema {
