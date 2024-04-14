@@ -11,4 +11,5 @@ export enum StoreNames {
   Role = 'Role',
   Security = 'Security',
   CustomModal = 'CustomModal',
+  Router = 'Router',
 }

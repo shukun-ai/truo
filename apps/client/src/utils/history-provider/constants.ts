@@ -19,4 +19,5 @@ export const replaceList = [
   RoutePath.ViewCreate,
   RoutePath.ViewDetail,
   RoutePath.Plugin,
+  RoutePath.IframePlayground,
 ];
