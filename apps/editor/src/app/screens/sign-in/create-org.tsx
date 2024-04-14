@@ -30,6 +30,7 @@ export type CreateOrgValue = {
   label: string;
   username: string;
   password: string;
+  dbUri: string;
 };
 
 export const CreateOrg = () => {
@@ -44,6 +45,7 @@ export const CreateOrg = () => {
       label: '',
       username: '',
       password: '',
+      dbUri: '',
     },
     validate: zodResolver(
       z.object({
@@ -61,6 +63,7 @@ export const CreateOrg = () => {
           .max(30)
           .refine(isEngineName, '仅支持小写，不能以 system__ 开头'),
         password: z.string().min(6).max(24),
+        dbUri: z.string().min(1).max(255),
       }),
     ),
   });
@@ -133,6 +136,14 @@ export const CreateOrg = () => {
             placeholder="6-24 位，建议包含大小写字母、数字和符号"
             required
             {...form.getInputProps('password')}
+            radius="sm"
+            mb={8}
+          />
+          <TextInput
+            label="数据库地址"
+            placeholder="MongoDB URI"
+            required
+            {...form.getInputProps('dbUri')}
             radius="sm"
             mb={8}
           />

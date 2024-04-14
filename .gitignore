@@ -42,3 +42,4 @@ Thumbs.db
 # Environment
 .env.local
 .local.env
+.docker

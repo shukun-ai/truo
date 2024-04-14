@@ -7,8 +7,9 @@ import {
 } from '@shukun/schema';
 
 import { CodebaseService } from '../core/codebase.service';
-import { OrgDocumentRevise } from '../core/org/org.schema';
+import { IOrg } from '../core/org/org.schema';
 import { OrgService } from '../core/org.service';
+import { SourceMainDbTestService } from '../source/source-main-db-test.service';
 import { SourceService } from '../source/source.service';
 
 @Injectable()
@@ -16,12 +17,23 @@ export class TenantService {
   constructor(
     private readonly codebaseService: CodebaseService,
     private readonly orgService: OrgService,
+    private readonly sourceMainDbTestService: SourceMainDbTestService,
     private readonly systemUserService: SourceService<SystemUserModel>,
     private readonly systemPositionService: SourceService<SystemPositionModel>,
   ) {}
 
   @Post()
   async createNewOrg(seed: SeedCreateDto): Promise<null> {
+    const connectivity = await this.sourceMainDbTestService.getConnectivity(
+      seed.dbUri,
+    );
+
+    if (!connectivity) {
+      throw new BadRequestException(
+        'The database is not connected, please check dbUri.',
+      );
+    }
+
     // create org
     const org = await this.createOrg(seed);
 
@@ -61,10 +73,8 @@ export class TenantService {
     return null;
   }
 
-  private async createOrg(
-    createDto: SeedCreateDto,
-  ): Promise<OrgDocumentRevise> {
-    let org: OrgDocumentRevise;
+  private async createOrg(createDto: SeedCreateDto): Promise<IOrg> {
+    let org: IOrg;
 
     try {
       org = await this.orgService.createOne(createDto);

@@ -1,5 +1,11 @@
 import { SeedCreateDto as BaseSeedCreateDto } from '@shukun/api';
-import { IsNotEmpty, MinLength, MaxLength, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  MinLength,
+  MaxLength,
+  IsString,
+  IsOptional,
+} from 'class-validator';
 
 import {
   IsEngineName,
@@ -7,6 +13,10 @@ import {
   IsStartedWithLowercase,
 } from '../../../util/validation/decorators';
 
+/**
+ * @deprecated
+ * This is editor feature, should be removed
+ */
 export class OrgCreateDto {
   @IsNotEmpty()
   @IsString()
@@ -33,4 +43,12 @@ export class OrgCreateDto {
   @MinLength(6)
   @MaxLength(24)
   readonly password!: BaseSeedCreateDto['password'];
+
+  @IsNotEmpty()
+  @IsString()
+  readonly dbUri!: BaseSeedCreateDto['dbUri'];
+
+  @IsOptional()
+  @IsString()
+  readonly dbPrefix?: BaseSeedCreateDto['dbPrefix'];
 }

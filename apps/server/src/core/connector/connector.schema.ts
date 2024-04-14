@@ -1,17 +1,21 @@
+import { ObjectId } from 'mongodb';
 import { Schema } from 'mongoose';
 
-export const connectorMongoSchema = new Schema(
+export interface IConnector {
+  _id: ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+  definition: Buffer;
+}
+
+export const connectorSchema = new Schema<IConnector>(
   {
     definition: {
       type: Buffer,
       require: true,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
-
-export type ConnectorDocument = {
-  definition: Buffer;
-  createdAt: NativeDate;
-  updatedAt: NativeDate;
-};

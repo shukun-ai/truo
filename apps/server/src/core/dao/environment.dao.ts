@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
 import { TypeException } from '@shukun/exception';
 import { EnvironmentSchema } from '@shukun/schema';
-import { Connection } from 'mongoose';
 
-import {
-  EnvironmentDocument,
-  environmentMongoSchema,
-} from './environment.schema';
+import { MongoConnectionService } from '../mongo-connection.service';
 
+import { IEnvironment, environmentSchema } from './environment.schema';
+
+/**
+ * @deprecated this is a editor feature
+ */
 @Injectable()
 export class EnvironmentDao {
-  constructor(@InjectConnection() private connection: Connection) {}
+  constructor(
+    private readonly mongoConnectionService: MongoConnectionService,
+  ) {}
 
   async get(
     orgName: string,
@@ -59,10 +61,12 @@ export class EnvironmentDao {
   }
 
   private getCollection(orgName: string) {
-    const collection = this.connection.model<EnvironmentDocument>(
-      this.buildCollectionName(orgName),
-      environmentMongoSchema,
-    );
+    const collection = this.mongoConnectionService
+      .getConnection()
+      .model<IEnvironment>(
+        this.buildCollectionName(orgName),
+        environmentSchema,
+      );
     return collection;
   }
 
