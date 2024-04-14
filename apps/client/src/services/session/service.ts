@@ -3,7 +3,10 @@ import dayjs from 'dayjs';
 
 import { publicRequester } from '../../apis/requester';
 
+import { AuthModel } from '../../models/session';
+
 import { sessionStore } from './store';
+import { getAuth, removeAuth, setAuth } from './util';
 
 class SessionService {
   async signIn(data: { orgName: string; username: string; password: string }) {
@@ -15,24 +18,30 @@ class SessionService {
     const { userId, username, orgName, orgId, accessToken, expiresIn } =
       response.data.value;
 
+    const auth: AuthModel = {
+      userId,
+      username,
+      orgName,
+      orgId,
+      accessToken,
+      expiresTimestamp: dayjs().add(expiresIn, 'ms').valueOf(),
+    };
+
     sessionStore.update(({ auth }) => ({
-      auth: {
-        ...auth,
-        userId,
-        username,
-        orgName,
-        orgId,
-        accessToken,
-        expiresTimestamp: dayjs().add(expiresIn, 'ms').valueOf(),
-      },
+      auth,
     }));
+
+    setAuth(auth);
   }
 
   async signOut() {
+    const { auth } = sessionStore.getValue();
+    if (auth) {
+      removeAuth(auth.orgName);
+    }
     resetStores();
   }
 
-  // TODO: remove it, use query instead.
   getSessionValidAuth() {
     const session = sessionStore.getValue();
 
@@ -48,15 +57,22 @@ class SessionService {
   }
 
   getOrgName(): string | null {
-    const auth = this.getSessionValidAuth();
+    const { routerOrgName } = sessionStore.getValue();
+    return routerOrgName;
+  }
 
-    if (!auth) {
-      sessionStore.update(({ freshedAt }) => {
-        new Date();
-      });
-      return null;
+  setAuthByRouter(routerOrgName: string | null) {
+    if (routerOrgName) {
+      const auth = getAuth(routerOrgName);
+      sessionStore.update(() => ({
+        auth,
+        routerOrgName,
+      }));
     } else {
-      return auth.orgName;
+      sessionStore.update(() => ({
+        auth: null,
+        routerOrgName,
+      }));
     }
   }
 }
