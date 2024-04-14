@@ -45,6 +45,8 @@ export const createOrg = async (
     label: faker.company.name(),
     username: 'admin',
     password: '123456',
+    dbUri: 'mongodb://localhost:20000/shukun_test_project',
+    dbPrefix: `org_${payload.orgName}_`,
   });
 };
 

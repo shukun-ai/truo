@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { TypeException } from '@shukun/exception';
 import {
   ApplicationSchema,
   DataSourceSchema,
@@ -7,21 +7,23 @@ import {
   MetadataSchema,
   PresenterSchema,
 } from '@shukun/schema';
-import { Model } from 'mongoose';
 
 import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../app.constant';
 import { QueryParserOptions } from '../util/query/interfaces';
 
-import { OrgDocument, OrgDocumentName } from './org/org.schema';
+import { MongoConnectionService } from './mongo-connection.service';
+import { IOrg } from './org/org.schema';
 import { CreateDto } from './org/org.types';
 
 @Injectable()
 export class OrgService {
-  @InjectModel(OrgDocumentName)
-  private readonly orgModel!: Model<OrgDocument>;
+  constructor(
+    private readonly mongoConnectionService: MongoConnectionService,
+  ) {}
 
   async findOrgId(orgName: string): Promise<IDString> {
-    const org = await this.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select({ _id: 1 })
       .exec();
@@ -34,8 +36,9 @@ export class OrgService {
     return org._id.toString();
   }
 
-  async findAll(query: QueryParserOptions): Promise<OrgDocument[]> {
-    const value = await this.orgModel
+  async findAll(query: QueryParserOptions): Promise<IOrg[]> {
+    const value = await this.mongoConnectionService
+      .getOrgModel()
       .find(query.filter)
       .select(query.select)
       .populate(query.populate)
@@ -46,8 +49,9 @@ export class OrgService {
     return value;
   }
 
-  async findOne(query: QueryParserOptions): Promise<OrgDocument> {
-    const value = await this.orgModel
+  async findOne(query: QueryParserOptions): Promise<IOrg> {
+    const value = await this.mongoConnectionService
+      .getOrgModel()
       .findOne(query.filter)
       .select(query.select)
       .populate(query.populate)
@@ -62,7 +66,8 @@ export class OrgService {
   }
 
   async count(query: QueryParserOptions): Promise<number> {
-    const value = await this.orgModel
+    const value = await this.mongoConnectionService
+      .getOrgModel()
       .find(query.filter)
       .select(query.select)
       .countDocuments()
@@ -70,21 +75,24 @@ export class OrgService {
     return value;
   }
 
-  async createOne(createDto: CreateDto): Promise<OrgDocument> {
-    const entity = new this.orgModel(createDto);
+  async createOne(createDto: CreateDto): Promise<IOrg> {
+    const OrgModel = this.mongoConnectionService.getOrgModel();
+    const entity = new OrgModel(createDto);
     const value = await entity.save();
     return value;
   }
 
   async deleteOne(orgName: string): Promise<null> {
-    await this.orgModel.deleteOne({ name: orgName });
+    await this.mongoConnectionService
+      .getOrgModel()
+      .deleteOne({ name: orgName });
     return null;
   }
 
   async updateCodebase(orgName: string, codebase: ApplicationSchema) {
     const buffer = Buffer.from(JSON.stringify(codebase));
 
-    await this.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         codebase: buffer,
@@ -93,7 +101,8 @@ export class OrgService {
   }
 
   async findCodebaseByOrgName(orgName: string): Promise<ApplicationSchema> {
-    const org = await this.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('codebase')
       .exec();
@@ -110,7 +119,7 @@ export class OrgService {
   }
 
   async updateDataSource(orgName: IDString, dataSource: DataSourceSchema) {
-    await this.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         dataSource,
@@ -119,7 +128,8 @@ export class OrgService {
   }
 
   async findDataSource(orgName: string): Promise<DataSourceSchema> {
-    const org = await this.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('dataSource')
       .exec();
@@ -135,7 +145,8 @@ export class OrgService {
   }
 
   async findMigrated(orgName: string): Promise<MetadataSchema[]> {
-    const org = await this.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('migrated')
       .exec();
@@ -153,7 +164,7 @@ export class OrgService {
   ): Promise<void> {
     const buffer = Buffer.from(JSON.stringify(metadata));
 
-    await this.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         migrated: buffer,
@@ -167,7 +178,7 @@ export class OrgService {
   ) {
     const buffer = Buffer.from(JSON.stringify(presenters));
 
-    await this.orgModel.updateOne(
+    await this.mongoConnectionService.getOrgModel().updateOne(
       { name: orgName },
       {
         presenters: buffer,
@@ -178,7 +189,8 @@ export class OrgService {
   async findPresenters(
     orgName: string,
   ): Promise<Record<string, PresenterSchema>> {
-    const org = await this.orgModel
+    const org = await this.mongoConnectionService
+      .getOrgModel()
       .findOne({ name: orgName })
       .select('presenters')
       .exec();
@@ -191,5 +203,31 @@ export class OrgService {
       org.presenters.toString(),
     );
     return presenters;
+  }
+
+  async getDatabase(orgName: string): Promise<{
+    uri: string;
+    prefix: string;
+    minPoolSize: number;
+    maxPoolSize: number;
+  }> {
+    const org = await this.mongoConnectionService
+      .getOrgModel()
+      .findOne({ name: orgName })
+      .select('dbUri dbPrefix dbMinPoolSize dbMaxPoolSize')
+      .exec();
+
+    if (!org?.dbUri) {
+      throw new TypeException('Did not configure dbUri for org: {{org}}', {
+        org: orgName,
+      });
+    }
+
+    return {
+      uri: org.dbUri,
+      prefix: org.dbPrefix ?? '',
+      minPoolSize: org.dbMinPoolSize ?? 1,
+      maxPoolSize: org.dbMaxPoolSize ?? 10,
+    };
   }
 }

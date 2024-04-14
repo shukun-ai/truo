@@ -60,7 +60,7 @@ export class PassportResolverService implements Resolver {
     const output = await this.tokenGeneratorService.generate(
       user._id,
       user.username,
-      org._id,
+      org._id.toString(),
       org.name,
       expiresIn,
     );

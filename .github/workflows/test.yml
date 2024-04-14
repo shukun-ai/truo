@@ -14,7 +14,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.17.0'
+      - name: Restore cached npm dependencies
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
       - run: npm ci
+      - name: Cache npm dependencies
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
       - run: npm run lint
       - run: npm run test
       - run: npm run build

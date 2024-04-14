@@ -1,6 +1,15 @@
+import { ObjectId } from 'mongodb';
 import { Schema } from 'mongoose';
 
-export const taskMongoSchema = new Schema(
+export interface ITask {
+  _id: ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  definition: Buffer;
+}
+
+export const taskSchema = new Schema<ITask>(
   {
     name: {
       type: String,
@@ -12,12 +21,7 @@ export const taskMongoSchema = new Schema(
       require: true,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
-
-export type TaskDocument = {
-  name: string;
-  definition: Buffer;
-  createdAt: NativeDate;
-  updatedAt: NativeDate;
-};

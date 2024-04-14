@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import { IDString, MetadataElectron, MetadataSchema } from '@shukun/schema';
-import { Connection, Schema, Document, Model as MongooseModel } from 'mongoose';
+import { MetadataElectron, MetadataSchema } from '@shukun/schema';
+import { Schema, Document, Model as MongooseModel, Connection } from 'mongoose';
 
 import { OrgService } from '../../core/org.service';
 
@@ -11,11 +10,13 @@ import {
 } from '../electron/electron-field.interface';
 import { getFieldInstance } from '../electron/fields-map';
 
+import { MongoConnectionService } from './mongo-connection.service';
+
 @Injectable()
 export class MongooseConnectionService {
   constructor(
     private readonly orgService: OrgService,
-    @InjectConnection() private readonly connection: Connection,
+    private readonly mongoConnectionService: MongoConnectionService,
   ) {}
 
   async getAtomModel<Model>(
@@ -29,13 +30,15 @@ export class MongooseConnectionService {
     orgName: string,
     metadata: MetadataSchema,
   ): Promise<MongooseModel<Model & Document>> {
-    const orgId = await this.orgService.findOrgId(orgName);
+    const { prefix } = await this.orgService.getDatabase(orgName);
 
-    const schemaName = this.buildSchemaName(orgId, metadata);
+    const schemaName = this.buildSchemaName(prefix, metadata);
 
-    const schema = await this.buildAtomSchema(metadata);
+    const connection = await this.mongoConnectionService.getConnection(orgName);
 
-    const ModelClass = this.connection.model<Model & Document>(
+    const schema = await this.buildAtomSchema(metadata, connection);
+
+    const ModelClass = connection.model<Model & Document>(
       schemaName,
       schema,
       schemaName,
@@ -44,7 +47,10 @@ export class MongooseConnectionService {
     return ModelClass;
   }
 
-  protected async buildAtomSchema(metadata: MetadataSchema): Promise<Schema> {
+  protected async buildAtomSchema(
+    metadata: MetadataSchema,
+    connection: Connection,
+  ): Promise<Schema> {
     const atomSchema: Record<
       string,
       MongooseSchema & MongooseConstraintSchema
@@ -55,7 +61,10 @@ export class MongooseConnectionService {
     }
 
     for (const electron of metadata.electrons) {
-      atomSchema[electron.name] = this.buildElectronSchema(electron);
+      atomSchema[electron.name] = this.buildElectronSchema(
+        electron,
+        connection,
+      );
     }
 
     atomSchema.owner = this.buildOwnerSchema();
@@ -65,9 +74,10 @@ export class MongooseConnectionService {
 
   protected buildElectronSchema(
     electron: MetadataElectron,
+    connection: Connection,
   ): MongooseSchema & MongooseConstraintSchema {
     const field = getFieldInstance(electron);
-    const fieldSchema = field.buildSchema(this.connection);
+    const fieldSchema = field.buildSchema(connection);
 
     return {
       ...fieldSchema,
@@ -77,12 +87,8 @@ export class MongooseConnectionService {
     };
   }
 
-  private buildSchemaName(orgId: IDString, metadata: MetadataSchema): string {
-    if (orgId.length !== 24) {
-      throw new BadRequestException('The length of orgId should be 24.');
-    }
-
-    return `org_${orgId}_${metadata.name}`;
+  private buildSchemaName(dbPrefix: string, metadata: MetadataSchema): string {
+    return `${dbPrefix}${metadata.name}`;
   }
 
   private buildOwnerSchema(): MongooseSchema & MongooseConstraintSchema {
