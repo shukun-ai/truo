@@ -164,21 +164,10 @@ export const CustomViewExperiment: LegacyFunctionComponent<
   );
 };
 
-const isHttpLink = (value: string) =>
-  value.startsWith('https://') || value.startsWith('http://');
-
 const buildUrl = (value: string) => {
   // TODO only allow same origin, same org name and contents from web-engines.
   // TODO bypass the rule if enable develop mode
-
-  if (isHttpLink(value)) {
-    return value;
-  }
-
-  const slash = value.startsWith('/') ? '' : '/';
-  const url = `${window.location.host}${slash}${value}`;
-
-  return url;
+  return value;
 };
 
 const addTimeStampForRefresh = (value: string) => {
