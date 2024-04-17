@@ -1,11 +1,14 @@
-# This Dockerfile is only for app server
-# TODO: should move it to specific folder for multiple Dockers later
-# Prerequisites
-# npm run build
-# npm run package
-# docker run .
-FROM node:18.17.0
+FROM node:18.17.0 AS base
 WORKDIR /usr/src/app
-COPY ./dist/installation/server ./installation
+COPY . .
+RUN npm install
+RUN npx nx reset cache
+RUN npx nx run server:build:production
+RUN npx nx run server:package
+
+FROM node:18.17.0 AS app
+WORKDIR /usr/src/app
+COPY --from=base /usr/src/app/dist/installation/server .
 EXPOSE 3000
-CMD ["node", "./installation/index.js"]
+WORKDIR /usr/src/app
+ENTRYPOINT ["node", "index.js"]
