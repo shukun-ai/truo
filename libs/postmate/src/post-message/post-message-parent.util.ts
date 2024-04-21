@@ -7,12 +7,15 @@ export function callChild<T>(
   value: T,
 ) {
   const listener = () => {
-    iframe?.contentWindow?.postMessage({
-      type: 'application/x-shukun-v1+json',
-      eventName: event,
-      payload: value,
-      sessionId,
-    });
+    iframe?.contentWindow?.postMessage(
+      {
+        type: 'application/x-shukun-v1+json',
+        eventName: event,
+        payload: value,
+        sessionId,
+      },
+      '*', // TODO add environment to control the origin target
+    );
   };
   iframe?.addEventListener('load', listener);
 
