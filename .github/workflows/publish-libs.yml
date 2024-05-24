@@ -1,0 +1,90 @@
+name: Publish Libs
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.17.0'
+          cache: true
+      - name: Restore cached npm dependencies
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
+      - run: npm ci
+      - name: Cache npm dependencies
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/api/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/cli/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/code-resolver/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/exception/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/legacy-api/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/postmate/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/schema/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/util-functions/package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ env.NPM_TOKEN }}
+          access: public
+          package: dist/libs/validator/package.json
