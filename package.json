@@ -178,6 +178,7 @@
     "observable-hooks": "^4.2.0",
     "performant-array-to-tree": "^1.9.1",
     "pg": "^8.8.0",
+    "playwright": "^1.44.1",
     "randomstring": "^1.2.1",
     "react": "18.2.0",
     "react-dnd": "^16.0.1",
