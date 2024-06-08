@@ -3,8 +3,8 @@ WORKDIR /usr/src/app
 COPY . .
 RUN npm ci
 RUN npx nx reset cache
-RUN npx nx run server:build:production
-RUN npx nx run server:package
+RUN npm run build
+RUN npm run package
 
 FROM node:18.17.0 AS platform
 WORKDIR /usr/src/app
