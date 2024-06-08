@@ -4,7 +4,7 @@ COPY . .
 RUN npm ci
 RUN npx nx reset cache
 RUN npm run build
-RUN npm run package
+RUN npx nx run server:package
 
 FROM node:18.17.0 AS platform
 WORKDIR /usr/src/app
