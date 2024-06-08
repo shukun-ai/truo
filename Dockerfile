@@ -1,7 +1,7 @@
 FROM node:18.17.0 AS base
 WORKDIR /usr/src/app
 COPY . .
-RUN npm install
+RUN npm ci
 RUN npx nx reset cache
 RUN npx nx run server:build:production
 RUN npx nx run server:package
