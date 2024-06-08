@@ -16,8 +16,7 @@
           "mode": "development"
         },
         "production": {
-          "mode": "production",
-          "base": "/hub"
+          "mode": "production"
         }
       }
     },
