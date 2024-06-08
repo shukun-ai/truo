@@ -107,7 +107,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/shukunai/platform
+          images: ${{ env.REGISTRY }}/shukun-dev/platform
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -136,7 +136,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/shukunai/hub
+          images: ${{ env.REGISTRY }}/shukun-dev/hub
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
