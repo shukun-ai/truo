@@ -9,7 +9,7 @@
     "start": "nx run-many --target=serve --projects=server,client",
     "build": "nx run-many --target=build --all --configuration=production",
     "generate": "nx run-many --target=generate --all",
-    "package": "nx run-many --target=package --all --configuration=production",
+    "package": "nx run-many --target=package --projects=server --configuration=production",
     "test": "npm run test:unit && npm run test:integrate",
     "test:integrate": "nx run server:integration-test",
     "test:unit": "nx run-many --target=test --all",
