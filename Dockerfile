@@ -1,6 +1,10 @@
 FROM node:18.17.0 AS base
 WORKDIR /usr/src/app
 COPY . .
+ENV VITE_CLIENT_BASE_URL=
+ENV VITE_CLIENT_STORAGE_URL=
+ENV VITE_CLIENT_ASSET_URL=
+ENV VITE_CLIENT_PUBLIC_PATH=
 RUN npm ci
 RUN npx nx reset cache
 RUN npm run build
