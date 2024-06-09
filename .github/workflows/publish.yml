@@ -52,7 +52,8 @@ jobs:
           name: dist
           path: dist/
 
-  publish:
+  publish-npm-packages:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -119,7 +120,8 @@ jobs:
           access: public
           package: dist/libs/validator/package.json
 
-  build-platform-docker:
+  publish-platform-docker:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -152,7 +154,8 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           target: platform
 
-  build-hub-docker:
+  publish-hub-docker:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
