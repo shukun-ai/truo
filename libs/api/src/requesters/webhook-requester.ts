@@ -22,6 +22,6 @@ export class WebhookRequester {
   }
 
   private buildUri(suffix: string, orgName?: string) {
-    return `${RoleResourceType.Public}/${orgName || ':orgName'}/${suffix}`;
+    return `${RoleResourceType.Webhook}/${orgName || ':orgName'}/${suffix}`;
   }
 }
