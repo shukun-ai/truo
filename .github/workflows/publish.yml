@@ -1,4 +1,4 @@
-name: Publish Libs
+name: Publish
 on:
   push:
     branches: [master]
@@ -7,8 +7,51 @@ on:
   workflow_dispatch:
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  REGISTRY: ${{ secrets.SWR_REGISTER }}
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.17.0'
+
+      - name: Restore cached npm dependencies
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
+
+      - run: npm ci
+
+      - name: Cache npm dependencies
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
+
+      - run: echo VITE_CLIENT_BASE_URL= >> .env.local
+      - run: echo VITE_CLIENT_STORAGE_URL= >> .env.local
+      - run: echo VITE_CLIENT_ASSET_URL= >> .env.local
+      - run: echo VITE_CLIENT_PUBLIC_PATH= >> .env.local
+
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build
+      - run: npm run package
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -17,24 +60,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.17.0'
-      - name: Restore cached npm dependencies
-        uses: actions/cache/restore@v3
+
+      - uses: actions/download-artifact@v4
         with:
-          path: |
-            node_modules
-            ~/.cache/Cypress # needed for the Cypress binary
-          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
-      - run: npm ci
-      - name: Cache npm dependencies
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            node_modules
-            ~/.cache/Cypress # needed for the Cypress binary
-          key: npm-dependencies-${{ hashFiles('package-lock.json') }}
-      - run: npm run lint
-      - run: npm run test
-      - run: npm run build
+          name: dist
 
       - uses: JS-DevTools/npm-publish@v1
         with:
@@ -96,10 +125,14 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ${{ secrets.SWR_REGISTRY }}
           username: ${{ secrets.SWR_USERNAME }}
           password: ${{ secrets.SWR_PASSWORD }}
 
@@ -107,7 +140,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/shukun-dev/platform
+          images: ${{ secrets.SWR_REGISTRY }}/shukun-dev/platform
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -125,10 +158,14 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ${{ secrets.SWR_REGISTRY }}
           username: ${{ secrets.SWR_USERNAME }}
           password: ${{ secrets.SWR_PASSWORD }}
 
@@ -136,7 +173,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/shukun-dev/hub
+          images: ${{ secrets.SWR_REGISTRY }}/shukun-dev/hub
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
