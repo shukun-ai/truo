@@ -51,6 +51,8 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 1
+          if-no-files-found: error
 
   publish-npm-packages:
     needs: build
