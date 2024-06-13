@@ -11,6 +11,7 @@ export * from './types/system-authentication';
 export * from './types/system-models';
 export * from './types/system-resources';
 export * from './types/system-roles';
+export * from './types/system-user-profile';
 export * from './types/task';
 export * from './types/utils';
 export * from './types/presenter';

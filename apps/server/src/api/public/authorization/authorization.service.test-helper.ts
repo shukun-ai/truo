@@ -11,21 +11,25 @@ export const cfoRole = 'cfo';
 export const ownerUser = {
   _id: 'ownerUser',
   username: 'ownerUser',
+  displayName: 'ownerUser',
 };
 
 export const anonymousUser = {
   _id: 'anonymousUser',
   username: 'anonymousUser',
+  displayName: 'anonymousUser',
 };
 
 export const cooUser = {
   _id: 'cooUser',
   username: 'cooUser',
+  displayName: 'cooUser',
 };
 
 export const cfoUser = {
   _id: 'cfoUser',
   username: 'cfoUser',
+  displayName: 'cfoUser',
 };
 
 export const validOwnerUserToken = 'validOwnerUserToken';
