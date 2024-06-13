@@ -134,4 +134,13 @@ describe('PublicRequester', () => {
       ]);
     });
   });
+
+  describe('getProfile', () => {
+    it('should pass, when getProfile without signed user.', async () => {
+      const publicRequester = new PublicRequester(adaptor);
+      const response = await publicRequester.getProfile(orgName);
+
+      expect(response.data.value).toEqual(null);
+    });
+  });
 });

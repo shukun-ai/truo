@@ -4,6 +4,7 @@ import {
   RoleResourceType,
   RoleSchema,
   SystemPublicOrgModel,
+  SystemUserProfile,
 } from '@shukun/schema';
 
 import { IRequestAdaptor } from '../request-adaptor/request-adaptor.interface';
@@ -130,6 +131,17 @@ export class PublicRequester {
     return await this.requestAdaptor.fetch<PresenterSchema>(
       'POST',
       this.buildUri(`presenters/${presenterName}`, orgName),
+    );
+  }
+
+  /**
+   * @remarks
+   * GET /apis/v1/public/{orgName}/profile
+   */
+  public async getProfile(orgName?: string) {
+    return await this.requestAdaptor.fetch<SystemUserProfile | null>(
+      'GET',
+      this.buildUri('profile', orgName),
     );
   }
 

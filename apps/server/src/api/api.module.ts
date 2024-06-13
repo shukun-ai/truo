@@ -32,6 +32,7 @@ import { GrantListController } from './public/grant-list/grant-list.controller';
 import { GrantRoleController } from './public/grant-role/grant-role.controller';
 import { OrgController } from './public/org/org.controller';
 import { PresenterController } from './public/presenter/presenter.controller';
+import { ProfileController } from './public/profile/profile.controller';
 import { RoleController } from './public/role/role.controller';
 import { VersionController } from './public/version/version.controller';
 import { SourceAccessControlService } from './source/source-access-control.service';
@@ -66,6 +67,7 @@ import { WebhookController } from './webhook/webhook.controller';
     SourceController,
     SeedController,
     RoleController,
+    ProfileController,
     PresenterController,
     ConnectorController,
     VersionController,
