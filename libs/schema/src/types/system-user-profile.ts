@@ -5,5 +5,5 @@ export type SystemUserProfile = {
   orgName: string;
   username: string;
   displayName: string;
-  avatar: AttachmentSchema[];
+  avatar?: AttachmentSchema[];
 };
