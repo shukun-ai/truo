@@ -17,10 +17,10 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.17.0'
+          node-version: '20.15.0'
 
       - name: Restore cached npm dependencies
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: |
             node_modules
@@ -30,7 +30,7 @@ jobs:
       - run: npm ci
 
       - name: Cache npm dependencies
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         with:
           path: |
             node_modules
@@ -62,62 +62,62 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.17.0'
+          node-version: '20.15.0'
 
       - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/api/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/cli/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/code-resolver/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/exception/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/legacy-api/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/postmate/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/schema/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public
           package: dist/libs/util-functions/package.json
 
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ env.NPM_TOKEN }}
           access: public

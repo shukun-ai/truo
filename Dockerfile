@@ -1,4 +1,4 @@
-FROM node:18.17.0 AS platform
+FROM node:20.15.0 AS platform
 WORKDIR /usr/src/app
 COPY dist/installation/server .
 EXPOSE 3000
