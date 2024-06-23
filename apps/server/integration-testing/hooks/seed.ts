@@ -1,5 +1,3 @@
-import { Readable } from 'node:stream';
-
 import { faker } from '@faker-js/faker';
 import {
   DeveloperRequester,
@@ -8,7 +6,6 @@ import {
   TenantRequester,
 } from '@shukun/api';
 import { DataSourceSchema } from '@shukun/schema';
-import FormData from 'form-data';
 
 export const hasOrCreateOrg = async (
   adaptor: IRequestAdaptor,
@@ -64,10 +61,9 @@ export const updateCodebase = async (
 ) => {
   const developerRequester = new DeveloperRequester(adaptor);
   const formData = convertJsonToFormData(lowCode);
-  await developerRequester.updateCodebase(
-    formData as any,
-    formData.getHeaders(),
-  );
+  await developerRequester.updateCodebase(formData, {
+    'content-type': 'multipart/form-data',
+  });
 };
 
 export const updateDataSource = async (
@@ -78,17 +74,10 @@ export const updateDataSource = async (
   await developerRequester.updateDataSource(dataSource);
 };
 
-/**
- * @see {@link https://maximorlov.com/send-a-file-with-axios-in-nodejs/}
- * How to upload file with Axios in Node.
- *
- * @see {@link https://stackoverflow.com/questions/54423322/how-to-pass-string-as-a-read-stream-object-in-nodejs}
- * How to create Stream from JSON.
- */
 const convertJsonToFormData = (lowCode: unknown): FormData => {
   const json = JSON.stringify(lowCode);
-  const stream = Readable.from(json);
+  const blob = new Blob([json], { type: 'application/json' });
   const formData = new FormData();
-  formData.append('file', stream, 'application.json');
+  formData.append('file', blob, 'application.json');
   return formData;
 };
