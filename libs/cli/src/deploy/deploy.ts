@@ -1,7 +1,6 @@
 import { readFile } from 'fs/promises';
 
 import { AxiosAdaptor, DeveloperRequester } from '@shukun/api';
-import FormData from 'form-data';
 
 export class DeployCodebase {
   async run(
@@ -19,15 +18,13 @@ export class DeployCodebase {
     });
 
     const developerRequester = new DeveloperRequester(adaptor);
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const file = await readFile(filepath);
     const codebase = new Blob([file]);
 
     const formData = this.convertJsonToFormData(codebase);
-    await developerRequester.updateCodebase(
-      formData as any,
-      formData.getHeaders(),
-    );
+    await developerRequester.updateCodebase(formData, {
+      'content-type': 'multipart/form-data',
+    });
   }
 
   private convertJsonToFormData(codebase: Blob): FormData {
