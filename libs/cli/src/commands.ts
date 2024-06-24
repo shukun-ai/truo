@@ -2,6 +2,7 @@
 
 import { join } from 'path';
 
+import { AxiosAdaptor } from '@shukun/api';
 import { Command } from 'commander';
 import { z } from 'zod';
 
@@ -11,43 +12,56 @@ import { DeployCodebase } from './deploy/deploy';
 
 const program = new Command();
 
-program
-  .name('skp')
-  .version(packageJson.version)
-  .option('-c, --config <path>', 'set config path', './deploy.conf');
+program.name('skp').version(packageJson.version);
 
-const deploySchema = z
+const environmentSchema = z
   .object({
-    base_url: z.string(),
-    org_name: z.string(),
-    access_token: z.string().optional(),
+    SKP_BASE_URL: z.string(),
+    SKP_ORG_NAME: z.string(),
+    SKP_ACCESS_TOKEN: z.string().optional(),
   })
   .transform((value) => ({
-    baseUrl: value.base_url,
-    orgName: value.org_name,
-    accessToken: value.access_token,
+    baseUrl: value.SKP_BASE_URL,
+    orgName: value.SKP_ORG_NAME,
+    accessToken: value.SKP_ACCESS_TOKEN,
   }));
 
 const run = async () => {
   program
-    .command('deploy [codebasePath]')
-    .description('run setup commands for all envs')
-    .requiredOption('-b, --base_url <baseUrl>', 'Endpoint base url')
-    .requiredOption('-o, --org_name <orgName>', 'Endpoint org name')
-    .option('-a, --access_token <accessToken>', 'Endpoint access token')
-    .action((codebasePath, options) => {
-      // eslint-disable-next-line no-console
-      console.log(codebasePath, options);
+    .command('codebase [codebasePath]')
+    .description('Upload codebase to SHUKUN Platform Runtime')
+    .action((codebasePath: string) => {
       const instance = new DeployCodebase();
       const filepath = join(process.cwd(), codebasePath);
-      const params = deploySchema.parse(options);
-      instance.run(filepath, params);
+      const params = environmentSchema.parse(process.env);
+
+      const adaptor = new AxiosAdaptor({
+        baseUrl: `${params.baseUrl}/apis/v1`,
+        onOrgName: () => params.orgName || null,
+        onAccessToken: () => params.accessToken || null,
+      });
+
+      instance.uploadCodebase(filepath, adaptor);
+    });
+
+  program
+    .command('data-source [codebasePath]')
+    .description('Upload Data Source to SHUKUN Platform Runtime')
+    .action((dataSource: string) => {
+      const instance = new DeployCodebase();
+      const filepath = join(process.cwd(), dataSource);
+      const params = environmentSchema.parse(process.env);
+
+      const adaptor = new AxiosAdaptor({
+        baseUrl: `${params.baseUrl}/apis/v1`,
+        onOrgName: () => params.orgName || null,
+        onAccessToken: () => params.accessToken || null,
+      });
+
+      instance.uploadDataSource(filepath, adaptor);
     });
 
   await program.parseAsync(process.argv);
 };
 
-run().then(() => {
-  // eslint-disable-next-line no-console
-  console.log('finish');
-});
+run();
