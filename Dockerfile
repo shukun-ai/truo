@@ -1,4 +1,4 @@
-FROM node:20.15.0 AS platform
+FROM node:20.14.0-slim AS platform
 WORKDIR /usr/src/app
 COPY dist/installation/server .
 EXPOSE 3000
