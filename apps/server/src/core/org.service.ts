@@ -8,6 +8,8 @@ import {
   PresenterSchema,
 } from '@shukun/schema';
 
+import { applicationSeedData } from '@shukun/schema';
+
 import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../app.constant';
 import { QueryParserOptions } from '../util/query/interfaces';
 
@@ -108,10 +110,7 @@ export class OrgService {
       .exec();
 
     if (!org?.codebase) {
-      const application: ApplicationSchema = {
-        title: 'No title',
-      };
-      return application;
+      return applicationSeedData;
     }
 
     const application: ApplicationSchema = JSON.parse(org.codebase.toString());
