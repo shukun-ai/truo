@@ -1,30 +1,26 @@
 import { readFile } from 'fs/promises';
 
-import { AxiosAdaptor, DeveloperRequester } from '@shukun/api';
+import { DeveloperRequester, IRequestAdaptor } from '@shukun/api';
+
+import { DataSourceSchema } from '@shukun/schema';
 
 export class DeployCodebase {
-  async run(
-    filepath: string,
-    options: {
-      baseUrl: string;
-      orgName: string;
-      accessToken?: string;
-    },
-  ) {
-    const adaptor = new AxiosAdaptor({
-      baseUrl: options.baseUrl,
-      onOrgName: () => options.orgName || null,
-      onAccessToken: () => options.accessToken || null,
-    });
-
+  async uploadCodebase(filepath: string, adaptor: IRequestAdaptor) {
     const developerRequester = new DeveloperRequester(adaptor);
-    const file = await readFile(filepath);
+    const file = await readFile(filepath, { encoding: 'utf8' });
     const codebase = new Blob([file]);
 
     const formData = this.convertJsonToFormData(codebase);
     await developerRequester.updateCodebase(formData, {
       'content-type': 'multipart/form-data',
     });
+  }
+
+  async uploadDataSource(filepath: string, adaptor: IRequestAdaptor) {
+    const developerRequester = new DeveloperRequester(adaptor);
+    const file = await readFile(filepath, { encoding: 'utf8' });
+    const dataSource: DataSourceSchema = JSON.parse(file);
+    await developerRequester.updateDataSource(dataSource);
   }
 
   private convertJsonToFormData(codebase: Blob): FormData {
