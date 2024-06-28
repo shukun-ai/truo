@@ -10,6 +10,7 @@ import { ScheduleModule } from '../schedule/schedule.module';
 import { SourceModule } from '../source/source.module';
 import { SystemSourceModule } from '../system-source/system-source.module';
 import { TenantModule } from '../tenant/tenant.module';
+import { RequestMetricMiddleware } from '../util/metric/request-metric.middleware';
 import { PassportModule } from '../util/passport/passport.module';
 import { WebhookModule } from '../webhook/webhook.module';
 
@@ -92,6 +93,7 @@ import { WebhookController } from './webhook/webhook.controller';
 })
 export class ApiModule {
   public configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestMetricMiddleware).forRoutes('*');
     consumer.apply(IdentityMiddleware).forRoutes('*');
   }
 }
