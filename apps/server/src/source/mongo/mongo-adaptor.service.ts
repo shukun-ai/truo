@@ -15,6 +15,7 @@ import { DB_DEFAULT_LIMIT, DB_DEFAULT_SKIP } from '../../app.constant';
 
 import { SourceServiceCreateDto } from '../../app.type';
 
+import { MethodMetric } from '../../util/metric/method-metric.decorator';
 import { DatabaseAdaptor } from '../adaptor/database-adaptor.interface';
 import { SourceFieldFilterService } from '../source-field-filter.service';
 
@@ -51,6 +52,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return this.sourceFieldFilterService.filter(json, metadata);
   }
 
+  @MethodMetric()
   async createOne(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -71,6 +73,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     }
   }
 
+  @MethodMetric()
   async updateOne(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -88,6 +91,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
   /**
    * @deprecated please use findAll instead
    */
+  @MethodMetric()
   async findOne(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -115,6 +119,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return result;
   }
 
+  @MethodMetric()
   async findAll(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -136,6 +141,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return result;
   }
 
+  @MethodMetric()
   async count(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -148,6 +154,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     return value;
   }
 
+  @MethodMetric()
   async deleteOne(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -167,6 +174,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     await model.deleteOne();
   }
 
+  @MethodMetric()
   async addToMany(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -185,6 +193,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     await atomModel.findByIdAndUpdate(id, operator as any);
   }
 
+  @MethodMetric()
   async removeFromMany(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
@@ -203,6 +212,7 @@ export class MongoAdaptorService<Model> implements DatabaseAdaptor<Model> {
     await atomModel.findByIdAndUpdate(id, operator as any);
   }
 
+  @MethodMetric()
   async increase(
     dataSourceConnection: DataSourceConnection,
     orgName: string,
