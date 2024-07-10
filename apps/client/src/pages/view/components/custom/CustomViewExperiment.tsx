@@ -20,6 +20,12 @@ import { environment } from '../../../../environments';
 import { SearchModel } from '../../../../services/search';
 import { validAuth$ } from '../../../../services/session';
 
+import {
+  addTimeStampForRefresh,
+  buildUrl,
+  urlToString,
+} from './CustomViewUtils';
+
 export interface CustomViewExperimentProps {
   customMode: PostMessageCustomModeType | null;
   url: string | null;
@@ -54,7 +60,7 @@ export const CustomViewExperiment: LegacyFunctionComponent<
   const auth = useObservableState(validAuth$, null);
 
   const securityUrl = useMemo(() => {
-    return url ? addTimeStampForRefresh(buildUrl(url)) : null;
+    return url ? urlToString(addTimeStampForRefresh(buildUrl(url))) : null;
   }, [url]);
 
   useEffect(() => {
@@ -162,14 +168,4 @@ export const CustomViewExperiment: LegacyFunctionComponent<
       />
     </div>
   );
-};
-
-const buildUrl = (value: string) => {
-  // TODO only allow same origin, same org name and contents from web-engines.
-  // TODO bypass the rule if enable develop mode
-  return value;
-};
-
-const addTimeStampForRefresh = (value: string) => {
-  return `${value}?iframe-refresh=${new Date().getTime()}`;
 };
