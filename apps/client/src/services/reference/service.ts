@@ -84,6 +84,7 @@ class ReferenceService {
     const response = await requester.query({
       ...options,
       filter: { _id: { $nin: excludedIds } },
+      count: true,
     });
     referenceStore.set(response.data.value);
     referenceStore.update({ totalPages: response.data.count });
