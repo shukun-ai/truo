@@ -32,7 +32,7 @@ export interface ColumnFieldProps {
   tip: string | undefined;
   row: UnknownSourceModel | undefined;
   // TODO temporary solution, the final solution is to remove LinkText type
-  disabledLinkText: boolean;
+  disabledLinkText?: boolean;
 }
 
 export interface InputFieldProps {
