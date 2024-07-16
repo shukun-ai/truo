@@ -39,7 +39,8 @@ export const Table: LegacyFunctionComponent<TableProps> = ({
   view,
   metadata,
 }) => {
-  const columns = useColumns(view, metadata);
+  const disabledLinkText = false;
+  const columns = useColumns(view, metadata, disabledLinkText);
   const tableEntities = useObservableState(tableEntities$);
   const tableLoading = useObservableState(tableLoading$);
 

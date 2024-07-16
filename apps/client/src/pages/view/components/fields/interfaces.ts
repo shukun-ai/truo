@@ -31,6 +31,8 @@ export interface ColumnFieldProps {
   viewLink: NonNullable<ViewTableField['link']> | undefined;
   tip: string | undefined;
   row: UnknownSourceModel | undefined;
+  // TODO temporary solution, the final solution is to remove LinkText type
+  disabledLinkText: boolean;
 }
 
 export interface InputFieldProps {

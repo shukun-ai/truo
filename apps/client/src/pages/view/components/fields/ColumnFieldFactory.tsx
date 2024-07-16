@@ -1,6 +1,5 @@
 import { LegacyFunctionComponent } from '@shukun/component';
 import { ViewFieldType } from '@shukun/schema';
-import React, { FunctionComponent } from 'react';
 
 import { AttachmentField } from './attachment/AttachmentField';
 import { BooleanField } from './boolean/BooleanField';
@@ -94,7 +93,11 @@ export const ColumnFieldFactory: LegacyFunctionComponent<ColumnFieldProps> = (
   }
 
   if (props.type === ViewFieldType.LinkText) {
-    return <LinkTextField {...props} />;
+    if (props.disabledLinkText) {
+      return <TextField {...props} />;
+    } else {
+      return <LinkTextField {...props} />;
+    }
   }
 
   return <div>未内置该格式</div>;

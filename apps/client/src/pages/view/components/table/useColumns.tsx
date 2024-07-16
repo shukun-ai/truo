@@ -24,6 +24,7 @@ const INTERNAL_ELECTRON_NAMES = ['_id', 'updatedAt', 'createdAt'];
 export function useColumns(
   view: ViewSchema,
   metadata: MetadataSchema,
+  disabledLinkText: boolean,
 ): TableColumnsType<UnknownSourceModel> {
   const sort = useObservableState(searchQuery.sort$, defaultSearchValue.sort);
 
@@ -43,6 +44,7 @@ export function useColumns(
           viewColumn,
           electron,
           sort ?? null,
+          disabledLinkText,
         );
         antColumns.push(antColumn);
       } else if (INTERNAL_ELECTRON_NAMES.includes(viewColumn.electronName)) {
@@ -57,7 +59,7 @@ export function useColumns(
     });
 
     return antColumns;
-  }, [view.configurations, metadata, sort]);
+  }, [view.configurations, metadata, sort, disabledLinkText]);
 
   return columns;
 }
@@ -67,6 +69,7 @@ function createElectronColumn(
   viewColumn: ViewTableField,
   electron: MetadataElectron,
   sort: SearchSort | null, // TODO: passing sort here is not a good practice, we should inject sort in custom header cell
+  disabledLinkText: boolean,
 ): TableColumnType<UnknownSourceModel> {
   const sortValue = sort ? sort[electron.name] : null;
 
@@ -104,6 +107,7 @@ function createElectronColumn(
           electron.attachmentOptions as MetadataAttachmentOptions
         }
         row={row}
+        disabledLinkText={disabledLinkText}
       />,
     ],
   };

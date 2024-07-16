@@ -27,7 +27,8 @@ export const ReferenceTable: LegacyFunctionComponent<ReferenceTableProps> = ({
   view,
   metadata,
 }) => {
-  const columns = useColumns(view, metadata);
+  const disabledLinkText = true;
+  const columns = useColumns(view, metadata, disabledLinkText);
   const tableEntities = useObservableState(
     referenceEntities$,
     // TODO: remove ts-ignore
