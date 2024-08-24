@@ -35,10 +35,10 @@ jobs:
             ~/.cache/Cypress # needed for the Cypress binary
           key: npm-dependencies-${{ hashFiles('package-lock.json') }}
 
-      - run: echo VITE_CLIENT_BASE_URL= >> .env.local
-      - run: echo VITE_CLIENT_STORAGE_URL= >> .env.local
-      - run: echo VITE_CLIENT_ASSET_URL= >> .env.local
-      - run: echo VITE_CLIENT_PUBLIC_PATH= >> .env.local
+      - run: echo VITE_CLIENT_BASE_URL= >> .env.build
+      - run: echo VITE_CLIENT_STORAGE_URL= >> .env.build
+      - run: echo VITE_CLIENT_ASSET_URL= >> .env.build
+      - run: echo VITE_CLIENT_PUBLIC_PATH= >> .env.build
 
       - run: npm run lint
       - run: npm run test
