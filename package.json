@@ -65,7 +65,7 @@
     "@vitest/ui": "^1.0.0",
     "babel-jest": "29.4.3",
     "css-loader": "^6.4.0",
-    "docker-compose": "^0.23.17",
+    "docker-compose": "^0.24.8",
     "eslint": "8.48.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "^2.5.0",
