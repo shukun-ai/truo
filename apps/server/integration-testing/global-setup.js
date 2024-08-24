@@ -12,6 +12,7 @@ module.exports = async () => {
     await dockerCompose.upAll({
       cwd: path.join(__dirname),
       log: true,
+      verbose: true,
     });
   }
 };
