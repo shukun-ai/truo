@@ -28,7 +28,8 @@
     "tabler",
     "codemirror",
     "metadatas",
-    "composeid"
+    "composeid",
+    "truo"
   ],
   "ignoreWords": [],
   "import": []
