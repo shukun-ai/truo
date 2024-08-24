@@ -1,7 +1,7 @@
 {
   "npmScope": "shukun",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "tasksRunnerOptions": {
     "default": {
