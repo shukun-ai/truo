@@ -1,8 +1,8 @@
 <h1 align="center">
-  SHUKUN AI
+  Tranquil <span style="font-size: 0.6em;">low-code platform</span>
 </h1>
 
-The SHUKUN Platform is a low-code development platform designed with features like metadata management, unified API interfaces, a permissions gateway, and a generative admin backend.
+The Tranquil is a low-code development platform designed with features like metadata management, unified API interfaces, a permissions gateway, and a generative admin backend.
 
 This project has been in development for three years and is already running stably across multiple production projects. We’re now open-sourcing it and will continue to update it regularly.
 

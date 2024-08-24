@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 module.exports = async () => {
   await cleanDatabase('mongodb://localhost:20000/shukun_test');
   await cleanDatabase('mongodb://localhost:20000/shukun_test_project');
-  await dockerCompose.down({
+  await dockerCompose.v2.down({
     cwd: __dirname,
     log: true,
   });
