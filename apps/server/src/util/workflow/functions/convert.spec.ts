@@ -1,3 +1,5 @@
+import { IntrinsicFailure } from '../errors/IntrinsicFailure';
+
 import { convertToAst, matchArgs } from './convert';
 
 describe('functions', () => {
@@ -18,13 +20,41 @@ describe('functions', () => {
     });
   });
 
+  it('Not match', () => {
+    const json = {
+      name: 'Lee',
+    };
+
+    expect(() =>
+      convertToAst(
+        `State.format('Your name is {} we are in the year {}', $.name, 2020)`,
+        json,
+      ),
+    ).toThrow(IntrinsicFailure);
+  });
+
   it('matchArgs without args', () => {
     const args = matchArgs('State.now()', {});
     expect(args).toEqual([]);
   });
 
+  it('matchArgs not matched', () => {
+    const args = () => matchArgs('State.now((', {});
+    expect(args).toThrow(IntrinsicFailure);
+  });
+
   it('matchArgs with a arg', () => {
     const args = matchArgs(`State.now('YYYY-MM-dd')`, {});
     expect(args).toEqual(['YYYY-MM-dd']);
+  });
+
+  it('matchArgs return null', () => {
+    const args = matchArgs('State.now(null)', {});
+    expect(args).toEqual([null]);
+  });
+
+  it('matchArgs throw error when arg is object', () => {
+    const args = () => matchArgs('State.now({})', {});
+    expect(args).toThrow(IntrinsicFailure);
   });
 });

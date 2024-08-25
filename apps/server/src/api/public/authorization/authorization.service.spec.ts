@@ -9,7 +9,6 @@ import { RoleGeneratorService } from '../../../identity/role-generator.service';
 import { TokenVerifyService } from '../../../identity/token-verify.service';
 import { SystemUserService } from '../../../system-source/system-user.service';
 
-import { AuthorizationService } from './authorization.service';
 import {
   anonymousUserToken,
   invalidOrgNameToken,
@@ -20,7 +19,8 @@ import {
   validCfoUserToken,
   validCooUserToken,
   validOwnerUserToken,
-} from './authorization.service.test-helper';
+} from './__mocks__/authorization.service.test-helper';
+import { AuthorizationService } from './authorization.service';
 
 describe('AuthorizationService', () => {
   let authorizationService: AuthorizationService;

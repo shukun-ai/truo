@@ -1,5 +1,7 @@
 import MockDate from 'mockdate';
 
+import { IntrinsicFailure } from '../errors/IntrinsicFailure';
+
 import { afterSeconds } from './afterSeconds';
 
 beforeEach(() => {
@@ -10,5 +12,10 @@ describe('afterSeconds', () => {
   it('afterSeconds', () => {
     const dateTime = afterSeconds(60);
     expect(dateTime).toEqual('2020-05-27T08:01:00.000Z');
+  });
+
+  it('afterSeconds', () => {
+    const dateTime = () => afterSeconds('60');
+    expect(dateTime).toThrow(IntrinsicFailure);
   });
 });
