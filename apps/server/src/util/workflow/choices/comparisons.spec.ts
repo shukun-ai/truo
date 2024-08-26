@@ -172,7 +172,7 @@ describe('ss', () => {
     expect(() => compareVariables(comparisons, input)).toThrow(NoChoiceMatched);
   });
 
-  it.only('compareVariables throws error when no comparison variable', () => {
+  it('compareVariables throws error when no comparison variable', () => {
     const comparisons = {
       variable: 'isSystem',
       booleanEqualsPath: false as any,
